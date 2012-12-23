@@ -5,6 +5,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.os.Bundle;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
@@ -36,48 +38,62 @@ public class MicrophoneVolumePicker extends View {
         
     // noise & cliping value
     final int FULL_SCALE = 120;
-    final int NOISE_TRESHOLD = 70;
-    final int CLIPPING_TRESHOLD = 100;
+    final int NOISE_TRESHOLD = 50;
+    final int CLIPPING_TRESHOLD = 70;
     
     // ogetto canvas 
     // private var _canvas:Shape;
     
     
     // fattore di decellerazione
-    final double:Number = 0.05; 
+    final double FACTOR = 0.05; 
     
     // valori visualizzati
-    private int _microfoneLeftValue;
-    private int _microfoneRightValue;
+    private double _microfoneLeftValue;
+    private double _microfoneRightValue;
+    
+    //read values
+    private double microfoneReadLeftValue;
+    private double microfoneReadRightValue;
     
     public MicrophoneVolumePicker(Context context) {
         super(context);            
+    }    
+    
+    /**
+     * Sets the read decibels values (for stereo)
+     */
+    public void setValues(double leftValue, double rightValue) {
+    	microfoneReadLeftValue = leftValue;
+    	microfoneReadRightValue = rightValue;
     }
-
+    
     @Override
     public void onDraw(Canvas canvas) {
-    // TODO DA SPOSTARE NELL'HANDLER DELL'EVENTO DI CREAZIONE (NON SO QUALE SIA)
-
-    _drawableAreaHeight = _canvasHeight-PADDING_TOP-PADDING_BOTTOM;
-    _drawableAreaWidth = _canvasWidth-PADDING_LEFT-PADDING_RIGHT;
-
-    // TODO DA SOSTITUIRE con valori di input reali del microfono
-
-    int microfoneReadLeftValue = FULL_SCALE*Math.random();
-    int microfoneReadRightValue = FULL_SCALE*Math.random();
+    	
+    	Log.i("MicrophoneVolumePicker","Creating view");
+    	
+    	_canvasWidth = canvas.getWidth();
+        _canvasHeight = canvas.getHeight();
+        
+        Log.i("MicrophoneVolumePicker","CanvasWidth: "+_canvasWidth + " CanvasHeight: "+_canvasHeight);
+         
+        _drawableAreaHeight = _canvasHeight-PADDING_TOP-PADDING_BOTTOM;
+        _drawableAreaWidth = _canvasWidth-PADDING_LEFT-PADDING_RIGHT;
     
-    if(_isMono) _microfoneLeftValue = _microfoneRightValue;
+        if(_isMono) _microfoneLeftValue = _microfoneRightValue;
 
-    // DECELLAROZIONE PER SMOOTHING DEI DATI IN INGRESSO
-    _microfoneLeftValue = (microfoneReadLeftValue<_microfoneLeftValue) ?   // SE VALORE RILEVATO E' MINORE
-                                        // APPLICA DECELLERAZIONE
-                                        (microfoneReadLeftValue * FACTOR) + (_microfoneLeftValue * (1 - FACTOR)) :  
-                                        // ALTRIMENTI VAI AL VALORE APPENA RILEVATO
-                                        microfoneReadLeftValue;
-    _microfoneRightValue = (microfoneReadRightValue<_microfoneRightValue) ?
-                                        (microfoneReadRightValue * FACTOR) + (_microfoneRightValue * (1 - FACTOR)):
-                                        microfoneReadRightValue; 
-
+	    // DECELLAROZIONE PER SMOOTHING DEI DATI IN INGRESSO
+	    _microfoneLeftValue = 
+	    		((microfoneReadLeftValue < _microfoneLeftValue) ?   
+	    		//SE VALORE RILEVATO E' MINORE APPLICA DECELLERAZIONE
+	    		((microfoneReadLeftValue * FACTOR) + (_microfoneLeftValue * (1 - FACTOR))) :  
+	            // ALTRIMENTI VAI AL VALORE APPENA RILEVATO
+	    		microfoneReadLeftValue);
+	    _microfoneRightValue = 
+	    		((microfoneReadRightValue<_microfoneRightValue) ?
+	    		((microfoneReadRightValue * FACTOR) + (_microfoneRightValue * (1 - FACTOR))):
+	    		microfoneReadRightValue); 
 
     //QUI EVENTUALI PROCEDURE DI QUANTIZZAZIONE E NORMALIZZAZIONE NELL'INTERVALLO 0-120 del segnale
     
@@ -91,12 +107,12 @@ public class MicrophoneVolumePicker extends View {
         // ATTENZIONE BASATO SU ASSI X,Y = (0,0) CENTRATI IN ALTO A SINISTRA. POTREBBE RICHIEDERE l'inversione 
         // dell'asse Y in accordo con l'origine in android 
         originY = PADDING_TOP+_drawableAreaHeight/FULL_SCALE*(FULL_SCALE-CLIPPING_TRESHOLD);
-
+        
         canvas.drawRect(new Rect(originX,
                                  originY,
                                  originX + 40, 
                                  // 40 l'effettiva larghezza del rettangolo
-                                 originY -((_microfoneLeftValue-CLIPPING_TRESHOLD)*(_drawableAreaHeight/FULL_SCALE))), 
+                                 originY -(int)((_microfoneLeftValue-CLIPPING_TRESHOLD)*(_drawableAreaHeight/FULL_SCALE))), 
                         paint);
 
     }
@@ -110,19 +126,19 @@ public class MicrophoneVolumePicker extends View {
         canvas.drawRect(new Rect(originX, 
                                 originY,
                                 originX+40,
-                                originY-Math.min((CLIPPING_TRESHOLD-NOISE_TRESHOLD),(_microfoneLeftValue-NOISE_TRESHOLD))
+                                originY-Math.min((int)(CLIPPING_TRESHOLD-NOISE_TRESHOLD),(int)(_microfoneLeftValue-NOISE_TRESHOLD))
                                 *(_drawableAreaHeight/FULL_SCALE)),
                         paint); 
     }
 
     // sicuramente ha una parte di volume inferiore a noise
     paint.setColor(Color.GREEN);
-    originY = PADDING_TOP+_drawableAreaHeight/FULL_SCALE*(FULL_SCALE-NOISE_TRESHOLD);
+    originY = PADDING_TOP+_drawableAreaHeight/FULL_SCALE*(FULL_SCALE);
 
     canvas.drawRect(new Rect(originX, 
                             originY,
                             originX+40,
-                            originY-Math.min(NOISE_TRESHOLD,(_microfoneLeftValue))*(_drawableAreaHeight/FULL_SCALE)),
+                            originY-Math.min((int)NOISE_TRESHOLD,(int)(_microfoneLeftValue))*(_drawableAreaHeight/FULL_SCALE)),
                     paint); 
 
 
@@ -139,7 +155,7 @@ public class MicrophoneVolumePicker extends View {
                                  originY,
                                  originX - 40, 
                                  // 40 l'effettiva larghezza del rettangolo
-                                 originY -((_microfoneRightValue-CLIPPING_TRESHOLD)*(_drawableAreaHeight/FULL_SCALE))), 
+                                 originY - (int)((_microfoneRightValue-CLIPPING_TRESHOLD)*(_drawableAreaHeight/FULL_SCALE))), 
                         paint);
 
     }
@@ -153,19 +169,19 @@ public class MicrophoneVolumePicker extends View {
         canvas.drawRect(new Rect(originX, 
                                 originY,
                                 originX-40,
-                                originY-Math.min((CLIPPING_TRESHOLD-NOISE_TRESHOLD),(_microfoneRightValue-NOISE_TRESHOLD))
+                                originY-Math.min((int)(CLIPPING_TRESHOLD-NOISE_TRESHOLD),(int)(_microfoneRightValue-NOISE_TRESHOLD))
                                 *(_drawableAreaHeight/FULL_SCALE)),
                         paint); 
     }
 
     // sicuramente ha una parte di volume inferiore a noise
     paint.setColor(Color.GREEN);
-    originY = PADDING_TOP+_drawableAreaHeight/FULL_SCALE*(FULL_SCALE-NOISE_TRESHOLD);
+    originY = PADDING_TOP+_drawableAreaHeight/FULL_SCALE*(FULL_SCALE);
 
     canvas.drawRect(new Rect(originX, 
                             originY,
                             originX-40,
-                            originY-Math.min(NOISE_TRESHOLD,(_microfoneRightValue))*(_drawableAreaHeight/FULL_SCALE)),
+                            originY-Math.min((int)NOISE_TRESHOLD,(int)(_microfoneRightValue))*(_drawableAreaHeight/FULL_SCALE)),
                     paint); 
 
     }

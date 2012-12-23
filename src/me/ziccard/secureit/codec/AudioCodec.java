@@ -49,9 +49,11 @@ public class AudioCodec {
     
     
     public void stop() {
-    	if (recorder != null) {
-    		recorder.stop();
-    		recorder = null;
-    	}
+        if (recorder != null
+            && recorder.getState() != AudioRecord.STATE_UNINITIALIZED) {
+        	recorder.stop();
+        	recorder.release();
+        }
+        recorder = null;
     }
 }

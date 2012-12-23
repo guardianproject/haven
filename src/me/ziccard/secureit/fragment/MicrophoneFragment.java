@@ -24,6 +24,11 @@ public final class MicrophoneFragment extends Fragment implements MicSamplerTask
 
     private TextView microphoneText;
     
+    /**
+     * View for microphone data
+     */
+    private MicrophoneVolumePicker picker;
+    
     
     private VolumeDynamicSeries series = new VolumeDynamicSeries(0, "Volume");
  
@@ -93,7 +98,7 @@ public final class MicrophoneFragment extends Fragment implements MicSamplerTask
                 LinearLayout.LayoutParams.WRAP_CONTENT);
     	
     	LinearLayout layout = (LinearLayout) getActivity().findViewById(R.id.linear_layout);
-    	MicrophoneVolumePicker picker = new MicrophoneVolumePicker(this.getActivity());
+    	picker = new MicrophoneVolumePicker(this.getActivity());
     	layout.addView(picker, params);
 				
         microphone = new MicSamplerTask();
@@ -135,6 +140,10 @@ public final class MicrophoneFragment extends Fragment implements MicSamplerTask
     	}
     	
     	microphoneText.setText("Sampled DBs: "+averageDB);
+    	
+    	picker.setValues(averageDB, averageDB);
+    	picker.invalidate();
+    	
    }
 
 	public void onMicError() {

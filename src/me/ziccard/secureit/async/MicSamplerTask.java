@@ -44,9 +44,9 @@ public class MicSamplerTask extends AsyncTask<Void,Object,Void> {
 			}
 			try {
 				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-				return null;
+			} catch (InterruptedException e) { 
+				//Nothing to do we exit next line 
+				
 			}
 			if (isCancelled()) { volumeMeter.stop(); return null; }
 		}	
