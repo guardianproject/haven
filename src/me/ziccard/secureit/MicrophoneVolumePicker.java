@@ -83,7 +83,7 @@ public class MicrophoneVolumePicker extends View {
 /*
 
 // microfono registra in mono
-        private var _isMono:Boolean = false;
+       private var _isMono:Boolean = false;
         
         //margini dal bordo
         private const PADDING_TOP:int = 30;
@@ -105,7 +105,7 @@ public class MicrophoneVolumePicker extends View {
             
         // noise & cliping value
         private const FULL_SCALE:int = 120;
-        private const NOISE_TRESHOLD:int = 65;
+        private const NOISE_TRESHOLD:int = 70;
         private const CLIPPING_TRESHOLD:int = 100;
         
         // ogetto canvas 
@@ -119,7 +119,7 @@ public class MicrophoneVolumePicker extends View {
         private var _microfoneLeftValue:int;
         private var _microfoneRightValue:int;
         
-        public function MicrophoneVolumeLevel() {
+        public function DocumentClass() {
             _canvas = new Shape();
             addChild(_canvas);
             // ispirato http://www.healthyhearing.com/uploads/images/new/dB%20Volume%20Meter.jpg
@@ -143,7 +143,7 @@ public class MicrophoneVolumePicker extends View {
         private function drawLabel():void{
             
             var canvas:Shape = _canvas;      // oggetto fittizio per similitudine
-            for(var i:int = 0; i<13;i++){
+            for(var i:int = 0; i<=FULL_SCALE/10;i++){
                 var labelTextField:TextField = new TextField();
                 labelTextField.width = 30;
                 var myFormat:TextFormat = new TextFormat();
@@ -152,13 +152,13 @@ public class MicrophoneVolumePicker extends View {
                 labelTextField.y = PADDING_TOP+(_drawableAreaHeight/FULL_SCALE)*(10*i)-8;
                 labelTextField.defaultTextFormat = myFormat;
                 canvas.stage.addChild(labelTextField);
-                labelTextField.text = ""+(12-i)*10;
+                labelTextField.text = ""+(FULL_SCALE/10-i)*10;
                 
                 // RIGHT LABEL
                 labelTextField = new TextField();
                 labelTextField.width = 30;
                 labelTextField.defaultTextFormat = myFormat;
-                labelTextField.text = ""+(12-i)*10;
+                labelTextField.text = ""+((FULL_SCALE/10)-i)*10;
                 
                 labelTextField.x = PADDING_LEFT+_drawableAreaWidth/2 + 55;
                 labelTextField.y = PADDING_TOP+(_drawableAreaHeight/FULL_SCALE)*(10*i)-8;
@@ -256,7 +256,7 @@ public class MicrophoneVolumePicker extends View {
         
         private function drawInfos():void{
             var canvas:Shape = _canvas;      // oggetto fittizio per similitudine
-            for(var i:int = 0; i<13;i++){
+            for(var i:int = 0; i<=FULL_SCALE/10;i++){
                 canvas.graphics.lineStyle(1,0x777777);
                 canvas.graphics.moveTo(PADDING_LEFT+_drawableAreaWidth/2 - 60,
                                         PADDING_TOP+(_drawableAreaHeight/FULL_SCALE)*(10*i));
