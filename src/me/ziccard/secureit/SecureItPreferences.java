@@ -30,6 +30,20 @@ public class SecureItPreferences {
 	private static final String SMS_NUMBER="sms_number";
 	private static final String REMOTE_ACTIVE="remote_active";
 	private static final String REMOTE_EMAIL="remote_email";
+	private static final String UNLOCK_CODE="unlock_code";
+	
+	private static final String ACCESS_TOKEN="access_token";
+	private static final String DELEGATED_ACCESS_TOKEN="deferred_access_token";
+	
+	private static final String PHONE_ID="phone_id";
+	
+	private static final String DIR_PATH = "/secureit";
+	
+	private static final String IMAGE_PATH = DIR_PATH+"/secureit";
+	private static final int MAX_IMAGES = 10;
+	
+	private static final String AUDIO_PATH = DIR_PATH+"/SecureIt_Audio";
+	private static final long AUDIO_LENGTH = 10000;
 	
 	
     public SecureItPreferences(Context context) {
@@ -141,8 +155,80 @@ public class SecureItPreferences {
     	prefsEditor.commit();
     }
     
+    public void setUnlockCode(String unlockCode) {
+    	prefsEditor.putString(UNLOCK_CODE, unlockCode);
+    	prefsEditor.commit();
+    }
+    
+    public String getUnlockCode() {
+    	return appSharedPrefs.getString(UNLOCK_CODE, "");
+    }
+    
     public String getRemoteEmail() {
     	return appSharedPrefs.getString(REMOTE_EMAIL, "");
     }
-
+    
+    public void setAccessToken(String accessToken) {
+    	prefsEditor.putString(ACCESS_TOKEN, accessToken);
+    	prefsEditor.commit();
+    }
+    
+    public String getAccessToken() {
+    	return appSharedPrefs.getString(ACCESS_TOKEN, "");
+    }
+    
+    public void unsetAccessToken() {
+    	prefsEditor.remove(ACCESS_TOKEN);
+    }
+    
+    public void setDelegatedAccessToken(String deferredAccessToken) {
+    	prefsEditor.putString(DELEGATED_ACCESS_TOKEN, deferredAccessToken);
+    	prefsEditor.commit();
+    }
+    
+    public String getDelegatedAccessToken() {
+    	return appSharedPrefs.getString(DELEGATED_ACCESS_TOKEN, "");
+    }
+    
+    public void unsetDelegatedAccessToken() {
+    	prefsEditor.remove(DELEGATED_ACCESS_TOKEN);
+    }
+    
+    public String getImagePath() {
+    	return IMAGE_PATH;
+    }
+    
+    public int getMaxImages() {
+    	return MAX_IMAGES;
+    }
+    
+    public void setPhoneId(String phoneId) {
+    	prefsEditor.putString(PHONE_ID, phoneId);
+    	prefsEditor.commit();
+    }
+    
+    public void unsetPhoneId() {
+    	prefsEditor.remove(PHONE_ID);
+    }
+    
+    public String getPhoneId() {
+    	return appSharedPrefs.getString(PHONE_ID, "");
+    }
+    
+    public String getDirPath() {
+    	return DIR_PATH;
+    }
+    
+    public String getAudioPath() {
+    	return AUDIO_PATH;
+    }
+    
+    public long getAudioLenght() {
+    	return AUDIO_LENGTH;
+    }
+    
+    public String getSMSText() {
+    	return "WARNING: SecureIt has detected an intrusion.\n"+
+    			"PhoneId: "+getPhoneId();
+    }
 }

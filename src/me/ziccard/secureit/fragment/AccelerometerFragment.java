@@ -124,6 +124,13 @@ public class AccelerometerFragment extends Fragment implements SensorEventListen
     }
     
     @Override
+    public void onDestroy() {
+    	super.onDestroy();
+    	sensorMgr.unregisterListener(this);
+    	getActivity().unbindService(mConnection);
+    }
+    
+    @Override
     public void onResume() {
     	super.onResume();
     	

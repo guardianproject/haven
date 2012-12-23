@@ -8,8 +8,14 @@ import java.util.Date;
 
 import me.ziccard.secureit.MonitorActivity;
 import me.ziccard.secureit.R;
+import me.ziccard.secureit.SecureItPreferences;
 import me.ziccard.secureit.async.BluetoothServerTask;
 import me.ziccard.secureit.async.BluetoothServerTask.NoBluetoothException;
+import me.ziccard.secureit.async.upload.AudioRecorderTaskFactory;
+import me.ziccard.secureit.async.upload.AudioRecorderTaskFactory.RecordLimitExceeded;
+import me.ziccard.secureit.async.upload.BluetoothPeriodicPositionUploaderTask;
+import me.ziccard.secureit.async.upload.ImagesUploaderTask;
+import me.ziccard.secureit.async.upload.PeriodicPositionUploaderTask;
 import me.ziccard.secureit.bluetooth.ObjectBluetoothSocket;
 import me.ziccard.secureit.config.Remote;
 import me.ziccard.secureit.messages.BluetoothMessage;
@@ -30,10 +36,12 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -41,15 +49,16 @@ import android.widget.Toast;
 public class BluetoothService extends Service {
 	
 	/**
+	 * Task used to upload position, is periodic, when we close the app
+	 * we need to stop the service and that task
+	 */
+	private AsyncTask<Void, Void, Void> positionTask = null;
+	
+	/**
 	 * To show a notification on service start
 	 */
 	private NotificationManager manager;
-	
-	/**
-	 * Registered clients to the service
-	 */
-	//private ArrayList<Messenger> clients = new ArrayList<Messenger>();
-	
+		
 	/**
 	 * Acceleration detected message
 	 */
@@ -68,24 +77,12 @@ public class BluetoothService extends Service {
 	/**
 	* True only if service has been alerted by the accelerometer
 	*/
-	private boolean accelerometer_alerted;
-
-	/**
-	* True only if service has been alerted by the camera
-	**/
-	private boolean camera_alerted;
-
-	/**
-	* True only if service has been alerted by the camera
-	**/
-	private boolean microphone_alerted;
-
-
+	private boolean already_alerted;
 	
 	/**
-	 * Adapter for bluetooth services
+	 * Object used to retrieve shared preferences
 	 */
-	private BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
+	private SecureItPreferences prefs = null;
 	
 	/**
 	 * Handler for incoming messages
@@ -96,81 +93,7 @@ public class BluetoothService extends Service {
 			alert(msg.what);
 		}
 	}
-	
-	// Create a BroadcastReceiver for ACTION_FOUND and ACTION_DISCOVERY_FINISHED
-	private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
 		
-		private ArrayList<BluetoothDevice> devices = new ArrayList<BluetoothDevice>();
-
-		@Override
-	    public void onReceive(Context context, Intent intent) {
-	        String action = intent.getAction();
-	        // When discovery finds a device
-	        if (BluetoothDevice.ACTION_FOUND.equals(action)) {
-	            // Get the BluetoothDevice object from the Intent
-	            BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-	            devices.add(device);
-	            
-
-	            Log.i("BluetoothService", "DISCOVERED "+device.getName());
-	    		CharSequence text = "Discovered "+device.getName();
-	    		int duration = Toast.LENGTH_SHORT;
-	    		Toast toast = Toast.makeText(BluetoothService.this, text, duration);
-	    		toast.show();
-
-	            return;
-	        }
-	        // When ending the discovery
-	        if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
-	        	for (BluetoothDevice device : devices){
-		        	Log.i("DISCOVERY", "FINISHED");
-		            try {
-			            BluetoothSocket tmp = null;
-						tmp = device.createInsecureRfcommSocketToServiceRecord(Remote.BLUETOOTH_UUID);
-		
-		            	if (tmp != null) {
-		            		
-		            		Log.i("BluetoothService", "Trying to connect to " + device.getName());
-		            		
-		            		adapter.cancelDiscovery();
-		            		tmp.connect();
-		            		
-		            		Log.i("BluetoothService", "Connected to " + device.getName());
-		            		
-		            		ObjectBluetoothSocket socket = new ObjectBluetoothSocket(tmp);    		           		
-		            		
-		            		//Sending hello message
-		            		BluetoothMessage message = new HelloMessage(); 			    	
-		   			    	ObjectOutputStream ostream = socket.getOutputStream();
-		   			    	message = new HelloMessage();
-		   			    	ostream.writeObject(message);
-		   			    	Log.i("BluetoothServerTask", "Sent message " + message.getType().toString());
-		   			    	
-		   			    	//Receiving key request
-		   			    	ObjectInputStream instream = socket.getInputStream();
-		   			    	message = (BluetoothMessage) instream.readObject();
-		   			    	Log.i("BluetoothServerTask", "Received message "+message.getType().toString()); 
-		   			    	
-		   			    	message = new KeyResponse();
-		   			    	ostream.writeObject(message);
-		   			    	Log.i("BluetoothServerTask", "Sent message " + message.getType().toString());
-		   			    	
-		   			    	socket.close();
-		            			            		
-		            		CharSequence text = "Written message";
-		        			int duration = Toast.LENGTH_SHORT;
-		        			Toast toast = Toast.makeText(BluetoothService.this, text, duration);
-		        			toast.show();  		
-		            	}
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-	           }	        	
-	        	unregisterReceiver(broadcastReceiver);
-	        }
-	    }
-	};
-	
 	/**
 	 * Messenger interface used by clients to interact
 	 */
@@ -182,11 +105,13 @@ public class BluetoothService extends Service {
     @Override
     public void onCreate() {
         manager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+        prefs = new SecureItPreferences(this);
         
 		try {
-			new BluetoothServerTask().start();
+			new BluetoothServerTask(this).start();
 		} catch (NoBluetoothException e) {
-			CharSequence text = "Sorry, bluetooth is off!";
+			Log.i("BluetoothService", "Background bluetooth server not started");
+			CharSequence text = "Background bluetooth server not started";
 			int duration = Toast.LENGTH_SHORT;
 			Toast toast = Toast.makeText(this, text, duration);
 			toast.show();
@@ -203,6 +128,9 @@ public class BluetoothService extends Service {
     public void onDestroy() {
         // Cancel the persistent notification.
         manager.cancel(R.string.secure_service_started);
+        if (positionTask!=null && !positionTask.isCancelled()) {
+        	positionTask.cancel(true);
+        }
 
         // Tell the user we stopped.
         Toast.makeText(this, R.string.secure_service_stopped, Toast.LENGTH_SHORT).show();
@@ -245,70 +173,85 @@ public class BluetoothService extends Service {
     */
     private void alert(int alertType) {
 
-    	if (accelerometer_alerted && camera_alerted && microphone_alerted) return;
-
-		accelerometer_alerted = true;
-		camera_alerted = true;
-		microphone_alerted = true;    	
+    	/*
+    	 * If we have already received an alert 
+    	 */
+    	if (already_alerted) return;
 
     	/*
-    	* Need to check the type o connectivity
+    	 * Alse we set an alert has bee received
+    	 */
+		already_alerted = true; 	
+		
+    	/*
+    	* If remote communication with SecureIt back-end is required we
+    	* need to check the type of connectivity
     	*/
-    	ConnectivityManager cm = (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-		boolean isConnected = activeNetwork.isConnectedOrConnecting();
-		boolean isWifi = activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
-		// Phone is connected
-		if (isConnected) {
-			// through wireless
-			if (isWifi) {
-				CharSequence text = "WIFI: we are sending a lot of data";
-				int duration = Toast.LENGTH_SHORT;
-				Toast toast = Toast.makeText(this, text, duration);
-				toast.show();
-				//(new DataUploaderTask(null, null, DataUploaderTask.WIFI_CONNECTIVITY)).execute();
-			// through 3G
+		if (prefs.getRemoteActivation()) {
+	    	ConnectivityManager cm = (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
+			NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+			boolean isConnected = activeNetwork.isConnectedOrConnecting();
+			boolean isWifi = activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
+			
+			// Phone is connected
+			if (isConnected) {
+				
+				int connectivityType = ImagesUploaderTask.NO_CONNECTIVITY;
+				
+				// through wireless
+				if (isWifi) {
+					CharSequence text = "WIFI: sending a lot of data";
+					int duration = Toast.LENGTH_SHORT;
+					Toast toast = Toast.makeText(this, text, duration);
+					toast.show();
+					connectivityType = ImagesUploaderTask.WIFI_CONNECTIVITY;
+					
+				// through 3G
+				} else {
+					CharSequence text = "3G: sending a little of data";
+					int duration = Toast.LENGTH_SHORT;
+					Toast toast = Toast.makeText(this, text, duration);
+					toast.show();
+					connectivityType = ImagesUploaderTask.MOBILE_CONNECTIVITY;
+				}
+				
+				/*
+				 * Image uploader task according to connectivity type
+				 */
+				(new ImagesUploaderTask(this, connectivityType)).execute();
+				/*
+				 * Audio recorder and uploader task
+				 */
+				try {
+					AudioRecorderTaskFactory.makeRecorder(this).start();
+				} catch (RecordLimitExceeded e) {
+					Log.e("BluetoothService", "An audio is being uploaded");
+				}
+				/*
+				 * Periodic position uploader task 
+				 */
+				positionTask = new PeriodicPositionUploaderTask(this);
+				positionTask.execute();	
+			
 			} else {
-				CharSequence text = "3G: we are sending a little of data";
+				CharSequence text = "NO CONNECTIVITY: sending a bluetooth alert";
 				int duration = Toast.LENGTH_SHORT;
 				Toast toast = Toast.makeText(this, text, duration);
 				toast.show();
-				//(new DataUploaderTask(null, null, DataUploaderTask.3G_CONNECTIVITY)).execute();
+				
+				positionTask = new BluetoothPeriodicPositionUploaderTask(this);
+				positionTask.execute();	
 			}
-		} else {
-			CharSequence text = "NO CONNECTIVITY: we are sending an alert";
-			int duration = Toast.LENGTH_SHORT;
-			Toast toast = Toast.makeText(this, text, duration);
-			toast.show();
-			//sendBluetoothAlert();
 		}
-		sendBluetoothAlert();
-    }
-    
-    /**
-     * Discovers clients and sends help alerts
-     */
-    private void sendBluetoothAlert() {
-
-    	registerReceiver(broadcastReceiver, 
-    	          new IntentFilter(BluetoothDevice.ACTION_FOUND));
-
-    	registerReceiver(broadcastReceiver, 
-    	          new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED));
-
-    	Log.i("BluetoothService", "Started discovery");
-
-    	Boolean runningBluetooth = adapter.startDiscovery();
-
-    	if (!runningBluetooth) {
-    		unregisterReceiver(broadcastReceiver);
-    		CharSequence text = "Sorry, bluetooth is off!";
-			int duration = Toast.LENGTH_SHORT;
-			Toast toast = Toast.makeText(this, text, duration);
-			toast.show();
-    	}
-    }
-    
-    
-
+		/*
+		 * If SMS mode is on we send an SMS alert to the specified 
+		 * number
+		 */
+		if (prefs.getSmsActivation()) {
+			//get the manager
+			SmsManager manager = SmsManager.getDefault();
+			manager.sendTextMessage(prefs.getSmsNumber(), null, prefs.getSMSText(), null, null);
+			
+		}
+    }   
 }

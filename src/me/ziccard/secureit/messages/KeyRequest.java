@@ -20,6 +20,7 @@ public class KeyRequest extends BluetoothMessageData implements BluetoothMessage
 	public double getLng() {
 		return lng;
 	}
+	
 	/**
 	 * 
 	 */

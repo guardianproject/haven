@@ -29,6 +29,11 @@ import android.widget.Toast;
 
 public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 	
+	/**
+	 * Object to retrieve and set shared preferences
+	 */
+	private SecureItPreferences prefs;
+	
 	private List<MotionListener> listeners = new ArrayList<MotionListener>();
 	
 	/**
@@ -54,16 +59,6 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 	 */
 	private int imageCount = 0;
 	
-	/**
-	 * Max number of pictures stored
-	 */
-	private static final int MAX_IMAGES = 10;
-	
-	/**
-	 * PATH to the directory where to save images
-	 */
-	private static final String FILE = "/secureit";
-	
 	
 	SurfaceHolder mHolder;
 	public Camera camera;
@@ -76,6 +71,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 		// underlying surface is created and destroyed.
 		mHolder = getHolder();
 		mHolder.addCallback(this);
+		prefs = new SecureItPreferences(context);
 	}
 	
 	public void addListener(MotionListener listener) {
@@ -129,15 +125,20 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 					        YuvImage image = new YuvImage(data, parameters.getPreviewFormat(), 
 					                size.width, size.height, null);
 					        
-					        imageCount = (imageCount + 1)%11;
+					        imageCount = (imageCount + 1)%(prefs.getMaxImages()+1);
 					        
-					        File file = new File(Environment.getExternalStorageDirectory() 
-					                .getPath() + FILE + imageCount + ".jpg");
+					        File file = new File(
+					        		Environment.getExternalStorageDirectory().getPath() +
+					        		prefs.getImagePath() +
+					        		imageCount +
+					        		".jpg");
 					        
 					        FileOutputStream filecon = new FileOutputStream(file); 
+					        
 					        image.compressToJpeg( 
 					                new Rect(0, 0, image.getWidth(), image.getHeight()), 90, 
 					                filecon); 
+					        
 					    } catch (FileNotFoundException e) { 
 					        Toast toast = Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG); 
 					        toast.show(); 
@@ -181,10 +182,9 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 		// Surface will be destroyed when we return, so stop the preview.
 		// Because the CameraDevice object is not a shared resource, it's very
 		// important to release it when the activity is paused.
-		
+		camera.setPreviewCallback(null);
 		camera.stopPreview();
 		camera.release();
-        camera = null;
 	}
 
 	public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
@@ -216,7 +216,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
             parameters.setPreviewSize(w, h);
             camera.setDisplayOrientation(180);
         }
-		camera.setParameters(parameters);
+		//camera.setParameters(parameters);
 		camera.startPreview();
 	}	
 }

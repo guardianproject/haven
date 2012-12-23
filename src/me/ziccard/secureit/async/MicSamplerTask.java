@@ -8,7 +8,6 @@ public class MicSamplerTask extends AsyncTask<Void,Object,Void> {
 	
 	private MicListener listener = null;
 	private AudioCodec volumeMeter = new AudioCodec();
-	private boolean terminated = false;
 	
 	public static interface MicListener {
 		public void onSignalReceived(short[] signal);
@@ -17,10 +16,6 @@ public class MicSamplerTask extends AsyncTask<Void,Object,Void> {
 	
 	public void setMicListener(MicListener listener) {
 		this.listener = listener;
-	}
-	
-	synchronized public void terminate() {
-		terminated = true;
 	}
 	
 	protected Void onPreExecute(Void...params) {
@@ -51,8 +46,9 @@ public class MicSamplerTask extends AsyncTask<Void,Object,Void> {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
+				return null;
 			}
-			if (terminated) { volumeMeter.stop(); return null; }
+			if (isCancelled()) { volumeMeter.stop(); return null; }
 		}	
 	}
 	

@@ -1,11 +1,8 @@
 package me.ziccard.secureit.fragment;
 
 import android.os.Bundle;
-import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import java.text.DecimalFormat;
-
 import me.ziccard.secureit.MicrophoneVolumePicker;
 import me.ziccard.secureit.R;
 import me.ziccard.secureit.VolumeDynamicSeries;
@@ -18,7 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public final class MicrophoneFragment extends Fragment implements MicSamplerTask.MicListener{
+public final class MicrophoneFragment extends Fragment implements MicSamplerTask.MicListener {
 
 
     private MicSamplerTask microphone;
@@ -49,7 +46,6 @@ public final class MicrophoneFragment extends Fragment implements MicSamplerTask
     @Override
     public void onPause() {
     	super.onPause();
-    	microphone.terminate();
     }
     
     @Override
@@ -99,15 +95,18 @@ public final class MicrophoneFragment extends Fragment implements MicSamplerTask
     	LinearLayout layout = (LinearLayout) getActivity().findViewById(R.id.linear_layout);
     	MicrophoneVolumePicker picker = new MicrophoneVolumePicker(this.getActivity());
     	layout.addView(picker, params);
-    	
-		
-		
-    	
+				
         microphone = new MicSamplerTask();
         microphone.setMicListener(this);
         microphone.execute();
     }
     
+    @Override
+    public void onDestroy() {
+    	Log.i("MircorphoneFramgnet", "Fragment destroyed");
+    	super.onDestroy();
+    	microphone.cancel(true); 
+    }
  
 
 	public void onSignalReceived(short[] signal) {
@@ -118,7 +117,7 @@ public final class MicrophoneFragment extends Fragment implements MicSamplerTask
 		int total = 0;
 		int count = 0;
 		for (short peak : signal) {
-			Log.i("MicrophoneFragment", "Sampled values are: "+peak);
+			//Log.i("MicrophoneFragment", "Sampled values are: "+peak);
 			if (peak != 0) {
 				total+=Math.abs(peak);
 				count++;
@@ -139,9 +138,6 @@ public final class MicrophoneFragment extends Fragment implements MicSamplerTask
    }
 
 	public void onMicError() {
-		Log.e("MicrophoneActivity", "Microphone is not ready");
-		CharSequence text = "Microphone is not ready";
-		Toast toast = Toast.makeText(this.getActivity(), text, Toast.LENGTH_LONG);
-		toast.show();		
+		Log.e("MicrophoneActivity", "Microphone is not ready");	
 	}
 }

@@ -5,7 +5,8 @@ import me.ziccard.secureit.fragment.CameraFragment;
 import me.ziccard.secureit.fragment.EmptyFragment;
 import me.ziccard.secureit.fragment.MicrophoneFragment;
 import me.ziccard.secureit.service.BluetoothService;
-import android.content.Context;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,8 +14,11 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.viewpagerindicator.TitlePageIndicator;
 import com.viewpagerindicator.TitlePageIndicator.IndicatorStyle;
@@ -109,13 +113,61 @@ public class MonitorActivity extends FragmentActivity {
     public boolean onOptionsItemSelected (MenuItem item) {
 	    switch (item.getItemId()){
 	          case R.id.menu_settings:
-	        	  Intent intent = new Intent(
-	        			  getApplicationContext(), StartActivity.class);
-	        	  intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-	        	  startActivity(intent);
-	        	  stopService(new Intent(this, BluetoothService.class));
+	        	  createUnlockDialog();
 	        	  break;
 	    }
 	    return true;
+    }
+    
+    /**
+     * Closes the monitor activity and unset session properties
+     */
+    private void close() {
+    	Intent intent = new Intent(
+  			  getApplicationContext(), StartActivity.class);
+  	  intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+  	  startActivity(intent);
+  	  stopService(new Intent(this, BluetoothService.class));
+  	  preferences.unsetAccessToken();
+  	  preferences.unsetDelegatedAccessToken();
+  	  preferences.unsetPhoneId();
+    	
+    }
+    
+    /**
+     * When user closes the activity
+     */
+    @Override
+    public void onBackPressed() {
+    	createUnlockDialog();
+    }
+    
+    /**
+     * Shows a dialog prompting the unlock code
+     */
+    private void createUnlockDialog() {
+    	final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    	builder.setTitle("Stop monitoring?");
+    	final EditText input = new EditText(this);
+    	input.setHint("Unlock code");
+    	input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+    	builder.setView(input);
+
+    	builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+    		public void onClick(DialogInterface dialog, int whichButton) {
+    			if (input.getText().toString().equals(preferences.getUnlockCode())) {
+    				dialog.dismiss();
+    				close();
+    			} else {
+    				dialog.dismiss();
+    				Toast.makeText(
+    						getApplicationContext(), 
+    						"Wrong unlock code", 
+    						Toast.LENGTH_SHORT).show();
+    	        }
+    		}
+    	});
+
+    	builder.show();
     }
 }

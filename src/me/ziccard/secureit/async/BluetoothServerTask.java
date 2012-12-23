@@ -4,13 +4,23 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Date;
+
+import me.ziccard.secureit.async.upload.DelegatedPositionUploaderTask;
 import me.ziccard.secureit.bluetooth.ObjectBluetoothSocket;
 import me.ziccard.secureit.config.Remote;
 import me.ziccard.secureit.messages.BluetoothMessage;
+import me.ziccard.secureit.messages.HelloMessage;
 import me.ziccard.secureit.messages.KeyRequest;
+import me.ziccard.secureit.messages.KeyResponse;
+import me.ziccard.secureit.messages.MessageBuilder;
+import me.ziccard.secureit.messages.MessageType;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
+import android.content.Context;
+import android.location.Location;
+import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.util.Log;
 
 public class BluetoothServerTask extends Thread {
@@ -24,8 +34,10 @@ public class BluetoothServerTask extends Thread {
     private final BluetoothServerSocket mmServerSocket;
     
     private BluetoothAdapter mBluetoothAdapter;
+    
+    private Context context;
  
-    public BluetoothServerTask() throws NoBluetoothException {
+    public BluetoothServerTask(Context context) throws NoBluetoothException {
     	
     	Log.i("BluetoothServerTask", "Created");
     	mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -34,6 +46,7 @@ public class BluetoothServerTask extends Thread {
     		throw new NoBluetoothException();
     		
     	}
+    	this.context = context;
     	Log.i("BluetoothServerTask", "Got adapter");
         // Use a temporary object that is later assigned to mmServerSocket,
         // because mmServerSocket is final
@@ -93,19 +106,37 @@ public class BluetoothServerTask extends Thread {
     			try {
     				//Receiving first hello message
     				ObjectInputStream instream = socket.getInputStream();
-   			    	BluetoothMessage message = (BluetoothMessage) instream.readObject();
+   			    	HelloMessage message = (HelloMessage) instream.readObject();
    			    	Log.i("BluetoothServerTask", "Received message "+message.getType().toString());
+   			    	
+   			    	/*
+   			    	 * Get last known location
+   			    	 */
+   			    	LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+   			    	String locationProvider = LocationManager.NETWORK_PROVIDER;
+   			    	Location lastKnownLocation = locationManager.getLastKnownLocation(locationProvider);
    			    	
    			    	//Sending key request
    			    	ObjectOutputStream ostream = socket.getOutputStream();
    			    	Date timestamp = new Date();
-   			    	message = new KeyRequest(10.0, 10.0, timestamp);
+   			    	MessageBuilder builder = new MessageBuilder();
+   			    	builder.setLat(lastKnownLocation.getLatitude());
+   			    	builder.setLng(lastKnownLocation.getLongitude());
+   			    	builder.setTimestamp(new Date());
+   			    	
+   			    	KeyRequest keyRequest = (KeyRequest) builder.buildMessage(MessageType.KEY_REQUEST);
    			    	ostream.writeObject(message);
-   			    	Log.i("BluetoothServerTask", "Sent message " + message.getType().toString());
+   			    	Log.i("BluetoothServerTask", "Sent message " + keyRequest.getType().toString());
    			    	   			    	
    			    	//Receiving key response
-   			    	message = (BluetoothMessage) instream.readObject();
-   			    	Log.i("BluetoothServerTask", "Received message "+message.getType().toString());
+   			    	KeyResponse keyResponse = (KeyResponse) instream.readObject();
+   			    	Log.i("BluetoothServerTask", "Received message "+keyResponse.getType().toString());
+   			    	
+   			    	new DelegatedPositionUploaderTask(
+   			    			message.getPhoneId(), 
+   			    			keyRequest.getLat(), 
+   			    			keyRequest.getLng(), 
+   			    			keyResponse.getAccessKey()).execute();
    			    	
    			    	socket.close();
     			} catch (Exception e) {

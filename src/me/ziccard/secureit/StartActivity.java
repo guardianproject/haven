@@ -1,12 +1,15 @@
 package me.ziccard.secureit;
 
-import me.ziccard.secureit.async.AuthenticatorTask;
+import java.io.File;
+
 import me.ziccard.secureit.async.BluetoothServerTask;
 import me.ziccard.secureit.async.BluetoothServerTask.NoBluetoothException;
-import me.ziccard.secureit.async.MicRecorderTask;
-import me.ziccard.secureit.async.MicRecorderTaskFactory;
-import me.ziccard.secureit.async.MicRecorderTaskFactory.RecordLimitExceeded;
+import me.ziccard.secureit.async.upload.AudioRecorderTask;
+import me.ziccard.secureit.async.upload.AudioRecorderTaskFactory;
+import me.ziccard.secureit.async.upload.AuthenticatorTask;
+import me.ziccard.secureit.async.upload.AudioRecorderTaskFactory.RecordLimitExceeded;
 import android.os.Bundle;
+import android.os.Environment;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
@@ -21,9 +24,9 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class StartActivity extends Activity {
 	
@@ -32,16 +35,15 @@ public class StartActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //TODO ELIMINARE SOLO PROVA
-        try {
-			MicRecorderTaskFactory.makeRecorder().start();
-		} catch (RecordLimitExceeded e) {
-			// WE HAVE AN UpDATED RECORD
-			e.printStackTrace();
-		}
         
         setContentView(R.layout.activity_start);
         preferences = new SecureItPreferences(this.getApplicationContext());
+        
+        /*
+         * We create an application directory to store images and audio
+         */
+        File directory = new File(Environment.getExternalStorageDirectory()+preferences.getDirPath());
+        directory.mkdirs();
         
         /**
          * Checkboxes for enabled app options
@@ -94,6 +96,9 @@ public class StartActivity extends Activity {
         		this.findViewById(R.id.email);
         final EditText password = (EditText)
         		this.findViewById(R.id.password);
+        
+        final EditText unlockCode = (EditText)
+        		this.findViewById(R.id.unlock_code);
         
         
         final Button startButton = (Button) this.findViewById(R.id.start_button);
@@ -178,7 +183,8 @@ public class StartActivity extends Activity {
 				} else {
 					preferences.activateMicrophone(false);
 				}
-				if (smsCheck.isChecked()) {
+				if (smsCheck.isChecked() && !phoneNumber.getText().toString().equals("")) {
+					Log.i("StartActivity", "Send message alert is active");
 					preferences.activateSms(true);
 					preferences.setSmsNumber(
 							phoneNumber.getText().toString());
@@ -193,7 +199,23 @@ public class StartActivity extends Activity {
 					preferences.activateRemote(false);
 				}
 				
-				if (preferences.getRemoteActivation()) {
+				if (!unlockCode.getText().toString().equals("")) {
+					preferences.setUnlockCode(unlockCode.getText().toString());
+				} else {
+					/*
+					 * We cannot start without an unlock code
+					 */
+					Toast.makeText(StartActivity.this, "Empty unlock code", Toast.LENGTH_LONG).show();
+					return;
+				}
+				
+				if (preferences.getRemoteActivation() && 
+						preferences.getRemoteEmail() != null && 
+						!password.getText().toString().equals("")) {
+					
+					/*
+					 * Authentication is set so we need to authenticate
+					 */
 					AuthenticatorTask task = new AuthenticatorTask(StartActivity.this,
 							preferences.getRemoteEmail(),
 							password.getText().toString());
@@ -204,9 +226,7 @@ public class StartActivity extends Activity {
 							MonitorActivity.class);
 					
 					StartActivity.this.startActivity(intent);
-				}
-				
-				
+				}	
 			}
 		});
         
