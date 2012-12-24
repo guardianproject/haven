@@ -1,12 +1,23 @@
 package me.ziccard.secureit.fragment;
 
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.os.Message;
+import android.os.Messenger;
+import android.os.RemoteException;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import me.ziccard.secureit.MicrophoneVolumePicker;
 import me.ziccard.secureit.R;
+import me.ziccard.secureit.SecureItPreferences;
 import me.ziccard.secureit.VolumeDynamicSeries;
 import me.ziccard.secureit.async.MicSamplerTask;
+import me.ziccard.secureit.service.BluetoothService;
+
 import com.androidplot.xy.*;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +31,7 @@ public final class MicrophoneFragment extends Fragment implements MicSamplerTask
 
     private MicSamplerTask microphone;
       
-    private XYPlot plot;
+    //private XYPlot plot;
 
     private TextView microphoneText;
     
@@ -29,23 +40,59 @@ public final class MicrophoneFragment extends Fragment implements MicSamplerTask
      */
     private MicrophoneVolumePicker picker;
     
+    /**
+     * Object used to fetch application dependencies
+     */
+    private SecureItPreferences prefs;
     
-    private VolumeDynamicSeries series = new VolumeDynamicSeries(0, "Volume");
+    /**
+     * Threshold for the decibels sampled
+     */
+    private double NOYSE_THRESHOLD = 60.0; 
+    
+    /**
+     * Messenger used to communicate with alert service
+     */
+	private Messenger serviceMessenger = null;
+	
+    private ServiceConnection mConnection = new ServiceConnection() {
+
+        public void onServiceConnected(ComponentName className,
+                IBinder service) {
+        	Log.i("MicrophoneFragment", "SERVICE CONNECTED");
+            // We've bound to LocalService, cast the IBinder and get LocalService instance
+            serviceMessenger = new Messenger(service);
+        }
+        
+        public void onServiceDisconnected(ComponentName arg0) {
+        	Log.i("MicrophoneFragment", "SERVICE DISCONNECTED");
+            serviceMessenger = null;
+        }
+    };
+    
+    
+    //private VolumeDynamicSeries series = new VolumeDynamicSeries(0, "Volume");
  
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-
 		
 		return inflater.inflate(R.layout.microphone_fragment, container, false);
-
 	}
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-    
+		prefs = new SecureItPreferences(getActivity());    
+		
+		if (prefs.getMicrophoneSensitivity().equals("High")) {
+			NOYSE_THRESHOLD = 30.0;
+		} else if (prefs.getMicrophoneSensitivity().equals("Medium")) {
+			NOYSE_THRESHOLD = 40.0; 
+		}
+		
+		getActivity().bindService(new Intent(getActivity(), 
+				BluetoothService.class), mConnection, Context.BIND_ABOVE_CLIENT);	
     }
  
     @Override
@@ -108,9 +155,10 @@ public final class MicrophoneFragment extends Fragment implements MicSamplerTask
     
     @Override
     public void onDestroy() {
-    	Log.i("MircorphoneFramgnet", "Fragment destroyed");
+    	Log.i("MicrophoneFramgnet", "Fragment destroyed");
     	super.onDestroy();
-    	microphone.cancel(true); 
+    	getActivity().unbindService(mConnection);
+    	microphone.cancel(true);
     }
  
 
@@ -144,6 +192,15 @@ public final class MicrophoneFragment extends Fragment implements MicSamplerTask
     	picker.setValues(averageDB, averageDB);
     	picker.invalidate();
     	
+    	if (averageDB > NOYSE_THRESHOLD) {
+    		Message message = new Message();
+    		message.what = BluetoothService.MICROPHONE_MESSAGE;
+    		try {
+				serviceMessenger.send(message);
+			} catch (RemoteException e) {
+				// Cannot happen
+			}
+    	}
    }
 
 	public void onMicError() {
