@@ -16,4 +16,9 @@ public interface IMotionDetector {
 	 */
 	public List<Integer> detectMotion(int[] oldImage, int[] newImage, int width, int height);
 
+	/**
+	 * Sets the sensitivity
+	 * @param thresh
+	 */
+	public void setThreshold(int thresh);
 }

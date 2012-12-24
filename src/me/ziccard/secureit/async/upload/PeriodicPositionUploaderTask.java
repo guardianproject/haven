@@ -82,8 +82,10 @@ public class PeriodicPositionUploaderTask extends AsyncTask<Void, Void, Void> im
 		this.context = context;
 		locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 		
-		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
-		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+		if (locationManager.getAllProviders().contains(LocationManager.NETWORK_PROVIDER))
+			locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+		if (locationManager.getAllProviders().contains(LocationManager.GPS_PROVIDER))
+			locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
 		
 		prefs = new SecureItPreferences(context);
 			

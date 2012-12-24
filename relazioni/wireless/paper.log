@@ -1,0 +1,1287 @@
+This is pdfTeX, Version 3.1415926-2.5-1.40.13 (TeX Live 2013/dev) (format=pdflatex 2012.10.18)  24 DEC 2012 11:39
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**paper.tex
+(./paper.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, po
+lish, russian, ukrainian, basque, ibycus, irish, indonesian, catalan, slovak, p
+ortuguese, german, ngerman, swissgerman, welsh, dutch, friulan, slovenian, roma
+nian, danish, german-x-2012-05-30, ngerman-x-2012-05-30, hungarian, greek, espe
+ranto, bulgarian, romansh, latin, serbian, serbianc, italian, estonian, croatia
+n, coptic, czech, spanish, galician, afrikaans, mongolian, mongolianlmc, kurman
+ji, french, ukenglish, usenglishmax, icelandic, turkish, armenian, bokmal, nyno
+rsk, interlingua, swedish, finnish, uppersorbian, pinyin, loaded.
+(./IEEEtran.cls
+Document Class: IEEEtran 2007/03/05 V1.7a by Michael Shell
+-- See the "IEEEtran_HOWTO" manual for usage information.
+-- http://www.michaelshell.org/tex/ieeetran/
+\@IEEEtrantmpdimenA=\dimen102
+\@IEEEtrantmpdimenB=\dimen103
+\@IEEEtrantmpcountA=\count79
+\@IEEEtrantmpcountB=\count80
+\@IEEEtrantmptoksA=\toks14
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 366.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ptm.fd
+File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
+)
+-- Using 8.5in x 11in (letter) paper.
+-- Using PDF output.
+\@IEEEnormalsizeunitybaselineskip=\dimen104
+-- This is a 10 point document.
+\CLASSINFOnormalsizebaselineskip=\dimen105
+\CLASSINFOnormalsizeunitybaselineskip=\dimen106
+\IEEEnormaljot=\dimen107
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 724.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <5> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 724.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 724.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <7> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 724.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 724.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <8> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 724.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 724.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <9> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 724.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 724.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 724.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <11> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 724.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <11> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 724.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 724.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <12> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 724.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <17> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 724.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <17> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 724.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <20> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 724.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <20> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 724.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <24> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 724.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <24> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 724.
+\IEEEilabelindentA=\dimen108
+\IEEEilabelindentB=\dimen109
+\IEEEilabelindent=\dimen110
+\IEEEelabelindent=\dimen111
+\IEEEdlabelindent=\dimen112
+\IEEElabelindent=\dimen113
+\IEEEiednormlabelsep=\dimen114
+\IEEEiedmathlabelsep=\dimen115
+\IEEEiedtopsep=\skip41
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@IEEEsubequation=\count85
+\abovecaptionskip=\skip42
+\belowcaptionskip=\skip43
+\c@figure=\count86
+\c@table=\count87
+\@IEEEeqnnumcols=\count88
+\@IEEEeqncolcnt=\count89
+\@IEEEtmpitemindent=\dimen116
+\c@IEEEbiography=\count90
+\@IEEEtranrubishbin=\box26
+) (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks15
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+
+(/usr/share/texlive/texmf-dist/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count91
+))
+\Gin@req@height=\dimen117
+\Gin@req@width=\dimen118
+)
+(/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2008/03/30 v1.1d Input encoding file
+\inpenc@prehook=\toks16
+\inpenc@posthook=\toks17
+
+(/usr/share/texlive/texmf-dist/tex/latex/ucs/utf8x.def
+File: utf8x.def 2004/10/17 UCS: Input encoding UTF-8
+))
+(/usr/share/texlive/texmf-dist/tex/latex/ucs/ucs.sty
+Package: ucs 2004/10/17 UCS: Unicode input support
+
+(/usr/share/texlive/texmf-dist/tex/latex/ucs/data/uni-global.def
+File: uni-global.def 2012/04/20 UCS: Unicode global data
+)
+\uc@secondtry=\count92
+\uc@combtoks=\toks18
+\uc@combtoksb=\toks19
+\uc@temptokena=\toks20
+)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/longtable.sty
+Package: longtable 2004/02/01 v4.11 Multi-page Table package (DPC)
+\LTleft=\skip44
+\LTright=\skip45
+\LTpre=\skip46
+\LTpost=\skip47
+\LTchunksize=\count93
+\LTcapwidth=\dimen119
+\LT@head=\box27
+\LT@firsthead=\box28
+\LT@foot=\box29
+\LT@lastfoot=\box30
+\LT@cols=\count94
+\LT@rows=\count95
+\c@LT@tables=\count96
+\c@LT@chunks=\count97
+\LT@p@ftn=\toks21
+)
+(/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.def
+File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
+)
+LaTeX Font Info:    Try loading font information for T1+ptm on input line 100.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ptm.fd
+File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
+))
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2000/07/18 v2.13 AMS math features
+\@mathmargin=\skip48
+
+For additional information on amsmath, use the `?' option.
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks22
+\ex@=\dimen120
+))
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen121
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count98
+LaTeX Info: Redefining \frac on input line 211.
+\uproot@=\count99
+\leftroot@=\count100
+LaTeX Info: Redefining \overline on input line 307.
+\classnum@=\count101
+\DOTSCASE@=\count102
+LaTeX Info: Redefining \ldots on input line 379.
+LaTeX Info: Redefining \dots on input line 382.
+LaTeX Info: Redefining \cdots on input line 467.
+\Mathstrutbox@=\box31
+\strutbox@=\box32
+\big@size=\dimen122
+LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
+\macc@depth=\count103
+\c@MaxMatrixCols=\count104
+\dotsspace@=\muskip10
+\c@parentequation=\count105
+\dspbrk@lvl=\count106
+\tag@help=\toks23
+\row@=\count107
+\column@=\count108
+\maxfields@=\count109
+\andhelp@=\toks24
+\eqnshift@=\dimen123
+\alignsep@=\dimen124
+\tagshift@=\dimen125
+\tagwidth@=\dimen126
+\totwidth@=\dimen127
+\lineht@=\dimen128
+\@envbody=\toks25
+\multlinegap=\skip49
+\multlinetaggap=\skip50
+\mathdisplay@stack=\toks26
+LaTeX Info: Redefining \[ on input line 2666.
+LaTeX Info: Redefining \] on input line 2667.
+) (./paper.aux
+
+LaTeX Warning: Label `' multiply defined.
+
+
+LaTeX Warning: Label `' multiply defined.
+
+
+LaTeX Warning: Label `' multiply defined.
+
+
+LaTeX Warning: Label `' multiply defined.
+
+
+LaTeX Warning: Label `' multiply defined.
+
+
+LaTeX Warning: Label `' multiply defined.
+
+
+LaTeX Warning: Label `' multiply defined.
+
+
+LaTeX Warning: Label `' multiply defined.
+
+
+LaTeX Warning: Label `' multiply defined.
+
+
+LaTeX Warning: Label `' multiply defined.
+
+
+LaTeX Warning: Label `' multiply defined.
+
+
+LaTeX Warning: Label `' multiply defined.
+
+
+LaTeX Warning: Label `' multiply defined.
+
+
+LaTeX Warning: Label `' multiply defined.
+
+
+LaTeX Warning: Label `' multiply defined.
+
+
+LaTeX Warning: Label `' multiply defined.
+
+)
+\openout1 = `paper.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <5> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 14.
+LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <5> not available
+(Font)              Font shape `T1/ptm/b/it' tried instead on input line 14.
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <7> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 14.
+LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <7> not available
+(Font)              Font shape `T1/ptm/b/it' tried instead on input line 14.
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <8> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 14.
+LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <8> not available
+(Font)              Font shape `T1/ptm/b/it' tried instead on input line 14.
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <9> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 14.
+LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <9> not available
+(Font)              Font shape `T1/ptm/b/it' tried instead on input line 14.
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 14.
+LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <10> not available
+(Font)              Font shape `T1/ptm/b/it' tried instead on input line 14.
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <11> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 14.
+LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <11> not available
+(Font)              Font shape `T1/ptm/b/it' tried instead on input line 14.
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 14.
+LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <12> not available
+(Font)              Font shape `T1/ptm/b/it' tried instead on input line 14.
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <17> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 14.
+LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <17> not available
+(Font)              Font shape `T1/ptm/b/it' tried instead on input line 14.
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <20> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 14.
+LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <20> not available
+(Font)              Font shape `T1/ptm/b/it' tried instead on input line 14.
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <24> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 14.
+LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <24> not available
+(Font)              Font shape `T1/ptm/b/it' tried instead on input line 14.
+ (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count110
+\scratchdimen=\dimen129
+\scratchbox=\box33
+\nofMPsegments=\count111
+\nofMParguments=\count112
+\everyMPshowfont=\toks27
+\MPscratchCnt=\count113
+\MPscratchDim=\dimen130
+\MPnumerator=\count114
+\makeMPintoPDFobject=\count115
+\everyMPtoPDFconversion=\toks28
+) (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
+
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
+Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
+))
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 452.
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+(/usr/share/texlive/texmf-dist/tex/latex/ucs/ucsencs.def
+File: ucsencs.def 2011/01/21 Fixes to fontencodings LGR, T3
+)
+(/usr/share/texlive/texmf-dist/tex/latex/ucs/data/uni-0.def
+File: uni-0.def 2012/04/20 UCS: Unicode data U+0000..U+00FF
+)
+LaTeX Font Info:    Font shape `T1/ptm/bx/sc' in size <10> not available
+(Font)              Font shape `T1/ptm/b/sc' tried instead on input line 37.
+
+Underfull \hbox (badness 10000) in paragraph at lines 50--51
+
+ []
+
+<resources/accelerometer.png, id=1, 315.42844pt x 347.04657pt>
+File: resources/accelerometer.png Graphic file (type png)
+
+<use resources/accelerometer.png>
+Package pdftex.def Info: resources/accelerometer.png used on input line 66.
+(pdftex.def)             Requested size: 189.25851pt x 208.22954pt.
+
+<resources/opengl.png, id=2, 511.9125pt x 833.1125pt>
+File: resources/opengl.png Graphic file (type png)
+
+<use resources/opengl.png>
+Package pdftex.def Info: resources/opengl.png used on input line 76.
+(pdftex.def)             Requested size: 153.57494pt x 249.93568pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 83--84
+
+ []
+
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 92.
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
+File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
+) [1{/usr/share/texlive/texmf/fonts/map/pdftex/updmap/pdftex.map}
+
+
+ <./resources/accelerometer.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 114--115
+
+ []
+
+
+Underfull \hbox (badness 1688) in paragraph at lines 117--123
+\T1/ptm/m/n/10 lunghezza della \T1/ptm/m/it/10 query\T1/ptm/m/n/10 ). Suc-ces-s
+i-va-mente scorre cias-cuna
+ []
+
+
+Underfull \hbox (badness 1694) in paragraph at lines 117--123
+\T1/ptm/m/n/10 com-pare nell'indice l'algoritmo mem-o-rizza la di-ag-o-nale.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 117--123
+
+ []
+
+
+Underfull \hbox (badness 4353) in paragraph at lines 127--131
+[]\T1/ptm/m/n/10 BLAST (Alt-shul et al., 1990) rap-p-re-senta ad oggi
+ []
+
+
+Underfull \hbox (badness 2608) in paragraph at lines 127--131
+\T1/ptm/m/n/10 es-tendibili detti HSP (\T1/ptm/m/it/10 High-Scoring Seg-ment Pa
+ir\T1/ptm/m/n/10 ). Un
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 127--131
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 133--134
+
+ []
+
+[2 <./resources/opengl.png>]
+Underfull \hbox (badness 1960) in paragraph at lines 171--173
+\T1/ptm/m/n/10 il nu-mero di \T1/ptm/m/it/10 reads \T1/ptm/m/n/10 prodotte è au
+-men-tato notevol-mente
+ []
+
+
+Underfull \hbox (badness 6641) in paragraph at lines 171--173
+\T1/ptm/m/n/10 e con-sis-ten-te-mente an-che la quan-tità di genoma da
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 171--173
+\T1/ptm/m/n/10 allineare. Oc-cor-re-vano metodi sem-pre più ot-timiz-zati
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 171--173
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 174--176
+\T1/ptm/m/n/10 La trasfor-mazione viene ba-nal-mente fatta or-di-nando
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 180--181
+
+ []
+
+
+Underfull \hbox (badness 1924) in paragraph at lines 182--183
+\T1/ptm/m/n/10 allinea-mento, mis-urante la prob-a-bibil-ità dell'allineamento
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 182--183
+
+ []
+
+[3]
+
+LaTeX Warning: Reference `img:MAQ1' on page 4 undefined on input line 200.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 202--203
+[]\T1/ptm/b/n/10 Identificazione con-sen-sus\T1/ptm/m/n/10 : for-niti dei dati 
+\T1/pcr/m/n/10 D
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 202--203
+\T1/ptm/m/n/10 di allinea-mento su una po-sizione si cal-cola
+ []
+
+
+Underfull \hbox (badness 4556) in paragraph at lines 202--203
+\OML/cmm/m/it/10 P\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 D\OMS/cmsy/m/n/10 j \OML/cm
+m/m/it/10 < b\OT1/cmr/m/n/10 1\OML/cmm/m/it/10 ; b\OT1/cmr/m/n/10 1 \OML/cmm/m/
+it/10 >\OT1/cmr/m/n/10 )$\T1/ptm/m/n/10 , $\OML/cmm/m/it/10 P\OT1/cmr/m/n/10 (\
+OML/cmm/m/it/10 D\OMS/cmsy/m/n/10 j \OML/cmm/m/it/10 < b\OT1/cmr/m/n/10 2\OML/c
+mm/m/it/10 ; b\OT1/cmr/m/n/10 2 \OML/cmm/m/it/10 >\OT1/cmr/m/n/10 )$ \T1/ptm/m/
+n/10 e
+ []
+
+
+Underfull \hbox (badness 2717) in paragraph at lines 202--203
+\T1/ptm/m/n/10 di cal-co-lare la prob-a-bil-ità di cias-cun genotipo. Il
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 202--203
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 205--206
+
+ []
+
+
+LaTeX Warning: Reference `img:MAQ2' on page 4 undefined on input line 207.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 210--211
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 215--216
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 218--219
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 221--222
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 223--224
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 226--227
+
+ []
+
+(/usr/share/texlive/texmf-dist/tex/latex/ucs/data/uni-34.def
+File: uni-34.def 2012/04/20 UCS: Unicode data U+2200..U+22FF
+)
+Underfull \hbox (badness 10000) in paragraph at lines 238--239
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 241--242
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 244--246
+
+ []
+
+[4]
+Overfull \hbox (21.32649pt too wide) in paragraph at lines 249--282
+ [] 
+ []
+
+
+Underfull \hbox (badness 2460) in paragraph at lines 289--292
+\T1/ptm/m/n/10 Per quello che riguarda la memo-ria SOAPv2 usa
+ []
+
+
+Underfull \hbox (badness 2635) in paragraph at lines 289--292
+\T1/ptm/m/n/10 l'allineamento \T1/ptm/m/it/10 single-end \T1/ptm/m/n/10 men-tre
+ circa 3GB per il
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 289--292
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 318--319
+
+ []
+
+
+Underfull \hbox (badness 2042) in paragraph at lines 327--328
+[]\T1/ptm/m/n/10 Identifica le CAL (\T1/ptm/m/it/10 Can-di-date Align-ment Lo-c
+a-tions\T1/ptm/m/n/10 )
+ []
+
+
+Underfull \hbox (badness 2547) in paragraph at lines 327--328
+\T1/ptm/m/n/10 allineate lo-cal-mente us-ando \T1/ptm/m/it/10 gap \T1/ptm/m/n/1
+0 per iden-ti-fi-care il
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 327--328
+
+ []
+
+
+Underfull \hbox (badness 5908) in paragraph at lines 330--335
+[]\T1/ptm/m/n/10 BFAST uti-lizza un in-dice mul-ti-plo pre-stando bene
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 330--335
+
+ []
+
+[5]
+Underfull \hbox (badness 2065) in paragraph at lines 336--337
+[]\T1/ptm/m/n/10 La RAM nec-es-saria per cari-care un in-tero in-dice è
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 336--337
+
+ []
+
+
+Underfull \hbox (badness 1762) in paragraph at lines 338--339
+[]\T1/ptm/m/n/10 BFAST am-mette allinea-menti \T1/ptm/m/it/10 paired-end \T1/pt
+m/m/n/10 o \T1/ptm/m/it/10 mate-pair\T1/ptm/m/n/10 ,
+ []
+
+
+Underfull \hbox (badness 1789) in paragraph at lines 338--339
+\T1/ptm/m/n/10 re-al-iz-zando allinea-menti in-dipen-denti per cias-cun \T1/ptm
+/m/it/10 end \T1/ptm/m/n/10 e
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 338--339
+
+ []
+
+
+Underfull \hbox (badness 1442) in paragraph at lines 341--342
+[]\T1/ptm/m/n/10 Per mostrare le per-for-mance di BFAST esso è stato
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 341--342
+
+ []
+
+
+LaTeX Warning: Reference `img:BFASTperf1' on page 6 undefined on input line 343
+.
+
+
+LaTeX Warning: Reference `img:BFASTperf2' on page 6 undefined on input line 343
+.
+
+
+LaTeX Warning: Reference `img:BFASTperf3' on page 6 undefined on input line 343
+.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 343--344
+
+ []
+
+
+Underfull \hbox (badness 6188) in paragraph at lines 375--376
+[]\T1/ptm/m/n/10 Novoalign è un prodotto pro-pri-etario di Novocraft
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 375--376
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 386--387
+
+ []
+
+
+Underfull \hbox (badness 2150) in paragraph at lines 388--389
+\T1/ptm/m/n/10 suc-ces-siva SHRiMP2 (David et al. 2010). Quest'ultima
+ []
+
+
+Underfull \hbox (badness 1831) in paragraph at lines 388--389
+\T1/ptm/m/n/10 ver-sione si dis-tingue dalla prece-dente an-dando essa ad
+ []
+
+
+Underfull \hbox (badness 1776) in paragraph at lines 388--389
+\T1/ptm/m/n/10 in-di-ciz-zare non le \T1/ptm/m/it/10 reads \T1/ptm/m/n/10 ma il
+ genoma di rifer-i-mento.
+ []
+
+
+Underfull \hbox (badness 1629) in paragraph at lines 388--389
+\T1/ptm/m/n/10 Tale mod-i-fica ha notevol-mente miglio-rato le prestazioni
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 388--389
+
+ []
+
+
+Underfull \hbox (badness 2538) in paragraph at lines 390--391
+\T1/ptm/m/n/10 L'\T1/ptm/m/it/10 overhead \T1/ptm/m/n/10 prodotto da questa sud
+-di-vi-sione può es-sere
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 390--391
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 392--393
+
+ []
+
+[6]
+Underfull \hbox (badness 7415) in paragraph at lines 394--395
+[]\T1/ptm/m/n/10 SHRiMP2 uti-lizza un mec-ca-n-ismo di \T1/ptm/m/it/10 caching 
+\T1/ptm/m/n/10 per
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 394--395
+
+ []
+
+
+Underfull \hbox (badness 3735) in paragraph at lines 399--400
+[]\T1/ptm/m/n/10 Gli allineatori di \T1/ptm/m/it/10 reads \T1/ptm/m/n/10 corte 
+gen-er-ate dai mod-erni
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 399--400
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 401--402
+
+ []
+
+
+LaTeX Warning: Reference `img:ABMapper' on page 7 undefined on input line 403.
+
+
+Underfull \hbox (badness 3098) in paragraph at lines 403--404
+[]\T1/ptm/m/n/10 La se-quenza ge-nom-ica di rifer-i-mento è in-izial-mente
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 403--404
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 409--410
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 412--413
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 414--415
+
+ []
+
+
+Underfull \hbox (badness 1577) in paragraph at lines 416--417
+\T1/ptm/m/n/10 even-tual-mente ac-cettando un ul-te-ri-ore er-rore che su-pera
+ []
+
+
+Underfull \hbox (badness 2913) in paragraph at lines 416--417
+\T1/ptm/m/n/10 Un'altra fun-zion-al-ità im-por-tante è quella di am-met-tere
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 416--417
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 418--419
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 420--421
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 431--432
+\T1/ptm/m/n/10 Solitamente gli al-go-ritmi di allinea-mento sac-ri-f-i-cano
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 431--432
+
+ []
+
+[7]
+Underfull \hbox (badness 10000) in paragraph at lines 433--434
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 439--440
+[]\T1/ptm/m/n/10 Allineamento: uti-lizza l'\T1/ptm/m/it/10 hash \T1/ptm/m/n/10 
+cre-ata nella pre-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 439--440
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 442--443
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 444--445
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 446--447
+
+ []
+
+
+! LaTeX Error: \begin{document} ended by \end{center}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.450 \end{center}
+                  
+? 
+! Extra \endgroup.
+<recently read> \endgroup 
+                          
+l.450 \end{center}
+                  
+? 
+! Too many }'s.
+\@endfloatbox ...pagefalse \outer@nobreak \egroup 
+                                                  \color@endbox 
+l.451 \end{figure}
+                  
+? 
+
+! LaTeX Error: \begin{document} ended by \end{figure}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.451 \end{figure}
+                  
+? 
+! Extra \endgroup.
+<recently read> \endgroup 
+                          
+l.451 \end{figure}
+                  
+? 
+
+Overfull \hbox (2.86282pt too wide) in paragraph at lines 457--467
+ [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 475--478
+\T1/ptm/m/n/10 cre-ato per iden-ti-fi-care SNPs (\T1/ptm/m/it/10 Sin-gle Nu-cle
+otide
+ []
+
+
+Underfull \hbox (badness 2285) in paragraph at lines 475--478
+\T1/ptm/m/it/10 Poly-mor-phisms\T1/ptm/m/n/10 ). Si è evo-luto in tre ver-sioni
+, SOAPv2
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 475--478
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 480--482
+ \T1/ptm/m/it/10 1) SOAPv3: [][] \T1/ptm/m/n/10 Uti-liz-zando il genoma umano c
+ome
+ []
+
+
+Underfull \hbox (badness 3386) in paragraph at lines 480--482
+\T1/ptm/m/n/10 Per allineare 1G di cop-pie di \T1/ptm/m/it/10 reads \T1/ptm/m/n
+/10 (che con-ducono
+ []
+
+
+Underfull \hbox (badness 2401) in paragraph at lines 480--482
+\T1/ptm/m/n/10 ap-prossi-ma-ti-va-mente ad una cop-er-tura 30x del genoma
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 480--482
+
+ []
+
+[8]
+Underfull \hbox (badness 10000) in paragraph at lines 483--485
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 486--487
+\T1/ptm/m/n/10 alla memo-ria, degradando le prestazioni com-p-lessive
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 486--487
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 518--519
+
+ []
+
+
+Underfull \hbox (badness 2393) in paragraph at lines 520--521
+[]\T1/ptm/m/n/10 La ver-sione cor-rente di SOAPv3 ri-esce ad allineare
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 520--521
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 522--524
+[]\T1/ptm/m/n/10 Come ap-pare chiaro dalla tabella VI[] SOAPv3 è
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 522--524
+\T1/ptm/m/n/10 Sono stati in-oltre con-dotti ul-te-ri-ori es-per-i-menti che
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 522--524
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 551--552
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 556--557
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 559--560
+
+ []
+
+(/usr/share/texlive/texmf-dist/tex/latex/ucs/data/uni-32.def
+File: uni-32.def 2012/04/20 UCS: Unicode data U+2000..U+20FF
+)
+Underfull \hbox (badness 10000) in paragraph at lines 561--563
+[]\T1/ptm/m/n/10 Quando si con-sid-er-ano al-go-ritmi per ve-lo-ciz-zare
+ []
+
+
+Underfull \hbox (badness 1655) in paragraph at lines 561--563
+\T1/ptm/m/n/10 l'allineamento di \T1/ptm/m/it/10 reads \T1/ptm/m/n/10 di grandi
+ di-men-sioni la tec-nica
+ []
+
+
+Underfull \hbox (badness 1546) in paragraph at lines 561--563
+\T1/ptm/m/n/10 dell'\T1/ptm/m/it/10 hashing \T1/ptm/m/n/10 non è l'unica da ten
+ere in con-sid-er-azione.
+ []
+
+
+Underfull \hbox (badness 1817) in paragraph at lines 561--563
+\T1/ptm/m/n/10 Sono state pre-sen-tate in-fatti tec-niche che uti-liz-zano un
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 561--563
+\T1/ptm/m/n/10 BWT-SW è in grado di ot-tenere risul-tati iden-tici
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 561--563
+
+ []
+
+[9]
+Underfull \hbox (badness 10000) in paragraph at lines 564--565
+[]\T1/ptm/m/n/10 BWA-SW in-tro-duce eu-ris-tiche per ve-lo-ciz-zare
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 564--565
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 566--567
+[]\T1/ptm/m/n/10 L'algoritmo BWA-SW è im-ple-men-tato come un
+ []
+
+
+Underfull \hbox (badness 2245) in paragraph at lines 566--567
+\T1/ptm/m/n/10 con-tiene tipi-ca-mente di-verse se-quenze (\T1/ptm/m/it/10 read
+s\T1/ptm/m/n/10 ). Cias-cuna
+ []
+
+
+Underfull \hbox (badness 3668) in paragraph at lines 566--567
+\T1/ptm/m/it/10 read \T1/ptm/m/n/10 viene pro-ces-sata in-dipen-den-te-mente, e
+ven-tual-mente
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 566--567
+
+ []
+
+
+Underfull \hbox (badness 2469) in paragraph at lines 568--569
+[]\T1/ptm/m/n/10 Nell'implementazione BWA-SW cerca di ag-giustare i
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 568--569
+
+ []
+
+
+Overfull \hbox (4.87123pt too wide) in paragraph at lines 574--596
+ [] 
+ []
+
+
+Underfull \hbox (badness 2418) in paragraph at lines 601--603
+\T1/ptm/m/n/10 chiara-mente il pro-gramma più ve-loce, molte volte più
+ []
+
+
+Underfull \hbox (badness 1365) in paragraph at lines 601--603
+\T1/ptm/m/n/10 di BLAT e SSAHA2 su La pre-ci-sione di BWA-SW è
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 601--603
+
+ []
+
+[10]
+Underfull \hbox (badness 10000) in paragraph at lines 609--610
+
+ []
+
+
+Underfull \hbox (badness 1527) in paragraph at lines 611--612
+[]\T1/ptm/m/n/8 Burrows,M. and Wheeler,D. (1994) A block sort-ing loss-less dat
+a
+ []
+
+
+Underfull \hbox (badness 3354) in paragraph at lines 611--612
+\T1/ptm/m/n/8 com-pres-sion al-go-rithm. Tech-ni-cal Re-port 124, Dig-i-tal Equ
+ip-ment
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 611--612
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 613--614
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 615--616
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 617--618
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 619--620
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 621--622
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 623--624
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 625--626
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 627--628
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 629--630
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 631--632
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 633--634
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 635--636
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 637--638
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 639--640
+
+ []
+
+
+Underfull \hbox (badness 3343) in paragraph at lines 641--642
+[]\T1/ptm/m/n/8 Smith,T.F. and Wa-ter-man,M.S. (1981) Iden-ti-fi-ca-tion of com
+-mon
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 641--642
+
+ []
+
+
+** Conference Paper **
+Before submitting the final camera ready copy, remember to:
+
+ 1. Manually equalize the lengths of two columns on the last page
+ of your paper;
+
+ 2. Ensure that any PostScript and/or PDF output post-processing
+ uses only Type 1 fonts and that every step in the generation
+ process uses the appropriate paper size.
+
+[11] (./paper.aux)
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 4867 strings out of 493600
+ 65868 string characters out of 3148224
+ 141957 words of memory out of 3000000
+ 8072 multiletter control sequences out of 15000+200000
+ 120930 words of font info for 121 fonts, out of 3000000 for 9000
+ 956 hyphenation exceptions out of 8191
+ 38i,8n,23p,1484b,699s stack positions out of 5000i,500n,10000p,200000b,50000s
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cmextra/cmex7.pfb></usr/share/texlive/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.
+pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></u
+sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times
+/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on paper.pdf (11 pages, 439556 bytes).
+PDF statistics:
+ 109 PDF objects out of 1000 (max. 8388607)
+ 76 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 11 words of extra memory for PDF output out of 10000 (max. 10000000)
+

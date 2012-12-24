@@ -10,6 +10,7 @@ import java.util.List;
 import me.ziccard.secureit.async.MotionAsyncTask;
 import me.ziccard.secureit.async.MotionAsyncTask.MotionListener;
 import me.ziccard.secureit.codec.ImageCodec;
+import me.ziccard.secureit.motiondetection.LuminanceMotionDetector;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
@@ -59,6 +60,11 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 	 */
 	private int imageCount = 0;
 	
+	/**
+	 * Sensitivity of motion detection
+	 */
+	private int motionSensitivity = LuminanceMotionDetector.MOTION_MEDIUM;
+	
 	
 	SurfaceHolder mHolder;
 	public Camera camera;
@@ -72,6 +78,20 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 		mHolder = getHolder();
 		mHolder.addCallback(this);
 		prefs = new SecureItPreferences(context);
+		
+		/*
+		 * Set sensitivity value
+		 */
+		if (prefs.getCameraSensitivity().equals("Medium")) {
+			motionSensitivity = LuminanceMotionDetector.MOTION_MEDIUM;
+			Log.i("CameraFragment", "Sensitivity set to Medium");
+		} else if (prefs.getCameraSensitivity().equals("Low")) {
+			motionSensitivity = LuminanceMotionDetector.MOTION_LOW;
+			Log.i("CameraFragment", "Sensitivity set to Low");
+		} else {
+			motionSensitivity = LuminanceMotionDetector.MOTION_HIGH;
+			Log.i("CameraFragment", "Sensitivity set to High");
+		}
 	}
 	
 	public void addListener(MotionListener listener) {
@@ -151,7 +171,8 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 								data,
 								size.width,
 								size.height,
-								updateHandler);
+								updateHandler,
+								motionSensitivity);
 						for (MotionListener listener : listeners) {
 							Log.i("Preview", "Added listener");
 							task.addListener(listener);
@@ -161,6 +182,10 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 							
 							public void onProcess(Bitmap oldBitmap, Bitmap newBitmap,
 									boolean motionDetected) {
+								
+								if (motionDetected) {
+									Log.i("MotionListener", "MotionDetected");
+								}
 								Log.i("MotionListener", "Allowing further processing");
 								doingProcessing = false;								
 							}

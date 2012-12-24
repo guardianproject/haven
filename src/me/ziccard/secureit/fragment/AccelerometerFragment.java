@@ -1,6 +1,7 @@
 package me.ziccard.secureit.fragment;
 
 import me.ziccard.secureit.R;
+import me.ziccard.secureit.SecureItPreferences;
 import me.ziccard.secureit.service.BluetoothService;
 import android.app.Activity;
 import android.content.ComponentName;
@@ -34,27 +35,40 @@ public class AccelerometerFragment extends Fragment implements SensorEventListen
      * Accelerometer sensor
      */
     private Sensor accelerometer;
+    
     /**
      * OpenGL view to show accelerometer informations
      */
     private AccelerometerGLSurfaceView view;
+    
     /**
      * Last update of the accelerometer
      */
     private long lastUpdate = -1;
+    
     /**
      * Current accelerometer values
      */
     private float accel_values[];
+    
     /**
      * Last accelerometer values
      */
     private float last_accel_values[];
+    
+    /**
+     * Data field used to retrieve application prefences
+     */
+    private SecureItPreferences prefs;
+    
     /**
      * Shake threshold
      */
-    private static final int SHAKE_THRESHOLD = 3000;
+    private static int SHAKE_THRESHOLD = 3000;
     
+    /**
+     * Text showing accelerometer values
+     */
 	private TextView accelerometerText;
 	
 	
@@ -113,6 +127,22 @@ public class AccelerometerFragment extends Fragment implements SensorEventListen
     @Override
     public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		prefs = new SecureItPreferences(getActivity());
+		
+		/*
+		 * Set sensitivity value
+		 */
+		if (prefs.getAccelerometerSensitivity().equals("Medium")) {
+			SHAKE_THRESHOLD = 4000;
+			Log.i("AccelerometerFragment", "Sensitivity set to 4000");
+		} else if (prefs.getAccelerometerSensitivity().equals("Low")) {
+			SHAKE_THRESHOLD = 5000;
+			Log.i("AccelerometerFragment", "Sensitivity set to 5000");
+		} else {
+			SHAKE_THRESHOLD = 3000;
+			Log.i("AccelerometerFragment", "Sensitivity set to 3000");
+		}
+		
 		getActivity().bindService(new Intent(getActivity(), 
 				BluetoothService.class), mConnection, Context.BIND_ABOVE_CLIENT);
     }

@@ -29,6 +29,7 @@ public class MotionAsyncTask extends Thread {
 	private int width;
 	private int height;
 	private Handler handler;
+	private int motionSensitivity;
 	
 	// Output data
 	
@@ -51,12 +52,14 @@ public class MotionAsyncTask extends Thread {
 			byte[] rawNewPic, 
 			int width, 
 			int height,
-			Handler updateHanlder) {
+			Handler updateHandler,
+			int motionSensitivity) {
 		this.lastPic = lastPic;
 		this.rawNewPic = rawNewPic;
 		this.width = width;
 		this.height = height;
-		this.handler = updateHanlder;
+		this.handler = updateHandler;
+		this.motionSensitivity = motionSensitivity;
 		
 	}
 
@@ -71,6 +74,7 @@ public class MotionAsyncTask extends Thread {
 			lastBitmap = newBitmap;
 		} else {
 			IMotionDetector detector = new LuminanceMotionDetector();
+			detector.setThreshold(motionSensitivity);
 			List<Integer> changedPixels = 
 					detector.detectMotion(lastPic, newPic, width, height);
 			hasChanged = false;
