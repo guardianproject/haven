@@ -20,6 +20,7 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.graphics.YuvImage;
 import android.hardware.Camera;
+import android.hardware.Camera.Parameters;
 import android.hardware.Camera.PreviewCallback;
 import android.hardware.Camera.Size;
 import android.os.Environment;
@@ -141,9 +142,28 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 		context.bindService(new Intent(context, 
 				BluetoothService.class), mConnection, Context.BIND_ABOVE_CLIENT);
 		
-		// The Surface has been created, acquire the camera and tell it where
-		// to draw.
-		camera = Camera.open();
+		/*
+		 *  The Surface has been created, acquire the camera and tell it where
+		 *  to draw.
+		 *  If the selected camera is the front one we open it
+		 */
+		if (prefs.getCamera().equals("Front")) {
+			Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
+			int cameraCount = Camera.getNumberOfCameras();
+			for ( int camIdx = 0; camIdx < cameraCount; camIdx++ ) {
+				Camera.getCameraInfo( camIdx, cameraInfo );
+			    if ( cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT  ) {
+			    	try {
+			    		camera = Camera.open( camIdx );
+			        } catch (RuntimeException e) {
+			        	Log.e("Preview", "Camera failed to open: " + e.getLocalizedMessage());
+			        }
+			    }
+			}
+		} else {
+			camera = Camera.open();
+		}	
+		
 		final Camera.Parameters parameters = camera.getParameters();
 		List<Size> sizes = parameters.getSupportedPictureSizes();
 		int w = 640;
@@ -157,8 +177,21 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 				break;
 			}
 		}
+		
 		parameters.setPictureSize(w, h);
+
+		/*
+		 * If the flash is needed
+		 */
+		if (prefs.getFlashActivation()) {
+			Log.i("Preview", "Flash activated");
+			parameters.setFlashMode(Parameters.FLASH_MODE_TORCH);
+		}
+		
+		camera.setParameters(parameters);
+		
 		try {
+						
 			camera.setPreviewDisplay(mHolder);
 			
 			camera.setPreviewCallback(new PreviewCallback() {
@@ -251,6 +284,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 		// Surface will be destroyed when we return, so stop the preview.
 		// Because the CameraDevice object is not a shared resource, it's very
 		// important to release it when the activity is paused.
+		context.unbindService(mConnection);
 		camera.setPreviewCallback(null);
 		camera.stopPreview();
 		camera.release();
