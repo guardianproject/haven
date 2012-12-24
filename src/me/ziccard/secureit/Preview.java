@@ -11,7 +11,11 @@ import me.ziccard.secureit.async.MotionAsyncTask;
 import me.ziccard.secureit.async.MotionAsyncTask.MotionListener;
 import me.ziccard.secureit.codec.ImageCodec;
 import me.ziccard.secureit.motiondetection.LuminanceMotionDetector;
+import me.ziccard.secureit.service.BluetoothService;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.graphics.YuvImage;
@@ -20,6 +24,10 @@ import android.hardware.Camera.PreviewCallback;
 import android.hardware.Camera.Size;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.IBinder;
+import android.os.Message;
+import android.os.Messenger;
+import android.os.RemoteException;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -65,6 +73,26 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 	 */
 	private int motionSensitivity = LuminanceMotionDetector.MOTION_MEDIUM;
 	
+	/**
+	 * Messenger used to signal motion to the alert service
+	 */
+	private Messenger serviceMessenger = null;
+	
+    private ServiceConnection mConnection = new ServiceConnection() {
+
+        public void onServiceConnected(ComponentName className,
+                IBinder service) {
+        	Log.i("CameraFragment", "SERVICE CONNECTED");
+            // We've bound to LocalService, cast the IBinder and get LocalService instance
+            serviceMessenger = new Messenger(service);
+        }
+        
+        public void onServiceDisconnected(ComponentName arg0) {
+        	Log.i("CameraFragment", "SERVICE DISCONNECTED");
+            serviceMessenger = null;
+        }
+    };
+	
 	
 	SurfaceHolder mHolder;
 	public Camera camera;
@@ -106,6 +134,13 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 	 * in order to minimize CPU usage
 	 */
 	public void surfaceCreated(SurfaceHolder holder) {
+		
+		/*
+		 * We bind to the alert service
+		 */
+		context.bindService(new Intent(context, 
+				BluetoothService.class), mConnection, Context.BIND_ABOVE_CLIENT);
+		
 		// The Surface has been created, acquire the camera and tell it where
 		// to draw.
 		camera = Camera.open();
@@ -184,7 +219,16 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 									boolean motionDetected) {
 								
 								if (motionDetected) {
-									Log.i("MotionListener", "MotionDetected");
+									Log.i("MotionListener", "Motion detected");
+									if (serviceMessenger!=null) {
+										Message message = new Message();
+										message.what = BluetoothService.CAMERA_MESSAGE;
+										try {
+											serviceMessenger.send(message);
+										} catch (RemoteException e) {
+											// Cannot happen
+										}
+									}
 								}
 								Log.i("MotionListener", "Allowing further processing");
 								doingProcessing = false;								
