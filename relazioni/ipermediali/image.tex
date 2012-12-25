@@ -1,0 +1,101 @@
+\section{Gestione delle immagini}
+\textbf{TROVARE NOME APPROPRIATO A SEZIONI E SOTTOSEZIONI!!}
+\subsection{Scopo}
+All'interno dell'applicazione l'apparato visivo del dispositivo viene utilizzato per eseguire \textit{motion detection}.\\
+Qualora tale impostazione venga abilitata è necessario esaminare le immagini catturate dal dispositivo per determinare se v'è stato del movimento all'interno del raggio visivo: ad intervalli regolari le foto scattate dalla fotocamera vengono esaminate e confrontate per determinare il movimento. Qualora l'algoritmo di \textit{motion detection} ritenga di aver determinato del movimento, tale stato viene notificato e si tenterà di conseguenza di spedire le immagini catturate al server predisposto e di notificare l'utente di una possibile intrusione.\\
+
+\noindent Le immagini catturate sono utilizzate per due ruoli:
+\begin{enumerate}
+  \item Sono i dati di input per l'algoritmo di \textit{motion detection}. In questo caso il ruolo che svolgono è statistico in quanto l'algoritmo utilizzato non è sofisticato e speficico per il riconoscimento di movimento umano
+  \item Sono informazioni mnemoniche spedite al server incaricato al loro stoccaggio. In questo caso il ruolo che svolgono è semantico in quanto utilizzate dall'utente finale per riconoscere o meno un'intrusione
+\end{enumerate}
+
+\subsubsection{Motion detection}
+L'algoritmo di \textit{motion detection} determina il movimento confrontando due immagini in scala di grigi. Le immagini vengono acquisite ad intervalli regolari di 1 secondo.\\
+Qualora la differenza tra queste due immagini sia superiore ad una certa soglia si identifica la presenza di movimento. I valori di soglia definiti hanno influenza su due componenti all'interno dell'algoritmo:
+\begin{enumerate}
+  \item Poichè le immagini sono una collezione di pixel, il loro confronto avviene a tale livello. Risulta molto improbabile, anche in assenza di movimento, che due immagini consecutive abbiano i pixel corrispondenti identici: ad esempio una variazione di luminosità all'interno della stanza può essere causata dal passaggio di una nuvola, e tale variazione di luminosità è quello che si considera per determinare il movimento. \`E quindi necessario determinare un valore di soglia entro il quale due pixel, anche se non identici, vengono considerati non sostanzialmente differenti e non contribuiscono quindi a differenziare le immagini considerate.\\
+  Questo valore di soglia viene applicato al confronto pixel a pixel.
+  \item La differenza tra due immagini viene eseguita pixel per pixel. Risulta molto improbabile, anche in assenza di movimento, che due immagini consecutive abbiano tutti i pixel corrispondenti uguali: ad esempio uno spiffero d'aria può far muovere delle tende o dei vestiti. \`E quindi necessario determinare un valore di soglia che permetta di distinguere quando la differenza tra le immagini considerate sia trascurabile.\\
+  Questo valore di soglia viene applicato sul conteggio di pixel che son variati da un'immagine alla sucessiva.
+\end{enumerate}
+L'utente può quindi specificare la sensibilità per il rilevamento del movimento all'avvio dell'applicazione. I valori disponibili e i relativi parametri sono:
+\begin{itemize}
+  \item \texttt{LOW}: una sensibilità bassa. Permette una variazione di luminosità del 24\% per pixel (ossia la differenza tra due pixel deve essere compresa all'intervallo $[0,60]$) e determina il movimento qualora il 6.5\% dell'immagine sia cambiata (ossia qualora vengano determinati più di $20000$ pixel differenti).
+  \item \texttt{MEDIUM}: una sensibilità media. Permette una variazione di luminosità del 20\% per pixel (ossia la differenza tra due pixel deve essere compresa all'intervallo $[0,50]$) e determina il movimento qualora il 3.2\% dell'immagine sia cambiata (ossia qualora vengano determinati più di $10000$ pixel differenti).
+  \item \texttt{HIGH}: una sensibilità alta. Permette una variazione di luminosità del 16\% per pixel (ossia la differenza tra due pixel deve essere compresa all'intervallo $[0,40]$) e determina il movimento qualora il 2.9\% dell'immagine sia cambiata (ossia qualora vengano determinati più di $9000$ pixel differenti).
+\end{itemize}
+Questi parametri sono stati impostati dopo prove sperimentali: \textbf{SPUDORATAMENTE INVENTATO. SECONDO ME CI STA BENE. FORSE BISOGNA RICALIBRARE I PARAMETRI (magari in relazione all'effettiva risoluzione di acquisizione delle immagini per rendere le proporzioni percentuali fissate)}
+\begin{itemize}
+  \item Sensibilità bassa permette il riconoscimento del movimento causato dall'entrata nello spazio di osservazione della fotocamera di di una figura umana ad almeno 6 metri dal dispositivo e permette di non identificare il movimento di animali domestici di taglia medio-piccola (un cane di appartamento, un gatto)
+  \item Sensibilità media permette il riconoscimento del movimento causato dall'entrata nello spazio di osservazione di almeno la metà di una figura umana e permette di non identificare il movimento di animali domestici di taglia piccola (uccelli, criceti)
+  \item Sensibilità alta permette il riconoscimento del movimento causato dall'entrata nello spazio di osservazione di un braccio ad almeno 3 metri dal dispositivo
+\end{itemize}
+
+\subsubsection{Stoccaggio immagini}
+Qualora l'algoritmo di \textit{motion detection} ritenga di aver rilevato del movimento viene attivato il meccanismo incaricato di notificare l'avvenimento. Tale notifica varia a seconda delle impostazioni scelte dall'utente e dall'ambiente in cui si trova il dispositivo (fare riferimento a sezione \textbf{BOH} non so se ci va la sezione). Qualora l'opzione di notificare il server sia stata abilitata e l'ambiente lo permetta (sia presente una rete wifi o vi sia collegamento 3G) le immagini catturate vengono spedite al server in attesa di essere consultate dall'utente. \textbf{Non si può fare di salvare sia su dispositivo solamente le immagini che hanno sorpassato la soglia di movimento?}\\
+A seconda della connettività il numero delle immagini inviate variano:
+\begin{itemize}
+  \item Accesso WiFi: vengono spedite 10 immagini (\textbf{non ho guardato bene il codice: è possibile che si tenti di inviare immagini in un secondo momento quando quindi le immagini sono state sovrascritte?})
+  \item Accesso 3G: vengono spedite 5 immagini (\textbf{come sono scelte queste immagini?})
+\end{itemize}
+
+\subsection{Formati utilizzati}
+L'acquisizione ed il formato delle immagini è un punto fondamentale per questa parte di applicazione: poichè si tenta di acquisire immagini ad intervalli di 1 secondo è importante che l'elaborazione di tali immagini non diventi un collo di bottiglia.\\
+
+Per ridurre il più possibile computazioni non necessarie o onerose è fondamentale utilizzare un formato immagine adatto agli scopi, a patto che tale conversione non diventi un carico ingente di computazione.\\
+
+Si è quindi deciso di acquisire le immagini in formato NV21.\\
+Tale formato si basa sullo spazio di colore YCbCr (anche se normalmente il formato viene identificato come YUV NV21\footnote{ Lo spazio colore YUV viene storicamente utilizzato per denotare codifiche di colori per segnali analogici, mentre YCbCr viene utilizzato per sengali digitali.}) con campionatura 4:2:0 (ossia entrambe le componenti di crominanza vengono sottocampionate di un fattore due sia in verticale che in orizzontale come evidenziato dalla figura \ref{YUVsampling}).\\
+\begin{figure}[!ht]
+\begin{center}
+\YUVsampling
+\end{center}
+\caption{Esempio di campionatura in spazio colore YCbCr 4:2:0 di un'immagine di dimensioni $6×4$ pixel.}
+\label{YUVsampling}
+\end{figure}
+
+\noindent In particolare il formato NV21 definisce come le informazioni di luma e crominanza vengono organizzate. Questo formato è un formato semiplanare in quanto le informazioni di luma sono memorizzate separatamente dalle informazioni di crominanza: 
+\begin{itemize}
+  \item Viene definito un piano per la componente Y. La dimensione di questo piano è esattamente la dimensione dell'immagine in quanto questa componente non viene sottocampionata, ossia è presente una componente per ogni pixel dell'immagine
+  \item Viene definito un piano condiviso per le componenti di crominanza U e V. La dimensione di questo piano è la metà del piano relativo alla componente Y in quanto le componenti di crominanza vengono sottocampionate di un fattore due (e quindi ogni componente di crominanza occupa un quarto della dimensione di luminanza).\\
+  I valori campionati di U e V vengono memorizzati interlacciati (in quanto sono compresenti sullo stesso piano) e a partire dalla componente V come evidenziato dalla figura \ref{YUVplanes}.\\
+\end{itemize}
+\begin{figure}[!ht]
+\begin{center}
+\subfigure[Piano per i campioni luminanza]{\YUVplanesLuma}~
+\subfigure[Piano per i campioni crominanza]{\YUVpanesCroma}
+\end{center}
+\caption{Suddivisione dell'informazione visiva: piano dedicato all'informazione relativa esclusivamente alla luminanza e piano condivso per l'informazione sulla crominanza blu e rossa.}
+\label{YUVplanes}
+\end{figure}
+
+\noindent Quello che si ottiene a livello di applicazione attraverso l'acquisizione da fotocamera è in realtà uno stream di byte unico in cui i piani (di luma e crominanza) vengono concatenati come mostrato in figura \ref{YUVbytestream}.
+\begin{figure}[!ht]
+\begin{center}
+\makebox[\linewidth]{\YUVbytestream}
+\end{center}
+\caption{Serializzazione dei valori nel bytestream.}
+\label{YUVbytestream}
+\end{figure}
+
+
+L'utilizzo del formato NV21 comporta diversi vantaggi:
+\begin{itemize}
+  \item \`E il formato standard di acquisizione dei dispositivi Android: non è quindi necessario interrogare ogni volta il dispositivo per determinare i possibili formati di acquisizione. Avendo sempre a disposizione un'unico formato è stato possibile definire una sola routine in grado di convertire immagini da questo formato a scala di grigi (formato utilizzato per il \textit{motion detection})
+  \item Poichè tale formato è standard nei vari dispositivi c'è la garanzia che le prestazioni per l'acquisizione dell'immagine in tale formato siano migliori delle prestazioni ottenute doveno operare una conversione ad hoc a livello applicazione \textbf{non so come dirlo bene}
+  \item Attraverso questo formato risulta immediato ottenere un'immagine in scala di grigi in quanto la componente luma è esplicitata: non son quindi necessarie conversioni più onerose come potrebbe essere la conversione da RGB a scala di grigi
+  \item La struttura di questo formato è adatta ad operare su dispositivi mobili: la sua struttura interna riduce considerevolmente gli accessi in memoria in quanto le varie componenti sono salvate in locazioni di memoria abbastanza contigue.\\
+  L'hardware incaricato all'acquisizione risulta inefficiente se per ogni pixel è necessario accedere in locazioni differenti di memoria (un accesso per ogni piano in cui devono venir memorizzate le varie componenti come per esempio RGB o YUV I444): la situazione ottimale per l'aqcuisizione si raggiungerebbe utilizzando un formato pacchettizzato, ma un formato semi-planare è comunque meglio di un formato planare.\\
+  Per quanto riguarda l'elaborazione, il formato NV21 risulta invece ottimale: l'informazione principalmente utilizzata per l'elaborazione è quella relativa alla componente luma che è memorizzata in maniera contigua.
+\end{itemize}
+
+Per ridurre ulteriormente il carico di lavoro, poichè non interessa un'alta definizione per le immagini, viene impostata la fotocamera ad acquisire le immagini a risoluzione minore possibile (la scelta di default è $640×480$):
+\begin{itemize}
+  \item Si evita un consumo di memoria eccessiva in quanto tali immagini devono venire successivamente salvate
+  \item Poichè il tempo di creazione di un oggetto è limitato inferiormente dalla quantità di memoria che necessita, avere un'immagine di dimensioni minori permette una sua creazione celermente
+  \item Si evita di dover utilizzare procedure di scaling definite dall'applicazione (che sarebbero meno efficienti delle procedure definite dall'hardware della fotocamera o dei suoi driver)
+\end{itemize}
+
+Nonostante l'informazione contenuta all'interno del formato NV21 sia sufficiente per applicare l'algoritmo di \textit{motion detection}, si opera comunque una conversione dell'immagine in scala di grigi in quanto si vuole fornire all'utente il display delle differenze notate tra due immagini consecutive.\\
+Da notare che la conversione a scala di grigi viene effettuata sfruttando la struttura del formato NV21 in quanto l'informazione luma viene acceduta sequenzialmente (minimizzando in questo modo gli accessi in memoria) per produrre ordinatamente i pixel dell'immagine in scala di grigi.
