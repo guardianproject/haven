@@ -205,10 +205,10 @@ The application keeps sampling a buffer of \texttt{512} values of \texttt{16 BIT
 \end{figure}
 
 In order to exploit those tables and the user-friendliness of decibel \texttt{PCM} values are used to get \texttt{dB} values.\\ 
-Referring to a measure of power or intensity we can express the ratio between current value $V_i$ and a reference value $V_o$ in decibels as:\\
+Referring to a measure of amplitude we can express the ratio of the squares between current value $V_i$ and a reference value $V_o$ in decibels as:\\
 
 \begin{equation}
-dB_i = 10log_{10} \left(\frac{V_i}{V_o}\right)
+dB_i = 20log_{10} \left(\frac{V_i}{V_o}\right)
 \end{equation}
 
 To convert \texttt{PCM} values to \texttt{dB} we can suppose that each sampled value is different from \texttt{0} if the microphones samples something audible, so as a reference value to compute noyse intensity from \texttt{PCM} the integer \texttt{1}, can be used.\\
@@ -344,10 +344,10 @@ The back-end offers a set of \texttt{REST API} in order to authenticate the user
 
 Images are captured and sent by Android phone in \textit{JPEG} format and are sent and displayed by the web application as they are.\\
 
-Audio is captured by Android phone using \texttt{AAC} encoding, unfortunately firefox does not support \texttt{HTML5 ACC} encoding. In order to make audio available for all modern browser as soon as it is received by the web application it is converted into \texttt{MP3} encoding using \texttt{FFMPEG}:
+Audio is captured by Android phone using \texttt{AAC} encoding, unfortunately Firefox and other browsers do not support \texttt{ACC} encoding. In order to make audio available for all modern browser as soon as it is received by the web application it is converted into \texttt{vorbis} encoding using \texttt{ffmpeg}:
 
 \begin{lstlisting}[language=Bash, caption=FFMPEG command to convert aac to mp3]
-ffmpeg -i in.m4a -vn -acodec libmp3lame ou.mp3
+ffmpeg -i in.m4a -acodec libvorbis -aq 60 -vn -ac 2 out.ogg
 \end{lstlisting}
 
 Such a conversion is done with a background system process.\\
