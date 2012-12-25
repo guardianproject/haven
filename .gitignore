@@ -32,4 +32,9 @@ proguard/
 relazioni/wireless/paper.aux
 relazioni/wireless/paper.pdf
 relazioni/wireless/paper.log
+relazioni/ipermediali/*.aux
+relazioni/ipermediali/*.log
+relazioni/ipermediali/*.out
+relazioni/ipermediali/*.pdf
+relazioni/ipermediali/*.toc
 

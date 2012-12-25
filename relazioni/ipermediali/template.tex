@@ -1,0 +1,54 @@
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage[utf8x]{inputenc}
+\usepackage[italian]{babel}
+\usepackage[colorlinks=true,linkcolor=black]{hyperref}
+\usepackage{hhline}
+\usepackage{hyperref}
+\usepackage[font=small,format=plain,labelfont=bf,up,textfont=it,up]{caption}
+\usepackage{indentfirst}
+\usepackage[Lenny]{fncychap}
+\usepackage{listings}
+\usepackage{verbatim}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{chngpage}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage[hang,centerlast]{subfigure}
+
+
+\newcommand{\makeTitlePage} {
+\begin{titlepage}
+\begin{center}
+\textsc{università degli studi di Padova}\\
+\textsc{corso di laurea magistrale in Informatica}\\
+\textsc{anno accademico 2011 - 2012}\\[3cm]
+
+\begin{tikzpicture}
+\foreach \i in {0,10,...,100} {
+  \foreach \j in {0,30,...,330} {
+    \draw[fill=yellow!\i!red] (\j+.01*\i*\i:.04*\i+.001*\i) circle (.01*\i+.1);
+  }
+}
+\foreach \j in {0,30,...,330} {
+  \draw[fill=red!70!green] (\j+1000:4.3) circle (.1cm);
+}
+\end{tikzpicture}
+
+\end{center}
+\end{titlepage}}
+
+\fancypagestyle{testo}{
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\lhead{}
+\chead{}
+\rhead{}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+}
