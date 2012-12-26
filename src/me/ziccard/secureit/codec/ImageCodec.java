@@ -3,7 +3,6 @@ package me.ziccard.secureit.codec;
 import java.io.ByteArrayOutputStream;
 
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.Matrix;
 
 public class ImageCodec {
@@ -27,23 +26,27 @@ public class ImageCodec {
 	}
 	
 	/**
-	 * Converts a luminance matrix to a grayscale bitmap
+	 * Converts a luminance matrix to a RGB grayscale bitmap
 	 * @param lum
 	 * @param width
 	 * @param height
 	 * @return
 	 */
-    public static Bitmap lumaToGreyscale(int[] lum, int width, int height) {
+    public static int[] lumaToGreyscale(int[] lum, int width, int height) {
         if (lum==null) throw new NullPointerException();
         
-        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
-        for(int y=0, xy=0; y<bitmap.getHeight(); y++) {
-                for(int x=0; x<bitmap.getWidth(); x++, xy++) {
-                        int luma = lum[xy];
-                        bitmap.setPixel(x,y,Color.rgb(luma,luma,luma));
-                }
+        int[] greyscale = new int[height*width];
+        for (int ij=0; ij<greyscale.length; ij++) {
+          // create the RGB-grey color corresponding to the specified luma component
+          greyscale[ij] = ((((lum[ij]<<8)|lum[ij])<<8)|lum[ij])&0x00FFFFFF;
         }
-        return bitmap;
+        return greyscale;
+    }
+    
+    public static Bitmap lumaToBitmapGreyscale(int[] lum, int width, int height) {
+      if (lum == null) throw new NullPointerException();
+      
+      return Bitmap.createBitmap(ImageCodec.lumaToGreyscale(lum, width, height), width, height, Bitmap.Config.RGB_565);
     }
     
     /**

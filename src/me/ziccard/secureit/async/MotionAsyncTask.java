@@ -24,7 +24,7 @@ public class MotionAsyncTask extends Thread {
 	// Input data
 	
 	private List<MotionListener> listeners = new ArrayList<MotionListener>();
-	private int[] lastPic;
+	private byte[] rawOldPic;
 	private byte[] rawNewPic;
 	private int width;
 	private int height;
@@ -48,13 +48,13 @@ public class MotionAsyncTask extends Thread {
 	}
 	
 	public MotionAsyncTask(
-			int[] lastPic, 
+			byte[] rawOldPic, 
 			byte[] rawNewPic, 
 			int width, 
 			int height,
 			Handler updateHandler,
 			int motionSensitivity) {
-		this.lastPic = lastPic;
+		this.rawOldPic = rawOldPic;
 		this.rawNewPic = rawNewPic;
 		this.width = width;
 		this.height = height;
@@ -65,20 +65,19 @@ public class MotionAsyncTask extends Thread {
 
 	@Override
 	public void run() {
-		int[] newPic = ImageCodec.N21toLuma(
-				rawNewPic, 
-				width, 
-				height);
-		if (lastPic == null) {
-			newBitmap = ImageCodec.lumaToGreyscale(newPic, width, height);
+		int[] newPicLuma = ImageCodec.N21toLuma(rawNewPic, width, height);
+		if (rawOldPic == null) {
+			newBitmap = ImageCodec.lumaToBitmapGreyscale(newPicLuma, width, height);
 			lastBitmap = newBitmap;
 		} else {
+		    int[] oldPicLuma = ImageCodec.N21toLuma(rawOldPic, width, height);
 			IMotionDetector detector = new LuminanceMotionDetector();
 			detector.setThreshold(motionSensitivity);
 			List<Integer> changedPixels = 
-					detector.detectMotion(lastPic, newPic, width, height);
+					detector.detectMotion(oldPicLuma, newPicLuma, width, height);
 			hasChanged = false;
 	
+			int[] newPic = ImageCodec.lumaToGreyscale(newPicLuma, width, height);
 			if (changedPixels != null) {
 				hasChanged = true;
 				for (int changedPixel : changedPixels) {
@@ -86,8 +85,8 @@ public class MotionAsyncTask extends Thread {
 				}
 			}
 			
-			lastBitmap = ImageCodec.lumaToGreyscale(lastPic, width, height);
-			newBitmap = ImageCodec.lumaToGreyscale(newPic, width, height);
+			lastBitmap = ImageCodec.lumaToBitmapGreyscale(oldPicLuma, width, height);
+			newBitmap = Bitmap.createBitmap(newPic, width, height, Bitmap.Config.RGB_565);
 		}
 		
 		Log.i("MotionAsyncTask", "Finished processing, sending results");

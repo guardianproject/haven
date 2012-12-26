@@ -9,7 +9,6 @@ import java.util.List;
 
 import me.ziccard.secureit.async.MotionAsyncTask;
 import me.ziccard.secureit.async.MotionAsyncTask.MotionListener;
-import me.ziccard.secureit.codec.ImageCodec;
 import me.ziccard.secureit.motiondetection.LuminanceMotionDetector;
 import me.ziccard.secureit.service.BluetoothService;
 import android.content.ComponentName;
@@ -53,7 +52,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 	/**
 	 * Last picture processed
 	 */
-	private int[] lastPic;
+	private byte[] lastPic;
 	/**
 	 * True IFF there's an async task processing images
 	 */
@@ -213,7 +212,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 					        YuvImage image = new YuvImage(data, parameters.getPreviewFormat(), 
 					                size.width, size.height, null);
 					        
-					        imageCount = (imageCount + 1)%(prefs.getMaxImages()+1);
+					        imageCount = (imageCount + 1)%(prefs.getMaxImages());
 					        
 					        File file = new File(
 					        		Environment.getExternalStorageDirectory().getPath() +
@@ -268,10 +267,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 							}
 						});
 						task.start();
-						lastPic = ImageCodec.N21toLuma(
-								data, 
-								size.width,
-								size.height);
+						lastPic = data;
 					}
 				}
 			});
