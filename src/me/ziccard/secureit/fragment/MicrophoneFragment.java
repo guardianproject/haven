@@ -14,24 +14,19 @@ import android.util.Log;
 import me.ziccard.secureit.MicrophoneVolumePicker;
 import me.ziccard.secureit.R;
 import me.ziccard.secureit.SecureItPreferences;
-import me.ziccard.secureit.VolumeDynamicSeries;
 import me.ziccard.secureit.async.MicSamplerTask;
 import me.ziccard.secureit.service.BluetoothService;
 
-import com.androidplot.xy.*;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public final class MicrophoneFragment extends Fragment implements MicSamplerTask.MicListener {
 
 
     private MicSamplerTask microphone;
-      
-    //private XYPlot plot;
 
     private TextView microphoneText;
     
@@ -48,7 +43,7 @@ public final class MicrophoneFragment extends Fragment implements MicSamplerTask
     /**
      * Threshold for the decibels sampled
      */
-    private double NOYSE_THRESHOLD = 60.0; 
+    private double NOISE_THRESHOLD = 60.0; 
     
     /**
      * Messenger used to communicate with alert service
@@ -69,9 +64,6 @@ public final class MicrophoneFragment extends Fragment implements MicSamplerTask
             serviceMessenger = null;
         }
     };
-    
-    
-    //private VolumeDynamicSeries series = new VolumeDynamicSeries(0, "Volume");
  
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -86,9 +78,9 @@ public final class MicrophoneFragment extends Fragment implements MicSamplerTask
 		prefs = new SecureItPreferences(getActivity());    
 		
 		if (prefs.getMicrophoneSensitivity().equals("High")) {
-			NOYSE_THRESHOLD = 30.0;
+			NOISE_THRESHOLD = 30.0;
 		} else if (prefs.getMicrophoneSensitivity().equals("Medium")) {
-			NOYSE_THRESHOLD = 40.0; 
+			NOISE_THRESHOLD = 40.0; 
 		}
 		
 		getActivity().bindService(new Intent(getActivity(), 
@@ -106,51 +98,20 @@ public final class MicrophoneFragment extends Fragment implements MicSamplerTask
     	
 		microphoneText = (TextView) getActivity().findViewById(R.id.microphone);
 
-//		// initialize our XYPlot reference:
-//        plot = (XYPlot) getActivity().findViewById(R.id.mySimpleXYPlot);
-//        
-//        // Define formatting and add series
-//        LineAndPointFormatter f1 = new LineAndPointFormatter(Color.rgb(0, 0, 200), null, Color.rgb(0, 0, 80));
-//        plot.addSeries(series, f1);
-// 
-//        // apply some transparency to the series
-//        f1.getFillPaint().setAlpha(50);
-//
-//        plot.setDomainStepMode(XYStepMode.SUBDIVIDE);
-//        plot.setDomainStepValue(1);
-// 
-//        // thin out domain/range tick labels so they dont overlap each other:
-//        //plot.setTicksPerDomainLabel(5);
-//        //plot.setTicksPerRangeLabel(3);
-// 
-//        // freeze the range boundaries:
-//        plot.setRangeBoundaries(0, 120, BoundaryMode.FIXED);
-//        //plot.setTicksPerRangeLabel(10000);
-//        //mySimpleXYPlot.setTicksPerDomainLabel(5);
-// 
-//        // customize our domain/range labels
-//        plot.setDomainLabel("");
-//        plot.setRangeLabel("");
-//        plot.getLegendWidget().setVisible(false);
-//        
-//        // get rid of decimal points in our domain labels:
-//        plot.setDomainValueFormat(new DecimalFormat("0"));
-//        //plot.setRangeValueFormat(new DecimalFormat("0"));
-// 
-//        // by default, AndroidPlot displays developer guides to aid in laying out your plot.
-//        // To get rid of them call disableAllMarkup():
-//        plot.disableAllMarkup();
     	LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
     	
     	LinearLayout layout = (LinearLayout) getActivity().findViewById(R.id.linear_layout);
     	picker = new MicrophoneVolumePicker(this.getActivity());
+    	picker.setNoiseThreshold(NOISE_THRESHOLD);
     	layout.addView(picker, params);
-				
-        microphone = new MicSamplerTask();
-        microphone.setMicListener(this);
-        microphone.execute();
+
+    	if (microphone == null) {
+    	  microphone = new MicSamplerTask();
+    	  microphone.setMicListener(this);
+          microphone.execute();
+    	}
     }
     
     @Override
@@ -192,7 +153,7 @@ public final class MicrophoneFragment extends Fragment implements MicSamplerTask
     	picker.setValues(averageDB, averageDB);
     	picker.invalidate();
     	
-    	if (averageDB > NOYSE_THRESHOLD) {
+    	if (averageDB > NOISE_THRESHOLD) {
     		Message message = new Message();
     		message.what = BluetoothService.MICROPHONE_MESSAGE;
     		try {
