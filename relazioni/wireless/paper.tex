@@ -91,7 +91,7 @@ In order to allow the end user to select the type of monitoring and the type of 
 
 \begin{enumerate}
 	\item Asks the application to use the accelerometer, shown only if the accelerometer is available on the phone
-	\item Asks the application to use the camera, allows to choose wich camera to use and to start the flash
+	\item Asks the application to use the camera, allows to choose which camera to use and to start the flash
 	\item Asks the application to use the microphone
 	\item Asks the application to send an SMS to the specified phone number to alert an intrusion
 	\item Asks the application to authenticate and send images, audio and location to the back-end (images are sent only if camera has been activated). A username and a password have to be specified
@@ -253,6 +253,16 @@ if (average!=0) {
 \end{lstlisting}
 
 \subsubsection{\textbf{Data representation}}
+
+To make the end user understand what the application is doing a view shows the decibels sampled by the microphones. The values are represented using a two channel volume indicator (in case of stereo microphones owned by some devices). Two levels are highlighted in the indicator: the first one is the threshold over which an alert is fired while the second one is an arbitrary noyse threshold.
+
+\begin{figure}[!ht]
+\begin{center}
+\makebox[\linewidth]{\includegraphics[scale=0.3]{resources/microphone.png}}
+\caption{Microphone view to show sampled audio level}
+\label{img:microphone}
+\end{center}
+\end{figure}
 
 \section{\textbf{Alert comunication}}
 If a user is logged in different ways of alert comunication have been implemented depending on the connectivity currently available:\\
