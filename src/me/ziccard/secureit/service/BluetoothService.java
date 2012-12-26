@@ -150,6 +150,15 @@ public class BluetoothService extends Service {
      */
     @SuppressWarnings("deprecation")
 	private void showNotification() {
+    	
+
+    	Intent toLaunch = new Intent(getApplicationContext(),
+    	                                          MonitorActivity.class);
+
+   	   toLaunch.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT
+   		    |Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
+   		    |Intent.FLAG_ACTIVITY_NEW_TASK);  
+    	
         // In this sample, we'll use the same text for the ticker and the expanded notification
         CharSequence text = getText(R.string.secure_service_started);
         
@@ -158,7 +167,7 @@ public class BluetoothService extends Service {
 
         // The PendingIntent to launch our activity if the user selects this notification
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-                new Intent(this, MonitorActivity.class), 0);
+        		toLaunch, PendingIntent.FLAG_UPDATE_CURRENT);
         
         notification.setLatestEventInfo(this, "SecureService",
                 text, contentIntent);

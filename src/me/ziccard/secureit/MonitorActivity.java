@@ -15,6 +15,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -64,6 +65,13 @@ public class MonitorActivity extends FragmentActivity {
 	}
 
 	class MonitorAdapter extends FragmentPagerAdapter {
+		
+		private Fragment accelerometerFragment;
+		
+		private Fragment cameraFragment;
+		
+		private Fragment microphoneFragment;
+		
 		public MonitorAdapter(FragmentManager fm) {
 			super(fm);
 		}
@@ -72,20 +80,26 @@ public class MonitorActivity extends FragmentActivity {
 		public Fragment getItem(int position) {
 			switch(position) {
 			case 0: 
-				if (preferences.getAccelerometerActivation()) 
-					return new AccelerometerFragment();
-				else
+				if (preferences.getAccelerometerActivation()) {
+					if (accelerometerFragment == null)
+						accelerometerFragment = new AccelerometerFragment();
+					return accelerometerFragment;
+				} else
 					return EmptyFragment.newInstance(CONTENT[0]);
 					
 			case 1: 
-				if (preferences.getCameraActivation()) 
-					return new CameraFragment();
-				else 
+				if (preferences.getCameraActivation()) {
+					if (cameraFragment == null)
+						cameraFragment = new CameraFragment();
+					return cameraFragment;
+				} else 
 					return EmptyFragment.newInstance(CONTENT[1]);
 			case 2: 
-				if (preferences.getMicrophoneActivation()) 
-					return new MicrophoneFragment();
-				else
+				if (preferences.getMicrophoneActivation()) {
+					if (microphoneFragment == null) 
+						microphoneFragment = new MicrophoneFragment();
+					return microphoneFragment;
+				} else
 					return EmptyFragment.newInstance(CONTENT[2]);
 			}
 			return null;
@@ -156,6 +170,8 @@ public class MonitorActivity extends FragmentActivity {
     	builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
     		public void onClick(DialogInterface dialog, int whichButton) {
     			if (input.getText().toString().equals(preferences.getUnlockCode())) {
+    				Log.i("MonitorActivity", "INPUT "+input.getText().toString());
+    				Log.i("MonitorActivity", "STORED "+preferences.getUnlockCode());
     				dialog.dismiss();
     				close();
     			} else {

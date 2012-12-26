@@ -111,7 +111,7 @@ public class MicrophoneVolumePicker extends View {
     
     // draw plot
     drawPlot(canvas, colomnWidth);
-
+ 
   }
 
   private void drawVolumeRect(Canvas canvas,
