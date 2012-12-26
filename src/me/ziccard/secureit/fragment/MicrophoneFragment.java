@@ -84,7 +84,7 @@ public final class MicrophoneFragment extends Fragment implements MicSamplerTask
 		}
 		
 		getActivity().bindService(new Intent(getActivity(), 
-				BluetoothService.class), mConnection, Context.BIND_ABOVE_CLIENT);	
+				BluetoothService.class), mConnection, Context.BIND_ABOVE_CLIENT);
     }
  
     @Override
@@ -96,6 +96,8 @@ public final class MicrophoneFragment extends Fragment implements MicSamplerTask
     public void onResume() {
     	super.onResume();
     	
+    	Log.i("MicrophoneFragment", "Resumed");
+    	
 		microphoneText = (TextView) getActivity().findViewById(R.id.microphone);
 
     	LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -103,10 +105,12 @@ public final class MicrophoneFragment extends Fragment implements MicSamplerTask
                 LinearLayout.LayoutParams.WRAP_CONTENT);
     	
     	LinearLayout layout = (LinearLayout) getActivity().findViewById(R.id.linear_layout);
-    	picker = new MicrophoneVolumePicker(this.getActivity());
-    	picker.setNoiseThreshold(NOISE_THRESHOLD);
-    	layout.addView(picker, params);
-
+    	if (layout.getChildCount() == 1) {
+    		picker = new MicrophoneVolumePicker(this.getActivity());
+    		picker.setNoiseThreshold(NOISE_THRESHOLD);
+    		layout.addView(picker, params);
+    	}
+    	
     	if (microphone == null) {
     	  microphone = new MicSamplerTask();
     	  microphone.setMicListener(this);
@@ -116,8 +120,8 @@ public final class MicrophoneFragment extends Fragment implements MicSamplerTask
     
     @Override
     public void onDestroy() {
-    	Log.i("MicrophoneFramgnet", "Fragment destroyed");
     	super.onDestroy();
+    	Log.i("MicrophoneFramgnet", "Fragment destroyed");
     	getActivity().unbindService(mConnection);
     	microphone.cancel(true);
     }

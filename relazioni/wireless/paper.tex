@@ -43,13 +43,13 @@
 
 \begin{document}
 
-\title{SecureIt: home security has never been so easy\\
-Anno Accademico 2011/2012}
+\title{SecureIt\\
+Wireless networks project\\
+2012/2013}
 
 \author{
 \IEEEauthorblockN{Luca Bonato, Marco Ziccardi}
 \IEEEauthorblockA{Corso di studi in Informatica\\
-Facoltà di Scienze MM.FF.NN.\\
 Università degli Studi di Padova\\
 Email: \{lohathe,marco.ziccard\}@gmail.com}
 }
@@ -78,6 +78,25 @@ The aim of the application development was not only the creation of a home secur
 \end{itemize}
 
 To the mobile application is associated a back-end where the application itself uploads images and audio got at the instant of intrusion detection.\\
+
+In order to allow the end user to select the type of monitoring and the type of alerting according to his security needs, CPU and power consumption constraints a configuration panel (shown in figure ref{img:config}) is presented at each start of the application.\\
+
+\begin{figure}[!ht]
+\begin{center}
+\makebox[\linewidth]{\includegraphics[scale=0.3]{resources/config.png}}
+\caption{Configuration view}
+\label{img:config}
+\end{center}
+\end{figure}
+
+\begin{enumerate}
+	\item Asks the application to use the accelerometer, shown only if the accelerometer is available on the phone
+	\item Asks the application to use the camera, allows to choose which camera to use and to start the flash
+	\item Asks the application to use the microphone
+	\item Asks the application to send an SMS to the specified phone number to alert an intrusion
+	\item Asks the application to authenticate and send images, audio and location to the back-end (images are sent only if camera has been activated). A username and a password have to be specified
+	\item Allows to set the unlock code. Application can be closed only by writing that code
+\end{enumerate}
 
 \section{\textbf{Intrusion detection}}
 Intrusion detection is done in three complementary ways:
@@ -235,6 +254,16 @@ if (average!=0) {
 
 \subsubsection{\textbf{Data representation}}
 
+To make the end user understand what the application is doing a view shows the decibels sampled by the microphones. The values are represented using a two channel volume indicator (in case of stereo microphones owned by some devices). Two levels are highlighted in the indicator: the first one is the threshold over which an alert is fired while the second one is an arbitrary noyse threshold.
+
+\begin{figure}[!ht]
+\begin{center}
+\makebox[\linewidth]{\includegraphics[scale=0.3]{resources/microphone.png}}
+\caption{Microphone view to show sampled audio level}
+\label{img:microphone}
+\end{center}
+\end{figure}
+
 \section{\textbf{Alert comunication}}
 If a user is logged in different ways of alert comunication have been implemented depending on the connectivity currently available:\\
 \begin{itemize}
@@ -286,12 +315,7 @@ Android offers two ways for creating a bluetooth server socket: \texttt{listenUs
 
 \subsection{Delegated authorization}
 In the authentication phase a \texttt{delegated\allowbreak\_access\allowbreak\_token} is retrieved in order to not use the same token for both direct and delegated authentication. However such a token should not be shared with other devices and in order to do so a little protocol has been developed.\\
-The presented protocol is slightly inspired by Kerberos (\texttt{[1]}) and is based on three messages:\\
-\begin{itemize}
-	\item \texttt{HelloMessage}: sent from the requesting phone, simply contains a timestamp and the phone's identifier
-	\item \texttt{KeyRequest}: sent from a delegated phone to the requesting one, contains latitude, longitude and a timestamp
-	\item \texttt{KeyResponse}: sent from the requesting phone, contains an \texttt{authorization\_key} based on \texttt{delegated\_access\_token}, latitude, longitude and received timestamp
-\end{itemize}
+The protocolo in figure \ref{img:bluetooth} is slightly inspired by Kerberos (\texttt{[1]}) and is based on three messages:\\
 
 \begin{figure}[!ht]
 \begin{center}
@@ -301,48 +325,61 @@ The presented protocol is slightly inspired by Kerberos (\texttt{[1]}) and is ba
 \end{center}
 \end{figure}
 
-\texttt{authorization\_key} is computed via \texttt{AES} password encryption, using as password the value \texttt{delegated\_access\_token} and encrypting the \texttt{JSON} string:
-\begin{lstlisting}[language=Java, caption=JSON encrypted with AES]
-{"lat": "latitude",
- "long": "longitude",
- "timestamp": "timestamp"}
-\end{lstlisting}
-
-The following code shows how to compute \texttt{AES} password encryption of the string in Java.
-
-\begin{lstlisting}[language=Java, caption=AES password encryption]
-SecretKeySpec key = new SecretKeySpec(password.getBytes(), "AES");
-AlgorithmParameterSpec paramSpec = new IvParameterSpec(password.substring(0, 16).getBytes());
-Cipher cipher;
-cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");	    
-cipher.init(Cipher.ENCRYPT_MODE, key, paramSpec);			    	
-byte[] ecrypted = cipher.doFinal(accessKey.getBytes());
-accessKey = Base64.encodeToString(ecrypted, Base64.DEFAULT);
-\end{lstlisting}
-
-Using that tecnique the \texttt{delegated\_access\_token} is never transmitted over the network. If the delegated phone sends latitude, longitude, timestamp and \texttt{authorization\_key} to the \texttt{REST API [POST] /api/phones/:phoneid/position/delegated} the back-end is able to decrypt \texttt{authorization\_key} using \texttt{delegated\_access\_token} of phone's owner and verify that the owner has authorized the upload of latitude and longitude.
-
-\subsection{\textbf{Communication workflow}}
-
 Each application running on a device with active bluetooth offers an insecure \texttt{RFCOMM} server socket able to accept insecure requests for a specified \texttt{UIID}.\\
 
 When on any device running the application an intrusion is detected and no connectivity is available the bluetooth alert workflow starts:\\
 \begin{enumerate}
-	\item A discovery is started
-	\item A listener is registered and each device discovered is stored
-	\item At discovery finished for each device the application tries to create a connection, if it fails the device is discarded else a messaging workflow is started:
-		\begin{itemize}
-			\item An \texttt{HelloMessage} is sent
-			\item A \texttt{KeyRequest} is received
-			\item The \texttt{access\_key} is build and a \texttt{KeyResponse} is sent
-		\end{itemize}
+	\item A bluetooth discovery is started
+	\item A listener is registered to the process of discovery and each new device identified is stored
+	\item As soon as discovery finishes the application tries to create a connection for each device, if it fails the device is discarded else a messaging workflow is started:
+		\begin{enumerate}
+
+			%Hello message
+			\item An \texttt{HelloMessage} is sent. It contains a timestamp and the phone's identifier. \texttt{phoneId} is used by the delegated device to know who is requesting delegation, and where to upload location
+			%Key request
+			\item A \texttt{KeyRequest} is received. It is sent from the delegated device and contains latitude, longitude and a timestamp intended to be sent to the back-end
+			%authorization_key creation
+			\item An \texttt{authorization\_key} is computed via \texttt{AES} password encryption, using as password the value \texttt{delegated\_access\_token} and encrypting the following \texttt{JSON} string:
+
+			\begin{lstlisting}[language=Java, caption=JSON encrypted with AES]
+			{"lat": "latitude",
+			 "long": "longitude",
+			 "timestamp": "timestamp"}
+			\end{lstlisting}
+
+			The following code shows how to compute \texttt{AES} password encryption of the string in Java.
+
+			\begin{lstlisting}[language=Java, caption=AES password encryption]
+			SecretKeySpec key = new SecretKeySpec(password.getBytes(), "AES");
+			AlgorithmParameterSpec paramSpec = new IvParameterSpec(password.substring(0, 16).getBytes());
+			Cipher cipher;
+			cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");	    
+			cipher.init(Cipher.ENCRYPT_MODE, key, paramSpec);			    	
+			byte[] ecrypted = cipher.doFinal(accessKey.getBytes());
+			accessKey = Base64.encodeToString(ecrypted, Base64.DEFAULT);
+			\end{lstlisting}	
+			%Key response
+			\item A \texttt{KeyResponse} is sent. It contains the \texttt{authorization\_key} that can be computed only by the requesting client since \texttt{delegated\_access\_token} is never shared
+			%Data upload
+			\item The delegated phone sends latitude, longitude, timestamp and \texttt{authorization\_key} to the \texttt{REST API [POST] /api\allowbreak/phones\allowbreak/:phoneid\allowbreak/position/delegated}
+			%Authorization
+			\item The back-end is able to decrypt \texttt{authorization\_key} using \texttt{delegated\_access\_token} of the requesting phone (\texttt{phoneId}) and verify that the owner has authorized the upload of latitude and longitude
+		\end{enumerate}
 	\item If location is sent correctly 1 hour is waited before next retransmission, else only 1 minute is waited
 \end{enumerate}
 
 \section{\textbf{Back-end}}
 The back-end offers a set of \texttt{REST API} in order to authenticate the user, register a phone, upload images, audio and location. It organizes that data in a non relation database (\texttt{REDIS}) and allows to view it.\\
 
-Images are captured and sent by Android phone in \textit{JPEG} format and are sent and displayed by the web application as they are.\\
+Images are captured and sent by Android phone in \textit{JPEG} format and are sent and displayed by the web application as they are (as shown in figure \ref{img:slideshow}).\\
+
+\begin{figure}[!ht]
+\begin{center}
+\makebox[\linewidth]{\includegraphics[scale=0.25]{resources/slideshow.png}}
+\caption{Slideshow for captured images}
+\label{img:slideshow}
+\end{center}
+\end{figure}
 
 Audio is captured by Android phone using \texttt{AAC} encoding, unfortunately Firefox and other browsers do not support \texttt{ACC} encoding. In order to make audio available for all modern browser as soon as it is received by the web application it is converted into \texttt{vorbis} encoding using \texttt{ffmpeg}:
 
@@ -353,6 +390,14 @@ ffmpeg -i in.m4a -acodec libvorbis -aq 60 -vn -ac 2 out.ogg
 Such a conversion is done with a background system process.\\
 
 Uploaded location data is organized on a map created via Google Maps \texttt{APIs}.
+
+\begin{figure}[!ht]
+\begin{center}
+\makebox[\linewidth]{\includegraphics[scale=0.25]{resources/map.png}}
+\caption{Map showing last know device position}
+\label{img:slideshow}
+\end{center}
+\end{figure}
 
 
 
