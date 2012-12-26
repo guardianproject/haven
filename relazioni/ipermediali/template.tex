@@ -40,14 +40,29 @@
 \end{center}
 \end{titlepage}}
 
+\newcommand{\upperborder}{
+\begin{tikzpicture}
+\clip (0,0) rectangle (24.5, 4);
+\foreach \i in {0,1,...,6} {
+  \fill[red!40!yellow] (\i*4.5, 0) circle (2.5cm);
+  \foreach \j in {0,30,...,180} {
+    \fill[red!40!yellow] (\i*4.5,0) +(\j:2.5cm) circle (.7cm);
+    \foreach \z in {0,40,...,360} {
+      \fill[red!40!yellow] (\i*4.5,0) ++(\j:2.5cm) +(\z:1cm) circle (.2cm);
+    }
+  }
+}
+
+\end{tikzpicture}}
+
 \fancypagestyle{testo}{
 \pagenumbering{arabic}
 \setcounter{page}{1}
-\lhead{}
+%\lhead{\begin{picture}(0,0)(145,4)\upperborder\end{picture}}
 \chead{}
 \rhead{}
-\lfoot{}
-\cfoot{}
+\lfoot{\footnotesize \textsc{Sistemi Ipermediali}}
+\cfoot{\thepage}
 \rfoot{}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
