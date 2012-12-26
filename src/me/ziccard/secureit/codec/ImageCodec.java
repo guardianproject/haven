@@ -18,12 +18,10 @@ public class ImageCodec {
 		final int frameSize = width*height;
 		int[] lumaImage = new int[frameSize];
 		
-		for (int j = 0, yp = 0; j < height; j++) {
-			for (int i = 0; i < width; i++, yp++) {
-				int luminance = (0xff & ((int) YUVimage[yp])) - 16;
-                if (luminance < 0) luminance = 0;
-                lumaImage[yp] = luminance;
-			}
+		for (int ij = 0; ij < height*width; ij++) {
+		  int luminance = (0xff & ((int) YUVimage[ij])) - 16;
+          if (luminance < 0) luminance = 0;
+          lumaImage[ij] = luminance;
 		}
 		return lumaImage;
 	}
@@ -42,7 +40,7 @@ public class ImageCodec {
         for(int y=0, xy=0; y<bitmap.getHeight(); y++) {
                 for(int x=0; x<bitmap.getWidth(); x++, xy++) {
                         int luma = lum[xy];
-                        bitmap.setPixel(x,y,Color.argb(1,luma,luma,luma));
+                        bitmap.setPixel(x,y,Color.rgb(luma,luma,luma));
                 }
         }
         return bitmap;
