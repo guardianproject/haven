@@ -1,6 +1,4 @@
-\section{Gestione delle immagini}
-\textbf{TROVARE NOME APPROPRIATO A SEZIONI E SOTTOSEZIONI!!}
-\subsection{Scopo}
+\section{Rilevamento movimento ambientale}
 All'interno dell'applicazione l'apparato visivo del dispositivo viene utilizzato per eseguire \textit{motion detection}.\\
 Qualora tale impostazione venga abilitata è necessario esaminare le immagini catturate dal dispositivo per determinare se v'è stato del movimento all'interno del raggio visivo: ad intervalli regolari le foto scattate dalla fotocamera vengono esaminate e confrontate per determinare il movimento. Qualora l'algoritmo di \textit{motion detection} ritenga di aver determinato del movimento, tale stato viene notificato e si tenterà di conseguenza di spedire le immagini catturate al server predisposto e di notificare l'utente di una possibile intrusione.\\
 
@@ -10,7 +8,7 @@ Qualora tale impostazione venga abilitata è necessario esaminare le immagini ca
   \item Sono informazioni mnemoniche spedite al server incaricato al loro stoccaggio. In questo caso il ruolo che svolgono è semantico in quanto utilizzate dall'utente finale per riconoscere o meno un'intrusione
 \end{enumerate}
 
-\subsubsection{Motion detection}
+\subsection{Motion detection}
 L'algoritmo di \textit{motion detection} determina il movimento confrontando due immagini in scala di grigi. Le immagini vengono acquisite ad intervalli regolari di 1 secondo.\\
 Qualora la differenza tra queste due immagini sia superiore ad una certa soglia si identifica la presenza di movimento. I valori di soglia definiti hanno influenza su due componenti all'interno dell'algoritmo:
 \begin{enumerate}
@@ -32,7 +30,7 @@ Questi parametri sono stati impostati dopo prove sperimentali: \textbf{SPUDORATA
   \item Sensibilità alta permette il riconoscimento del movimento causato dall'entrata nello spazio di osservazione di un braccio ad almeno 3 metri dal dispositivo
 \end{itemize}
 
-\subsubsection{Stoccaggio immagini}
+\subsection{Stoccaggio immagini}
 Qualora l'algoritmo di \textit{motion detection} ritenga di aver rilevato del movimento viene attivato il meccanismo incaricato di notificare l'avvenimento. Tale notifica varia a seconda delle impostazioni scelte dall'utente e dall'ambiente in cui si trova il dispositivo (fare riferimento a sezione \textbf{BOH} non so se ci va la sezione). Qualora l'opzione di notificare il server sia stata abilitata e l'ambiente lo permetta (sia presente una rete wifi o vi sia collegamento 3G) le immagini catturate vengono spedite al server in attesa di essere consultate dall'utente.\\
 A seconda della connettività il numero delle immagini inviate variano:
 \begin{itemize}
@@ -40,7 +38,7 @@ A seconda della connettività il numero delle immagini inviate variano:
   \item Accesso 3G: vengono spedite 5 immagini
 \end{itemize}
 
-\subsection{Formati utilizzati}
+\subsection{Formati immagine utilizzati}
 L'acquisizione ed il formato delle immagini è un punto fondamentale per questa parte di applicazione: poichè si tenta di acquisire immagini ad intervalli di 1 secondo è importante che l'elaborazione di tali immagini non diventi un collo di bottiglia.\\
 
 Per ridurre il più possibile computazioni non necessarie o onerose è fondamentale utilizzare un formato immagine adatto agli scopi, a patto che tale conversione non diventi un carico ingente di computazione.\\
