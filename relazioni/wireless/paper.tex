@@ -43,9 +43,8 @@
 
 \begin{document}
 
-\title{SecureIt\\
-Wireless networks project\\
-2012/2013}
+\title{SecureIt: homeland security\\
+via Android application}
 
 \author{
 \IEEEauthorblockN{Luca Bonato, Marco Ziccardi}
@@ -106,7 +105,7 @@ Intrusion detection is done in three complementary ways:
 	\item \textbf{Microphone}
 \end{itemize}
 
-	\subsection{Accelerometer}
+\subsection{\textbf{Accelerometer}}
 The accelerometer is used to detect motion of the phone itself. Different sensitivity can be set in order to detect different kinds of motions.\\
 The accelerometer returns a \textit{triple} of three acceleration values on the three axes (\textit{X}, \textit{Y} and \textit{Z}). 
 
@@ -149,8 +148,8 @@ If $variation>SHAKE\_THRESHOLD$ the application starts to send alerts according 
 The camera is used to detect motion in the surrounding environment. The frames captured by the camera are processed to detect if any variation ha occurred since last captured frame.\\
 A callback is activated at every captured frame, processing each captured frame would be too expensive for the phone in terms of CPU usage and battery consumption so the processing is reduced at one frame per second.\\
 \subsubsection{\textbf{Motion detection}}
-As said motion detection on the frame matrix is very expensive so the frames are scaled as soon as capture to a size of \texttt{640x480}. In order to detect any variation between two frames only the grayscale image is needed.\\
-A movement is considered to be a difference in number of pixels between two grayscale frames bigger than a certain threshold.\\
+As said motion detection on the frame matrix is very expensive so the frames are scaled as soon as capture to a size of \texttt{640x480}. In order to detect any variation between two frames only the gray-scale image is needed.\\
+A movement is considered to be a difference in number of pixels between two gray-scale frames bigger than a certain threshold.\\
 In that case too we have three types of sensitivity, the sensitivity type defines not only the threshold in the number of different pixels (\texttt{NUMBER\_THRESHOLD}) but the threshold needed to consider different two pixels (\texttt{VALUE\_THRESHOLD}):\\
 
 \begin{itemize}
@@ -171,7 +170,7 @@ In that case too we have three types of sensitivity, the sensitivity type define
 		\end{itemize}
 \end{itemize}
 
-Supposing to represente the two frames to compare with two linearized arrays of integer representing each pixel value the pseudocode used form motion detection is straightforward:
+Supposing to represent the two frames to compare with two linearized arrays of integer representing each pixel value the pseudo-code used form motion detection is straightforward:
 
 \begin{lstlisting}[language=Java, caption=Pseudocode for motion detection]
 detectMotion(int[] oldImage,int[] newImage,int width,int height)
@@ -193,7 +192,7 @@ end
 The detection identifies the list of mutated pixels according to the sensitivity specified.\\
 
 \subsubsection{\textbf{Data representation}}
-In order to make the user understand what the application is doing a view is presented showing the surface currently being captured by te camera, the last frame considered by motion detection and the current considered frame, pixel identified as changed are marked in red in the current frame. This view is shown in figure \ref{img:camera}.\\
+In order to make the user understand what the application is doing a view is presented showing the surface currently being captured by the camera, the last frame considered by motion detection and the current considered frame, pixel identified as changed are marked in red in the current frame. This view is shown in figure \ref{img:camera}.\\
 
 \begin{figure}[!ht]
 \begin{center}
@@ -213,7 +212,7 @@ The microphone is used to detect an excessive noise level in the environment. In
 \end{itemize}
 
 \subsubsection{\textbf{Sampling}}
-The application keeps sampling a buffer of \texttt{512} values of \texttt{16 BIT PCM}. Those values present the environment noyse.\\ Scientific literatur is plenty of tables showing for each common noyse the corresponding decibel value, such as the one in figure \ref{img:decibels}. 
+The application keeps sampling a buffer of \texttt{512} values of \texttt{16 BIT PCM}. Those values present the environment noise.\\ Scientific literature is plenty of tables showing for each common noise the corresponding decibel value, such as the one in figure \ref{img:decibels}. 
 
 \begin{figure}[!ht]
 \begin{center}
@@ -230,9 +229,9 @@ Referring to a measure of amplitude we can express the ratio of the squares betw
 dB_i = 20log_{10} \left(\frac{V_i}{V_o}\right)
 \end{equation}
 
-To convert \texttt{PCM} values to \texttt{dB} we can suppose that each sampled value is different from \texttt{0} if the microphones samples something audible, so as a reference value to compute noyse intensity from \texttt{PCM} the integer \texttt{1}, can be used.\\
+To convert \texttt{PCM} values to \texttt{dB} we can suppose that each sampled value is different from \texttt{0} if the microphones samples something audible, so as a reference value to compute noise intensity from \texttt{PCM} the integer \texttt{1}, can be used.\\
 
-Given the sample as an array (called \texttt{signal}) of \texttt{512 short integers} the following pseudocode can be used to compute average \texttt{dB} intensity:
+Given the sample as an array (called \texttt{signal}) of \texttt{512 short integers} the following pseudo-code can be used to compute average \texttt{dB} intensity:
 
 \begin{lstlisting}[language=Java, caption=Pseudocode for computing dB from PCM samples]
 int total = 0
@@ -254,7 +253,7 @@ if (average!=0) {
 
 \subsubsection{\textbf{Data representation}}
 
-To make the end user understand what the application is doing a view shows the decibels sampled by the microphones. The values are represented using a two channel volume indicator (in case of stereo microphones owned by some devices). Two levels are highlighted in the indicator: the first one is the threshold over which an alert is fired while the second one is an arbitrary noyse threshold.
+To make the end user understand what the application is doing a view shows the decibels sampled by the microphones. The values are represented using a two channel volume indicator (in case of stereo microphones owned by some devices). Two levels are highlighted in the indicator: the first one is the threshold over which an alert is fired while the second one is an arbitrary noise threshold.
 
 \begin{figure}[!ht]
 \begin{center}
@@ -264,8 +263,8 @@ To make the end user understand what the application is doing a view shows the d
 \end{center}
 \end{figure}
 
-\section{\textbf{Alert comunication}}
-If a user is logged in different ways of alert comunication have been implemented depending on the connectivity currently available:\\
+\section{\textbf{Alert communication}}
+If a user is logged in different ways of alert communication have been implemented depending on the connectivity currently available:\\
 \begin{itemize}
 	\item \texttt{WIFI CONNECTIVITY}: a set of 10 captured images and 10 seconds of audio are sent
 	\item \texttt{3G CONNECTIVITY}: a subset of 5 captured images and 10 seconds of audio are sent
@@ -274,7 +273,21 @@ If a user is logged in different ways of alert comunication have been implemente
 
 In both cases of \texttt{WIFI} or \texttt{3G CONNECTIVITY} a periodic task is used to send phone's location to the back-end.
 
-\subsection{Authentication}
+\subsection{\textbf{Connectivity identification}}
+In order to identify what kind of connectivity is available on the device the Android \texttt{APIs} are used. Those \texttt{APIs} allow to define whether the phone is connected or connecting. Confirmed that the phone is connected the kind of connectivity is inspected via the following code:
+
+\begin{lstlisting}[language=Java, caption=Java code to define connectivity type]
+ConnectivityManager cm = (ConnectivityManager)
+	getSystemService(Context.CONNECTIVITY_SERVICE);
+NetworkInfo activeNetwork = 
+	cm.getActiveNetworkInfo();
+boolean isConnected = 
+	activeNetwork.isConnectedOrConnecting();
+boolean isWifi = 
+	activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
+\end{lstlisting}
+
+\subsection{\textbf{Authentication}}
 A phone connected to \texttt{WIFI} or \texttt{3G} sends directly his data to the back-end, so it needs for sure an \texttt{access\_token}. Moreover a phone needs another type of token (for security purposes) in order to delegate via bluetooth other devices to send to the back-end his location. Such a token is called \texttt{delegated\_access\_token} and can be used by other devices to be authorized to post a location for the delegating phone.\\
 A \texttt{REST API} (\texttt{[POST] /users/accesstoken}) can be used to get those tokens given username and password. The tokens are returned in the response body as \texttt{JSON}:
 
@@ -283,8 +296,8 @@ A \texttt{REST API} (\texttt{[POST] /users/accesstoken}) can be used to get thos
  "delegated_access_token": "BASE64_DELEGATED_TOKEN"}
 \end{lstlisting}
 
-\subsection{Data upload}
-Images and audio are uploaded to the backend in a similar way. A \texttt{MULTIPART POST} request is sent to some \texttt{REST API} offered by the backend, respectively:
+\subsection{\textbf{Data upload}}
+Images and audio are uploaded to the backend in a similar way. A \texttt{MULTIPART POST} request is sent to some \texttt{REST API} offered by the back-end, respectively:
 
 \begin{lstlisting}[caption=REST API to upload images and audio]
 [POST]	/api/phones/:phoneId/images
@@ -293,16 +306,16 @@ Images and audio are uploaded to the backend in a similar way. A \texttt{MULTIPA
 
 For authentication purposes a request header field named \texttt{access\_token} is added.
 
-\subsection{Direct location upload}
+\subsection{\textbf{Direct location upload}}
 In case of \texttt{WIFI} or \texttt{3G CONNECTIVITY} location is directly uploaded by the phone. The \texttt{API} used is simply \texttt{[POST] /api/phones/:phoneid/positions} and the authentications still uses an \texttt{access\_token} header field.\\
-Location data can be retrieved in two ways according to the phone capabilies:\\
+Location data can be retrieved in two ways according to the phone capabilities:\\
 
 \begin{itemize}
 	\item \texttt{GPS}
 	\item \texttt{NETWORK}
 \end{itemize}
 
-\section{Bluetooth comunication}
+\section{\textbf{Bluetooth communication}}
 As said when only bluetooth is active the phone asks other devices to upload his location. Two key features have been realized:\\
 
 \begin{itemize}
@@ -310,12 +323,12 @@ As said when only bluetooth is active the phone asks other devices to upload his
 	\item Only authorized data is accepted\\
 \end{itemize}
 
-\subsection{No pairing}
-Android offers two ways for creating a bluetooth server socket: \texttt{listenUsingRfcommWithServiceRecord} e \texttt{listenUsingInsecureRfcommWithServiceRecord}. The first method creates a server socket listening for incoming connections created via \texttt{createInsecureRfcommSocketToServiceRecord} and needs an explicit pairing of two devices with user acceptance. The second method insted allows to manage incoming connection created with \texttt{} that do not require pairing with user acceptance.\\
+\subsection{\textbf{No pairing}}
+Android offers two ways for creating a bluetooth server socket: \texttt{listenUsingRfcommWithServiceRecord} e \texttt{listenUsingInsecureRfcommWithServiceRecord}. The first method creates a server socket listening for incoming connections created via \texttt{createInsecureRfcommSocketToServiceRecord} and needs an explicit pairing of two devices with user acceptance. The second method instead allows to manage incoming connection created with \texttt{} that do not require pairing with user acceptance.\\
 
-\subsection{Delegated authorization}
+\subsection{\textbf{Delegated authorization}}
 In the authentication phase a \texttt{delegated\allowbreak\_access\allowbreak\_token} is retrieved in order to not use the same token for both direct and delegated authentication. However such a token should not be shared with other devices and in order to do so a little protocol has been developed.\\
-The protocolo in figure \ref{img:bluetooth} is slightly inspired by Kerberos (\texttt{[1]}) and is based on three messages:\\
+The protocol in figure \ref{img:bluetooth} is slightly inspired by Kerberos (\texttt{[1]}) and is based on three messages:\\
 
 \begin{figure}[!ht]
 \begin{center}
@@ -368,6 +381,69 @@ When on any device running the application an intrusion is detected and no conne
 	\item If location is sent correctly 1 hour is waited before next retransmission, else only 1 minute is waited
 \end{enumerate}
 
+\subsection{\textbf{Android APIs improvement}}
+Android \texttt{APIs} represent a bluetooth connection using a class called \texttt{BluetoothSocket}, this class offers a duplex connection implemented with two \texttt{byte} oriented streams (input and output). Since the need to implement a messaging protocol the class \texttt{ObjectBluetoothSocket} has been defined in order to encapsulate \texttt{BluetoothSocket} in order to offer an higher-level communication mechanism. \texttt{ObjectBluetoothSocket}'s duplex connection is implemented via using two object oriented streams.
+
+\begin{lstlisting}[language=Java, caption=ObjectBluetoothSocket class]
+public class ObjectBluetoothSocket {
+	
+	private BluetoothSocket socket;
+	
+	private ObjectOutputStream outputStream;
+	
+	private ObjectInputStream inputStream;
+	
+	public ObjectBluetoothSocket(BluetoothSocket socket) 
+		throws IOException {
+		this.socket = socket;
+		this.outputStream = 
+			new ObjectOutputStream(
+				this.socket.getOutputStream());
+		this.inputStream = 
+			new ObjectInputStream(
+				this.socket.getInputStream());
+	}
+	
+	public ObjectInputStream getInputStream() {
+		return inputStream;
+	}
+	
+	public ObjectOutputStream getOutputStream() {
+		return outputStream;
+	}
+	
+	public void close() throws IOException {
+		outputStream.close();
+		inputStream.close();
+		socket.close();
+	}
+	
+	public void connect() throws IOException {
+		socket.connect();
+	}
+}
+\end{lstlisting}
+Using such a class simple Java serializable objects can be flushed through the socket. The hierarchy of messages in figure \ref{img:messages} has been defined, each class represents a message in the previously defined protocol.
+
+\begin{figure}[!ht]
+\begin{center}
+\makebox[\linewidth]{\includegraphics[scale=0.5]{resources/messages.png}}
+\caption{Messages class hierarchy}
+\label{img:messages}
+\end{center}
+\end{figure}
+
+Using that extension of the Android \texttt{APIs} protocol messages can be easily sent using the following code:
+
+\begin{lstlisting}[language=Java, caption=Bluetooth sending of an HelloMessage]
+ObjectBluetoothSocket socket = new ObjectBluetoothSocket();
+//...
+BluetoothMessage msg = new HelloMessage("id", new Date());
+socket.getOutputStream().write(msg);
+
+\end{lstlisting}
+
+
 \section{\textbf{Back-end}}
 The back-end offers a set of \texttt{REST API} in order to authenticate the user, register a phone, upload images, audio and location. It organizes that data in a non relation database (\texttt{REDIS}) and allows to view it.\\
 
@@ -398,8 +474,6 @@ Uploaded location data is organized on a map created via Google Maps \texttt{API
 \label{img:slideshow}
 \end{center}
 \end{figure}
-
-
 
 \begin{thebibliography}{1}
 
