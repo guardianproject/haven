@@ -93,3 +93,17 @@
 \blockA{red}{17.0}{0}{$V_{12}$}{50}\blockA{blue}{17.5}{0}{$U_{12}$}{50}
 
 \end{tikzpicture}}
+
+\newcommand{\securityProtocol}{
+\begin{tikzpicture}
+\draw (0,0) node[above]{\footnotesize RICHIEDENTE ({$\color{red}key$})} -- (0, -5);
+\draw (6,0) node[above]{\footnotesize DELEGATO} -- (6, -5);
+\draw (12,0) node[above]{\footnotesize SERVER ({$\color{red}key$})} -- (12, -5);
+
+\draw[->,>=latex'] (0,-1) -- (6,-1)node[above,midway]{\footnotesize \texttt{HelloMessage}({$\color{blue}ID$})};
+\draw[<-,>=latex'] (0,-2) -- (6,-2)node[above,midway]{\footnotesize \texttt{KeyRequest}($lng,lat$)};
+\draw[->,>=latex'] (0,-3) -- (6,-3)node[above,midway]{\footnotesize \texttt{KeyResponse}($AES_{\color{red}key}(lng,lat)$)};
+\draw[->,>=latex'] (6,-4) -- (12,-4)node[above,midway]{\footnotesize \texttt{[POST] /api/phones/{$\color{blue}ID$}/position/delegated}};
+\draw[->,>=latex'] (6,-4) -- (12,-4)node[anchor=north,midway]{\footnotesize\{$AES_{\color{red}key}(lng,lat), lng,lat$\}};
+\draw (12,-5)node[anchor=north]{\footnotesize $AES^{-1}_{\color{red}key}(AES_{\color{red}key}(lng,lat)) =\!\!\!\!?\;\; (lng,lat)$};
+\end{tikzpicture}}
