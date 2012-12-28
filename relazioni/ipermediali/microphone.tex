@@ -12,20 +12,10 @@ Per permettere all'utente di comprendere le operazioni in corso nell'applicazion
 \begin{figure}[!ht]
 \begin{center}
 \makebox[\linewidth]{\includegraphics[scale=0.3]{../wireless/resources/microphone.png}}
-\caption{Microphone view to show sampled audio level}
+\caption{Visualizzazione dei campionamenti del suono}
 \label{img:microphone}
 \end{center}
 \end{figure}
-
-\section{\textbf{Alert communication}}
-If a user is logged in, different ways of alert communication have been implemented depending on the connectivity currently available:\\
-\begin{itemize}
-	\item \texttt{WIFI CONNECTIVITY}: a set of 10 captured images and 10 seconds of audio are sent
-	\item \texttt{3G CONNECTIVITY}: a subset of 5 captured images and 10 seconds of audio are sent
-	\item \texttt{BLUETOOTH CONNECTIVITY}: no images or audio are sent but bluetooth is used to opportunistically and periodically request other devices to send phone's position
-\end{itemize}
-
-In both cases of \texttt{WIFI} or \texttt{3G CONNECTIVITY} a periodic task is used to send phone's location to the back-end.
 
 \subsection{Campionamento}
 L'applicazione continua a campionare dal microfono un buffer di \texttt{512} valori in \texttt{PCM} a \texttt{16 BIT}.
@@ -37,7 +27,7 @@ I valori ottenuti rappresentano la digitalizzazione del rumore ambientale. Al fi
 \begin{figure}[!ht]
 \begin{center}
 \makebox[\linewidth]{\includegraphics[scale=0.5]{../wireless/resources/decibels.jpeg}}
-\caption{A decibel scale}
+\caption{Un esempio di scala di decibel}
 \label{img:decibels}
 \end{center}
 \end{figure}
@@ -54,7 +44,7 @@ Nella conversione dei valori \texttt{PCM} in valori in \texttt{dB} possiamo corr
 
 Dato un campione sotto forma di array di \texttt{512 short integers} (che chiamiamo \texttt{signal}) lo pseudo-codice seguente può essere utilizzato per calcolare l'intensità media in \texttt{dB}:
 
-\begin{lstlisting}[language=Java, caption=Pseudocode for computing dB from PCM samples]
+\begin{lstlisting}[language=Java, caption=Pseudo-codice per calcolare i valori in decibel da campionamento PCM]
 int total = 0
 int count = 0
 for (short peak : signal) {
