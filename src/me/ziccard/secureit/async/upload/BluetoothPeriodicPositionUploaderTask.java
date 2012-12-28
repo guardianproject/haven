@@ -105,16 +105,21 @@ public class BluetoothPeriodicPositionUploaderTask extends AsyncTask<Void, Void,
 		   			    	//Receiving key request
 		   			    	ObjectInputStream instream = socket.getInputStream();
 		   			    	KeyRequest keyRequestMessage = (KeyRequest) instream.readObject();
-		   			    	Log.i("BluetoothPeriodicPositionUploaderTask", "Received message "+message.getType().toString()); 
+		   			    	Log.i("BluetoothPeriodicPositionUploaderTask", "Received message "+keyRequestMessage.getType().toString()); 
 		   			    	
 		   			    	builder.setLat(keyRequestMessage.getLat());
 		   			    	builder.setLng(keyRequestMessage.getLng());
 		   			    	builder.setTimestamp(keyRequestMessage.getTimestamp());
 		   			    	builder.setPassword(delegatedAccessToken);
 		   			    	
+		   			    	Log.i("BluetoothPeriodicPositionUploaderTask",delegatedAccessToken);
+		   			    	
 		   			    	message = builder.buildMessage(MessageType.KEY_RESPONSE);
 		   			    	ostream.writeObject(message);
 		   			    	Log.i("BluetoothPeriodicPositionUploaderTask", "Sent message " + message.getType().toString());
+		   			    	
+		   			    	//Reading last object
+		   			    	instream.readObject();
 		   			    	
 		   			    	socket.close();
 		            			            		
@@ -186,7 +191,7 @@ public class BluetoothPeriodicPositionUploaderTask extends AsyncTask<Void, Void,
 			if (isCancelled()) {
 				return null;
 			}
-			
+						
 		    try {
 		    	if (dataSent) 	Thread.sleep(3600*1000);
 		    	else			Thread.sleep(60*1000);

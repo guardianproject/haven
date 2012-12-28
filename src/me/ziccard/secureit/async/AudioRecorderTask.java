@@ -1,4 +1,4 @@
-package me.ziccard.secureit.async.upload;
+package me.ziccard.secureit.async;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -76,6 +76,18 @@ public class AudioRecorderTask extends Thread {
 	
 	@Override
 	public void run() {
+		
+        MicrophoneTaskFactory.pauseSampling();
+        
+        while (MicrophoneTaskFactory.isSampling()) {
+        	try {
+				Thread.sleep(50);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
+		
 		recording = true;
 		final MediaRecorder recorder = new MediaRecorder();
 		
@@ -97,7 +109,7 @@ public class AudioRecorderTask extends Thread {
             e.printStackTrace();
             return;
         }
-
+        
         Log.i("AudioRecorderTask", "Start recording");
         recorder.start();
         try {
@@ -110,6 +122,8 @@ public class AudioRecorderTask extends Thread {
         Log.i("AudioRecorderTask", "Stopped recording");
         recorder.release();
         recording = false;
+        
+        MicrophoneTaskFactory.restartSampling();
         
         /*
          * Uploading the audio 

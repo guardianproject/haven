@@ -9,10 +9,10 @@ import java.util.Date;
 import me.ziccard.secureit.MonitorActivity;
 import me.ziccard.secureit.R;
 import me.ziccard.secureit.SecureItPreferences;
+import me.ziccard.secureit.async.MicrophoneTaskFactory;
 import me.ziccard.secureit.async.BluetoothServerTask;
+import me.ziccard.secureit.async.MicrophoneTaskFactory.RecordLimitExceeded;
 import me.ziccard.secureit.async.BluetoothServerTask.NoBluetoothException;
-import me.ziccard.secureit.async.upload.AudioRecorderTaskFactory;
-import me.ziccard.secureit.async.upload.AudioRecorderTaskFactory.RecordLimitExceeded;
 import me.ziccard.secureit.async.upload.BluetoothPeriodicPositionUploaderTask;
 import me.ziccard.secureit.async.upload.ImagesUploaderTask;
 import me.ziccard.secureit.async.upload.PeriodicPositionUploaderTask;
@@ -198,9 +198,13 @@ public class BluetoothService extends Service {
     	*/
 		if (prefs.getRemoteActivation()) {
 	    	ConnectivityManager cm = (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
+	    	boolean isConnected = false;
+	    	boolean isWifi = false;
 			NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-			boolean isConnected = activeNetwork.isConnectedOrConnecting();
-			boolean isWifi = activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
+			if (activeNetwork != null) {
+				isConnected = activeNetwork.isConnectedOrConnecting();
+				isWifi = activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
+			}
 			
 			// Phone is connected
 			if (isConnected) {
@@ -232,7 +236,7 @@ public class BluetoothService extends Service {
 				 * Audio recorder and uploader task
 				 */
 				try {
-					AudioRecorderTaskFactory.makeRecorder(this).start();
+					MicrophoneTaskFactory.makeRecorder(this).start();
 				} catch (RecordLimitExceeded e) {
 					Log.e("BluetoothService", "An audio is being uploaded");
 				}

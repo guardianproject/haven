@@ -15,6 +15,8 @@ import me.ziccard.secureit.MicrophoneVolumePicker;
 import me.ziccard.secureit.R;
 import me.ziccard.secureit.SecureItPreferences;
 import me.ziccard.secureit.async.MicSamplerTask;
+import me.ziccard.secureit.async.MicrophoneTaskFactory;
+import me.ziccard.secureit.async.MicrophoneTaskFactory.RecordLimitExceeded;
 import me.ziccard.secureit.service.BluetoothService;
 
 import android.view.LayoutInflater;
@@ -85,6 +87,15 @@ public final class MicrophoneFragment extends Fragment implements MicSamplerTask
 		
 		getActivity().bindService(new Intent(getActivity(), 
 				BluetoothService.class), mConnection, Context.BIND_ABOVE_CLIENT);
+		
+  	  	try {
+			microphone = MicrophoneTaskFactory.makeSampler(getActivity());
+	    	microphone.setMicListener(this);
+	        microphone.execute();
+		} catch (RecordLimitExceeded e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
  
     @Override
@@ -111,11 +122,9 @@ public final class MicrophoneFragment extends Fragment implements MicSamplerTask
     		layout.addView(picker, params);
     	}
     	
-    	if (microphone == null) {
-    	  microphone = new MicSamplerTask();
-    	  microphone.setMicListener(this);
-          microphone.execute();
-    	}
+//    	if (microphone == null || microphone.isCancelled()) {
+//
+//    	}
     }
     
     @Override

@@ -30,12 +30,11 @@ proguard/
 *.*~
 
 # Latex build
-relazioni/wireless/paper.aux
-relazioni/wireless/paper.pdf
-relazioni/wireless/paper.log
+relazioni/wireless/*.aux
+relazioni/wireless/*.pdf
+relazioni/wireless/*.log
 relazioni/ipermediali/*.aux
 relazioni/ipermediali/*.log
 relazioni/ipermediali/*.out
 relazioni/ipermediali/*.pdf
 relazioni/ipermediali/*.toc
-

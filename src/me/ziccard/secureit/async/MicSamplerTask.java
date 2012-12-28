@@ -1,5 +1,7 @@
 package me.ziccard.secureit.async;
 
+import java.io.IOException;
+
 import me.ziccard.secureit.codec.AudioCodec;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -8,6 +10,8 @@ public class MicSamplerTask extends AsyncTask<Void,Object,Void> {
 	
 	private MicListener listener = null;
 	private AudioCodec volumeMeter = new AudioCodec();
+	private boolean sampling = true;
+	private boolean paused = false;
 	
 	public static interface MicListener {
 		public void onSignalReceived(short[] signal);
@@ -48,8 +52,49 @@ public class MicSamplerTask extends AsyncTask<Void,Object,Void> {
 				//Nothing to do we exit next line 
 				
 			}
-			if (isCancelled()) { volumeMeter.stop(); return null; }
+			boolean restartVolumeMeter = false;
+			if (paused) {
+				restartVolumeMeter = true;
+				volumeMeter.stop();
+				sampling = false;
+			}
+			while (paused) {
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if (restartVolumeMeter) {
+				try {
+					Log.i("MicSamplerTask", "Task restarted");
+					volumeMeter = new AudioCodec();
+					volumeMeter.start();
+					sampling = true;
+				} catch (IllegalStateException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if (isCancelled()) { volumeMeter.stop(); sampling = false; return null; }
 		}	
+	}
+	
+	public boolean isSampling() {
+		return sampling;
+	}
+	
+	public void restart() {
+		paused = false;
+		sampling = true;
+	}
+	
+	public void pause() {
+		paused = true;		
 	}
 	
 	@Override

@@ -43,7 +43,7 @@
 
 \begin{document}
 
-\title{SecureIt: homeland security\\
+\title{SecureIt: home security\\
 via Android application}
 
 \author{
@@ -279,12 +279,16 @@ In order to identify what kind of connectivity is available on the device the An
 \begin{lstlisting}[language=Java, caption=Java code to define connectivity type]
 ConnectivityManager cm = (ConnectivityManager)
 	getSystemService(Context.CONNECTIVITY_SERVICE);
+boolean isConnected = false;
+boolean isWifi = false;
 NetworkInfo activeNetwork = 
 	cm.getActiveNetworkInfo();
-boolean isConnected = 
-	activeNetwork.isConnectedOrConnecting();
-boolean isWifi = 
-	activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
+if (activeNetwork != null) {
+	isConnected = 
+		activeNetwork.isConnectedOrConnecting();
+	isWifi = 
+		activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
+}
 \end{lstlisting}
 
 \subsection{\textbf{Authentication}}

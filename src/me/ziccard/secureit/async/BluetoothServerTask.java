@@ -125,12 +125,14 @@ public class BluetoothServerTask extends Thread {
    			    	builder.setTimestamp(new Date());
    			    	
    			    	KeyRequest keyRequest = (KeyRequest) builder.buildMessage(MessageType.KEY_REQUEST);
-   			    	ostream.writeObject(message);
+   			    	ostream.writeObject(keyRequest);
    			    	Log.i("BluetoothServerTask", "Sent message " + keyRequest.getType().toString());
    			    	   			    	
    			    	//Receiving key response
    			    	KeyResponse keyResponse = (KeyResponse) instream.readObject();
    			    	Log.i("BluetoothServerTask", "Received message "+keyResponse.getType().toString());
+   			    	
+   			    	ostream.writeObject(new String("STOP"));
    			    	
    			    	new DelegatedPositionUploaderTask(
    			    			message.getPhoneId(), 

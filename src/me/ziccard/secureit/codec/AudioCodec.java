@@ -5,6 +5,7 @@ import java.util.Arrays;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
+import android.util.Log;
 
 public class AudioCodec {
 	
@@ -45,15 +46,16 @@ public class AudioCodec {
     	}
     	return null;
     }
-    
-    
+      
     
     public void stop() {
         if (recorder != null
             && recorder.getState() != AudioRecord.STATE_UNINITIALIZED) {
         	recorder.stop();
         	recorder.release();
+        	Log.i("AudioCodec", "Sampling stopped");
         }
+        Log.i("AudioCodec", "Recorder set to null");
         recorder = null;
     }
 }

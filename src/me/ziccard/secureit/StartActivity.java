@@ -2,12 +2,12 @@ package me.ziccard.secureit;
 
 import java.io.File;
 
+import me.ziccard.secureit.async.AudioRecorderTask;
+import me.ziccard.secureit.async.MicrophoneTaskFactory;
 import me.ziccard.secureit.async.BluetoothServerTask;
+import me.ziccard.secureit.async.MicrophoneTaskFactory.RecordLimitExceeded;
 import me.ziccard.secureit.async.BluetoothServerTask.NoBluetoothException;
-import me.ziccard.secureit.async.upload.AudioRecorderTask;
-import me.ziccard.secureit.async.upload.AudioRecorderTaskFactory;
 import me.ziccard.secureit.async.upload.AuthenticatorTask;
-import me.ziccard.secureit.async.upload.AudioRecorderTaskFactory.RecordLimitExceeded;
 import android.os.Bundle;
 import android.os.Environment;
 import android.app.Activity;
