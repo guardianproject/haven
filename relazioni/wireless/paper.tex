@@ -58,14 +58,14 @@ Email: \{lohathe,marco.ziccard\}@gmail.com}
 
 
 \begin{abstract}
-Nowadays different applications offer a mechanism to monitor your home environment in order to detect any intrusion. None of that solutions completely exploits phone functionalities to find intruders: accelerometer, camera or microphone are often mutually exclusive. Moreover none of these applications tracks phone's position after an intrusion has been identified. The proposed application aims to collect different solution for motion/presence detection and to track phone's position using any kind of connectivity.
+Nowadays different applications offer a mechanism to monitor your home in order to detect any intrusion. Nevertheless none of these solutions completely exploits phone functionalities to find intruders: accelerometer, camera or microphone are often mutually exclusive. Moreover none of these applications tracks phone's position after an intrusion has been identified. The proposed application aims to collect different solution for motion/presence detection and to track phone's position using any kind of connectivity.
 \end{abstract}
 
 \IEEEpeerreviewmaketitle
 
 \section{\textbf{Introduction}}
 
-The aim of the application development was not only the creation of a home security system but the discovery of phone capabilities too. In fact operations performed by the application are complex and really resource needful:
+The aim of the application development was not only the creation of a home security system but also the discovery of phone capabilities. In fact operations performed by the application are complex and really resource needful:
 \begin{itemize}
 	\item Accelerometer to detect orientation and shake
 	\item Camera to detect motion processing frames
@@ -76,9 +76,9 @@ The aim of the application development was not only the creation of a home secur
 	\item In app encryption in order to securely authenticate the user
 \end{itemize}
 
-To the mobile application is associated a back-end where the application itself uploads images and audio got at the instant of intrusion detection.\\
+To the mobile application is associated a back-end where the application itself uploads images and audio got at the instant of the intrusion detection.\\
 
-In order to allow the end user to select the type of monitoring and the type of alerting according to his security needs, CPU and power consumption constraints a configuration panel (shown in figure ref{img:config}) is presented at each start of the application.\\
+In order to allow the end user to select the type of monitoring and the type of alerting according to his needs about security, CPU and power consumption, a configuration panel (shown in figure ref{img:config}) is presented at each start of the application.\\
 
 \begin{figure}[!ht]
 \begin{center}
@@ -98,7 +98,7 @@ In order to allow the end user to select the type of monitoring and the type of 
 \end{enumerate}
 
 \section{\textbf{Intrusion detection}}
-Intrusion detection is done in three complementary ways:
+Intrusion detection is performed through three complementary ways:
 \begin{itemize}
 	\item \textbf{Accelerometer}
 	\item \textbf{Camera}
@@ -128,7 +128,7 @@ Those acceleration values are used to move a 3D animation made in OpenGL ES (run
 \end{figure}
 
 
-Acceleration triple is also used to detect any variation in the phone acceleration. Accelaration variation gives an idea of intensity of phone's \textit{shake} and it is computed as in equation \ref{eq:accel_variation}.\\
+Acceleration triple is also used to detect any variation in the phone acceleration. Acceleration variation gives an idea of intensity of phone's \textit{shake} and it is computed as in equation \ref{eq:accel_variation}.\\
 
 \begin{equation}
 variation = \frac{(\Delta accelX)+(\Delta accelY)+(\Delta accelZ)}{\Delta t}
@@ -145,12 +145,12 @@ Three levels of sensitivity are defined:
 If $variation>SHAKE\_THRESHOLD$ the application starts to send alerts according to the specified options.
 
 \subsection{\textbf{Camera}}
-The camera is used to detect motion in the surrounding environment. The frames captured by the camera are processed to detect if any variation ha occurred since last captured frame.\\
-A callback is activated at every captured frame, processing each captured frame would be too expensive for the phone in terms of CPU usage and battery consumption so the processing is reduced at one frame per second.\\
+The camera is used to detect motion in the surrounding environment. The frames captured by the camera are processed to detect if any variation has occurred since the previous captured frame.\\
+A callback is activated at every captured frame; processing each captured frame would be too expensive for the phone in terms of CPU usage and battery consumption, processing is therefore reduced at one frame per second.\\
 \subsubsection{\textbf{Motion detection}}
 As said motion detection on the frame matrix is very expensive so the frames are scaled as soon as capture to a size of \texttt{640x480}. In order to detect any variation between two frames only the gray-scale image is needed.\\
 A movement is considered to be a difference in number of pixels between two gray-scale frames bigger than a certain threshold.\\
-In that case too we have three types of sensitivity, the sensitivity type defines not only the threshold in the number of different pixels (\texttt{NUMBER\_THRESHOLD}) but the threshold needed to consider different two pixels (\texttt{VALUE\_THRESHOLD}):\\
+Also in that case we have three types of sensitivity, the sensitivity type defines not only the threshold in the number of different pixels (\texttt{NUMBER\_THRESHOLD}) but also the threshold needed to consider different two pixels (\texttt{VALUE\_THRESHOLD}):\\
 
 \begin{itemize}
 	\item \texttt{LOW}:
@@ -192,7 +192,7 @@ end
 The detection identifies the list of mutated pixels according to the sensitivity specified.\\
 
 \subsubsection{\textbf{Data representation}}
-In order to make the user understand what the application is doing a view is presented showing the surface currently being captured by the camera, the last frame considered by motion detection and the current considered frame, pixel identified as changed are marked in red in the current frame. This view is shown in figure \ref{img:camera}.\\
+In order to make the user understand what the application is doing a view is presented showing: the surface currently being captured by the camera, the last frame considered by motion detection and the current considered frame; pixel identified as changed are marked in red in the current frame. This view is shown in figure \ref{img:camera}.\\
 
 \begin{figure}[!ht]
 \begin{center}
@@ -229,7 +229,7 @@ Referring to a measure of amplitude we can express the ratio of the squares betw
 dB_i = 20log_{10} \left(\frac{V_i}{V_o}\right)
 \end{equation}
 
-To convert \texttt{PCM} values to \texttt{dB} we can suppose that each sampled value is different from \texttt{0} if the microphones samples something audible, so as a reference value to compute noise intensity from \texttt{PCM} the integer \texttt{1}, can be used.\\
+To convert \texttt{PCM} values to \texttt{dB} we can suppose that each sampled value is different from \texttt{0} if the microphone samples something audible, so as a reference value to compute noise intensity from \texttt{PCM} the integer \texttt{1}, can be used.\\
 
 Given the sample as an array (called \texttt{signal}) of \texttt{512 short integers} the following pseudo-code can be used to compute average \texttt{dB} intensity:
 
@@ -253,7 +253,7 @@ if (average!=0) {
 
 \subsubsection{\textbf{Data representation}}
 
-To make the end user understand what the application is doing a view shows the decibels sampled by the microphones. The values are represented using a two channel volume indicator (in case of stereo microphones owned by some devices). Two levels are highlighted in the indicator: the first one is the threshold over which an alert is fired while the second one is an arbitrary noise threshold.
+To make the end user aware of the ongoing process a view shows the decibels sampled by the microphones. The values are represented using a two channel volume indicator (in case of stereo microphones owned by some devices). Two levels are highlighted in the indicator: the first one is the threshold over which an alert is fired while the second one is an arbitrary noise threshold.
 
 \begin{figure}[!ht]
 \begin{center}
@@ -264,7 +264,7 @@ To make the end user understand what the application is doing a view shows the d
 \end{figure}
 
 \section{\textbf{Alert communication}}
-If a user is logged in different ways of alert communication have been implemented depending on the connectivity currently available:\\
+If a user is logged in, different ways of alert communication have been implemented depending on the connectivity currently available:\\
 \begin{itemize}
 	\item \texttt{WIFI CONNECTIVITY}: a set of 10 captured images and 10 seconds of audio are sent
 	\item \texttt{3G CONNECTIVITY}: a subset of 5 captured images and 10 seconds of audio are sent
@@ -274,7 +274,7 @@ If a user is logged in different ways of alert communication have been implement
 In both cases of \texttt{WIFI} or \texttt{3G CONNECTIVITY} a periodic task is used to send phone's location to the back-end.
 
 \subsection{\textbf{Connectivity identification}}
-In order to identify what kind of connectivity is available on the device the Android \texttt{APIs} are used. Those \texttt{APIs} allow to define whether the phone is connected or connecting. Confirmed that the phone is connected the kind of connectivity is inspected via the following code:
+In order to identify what kind of connectivity is available on the device the Android \texttt{APIs} are used. Those \texttt{APIs} allow to define whether the phone is connected or connecting. Confirmed that the phone is connected, the kind of connectivity is inspected via the following code:
 
 \begin{lstlisting}[language=Java, caption=Java code to define connectivity type]
 ConnectivityManager cm = (ConnectivityManager)
@@ -344,7 +344,7 @@ When on any device running the application an intrusion is detected and no conne
 \begin{enumerate}
 	\item A bluetooth discovery is started
 	\item A listener is registered to the process of discovery and each new device identified is stored
-	\item As soon as discovery finishes the application tries to create a connection for each device, if it fails the device is discarded else a messaging workflow is started:
+	\item As soon as discovery finishes the application tries to create a connection for each device, if it fails the device is discarded, otherwise a messaging workflow is started:
 		\begin{enumerate}
 
 			%Hello message
@@ -378,7 +378,7 @@ When on any device running the application an intrusion is detected and no conne
 			%Authorization
 			\item The back-end is able to decrypt \texttt{authorization\_key} using \texttt{delegated\_access\_token} of the requesting phone (\texttt{phoneId}) and verify that the owner has authorized the upload of latitude and longitude
 		\end{enumerate}
-	\item If location is sent correctly 1 hour is waited before next retransmission, else only 1 minute is waited
+	\item If location is sent correctly 1 hour is waited before next retransmission, otherwise only 1 minute is waited
 \end{enumerate}
 
 \subsection{\textbf{Android APIs improvement}}

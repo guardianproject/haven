@@ -7,6 +7,26 @@ Il microfono viene utilizzato per identificare un'eccessiva soglia di rumore nel
 	\item \texttt{HIGH}:  \texttt{NOISE\_THRESHOLD = 30}
 \end{itemize}
 
+Per permettere all'utente di comprendere le operazioni in corso nell'applicazione viene mostrata una vista che contiene in valori in decibel campionati dal microfono. I valori sono rappresentati utilizzando un indicatore a doppio canale (in caso di dispositivi che supportano acquisizione stereo). Due livelli sono messi in risalto dall'indicatore, il primo è il valore di threashold oltre al quale viene segnalata un'intrusione mentre il secondo è una soglia arbitraria di rumore.
+
+\begin{figure}[!ht]
+\begin{center}
+\makebox[\linewidth]{\includegraphics[scale=0.3]{../wireless/resources/microphone.png}}
+\caption{Microphone view to show sampled audio level}
+\label{img:microphone}
+\end{center}
+\end{figure}
+
+\section{\textbf{Alert communication}}
+If a user is logged in, different ways of alert communication have been implemented depending on the connectivity currently available:\\
+\begin{itemize}
+	\item \texttt{WIFI CONNECTIVITY}: a set of 10 captured images and 10 seconds of audio are sent
+	\item \texttt{3G CONNECTIVITY}: a subset of 5 captured images and 10 seconds of audio are sent
+	\item \texttt{BLUETOOTH CONNECTIVITY}: no images or audio are sent but bluetooth is used to opportunistically and periodically request other devices to send phone's position
+\end{itemize}
+
+In both cases of \texttt{WIFI} or \texttt{3G CONNECTIVITY} a periodic task is used to send phone's location to the back-end.
+
 \subsection{Campionamento}
 L'applicazione continua a campionare dal microfono un buffer di \texttt{512} valori in \texttt{PCM} a \texttt{16 BIT}.
 Le \texttt{API} di Android permettono inoltre di campionare con \texttt{PCM 8 BIT}, al fine di ottenere una maggiore qualità del suono acquisito e considerando che tali valori non vanno salvati su disco su è adottata \texttt{PCM 16 BIT}.\\
