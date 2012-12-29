@@ -140,9 +140,9 @@ L'utilizzo di una \texttt{Bitmap} a tre canali ha avuto comuque il vantaggio di 
 I formati disponibili per la \texttt{Bitmap} sono:
 \begin{itemize}
   \item ALPHA8: immagine che memorizza il solo canale di trasparenza
-  \item ARGB4444: immagine che per ogni pixel utilizza 2 byte per memorizzare un pixel, in cui l'informazione viene ripartita equamente tra le quattro componenti (ossia si hanno 4 bit o 16 valori per ogni componente)
+  \item ARGB4444: immagine che per utilizza 2 byte per memorizzare un pixel, in cui l'informazione viene ripartita equamente tra le quattro componenti (ossia si hanno 4 bit o 16 valori per ogni componente)
   \item ARGB8888: immagine che per ognuna delle quattro componenti utilizza un byte
-  \item RGB565: immagine che memorizza solo le componenti colore ma non la componente di trasparenza ed utilizza tue byte per ogni pixel. L'informazione viene memorizzata non equamente in quanto vengono assegnati 5 bit per i canali rosso e blu e 6 bit per il canale verde
+  \item RGB565: immagine che memorizza solo le componenti colore ma non la componente di trasparenza ed utilizza due byte per ogni pixel. L'informazione viene memorizzata non equamente in quanto vengono assegnati 5 bit per i canali rosso e blu e 6 bit per il canale verde
 \end{itemize}
 Si è deciso di utilizzare il formato RGB565 in quanto:
 \begin{enumerate}
