@@ -3,11 +3,11 @@ Il microfono viene utilizzato per identificare un'eccessiva soglia di rumore nel
 
 \begin{itemize}
 	\item \texttt{LOW}: \texttt{NOISE\_THRESHOLD = 60}
-	\item \texttt{MEDUM}:  \texttt{NOISE\_THRESHOLD = 50}
+	\item \texttt{MEDIUM}:  \texttt{NOISE\_THRESHOLD = 50}
 	\item \texttt{HIGH}:  \texttt{NOISE\_THRESHOLD = 30}
 \end{itemize}
 
-Per permettere all'utente di comprendere le operazioni in corso nell'applicazione viene mostrata una vista che contiene in valori in decibel campionati dal microfono. I valori sono rappresentati utilizzando un indicatore a doppio canale (in caso di dispositivi che supportano acquisizione stereo). Due livelli sono messi in risalto dall'indicatore, il primo è il valore di threashold oltre al quale viene segnalata un'intrusione mentre il secondo è una soglia arbitraria di rumore.
+Per permettere all'utente di comprendere le operazioni in corso nell'applicazione viene mostrata una vista che contiene in valori in decibel campionati dal microfono. I valori sono rappresentati utilizzando un indicatore a doppio canale (in caso di dispositivi che supportano acquisizione stereo). Due livelli sono messi in risalto dall'indicatore, il primo è il valore di threshold oltre al quale viene segnalata un'intrusione mentre il secondo è una soglia arbitraria di rumore.
 
 \begin{figure}[!ht]
 \begin{center}
@@ -32,7 +32,7 @@ I valori ottenuti rappresentano la digitalizzazione del rumore ambientale. Al fi
 \end{center}
 \end{figure}
 
-Al fine quindi di sfruttare le informazioni contenute in queste tabelle e la maggior comprensibilità di valori in decibels i valori in \texttt{PCM 16 BIT} sono convertiti per ottere valori in \texttt{dB}.\\
+Al fine quindi di sfruttare le informazioni contenute in queste tabelle e la maggior comprensibilità di valori in decibels i valori in \texttt{PCM 16 BIT} sono convertiti per ottenere valori in \texttt{dB}.\\
 
 Facendo riferimento ad una misura di ampiezza possiamo definire in decibel un valore $V_i$ rispetto ad un valore di riferimento $V_o$ come 20 volte il logaritmo in base dieci del rapporto quadratico, ovvero:
 
@@ -40,7 +40,7 @@ Facendo riferimento ad una misura di ampiezza possiamo definire in decibel un va
 dB_i = 20log_{10} \left(\frac{V_i}{V_o}\right)
 \end{equation}
 
-Nella conversione dei valori \texttt{PCM} in valori in \texttt{dB} possiamo correttamente assumere che qualsiasi valore campionato dal microfono (valore \texttt{PCM} $\neq 0$) rappresente qualcosa di udibile. Con questa assunzione possiamo utilizzare il valore \texttt{1} come soglia di riferimento per il calcolo dei decibel.\\
+Nella conversione dei valori \texttt{PCM} in valori in \texttt{dB} possiamo correttamente assumere che qualsiasi valore campionato dal microfono (valore \texttt{PCM} $\neq 0$) rappresenti qualcosa di udibile. Con questa assunzione possiamo utilizzare il valore \texttt{1} come soglia di riferimento per il calcolo dei decibel.\\
 
 Dato un campione sotto forma di array di \texttt{512 short integers} (che chiamiamo \texttt{signal}) lo pseudo-codice seguente può essere utilizzato per calcolare l'intensità media in \texttt{dB}:
 
@@ -67,17 +67,17 @@ Il codice appena presentato calcola il valore medio dei moduli dei valori dei si
 \subsection{Registrazione}
 Qualora fosse identificata un'intrusione viene avviato un \texttt{thread} che inizia l'acquisizione di 10 secondi di audio che saranno poi caricati sul server.\\
 
-L'aquisizione avviene in formato \texttt{MPEG-4}.\\
+L'acquisizione avviene in formato \texttt{MPEG-4}.\\
 
 \texttt{MPEG-4 - part 3} è la sezione dello standard che si occupa di audio e rappresenta un insieme di algoritmi di compressione tra cui \texttt{AAC} ed alcune sue variazioni.\\
 
-\texttt{AAC} è uno schema di \textit{encoding} audio standardizzato definito per essere il successore di \texttt{MP3} (in effetti in generale raggiunge migliori qualità audio a parità di bit rate\footnote{Brandenburg, Karlheinz (1999). "MP3 and AAC Explained"}). \texttt{ACC} viene supportato nativamente dai dispositivi Android ed è per questo stato scelto schema di \textit{encoding}.\\
+\texttt{AAC} è uno schema di \textit{encoding} audio standardizzato definito per essere il successore di \texttt{MP3} (in effetti in generale raggiunge migliori qualità audio a parità di bit rate\footnote{Brandenburg, Karlheinz (1999). "MP3 and AAC Explained"}). \texttt{AAC} viene supportato nativamente dai dispositivi Android ed è per questo stato scelto schema di \textit{encoding}.\\
 
 \fcolorbox{red!50!yellow}{red!20!yellow!50}{\parbox{\textwidth}{
   \vskip10pt
   \leftskip10pt\rightskip10pt
   \textbf{Note: Android audio encoding}\\
-Il formato di encoding \texttt{MP3} non è reso disponibile per l'acquisizione da Android. Le ragioni sembrerebbero essere problematiche relative alla licenza. Negli anni infatti si sono susseguite diverse rivendicazioni di diritti sulle licenze necessarie per la produzione di audio in formato \texttt{MP3} risultando in molta confusione su cosa si possa o non si possa fare con il formato \texttt{M3}.\\
+Il formato di encoding \texttt{MP3} non è reso disponibile per l'acquisizione da Android. Le ragioni sembrerebbero essere problematiche relative alla licenza. Negli anni infatti si sono susseguite diverse rivendicazioni di diritti sulle licenze necessarie per la produzione di audio in formato \texttt{MP3} risultando in molta confusione su cosa si possa o non si possa fare con il formato \texttt{MP3}.\\
 
 \texttt{AAC} invece non necessita di licenze per la riproduzione e la distribuzione di contenuti nel proprio formato.\\
 
@@ -90,7 +90,7 @@ Nonostante l'esistenza di alternative non licenziate come \texttt{Vorbis} queste
 \texttt{AAC} opera secondo le seguenti fasi:
 
 \begin{enumerate}
-	\item Il segnale è convertito dal dominio del tempo al dominio della frequenza usando la trasformata coseno discreta modficata (\texttt{MDCT}). Questo viene fatto applicando banchi di filtri che prendono un numero appropriato di campioni nel tempo e li convertono a campioni di frequenza
+	\item Il segnale è convertito dal dominio del tempo al dominio della frequenza usando la trasformata coseno discreta modificata (\texttt{MDCT}). Questo viene fatto applicando banchi di filtri che prendono un numero appropriato di campioni nel tempo e li convertono a campioni di frequenza
 	\item Il segnale nel dominio della frequenza viene quantizzato secondo il modello psicoacustico e codificato
 	\item Sono applicati codici di correzione errori
 	\item Il segnale viene salvato
@@ -100,8 +100,8 @@ L'audio registrato e compresso utilizzando \texttt{AAC} viene poi trasmesso al b
 
 \subsection{Riproduzione}
 Come detto l'audio catturato viene inviato all'applicazione web che deve provvedere alla riproduzione.\\
-Per ragioni della semplicità implementativa la ripoduzione dell'audio viene effettuata sfruttando il tag \texttt{HTML5 <audio></audio>}.\\
-I \texttt{MIMET Type} ammessi dal tag \texttt{<audio></audio>} e relativi formati sono i seguenti:
+Per ragioni della semplicità implementativa la riproduzione dell'audio viene effettuata sfruttando il tag \texttt{HTML5 <audio></audio>}.\\
+I \texttt{MIME Type} ammessi dal tag \texttt{<audio></audio>} e relativi formati sono i seguenti:
 
 \begin{itemize}
 	\item \texttt{audio/mpeg}: formato \texttt{MP3}
@@ -110,7 +110,7 @@ I \texttt{MIMET Type} ammessi dal tag \texttt{<audio></audio>} e relativi format
 	\item \texttt{audio/wav}: formato \texttt{WAV}
 \end{itemize}
 
-La codifica con cui l'audio viene catturato è \texttt{AAC}, tuttavia nonstante questa sia ammessa non è supportata da tutti i browser:
+La codifica con cui l'audio viene catturato è \texttt{AAC}, tuttavia nonostante questa sia ammessa non è supportata da tutti i browser:
 
 \begin{center}
 \begin{tabular}{ l c r }
@@ -129,7 +129,7 @@ Opera & 10.0+ & Ogg Vorbis, WAV \\
 \end{tabular}
 \end{center}
 
-Come abbiamo visto non era possibile salvare diversamente l'audio e comunque non ci sono formati supportati da tutti i browser. Al fine di garantire una totale copertura si è deciso di scegliere le due codifice \texttt{AAC} e \texttt{Ogg Vorbis}.\\
+Come abbiamo visto non era possibile salvare diversamente l'audio e comunque non ci sono formati supportati da tutti i browser. Al fine di garantire una totale copertura si è deciso di scegliere le due codifiche \texttt{AAC} e \texttt{Ogg Vorbis}.\\
 
 La conversione direttamente su dispositivo da \texttt{AAC} a \texttt{Ogg Vorbis} è stata immediatamente esclusa:
 \begin{itemize}
