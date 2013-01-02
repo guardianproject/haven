@@ -1,4 +1,4 @@
-\documentclass[conference]{IEEEtran}
+\documentclass[conference, 11pt]{IEEEtran}
 \usepackage{graphicx}
 \usepackage[utf8x]{inputenc}
 \usepackage{longtable}
@@ -64,8 +64,14 @@ Nowadays different applications offer a mechanism to monitor your home in order 
 \IEEEpeerreviewmaketitle
 
 \section{\textbf{Introduction}}
+Traditional surveillance systems rely on ad hoc and proprietary solutions and have weaknesses like poor mobility, high costs and low flexibility. Current smartphones spread makes possible to exploit these devices to protect our homes.\\
 
-The aim of the application development was not only the creation of a home security system but also the discovery of phone capabilities. In fact operations performed by the application are complex and really resource needful:
+The developed application exploits phone's hardware in order to offer a traditional survellance system services.\\
+
+The aim of the application development was not only the creation of a home security system but also the discovery of phone capabilities. 
+
+\section{\textbf{Application overview}}
+Operations performed by the application are complex and really resource needful:
 \begin{itemize}
 	\item Accelerometer to detect orientation and shake
 	\item Camera to detect motion processing frames
@@ -328,7 +334,7 @@ As said when only bluetooth is active the phone asks other devices to upload his
 \end{itemize}
 
 \subsection{\textbf{No pairing}}
-Android offers two ways for creating a bluetooth server socket: \texttt{listenUsingRfcommWithServiceRecord} e \texttt{listenUsingInsecureRfcommWithServiceRecord}. The first method creates a server socket listening for incoming connections created via \texttt{createInsecureRfcommSocketToServiceRecord} and needs an explicit pairing of two devices with user acceptance. The second method instead allows to manage incoming connection created with \texttt{} that do not require pairing with user acceptance.\\
+Android offers two ways for creating a bluetooth server socket: \texttt{listen\allowbreak Using\allowbreak Rfcomm\allowbreak WithServiceRecord} e \texttt{listen\allowbreak Using\allowbreak Insecure\allowbreak RfcommWithServiceRecord}. The first method creates a server socket listening for incoming connections created via \texttt{create\allowbreak Insecure\allowbreak Rfcomm\allowbreak SocketToServiceRecord} and needs an explicit pairing of two devices with user acceptance. The second method instead allows to manage incoming connection created with \texttt{} that do not require pairing with user acceptance.\\
 
 \subsection{\textbf{Delegated authorization}}
 In the authentication phase a \texttt{delegated\allowbreak\_access\allowbreak\_token} is retrieved in order to not use the same token for both direct and delegated authentication. However such a token should not be shared with other devices and in order to do so a little protocol has been developed.\\
@@ -479,10 +485,34 @@ Uploaded location data is organized on a map created via Google Maps \texttt{API
 \end{center}
 \end{figure}
 
+\section{\textbf{Related work}}
+Different existing applications try to mimic a surveillance system but none of them exploits all available sensors on the phone. Moreover no phone tracking application offers a way different from direct internet connectivity to send phone's position (no opportonistic communication).\\
+
+\begin{itemize}
+	\item \textbf{Motion Detector Pro}: motion detection only app
+	\item \textbf{Sound Detector}: sound detection only app. Can take pictures if the alarm is triggered
+	\item \textbf{Surveillance}: motion and sound detection. Missing accelerometer motion detection, position tracking, SMS alerting and opportunistic communication
+	\item \textbf{Wheres My Droid}: phone tracking app. Beta support for camera shots. Missing intrusion detection and opportunistic communication
+
+\end{itemize}
+
 \begin{thebibliography}{1}
 
 \bibitem{}
-B. Clifford Neuman and Theodore Ts'o (September 1994) Kerberos: An Authentication Service for Computer Networks.  IEEE Communications 32. \\
+B. Clifford Neuman and Theodore Ts'o (September 1994) Kerberos: An Authentication Service for Computer Networks. IEEE Communications 32. \\
+\bibitem{}
+S. Chita, N. Peterson, B.A. Shirazi, M. Bhadkamkar (March 2011) Home automation and security for mobile devices. PERCOM 2011. \\
+\bibitem{}
+I. Estevez-Ayres et al. (January 2011) Using android smartphones in a service-oriented video surveillance system. ICEE 2011. \\
+\bibitem{}
+Heming Pang et al. (June 2010) Research of android smart phone surveillance system. ICCDA 2010. \\
+\bibitem{}
+M. Mitchell (January 2011) BEAT: Bio-Environmental Android Tracking. RWS 2011. \\
+\bibitem{}
+G. Bianchi, P. Loreti, A. Trkulja (June 2012) Let me grab your App: Preliminary proof-of-concept design of opportunistic content augmentation. ICC 2012. \\
+\bibitem{}
+T. Hossmann, D. Schatzmann, P. Carta, F. Legendre (2012) Twitter in disaster mode: smart probing for opportunistic peers. MobiOpp 2012.\\
+
 
 \end{thebibliography}
 
