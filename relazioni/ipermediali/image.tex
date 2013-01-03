@@ -36,12 +36,6 @@ L'utente può quindi specificare la sensibilità per il rilevamento del moviment
   \item \texttt{MEDIUM}: una sensibilità media. Permette una variazione di luminosità del 20\% per pixel (ossia la differenza tra due pixel deve essere compresa all'intervallo $[0,50]$) e determina il movimento qualora il 3.2\% dell'immagine sia cambiata (ossia qualora vengano determinati più di $10000$ pixel differenti).
   \item \texttt{HIGH}: una sensibilità alta. Permette una variazione di luminosità del 16\% per pixel (ossia la differenza tra due pixel deve essere compresa all'intervallo $[0,40]$) e determina il movimento qualora il 2.9\% dell'immagine sia cambiata (ossia qualora vengano determinati più di $9000$ pixel differenti).
 \end{itemize}
-Questi parametri sono stati impostati dopo prove sperimentali: \textbf{SPUDORATAMENTE INVENTATO. SECONDO ME CI STA BENE. FORSE BISOGNA RICALIBRARE I PARAMETRI (magari in relazione all'effettiva risoluzione di acquisizione delle immagini per rendere le proporzioni percentuali fissate)}
-\begin{itemize}
-  \item Sensibilità bassa permette il riconoscimento del movimento causato dall'entrata nello spazio di osservazione della fotocamera di di una figura umana ad almeno 6 metri dal dispositivo e permette di non identificare il movimento di animali domestici di taglia medio-piccola (un cane di appartamento, un gatto)
-  \item Sensibilità media permette il riconoscimento del movimento causato dall'entrata nello spazio di osservazione di almeno la metà di una figura umana e permette di non identificare il movimento di animali domestici di taglia piccola (uccelli, criceti)
-  \item Sensibilità alta permette il riconoscimento del movimento causato dall'entrata nello spazio di osservazione di un braccio ad almeno 3 metri dal dispositivo
-\end{itemize}
 
 \subsection{Stoccaggio immagini}
 Qualora l'algoritmo di \textit{motion detection} ritenga di aver rilevato del movimento viene attivato il meccanismo incaricato di notificare l'avvenimento. Tale notifica varia a seconda delle impostazioni scelte dall'utente e dall'ambiente in cui si trova il dispositivo. Qualora l'opzione di notificare il server sia stata abilitata e l'ambiente lo permetta (sia presente una rete WiFi o vi sia collegamento 3G) le immagini catturate vengono spedite al server in attesa di essere consultate dall'utente.\\
@@ -140,7 +134,7 @@ L'utilizzo di una \texttt{Bitmap} a tre canali ha avuto comunque il vantaggio di
 I formati disponibili per la \texttt{Bitmap} sono:
 \begin{itemize}
   \item ALPHA8: immagine che memorizza il solo canale di trasparenza
-  \item ARGB4444: immagine che per utilizza 2 byte per memorizzare un pixel, in cui l'informazione viene ripartita equamente tra le quattro componenti (ossia si hanno 4 bit o 16 valori per ogni componente)
+  \item ARGB4444: immagine che utilizza 2 byte per memorizzare un pixel, in cui l'informazione viene ripartita equamente tra le quattro componenti (ossia si hanno 4 bit o 16 valori per ogni componente)
   \item ARGB8888: immagine che per ognuna delle quattro componenti utilizza un byte
   \item RGB565: immagine che memorizza solo le componenti colore ma non la componente di trasparenza ed utilizza due byte per ogni pixel. L'informazione viene memorizzata non equamente in quanto vengono assegnati 5 bit per i canali rosso e blu e 6 bit per il canale verde
 \end{itemize}
