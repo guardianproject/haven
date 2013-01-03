@@ -7,6 +7,7 @@ import me.ziccard.secureit.codec.ImageCodec;
 import android.os.Bundle;
 import android.graphics.Bitmap;
 import android.support.v4.app.Fragment;
+import android.hardware.Camera;
 import android.hardware.SensorEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,9 +55,16 @@ public final class CameraFragment extends Fragment {
 			
 			public void onProcess(Bitmap oldBitmap, Bitmap newBitmap,
 					boolean motionDetected) {
-				oldImage.setImageBitmap(ImageCodec.rotate(oldBitmap,90));
-				newImage.setImageBitmap(ImageCodec.rotate(newBitmap,90));
-				
+			  int rotation = 0;
+			  boolean reflex = false;
+			  if (preview.getCameraFacing() == Camera.CameraInfo.CAMERA_FACING_BACK) {
+			    rotation = 90;
+			  } else {
+			    rotation = 270;
+			    reflex = true;
+			  }
+			  oldImage.setImageBitmap(ImageCodec.rotate(oldBitmap,rotation,reflex));
+              newImage.setImageBitmap(ImageCodec.rotate(newBitmap,rotation,reflex));
 			}
 		});
         

@@ -55,16 +55,17 @@ public class ImageCodec {
      * @param degrees
      * @return
      */
-    public static Bitmap rotate(Bitmap bmp, int degrees) {
+    public static Bitmap rotate(Bitmap bmp, int degrees, boolean reflex) {
         if (bmp==null) throw new NullPointerException();
         
 		//getting scales of the image  
 		int width = bmp.getWidth();  
 		int height = bmp.getHeight();  
 		
-		//Creating a Matrix and rotating it to 90 degrees   
-		Matrix matrix = new Matrix();  
-		matrix.postRotate(degrees);  
+		//Creating a Matrix and rotating it to specified degrees   
+		Matrix matrix = new Matrix();
+		matrix.postRotate(degrees);
+		if (reflex)   matrix.postScale(-1, 1);
 		
 		//Getting the rotated Bitmap  
 		Bitmap rotatedBmp = Bitmap.createBitmap(bmp, 0, 0, width, height, matrix, true);
