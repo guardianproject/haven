@@ -1,5 +1,5 @@
 \section{Rilevamento rumore ambientale}
-Il microfono viene utilizzato per identificare un'eccessiva soglia di rumore nell'ambiente. Come per il precedente utilizzo dei sensori sono state definiti tre livelli di sensibilità ciascuno dei quali fa riferimento ad uno specifico valore di decibels.
+Il microfono viene utilizzato per identificare un'eccessiva soglia di rumore nell'ambiente. Come per il precedente utilizzo dei sensori sono stati definiti tre livelli di sensibilità ciascuno dei quali fa riferimento ad uno specifico valore di decibels.
 
 \begin{itemize}
 	\item \texttt{LOW}: \texttt{NOISE\_THRESHOLD = 60}
@@ -22,7 +22,7 @@ L'applicazione continua a campionare dal microfono un buffer di \texttt{512} val
 Le \texttt{API} di Android permettono inoltre di campionare con \texttt{PCM 8 BIT}, al fine di ottenere una maggiore qualità del suono acquisito e considerando che tali valori non vanno salvati su disco su è adottata \texttt{PCM 16 BIT}.\\
 Il microfono viene inoltre campionato in modalità mono di default, eventuali dispositivi che offrano microfoni audio in stereo sono campionati in stereo.\\
 
-I valori ottenuti rappresentano la digitalizzazione del rumore ambientale. Al fine di rendere tali valori comprensibili per l'utente finale e di utilizzarli per identificare eventuali intrusioni è necessario convertirli in una misura di intensità. La letterature scientifica infatti offre un notevole numero di tabelle che mostrano per ciascun rumore comune il corrispondente valore in decibel, come in figura \ref{img:decibels}. 
+I valori ottenuti rappresentano la digitalizzazione del rumore ambientale. Al fine di rendere tali valori comprensibili per l'utente finale e di utilizzarli per identificare eventuali intrusioni è necessario convertirli in una misura di intensità. La letteratura scientifica offre un notevole numero di tabelle che mostrano per ciascun rumore comune il corrispondente valore in decibel, come in figura \ref{img:decibels}. 
 
 \begin{figure}[!ht]
 \begin{center}
@@ -34,13 +34,13 @@ I valori ottenuti rappresentano la digitalizzazione del rumore ambientale. Al fi
 
 Al fine quindi di sfruttare le informazioni contenute in queste tabelle e la maggior comprensibilità di valori in decibels i valori in \texttt{PCM 16 BIT} sono convertiti per ottenere valori in \texttt{dB}.\\
 
-Facendo riferimento ad una misura di ampiezza possiamo definire in decibel un valore $V_i$ rispetto ad un valore di riferimento $V_o$ come 20 volte il logaritmo in base dieci del rapporto quadratico, ovvero:
+Facendo riferimento ad una misura di ampiezza possiamo definire in decibel un valore $V_i$ rispetto ad un valore di riferimento $V_o$ come 10 volte il logaritmo in base dieci del rapporto quadratico, ovvero:
 
 \begin{equation}
-dB_i = 20log_{10} \left(\frac{V_i}{V_o}\right)
+dB_i = 10\log_{10} \left(\frac{V_i}{V_o}\right)^2 = 20\log_{10} \left(\frac{V_i}{V_o}\right)
 \end{equation}
 
-Nella conversione dei valori \texttt{PCM} in valori in \texttt{dB} possiamo correttamente assumere che qualsiasi valore campionato dal microfono (valore \texttt{PCM} $\neq 0$) rappresenti qualcosa di udibile. Con questa assunzione possiamo utilizzare il valore \texttt{1} come soglia di riferimento per il calcolo dei decibel.\\
+Nella conversione dei valori \texttt{PCM} in valori \texttt{dB} possiamo correttamente assumere che qualsiasi valore campionato dal microfono (valore \texttt{PCM} $\neq 0$) rappresenti qualcosa di udibile. Con questa assunzione possiamo utilizzare il valore \texttt{1} come soglia di riferimento per il calcolo dei decibel.\\
 
 Dato un campione sotto forma di array di \texttt{512 short integers} (che chiamiamo \texttt{signal}) lo pseudo-codice seguente può essere utilizzato per calcolare l'intensità media in \texttt{dB}:
 
