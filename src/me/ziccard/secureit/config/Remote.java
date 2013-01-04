@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class Remote {
 	
-	public static final String HOST = "http://192.168.1.49:9000/";
+	public static final String HOST = "http://10.192.6.90:9000/";
 	
 	public static final String ACCESS_TOKEN = "users/accesstoken";
 	
