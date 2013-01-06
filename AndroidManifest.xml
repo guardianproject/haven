@@ -39,6 +39,6 @@
             android:name=".MonitorActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"/>
-        <service android:name=".service.BluetoothService"/>
+        <service android:name=".service.UploadService"/>
      </application>
 </manifest>

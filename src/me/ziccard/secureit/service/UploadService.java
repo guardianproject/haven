@@ -93,7 +93,7 @@ public class UploadService extends Service {
 		try {
 			new BluetoothServerTask(this).start();
 		} catch (NoBluetoothException e) {
-			Log.i("BluetoothService", "Background bluetooth server not started");
+			Log.i("UploadService", "Background bluetooth server not started");
 			CharSequence text = "Background bluetooth server not started";
 			int duration = Toast.LENGTH_SHORT;
 			Toast toast = Toast.makeText(this, text, duration);
@@ -221,7 +221,7 @@ public class UploadService extends Service {
 				try {
 					MicrophoneTaskFactory.makeRecorder(this).start();
 				} catch (RecordLimitExceeded e) {
-					Log.e("BluetoothService", "An audio is being uploaded");
+					Log.e("UploadService", "An audio is being uploaded");
 				}
 				/*
 				 * Periodic position uploader task 
