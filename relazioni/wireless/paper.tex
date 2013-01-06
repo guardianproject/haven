@@ -122,7 +122,7 @@ Three parts can be identified which realize the monitoring tasks of the applicat
 			\item \texttt{CameraFragment}: active view component displayed by the Android \texttt{SDK}
 			\item \texttt{Preview}: links camera hardware to the Java application
 			\item \texttt{MonitorAsyncTask}: processes frames in order to detect motion
-			\item \texttt{LuminanceMotionDetector}, \texttt{ImageCodec} utility classes used by \texttt{MotionAsyncTask}
+			\item \texttt{LuminanceMotionDetector}, \texttt{ImageCodec}: utility classes used by \texttt{MotionAsyncTask}
 		\end{itemize}
 	\item \texttt{Noise Detection}:
 		\begin{itemize}
@@ -145,7 +145,7 @@ Three parts can be identified which realize the monitoring tasks of the applicat
 	\item \texttt{PeriodicPositionUploaderTask}: periodically sends phone position to the back-end using \texttt{WIFI} or \texttt{3G} network
 	\item \texttt{Bluetooth\allowbreak Periodic\allowbreak Position\allowbreak Uploader\allowbreak Task}: periodically sends phone position using opportunistic bluetooth connectivity, activated only if no \texttt{WIFI} or \texttt{3G} network is active
 	\item \texttt{BluetoothServerTask}: task responding to bluetooth messages requesting delegated position upload
-	\item \texttt{DelegatedPositionUploaderTask}: periodically sends delegated phone position bluetooth connectivity
+	\item \texttt{DelegatedPositionUploaderTask}: periodically sends delegated phone position
 \end{itemize}
 
 Bluetooth message exchange is done using the following modules:
