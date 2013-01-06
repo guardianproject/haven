@@ -170,6 +170,7 @@ public final class MicrophoneFragment extends Fragment implements MicSamplerTask
     		Message message = new Message();
     		message.what = UploadService.MICROPHONE_MESSAGE;
     		try {
+    		  if (serviceMessenger != null)
 				serviceMessenger.send(message);
 			} catch (RemoteException e) {
 				// Cannot happen
