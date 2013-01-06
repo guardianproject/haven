@@ -2,7 +2,7 @@ package me.ziccard.secureit.fragment;
 
 import me.ziccard.secureit.R;
 import me.ziccard.secureit.SecureItPreferences;
-import me.ziccard.secureit.service.BluetoothService;
+import me.ziccard.secureit.service.UploadService;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
@@ -114,7 +114,7 @@ public class AccelerometerFragment extends Fragment implements SensorEventListen
 					    accelerometerText.setVisibility(View.VISIBLE);
 					  
 						Message message = new Message();
-						message.what = BluetoothService.ACCELEROMETER_MESSAGE;
+						message.what = UploadService.ACCELEROMETER_MESSAGE;
 						
 						try {
 						  if (serviceMessenger != null) {
@@ -159,7 +159,7 @@ public class AccelerometerFragment extends Fragment implements SensorEventListen
 		}
 		
 		getActivity().bindService(new Intent(getActivity(), 
-				BluetoothService.class), mConnection, Context.BIND_ABOVE_CLIENT);
+				UploadService.class), mConnection, Context.BIND_ABOVE_CLIENT);
     }
  
     @Override

@@ -2,23 +2,14 @@ package me.ziccard.secureit.async.upload;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.AlgorithmParameterSpec;
 import java.util.ArrayList;
 import java.util.Date;
-
-import javax.crypto.Cipher;
-import javax.crypto.NoSuchPaddingException;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
 
 import me.ziccard.secureit.SecureItPreferences;
 import me.ziccard.secureit.bluetooth.ObjectBluetoothSocket;
 import me.ziccard.secureit.config.Remote;
 import me.ziccard.secureit.messages.BluetoothMessage;
-import me.ziccard.secureit.messages.HelloMessage;
 import me.ziccard.secureit.messages.KeyRequest;
-import me.ziccard.secureit.messages.KeyResponse;
 import me.ziccard.secureit.messages.MessageBuilder;
 import me.ziccard.secureit.messages.MessageType;
 import android.bluetooth.BluetoothAdapter;
@@ -29,13 +20,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.AsyncTask;
-import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
 public class BluetoothPeriodicPositionUploaderTask extends AsyncTask<Void, Void, Void> {
 	
-	@SuppressWarnings("unused")
 	private Context context;
 	
 	/**

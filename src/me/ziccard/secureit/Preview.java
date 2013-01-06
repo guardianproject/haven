@@ -10,7 +10,7 @@ import java.util.List;
 import me.ziccard.secureit.async.MotionAsyncTask;
 import me.ziccard.secureit.async.MotionAsyncTask.MotionListener;
 import me.ziccard.secureit.motiondetection.LuminanceMotionDetector;
-import me.ziccard.secureit.service.BluetoothService;
+import me.ziccard.secureit.service.UploadService;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -139,7 +139,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 		 * We bind to the alert service
 		 */
 		context.bindService(new Intent(context, 
-				BluetoothService.class), mConnection, Context.BIND_ABOVE_CLIENT);
+				UploadService.class), mConnection, Context.BIND_ABOVE_CLIENT);
 		
 		/*
 		 *  The Surface has been created, acquire the camera and tell it where
@@ -256,7 +256,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 									Log.i("MotionListener", "Motion detected");
 									if (serviceMessenger!=null) {
 										Message message = new Message();
-										message.what = BluetoothService.CAMERA_MESSAGE;
+										message.what = UploadService.CAMERA_MESSAGE;
 										try {
 											serviceMessenger.send(message);
 										} catch (RemoteException e) {

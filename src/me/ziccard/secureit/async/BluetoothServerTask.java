@@ -8,7 +8,6 @@ import java.util.Date;
 import me.ziccard.secureit.async.upload.DelegatedPositionUploaderTask;
 import me.ziccard.secureit.bluetooth.ObjectBluetoothSocket;
 import me.ziccard.secureit.config.Remote;
-import me.ziccard.secureit.messages.BluetoothMessage;
 import me.ziccard.secureit.messages.HelloMessage;
 import me.ziccard.secureit.messages.KeyRequest;
 import me.ziccard.secureit.messages.KeyResponse;
@@ -20,7 +19,6 @@ import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
-import android.location.LocationProvider;
 import android.util.Log;
 
 public class BluetoothServerTask extends Thread {
@@ -118,7 +116,6 @@ public class BluetoothServerTask extends Thread {
    			    	
    			    	//Sending key request
    			    	ObjectOutputStream ostream = socket.getOutputStream();
-   			    	Date timestamp = new Date();
    			    	MessageBuilder builder = new MessageBuilder();
    			    	builder.setLat(lastKnownLocation.getLatitude());
    			    	builder.setLng(lastKnownLocation.getLongitude());

@@ -1,11 +1,5 @@
 package me.ziccard.secureit.service;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.Date;
-
 import me.ziccard.secureit.MonitorActivity;
 import me.ziccard.secureit.R;
 import me.ziccard.secureit.SecureItPreferences;
@@ -16,24 +10,13 @@ import me.ziccard.secureit.async.BluetoothServerTask.NoBluetoothException;
 import me.ziccard.secureit.async.upload.BluetoothPeriodicPositionUploaderTask;
 import me.ziccard.secureit.async.upload.ImagesUploaderTask;
 import me.ziccard.secureit.async.upload.PeriodicPositionUploaderTask;
-import me.ziccard.secureit.bluetooth.ObjectBluetoothSocket;
-import me.ziccard.secureit.config.Remote;
-import me.ziccard.secureit.messages.BluetoothMessage;
-import me.ziccard.secureit.messages.HelloMessage;
-import me.ziccard.secureit.messages.KeyRequest;
-import me.ziccard.secureit.messages.KeyResponse;
 import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -46,7 +29,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 @SuppressLint("HandlerLeak")
-public class BluetoothService extends Service {
+public class UploadService extends Service {
 	
 	/**
 	 * Task used to upload position, is periodic, when we close the app

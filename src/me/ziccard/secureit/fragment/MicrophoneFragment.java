@@ -17,7 +17,7 @@ import me.ziccard.secureit.SecureItPreferences;
 import me.ziccard.secureit.async.MicSamplerTask;
 import me.ziccard.secureit.async.MicrophoneTaskFactory;
 import me.ziccard.secureit.async.MicrophoneTaskFactory.RecordLimitExceeded;
-import me.ziccard.secureit.service.BluetoothService;
+import me.ziccard.secureit.service.UploadService;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -86,7 +86,7 @@ public final class MicrophoneFragment extends Fragment implements MicSamplerTask
 		}
 		
 		getActivity().bindService(new Intent(getActivity(), 
-				BluetoothService.class), mConnection, Context.BIND_ABOVE_CLIENT);
+				UploadService.class), mConnection, Context.BIND_ABOVE_CLIENT);
 		
   	  	try {
 			microphone = MicrophoneTaskFactory.makeSampler(getActivity());
@@ -168,7 +168,7 @@ public final class MicrophoneFragment extends Fragment implements MicSamplerTask
     	
     	if (averageDB > NOISE_THRESHOLD) {
     		Message message = new Message();
-    		message.what = BluetoothService.MICROPHONE_MESSAGE;
+    		message.what = UploadService.MICROPHONE_MESSAGE;
     		try {
 				serviceMessenger.send(message);
 			} catch (RemoteException e) {

@@ -4,7 +4,7 @@ import me.ziccard.secureit.fragment.AccelerometerFragment;
 import me.ziccard.secureit.fragment.CameraFragment;
 import me.ziccard.secureit.fragment.EmptyFragment;
 import me.ziccard.secureit.fragment.MicrophoneFragment;
-import me.ziccard.secureit.service.BluetoothService;
+import me.ziccard.secureit.service.UploadService;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -61,7 +61,7 @@ public class MonitorActivity extends FragmentActivity {
 		/**
 		 * Binding to the bluetooth service
 		 */
-        startService(new Intent(this, BluetoothService.class));
+        startService(new Intent(this, UploadService.class));
 	}
 
 	class MonitorAdapter extends FragmentPagerAdapter {
@@ -141,7 +141,7 @@ public class MonitorActivity extends FragmentActivity {
   			  getApplicationContext(), StartActivity.class);
   	  intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
   	  startActivity(intent);
-  	  stopService(new Intent(this, BluetoothService.class));
+  	  stopService(new Intent(this, UploadService.class));
   	  preferences.unsetAccessToken();
   	  preferences.unsetDelegatedAccessToken();
   	  preferences.unsetPhoneId();

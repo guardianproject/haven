@@ -14,7 +14,6 @@ import android.hardware.SensorManager;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
-import android.os.SystemClock;
 
 
 /**
@@ -490,9 +489,7 @@ public class AccelerometerGLRenderer implements GLSurfaceView.Renderer
 				angle_y -= .18;
 			}
 		}
-                
-		float offsetX = 0.0F;
-		float offsetY = 0.0F;
+
         float angleInDegreesX = (angle_x)/(SensorManager.GRAVITY_EARTH*2)*180; 
         float angleInDegreesY = (angle_y)/(SensorManager.GRAVITY_EARTH*2)*180;             
         

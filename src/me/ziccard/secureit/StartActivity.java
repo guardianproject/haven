@@ -2,22 +2,13 @@ package me.ziccard.secureit;
 
 import java.io.File;
 
-import me.ziccard.secureit.async.AudioRecorderTask;
-import me.ziccard.secureit.async.MicrophoneTaskFactory;
-import me.ziccard.secureit.async.BluetoothServerTask;
-import me.ziccard.secureit.async.MicrophoneTaskFactory.RecordLimitExceeded;
-import me.ziccard.secureit.async.BluetoothServerTask.NoBluetoothException;
 import me.ziccard.secureit.async.upload.AuthenticatorTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.app.Activity;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
