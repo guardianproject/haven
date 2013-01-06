@@ -103,6 +103,59 @@ In order to allow the end user to select the type of monitoring and the type of 
 	\item Allows to set the unlock code. Application can be closed only by writing that code
 \end{enumerate}
 
+\section{\textbf{Architecture}}
+
+In figure \ref{img:architecture} is presente the developed application.
+
+\begin{figure}[!ht]
+\begin{center}
+\makebox[\linewidth]{\includegraphics[scale=0.45]{resources/architecture.pdf}}
+\caption{High level architecture diagram}
+\label{img:architecture}
+\end{center}
+\end{figure}
+
+Three parts can be identified which realize the monitoring tasks of the application. Each of that parts can be diveded in components:
+\begin{itemize}
+	\item \texttt{Motion Detection}:
+		\begin{itemize}
+			\item \texttt{CameraFragment}: active view component displayed by the Android \texttt{SDK}
+			\item \texttt{Preview}: links camera hardware to the Java application
+			\item \texttt{MonitorAsyncTask}: processes frames in order to detect motion
+			\item \texttt{LuminanceMotionDetector}, \texttt{ImageCodec} utility classes used by \texttt{MotionAsyncTask}
+		\end{itemize}
+	\item \texttt{Noise Detection}:
+		\begin{itemize}
+			\item \texttt{MicrophoneFragment}: active view component displayed by the Android \texttt{SDK}
+			\item \texttt{MicVolumePicker}: passive view showing noise level
+			\item \texttt{MicSamplerTask}: periodically samples audio data using \texttt{AudioCodec}
+			\item \texttt{AudioCodec}: samples microphone on demand
+		\end{itemize}
+	\item \texttt{Motion Detection}:
+		\begin{itemize}
+			\item \texttt{AccelerometerFragment}: active view component displayed by the Android \texttt{SDK}
+			\item \texttt{secureit.opengl}: package of view utilities to display 3D animations
+		\end{itemize}
+\end{itemize}
+
+\texttt{UploadService} is activated by an alert coming from one of the framents presented before. It uses the following tasks to perform the data upload:
+\begin{itemize}
+	\item \texttt{ImageUploaderTask}: uploads the captured images
+	\item \texttt{AudioRecorderTask}: records the audio and uploads it
+	\item \texttt{PeriodicPositionUploaderTask}: periodically sends phone position to the back-end using \texttt{WIFI} or \texttt{3G} network
+	\item \texttt{Bluetooth\allowbreak Periodic\allowbreak Position\allowbreak Uploader\allowbreak Task}: periodically sends phone position using opportunistic bluetooth connectivity, activated only if no \texttt{WIFI} or \texttt{3G} network is active
+	\item \texttt{BluetoothServerTask}: task responding to bluetooth messages requesting delegated position upload
+	\item \texttt{DelegatedPositionUploaderTask}: periodically sends delegated phone position bluetooth connectivity
+\end{itemize}
+
+Bluetooth message exchange is done using the following modules:
+
+\begin{itemize}
+	\item \texttt{ObjectBluetoothSocket}: object oriented socket for message delivery
+	\item \texttt{secureit.messages}: package containing bluetooth messages
+\end{itemize}
+
+
 \section{\textbf{Intrusion detection}}
 Intrusion detection is performed through three complementary ways:
 \begin{itemize}
