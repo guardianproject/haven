@@ -64,12 +64,15 @@ public class AccelerometerFragment extends Fragment implements SensorEventListen
     /**
      * Shake threshold
      */
-    private static int SHAKE_THRESHOLD = 3000;
+    private static int SHAKE_THRESHOLD = 2300;
     
     /**
      * Text showing accelerometer values
      */
 	private TextView accelerometerText;
+	private int maxAlertPeriod = 30;
+	private int remainingAlertPeriod = 0;
+	private boolean alert = false;
 	
 	
 	public void onAccuracyChanged(Sensor sensor, int accuracy) {
@@ -86,8 +89,13 @@ public class AccelerometerFragment extends Fragment implements SensorEventListen
 				lastUpdate = curTime;
 		 
 				accel_values = event.values.clone();
-								
-				accelerometerText.setText("X: "+accel_values[0]+", Y: "+accel_values[1]+" Z: "+accel_values[2]);
+				
+				if (alert && remainingAlertPeriod > 0) {
+				  remainingAlertPeriod = remainingAlertPeriod - 1;
+				} else {
+				  accelerometerText.setVisibility(View.INVISIBLE);
+				  alert = false;
+				}
 				
 				view.renderer.setPosition(-accel_values[0], accel_values[1], accel_values[2]);
 		    					 
@@ -100,11 +108,18 @@ public class AccelerometerFragment extends Fragment implements SensorEventListen
 						/*
 						 * Send Alert
 						 */
+					  
+					    alert = true;
+					    remainingAlertPeriod = maxAlertPeriod;
+					    accelerometerText.setVisibility(View.VISIBLE);
+					  
 						Message message = new Message();
 						message.what = BluetoothService.ACCELEROMETER_MESSAGE;
 						
 						try {
+						  if (serviceMessenger != null) {
 							serviceMessenger.send(message);
+						  }
 						} catch (RemoteException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -133,14 +148,14 @@ public class AccelerometerFragment extends Fragment implements SensorEventListen
 		 * Set sensitivity value
 		 */
 		if (prefs.getAccelerometerSensitivity().equals("Medium")) {
-			SHAKE_THRESHOLD = 4000;
-			Log.i("AccelerometerFragment", "Sensitivity set to 4000");
+			SHAKE_THRESHOLD = 2700;
+			Log.i("AccelerometerFragment", "Sensitivity set to 2700");
 		} else if (prefs.getAccelerometerSensitivity().equals("Low")) {
-			SHAKE_THRESHOLD = 5000;
-			Log.i("AccelerometerFragment", "Sensitivity set to 5000");
+			SHAKE_THRESHOLD = 3100;
+			Log.i("AccelerometerFragment", "Sensitivity set to 3100");
 		} else {
-			SHAKE_THRESHOLD = 3000;
-			Log.i("AccelerometerFragment", "Sensitivity set to 3000");
+			SHAKE_THRESHOLD = 2300;
+			Log.i("AccelerometerFragment", "Sensitivity set to 2300");
 		}
 		
 		getActivity().bindService(new Intent(getActivity(), 
