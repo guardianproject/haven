@@ -1,3 +1,15 @@
+\section{Calibrazione sensori}
+Attraverso la pagina principale dell'applicazione l'utente ha la possibilità di impostare le diverse sensibilità dei meccanismi che vuole utilizzare. Ogni meccanismo dispone di 3 possibili sensibilità: bassa, media e alta.\\
+Nonostante non sia presente la possibilità di calibrare ad hoc queste sensibilità, è possibile determinare quale delle tre sia la più indicata facendo delle prove. Abilitando solamente i meccanismi di rilevamento e disabilitando le opzioni riguardanti l'upload delle informazioni è possibile tarare l'applicazione e prendere confidenza con le varie sensibilità preimpostate.\\
+Attraverso la schermata propria di ogni meccanismo di controllo può essere verificato quando tale meccanismo registra una situazione anomala (ossia quando i dati elaborati forniscono valori che eccedono la soglia relativa alla sensibilità impostata). Non avere abilitato il meccanismo di upload delle informazioni permette di poter sperimentare le varie sensibilità senza dover preoccuparsi di inviare dati inutili al server.\\
+\begin{itemize}
+  \item \textit{Accelerometro}: si scuote il dispositivo. La comparsa della scritta ``\textsc{shake detected}'' su sfondo rosso indica che l'applicazione ha registrato un movimento anomalo e che (se abilitata) avrebbe sollevato l'allarme
+  \item \textit{Microfono}: si generano suoni. La presenza di sezioni di colore arancione o rosso sulle barre solitamente verdi (ossia quando la barra supera la prima soglia evidenziata nella scala visualizzata) indica che l'applicazione ha registrato un rumore anomalo e che (se abilitata) avrebbe sollevato l'allarme
+  \item \textit{Fotocamera}: si genera del movimento all'interno del campo visivo della fotocamera (o muovendo il dispositivo o inserendo oggetti animati nell'ambiente ripreso). La comparsa di chiazze rosse nell'immagine in scala di grigi in basso a destra indica che l'applicazione ha determinato del movimento e che (se abilitata) avrebbe sollevato l'allarme
+\end{itemize}
+
+
+\newpage
 \section {Gestione dati raccolti}
 Tutti i meccanismi per rilevare intrusioni sono stati implementati per produrre due tipi di informazioni:
 \begin{enumerate}

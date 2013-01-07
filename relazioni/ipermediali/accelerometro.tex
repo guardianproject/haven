@@ -14,9 +14,9 @@ La stima del movimento avviene utilizzando la formula:
 \[variation = \frac{(\Delta accel_X) + (\Delta accel_Y) + (\Delta accel_Z)}{\Delta t}\]
 Per determinare se il movimento è riconducibile ad uno stato anormale del dispositivo (si presume che il movimento sia conseguenza di un'avvenuta invasione), la stima del movimento viene in seguito confrontata con la soglia di sensibilità impostata dall'utente:
 \begin{itemize}
-  \item \texttt{LOW}: determina l'avvenuta intrusione qualora $variation >  5000$
-  \item \texttt{MEDIUM}: determina l'avvenuta intrusione qualora $variation > 4000$
-  \item \texttt{HIGH}: determina l'avvenuta intrusione qualora $variation > 3000$
+  \item \texttt{LOW}: determina l'avvenuta intrusione qualora $variation >  3100$
+  \item \texttt{MEDIUM}: determina l'avvenuta intrusione qualora $variation > 2700$
+  \item \texttt{HIGH}: determina l'avvenuta intrusione qualora $variation > 2300$
 \end{itemize}~\\
 
 La tripla di informazioni ottenuta dall'accelerometro viene inoltre utilizzata per eseguire un display grafico dell'orientamento del dispositivo stesso. Viene animata una superficie tridimensionale (che rappresenta il dispositivo) e viene ruotata a seconda dell'effettivo orientamento calcolato dall'accelerometro. Per fornire questa rappresentazione animata tridimensionale si sfruttano le API OpenGL ES di modo da poter utilizzare la GPU e non appesantire la CPU di ulteriori calcoli.
