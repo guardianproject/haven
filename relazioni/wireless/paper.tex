@@ -145,7 +145,7 @@ Three parts can be identified which realize the monitoring tasks of the applicat
 	\item \texttt{PeriodicPositionUploaderTask}: periodically sends phone position to the back-end using \texttt{WIFI} or \texttt{3G} network
 	\item \texttt{Bluetooth\allowbreak Periodic\allowbreak Position\allowbreak Uploader\allowbreak Task}: periodically sends phone position using opportunistic bluetooth connectivity, activated only if no \texttt{WIFI} or \texttt{3G} network is active
 	\item \texttt{BluetoothServerTask}: task responding to bluetooth messages requesting delegated position upload
-	\item \texttt{DelegatedPositionUploaderTask}: periodically sends delegated phone position
+	\item \texttt{DelegatedPositionUploaderTask}: sends delegated phone position
 \end{itemize}
 
 Bluetooth message exchange is done using the following modules:
@@ -187,13 +187,12 @@ Those acceleration values are used to move a 3D animation made in OpenGL ES (run
 \end{figure}
 
 
-Acceleration triple is also used to detect any variation in the phone acceleration. Acceleration variation gives an idea of intensity of phone's \textit{shake} and it is computed as in equation \ref{eq:accel_variation}.\\
+Acceleration triple is also used to detect any variation in the phone acceleration. Acceleration variation gives an idea of intensity of phone's \textit{shake} and it is computed as in equation \ref{eq:accel_variation}.
 
 \begin{equation}
 variation = \frac{(\Delta accelX)+(\Delta accelY)+(\Delta accelZ)}{\Delta t}
 \label{eq:accel_variation}
-\end{equation}
-\vspace{.5cm}\\
+\end{equation}\\
 Three levels of sensitivity are defined:
 \begin{itemize}
 	\item \texttt{LOW}: \texttt{SHAKE\_THRESHOLD = 5000}
@@ -201,7 +200,7 @@ Three levels of sensitivity are defined:
 	\item \texttt{HIGH}:  \texttt{SHAKE\_THRESHOLD = 3000}
 \end{itemize}
 
-If $variation>SHAKE\_THRESHOLD$ the application starts to send alerts according to the specified options.
+If $variation>\texttt{SHAKE\_THRESHOLD}$ the application starts to send alerts according to the specified options.
 
 \subsection{\textbf{Camera}}
 The camera is used to detect motion in the surrounding environment. The frames captured by the camera are processed to detect if any variation has occurred since the previous captured frame.\\
@@ -209,7 +208,7 @@ A callback is activated at every captured frame; processing each captured frame 
 \subsubsection{\textbf{Motion detection}}
 As said motion detection on the frame matrix is very expensive so the frames are scaled as soon as capture to a size of \texttt{640x480}. In order to detect any variation between two frames only the gray-scale image is needed.\\
 A movement is considered to be a difference in number of pixels between two gray-scale frames bigger than a certain threshold.\\
-Also in that case we have three types of sensitivity, the sensitivity type defines not only the threshold in the number of different pixels (\texttt{NUMBER\_THRESHOLD}) but also the threshold needed to consider different two pixels (\texttt{VALUE\_THRESHOLD}):\\
+Also in that case we have three types of sensitivity, the sensitivity type defines not only the threshold in the number of different pixels (\texttt{NUMBER\_THRESHOLD}) but also the threshold needed to consider different two pixels (\texttt{VALUE\_THRESHOLD}):
 
 \begin{itemize}
 	\item \texttt{LOW}:
@@ -251,7 +250,7 @@ end
 The detection identifies the list of mutated pixels according to the sensitivity specified.\\
 
 \subsubsection{\textbf{Data representation}}
-In order to make the user understand what the application is doing a view is presented showing: the surface currently being captured by the camera, the last frame considered by motion detection and the current considered frame; pixel identified as changed are marked in red in the current frame. This view is shown in figure \ref{img:camera}.\\
+In order to make the user understand what the application is doing a view is presented showing: the surface currently being captured by the camera, the last frame considered by motion detection and the current considered frame; pixel identified as changed are marked in red in the current frame. This view is shown in figure \ref{img:camera}.
 
 \begin{figure}[!ht]
 \begin{center}
@@ -262,13 +261,13 @@ In order to make the user understand what the application is doing a view is pre
 \end{figure}
 
 \subsection{\textbf{Microphone}}
-The microphone is used to detect an excessive noise level in the environment. In that case too three levels of sensitivity are defined each of one refers to a different value of decibels.\\
+The microphone is used to detect an excessive noise level in the environment. In that case too three levels of sensitivity are defined each of one refers to a different value of decibels.
 
 \begin{itemize}
 	\item \texttt{LOW}: \texttt{NOISE\_THRESHOLD = 60}
 	\item \texttt{MEDUM}:  \texttt{NOISE\_THRESHOLD = 50}
 	\item \texttt{HIGH}:  \texttt{NOISE\_THRESHOLD = 30}
-\end{itemize}
+\end{itemize}~
 
 \subsubsection{\textbf{Sampling}}
 The application keeps sampling a buffer of \texttt{512} values of \texttt{16 BIT PCM}. Those values present the environment noise.\\ Scientific literature is plenty of tables showing for each common noise the corresponding decibel value, such as the one in figure \ref{img:decibels}. 
@@ -282,7 +281,7 @@ The application keeps sampling a buffer of \texttt{512} values of \texttt{16 BIT
 \end{figure}
 
 In order to exploit those tables and the user-friendliness of decibel \texttt{PCM} values are used to get \texttt{dB} values.\\ 
-Referring to a measure of amplitude we can express the ratio of the squares between current value $V_i$ and a reference value $V_o$ in decibels as:\\
+Referring to a measure of amplitude we can express the ratio of the squares between current value $V_i$ and a reference value $V_o$ in decibels as:
 
 \begin{equation}
 dB_i = 20log_{10} \left(\frac{V_i}{V_o}\right)
@@ -323,7 +322,7 @@ To make the end user aware of the ongoing process a view shows the decibels samp
 \end{figure}
 
 \section{\textbf{Alert communication}}
-If a user is logged in, different ways of alert communication have been implemented depending on the connectivity currently available:\\
+If a user is logged in, different ways of alert communication have been implemented depending on the connectivity currently available:
 \begin{itemize}
 	\item \texttt{WIFI CONNECTIVITY}: a set of 10 captured images and 10 seconds of audio are sent
 	\item \texttt{3G CONNECTIVITY}: a subset of 5 captured images and 10 seconds of audio are sent
@@ -371,7 +370,7 @@ For authentication purposes a request header field named \texttt{access\_token} 
 
 \subsection{\textbf{Direct location upload}}
 In case of \texttt{WIFI} or \texttt{3G CONNECTIVITY} location is directly uploaded by the phone. The \texttt{API} used is simply \texttt{[POST] /api/phones/:phoneid/positions} and the authentications still uses an \texttt{access\_token} header field.\\
-Location data can be retrieved in two ways according to the phone capabilities:\\
+Location data can be retrieved in two ways according to the phone capabilities:
 
 \begin{itemize}
 	\item \texttt{GPS}
@@ -379,15 +378,15 @@ Location data can be retrieved in two ways according to the phone capabilities:\
 \end{itemize}
 
 \section{\textbf{Bluetooth communication}}
-As said when only bluetooth is active the phone asks other devices to upload his location. Two key features have been realized:\\
+As said when only bluetooth is active the phone asks other devices to upload his location. Two key features have been realized:
 
 \begin{itemize}
 	\item The communication is opportunistic, no need to pair devices
-	\item Only authorized data is accepted\\
+	\item Only authorized data is accepted
 \end{itemize}
 
 \subsection{\textbf{No pairing}}
-Android offers two ways for creating a bluetooth server socket: \texttt{listen\allowbreak Using\allowbreak Rfcomm\allowbreak WithServiceRecord} e \texttt{listen\allowbreak Using\allowbreak Insecure\allowbreak RfcommWithServiceRecord}. The first method creates a server socket listening for incoming connections created via \texttt{create\allowbreak Insecure\allowbreak Rfcomm\allowbreak SocketToServiceRecord} and needs an explicit pairing of two devices with user acceptance. The second method instead allows to manage incoming connection created with \texttt{} that do not require pairing with user acceptance.\\
+Android offers two ways for creating a bluetooth server socket: \texttt{listen\allowbreak Using\allowbreak Rfcomm\allowbreak WithServiceRecord} and \texttt{listen\allowbreak Using\allowbreak Insecure\allowbreak RfcommWithServiceRecord}. The first method creates a server socket listening for incoming connections created via \texttt{create\allowbreak Insecure\allowbreak Rfcomm\allowbreak SocketToServiceRecord} and needs an explicit pairing of two devices with user acceptance. The second method instead allows to manage incoming connection that do not require pairing with user acceptance.\\
 
 \subsection{\textbf{Delegated authorization}}
 In the authentication phase a \texttt{delegated\allowbreak\_access\allowbreak\_token} is retrieved in order to not use the same token for both direct and delegated authentication. However such a token should not be shared with other devices and in order to do so a little protocol has been developed.\\
@@ -415,25 +414,26 @@ When on any device running the application an intrusion is detected and no conne
 			%Key request
 			\item A \texttt{KeyRequest} is received. It is sent from the delegated device and contains latitude, longitude and a timestamp intended to be sent to the back-end
 			%authorization_key creation
-			\item An \texttt{authorization\_key} is computed via \texttt{AES} password encryption, using as password the value \texttt{delegated\_access\_token} and encrypting the following \texttt{JSON} string:
+			\item An \texttt{authorization\_key} is computed via \texttt{AES} password encryption, using as password the value \texttt{delegated\_access\_token} and encrypting the \texttt{JSON} string reported in listing \ref{delegatedaccesstoken}.
 
-			\begin{lstlisting}[language=Java, caption=JSON encrypted with AES]
-			{"lat": "latitude",
-			 "long": "longitude",
-			 "timestamp": "timestamp"}
-			\end{lstlisting}
+\begin{lstlisting}[float, language=Java, caption=JSON encrypted with AES, label=delegatedaccesstoken]
+{"lat": "latitude",
+ "long": "longitude",
+ "timestamp": "timestamp"}
+\end{lstlisting}
 
-			The following code shows how to compute \texttt{AES} password encryption of the string in Java.
 
-			\begin{lstlisting}[language=Java, caption=AES password encryption]
-			SecretKeySpec key = new SecretKeySpec(password.getBytes(), "AES");
-			AlgorithmParameterSpec paramSpec = new IvParameterSpec(password.substring(0, 16).getBytes());
-			Cipher cipher;
-			cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");	    
-			cipher.init(Cipher.ENCRYPT_MODE, key, paramSpec);			    	
-			byte[] ecrypted = cipher.doFinal(accessKey.getBytes());
-			accessKey = Base64.encodeToString(ecrypted, Base64.DEFAULT);
-			\end{lstlisting}	
+			The code in listing \ref{encrypt} shows how to compute \texttt{AES} password encryption of the string in Java
+
+\begin{lstlisting}[float, language=Java, caption=AES password encryption, label=encrypt]
+SecretKeySpec key = new SecretKeySpec(password.getBytes(), "AES");
+AlgorithmParameterSpec paramSpec = new IvParameterSpec(password.substring(0, 16).getBytes());
+Cipher cipher;
+cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");	    
+cipher.init(Cipher.ENCRYPT_MODE, key, paramSpec);			    	
+byte[] ecrypted = cipher.doFinal(accessKey.getBytes());
+accessKey = Base64.encodeToString(ecrypted, Base64.DEFAULT);
+\end{lstlisting}	
 			%Key response
 			\item A \texttt{KeyResponse} is sent. It contains the \texttt{authorization\_key} that can be computed only by the requesting client since \texttt{delegated\_access\_token} is never shared
 			%Data upload
@@ -520,7 +520,7 @@ Images are captured and sent by Android phone in \textit{JPEG} format and are se
 \end{center}
 \end{figure}
 
-Audio is captured by Android phone using \texttt{AAC} encoding, unfortunately Firefox and other browsers do not support \texttt{ACC} encoding. In order to make audio available for all modern browser as soon as it is received by the web application it is converted into \texttt{vorbis} encoding using \texttt{ffmpeg}:
+Audio is captured by Android phone using \texttt{AAC} encoding, unfortunately Firefox and other browsers do not support \texttt{AAC} encoding. In order to make audio available for all modern browser as soon as it is received by the web application it is converted into \texttt{vorbis} encoding using \texttt{ffmpeg}:
 
 \begin{lstlisting}[language=Bash, caption=FFMPEG command to convert aac to mp3]
 ffmpeg -i in.m4a -acodec libvorbis -aq 60 -vn -ac 2 out.ogg
@@ -539,7 +539,7 @@ Uploaded location data is organized on a map created via Google Maps \texttt{API
 \end{figure}
 
 \section{\textbf{Related work}}
-Different existing applications try to mimic a surveillance system but none of them exploits all available sensors on the phone. Moreover no phone tracking application offers a way different from direct internet connectivity to send phone's position (no opportonistic communication).\\
+Different existing applications try to mimic a surveillance system but none of them exploits all available sensors on the phone. Moreover no phone tracking application offers a way different from direct internet connectivity to send phone's position (no opportunistic communication).\\
 
 \begin{itemize}
 	\item \textbf{Motion Detector Pro}: motion detection only app
