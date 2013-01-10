@@ -61,20 +61,10 @@ Other applications in the market try to offer security using only a fraction of 
 \end{frame}
 
 \begin{frame}
-\frametitle{Available options}
-\noindent\begin{minipage}[c]{.7\textwidth}
-\begin{enumerate}
-  \item \textbf{Accelerometer}: to perform shake detection
-  \item \textbf{Camera}: to perform motion detection
-  \item \textbf{Microphone}: to perform noise detection
-  \item \textbf{SMS}: to alert user
-  \item \textbf{WiFi-3G-Bluetooth}: to provide additional info for the user
-  \item \textbf{Block code}: to let only user end the application
-  \item \textbf{Web back-end}: to let the user (anywhere, anytime) browse the info collected by the application
-\end{enumerate}
-\end{minipage}\begin{minipage}[c]{.25\textwidth}
-\includegraphics[scale=.2]{./../ipermediali/img/firstpage.png}
-\end{minipage}
+\frametitle{Architecture}
+\begin{center}
+\includegraphics[scale=.4]{./../../relazioni/wireless/resources/architecture.pdf}
+\end{center}
 \end{frame}
 
 \section{Detection mechanisms}
@@ -138,21 +128,21 @@ Based on selected preferences the application tries to alert the user of an abno
 \end{frame}
 
 \begin{frame}
-\frametitle{Back end}
+\frametitle{Back-end}
 \begin{block}{}
 Having the device storing the information related to the intrusion is not wise: the device itself can be stolen. It's necessary to store the information to a safe place: a dedicated \textbf{remote server}.\\This way the user can access the information anywhere and anytime: no need to have the device (that could be already stolen).
 \end{block}
 The information to upload can be too resource-consuming:
 \begin{itemize}
-  \item WiFi connection: no bandwidth constraint. The application try to upload every gathered information (every captured image, recorded audio, device location)
-  \item 3G connection: bandwidth constraint. The application try to upload a subset of the gathered information (half of the captured images, recorder audio, device location)
+  \item WiFi connection: no bandwidth constraint. The application tries to upload every gathered information (every captured image, recorded audio, device location)
+  \item 3G connection: bandwidth constraint. The application tries to upload a subset of the gathered information (half of the captured images, recorder audio, device location)
 \end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{Back-end communication}
 The server offers REST API. Through these API it's possibile to upload data to the server.\\
-To organize the data, the server has to know to whom the data are related: the user must be registered to be able to use the server storage mechanism. The user can therefore login to browse alla the data gathered from his devices.\\
+To organize the data, the server has to know to whom the data are related: the user must be registered to be able to use the server storage mechanism. The user can therefore login to browse all the data gathered from his devices.\\
 The server accepts 3 kind of information:
 \begin{enumerate}
   \item Images: \texttt{\lbrack POST\rbrack	/api/phones/:phoneId/images}

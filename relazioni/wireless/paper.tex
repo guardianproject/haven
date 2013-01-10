@@ -195,9 +195,9 @@ variation = \frac{(\Delta accelX)+(\Delta accelY)+(\Delta accelZ)}{\Delta t}
 \end{equation}\\
 Three levels of sensitivity are defined:
 \begin{itemize}
-	\item \texttt{LOW}: \texttt{SHAKE\_THRESHOLD = 5000}
-	\item \texttt{MEDUM}:  \texttt{SHAKE\_THRESHOLD = 4000}
-	\item \texttt{HIGH}:  \texttt{SHAKE\_THRESHOLD = 3000}
+	\item \texttt{LOW}: \texttt{SHAKE\_THRESHOLD = 3100}
+	\item \texttt{MEDUM}:  \texttt{SHAKE\_THRESHOLD = 2700}
+	\item \texttt{HIGH}:  \texttt{SHAKE\_THRESHOLD = 2300}
 \end{itemize}
 
 If $variation>\texttt{SHAKE\_THRESHOLD}$ the application starts to send alerts according to the specified options.
@@ -386,7 +386,7 @@ As said when only bluetooth is active the phone asks other devices to upload his
 \end{itemize}
 
 \subsection{\textbf{No pairing}}
-Android offers two ways for creating a bluetooth server socket: \texttt{listen\allowbreak Using\allowbreak Rfcomm\allowbreak WithServiceRecord} and \texttt{listen\allowbreak Using\allowbreak Insecure\allowbreak RfcommWithServiceRecord}. The first method creates a server socket listening for incoming connections created via \texttt{create\allowbreak Insecure\allowbreak Rfcomm\allowbreak SocketToServiceRecord} and needs an explicit pairing of two devices with user acceptance. The second method instead allows to manage incoming connection that do not require pairing with user acceptance.\\
+Android offers two ways for creating a bluetooth server socket: \texttt{listen\allowbreak Using\allowbreak Rfcomm\allowbreak WithServiceRecord} and \texttt{listen\allowbreak Using\allowbreak Insecure\allowbreak RfcommWithServiceRecord}. The first method creates a server socket listening for incoming connections created via \texttt{create\allowbreak Rfcomm\allowbreak SocketToServiceRecord} and needs an explicit pairing of two devices with user acceptance. The second method instead allows to manage incoming connections that do not require pairing with user acceptance (created with \texttt{create\allowbreak Insecure\allowbreak Rfcomm\allowbreak SocketToServiceRecord}).\\
 
 \subsection{\textbf{Delegated authorization}}
 In the authentication phase a \texttt{delegated\allowbreak\_access\allowbreak\_token} is retrieved in order to not use the same token for both direct and delegated authentication. However such a token should not be shared with other devices and in order to do so a little protocol has been developed.\\
