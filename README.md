@@ -17,20 +17,20 @@ The application can be built using Android Studio. Building has been tested with
 
 ## Main view
 
-![ScreenShot](screenshots/Screenshot_Main.jpg)
+![ScreenShot](screenshots/Screenshot_Main.png)
 
 Application's main view allows the user to set which sensors to use and the corresponding level of sensitivity. A security code must be provided, needed to disable monitoring. A phone number can be set, if any of the sensors is triggered a message is sent to the specified number.
 Once monitoring is started a paged view gains focus with one fragment for each sensor. Each of these fragments gives a graphical representation of the corresponding sensor state.
 
 ## Accelerometer Fragment
 
-![ScreenShot](screenshots/Screenshot_Accelerometer.jpg)
+![ScreenShot](screenshots/Screenshot_Accelerometer.png)
 
 The accelerometer page shows an OpenGL animation providing a graphic representation of phone's orientation. Fragment class is defined in `me.ziccard.securit.fragment.AccelerometerFragment`.
 
 ## Camera Fragment
 
-![ScreenShot](screenshots/Screenshot_Camera.jpg)
+![ScreenShot](screenshots/Screenshot_Camera.png)
 
 The camera page containes three sub-views: 
 
@@ -46,7 +46,7 @@ Motion detection is performed via an asynchronous task defined in `me.ziccard.se
 
 ## Microphone Fragment
 
-![ScreenShot](screenshots/Screenshot_Microphone.jpg)
+![ScreenShot](screenshots/Screenshot_Microphone.png)
 
 The microphone page provides a two-bar histogram of sound levels being captured by the mic and is defined in class `MicrophoneFragment`
 Mic data is captured via an asynchronous task (`me.ziccard.secureit.async.MicSamplerTask`) and the class 
