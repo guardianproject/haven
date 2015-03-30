@@ -49,31 +49,32 @@ public final class CameraFragment extends Fragment {
     @Override
     public void onResume() {
     	super.onResume();
-    	
-		//Uncomment to see the camera
-		preview = new Preview(getActivity());
-		((FrameLayout) getActivity().findViewById(R.id.preview)).addView(preview);
 
-        oldImage = (ImageView) getActivity().findViewById(R.id.old_image);
-        newImage = (ImageView) getActivity().findViewById(R.id.new_image);
-        
-        preview.addListener(new MotionListener() {
-			
-			public void onProcess(Bitmap oldBitmap, Bitmap newBitmap,
-					boolean motionDetected) {
-			  int rotation = 0;
-			  boolean reflex = false;
-			  if (preview.getCameraFacing() == Camera.CameraInfo.CAMERA_FACING_BACK) {
-			    rotation = 90;
-			  } else {
-			    rotation = 270;
-			    reflex = true;
-			  }
-			  oldImage.setImageBitmap(ImageCodec.rotate(oldBitmap,rotation,reflex));
-              newImage.setImageBitmap(ImageCodec.rotate(newBitmap,rotation,reflex));
-			}
-		});
-        
+        if (preview == null) {
+            //Uncomment to see the camera
+            preview = new Preview(getActivity());
+            ((FrameLayout) getActivity().findViewById(R.id.preview)).addView(preview);
+
+            oldImage = (ImageView) getActivity().findViewById(R.id.old_image);
+            newImage = (ImageView) getActivity().findViewById(R.id.new_image);
+
+            preview.addListener(new MotionListener() {
+
+                public void onProcess(Bitmap oldBitmap, Bitmap newBitmap,
+                                      boolean motionDetected) {
+                    int rotation = 0;
+                    boolean reflex = false;
+                    if (preview.getCameraFacing() == Camera.CameraInfo.CAMERA_FACING_BACK) {
+                        rotation = 90;
+                    } else {
+                        rotation = 270;
+                        reflex = true;
+                    }
+                    oldImage.setImageBitmap(ImageCodec.rotate(oldBitmap, rotation, reflex));
+                    newImage.setImageBitmap(ImageCodec.rotate(newBitmap, rotation, reflex));
+                }
+            });
+        }
     }
 
 	public void onSensorChanged(SensorEvent event) {
