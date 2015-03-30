@@ -1,0 +1,79 @@
+<resources>
+
+    <string name="app_name">SecureIt</string>
+
+    <string name="menu_stop">Stop</string>
+
+    <string name="title_activity_start">SecureIt</string>
+    
+    <string name="accelerometer_label">
+    	Use accelerometer to detect motion
+    </string>
+    <string name="accelerometer_prompt">
+    	Set sensitivity
+    </string>
+    
+    <string name="microphone_label">
+    	Use microphone to detect any sound
+    </string>
+    
+    <string name="camera_label">
+    	Use the camera to detect motion
+    </string>
+    
+    <string name="flash_label">
+    	Activate the flash
+    </string>
+    
+    <string name="sms_label">
+    	Send an SMS as alert
+    </string>
+    
+    <string name="remote_label">
+    	Send alert data to SecureIt
+    </string>
+    
+    <string name="sms_hint">
+    	Phone
+    </string>
+    
+    <string name="email_hint">
+    	Email
+    </string>
+    
+    <string name="password_hint">
+    	Password
+    </string>
+    
+    <string name="unlock_code_hint">
+    	Code to stop the app
+    </string>
+    
+    
+    <string name="start_button">
+    	Start
+    </string>
+    
+    <string name="camera_prompt">
+    	Select the camera
+    </string>
+    
+    <array name="accelerometer_sensitivity">
+        <item>Low</item>
+        <item>Medium</item>
+        <item>High</item>
+    </array>
+    <array name="select_camera">
+        <item>Front</item>
+        <item>Back</item>
+    </array>
+    
+    <string name="secure_service_started">
+         Home security deamon started
+    </string>
+    
+    <string name="secure_service_stopped">
+        Home security deamon stopped
+    </string>
+
+</resources>

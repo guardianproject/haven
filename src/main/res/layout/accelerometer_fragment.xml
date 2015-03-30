@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+       android:layout_width="fill_parent"
+       android:orientation="vertical"
+       android:layout_height="wrap_content">
+
+      <TextView
+        android:id="@+id/accelerometer_text"
+        android:layout_centerHorizontal="true"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="SHAKE DETECTED"
+        android:textColor="#FFFFFF"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        android:typeface="sans"
+        android:background="#820600"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        />
+
+      <TextView
+        android:id="@+id/magnetic_field_text"
+        android:layout_below="@id/accelerometer_text"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+      <TextView
+        android:id="@+id/orientation_text"
+        android:layout_below="@id/magnetic_field_text"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+      <FrameLayout android:id="@+id/opengl"
+          android:layout_below="@id/orientation_text"
+        android:layout_centerHorizontal="true"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+    </FrameLayout>
+</RelativeLayout>
