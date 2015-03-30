@@ -1,11 +1,11 @@
 # SecureIt
 Sample Android application that serves as a monitoring service by leveraging on device sensors. Among sensors exploited we report:
 
--   *Accelerometer*: used to detect phone's motion
+-   **Accelerometer**: used to detect phone's motion
 
--   *Camera*: used to detect motion in the phone's surroundings 
+-   **Camera**: used to detect motion in the phone's surroundings 
 
--   *Microphone*: used to detected noises in the enviroment
+-   **Microphone**: used to detected noises in the enviroment
 
 The source code is released open source to be used as a reference (possibly wrong) for your own code. The aim is to help fill in the gap between Javadoc documentation and real code samples.
 
@@ -17,14 +17,20 @@ The application can be built using Android Studio. Building has been tested with
 
 ## Main view
 
+![ScreenShot](screenshots/Screenshot_Main.jpg)
+
 Application's main view allows the user to set which sensors to use and the corresponding level of sensitivity. A security code must be provided, needed to disable monitoring. A phone number can be set, if any of the sensors is triggered a message is sent to the specified number.
 Once monitoring is started a paged view gains focus with one fragment for each sensor. Each of these fragments gives a graphical representation of the corresponding sensor state.
 
 ## Accelerometer Fragment
 
+![ScreenShot](screenshots/Screenshot_Accelerometer.jpg)
+
 The accelerometer page shows an OpenGL animation providing a graphic representation of phone's orientation. Fragment class is defined in `me.ziccard.securit.fragment.AccelerometerFragment`.
 
 ## Camera Fragment
+
+![ScreenShot](screenshots/Screenshot_Camera.jpg)
 
 The camera page containes three sub-views: 
 
@@ -39,6 +45,8 @@ and `me.ziccard.securit.Preview`.
 Motion detection is performed via an asynchronous task defined in `me.ziccard.secureit.async` that leverages on classes in `me.ziccard.secureit.motiondetection`.
 
 ## Microphone Fragment
+
+![ScreenShot](screenshots/Screenshot_Microphone.jpg)
 
 The microphone page provides a two-bar histogram of sound levels being captured by the mic and is defined in class `MicrophoneFragment`
 Mic data is captured via an asynchronous task (`me.ziccard.secureit.async.MicSamplerTask`) and the class 
