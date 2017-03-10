@@ -22,7 +22,7 @@ import info.guardianproject.phoneypot.service.MonitorService;
 
 public class MonitorActivity extends FragmentActivity {
 	
-	private SecureItPreferences preferences = null;
+	private PreferenceManager preferences = null;
 	
 	private static final String[] CONTENT = new String[] { "Accel.", "Camera",
 			"Mic."};
@@ -30,7 +30,7 @@ public class MonitorActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		preferences = new SecureItPreferences(getApplicationContext());
+		preferences = new PreferenceManager(getApplicationContext());
 
 		setContentView(R.layout.layout_running);
 

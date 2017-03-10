@@ -14,7 +14,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 
-import info.guardianproject.phoneypot.SecureItPreferences;
+import info.guardianproject.phoneypot.PreferenceManager;
 
 public class AudioRecorderTask extends Thread {
 	
@@ -27,7 +27,7 @@ public class AudioRecorderTask extends Thread {
 	/**
 	 * Shared preferences of the application
 	 */
-	private SecureItPreferences prefs;
+	private PreferenceManager prefs;
 	
 	/**
 	 * Name of the audio file to store
@@ -63,7 +63,7 @@ public class AudioRecorderTask extends Thread {
 	protected AudioRecorderTask(Context context) {
 		super();
 		this.context = context;
-		this.prefs = new SecureItPreferences(context);
+		this.prefs = new PreferenceManager(context);
 		this.filename = prefs.getAudioPath();		
 		this.phoneId = prefs.getPhoneId();
 		this.accessToken = prefs.getAccessToken();

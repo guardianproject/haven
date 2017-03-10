@@ -46,7 +46,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 	/**
 	 * Object to retrieve and set shared preferences
 	 */
-	private SecureItPreferences prefs;
+	private PreferenceManager prefs;
 	private int cameraFacing = 0;
 	
 	private List<MotionAsyncTask.MotionListener> listeners = new ArrayList<MotionAsyncTask.MotionListener>();
@@ -111,7 +111,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 		// underlying surface is created and destroyed.
 		mHolder = getHolder();
 		mHolder.addCallback(this);
-		prefs = new SecureItPreferences(context);
+		prefs = new PreferenceManager(context);
 		
 		/*
 		 * Set sensitivity value

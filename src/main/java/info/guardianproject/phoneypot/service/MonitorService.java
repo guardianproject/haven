@@ -22,7 +22,7 @@ import android.widget.Toast;
 
 import info.guardianproject.phoneypot.MonitorActivity;
 import info.guardianproject.phoneypot.R;
-import info.guardianproject.phoneypot.SecureItPreferences;
+import info.guardianproject.phoneypot.PreferenceManager;
 
 @SuppressLint("HandlerLeak")
 public class MonitorService extends Service {
@@ -61,7 +61,7 @@ public class MonitorService extends Service {
 	/**
 	 * Object used to retrieve shared preferences
 	 */
-	private SecureItPreferences prefs = null;
+	private PreferenceManager prefs = null;
 	
 	/**
 	 * Handler for incoming messages
@@ -84,7 +84,7 @@ public class MonitorService extends Service {
     @Override
     public void onCreate() {
         manager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-        prefs = new SecureItPreferences(this);
+        prefs = new PreferenceManager(this);
         
 
         

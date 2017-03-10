@@ -12,7 +12,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-public class SecureItPreferences {
+public class PreferenceManager {
 	
 	private SharedPreferences appSharedPrefs;
     private Editor prefsEditor;
@@ -46,7 +46,7 @@ public class SecureItPreferences {
 
 	private Context context;
 	
-    public SecureItPreferences(Context context) {
+    public PreferenceManager(Context context) {
         this.context = context;
         this.appSharedPrefs = context.getSharedPreferences(APP_SHARED_PREFS, Activity.MODE_PRIVATE);
         this.prefsEditor = appSharedPrefs.edit();
@@ -130,7 +130,7 @@ public class SecureItPreferences {
     }
     
     public boolean getSmsActivation() {
-    	return appSharedPrefs.getBoolean(SMS_ACTIVE, true);
+    	return appSharedPrefs.getBoolean(SMS_ACTIVE, false);
     }
     
     public void setSmsNumber(String number) {

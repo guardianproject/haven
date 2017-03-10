@@ -32,14 +32,14 @@ import android.widget.Spinner;
 
 public class StartActivity extends Activity {
 	
-	private SecureItPreferences preferences = null;
+	private PreferenceManager preferences = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
         setContentView(R.layout.activity_start);
-        preferences = new SecureItPreferences(this.getApplicationContext());
+        preferences = new PreferenceManager(this.getApplicationContext());
         
         /*
          * We create an application directory to store images and audio
@@ -150,34 +150,34 @@ public class StartActivity extends Activity {
          */
         if (preferences.getAccelerometerActivation()) {
         	String sensitivity = preferences.getAccelerometerSensitivity();
-        	if (sensitivity.equals(SecureItPreferences.LOW))
+        	if (sensitivity.equals(PreferenceManager.LOW))
         		accelerometerSensitivity.setSelection(0);
-        	else if (sensitivity.equals(SecureItPreferences.MEDIUM))
+        	else if (sensitivity.equals(PreferenceManager.MEDIUM))
         		accelerometerSensitivity.setSelection(1);
-        	else if (sensitivity.equals(SecureItPreferences.HIGH))
+        	else if (sensitivity.equals(PreferenceManager.HIGH))
         		accelerometerSensitivity.setSelection(2);
         }
         if (preferences.getCameraActivation()) {
         	String sensitivity = preferences.getCameraSensitivity();
-        	if (sensitivity.equals(SecureItPreferences.LOW))
+        	if (sensitivity.equals(PreferenceManager.LOW))
         		cameraSensitivity.setSelection(0);
-        	else if (sensitivity.equals(SecureItPreferences.MEDIUM))
+        	else if (sensitivity.equals(PreferenceManager.MEDIUM))
         		cameraSensitivity.setSelection(1);
-        	else if (sensitivity.equals(SecureItPreferences.HIGH))
+        	else if (sensitivity.equals(PreferenceManager.HIGH))
         		cameraSensitivity.setSelection(2);
         	String camera = preferences.getCamera();
-        	if (camera.equals(SecureItPreferences.FRONT))
+        	if (camera.equals(PreferenceManager.FRONT))
         		selectCameraSpinner.setSelection(0);
         	else
         		selectCameraSpinner.setSelection(1);
         }
         if (preferences.getMicrophoneActivation()) {
         	String sensitivity = preferences.getMicrophoneSensitivity();
-        	if (sensitivity.equals(SecureItPreferences.LOW))
+        	if (sensitivity.equals(PreferenceManager.LOW))
         		microphoneSensitivity.setSelection(0);
-        	else if (sensitivity.equals(SecureItPreferences.MEDIUM))
+        	else if (sensitivity.equals(PreferenceManager.MEDIUM))
         		microphoneSensitivity.setSelection(1);
-        	else if (sensitivity.equals(SecureItPreferences.HIGH))
+        	else if (sensitivity.equals(PreferenceManager.HIGH))
         		microphoneSensitivity.setSelection(2);
         }
         if (preferences.getSmsActivation()) {
@@ -185,7 +185,7 @@ public class StartActivity extends Activity {
         	phoneNumber.setText(preferences.getSmsNumber());
         }
 
-		askForPermission(Manifest.permission.ACCESS_FINE_LOCATION, 1);
+		askForPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, 1);
 
 	}
 
@@ -194,28 +194,13 @@ public class StartActivity extends Activity {
 		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
 		switch (requestCode) {
-			//Location
-			case 1:
-				askForPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE,2);
-				break;
-            case 2:
-                askForPermission(Manifest.permission.CAMERA,3);
-
+            case 1:
+                askForPermission(Manifest.permission.CAMERA,2);
                 break;
-            case 3:
-                askForPermission(Manifest.permission.BLUETOOTH_ADMIN,4);
-
-                break;
-            //Call
-			case 4:
-				askForPermission(Manifest.permission.ACCESS_NETWORK_STATE,5);
-
+			case 2:
+				askForPermission(Manifest.permission.RECORD_AUDIO,3);
 				break;
 
-            case 5:
-                askForPermission(Manifest.permission.SEND_SMS,6);
-
-                break;
 		}
 
 	}
