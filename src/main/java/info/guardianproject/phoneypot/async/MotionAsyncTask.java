@@ -10,14 +10,14 @@ package info.guardianproject.phoneypot.async;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.ziccard.phoneypot.codec.ImageCodec;
-import me.ziccard.phoneypot.motiondetection.IMotionDetector;
-import me.ziccard.phoneypot.motiondetection.LuminanceMotionDetector;
-
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Handler;
 import android.util.Log;
+
+import info.guardianproject.phoneypot.codec.ImageCodec;
+import info.guardianproject.phoneypot.motiondetection.IMotionDetector;
+import info.guardianproject.phoneypot.motiondetection.LuminanceMotionDetector;
 
 /**
  * Task doing all image processing in backgrounds, 

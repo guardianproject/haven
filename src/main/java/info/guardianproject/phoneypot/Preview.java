@@ -13,10 +13,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.ziccard.phoneypot.async.MotionAsyncTask;
-import me.ziccard.phoneypot.async.MotionAsyncTask.MotionListener;
-import me.ziccard.phoneypot.motiondetection.LuminanceMotionDetector;
-import me.ziccard.phoneypot.service.MonitorService;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -41,6 +37,10 @@ import android.view.Surface;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import info.guardianproject.phoneypot.async.MotionAsyncTask;
+import info.guardianproject.phoneypot.motiondetection.LuminanceMotionDetector;
+import info.guardianproject.phoneypot.service.MonitorService;
+
 public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 	
 	/**
@@ -49,7 +49,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 	private SecureItPreferences prefs;
 	private int cameraFacing = 0;
 	
-	private List<MotionListener> listeners = new ArrayList<MotionListener>();
+	private List<MotionAsyncTask.MotionListener> listeners = new ArrayList<MotionAsyncTask.MotionListener>();
 	
 	/**
 	 * Timestamp of the last picture processed
@@ -128,7 +128,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 		}
 	}
 	
-	public void addListener(MotionListener listener) {
+	public void addListener(MotionAsyncTask.MotionListener listener) {
 		listeners.add(listener);
 	}
 	
@@ -248,12 +248,12 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 								size.height,
 								updateHandler,
 								motionSensitivity);
-						for (MotionListener listener : listeners) {
+						for (MotionAsyncTask.MotionListener listener : listeners) {
 							Log.i("Preview", "Added listener");
 							task.addListener(listener);
 						}
 						doingProcessing = true;
-						task.addListener(new MotionListener() {
+						task.addListener(new MotionAsyncTask.MotionListener() {
 							
 							public void onProcess(Bitmap oldBitmap, Bitmap newBitmap,
 									boolean motionDetected) {

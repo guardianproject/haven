@@ -5,9 +5,6 @@
 
 package info.guardianproject.phoneypot.service;
 
-import me.ziccard.phoneypot.MonitorActivity;
-import me.ziccard.phoneypot.R;
-import me.ziccard.phoneypot.SecureItPreferences;
 
 import android.annotation.SuppressLint;
 import android.app.Notification;
@@ -22,6 +19,10 @@ import android.os.Message;
 import android.os.Messenger;
 import android.telephony.SmsManager;
 import android.widget.Toast;
+
+import info.guardianproject.phoneypot.MonitorActivity;
+import info.guardianproject.phoneypot.R;
+import info.guardianproject.phoneypot.SecureItPreferences;
 
 @SuppressLint("HandlerLeak")
 public class MonitorService extends Service {

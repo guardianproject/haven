@@ -9,9 +9,10 @@ package info.guardianproject.phoneypot.async;
 
 import java.io.IOException;
 
-import me.ziccard.phoneypot.codec.AudioCodec;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import info.guardianproject.phoneypot.codec.AudioCodec;
 
 public class MicSamplerTask extends AsyncTask<Void,Object,Void> {
 	

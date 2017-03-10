@@ -6,7 +6,6 @@
 
 package info.guardianproject.phoneypot;
 
-import me.ziccard.phoneypot.service.MonitorService;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,6 +17,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import info.guardianproject.phoneypot.service.MonitorService;
 
 public class MonitorActivity extends FragmentActivity {
 	

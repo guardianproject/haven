@@ -7,13 +7,14 @@
 package info.guardianproject.phoneypot.async;
 
 
-import me.ziccard.phoneypot.SecureItPreferences;
 import android.content.ContentValues;
 import android.content.Context;
 import android.media.MediaRecorder;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+
+import info.guardianproject.phoneypot.SecureItPreferences;
 
 public class AudioRecorderTask extends Thread {
 	
