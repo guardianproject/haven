@@ -1,4 +1,8 @@
+
 /*
+ * Copyright (c) 2017 Nathanial Freitas / Guardian Project
+ *  * Licensed under the GPLv3 license.
+ *
  * Copyright (c) 2013-2015 Marco Ziccardi, Luca Bonato
  * Licensed under the MIT license.
  */
