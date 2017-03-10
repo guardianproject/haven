@@ -65,6 +65,11 @@ public class MonitorService extends Service {
 	 */
 	int mNotificationAlertId = 7007;
 
+    /**
+     * Accelerometer Manager
+     */
+    AccelerometerManager mAccelManager = null;
+
 	/**
 	 * Handler for incoming messages
 	 */
@@ -87,7 +92,8 @@ public class MonitorService extends Service {
     public void onCreate() {
         manager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         prefs = new PreferenceManager(this);
-        
+
+        startSensors();
 
         showNotification();
     }
@@ -99,6 +105,7 @@ public class MonitorService extends Service {
     @Override
     public void onDestroy() {
 
+        stopSensors();
 		stopForeground(true);
 
 
@@ -148,6 +155,17 @@ public class MonitorService extends Service {
 		startForeground(0, mBuilder.build());
 
 
+    }
+
+    private void startSensors ()
+    {
+        mAccelManager = new AccelerometerManager(this);
+
+    }
+
+    private void stopSensors ()
+    {
+        mAccelManager.stop(this);
     }
 
     /**
