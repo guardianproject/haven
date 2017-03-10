@@ -4,7 +4,8 @@
  */
 
 
-package me.ziccard.phoneypot.motiondetection;
+package info.guardianproject.phoneypot.motiondetection;
+
 
 import java.util.ArrayList;
 import java.util.List;

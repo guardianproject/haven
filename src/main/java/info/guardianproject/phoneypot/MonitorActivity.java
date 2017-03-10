@@ -4,7 +4,7 @@
  */
 
 
-package me.ziccard.phoneypot;
+package info.guardianproject.phoneypot;
 
 import me.ziccard.phoneypot.service.MonitorService;
 import android.app.AlertDialog;

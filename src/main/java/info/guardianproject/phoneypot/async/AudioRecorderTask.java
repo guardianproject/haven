@@ -4,7 +4,8 @@
  */
 
 
-package me.ziccard.phoneypot.async;
+package info.guardianproject.phoneypot.async;
+
 
 import me.ziccard.phoneypot.SecureItPreferences;
 import android.content.ContentValues;

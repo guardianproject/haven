@@ -3,8 +3,7 @@
  * Licensed under the MIT license.
  */
 
-
-package me.ziccard.phoneypot.codec;
+package info.guardianproject.phoneypot.codec;
 
 import java.io.IOException;
 import java.util.Arrays;

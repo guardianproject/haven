@@ -27,7 +27,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "me.ziccard.secureit"
+        applicationId "info.guardianproject.phoneypot"
         minSdkVersion 10
         targetSdkVersion 25
         compileOptions {

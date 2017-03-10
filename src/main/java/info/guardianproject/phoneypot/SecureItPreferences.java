@@ -4,7 +4,8 @@
  */
 
 
-package me.ziccard.phoneypot;
+package info.guardianproject.phoneypot;
+
 
 import android.app.Activity;
 import android.content.Context;

@@ -4,7 +4,7 @@
  */
 
 
-package me.ziccard.phoneypot.codec;
+package info.guardianproject.phoneypot.codec;
 
 import java.io.ByteArrayOutputStream;
 

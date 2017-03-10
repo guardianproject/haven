@@ -3,8 +3,7 @@
  * Licensed under the MIT license.
  */
 
-
-package me.ziccard.phoneypot.service;
+package info.guardianproject.phoneypot.service;
 
 import me.ziccard.phoneypot.MonitorActivity;
 import me.ziccard.phoneypot.R;

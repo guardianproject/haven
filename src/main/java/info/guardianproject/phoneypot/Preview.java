@@ -4,7 +4,7 @@
  */
 
 
-package me.ziccard.phoneypot;
+package info.guardianproject.phoneypot;
 
 import java.io.File;
 import java.io.FileNotFoundException;
