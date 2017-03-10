@@ -4,7 +4,7 @@
  */
 
 
-package me.ziccard.secureit;
+package me.ziccard.phoneypot;
 
 import android.app.Activity;
 import android.content.Context;
@@ -34,8 +34,6 @@ public class SecureItPreferences {
 	private static final String MICROPHONE_SENSITIVITY="microphone_sensitivity";
 	private static final String SMS_ACTIVE="sms_active";
 	private static final String SMS_NUMBER="sms_number";
-	private static final String REMOTE_ACTIVE="remote_active";
-	private static final String REMOTE_EMAIL="remote_email";
 	private static final String UNLOCK_CODE="unlock_code";
 	
 	private static final String ACCESS_TOKEN="access_token";
@@ -44,15 +42,11 @@ public class SecureItPreferences {
 	private static final String PHONE_ID="phone_id";
 	
 	private static final String DIR_PATH = "/secureit";
-	
-	private static final String IMAGE_PATH = DIR_PATH+"/secureit";
-	private static final int MAX_IMAGES = 10;
-	
-	private static final String AUDIO_PATH = DIR_PATH+"/SecureIt_Audio";
-	private static final long AUDIO_LENGTH = 10000;
-	
+
+	private Context context;
 	
     public SecureItPreferences(Context context) {
+        this.context = context;
         this.appSharedPrefs = context.getSharedPreferences(APP_SHARED_PREFS, Activity.MODE_PRIVATE);
         this.prefsEditor = appSharedPrefs.edit();
     }
@@ -146,20 +140,7 @@ public class SecureItPreferences {
     public String getSmsNumber() {
     	return appSharedPrefs.getString(SMS_NUMBER, "");
     }
-    
-    public void activateRemote(boolean active) {
-    	prefsEditor.putBoolean(REMOTE_ACTIVE, active);
-    	prefsEditor.commit();
-    }
-    
-    public boolean getRemoteActivation() {
-    	return appSharedPrefs.getBoolean(REMOTE_ACTIVE, true);
-    }
-    
-    public void setRemoteEmail(String email) {
-    	prefsEditor.putString(REMOTE_EMAIL, email);
-    	prefsEditor.commit();
-    }
+
     
     public void setUnlockCode(String unlockCode) {
     	prefsEditor.putString(UNLOCK_CODE, unlockCode);
@@ -169,11 +150,7 @@ public class SecureItPreferences {
     public String getUnlockCode() {
     	return appSharedPrefs.getString(UNLOCK_CODE, "");
     }
-    
-    public String getRemoteEmail() {
-    	return appSharedPrefs.getString(REMOTE_EMAIL, "");
-    }
-    
+
     public void setAccessToken(String accessToken) {
     	prefsEditor.putString(ACCESS_TOKEN, accessToken);
     	prefsEditor.commit();
@@ -199,15 +176,7 @@ public class SecureItPreferences {
     public void unsetDelegatedAccessToken() {
     	prefsEditor.remove(DELEGATED_ACCESS_TOKEN);
     }
-    
-    public String getImagePath() {
-    	return IMAGE_PATH;
-    }
-    
-    public int getMaxImages() {
-    	return MAX_IMAGES;
-    }
-    
+
     public void setPhoneId(String phoneId) {
     	prefsEditor.putString(PHONE_ID, phoneId);
     	prefsEditor.commit();
@@ -225,16 +194,28 @@ public class SecureItPreferences {
     	return DIR_PATH;
     }
     
-    public String getAudioPath() {
-    	return AUDIO_PATH;
-    }
-    
-    public long getAudioLenght() {
-    	return AUDIO_LENGTH;
-    }
-    
     public String getSMSText() {
-    	return "WARNING: SecureIt has detected an intrusion.\n"+
-    			"PhoneId: "+getPhoneId();
+        return context.getString(R.string.intrusion_detected);
+    }
+
+    public String getImagePath ()
+    {
+        return "/phoneypot";
+    }
+
+    public int getMaxImages ()
+    {
+        return 10;
+    }
+
+    public String getAudioPath ()
+    {
+        return "/phoneypot";
+
+    }
+
+    public int getAudioLength ()
+    {
+        return 5000;
     }
 }

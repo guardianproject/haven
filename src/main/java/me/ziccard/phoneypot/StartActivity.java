@@ -4,26 +4,30 @@
  */
 
 
-package me.ziccard.secureit;
+package me.ziccard.phoneypot;
 
 import java.io.File;
 
-import me.ziccard.secureit.async.upload.AuthenticatorTask;
+import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Environment;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 public class StartActivity extends Activity {
 	
@@ -45,11 +49,7 @@ public class StartActivity extends Activity {
         /**
          * Checkboxes for enabled app options
          */
-        final CheckBox accelerometerCheck = (CheckBox) this.findViewById(R.id.accelerometer_check);
-        final CheckBox cameraCheck = (CheckBox) this.findViewById(R.id.camera_check);
-        final CheckBox microphoneCheck = (CheckBox) this.findViewById(R.id.microphone_check);
         final CheckBox smsCheck = (CheckBox) this.findViewById(R.id.sms_check);
-        final CheckBox remoteCheck = (CheckBox) this.findViewById(R.id.remote_check);
         
         /*
          * Detecting if the device has a front camera
@@ -69,17 +69,8 @@ public class StartActivity extends Activity {
          * Detecting if the device has the flash 
          * and configuring properly the check box
          */
-        final CheckBox flashCheck = (CheckBox) findViewById(R.id.flash_check);
-        if (!pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
-        	flashCheck.setEnabled(false);
-        }
-        
-        final RelativeLayout accelerometerOptions = (RelativeLayout) this.findViewById(R.id.accelerometer_options);
-        final RelativeLayout cameraOptions = (RelativeLayout) this.findViewById(R.id.camera_options);
-        final RelativeLayout microphoneOptions = (RelativeLayout) this.findViewById(R.id.microphone_options);
-        final RelativeLayout smsOptions = (RelativeLayout) this.findViewById(R.id.sms_options);
-        final RelativeLayout remoteOptions = (RelativeLayout) this.findViewById(R.id.remote_options);
-        
+
+
         final Spinner accelerometerSensitivity = (Spinner) 
         		this.findViewById(R.id.accelerometer_sensitivity_spinner);
         final Spinner cameraSensitivity = (Spinner) 
@@ -89,97 +80,38 @@ public class StartActivity extends Activity {
         
         final EditText phoneNumber = (EditText)
         		this.findViewById(R.id.phone_number);
-        final EditText email = (EditText)
-        		this.findViewById(R.id.email);
-        final EditText password = (EditText)
-        		this.findViewById(R.id.password);
-        
-        final EditText unlockCode = (EditText)
-        		this.findViewById(R.id.unlock_code);
-        
-        
+
         final Button startButton = (Button) this.findViewById(R.id.start_button);
-        
-        accelerometerCheck.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-			
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				if (isChecked) {
-					accelerometerOptions.setVisibility(View.VISIBLE);
-				} else {
-					accelerometerOptions.setVisibility(View.GONE);
-				}				
-			}
-		});
-        cameraCheck.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-			
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				if (isChecked) {
-					cameraOptions.setVisibility(View.VISIBLE);
-				} else {
-					cameraOptions.setVisibility(View.GONE);
-				}				
-			}
-		});
-        microphoneCheck.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-			
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				if (isChecked) {
-					microphoneOptions.setVisibility(View.VISIBLE);
-				} else {
-					microphoneOptions.setVisibility(View.GONE);
-				}				
-			}
-		});
+
+
         smsCheck.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if (isChecked) {
-					smsOptions.setVisibility(View.VISIBLE);
-				} else {
-					smsOptions.setVisibility(View.GONE);
-				}				
-			}
-		});
-        remoteCheck.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-			
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				if (isChecked) {
-					remoteOptions.setVisibility(View.VISIBLE);
-				} else {
-					remoteOptions.setVisibility(View.GONE);
-				}				
+                    askForPermission(Manifest.permission.SEND_SMS,6);
+        		}
 			}
 		});
         
         startButton.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
-				
-				if (accelerometerCheck.isChecked()) {
+
 					preferences.activateAccelerometer(true);
 					preferences.setAccelerometerSensitivity(
 							(String)accelerometerSensitivity.getSelectedItem());
-				} else {
-					preferences.activateAccelerometer(false);
-				}
-				if (cameraCheck.isChecked()) {
+
 					preferences.activateCamera(true);
-					preferences.activateFlash(
-							flashCheck.isChecked());
 					preferences.setCamera(
 							(String)selectCameraSpinner.getSelectedItem());
 					preferences.setCameraSensitivity(
 							(String)cameraSensitivity.getSelectedItem());
-				} else {
-					preferences.activateCamera(false);
-				}
-				if (microphoneCheck.isChecked()) {
+
+
 					preferences.activateMicrophone(true);
 					preferences.setMicrophoneSensitivity(
 							(String)microphoneSensitivity.getSelectedItem());
-				} else {
-					preferences.activateMicrophone(false);
-				}
+
 				if (smsCheck.isChecked() && !phoneNumber.getText().toString().equals("")) {
 					Log.i("StartActivity", "Send message alert is active");
 					preferences.activateSms(true);
@@ -188,42 +120,27 @@ public class StartActivity extends Activity {
 				} else {
 					preferences.activateSms(false);
 				}
-				if (remoteCheck.isChecked()) {
-					preferences.activateRemote(true);
-					preferences.setRemoteEmail(
-							email.getText().toString());					
-				} else {
-					preferences.activateRemote(false);
-				}
-				
-				if (!unlockCode.getText().toString().equals("")) {
-					preferences.setUnlockCode(unlockCode.getText().toString());
-				} else {
-					/*
-					 * We cannot start without an unlock code
-					 */
-					Toast.makeText(StartActivity.this, "Empty unlock code", Toast.LENGTH_LONG).show();
-					return;
-				}
-				
-				if (preferences.getRemoteActivation() && 
-						preferences.getRemoteEmail() != null && 
-						!password.getText().toString().equals("")) {
-					
-					/*
-					 * Authentication is set so we need to authenticate
-					 */
-					AuthenticatorTask task = new AuthenticatorTask(StartActivity.this,
-							preferences.getRemoteEmail(),
-							password.getText().toString());
-					task.execute();
-				} else {
-					Intent intent = new Intent(
-							StartActivity.this,
-							MonitorActivity.class);
-					
-					StartActivity.this.startActivity(intent);
-				}	
+
+                AlertDialog.Builder alert = new AlertDialog.Builder(StartActivity.this);
+                final EditText input = new EditText(StartActivity.this);
+                input.setInputType(InputType.TYPE_CLASS_NUMBER);
+                input.setRawInputType(Configuration.KEYBOARD_12KEY);
+                alert.setView(input);
+                alert.setTitle(R.string.unlock_title);
+                alert.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+
+                        preferences.setUnlockCode(input.getText().toString());
+                        startMonitoring();
+                    }
+                });
+                alert.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+
+
+                    }
+                });
+                alert.show();
 			}
 		});
         
@@ -231,7 +148,6 @@ public class StartActivity extends Activity {
          * Loads preferences and sets view
          */
         if (preferences.getAccelerometerActivation()) {
-        	accelerometerCheck.setChecked(true);
         	String sensitivity = preferences.getAccelerometerSensitivity();
         	if (sensitivity.equals(SecureItPreferences.LOW))
         		accelerometerSensitivity.setSelection(0);
@@ -241,7 +157,6 @@ public class StartActivity extends Activity {
         		accelerometerSensitivity.setSelection(2);
         }
         if (preferences.getCameraActivation()) {
-        	cameraCheck.setChecked(true);
         	String sensitivity = preferences.getCameraSensitivity();
         	if (sensitivity.equals(SecureItPreferences.LOW))
         		cameraSensitivity.setSelection(0);
@@ -249,7 +164,6 @@ public class StartActivity extends Activity {
         		cameraSensitivity.setSelection(1);
         	else if (sensitivity.equals(SecureItPreferences.HIGH))
         		cameraSensitivity.setSelection(2);
-        	flashCheck.setChecked(preferences.getFlashActivation());
         	String camera = preferences.getCamera();
         	if (camera.equals(SecureItPreferences.FRONT))
         		selectCameraSpinner.setSelection(0);
@@ -257,7 +171,6 @@ public class StartActivity extends Activity {
         		selectCameraSpinner.setSelection(1);
         }
         if (preferences.getMicrophoneActivation()) {
-        	microphoneCheck.setChecked(true);
         	String sensitivity = preferences.getMicrophoneSensitivity();
         	if (sensitivity.equals(SecureItPreferences.LOW))
         		microphoneSensitivity.setSelection(0);
@@ -270,9 +183,69 @@ public class StartActivity extends Activity {
         	smsCheck.setChecked(true);
         	phoneNumber.setText(preferences.getSmsNumber());
         }
-        if (preferences.getRemoteActivation()) {
-        	remoteCheck.setChecked(true);
-        	email.setText(preferences.getRemoteEmail());
-        }
+
+		askForPermission(Manifest.permission.ACCESS_FINE_LOCATION, 1);
+
+	}
+
+	@Override
+	public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+		switch (requestCode) {
+			//Location
+			case 1:
+				askForPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE,2);
+				break;
+            case 2:
+                askForPermission(Manifest.permission.CAMERA,3);
+
+                break;
+            case 3:
+                askForPermission(Manifest.permission.BLUETOOTH_ADMIN,4);
+
+                break;
+            //Call
+			case 4:
+				askForPermission(Manifest.permission.ACCESS_NETWORK_STATE,5);
+
+				break;
+
+            case 5:
+                askForPermission(Manifest.permission.SEND_SMS,6);
+
+                break;
+		}
+
+	}
+
+
+	private void askForPermission(String permission, Integer requestCode) {
+		if (ContextCompat.checkSelfPermission(StartActivity.this, permission) != PackageManager.PERMISSION_GRANTED) {
+
+			// Should we show an explanation?
+			if (ActivityCompat.shouldShowRequestPermissionRationale(StartActivity.this, permission)) {
+
+				//This is called if user has denied the permission before
+				//In this case I am just asking the permission again
+				ActivityCompat.requestPermissions(StartActivity.this, new String[]{permission}, requestCode);
+
+			} else {
+
+				ActivityCompat.requestPermissions(StartActivity.this, new String[]{permission}, requestCode);
+			}
+		} else {
+		}
+	}
+
+    private void startMonitoring ()
+    {
+
+        Intent intent = new Intent(
+                StartActivity.this,
+                MonitorActivity.class);
+
+        StartActivity.this.startActivity(intent);
     }
+
 }

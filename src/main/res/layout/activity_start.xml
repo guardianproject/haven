@@ -3,29 +3,14 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"> 
 
-<RelativeLayout 
+<LinearLayout
+	android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+	android:padding="6sp"
+	>
 	
-	<CheckBox
-	    android:id="@+id/accelerometer_check"
-     	android:text="@string/accelerometer_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        tools:context=".StartActivity" />
-	
-	<RelativeLayout
-	    android:background="@drawable/back"
-	    android:layout_below="@id/accelerometer_check"
-		android:id="@+id/accelerometer_options"
-    	android:layout_width="match_parent"
-    	android:layout_height="wrap_content" 
-    	android:visibility="gone"
-    	android:paddingLeft="30dp"
-    	android:paddingRight="30dp"
-    	android:layout_marginLeft="20dp"
-    	android:layout_marginRight="20dp">
+
     	<TextView 
     	    android:id="@+id/accelerometer_prompt"
     	    android:text="@string/accelerometer_prompt"
@@ -43,36 +28,7 @@
     	    android:layout_height="wrap_content"
     	    android:layout_centerHorizontal="true"
     	/>
-    	    
-	</RelativeLayout>
 
- 	<CheckBox
- 	    android:id="@+id/camera_check"
-     	android:text="@string/camera_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        tools:context=".StartActivity" 
-        android:layout_below="@id/accelerometer_options"/>
-	<RelativeLayout
-	    android:background="@drawable/back"
-	    android:layout_below="@id/camera_check"
-		android:id="@+id/camera_options"
-    	android:layout_width="match_parent"
-    	android:layout_height="wrap_content" 
-    	android:visibility="gone"
-    	android:paddingLeft="30dp"
-    	android:paddingRight="30dp"
-    	android:layout_marginLeft="20dp"
-    	android:layout_marginRight="20dp">
-    	<CheckBox
-	    	android:id="@+id/flash_check"
-     		android:text="@string/flash_label"
-        	android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
-        	android:layout_centerHorizontal="true"
-        	tools:context=".StartActivity"
-        />  	
     	<TextView 
     	    android:id="@+id/camera_prompt"
     	    android:text="@string/camera_prompt"
@@ -80,7 +36,6 @@
     	    android:layout_width="wrap_content"
     	    android:layout_height="wrap_content"
     	    android:paddingTop="10dp"
-    	    android:layout_below="@id/flash_check"
     	    />
     	<Spinner
     	    android:id="@+id/camera_spinner"
@@ -90,11 +45,10 @@
     	    android:layout_width="wrap_content"
     	    android:layout_height="wrap_content"
     	    android:layout_centerHorizontal="true"
-    	    android:layout_below="@id/flash_check"
     	/>
     	<TextView 
     	    android:id="@+id/camera_sensitivity_prompt"
-    	    android:text="@string/accelerometer_prompt"
+    	    android:text="@string/camera_sensitivity"
     	    android:layout_alignParentLeft="true"
     	    android:layout_width="wrap_content"
     	    android:layout_height="wrap_content"
@@ -104,7 +58,7 @@
     	<Spinner
     	    android:id="@+id/camera_sensitivity_spinner"
     	    android:layout_alignParentRight="true"
-    	    android:layout_below="@id/camera_spinner"
+    	    android:layout_below="@id/camera_sensitivity_prompt"
     	    android:prompt="@string/accelerometer_prompt"
     	    android:entries="@array/accelerometer_sensitivity"
     	    android:layout_width="wrap_content"
@@ -112,30 +66,9 @@
     	    android:layout_centerHorizontal="true"
     	/>
     	    
-	</RelativeLayout>
-	<CheckBox
-	    android:id="@+id/microphone_check"
-     	android:text="@string/microphone_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        tools:context=".StartActivity"
-        android:layout_below="@id/camera_options" />
-
-	<RelativeLayout
-	    android:background="@drawable/back"
-	    android:layout_below="@id/microphone_check"
-		android:id="@+id/microphone_options"
-    	android:layout_width="match_parent"
-    	android:layout_height="wrap_content" 
-    	android:visibility="gone"
-    	android:paddingLeft="30dp"
-    	android:paddingRight="30dp"
-    	android:layout_marginLeft="20dp"
-    	android:layout_marginRight="20dp">
-    	<TextView 
+		<TextView
     	    android:id="@+id/microphone_prompt"
-    	    android:text="@string/accelerometer_prompt"
+    	    android:text="@string/microphone_sensitivity"
     	    android:layout_alignParentLeft="true"
     	    android:layout_width="wrap_content"
     	    android:layout_height="wrap_content"
@@ -144,35 +77,22 @@
     	<Spinner
     	    android:id="@+id/microphone_sensitivity_spinner"
     	    android:layout_alignParentRight="true"
-    	    android:prompt="@string/accelerometer_prompt"
+    	    android:prompt="@string/microphone_sensitivity"
     	    android:entries="@array/accelerometer_sensitivity"
     	    android:layout_width="wrap_content"
     	    android:layout_height="wrap_content"
     	    android:layout_centerHorizontal="true"
     	/>
     	    
-	</RelativeLayout>
-	
+
 	<CheckBox
 	    android:id="@+id/sms_check"
      	android:text="@string/sms_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        tools:context=".StartActivity"
-        android:layout_below="@id/microphone_options" />
+        tools:context=".StartActivity" />
 
-	<RelativeLayout
-	    android:background="@drawable/back"
-	    android:layout_below="@id/sms_check"
-		android:id="@+id/sms_options"
-    	android:layout_width="match_parent"
-    	android:layout_height="wrap_content" 
-    	android:visibility="gone"
-    	android:paddingLeft="30dp"
-    	android:paddingRight="30dp"
-    	android:layout_marginLeft="20dp"
-    	android:layout_marginRight="20dp">
     	<EditText
     	    android:id="@+id/phone_number"
     	    android:hint="@string/sms_hint"
@@ -182,82 +102,15 @@
     	    android:layout_height="wrap_content"
     	    android:paddingTop="10dp"
     	    />
-    	    
-	</RelativeLayout>
-	
-	<CheckBox
-	    android:id="@+id/remote_check"
-     	android:text="@string/remote_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        tools:context=".StartActivity"
-        android:layout_below="@id/sms_options" />
 
-	<RelativeLayout
-	    android:background="@drawable/back"
-	    android:layout_below="@id/remote_check"
-		android:id="@+id/remote_options"
-    	android:layout_width="match_parent"
-    	android:layout_height="wrap_content" 
-    	android:visibility="gone"
-    	android:paddingLeft="30dp"
-    	android:paddingRight="30dp"
-    	android:layout_marginLeft="20dp"
-    	android:layout_marginRight="20dp">
-    	<EditText
-    	    android:id="@+id/email"
-    	    android:hint="@string/email_hint"
-    	    android:inputType="textEmailAddress"
-    	    android:layout_centerHorizontal="true"
-    	    android:layout_width="fill_parent"
-    	    android:layout_height="wrap_content"
-    	    android:paddingTop="10dp"
-    	    />
-		<EditText
-    	    android:id="@+id/password"
-    	    android:layout_below="@id/email"
-    	    android:hint="@string/password_hint"
-    	    android:inputType="textPassword"
-    	    android:layout_centerHorizontal="true"
-    	    android:layout_width="fill_parent"
-    	    android:layout_height="wrap_content"
-    	    android:paddingTop="10dp"
-    	    />
-    	    
-	</RelativeLayout>
-	
-	<RelativeLayout
-	    android:background="@drawable/back"
-	    android:layout_below="@id/remote_options"
-		android:id="@+id/unlock_options"
-    	android:layout_width="match_parent"
-    	android:layout_height="wrap_content" 
-    	android:paddingLeft="30dp"
-    	android:paddingRight="30dp"
-    	android:layout_marginTop="10dp"
-    	android:layout_marginLeft="20dp"
-    	android:layout_marginRight="20dp">
 
-		<EditText
-    	    android:id="@+id/unlock_code"
-    	    android:hint="@string/unlock_code_hint"
-    	    android:inputType="textPassword"
-    	    android:layout_centerHorizontal="true"
-    	    android:layout_width="fill_parent"
-    	    android:layout_height="wrap_content"
-    	    android:paddingTop="10dp"
-    	    />
-    	    
-	</RelativeLayout>
-	
+
 	<Button 
 	    android:id="@+id/start_button"
 	    android:text="@string/start_button"
-	    android:layout_below="@id/unlock_options"
-	    android:layout_width="wrap_content"
+	    android:layout_width="200dp"
 	    android:layout_height="wrap_content"
 	    android:layout_centerHorizontal="true"/>
 
-</RelativeLayout>
+</LinearLayout>
 </ScrollView>

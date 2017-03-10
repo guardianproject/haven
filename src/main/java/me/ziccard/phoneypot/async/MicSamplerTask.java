@@ -4,11 +4,11 @@
  */
 
 
-package me.ziccard.secureit.async;
+package me.ziccard.phoneypot.async;
 
 import java.io.IOException;
 
-import me.ziccard.secureit.codec.AudioCodec;
+import me.ziccard.phoneypot.codec.AudioCodec;
 import android.os.AsyncTask;
 import android.util.Log;
 

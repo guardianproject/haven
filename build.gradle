@@ -1,19 +1,25 @@
 buildscript {
-    dependencies {
-        classpath 'com.android.tools.build:gradle:1.1.0'
+    repositories {
+        jcenter()
     }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.2.3'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+
 }
 
 apply plugin: 'com.android.application'
 
 repositories {
-    maven { url "http://dl.bintray.com/populov/maven" }
-    mavenCentral()
+    jcenter()
 }
 
 android {
-    compileSdkVersion 16
-    buildToolsVersion "21.1.2"
+    compileSdkVersion 25
+    buildToolsVersion "25"
 
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'
@@ -23,10 +29,10 @@ android {
     defaultConfig {
         applicationId "me.ziccard.secureit"
         minSdkVersion 10
-        targetSdkVersion 15
+        targetSdkVersion 25
         compileOptions {
-            sourceCompatibility JavaVersion.VERSION_1_5
-            targetCompatibility JavaVersion.VERSION_1_5
+            sourceCompatibility JavaVersion.VERSION_1_7
+            targetCompatibility JavaVersion.VERSION_1_7
         }
     }
 
@@ -39,10 +45,6 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:18.0.0'
-    compile "com.androidplot:androidplot-core:0.6.1"
-    compile 'org.apache.httpcomponents:httpclient:4.2.3'
-    compile 'org.apache.httpcomponents:httpcore:4.2.3'
-    compile 'org.apache.httpcomponents:httpmime:4.2.3'
-    compile 'com.viewpagerindicator:library:2.4.1@aar'
+    compile 'com.android.support:support-v4:25.0.0'
+
 }

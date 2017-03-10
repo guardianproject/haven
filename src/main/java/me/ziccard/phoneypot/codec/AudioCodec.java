@@ -4,7 +4,7 @@
  */
 
 
-package me.ziccard.secureit.codec;
+package me.ziccard.phoneypot.codec;
 
 import java.io.IOException;
 import java.util.Arrays;

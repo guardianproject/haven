@@ -4,7 +4,7 @@
  */
 
 
-package me.ziccard.secureit;
+package me.ziccard.phoneypot;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,10 +13,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.ziccard.secureit.async.MotionAsyncTask;
-import me.ziccard.secureit.async.MotionAsyncTask.MotionListener;
-import me.ziccard.secureit.motiondetection.LuminanceMotionDetector;
-import me.ziccard.secureit.service.UploadService;
+import me.ziccard.phoneypot.async.MotionAsyncTask;
+import me.ziccard.phoneypot.async.MotionAsyncTask.MotionListener;
+import me.ziccard.phoneypot.motiondetection.LuminanceMotionDetector;
+import me.ziccard.phoneypot.service.MonitorService;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -145,7 +145,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 		 * We bind to the alert service
 		 */
 		context.bindService(new Intent(context, 
-				UploadService.class), mConnection, Context.BIND_ABOVE_CLIENT);
+				MonitorService.class), mConnection, Context.BIND_ABOVE_CLIENT);
 		
 		/*
 		 *  The Surface has been created, acquire the camera and tell it where
@@ -262,7 +262,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 									Log.i("MotionListener", "Motion detected");
 									if (serviceMessenger!=null) {
 										Message message = new Message();
-										message.what = UploadService.CAMERA_MESSAGE;
+										message.what = MonitorService.CAMERA_MESSAGE;
 										try {
 											serviceMessenger.send(message);
 										} catch (RemoteException e) {

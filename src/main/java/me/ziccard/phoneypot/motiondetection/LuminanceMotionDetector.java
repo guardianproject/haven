@@ -4,7 +4,7 @@
  */
 
 
-package me.ziccard.secureit.motiondetection;
+package me.ziccard.phoneypot.motiondetection;
 
 import java.util.ArrayList;
 import java.util.List;

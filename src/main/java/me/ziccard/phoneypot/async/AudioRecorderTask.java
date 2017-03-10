@@ -4,21 +4,9 @@
  */
 
 
-package me.ziccard.secureit.async;
+package me.ziccard.phoneypot.async;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.InputStreamReader;
-import org.apache.http.HttpException;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.mime.HttpMultipartMode;
-import org.apache.http.entity.mime.MultipartEntity;
-import org.apache.http.entity.mime.content.FileBody;
-import org.apache.http.impl.client.DefaultHttpClient;
-import me.ziccard.secureit.SecureItPreferences;
-import me.ziccard.secureit.config.Remote;
+import me.ziccard.phoneypot.SecureItPreferences;
 import android.content.ContentValues;
 import android.content.Context;
 import android.media.MediaRecorder;
@@ -119,7 +107,7 @@ public class AudioRecorderTask extends Thread {
         Log.i("AudioRecorderTask", "Start recording");
         recorder.start();
         try {
-			Thread.sleep(prefs.getAudioLenght());
+			Thread.sleep(prefs.getAudioLength());
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -135,6 +123,7 @@ public class AudioRecorderTask extends Thread {
          * Uploading the audio 
          */
         Log.i("AudioRecorderTask", "Trying to upload");
+		/**
         HttpClient httpclient = new DefaultHttpClient();
 		HttpPost request = new HttpPost(
 				Remote.HOST+
@@ -145,17 +134,12 @@ public class AudioRecorderTask extends Thread {
 				"URI: "+Remote.HOST+
 				Remote.PHONES+"/"+phoneId+
 				Remote.UPLOAD_AUDIO);
-		/*
-		 * Getting the audio from the file system
-		 */
+
 	    MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
 	    File audio = new File(audioPath);
 	    reqEntity.addPart("audio", new FileBody(audio, "audio/mp3"));	
 		request.setEntity(reqEntity);
-		
-		/*
-		 * Authentication token
-		 */
+
 		request.setHeader("access_token", accessToken);
 		
 		try {
@@ -175,7 +159,9 @@ public class AudioRecorderTask extends Thread {
 			}
 		} catch (Exception e) {
 			Log.e("DataUploaderTask", "Error uploading audio: "+audioPath);
-		}       
+		}
+
+		**/
 	}
 
 }

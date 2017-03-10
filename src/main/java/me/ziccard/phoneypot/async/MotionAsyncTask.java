@@ -4,14 +4,14 @@
  */
 
 
-package me.ziccard.secureit.async;
+package me.ziccard.phoneypot.async;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import me.ziccard.secureit.codec.ImageCodec;
-import me.ziccard.secureit.motiondetection.IMotionDetector;
-import me.ziccard.secureit.motiondetection.LuminanceMotionDetector;
+import me.ziccard.phoneypot.codec.ImageCodec;
+import me.ziccard.phoneypot.motiondetection.IMotionDetector;
+import me.ziccard.phoneypot.motiondetection.LuminanceMotionDetector;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
