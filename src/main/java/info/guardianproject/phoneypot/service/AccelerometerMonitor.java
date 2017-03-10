@@ -20,7 +20,7 @@ import info.guardianproject.phoneypot.PreferenceManager;
 /**
  * Created by n8fr8 on 3/10/17.
  */
-public class AccelerometerManager implements SensorEventListener {
+public class AccelerometerMonitor implements SensorEventListener {
 
     // For shake motion detection.
     private SensorManager sensorMgr;
@@ -62,7 +62,7 @@ public class AccelerometerManager implements SensorEventListener {
     private int remainingAlertPeriod = 0;
     private boolean alert = false;
 
-    public AccelerometerManager(Context context) {
+    public AccelerometerMonitor(Context context) {
         prefs = new PreferenceManager(context);
 
 		/*

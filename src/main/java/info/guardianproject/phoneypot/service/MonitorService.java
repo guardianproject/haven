@@ -7,20 +7,16 @@ package info.guardianproject.phoneypot.service;
 
 
 import android.annotation.SuppressLint;
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.support.v4.app.NotificationCompat;
 import android.telephony.SmsManager;
-import android.widget.Toast;
 
 import info.guardianproject.phoneypot.MonitorActivity;
 import info.guardianproject.phoneypot.R;
@@ -66,9 +62,10 @@ public class MonitorService extends Service {
 	int mNotificationAlertId = 7007;
 
     /**
-     * Accelerometer Manager
+     * Sensor Monitors
      */
-    AccelerometerManager mAccelManager = null;
+    AccelerometerMonitor mAccelManager = null;
+    MicrophoneMonitor mMicMonitor = null;
 
 	/**
 	 * Handler for incoming messages
@@ -159,30 +156,40 @@ public class MonitorService extends Service {
 
     private void startSensors ()
     {
-        mAccelManager = new AccelerometerManager(this);
+        mAccelManager = new AccelerometerMonitor(this);
+        mMicMonitor = new MicrophoneMonitor(this);
 
     }
 
     private void stopSensors ()
     {
         mAccelManager.stop(this);
+        mMicMonitor.stop(this);
     }
+
+    private int mLastAlert = -1;
 
     /**
     * Sends an alert according to type of connectivity
     */
-    private void alert(int alertType) {
+    private synchronized void alert(int alertType) {
 
-    	/*
-    	 * If we have already received an alert 
-    	 */
-    	if (already_alerted) return;
+        if (alertType == mLastAlert)
+            return;
 
-    	/*
-    	 * Alse we set an alert has bee received
-    	 */
-		already_alerted = true; 	
-		
+        String alertMessage = getString(R.string.intrusion_detected);
+        switch (alertType)
+        {
+            case MonitorService.ACCELEROMETER_MESSAGE:
+                alertMessage += ": Device was moved!";
+                break;
+            case MonitorService.MICROPHONE_MESSAGE:
+                alertMessage += ": Noise detected!";
+                break;
+            case MonitorService.CAMERA_MESSAGE:
+                alertMessage += ": Camera motion detected!";
+                break;
+        }
 
 		/*
 		 * If SMS mode is on we send an SMS alert to the specified 
@@ -191,11 +198,13 @@ public class MonitorService extends Service {
 		if (prefs.getSmsActivation()) {
 			//get the manager
 			SmsManager manager = SmsManager.getDefault();
-			manager.sendTextMessage(prefs.getSmsNumber(), null, prefs.getSMSText(), null, null);
+			manager.sendTextMessage(prefs.getSmsNumber(), null, alertMessage, null, null);
 			
 		}
 
-		showNotificationAlert("Got alert type: " + alertType);
+		showNotificationAlert(alertMessage);
+
+        mLastAlert = alertType;
     }
 
 	private void showNotificationAlert (String message)
