@@ -103,7 +103,7 @@ public class PreferenceManager {
     }
     
     public boolean getFlashActivation() {
-    	return appSharedPrefs.getBoolean(FLASH_ACTIVE, true);
+    	return appSharedPrefs.getBoolean(FLASH_ACTIVE, false);
     }
     
     public void activateMicrophone(boolean active) {

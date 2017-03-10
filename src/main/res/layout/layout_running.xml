@@ -12,4 +12,10 @@
         android:text="Monitoring..."
         android:id="@+id/textView"
         android:layout_gravity="center_horizontal|center_vertical" />
+
+    <fragment class="info.guardianproject.phoneypot.CameraFragment"
+        android:id="@+id/fragment_camera"
+        android:layout_width="match_parent"
+        android:layout_height="300sp"
+        />
 </LinearLayout>

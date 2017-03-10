@@ -33,7 +33,7 @@ public class MonitorActivity extends FragmentActivity {
 		preferences = new PreferenceManager(getApplicationContext());
 
 		setContentView(R.layout.layout_running);
-
+		
 		/**
 		 * starting the alert srevice
 		 */
