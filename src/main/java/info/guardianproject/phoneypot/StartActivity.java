@@ -22,6 +22,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.InputType;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -82,9 +84,6 @@ public class StartActivity extends Activity {
         final EditText phoneNumber = (EditText)
         		this.findViewById(R.id.phone_number);
 
-        final Button startButton = (Button) this.findViewById(R.id.start_button);
-
-
         smsCheck.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -93,58 +92,7 @@ public class StartActivity extends Activity {
         		}
 			}
 		});
-        
-        startButton.setOnClickListener(new View.OnClickListener() {
-			
-			public void onClick(View v) {
 
-					preferences.activateAccelerometer(true);
-					preferences.setAccelerometerSensitivity(
-							(String)accelerometerSensitivity.getSelectedItem());
-
-					preferences.activateCamera(true);
-					preferences.setCamera(
-							(String)selectCameraSpinner.getSelectedItem());
-					preferences.setCameraSensitivity(
-							(String)cameraSensitivity.getSelectedItem());
-
-
-					preferences.activateMicrophone(true);
-					preferences.setMicrophoneSensitivity(
-							(String)microphoneSensitivity.getSelectedItem());
-
-				if (smsCheck.isChecked() && !phoneNumber.getText().toString().equals("")) {
-					Log.i("StartActivity", "Send message alert is active");
-					preferences.activateSms(true);
-					preferences.setSmsNumber(
-							phoneNumber.getText().toString());
-				} else {
-					preferences.activateSms(false);
-				}
-
-                AlertDialog.Builder alert = new AlertDialog.Builder(StartActivity.this);
-                final EditText input = new EditText(StartActivity.this);
-                input.setInputType(InputType.TYPE_CLASS_NUMBER);
-                input.setRawInputType(Configuration.KEYBOARD_12KEY);
-                alert.setView(input);
-                alert.setTitle(R.string.unlock_title);
-                alert.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-
-                        preferences.setUnlockCode(input.getText().toString());
-                        startMonitoring();
-                    }
-                });
-                alert.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-
-
-                    }
-                });
-                alert.show();
-			}
-		});
-        
         /**
          * Loads preferences and sets view
          */
@@ -227,11 +175,89 @@ public class StartActivity extends Activity {
     private void startMonitoring ()
     {
 
+        Spinner accelerometerSensitivity = (Spinner)
+                this.findViewById(R.id.accelerometer_sensitivity_spinner);
+        Spinner cameraSensitivity = (Spinner)
+                this.findViewById(R.id.camera_sensitivity_spinner);
+        Spinner microphoneSensitivity = (Spinner)
+                this.findViewById(R.id.microphone_sensitivity_spinner);
+
+        EditText phoneNumber = (EditText)
+                this.findViewById(R.id.phone_number);
+
+        Spinner selectCameraSpinner = (Spinner) this.findViewById(R.id.camera_spinner);
+        CheckBox smsCheck = (CheckBox) this.findViewById(R.id.sms_check);
+
+
+        preferences.activateAccelerometer(true);
+        preferences.setAccelerometerSensitivity(
+                (String)accelerometerSensitivity.getSelectedItem());
+
+        preferences.activateCamera(true);
+        preferences.setCamera(
+                (String)selectCameraSpinner.getSelectedItem());
+        preferences.setCameraSensitivity(
+                (String)cameraSensitivity.getSelectedItem());
+
+
+        preferences.activateMicrophone(true);
+        preferences.setMicrophoneSensitivity(
+                (String)microphoneSensitivity.getSelectedItem());
+
+        if (smsCheck.isChecked() && !phoneNumber.getText().toString().equals("")) {
+            Log.i("StartActivity", "Send message alert is active");
+            preferences.activateSms(true);
+            preferences.setSmsNumber(
+                    phoneNumber.getText().toString());
+        } else {
+            preferences.activateSms(false);
+        }
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(StartActivity.this);
+        final EditText input = new EditText(StartActivity.this);
+        input.setInputType(InputType.TYPE_CLASS_NUMBER);
+        input.setRawInputType(Configuration.KEYBOARD_12KEY);
+        alert.setView(input);
+        alert.setTitle(R.string.unlock_title);
+        alert.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                preferences.setUnlockCode(input.getText().toString());
+                launchMonitoringMode();
+            }
+        });
+        alert.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+
+
+            }
+        });
+        alert.show();
+    }
+    private void launchMonitoringMode ()
+    {
+
         Intent intent = new Intent(
                 StartActivity.this,
                 MonitorActivity.class);
 
         StartActivity.this.startActivity(intent);
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.monitor_start, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected (MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menu_start:
+                startMonitoring();
+                break;
+        }
+        return true;
     }
 
 }

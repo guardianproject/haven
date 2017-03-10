@@ -2,7 +2,10 @@
 
     <string name="app_name">PhoneyPot</string>
 
-    <string name="menu_stop">Stop</string>
+    <string name="menu_stop">STOP</string>
+
+    <string name="menu_start">START</string>
+
 
     <string name="title_activity_start">PhoneyPot</string>
 

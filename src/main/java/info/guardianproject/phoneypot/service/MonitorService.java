@@ -11,12 +11,14 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
+import android.support.v4.app.NotificationCompat;
 import android.telephony.SmsManager;
 import android.widget.Toast;
 
@@ -26,13 +28,7 @@ import info.guardianproject.phoneypot.PreferenceManager;
 
 @SuppressLint("HandlerLeak")
 public class MonitorService extends Service {
-	
-	/**
-	 * Task used to upload position, is periodic, when we close the app
-	 * we need to stop the service and that task
-	 */
-	private AsyncTask<Void, Void, Void> positionTask = null;
-	
+
 	/**
 	 * To show a notification on service start
 	 */
@@ -62,7 +58,13 @@ public class MonitorService extends Service {
 	 * Object used to retrieve shared preferences
 	 */
 	private PreferenceManager prefs = null;
-	
+
+
+	/**
+	 * Incrementing alert id
+	 */
+	int mNotificationAlertId = 7007;
+
 	/**
 	 * Handler for incoming messages
 	 */
@@ -87,7 +89,6 @@ public class MonitorService extends Service {
         prefs = new PreferenceManager(this);
         
 
-        
         showNotification();
     }
     
@@ -97,14 +98,10 @@ public class MonitorService extends Service {
      */
     @Override
     public void onDestroy() {
-        // Cancel the persistent notification.
-        manager.cancel(R.string.secure_service_started);
-        if (positionTask!=null && !positionTask.isCancelled()) {
-        	positionTask.cancel(true);
-        }
 
-        // Tell the user we stopped.
-        Toast.makeText(this, R.string.secure_service_stopped, Toast.LENGTH_SHORT).show();
+		stopForeground(true);
+
+
     }
 	
     /**
@@ -128,24 +125,29 @@ public class MonitorService extends Service {
 
    	   toLaunch.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT
    		    |Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
-   		    |Intent.FLAG_ACTIVITY_NEW_TASK);  
-    	
+   		    |Intent.FLAG_ACTIVITY_NEW_TASK);
+        PendingIntent resultPendingIntent =
+                PendingIntent.getActivity(
+                        this,
+                        0,
+                        toLaunch,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
         // In this sample, we'll use the same text for the ticker and the expanded notification
         CharSequence text = getText(R.string.secure_service_started);
-        
-        Notification notification = new Notification(R.drawable.ic_launcher, text,
-                System.currentTimeMillis());
 
-        // The PendingIntent to launch our activity if the user selects this notification
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-        		toLaunch, PendingIntent.FLAG_UPDATE_CURRENT);
-        
-//        notification.setLatestEventInfo(this, "SecureService",
-  //              text, contentIntent);
+		NotificationCompat.Builder mBuilder =
+				new NotificationCompat.Builder(this)
+						.setSmallIcon(R.drawable.ic_phone_alert)
+						.setContentTitle(getString(R.string.app_name))
+						.setContentText(text);
 
-        // Send the notification.
-        // We use a string id because it is a unique number.  We use it later to cancel.
-        manager.notify(R.string.secure_service_started, notification);
+
+        mBuilder.setContentIntent(resultPendingIntent);
+
+		startForeground(0, mBuilder.build());
+
+
     }
 
     /**
@@ -174,5 +176,35 @@ public class MonitorService extends Service {
 			manager.sendTextMessage(prefs.getSmsNumber(), null, prefs.getSMSText(), null, null);
 			
 		}
-    }   
+
+		showNotificationAlert("Got alert type: " + alertType);
+    }
+
+	private void showNotificationAlert (String message)
+	{
+
+		NotificationCompat.Builder mBuilder =
+				new NotificationCompat.Builder(this)
+						.setSmallIcon(R.drawable.ic_phone_alert)
+						.setContentTitle(getString(R.string.app_name))
+						.setContentText(message);
+
+		Intent resultIntent = new Intent(this, MonitorActivity.class);
+
+// Because clicking the notification opens a new ("special") activity, there's
+// no need to create an artificial back stack.
+		PendingIntent resultPendingIntent =
+				PendingIntent.getActivity(
+						this,
+						0,
+						resultIntent,
+						PendingIntent.FLAG_UPDATE_CURRENT
+				);
+
+		mBuilder.setContentIntent(resultPendingIntent);
+
+		manager.notify(mNotificationAlertId, mBuilder.build());
+
+
+	}
 }
