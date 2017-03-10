@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.text.InputType;
 import android.view.Menu;
@@ -33,11 +34,22 @@ public class MonitorActivity extends FragmentActivity {
 		preferences = new PreferenceManager(getApplicationContext());
 
 		setContentView(R.layout.layout_running);
-		
+
+		Toast.makeText(this,"Monitoring will begin in 10 seconds",Toast.LENGTH_LONG).show();
 		/**
 		 * starting the alert srevice
 		 */
-        startService(new Intent(this, MonitorService.class));
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //Do something after 100ms
+                startService(new Intent(MonitorActivity.this, MonitorService.class));
+
+            }
+        }, 10 * 1000);
+
 	}
 
 

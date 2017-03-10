@@ -15,8 +15,11 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
+import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
 import android.telephony.SmsManager;
+
+import java.util.Date;
 
 import info.guardianproject.phoneypot.MonitorActivity;
 import info.guardianproject.phoneypot.R;
@@ -81,7 +84,12 @@ public class MonitorService extends Service {
 	 * Messenger interface used by clients to interact
 	 */
 	private final Messenger messenger = new Messenger(new MessageHandler());
-	
+
+    /*
+    ** Helps keep the service awake when screen is off
+     */
+    PowerManager.WakeLock wakeLock;
+
 	/**
 	 * Called on service creation, sends a notification
 	 */
@@ -93,6 +101,11 @@ public class MonitorService extends Service {
         startSensors();
 
         showNotification();
+
+        PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+        wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK,
+                "MyWakelockTag");
+        wakeLock.acquire();
     }
     
     /**
@@ -102,6 +115,7 @@ public class MonitorService extends Service {
     @Override
     public void onDestroy() {
 
+        wakeLock.release();
         stopSensors();
 		stopForeground(true);
 
@@ -177,19 +191,24 @@ public class MonitorService extends Service {
         if (alertType == mLastAlert)
             return;
 
-        String alertMessage = getString(R.string.intrusion_detected);
+        StringBuffer alertMessage = new StringBuffer();
+
+        alertMessage.append(getString(R.string.intrusion_detected));
+
         switch (alertType)
         {
             case MonitorService.ACCELEROMETER_MESSAGE:
-                alertMessage += ": Device was moved!";
+                alertMessage.append(": Device was moved!");
                 break;
             case MonitorService.MICROPHONE_MESSAGE:
-                alertMessage += ": Noise detected!";
+                alertMessage.append(": Noise detected!");
                 break;
             case MonitorService.CAMERA_MESSAGE:
-                alertMessage += ": Camera motion detected!";
+                alertMessage.append(": Camera motion detected!");
                 break;
         }
+
+        alertMessage.append(" @ " + new Date().toLocaleString());
 
 		/*
 		 * If SMS mode is on we send an SMS alert to the specified 
@@ -198,11 +217,11 @@ public class MonitorService extends Service {
 		if (prefs.getSmsActivation()) {
 			//get the manager
 			SmsManager manager = SmsManager.getDefault();
-			manager.sendTextMessage(prefs.getSmsNumber(), null, alertMessage, null, null);
+			manager.sendTextMessage(prefs.getSmsNumber(), null, alertMessage.toString(), null, null);
 			
 		}
 
-		showNotificationAlert(alertMessage);
+		showNotificationAlert(alertMessage.toString());
 
         mLastAlert = alertType;
     }
@@ -230,7 +249,7 @@ public class MonitorService extends Service {
 
 		mBuilder.setContentIntent(resultPendingIntent);
 
-		manager.notify(mNotificationAlertId, mBuilder.build());
+		manager.notify(mNotificationAlertId++, mBuilder.build());
 
 
 	}
