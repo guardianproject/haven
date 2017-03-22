@@ -140,14 +140,14 @@ public class MonitorService extends Service {
      */
     @SuppressWarnings("deprecation")
 	private void showNotification() {
-    	
 
     	Intent toLaunch = new Intent(getApplicationContext(),
     	                                          MonitorActivity.class);
 
-   	   toLaunch.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT
-   		    |Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
-   		    |Intent.FLAG_ACTIVITY_NEW_TASK);
+        toLaunch.setAction(Intent.ACTION_MAIN);
+        toLaunch.addCategory(Intent.CATEGORY_LAUNCHER);
+        toLaunch.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
         PendingIntent resultPendingIntent =
                 PendingIntent.getActivity(
                         this,
@@ -155,6 +155,7 @@ public class MonitorService extends Service {
                         toLaunch,
                         PendingIntent.FLAG_UPDATE_CURRENT
                 );
+
         // In this sample, we'll use the same text for the ticker and the expanded notification
         CharSequence text = getText(R.string.secure_service_started);
 
@@ -164,11 +165,11 @@ public class MonitorService extends Service {
 						.setContentTitle(getString(R.string.app_name))
 						.setContentText(text);
 
-
+		mBuilder.setPriority(NotificationCompat.PRIORITY_MIN);
         mBuilder.setContentIntent(resultPendingIntent);
+        mBuilder.setWhen(System.currentTimeMillis());
 
-		startForeground(0, mBuilder.build());
-
+		startForeground(1, mBuilder.build());
 
     }
 
@@ -225,7 +226,7 @@ public class MonitorService extends Service {
 			
 		}
 
-		showNotificationAlert(alertMessage.toString());
+
 
         mLastAlert = alertType;
     }
