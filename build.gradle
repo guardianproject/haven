@@ -47,4 +47,6 @@ android {
 
 dependencies {
     compile 'com.android.support:support-v4:25.0.0'
+    compile 'com.github.satyan:sugar:1.5'
+
 }

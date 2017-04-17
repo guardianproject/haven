@@ -6,7 +6,6 @@
 
     <string name="menu_start">START</string>
 
-
     <string name="title_activity_start">PhoneyPot</string>
 
     <string name="accelerometer_prompt">
@@ -64,11 +63,9 @@
         <item>Back</item>
     </array>
 
-    <string name="unlock_title">Set Unlock Pin</string>
+    <string name="secure_service_started">Phoneypot Activated</string>
     
-    <string name="secure_service_started">Phoneypot monitoring activated</string>
-    
-    <string name="secure_service_stopped">Phoneypot monitoring deactivated</string>
+    <string name="secure_service_stopped">Phoneypot Deactivated</string>
 
-    <string name="intrusion_detected">An intrusion was detected.</string>
+    <string name="intrusion_detected">An intrusion was detected. Capturing audio and photo evidence now.</string>
 </resources>

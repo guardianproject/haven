@@ -19,7 +19,9 @@
     <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        android:name="com.orm.SugarApp"
+        >
         <activity
             android:name=".StartActivity"
             android:label="@string/title_activity_start"
@@ -36,5 +38,11 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"/>
         <service android:name=".service.MonitorService"/>
+
+        <meta-data android:name="DATABASE" android:value="phoneypot.db" />
+        <meta-data android:name="VERSION" android:value="1" />
+        <meta-data android:name="QUERY_LOG" android:value="true" />
+        <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="info.guardianproject.phoneypot.model" />
+
      </application>
 </manifest>

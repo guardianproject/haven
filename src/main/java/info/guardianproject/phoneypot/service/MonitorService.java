@@ -28,6 +28,8 @@ import java.util.Date;
 import info.guardianproject.phoneypot.MonitorActivity;
 import info.guardianproject.phoneypot.R;
 import info.guardianproject.phoneypot.PreferenceManager;
+import info.guardianproject.phoneypot.model.Event;
+import info.guardianproject.phoneypot.model.EventTrigger;
 
 @SuppressLint("HandlerLeak")
 public class MonitorService extends Service {
@@ -74,7 +76,12 @@ public class MonitorService extends Service {
     AccelerometerMonitor mAccelManager = null;
     MicrophoneMonitor mMicMonitor = null;
 
-	/**
+    /**
+     * Last Event instances
+     */
+    Event mLastEvent;
+
+    /**
 	 * Handler for incoming messages
 	 */
 	class MessageHandler extends Handler {
@@ -186,78 +193,61 @@ public class MonitorService extends Service {
         mMicMonitor.stop(this);
     }
 
-    private int mLastAlert = -1;
-
     /**
     * Sends an alert according to type of connectivity
     */
     private synchronized void alert(int alertType) {
 
-        if (alertType == mLastAlert)
-            return;
+        Date now = new Date();
+        boolean isNewEvent = false;
 
-        StringBuffer alertMessage = new StringBuffer();
-
-        alertMessage.append(getString(R.string.intrusion_detected));
-
-        switch (alertType)
+        if (mLastEvent == null)
         {
+            mLastEvent = new Event();
+            isNewEvent = true;
+        }
+        else if (!mLastEvent.insideEventWindow(now))
+        {
+            //save the current event
+            mLastEvent.save();
+
+            //now create a new one
+            mLastEvent = new Event();
+            isNewEvent = true;
+        }
+
+        EventTrigger eventTrigger = null;
+        switch (alertType) {
             case MonitorService.ACCELEROMETER_MESSAGE:
-                alertMessage.append(": Device was moved!");
+                eventTrigger = new EventTrigger(EventTrigger.TriggerType.ACCEL);
                 break;
             case MonitorService.MICROPHONE_MESSAGE:
-                alertMessage.append(": Noise detected!");
+                eventTrigger = new EventTrigger(EventTrigger.TriggerType.SOUND);
                 break;
             case MonitorService.CAMERA_MESSAGE:
-                alertMessage.append(": Camera motion detected!");
+                eventTrigger = new EventTrigger(EventTrigger.TriggerType.CAMERA);
                 break;
         }
 
-        alertMessage.append(" @ " + new Date().toLocaleString());
+        mLastEvent.addEventTrigger(eventTrigger);
 
-		/*
-		 * If SMS mode is on we send an SMS alert to the specified 
-		 * number
-		 */
-		if (prefs.getSmsActivation()) {
-			//get the manager
-			SmsManager manager = SmsManager.getDefault();
-			manager.sendTextMessage(prefs.getSmsNumber(), null, alertMessage.toString(), null, null);
-			
-		}
+        /*
+         * If SMS mode is on we send an SMS alert to the specified
+         * number
+         */
+        if (isNewEvent && prefs.getSmsActivation()) {
+            //get the manager
 
+            StringBuffer alertMessage = new StringBuffer();
+            alertMessage.append(getString(R.string.intrusion_detected));
 
+            SmsManager manager = SmsManager.getDefault();
+            manager.sendTextMessage(prefs.getSmsNumber(), null, alertMessage.toString(), null, null);
 
-        mLastAlert = alertType;
+        }
+
+        mLastEvent.save();
     }
 
-    /**
-	private void showNotificationAlert (String message)
-	{
-
-		NotificationCompat.Builder mBuilder =
-				new NotificationCompat.Builder(this)
-						.setSmallIcon(R.drawable.ic_phone_alert)
-						.setContentTitle(getString(R.string.app_name))
-						.setContentText(message);
-
-		Intent resultIntent = new Intent(this, MonitorActivity.class);
-
-// Because clicking the notification opens a new ("special") activity, there's
-// no need to create an artificial back stack.
-		PendingIntent resultPendingIntent =
-				PendingIntent.getActivity(
-						this,
-						0,
-						resultIntent,
-						PendingIntent.FLAG_UPDATE_CURRENT
-				);
-
-		mBuilder.setContentIntent(resultPendingIntent);
-
-		manager.notify(mNotificationAlertId++, mBuilder.build());
-
-
-	}**/
 
 }
