@@ -1,6 +1,7 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/menu_start"
         android:title="@string/menu_start"
         android:orderInCategory="100"
-        android:showAsAction="always|withText" />
+        app:showAsAction="always|withText" />
 </menu>

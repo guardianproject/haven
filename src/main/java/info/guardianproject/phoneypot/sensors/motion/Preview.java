@@ -42,6 +42,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import info.guardianproject.phoneypot.PreferenceManager;
+import info.guardianproject.phoneypot.model.EventTrigger;
 import info.guardianproject.phoneypot.sensors.media.MotionAsyncTask;
 import info.guardianproject.phoneypot.service.MonitorService;
 
@@ -266,7 +267,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 									Log.i("MotionListener", "Motion detected");
 									if (serviceMessenger!=null) {
 										Message message = new Message();
-										message.what = MonitorService.CAMERA_MESSAGE;
+										message.what = EventTrigger.CAMERA;
 
 										ByteArrayOutputStream stream = new ByteArrayOutputStream();
 										newBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);

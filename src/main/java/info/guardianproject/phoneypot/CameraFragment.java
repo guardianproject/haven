@@ -27,7 +27,7 @@ public final class CameraFragment extends Fragment {
 
     private Preview preview;
 
-    private ImageView oldImage;
+//    private ImageView oldImage;
     private ImageView newImage;
 
     @Override
@@ -57,7 +57,7 @@ public final class CameraFragment extends Fragment {
             preview = new Preview(getActivity());
             ((FrameLayout) getActivity().findViewById(R.id.preview)).addView(preview);
 
-            oldImage = (ImageView) getActivity().findViewById(R.id.old_image);
+           // oldImage = (ImageView) getActivity().findViewById(R.id.old_image);
             newImage = (ImageView) getActivity().findViewById(R.id.new_image);
 
             preview.addListener(new MotionAsyncTask.MotionListener() {
@@ -72,7 +72,7 @@ public final class CameraFragment extends Fragment {
                         rotation = 270;
                         reflex = true;
                     }
-                    oldImage.setImageBitmap(ImageCodec.rotate(oldBitmap, rotation, reflex));
+                   // oldImage.setImageBitmap(ImageCodec.rotate(oldBitmap, rotation, reflex));
                     newImage.setImageBitmap(ImageCodec.rotate(newBitmap, rotation, reflex));
                 }
             });

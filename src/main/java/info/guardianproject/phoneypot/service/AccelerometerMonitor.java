@@ -16,6 +16,7 @@ import android.os.RemoteException;
 import android.util.Log;
 
 import info.guardianproject.phoneypot.PreferenceManager;
+import info.guardianproject.phoneypot.model.EventTrigger;
 
 /**
  * Created by n8fr8 on 3/10/17.
@@ -128,7 +129,7 @@ public class AccelerometerMonitor implements SensorEventListener {
                         remainingAlertPeriod = maxAlertPeriod;
 
                         Message message = new Message();
-                        message.what = MonitorService.ACCELEROMETER_MESSAGE;
+                        message.what = EventTrigger.ACCELEROMETER;
 
                         try {
                             if (serviceMessenger != null) {

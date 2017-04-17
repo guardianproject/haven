@@ -7,29 +7,17 @@
 
 	<FrameLayout android:id="@+id/preview"
 	    android:layout_centerHorizontal="true"
-		android:layout_width="150dp"
-		android:layout_height="200dp">
+		android:layout_width="1dp"
+		android:layout_height="1dp">
 	</FrameLayout>
 
- 	
-	<ImageView 
-		android:src="@drawable/ic_launcher"
-   		android:id="@+id/old_image"
-   		android:layout_alignParentLeft="true"
-		android:layout_width="150dp"
-		android:layout_height="200dp"
-		android:paddingLeft="20dp"
-		android:layout_below="@id/preview"
-   	/>
   
   	<ImageView 
    		android:id="@+id/new_image"
 		android:src="@drawable/ic_launcher"
    		android:layout_alignParentRight="true"
-		android:layout_width="150dp"
-		android:layout_height="200dp"
-		android:layout_alignRight="@id/old_image"
-		android:paddingRight="20dp"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
 		android:layout_below="@id/preview"
    	/>
   	

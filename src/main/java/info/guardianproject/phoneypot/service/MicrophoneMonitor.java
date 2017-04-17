@@ -15,6 +15,7 @@ import android.os.RemoteException;
 import android.util.Log;
 
 import info.guardianproject.phoneypot.PreferenceManager;
+import info.guardianproject.phoneypot.model.EventTrigger;
 import info.guardianproject.phoneypot.sensors.media.MicSamplerTask;
 import info.guardianproject.phoneypot.sensors.media.MicrophoneTaskFactory;
 
@@ -114,7 +115,7 @@ public final class MicrophoneMonitor implements MicSamplerTask.MicListener {
 
         if (averageDB > NOISE_THRESHOLD) {
             Message message = new Message();
-            message.what = MonitorService.MICROPHONE_MESSAGE;
+            message.what = EventTrigger.MICROPHONE;
             try {
                 if (serviceMessenger != null)
                     serviceMessenger.send(message);

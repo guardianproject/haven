@@ -10,20 +10,38 @@ import java.util.Date;
 
 public class EventTrigger extends SugarRecord {
 
-    public enum TriggerType {
-        CAMERA, SOUND, ACCEL
-    }
+    int mType;
+    Date mTime;
+    long mEventId;
 
-    public TriggerType mType;
-    public Date mTime;
 
-    public EventTrigger (TriggerType type)
+    /**
+     * Acceleration detected message
+     */
+    public static final int ACCELEROMETER = 0;
+
+    /**
+     * Camera motion detected message
+     */
+    public static final int CAMERA = 1;
+
+    /**
+     * Mic noise detected message
+     */
+    public static final int MICROPHONE = 2;
+
+
+    public EventTrigger ()
     {
         mTime = new Date();
+    }
+
+    public void setType (int type)
+    {
         mType = type;
     }
 
-    public TriggerType getType ()
+    public int getType ()
     {
         return mType;
     }
@@ -31,5 +49,10 @@ public class EventTrigger extends SugarRecord {
     public Date getTriggerTime ()
     {
         return mTime;
+    }
+
+    public void setEventId (long eventId)
+    {
+        mEventId = eventId;
     }
 }

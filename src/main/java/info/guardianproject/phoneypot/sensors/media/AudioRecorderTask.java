@@ -123,50 +123,7 @@ public class AudioRecorderTask extends Thread {
         recording = false;
         
         MicrophoneTaskFactory.restartSampling();
-        
-        /*
-         * Uploading the audio 
-         */
-        Log.i("AudioRecorderTask", "Trying to upload");
-		/**
-        HttpClient httpclient = new DefaultHttpClient();
-		HttpPost request = new HttpPost(
-				Remote.HOST+
-				Remote.PHONES+"/"+phoneId+
-				Remote.UPLOAD_AUDIO);
-		
-		Log.i("AudioRecorderTask", 
-				"URI: "+Remote.HOST+
-				Remote.PHONES+"/"+phoneId+
-				Remote.UPLOAD_AUDIO);
 
-	    MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
-	    File audio = new File(audioPath);
-	    reqEntity.addPart("audio", new FileBody(audio, "audio/mp3"));	
-		request.setEntity(reqEntity);
-
-		request.setHeader("access_token", accessToken);
-		
-		try {
-			HttpResponse response = httpclient.execute(request);
-			
-			BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
-			StringBuilder builder = new StringBuilder();
-			for (String line = null; (line = reader.readLine()) != null;) {
-			    builder.append(line).append("\n");
-			}
-			
-			Log.i("AudioRecorderTask", "Response:\n"+builder.toString());
-			
-			if (response.getStatusLine().getStatusCode() != 200) {
-				Log.i("AudioRecorderTask", "Error uploading audio: "+audioPath);
-				throw new HttpException();
-			}
-		} catch (Exception e) {
-			Log.e("DataUploaderTask", "Error uploading audio: "+audioPath);
-		}
-
-		**/
 	}
 
 }

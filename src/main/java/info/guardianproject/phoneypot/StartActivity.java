@@ -22,6 +22,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
@@ -34,7 +36,7 @@ import android.widget.EditText;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.Spinner;
 
-public class StartActivity extends Activity {
+public class StartActivity extends AppCompatActivity {
 	
 	private PreferenceManager preferences = null;
 
@@ -43,6 +45,10 @@ public class StartActivity extends Activity {
         super.onCreate(savedInstanceState);
         
         setContentView(R.layout.activity_start);
+
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         preferences = new PreferenceManager(this.getApplicationContext());
         
         /*

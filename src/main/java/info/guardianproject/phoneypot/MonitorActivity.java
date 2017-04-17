@@ -71,7 +71,7 @@ public class MonitorActivity extends FragmentActivity {
      */
     private void close() {
     	Intent intent = new Intent(
-  			  getApplicationContext(), StartActivity.class);
+  			  getApplicationContext(), ListActivity.class);
   	  intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
   	  startActivity(intent);
   	  stopService(new Intent(this, MonitorService.class));

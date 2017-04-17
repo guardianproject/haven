@@ -38,21 +38,6 @@ public class MonitorService extends Service {
 	 * To show a notification on service start
 	 */
 	private NotificationManager manager;
-		
-	/**
-	 * Acceleration detected message
-	 */
-	public static final int ACCELEROMETER_MESSAGE = 0;
-	
-	/**
-	 * Camera motion detected message
-	 */
-	public static final int CAMERA_MESSAGE = 1;
-	
-	/**
-	 * Mic noise detected message
-	 */
-	public static final int MICROPHONE_MESSAGE = 2;
 
 	/**
 	* True only if service has been alerted by the accelerometer
@@ -205,6 +190,8 @@ public class MonitorService extends Service {
         {
             mLastEvent = new Event();
             isNewEvent = true;
+            mLastEvent.save();
+
         }
         else if (!mLastEvent.insideEventWindow(now))
         {
@@ -216,20 +203,10 @@ public class MonitorService extends Service {
             isNewEvent = true;
         }
 
-        EventTrigger eventTrigger = null;
-        switch (alertType) {
-            case MonitorService.ACCELEROMETER_MESSAGE:
-                eventTrigger = new EventTrigger(EventTrigger.TriggerType.ACCEL);
-                break;
-            case MonitorService.MICROPHONE_MESSAGE:
-                eventTrigger = new EventTrigger(EventTrigger.TriggerType.SOUND);
-                break;
-            case MonitorService.CAMERA_MESSAGE:
-                eventTrigger = new EventTrigger(EventTrigger.TriggerType.CAMERA);
-                break;
-        }
-
+        EventTrigger eventTrigger = new EventTrigger();
+        eventTrigger.setType(alertType);
         mLastEvent.addEventTrigger(eventTrigger);
+        eventTrigger.save();
 
         /*
          * If SMS mode is on we send an SMS alert to the specified
@@ -246,7 +223,6 @@ public class MonitorService extends Service {
 
         }
 
-        mLastEvent.save();
     }
 
 

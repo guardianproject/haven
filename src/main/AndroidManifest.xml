@@ -23,7 +23,7 @@
         android:name="com.orm.SugarApp"
         >
         <activity
-            android:name=".StartActivity"
+            android:name=".ListActivity"
             android:label="@string/title_activity_start"
             android:windowSoftInputMode="stateHidden"
             >
@@ -32,6 +32,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".StartActivity"
+            android:label="@string/title_activity_start"
+            android:windowSoftInputMode="stateHidden"
+            >
+        </activity>
+
         <activity
             android:label="@string/app_name" 
             android:name=".MonitorActivity"
