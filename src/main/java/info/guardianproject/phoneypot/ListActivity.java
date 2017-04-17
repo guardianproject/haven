@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 
 import info.guardianproject.phoneypot.model.Event;
+import info.guardianproject.phoneypot.ui.EventActivity;
 import info.guardianproject.phoneypot.ui.EventAdapter;
 
 
@@ -155,25 +156,14 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position) {
 
-                /**
-                Log.d("Main", "click");
-
-                Intent i = new Intent(ListActivity.this, AddNoteActivity.class);
-                i.putExtra("isEditing", true);
-                i.putExtra("note_title", notes.get(position).title);
-                i.putExtra("note", notes.get(position).note);
-                i.putExtra("note_time", notes.get(position).time);
-
+                Intent i = new Intent(ListActivity.this, EventActivity.class);
+                i.putExtra("eventid", events.get(position).getId());
                 modifyPos = position;
 
-                startActivity(i);**/
+                startActivity(i);
             }
         });
 
-
-//        List<Note> notes = Note.findWithQuery(Note.class, "Select title from Note where title = ?", "%note%");
-//        if (notes.size() > 0)
-//            Log.d("Notes", "note: " + notes.get(0).title);
 
 
     }
