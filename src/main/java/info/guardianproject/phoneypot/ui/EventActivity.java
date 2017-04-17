@@ -37,7 +37,25 @@ public class EventActivity extends AppCompatActivity {
             {
 
                 mEventLog.append("Event Triggered @ " + eventTrigger.getTriggerTime().toLocaleString()).append("\n");
-                mEventLog.append("Event Type: " + eventTrigger.getType());
+
+                String sType = "";
+
+                switch (eventTrigger.getType())
+                {
+                    case EventTrigger.ACCELEROMETER:
+                        sType = "ACCELEROMETER";
+                        break;
+                    case EventTrigger.CAMERA:
+                        sType = "CAMERA MOTION";
+                        break;
+                    case EventTrigger.MICROPHONE:
+                        sType = "SOUND";
+                        break;
+                    default:
+                        sType = "UNKNOWN";
+                }
+
+                mEventLog.append("Event Type: " + sType);
                 mEventLog.append("\n==========================\n");
             }
 

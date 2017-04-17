@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-       android:layout_width="fill_parent"
-       android:orientation="vertical"
-       android:layout_height="wrap_content">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
 
 	<FrameLayout android:id="@+id/preview"
 	    android:layout_centerHorizontal="true"
@@ -28,4 +27,4 @@
 		android:layout_height="wrap_content"
 		android:layout_below="@id/new_image"
         />
-</RelativeLayout>
+</FrameLayout>
