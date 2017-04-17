@@ -8,7 +8,7 @@
  */
 
 
-package info.guardianproject.phoneypot.async;
+package info.guardianproject.phoneypot.sensors.media;
 
 
 import android.content.Context;

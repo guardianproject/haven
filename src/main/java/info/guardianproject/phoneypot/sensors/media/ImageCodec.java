@@ -4,7 +4,7 @@
  */
 
 
-package info.guardianproject.phoneypot.codec;
+package info.guardianproject.phoneypot.sensors.media;
 
 import java.io.ByteArrayOutputStream;
 

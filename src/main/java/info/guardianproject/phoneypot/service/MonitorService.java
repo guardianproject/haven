@@ -231,6 +231,7 @@ public class MonitorService extends Service {
         mLastAlert = alertType;
     }
 
+    /**
 	private void showNotificationAlert (String message)
 	{
 
@@ -257,5 +258,6 @@ public class MonitorService extends Service {
 		manager.notify(mNotificationAlertId++, mBuilder.build());
 
 
-	}
+	}**/
+
 }

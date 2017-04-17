@@ -7,8 +7,9 @@
  * Licensed under the MIT license.
  */
 
-package info.guardianproject.phoneypot;
+package info.guardianproject.phoneypot.sensors.motion;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -40,8 +41,8 @@ import android.view.Surface;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import info.guardianproject.phoneypot.async.MotionAsyncTask;
-import info.guardianproject.phoneypot.motiondetection.LuminanceMotionDetector;
+import info.guardianproject.phoneypot.PreferenceManager;
+import info.guardianproject.phoneypot.sensors.media.MotionAsyncTask;
 import info.guardianproject.phoneypot.service.MonitorService;
 
 public class Preview extends SurfaceView implements SurfaceHolder.Callback {
@@ -266,6 +267,14 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 									if (serviceMessenger!=null) {
 										Message message = new Message();
 										message.what = MonitorService.CAMERA_MESSAGE;
+
+										ByteArrayOutputStream stream = new ByteArrayOutputStream();
+										newBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+										byte[] byteArray = stream.toByteArray();
+
+										message.getData().putByteArray("image",byteArray);
+
+
 										try {
 											serviceMessenger.send(message);
 										} catch (RemoteException e) {

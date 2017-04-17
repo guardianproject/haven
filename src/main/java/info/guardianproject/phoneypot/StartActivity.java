@@ -215,25 +215,8 @@ public class StartActivity extends Activity {
             preferences.activateSms(false);
         }
 
-        AlertDialog.Builder alert = new AlertDialog.Builder(StartActivity.this);
-        final EditText input = new EditText(StartActivity.this);
-        input.setInputType(InputType.TYPE_CLASS_NUMBER);
-        input.setRawInputType(Configuration.KEYBOARD_12KEY);
-        alert.setView(input);
-        alert.setTitle(R.string.unlock_title);
-        alert.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                preferences.setUnlockCode(input.getText().toString());
-                launchMonitoringMode();
-            }
-        });
-        alert.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
+        launchMonitoringMode();
 
-
-            }
-        });
-        alert.show();
     }
     private void launchMonitoringMode ()
     {

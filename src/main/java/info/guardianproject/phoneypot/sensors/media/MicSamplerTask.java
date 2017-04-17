@@ -7,15 +7,13 @@
  * Licensed under the MIT license.
  */
 
-package info.guardianproject.phoneypot.async;
+package info.guardianproject.phoneypot.sensors.media;
 
 
 import java.io.IOException;
 
 import android.os.AsyncTask;
 import android.util.Log;
-
-import info.guardianproject.phoneypot.codec.AudioCodec;
 
 public class MicSamplerTask extends AsyncTask<Void,Object,Void> {
 	

@@ -4,7 +4,7 @@
  */
 
 
-package info.guardianproject.phoneypot.async;
+package info.guardianproject.phoneypot.sensors.media;
 
 
 import java.util.ArrayList;
@@ -15,9 +15,8 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.util.Log;
 
-import info.guardianproject.phoneypot.codec.ImageCodec;
-import info.guardianproject.phoneypot.motiondetection.IMotionDetector;
-import info.guardianproject.phoneypot.motiondetection.LuminanceMotionDetector;
+import info.guardianproject.phoneypot.sensors.motion.IMotionDetector;
+import info.guardianproject.phoneypot.sensors.motion.LuminanceMotionDetector;
 
 /**
  * Task doing all image processing in backgrounds, 

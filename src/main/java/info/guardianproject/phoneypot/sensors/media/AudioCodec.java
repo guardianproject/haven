@@ -3,7 +3,7 @@
  * Licensed under the MIT license.
  */
 
-package info.guardianproject.phoneypot.codec;
+package info.guardianproject.phoneypot.sensors.media;
 
 import java.io.IOException;
 import java.util.Arrays;

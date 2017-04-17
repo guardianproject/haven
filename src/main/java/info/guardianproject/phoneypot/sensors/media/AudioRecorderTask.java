@@ -7,7 +7,7 @@
  * Licensed under the MIT license.
  */
 
-package info.guardianproject.phoneypot.async;
+package info.guardianproject.phoneypot.sensors.media;
 
 
 import android.content.ContentValues;

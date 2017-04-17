@@ -26,9 +26,7 @@ import info.guardianproject.phoneypot.service.MonitorService;
 public class MonitorActivity extends FragmentActivity {
 	
 	private PreferenceManager preferences = null;
-	
-	private static final String[] CONTENT = new String[] { "Accel.", "Camera",
-			"Mic."};
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -37,10 +35,6 @@ public class MonitorActivity extends FragmentActivity {
 
 		setContentView(R.layout.layout_running);
 
-		Toast.makeText(this,"Monitoring will begin in 10 seconds",Toast.LENGTH_LONG).show();
-		/**
-		 * starting the alert srevice
-		 */
 
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -66,7 +60,7 @@ public class MonitorActivity extends FragmentActivity {
     public boolean onOptionsItemSelected (MenuItem item) {
 	    switch (item.getItemId()){
 	          case R.id.menu_settings:
-	        	  createUnlockDialog();
+				  close();
 	        	  break;
 	    }
 	    return true;
@@ -92,38 +86,8 @@ public class MonitorActivity extends FragmentActivity {
      */
     @Override
     public void onBackPressed() {
-    	createUnlockDialog();
+		close();
     }
     
-    /**
-     * Shows a dialog prompting the unlock code
-     */
-    private void createUnlockDialog() {
-    	final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    	builder.setTitle("Stop monitoring?");
-    	final EditText input = new EditText(this);
-    	input.setHint("Unlock code");
-		input.setInputType(InputType.TYPE_CLASS_NUMBER);
-		input.setRawInputType(Configuration.KEYBOARD_12KEY);
-    	builder.setView(input);
 
-    	builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-    		public void onClick(DialogInterface dialog, int whichButton) {
-    			if (input.getText().toString().equals(preferences.getUnlockCode())) {
-    				dialog.dismiss();
-    				close();
-    			} else {
-    				dialog.dismiss();
-    				Toast.makeText(
-    						getApplicationContext(), 
-    						"Wrong unlock code", 
-    						Toast.LENGTH_SHORT).show();
-    	        }
-    		}
-    	});
-
-    	builder.show();
-
-
-    }
 }

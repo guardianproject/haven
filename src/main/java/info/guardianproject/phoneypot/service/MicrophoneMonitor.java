@@ -13,11 +13,10 @@ import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
 import android.util.Log;
-import android.widget.TextView;
 
 import info.guardianproject.phoneypot.PreferenceManager;
-import info.guardianproject.phoneypot.async.MicSamplerTask;
-import info.guardianproject.phoneypot.async.MicrophoneTaskFactory;
+import info.guardianproject.phoneypot.sensors.media.MicSamplerTask;
+import info.guardianproject.phoneypot.sensors.media.MicrophoneTaskFactory;
 
 
 public final class MicrophoneMonitor implements MicSamplerTask.MicListener {

@@ -4,7 +4,7 @@
  */
 
 
-package info.guardianproject.phoneypot.motiondetection;
+package info.guardianproject.phoneypot.sensors.motion;
 
 
 import java.util.ArrayList;

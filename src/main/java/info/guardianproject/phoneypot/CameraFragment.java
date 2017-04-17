@@ -19,8 +19,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.FrameLayout;
 
-import info.guardianproject.phoneypot.async.MotionAsyncTask;
-import info.guardianproject.phoneypot.codec.ImageCodec;
+import info.guardianproject.phoneypot.sensors.media.MotionAsyncTask;
+import info.guardianproject.phoneypot.sensors.media.ImageCodec;
+import info.guardianproject.phoneypot.sensors.motion.Preview;
 
 public final class CameraFragment extends Fragment {
 
