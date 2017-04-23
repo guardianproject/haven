@@ -35,13 +35,15 @@ public class EventActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         StrictMode.setVmPolicy(StrictMode.VmPolicy.LAX);
-        
+
         long eventId = getIntent().getLongExtra("eventid",-1);
 
         if (eventId != -1) {
 
             mEvent = Event.findById(Event.class, eventId);
             mRecyclerView = (RecyclerView)findViewById(R.id.event_trigger_list);
+
+            setTitle(mEvent.getStartTime().toLocaleString());
 
             EventTriggerAdapter adapter = new EventTriggerAdapter(this, mEvent.getEventTriggers());
 
@@ -58,6 +60,7 @@ public class EventActivity extends AppCompatActivity {
                 }
             });
 
+            /**
             adapter.SetOnItemClickListener(new EventTriggerAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, int position) {
@@ -70,7 +73,7 @@ public class EventActivity extends AppCompatActivity {
                         startActivity(i);
                     }
                 }
-            });
+            });**/
         }
         else
             finish();

@@ -96,10 +96,10 @@ public class EventTrigger extends SugarRecord {
                 sType = null;
                 break;
             case EventTrigger.CAMERA:
-                sType = "image/jpeg";
+                sType = "image/*";
                 break;
             case EventTrigger.MICROPHONE:
-                sType = "audio/aac";
+                sType = "audio/*";
                 break;
             default:
                 sType = null;

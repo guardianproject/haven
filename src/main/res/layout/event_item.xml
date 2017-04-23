@@ -22,6 +22,21 @@
             android:layout_height="wrap_content"
             tools:text="Title" />
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/event_item_image"
+            android:visibility="gone"
+            />
+
+        <LinearLayout
+            android:id="@+id/event_item_extra"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:paddingLeft="4dp" />
         <TextView
             android:id="@+id/event_item_desc"
             style="@style/TextAppearance.AppCompat.Body1"

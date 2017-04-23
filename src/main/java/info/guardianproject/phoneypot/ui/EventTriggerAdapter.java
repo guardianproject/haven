@@ -1,17 +1,23 @@
 package info.guardianproject.phoneypot.ui;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
 import java.util.List;
 
 import info.guardianproject.phoneypot.R;
 import info.guardianproject.phoneypot.model.Event;
 import info.guardianproject.phoneypot.model.EventTrigger;
+import nl.changer.audiowife.AudioWife;
 
 /**
  * Created by n8fr8 on 4/16/17.
@@ -49,6 +55,29 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
         holder.title.setText(title);
         holder.note.setText(desc);
 
+        holder.image.setVisibility(View.GONE);
+        holder.extra.setVisibility(View.GONE);
+
+        if (eventTrigger.getPath() != null)
+        {
+            if (eventTrigger.getType() == EventTrigger.CAMERA)
+            {
+                holder.image.setVisibility(View.VISIBLE);
+                Picasso.with(context).load(new File(eventTrigger.getPath())).into(holder.image);
+
+            }
+            else if (eventTrigger.getType() == EventTrigger.MICROPHONE)
+            {
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
+
+                holder.extra.setVisibility(View.VISIBLE);
+                AudioWife.getInstance().init(context, Uri.fromFile(new File(eventTrigger.getPath())))
+                        .useDefaultUi(holder.extra, inflater);
+            }
+
+        }
+
+
     }
 
     @Override
@@ -58,12 +87,16 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
 
     class EventTriggerVH extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView title, note;
+        ImageView image;
+        ViewGroup extra;
 
         public EventTriggerVH(View itemView) {
             super(itemView);
 
            title = (TextView) itemView.findViewById(R.id.event_item_title);
             note = (TextView) itemView.findViewById(R.id.event_item_desc);
+            image = (ImageView) itemView.findViewById(R.id.event_item_image);
+            extra = (ViewGroup)itemView.findViewById(R.id.event_item_extra);
 
             itemView.setOnClickListener(this);
         }

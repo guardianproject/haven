@@ -108,7 +108,7 @@ public final class MicrophoneMonitor implements MicSamplerTask.MicListener {
                 count++;
             }
         }
-        Log.i("MicrophoneFragment", "Total value: " + total);
+      //  Log.i("MicrophoneFragment", "Total value: " + total);
         int average = 0;
         if (count > 0) average = total / count;
 		/*
