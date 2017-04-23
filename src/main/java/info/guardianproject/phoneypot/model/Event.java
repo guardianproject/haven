@@ -1,6 +1,7 @@
 package info.guardianproject.phoneypot.model;
 
 import com.orm.SugarRecord;
+import com.orm.dsl.Ignore;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,7 +14,10 @@ import java.util.List;
 public class Event extends SugarRecord {
 
     Date mStartTime;
+
+    @Ignore
     ArrayList<EventTrigger> mEventTriggers;
+
     public final static long EVENT_WINDOW_TIME = 1000 * 60; //1 minutes
 
     public Event ()

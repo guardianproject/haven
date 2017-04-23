@@ -7,13 +7,20 @@
 package info.guardianproject.phoneypot.sensors.media;
 
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Rect;
+import android.graphics.YuvImage;
+import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
+import android.widget.Toast;
 
 import info.guardianproject.phoneypot.sensors.motion.IMotionDetector;
 import info.guardianproject.phoneypot.sensors.motion.LuminanceMotionDetector;
@@ -109,5 +116,34 @@ public class MotionAsyncTask extends Thread {
 				
 			}
 		});
+	}
+
+	private void saveImage ()
+	{
+/**
+ *
+		try {
+			YuvImage image = new YuvImage(data, parameters.getPreviewFormat(),
+					size.width, size.height, null);
+
+			imageCount = (imageCount + 1)%(prefs.getMaxImages());
+
+			File file = new File(
+					Environment.getExternalStorageDirectory().getPath() +
+							prefs.getImagePath() +
+							imageCount +
+							".jpg");
+
+			FileOutputStream filecon = new FileOutputStream(file);
+
+			image.compressToJpeg(
+					new Rect(0, 0, image.getWidth(), image.getHeight()), 90,
+					filecon);
+
+		} catch (FileNotFoundException e) {
+			Toast toast = Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG);
+			toast.show();
+		}
+ */
 	}
 }

@@ -5,7 +5,7 @@
     android:gravity="center_vertical"
     >
 
-    <fragment class="info.guardianproject.phoneypot.CameraFragment"
+    <fragment class="info.guardianproject.phoneypot.ui.CameraFragment"
         android:id="@+id/fragment_camera"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

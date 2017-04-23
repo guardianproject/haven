@@ -6,7 +6,7 @@
  * Copyright (c) 2013-2015 Marco Ziccardi, Luca Bonato
  * Licensed under the MIT license.
  */
-package info.guardianproject.phoneypot;
+package info.guardianproject.phoneypot.ui;
 
 import android.os.Bundle;
 import android.graphics.Bitmap;
@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.FrameLayout;
 
+import info.guardianproject.phoneypot.R;
 import info.guardianproject.phoneypot.sensors.media.MotionAsyncTask;
 import info.guardianproject.phoneypot.sensors.media.ImageCodec;
 import info.guardianproject.phoneypot.sensors.motion.Preview;

@@ -14,6 +14,7 @@ public class EventTrigger extends SugarRecord {
     Date mTime;
     long mEventId;
 
+    String mPath;
 
     /**
      * Acceleration detected message
@@ -55,4 +56,57 @@ public class EventTrigger extends SugarRecord {
     {
         mEventId = eventId;
     }
+
+    public String getPath() {
+        return mPath;
+    }
+
+    public void setPath(String mPath) {
+        this.mPath = mPath;
+    }
+
+    public String getStringType ()
+    {
+        String sType = "";
+
+        switch (getType()) {
+            case EventTrigger.ACCELEROMETER:
+                sType = "ACCELEROMETER";
+                break;
+            case EventTrigger.CAMERA:
+                sType = "CAMERA MOTION";
+                break;
+            case EventTrigger.MICROPHONE:
+                sType = "SOUND";
+                break;
+            default:
+                sType = "UNKNOWN";
+        }
+
+        return sType;
+
+    }
+
+    public String getMimeType ()
+    {
+        String sType = "";
+
+        switch (getType()) {
+            case EventTrigger.ACCELEROMETER:
+                sType = null;
+                break;
+            case EventTrigger.CAMERA:
+                sType = "image/jpeg";
+                break;
+            case EventTrigger.MICROPHONE:
+                sType = "audio/aac";
+                break;
+            default:
+                sType = null;
+        }
+
+        return sType;
+
+    }
+
 }

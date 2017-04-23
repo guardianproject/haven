@@ -16,6 +16,7 @@ import android.util.Log;
 
 import info.guardianproject.phoneypot.PreferenceManager;
 import info.guardianproject.phoneypot.model.EventTrigger;
+import info.guardianproject.phoneypot.sensors.media.AudioRecorderTask;
 import info.guardianproject.phoneypot.sensors.media.MicSamplerTask;
 import info.guardianproject.phoneypot.sensors.media.MicrophoneTaskFactory;
 
@@ -40,6 +41,8 @@ public final class MicrophoneMonitor implements MicSamplerTask.MicListener {
      */
     private Messenger serviceMessenger = null;
 
+    private Context context;
+
     private ServiceConnection mConnection = new ServiceConnection() {
 
         public void onServiceConnected(ComponentName className,
@@ -58,6 +61,8 @@ public final class MicrophoneMonitor implements MicSamplerTask.MicListener {
 
     public MicrophoneMonitor(Context context)
     {
+        this.context = context;
+
         prefs = new PreferenceManager(context);
 
         if (prefs.getMicrophoneSensitivity().equals("High")) {
@@ -77,6 +82,8 @@ public final class MicrophoneMonitor implements MicSamplerTask.MicListener {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
+
 
     }
 
@@ -114,13 +121,24 @@ public final class MicrophoneMonitor implements MicSamplerTask.MicListener {
 
 
         if (averageDB > NOISE_THRESHOLD) {
-            Message message = new Message();
-            message.what = EventTrigger.MICROPHONE;
-            try {
-                if (serviceMessenger != null)
-                    serviceMessenger.send(message);
-            } catch (RemoteException e) {
-                // Cannot happen
+
+            if (!MicrophoneTaskFactory.isRecording()) {
+                try {
+                    AudioRecorderTask audioRecorderTask = MicrophoneTaskFactory.makeRecorder(context);
+                    audioRecorderTask.start();
+
+                    Message message = new Message();
+                    message.what = EventTrigger.MICROPHONE;
+                    message.getData().putString("path",audioRecorderTask.getAudioFilePath());
+                    try {
+                        if (serviceMessenger != null)
+                            serviceMessenger.send(message);
+                    } catch (RemoteException e) {
+                        // Cannot happen
+                    }
+                } catch (MicrophoneTaskFactory.RecordLimitExceeded rle) {
+                    Log.w("MicrophoneMonitor", "We are already recording!");
+                }
             }
         }
     }

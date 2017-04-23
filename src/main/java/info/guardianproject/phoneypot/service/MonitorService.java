@@ -72,7 +72,7 @@ public class MonitorService extends Service {
 	class MessageHandler extends Handler {
 		@Override
 		public void handleMessage(Message msg) {
-			alert(msg.what);
+			alert(msg.what,msg.getData().getString("path"));
 		}
 	}
 		
@@ -181,7 +181,7 @@ public class MonitorService extends Service {
     /**
     * Sends an alert according to type of connectivity
     */
-    private synchronized void alert(int alertType) {
+    private synchronized void alert(int alertType, String path) {
 
         Date now = new Date();
         boolean isNewEvent = false;
@@ -205,6 +205,7 @@ public class MonitorService extends Service {
 
         EventTrigger eventTrigger = new EventTrigger();
         eventTrigger.setType(alertType);
+        eventTrigger.setPath(path);
         mLastEvent.addEventTrigger(eventTrigger);
         eventTrigger.save();
 

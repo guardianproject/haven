@@ -5,6 +5,7 @@
 
 package info.guardianproject.phoneypot.sensors.media;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
 import android.media.AudioFormat;
@@ -16,7 +17,7 @@ public class AudioCodec {
 	
 	private AudioRecord recorder = null;
 	private int minSize;
-		
+
 	/**
 	 * Configures the recorder and starts it
 	 * @throws IOException 
@@ -35,6 +36,7 @@ public class AudioCodec {
 					AudioFormat.CHANNEL_IN_DEFAULT,
 					AudioFormat.ENCODING_PCM_16BIT,
 					minSize);
+
 			recorder.startRecording();
 		}
 	}
@@ -50,6 +52,7 @@ public class AudioCodec {
             while (readBytes < 8192) {
                 readBytes += recorder.read(buffer, readBytes, 8192-readBytes);
             }
+
             short[] copyToReturn = Arrays.copyOf(buffer, 512);
             Arrays.sort(buffer);
             Log.e("AudioCodec", "Recorder has read: " + readBytes + " the maximum is: " +

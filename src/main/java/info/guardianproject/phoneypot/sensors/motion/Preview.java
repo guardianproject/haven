@@ -15,6 +15,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import android.content.ComponentName;
@@ -216,34 +217,8 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 					if (now < Preview.this.lastTimestamp + 1000)
 						return;
 					if (!doingProcessing) {
-						
-						/**
-						 * Before processing the frame we save it
-						 * to the SDCARD
-						 */
-					    try {
-					        YuvImage image = new YuvImage(data, parameters.getPreviewFormat(), 
-					                size.width, size.height, null);
-					        
-					        imageCount = (imageCount + 1)%(prefs.getMaxImages());
-					        
-					        File file = new File(
-					        		Environment.getExternalStorageDirectory().getPath() +
-					        		prefs.getImagePath() +
-					        		imageCount +
-					        		".jpg");
-					        
-					        FileOutputStream filecon = new FileOutputStream(file); 
-					        
-					        image.compressToJpeg( 
-					                new Rect(0, 0, image.getWidth(), image.getHeight()), 90, 
-					                filecon); 
-					        
-					    } catch (FileNotFoundException e) { 
-					        Toast toast = Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG); 
-					        toast.show(); 
-					    } 
-						
+
+
 						Log.i("Preview", "Processing new image");
 						Preview.this.lastTimestamp = now;
 						MotionAsyncTask task = new MotionAsyncTask(
@@ -269,17 +244,26 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 										Message message = new Message();
 										message.what = EventTrigger.CAMERA;
 
-										ByteArrayOutputStream stream = new ByteArrayOutputStream();
-										newBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-										byte[] byteArray = stream.toByteArray();
-
-										message.getData().putByteArray("image",byteArray);
 
 
 										try {
+
+											File fileImageDir = new File(Environment.getExternalStorageDirectory(),"phoneypot");
+                                            fileImageDir.mkdirs();
+											File fileImage = new File(fileImageDir,"detected." + new Date().getTime() + ".jpg");
+											fileImage.getParentFile().mkdirs();
+											FileOutputStream stream = new FileOutputStream(fileImage);
+											newBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+											stream.flush();
+											stream.close();
+
+											message.getData().putString("path",fileImage.getAbsolutePath());
+
 											serviceMessenger.send(message);
-										} catch (RemoteException e) {
+
+										} catch (Exception e) {
 											// Cannot happen
+                                            Log.e("Preview","error creating imnage",e);
 										}
 									}
 								}
