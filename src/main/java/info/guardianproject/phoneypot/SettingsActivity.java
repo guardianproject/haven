@@ -85,6 +85,10 @@ public class SettingsActivity extends AppCompatActivity {
         final EditText phoneNumber = (EditText)
         		this.findViewById(R.id.phone_number);
 
+
+        final EditText timerDelay = (EditText)
+                this.findViewById(R.id.timer_delay);
+
         smsCheck.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -133,6 +137,8 @@ public class SettingsActivity extends AppCompatActivity {
         	smsCheck.setChecked(true);
         	phoneNumber.setText(preferences.getSmsNumber());
         }
+
+        timerDelay.setText(preferences.getTimerDelay()+"");
 
 		askForPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, 1);
 
@@ -186,6 +192,9 @@ public class SettingsActivity extends AppCompatActivity {
         EditText phoneNumber = (EditText)
                 this.findViewById(R.id.phone_number);
 
+        EditText timerDelay = (EditText)
+                this.findViewById(R.id.timer_delay);
+
         Spinner selectCameraSpinner = (Spinner) this.findViewById(R.id.camera_spinner);
         CheckBox smsCheck = (CheckBox) this.findViewById(R.id.sms_check);
 
@@ -213,6 +222,8 @@ public class SettingsActivity extends AppCompatActivity {
         } else {
             preferences.activateSms(false);
         }
+
+        preferences.setTimerDelay(Integer.parseInt(timerDelay.getText().toString()));
 
         launchMonitoringMode();
 

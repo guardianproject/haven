@@ -6,14 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/timer_text"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:textSize="120dp"
-        android:text=""
-        />
+        android:layout_height="match_parent">
+
 
     <fragment class="info.guardianproject.phoneypot.ui.CameraFragment"
         android:id="@+id/fragment_camera"
@@ -21,7 +17,16 @@
         android:layout_height="match_parent"
         android:visibility="gone"
         />
-
+        <TextView
+            android:id="@+id/timer_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="120dp"
+            android:text=""
+            android:background="@android:color/white"
+            />
+    </FrameLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_cancel"

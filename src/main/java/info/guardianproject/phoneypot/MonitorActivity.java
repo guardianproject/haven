@@ -64,7 +64,7 @@ public class MonitorActivity extends FragmentActivity {
 
 	private void initTimer ()
     {
-        cTimer = new CountDownTimer(10000, 1000) {
+        cTimer = new CountDownTimer((preferences.getTimerDelay()+1)*1000, 1000) {
 
             public void onTick(long millisUntilFinished) {
                // mTextField.setText("seconds remaining: " + millisUntilFinished / 1000);
@@ -75,7 +75,7 @@ public class MonitorActivity extends FragmentActivity {
 
             public void onFinish() {
 
-
+                txtTimer.setVisibility(View.GONE);
                 initMonitor();
             }
 

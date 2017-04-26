@@ -44,7 +44,7 @@ public class PreferenceManager {
 	private static final String DELEGATED_ACCESS_TOKEN="deferred_access_token";
 	
 	private static final String PHONE_ID="phone_id";
-	
+    private static final String TIMER_DELAY="timer_delay";
 	private static final String DIR_PATH = "/secureit";
 
 	private Context context;
@@ -193,7 +193,18 @@ public class PreferenceManager {
     public String getPhoneId() {
     	return appSharedPrefs.getString(PHONE_ID, "");
     }
-    
+
+    public int getTimerDelay ()
+    {
+        return appSharedPrefs.getInt(TIMER_DELAY,10);
+    }
+
+    public void setTimerDelay (int delay)
+    {
+        prefsEditor.putInt(TIMER_DELAY,delay);
+        prefsEditor.commit();
+    }
+
     public String getDirPath() {
     	return DIR_PATH;
     }

@@ -71,8 +71,10 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
 
                 holder.extra.setVisibility(View.VISIBLE);
-                AudioWife.getInstance().init(context, Uri.fromFile(new File(eventTrigger.getPath())))
+                AudioWife audioWife = new AudioWife();
+                audioWife.init(context, Uri.fromFile(new File(eventTrigger.getPath())))
                         .useDefaultUi(holder.extra, inflater);
+
             }
 
         }
