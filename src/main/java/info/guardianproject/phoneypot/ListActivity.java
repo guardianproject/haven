@@ -16,12 +16,9 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
@@ -31,8 +28,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import info.guardianproject.phoneypot.R;
 
 /**
  * Created by n8fr8 on 4/16/17.
@@ -104,7 +99,7 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(ListActivity.this, StartActivity.class);
+                Intent i = new Intent(ListActivity.this, SettingsActivity.class);
                 startActivity(i);
 
             }

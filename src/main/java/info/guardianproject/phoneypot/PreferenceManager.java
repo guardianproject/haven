@@ -220,6 +220,6 @@ public class PreferenceManager {
 
     public int getAudioLength ()
     {
-        return 30000; //30 seconds
+        return 15000; //30 seconds
     }
 }

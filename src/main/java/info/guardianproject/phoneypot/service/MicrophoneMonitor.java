@@ -127,6 +127,12 @@ public final class MicrophoneMonitor implements MicSamplerTask.MicListener {
                     AudioRecorderTask audioRecorderTask = MicrophoneTaskFactory.makeRecorder(context);
                     audioRecorderTask.start();
 
+                    while (audioRecorderTask.getAudioFilePath() == null)
+                    {
+                      try {    Thread.sleep(100); }
+                      catch (Exception e){}
+                    }
+
                     Message message = new Message();
                     message.what = EventTrigger.MICROPHONE;
                     message.getData().putString("path",audioRecorderTask.getAudioFilePath());

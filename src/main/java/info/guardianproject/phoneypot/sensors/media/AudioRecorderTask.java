@@ -68,8 +68,12 @@ public class AudioRecorderTask extends Thread {
 	
 	@Override
 	public void run() {
-		
-        MicrophoneTaskFactory.pauseSampling();
+
+		audioPath = Environment.getExternalStorageDirectory().getPath() +
+				filename +
+				".m4a";
+
+		MicrophoneTaskFactory.pauseSampling();
         
         while (MicrophoneTaskFactory.isSampling()) {
         	try {
@@ -86,10 +90,6 @@ public class AudioRecorderTask extends Thread {
         recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
         recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
-        
-        audioPath = Environment.getExternalStorageDirectory().getPath() +
-        		filename + 
-        		".m4a";
 
         recorder.setOutputFile(audioPath);
         try {

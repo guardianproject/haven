@@ -37,7 +37,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".StartActivity"
+            android:name=".SettingsActivity"
             android:label="@string/title_activity_start"
             android:windowSoftInputMode="stateHidden"></activity>
         <activity

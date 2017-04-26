@@ -12,31 +12,24 @@ package info.guardianproject.phoneypot;
 import java.io.File;
 
 import android.Manifest;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Environment;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.Spinner;
 
-public class StartActivity extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity {
 	
 	private PreferenceManager preferences = null;
 
@@ -163,18 +156,18 @@ public class StartActivity extends AppCompatActivity {
 
 
 	private void askForPermission(String permission, Integer requestCode) {
-		if (ContextCompat.checkSelfPermission(StartActivity.this, permission) != PackageManager.PERMISSION_GRANTED) {
+		if (ContextCompat.checkSelfPermission(SettingsActivity.this, permission) != PackageManager.PERMISSION_GRANTED) {
 
 			// Should we show an explanation?
-			if (ActivityCompat.shouldShowRequestPermissionRationale(StartActivity.this, permission)) {
+			if (ActivityCompat.shouldShowRequestPermissionRationale(SettingsActivity.this, permission)) {
 
 				//This is called if user has denied the permission before
 				//In this case I am just asking the permission again
-				ActivityCompat.requestPermissions(StartActivity.this, new String[]{permission}, requestCode);
+				ActivityCompat.requestPermissions(SettingsActivity.this, new String[]{permission}, requestCode);
 
 			} else {
 
-				ActivityCompat.requestPermissions(StartActivity.this, new String[]{permission}, requestCode);
+				ActivityCompat.requestPermissions(SettingsActivity.this, new String[]{permission}, requestCode);
 			}
 		} else {
 		}
@@ -228,10 +221,12 @@ public class StartActivity extends AppCompatActivity {
     {
 
         Intent intent = new Intent(
-                StartActivity.this,
+                SettingsActivity.this,
                 MonitorActivity.class);
 
-        StartActivity.this.startActivity(intent);
+        startActivity(intent);
+
+        finish();
     }
 
 

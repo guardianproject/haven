@@ -103,7 +103,7 @@ public class AccelerometerMonitor implements SensorEventListener {
         long curTime = System.currentTimeMillis();
         // only allow one update every 100ms.
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-            if ((curTime - lastUpdate) > 100) {
+            if ((curTime - lastUpdate) > 1000) {
                 long diffTime = (curTime - lastUpdate);
                 lastUpdate = curTime;
 
