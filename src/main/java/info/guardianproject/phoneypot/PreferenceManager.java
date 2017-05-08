@@ -23,7 +23,9 @@ public class PreferenceManager {
     public static final String LOW = "Low";
     public static final String MEDIUM = "Medium";
     public static final String HIGH = "High";
-    
+    public static final String OFF = "Off";
+
+
     public static final String FRONT = "Front";
     public static final String BACK = "Back";
 	
@@ -196,7 +198,7 @@ public class PreferenceManager {
 
     public int getTimerDelay ()
     {
-        return appSharedPrefs.getInt(TIMER_DELAY,10);
+        return appSharedPrefs.getInt(TIMER_DELAY,30);
     }
 
     public void setTimerDelay (int delay)

@@ -109,7 +109,10 @@ public class SettingsActivity extends AppCompatActivity {
         		accelerometerSensitivity.setSelection(1);
         	else if (sensitivity.equals(PreferenceManager.HIGH))
         		accelerometerSensitivity.setSelection(2);
+            else if (sensitivity.equals(PreferenceManager.OFF))
+                accelerometerSensitivity.setSelection(3);
         }
+
         if (preferences.getCameraActivation()) {
         	String sensitivity = preferences.getCameraSensitivity();
         	if (sensitivity.equals(PreferenceManager.LOW))
@@ -118,12 +121,19 @@ public class SettingsActivity extends AppCompatActivity {
         		cameraSensitivity.setSelection(1);
         	else if (sensitivity.equals(PreferenceManager.HIGH))
         		cameraSensitivity.setSelection(2);
-        	String camera = preferences.getCamera();
+            else if (sensitivity.equals(PreferenceManager.OFF))
+                cameraSensitivity.setSelection(3);
+
+            String camera = preferences.getCamera();
         	if (camera.equals(PreferenceManager.FRONT))
         		selectCameraSpinner.setSelection(0);
-        	else
+        	else if (camera.equals(PreferenceManager.BACK))
         		selectCameraSpinner.setSelection(1);
+            else if (camera.equals(PreferenceManager.OFF))
+                selectCameraSpinner.setSelection(2);
+
         }
+
         if (preferences.getMicrophoneActivation()) {
         	String sensitivity = preferences.getMicrophoneSensitivity();
         	if (sensitivity.equals(PreferenceManager.LOW))
@@ -132,7 +142,10 @@ public class SettingsActivity extends AppCompatActivity {
         		microphoneSensitivity.setSelection(1);
         	else if (sensitivity.equals(PreferenceManager.HIGH))
         		microphoneSensitivity.setSelection(2);
+            else if (sensitivity.equals(PreferenceManager.OFF))
+                microphoneSensitivity.setSelection(3);
         }
+
         if (preferences.getSmsActivation()) {
         	smsCheck.setChecked(true);
         	phoneNumber.setText(preferences.getSmsNumber());

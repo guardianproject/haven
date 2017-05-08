@@ -54,7 +54,9 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 	 */
 	private PreferenceManager prefs;
 	private int cameraFacing = 0;
-	
+
+	private final static long PREVIEW_INTERVAL = 2000;
+
 	private List<MotionAsyncTask.MotionListener> listeners = new ArrayList<MotionAsyncTask.MotionListener>();
 	
 	/**
@@ -150,7 +152,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 		/*
 		 * We bind to the alert service
 		 */
-		context.bindService(new Intent(context, 
+		context.bindService(new Intent(context,
 				MonitorService.class), mConnection, Context.BIND_ABOVE_CLIENT);
 		
 		/*
@@ -158,157 +160,183 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 		 *  to draw.
 		 *  If the selected camera is the front one we open it
 		 */
-		if (prefs.getCamera().equals("Front")) {
+		if (prefs.getCamera().equals(PreferenceManager.FRONT)) {
 			Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
 			int cameraCount = Camera.getNumberOfCameras();
-			for ( int camIdx = 0; camIdx < cameraCount; camIdx++ ) {
-				Camera.getCameraInfo( camIdx, cameraInfo );
-			    if ( cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT  ) {
-			    	try {
-			    		camera = Camera.open( camIdx );
-			    		cameraFacing = Camera.CameraInfo.CAMERA_FACING_FRONT;
-			        } catch (RuntimeException e) {
-			        	Log.e("Preview", "Camera failed to open: " + e.getLocalizedMessage());
-			        }
-			    }
+			for (int camIdx = 0; camIdx < cameraCount; camIdx++) {
+				Camera.getCameraInfo(camIdx, cameraInfo);
+				if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+					try {
+						camera = Camera.open(camIdx);
+						cameraFacing = Camera.CameraInfo.CAMERA_FACING_FRONT;
+					} catch (RuntimeException e) {
+						Log.e("Preview", "Camera failed to open: " + e.getLocalizedMessage());
+					}
+				}
 			}
-		} else {
+		} else if (prefs.getCamera().equals(PreferenceManager.BACK)) {
+
 			camera = Camera.open();
 			cameraFacing = Camera.CameraInfo.CAMERA_FACING_BACK;
 		}
-		
-		final Camera.Parameters parameters = camera.getParameters();
-		List<Size> sizes = parameters.getSupportedPictureSizes();
-		int w = 640;
-		int h = 480;
-		for (Size s : sizes) {
-			Log.i("SurfaceView", "width: "+s.width+" height: "+s.height);
-			if (s.width <= 640) {
-				w = s.width;
-				h = s.height;
-				Log.i("SurfaceView", "selected width: "+w+" selected height: "+h);
-				break;
+
+		if (camera != null) {
+			final Camera.Parameters parameters = camera.getParameters();
+			List<Size> sizes = parameters.getSupportedPictureSizes();
+			int w = 640;
+			int h = 480;
+			for (Size s : sizes) {
+				Log.i("SurfaceView", "width: " + s.width + " height: " + s.height);
+				if (s.width <= 640) {
+					w = s.width;
+					h = s.height;
+					Log.i("SurfaceView", "selected width: " + w + " selected height: " + h);
+					break;
+				}
 			}
-		}
-		
-		parameters.setPictureSize(w, h);
 
-		/*
-		 * If the flash is needed
-		 */
-		if (prefs.getFlashActivation()) {
-			Log.i("Preview", "Flash activated");
-			parameters.setFlashMode(Parameters.FLASH_MODE_TORCH);
-		}
-		
-		camera.setParameters(parameters);
-		
-		try {
-						
-			camera.setPreviewDisplay(mHolder);
-			
-			camera.setPreviewCallback(new PreviewCallback() {
-				
-				public void onPreviewFrame(byte[] data, Camera cam) {
-					
-					final Camera.Size size = cam.getParameters().getPreviewSize();
-					if (size == null) return;
-					long now = System.currentTimeMillis();
-					if (now < Preview.this.lastTimestamp + 1000)
-						return;
-					if (!doingProcessing) {
+			parameters.setPictureSize(w, h);
 
+			/*
+			 * If the flash is needed
+			 */
+			if (prefs.getFlashActivation()) {
+				Log.i("Preview", "Flash activated");
+				parameters.setFlashMode(Parameters.FLASH_MODE_TORCH);
+			}
 
-						Log.i("Preview", "Processing new image");
-						Preview.this.lastTimestamp = now;
-						MotionAsyncTask task = new MotionAsyncTask(
-								lastPic,
-								data,
-								size.width,
-								size.height,
-								updateHandler,
-								motionSensitivity);
-						for (MotionAsyncTask.MotionListener listener : listeners) {
-							Log.i("Preview", "Added listener");
-							task.addListener(listener);
-						}
-						doingProcessing = true;
-						task.addListener(new MotionAsyncTask.MotionListener() {
-							
-							public void onProcess(Bitmap oldBitmap, Bitmap newBitmap,
-									boolean motionDetected) {
-								
-								if (motionDetected) {
-									Log.i("MotionListener", "Motion detected");
-									if (serviceMessenger!=null) {
-										Message message = new Message();
-										message.what = EventTrigger.CAMERA;
+			camera.setParameters(parameters);
+
+			try {
+
+				camera.setPreviewDisplay(mHolder);
+
+				camera.setPreviewCallback(new PreviewCallback() {
+
+					public void onPreviewFrame(byte[] data, Camera cam) {
+
+						final Camera.Size size = cam.getParameters().getPreviewSize();
+						if (size == null) return;
+						long now = System.currentTimeMillis();
+						if (now < Preview.this.lastTimestamp + PREVIEW_INTERVAL)
+							return;
+						if (!doingProcessing) {
 
 
+							Log.i("Preview", "Processing new image");
+							Preview.this.lastTimestamp = now;
+							MotionAsyncTask task = new MotionAsyncTask(
+									lastPic,
+									data,
+									size.width,
+									size.height,
+									updateHandler,
+									motionSensitivity);
+							for (MotionAsyncTask.MotionListener listener : listeners) {
+								Log.i("Preview", "Added listener");
+								task.addListener(listener);
+							}
+							doingProcessing = true;
+							task.addListener(new MotionAsyncTask.MotionListener() {
 
-										try {
+								public void onProcess(Bitmap oldBitmap, Bitmap newBitmap,
+													  boolean motionDetected) {
 
-											File fileImageDir = new File(Environment.getExternalStorageDirectory(),"phoneypot");
-                                            fileImageDir.mkdirs();
-											File fileImage = new File(fileImageDir,"detected." + new Date().getTime() + ".jpg");
-											fileImage.getParentFile().mkdirs();
-											FileOutputStream stream = new FileOutputStream(fileImage);
-											newBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-											stream.flush();
-											stream.close();
+									if (motionDetected) {
+										Log.i("MotionListener", "Motion detected");
+										if (serviceMessenger != null) {
+											Message message = new Message();
+											message.what = EventTrigger.CAMERA;
 
-											message.getData().putString("path",fileImage.getAbsolutePath());
 
-											serviceMessenger.send(message);
+											try {
 
-										} catch (Exception e) {
-											// Cannot happen
-                                            Log.e("Preview","error creating imnage",e);
+												File fileImageDir = new File(Environment.getExternalStorageDirectory(), prefs.getImagePath());
+												fileImageDir.mkdirs();
+
+												String ts = new Date().getTime() + ".jpg";
+												File fileImage = new File(fileImageDir, "detected.original." + ts);
+												FileOutputStream stream = new FileOutputStream(fileImage);
+												newBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+												stream.flush();
+												stream.close();
+
+												message.getData().putString("original", fileImage.getAbsolutePath());
+
+												fileImage = new File(fileImageDir, "detected.match." + ts);
+												stream = new FileOutputStream(fileImage);
+												oldBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+												stream.flush();
+												stream.close();
+
+												message.getData().putString("path", fileImage.getAbsolutePath());
+
+
+												serviceMessenger.send(message);
+
+											} catch (Exception e) {
+												// Cannot happen
+												Log.e("Preview", "error creating imnage", e);
+											}
 										}
 									}
+									Log.i("MotionListener", "Allowing further processing");
+									doingProcessing = false;
 								}
-								Log.i("MotionListener", "Allowing further processing");
-								doingProcessing = false;								
-							}
-						});
-						task.start();
-						lastPic = data;
+							});
+							task.start();
+							lastPic = data;
+						}
 					}
-				}
-			});
-		} catch (IOException e) {
-			e.printStackTrace();
+				});
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
 	public void surfaceDestroyed(SurfaceHolder holder) {
-		// Surface will be destroyed when we return, so stop the preview.
-		// Because the CameraDevice object is not a shared resource, it's very
-		// important to release it when the activity is paused.
-		context.unbindService(mConnection);
-		camera.setPreviewCallback(null);
-		camera.stopPreview();
-		camera.release();
+
+		if (camera != null) {
+			// Surface will be destroyed when we return, so stop the preview.
+			// Because the CameraDevice object is not a shared resource, it's very
+			// important to release it when the activity is paused.
+			context.unbindService(mConnection);
+			camera.setPreviewCallback(null);
+			camera.stopPreview();
+			camera.release();
+		}
 	}
 
 	public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
-		// Now that the size is known, set up the camera parameters and begin
-		// the preview.
-		Camera.Parameters parameters = camera.getParameters();
-		parameters.setPreviewSize(w, h);
+		if (camera != null) {
+			// Now that the size is known, set up the camera parameters and begin
+			// the preview.
+			Camera.Parameters parameters = camera.getParameters();
+			parameters.setPreviewSize(w, h);
 
-		int degree = ((WindowManager)context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getRotation();
-		int displayOrientation = 0;
-		switch (degree) {
-		case Surface.ROTATION_0  : displayOrientation = 90; break;
-		case Surface.ROTATION_90 : displayOrientation = 0; break;
-		case Surface.ROTATION_180: displayOrientation = 0; break;
-		case Surface.ROTATION_270: displayOrientation = 180; break;
+			int degree = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getRotation();
+			int displayOrientation = 0;
+			switch (degree) {
+				case Surface.ROTATION_0:
+					displayOrientation = 90;
+					break;
+				case Surface.ROTATION_90:
+					displayOrientation = 0;
+					break;
+				case Surface.ROTATION_180:
+					displayOrientation = 0;
+					break;
+				case Surface.ROTATION_270:
+					displayOrientation = 180;
+					break;
+			}
+			camera.setDisplayOrientation(displayOrientation);
+
+			//camera.setParameters(parameters);
+			camera.startPreview();
 		}
-        camera.setDisplayOrientation(displayOrientation);
-        
-		//camera.setParameters(parameters);
-		camera.startPreview();
 	}
 	
 	public int getCameraFacing() {

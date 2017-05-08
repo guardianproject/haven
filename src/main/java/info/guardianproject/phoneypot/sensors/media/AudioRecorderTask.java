@@ -17,6 +17,8 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 
+import java.io.File;
+
 import info.guardianproject.phoneypot.PreferenceManager;
 
 public class AudioRecorderTask extends Thread {
@@ -32,15 +34,11 @@ public class AudioRecorderTask extends Thread {
 	 */
 	private PreferenceManager prefs;
 	
-	/**
-	 * Name of the audio file to store
-	 */
-	private String filename;
 
 	/**
 	 * Path of the audio file for this instance
 	 */
-	private String audioPath;
+	private File audioPath;
 
 	/**
 	 * True iff the thread is recording
@@ -62,16 +60,16 @@ public class AudioRecorderTask extends Thread {
 		super();
 		this.context = context;
 		this.prefs = new PreferenceManager(context);
-		this.filename = prefs.getAudioPath();		
 		Log.i("AudioRecorderTask", "Created recorder");
-	}
+
+        File fileFolder = new File(Environment.getExternalStorageDirectory().getPath(),prefs.getAudioPath());
+        fileFolder.mkdirs();
+        audioPath = new File(fileFolder,new java.util.Date().getTime() + ".m4a");
+
+    }
 	
 	@Override
 	public void run() {
-
-		audioPath = Environment.getExternalStorageDirectory().getPath() +
-				filename +
-				".m4a";
 
 		MicrophoneTaskFactory.pauseSampling();
         
@@ -91,7 +89,7 @@ public class AudioRecorderTask extends Thread {
         recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
         recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
 
-        recorder.setOutputFile(audioPath);
+        recorder.setOutputFile(audioPath.toString());
         try {
           recorder.prepare();
         } catch (Exception e){
@@ -118,7 +116,7 @@ public class AudioRecorderTask extends Thread {
 
 	public String getAudioFilePath ()
 	{
-		return audioPath;
+		return audioPath.toString();
 	}
 
 }

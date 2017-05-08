@@ -56,14 +56,17 @@
     	Select the camera
     </string>
 
-    <array name="accelerometer_sensitivity">
+    <array name="select_sensitivity">
         <item>Low</item>
         <item>Medium</item>
         <item>High</item>
+        <item>Off</item>
     </array>
     <array name="select_camera">
         <item>Front</item>
         <item>Back</item>
+        <item>Off</item>
+
     </array>
 
     <string name="secure_service_started">Phoneypot Activated</string>

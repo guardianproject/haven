@@ -99,7 +99,7 @@ public class MonitorService extends Service {
         showNotification();
 
         PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
-        wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK,
+        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
                 "MyWakelockTag");
         wakeLock.acquire();
     }
@@ -167,15 +167,22 @@ public class MonitorService extends Service {
 
     private void startSensors ()
     {
-        mAccelManager = new AccelerometerMonitor(this);
-        mMicMonitor = new MicrophoneMonitor(this);
+        if (prefs.getAccelerometerSensitivity() != PreferenceManager.OFF)
+            mAccelManager = new AccelerometerMonitor(this);
+
+        if (prefs.getMicrophoneSensitivity() != PreferenceManager.OFF)
+            mMicMonitor = new MicrophoneMonitor(this);
+
 
     }
 
     private void stopSensors ()
     {
-        mAccelManager.stop(this);
-        mMicMonitor.stop(this);
+        if (prefs.getAccelerometerSensitivity() != PreferenceManager.OFF)
+            mAccelManager.stop(this);
+
+        if (prefs.getMicrophoneSensitivity() != PreferenceManager.OFF)
+            mMicMonitor.stop(this);
     }
 
     /**
