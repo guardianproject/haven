@@ -41,6 +41,10 @@
             android:label="@string/title_activity_start"
             android:windowSoftInputMode="stateHidden"></activity>
         <activity
+            android:name=".ui.PPAppIntro"
+            />
+
+        <activity
             android:name=".MonitorActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop"

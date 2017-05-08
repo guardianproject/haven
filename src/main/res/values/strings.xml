@@ -77,4 +77,18 @@
     <string name="title_activity_event">EventActivity</string>
 
     <string name="action_settings">Settings</string>
+
+    <string name="intro1_title">The Phone Honeypot</string>
+    <string name="intro1_desc">Your first line of defense against evil maids!</string>
+
+    <string name="intro2_title">Sensors are go!</string>
+    <string name="intro2_desc">We use all the sensors in your smartphone, to detect subtle variations around us.</string>
+
+    <string name="intro3_title">Sorry to intrude...</string>
+    <string name="intro3_desc">Any detected motion or sound event is recorded and logged for review upon your return</string>
+
+    <string name="intro4_title">DANGER WILL ROBINSON!</string>
+    <string name="intro4_desc">You will be notified via text message of any intrusion event</string>
+
+
 </resources>
