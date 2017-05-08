@@ -62,6 +62,7 @@ public class AccelerometerMonitor implements SensorEventListener {
     private int maxAlertPeriod = 30;
     private int remainingAlertPeriod = 0;
     private boolean alert = false;
+    private final static int CHECK_INTERVAL = 1000;
 
     public AccelerometerMonitor(Context context) {
         prefs = new PreferenceManager(context);
@@ -70,13 +71,13 @@ public class AccelerometerMonitor implements SensorEventListener {
 		 * Set sensitivity value
 		 */
         if (prefs.getAccelerometerSensitivity().equals("Medium")) {
-            SHAKE_THRESHOLD = 2700;
+            SHAKE_THRESHOLD = 400;
             //   Log.i("AccelerometerFragment", "Sensitivity set to 2700");
         } else if (prefs.getAccelerometerSensitivity().equals("Low")) {
-            SHAKE_THRESHOLD = 3100;
+            SHAKE_THRESHOLD = 600;
             //  Log.i("AccelerometerFragment", "Sensitivity set to 3100");
         } else {
-            SHAKE_THRESHOLD = 2300;
+            SHAKE_THRESHOLD = 200;
             // Log.i("AccelerometerFragment", "Sensitivity set to 2300");
         }
 
@@ -103,7 +104,7 @@ public class AccelerometerMonitor implements SensorEventListener {
         long curTime = System.currentTimeMillis();
         // only allow one update every 100ms.
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-            if ((curTime - lastUpdate) > 1000) {
+            if ((curTime - lastUpdate) > CHECK_INTERVAL) {
                 long diffTime = (curTime - lastUpdate);
                 lastUpdate = curTime;
 
@@ -116,10 +117,12 @@ public class AccelerometerMonitor implements SensorEventListener {
                 }
 
                 if (last_accel_values != null) {
+
                     float speed = Math.abs(
                             accel_values[0] + accel_values[1] + accel_values[2] -
                                     last_accel_values[0] + last_accel_values[1] + last_accel_values[2])
                             / diffTime * 10000;
+
                     if (speed > SHAKE_THRESHOLD) {
 						/*
 						 * Send Alert
