@@ -206,7 +206,6 @@ public class MonitorService extends Service {
             mLastEvent = new Event();
             isNewEvent = true;
             mLastEvent.save();
-
         }
         else if (!mLastEvent.insideEventWindow(now))
         {
@@ -216,13 +215,15 @@ public class MonitorService extends Service {
             //now create a new one
             mLastEvent = new Event();
             isNewEvent = true;
+            mLastEvent.save();
         }
 
         EventTrigger eventTrigger = new EventTrigger();
         eventTrigger.setType(alertType);
         eventTrigger.setPath(path);
-        mLastEvent.addEventTrigger(eventTrigger);
         eventTrigger.save();
+
+        mLastEvent.addEventTrigger(eventTrigger);
 
         /*
          * If SMS mode is on we send an SMS alert to the specified
