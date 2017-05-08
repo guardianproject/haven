@@ -66,70 +66,70 @@ public class ListActivity extends AppCompatActivity {
             modifyPos = savedInstanceState.getInt("modify");
 
 
-        if (initialCount > 0) {
+        if (initialCount == 0) {
 
-            events = Event.listAll(Event.class);
-
-            adapter = new EventAdapter(ListActivity.this, events);
-            recyclerView.setAdapter(adapter);
-
-            // Handling swipe to delete
-            ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-
-                @Override
-                public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                    return false;
-                }
-
-                @Override
-                public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                    //Remove swiped item from list and notify the RecyclerView
-
-                    final int position = viewHolder.getAdapterPosition();
-                    final Event event = events.get(viewHolder.getAdapterPosition());
-                    events.remove(viewHolder.getAdapterPosition());
-                    adapter.notifyItemRemoved(position);
-
-                    event.delete();
-                    initialCount -= 1;
-
-                    Snackbar.make(recyclerView, "Event deleted", Snackbar.LENGTH_SHORT)
-                            .setAction("UNDO", new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-
-                                    event.save();
-                                    events.add(position, event);
-                                    adapter.notifyItemInserted(position);
-                                    initialCount += 1;
-
-                                }
-                            })
-                            .show();
-                }
-
-            };
-
-            ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
-            itemTouchHelper.attachToRecyclerView(recyclerView);
-
-
-            adapter.SetOnItemClickListener(new EventAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, int position) {
-
-                    Intent i = new Intent(ListActivity.this, EventActivity.class);
-                    i.putExtra("eventid", events.get(position).getId());
-                    modifyPos = position;
-
-                    startActivity(i);
-                }
-            });
-
-
-        } else {
             showOnboarding();
+
         }
+
+        events = Event.listAll(Event.class);
+
+        adapter = new EventAdapter(ListActivity.this, events);
+        recyclerView.setAdapter(adapter);
+
+        // Handling swipe to delete
+        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                //Remove swiped item from list and notify the RecyclerView
+
+                final int position = viewHolder.getAdapterPosition();
+                final Event event = events.get(viewHolder.getAdapterPosition());
+                events.remove(viewHolder.getAdapterPosition());
+                adapter.notifyItemRemoved(position);
+
+                event.delete();
+                initialCount -= 1;
+
+                Snackbar.make(recyclerView, "Event deleted", Snackbar.LENGTH_SHORT)
+                        .setAction("UNDO", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                event.save();
+                                events.add(position, event);
+                                adapter.notifyItemInserted(position);
+                                initialCount += 1;
+
+                            }
+                        })
+                        .show();
+            }
+
+        };
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
+
+
+        adapter.SetOnItemClickListener(new EventAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+
+                Intent i = new Intent(ListActivity.this, EventActivity.class);
+                i.putExtra("eventid", events.get(position).getId());
+                modifyPos = position;
+
+                startActivity(i);
+            }
+        });
+
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
 

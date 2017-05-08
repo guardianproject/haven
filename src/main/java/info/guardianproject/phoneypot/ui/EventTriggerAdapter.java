@@ -52,11 +52,9 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
         String title = eventTrigger.getStringType();
         String desc = eventTrigger.getTriggerTime().toString();
 
-        holder.title.setText(title);
-        holder.note.setText(desc);
-
         holder.image.setVisibility(View.GONE);
         holder.extra.setVisibility(View.GONE);
+
 
         if (eventTrigger.getPath() != null)
         {
@@ -76,8 +74,21 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
                         .useDefaultUi(holder.extra, inflater);
 
             }
+            else if (eventTrigger.getType() == EventTrigger.ACCELEROMETER)
+            {
+                desc += "\nSPEED: " + eventTrigger.getPath();
+            }
+            else if (eventTrigger.getType() == EventTrigger.PRESSURE)
+            {
+                desc += "\nCHANGE IN PRESSURE: " + eventTrigger.getPath();
+            }
 
         }
+
+        holder.title.setText(title);
+        holder.note.setText(desc);
+
+
 
 
     }

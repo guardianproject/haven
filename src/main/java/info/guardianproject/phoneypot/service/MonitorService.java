@@ -30,6 +30,9 @@ import info.guardianproject.phoneypot.R;
 import info.guardianproject.phoneypot.PreferenceManager;
 import info.guardianproject.phoneypot.model.Event;
 import info.guardianproject.phoneypot.model.EventTrigger;
+import info.guardianproject.phoneypot.sensors.AccelerometerMonitor;
+import info.guardianproject.phoneypot.sensors.BarometerMonitor;
+import info.guardianproject.phoneypot.sensors.MicrophoneMonitor;
 
 @SuppressLint("HandlerLeak")
 public class MonitorService extends Service {
@@ -60,6 +63,7 @@ public class MonitorService extends Service {
      */
     AccelerometerMonitor mAccelManager = null;
     MicrophoneMonitor mMicMonitor = null;
+    BarometerMonitor mBaroMonitor = null;
 
     /**
      * Last Event instances
@@ -167,8 +171,10 @@ public class MonitorService extends Service {
 
     private void startSensors ()
     {
-        if (prefs.getAccelerometerSensitivity() != PreferenceManager.OFF)
+        if (prefs.getAccelerometerSensitivity() != PreferenceManager.OFF) {
             mAccelManager = new AccelerometerMonitor(this);
+            mBaroMonitor = new BarometerMonitor(this);
+        }
 
         if (prefs.getMicrophoneSensitivity() != PreferenceManager.OFF)
             mMicMonitor = new MicrophoneMonitor(this);
@@ -178,8 +184,10 @@ public class MonitorService extends Service {
 
     private void stopSensors ()
     {
-        if (prefs.getAccelerometerSensitivity() != PreferenceManager.OFF)
+        if (prefs.getAccelerometerSensitivity() != PreferenceManager.OFF) {
             mAccelManager.stop(this);
+            mBaroMonitor.stop(this);
+        }
 
         if (prefs.getMicrophoneSensitivity() != PreferenceManager.OFF)
             mMicMonitor.stop(this);

@@ -31,6 +31,11 @@ public class EventTrigger extends SugarRecord {
      */
     public static final int MICROPHONE = 2;
 
+    /**
+     * Pressure change detected message
+     */
+    public static final int PRESSURE = 2;
+
 
     public EventTrigger ()
     {

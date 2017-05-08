@@ -1,4 +1,4 @@
-package info.guardianproject.phoneypot.service;
+package info.guardianproject.phoneypot.sensors;
 
 import android.app.Activity;
 import android.content.ComponentName;
@@ -17,6 +17,7 @@ import android.util.Log;
 
 import info.guardianproject.phoneypot.PreferenceManager;
 import info.guardianproject.phoneypot.model.EventTrigger;
+import info.guardianproject.phoneypot.service.MonitorService;
 
 /**
  * Created by n8fr8 on 3/10/17.
@@ -133,6 +134,7 @@ public class AccelerometerMonitor implements SensorEventListener {
 
                         Message message = new Message();
                         message.what = EventTrigger.ACCELEROMETER;
+                        message.getData().putString("path",speed+"");
 
                         try {
                             if (serviceMessenger != null) {

@@ -1,4 +1,4 @@
-package info.guardianproject.phoneypot.service;
+package info.guardianproject.phoneypot.sensors;
 
 /**
  * Created by n8fr8 on 3/10/17.
@@ -19,6 +19,7 @@ import info.guardianproject.phoneypot.model.EventTrigger;
 import info.guardianproject.phoneypot.sensors.media.AudioRecorderTask;
 import info.guardianproject.phoneypot.sensors.media.MicSamplerTask;
 import info.guardianproject.phoneypot.sensors.media.MicrophoneTaskFactory;
+import info.guardianproject.phoneypot.service.MonitorService;
 
 
 public final class MicrophoneMonitor implements MicSamplerTask.MicListener {
