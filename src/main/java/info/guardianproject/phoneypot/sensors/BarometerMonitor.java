@@ -61,7 +61,7 @@ public class BarometerMonitor implements SensorEventListener {
     private boolean alert = false;
     private final static int CHECK_INTERVAL = 1000;
 
-    private int CHANGE_THRESHOLD = 200; //hPa or mbar
+    private int CHANGE_THRESHOLD = 30; //hPa or mbar
 
     public BarometerMonitor(Context context) {
         prefs = new PreferenceManager(context);
@@ -107,8 +107,8 @@ public class BarometerMonitor implements SensorEventListener {
 
                 if (last_accel_values != null) {
 
-                    float diffValue = accel_values[0] - last_accel_values[0];
-
+                    float diffValue = Math.abs(accel_values[0] - last_accel_values[0]);
+                    Log.d("Pressure","diff: " + diffValue);
                     boolean logit = (diffValue > CHANGE_THRESHOLD);
 
                     if (logit) {
