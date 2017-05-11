@@ -41,6 +41,8 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
     public EventTriggerVH onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_item, parent, false);
         EventTriggerVH viewHolder = new EventTriggerVH(view);
+
+
         return viewHolder;
     }
 
@@ -69,9 +71,13 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
 
                 holder.extra.setVisibility(View.VISIBLE);
+                holder.extra.removeAllViews();
+
                 AudioWife audioWife = new AudioWife();
                 audioWife.init(context, Uri.fromFile(new File(eventTrigger.getPath())))
                         .useDefaultUi(holder.extra, inflater);
+
+
 
             }
             else if (eventTrigger.getType() == EventTrigger.ACCELEROMETER)

@@ -74,7 +74,7 @@
 
     <string name="secure_service_stopped">Phoneypot Deactivated</string>
 
-    <string name="intrusion_detected">An intrusion was detected (Type: $1%s). Capturing audio and photo evidence now.</string>
+    <string name="intrusion_detected">An intrusion was detected (Type: %s). Capturing audio and photo evidence now.</string>
     <string name="title_activity_event">EventActivity</string>
 
     <string name="action_settings">Settings</string>

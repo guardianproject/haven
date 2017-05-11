@@ -71,6 +71,11 @@ public class ListActivity extends AppCompatActivity {
             showOnboarding();
 
         }
+        else
+        {
+            recyclerView.setVisibility(View.VISIBLE);
+            findViewById(R.id.empty_view).setVisibility(View.GONE);
+        }
 
         events = Event.listAll(Event.class);
 
