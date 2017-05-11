@@ -201,29 +201,22 @@ public class MonitorService extends Service {
         Date now = new Date();
         boolean isNewEvent = false;
 
-        if (mLastEvent == null)
+        if (mLastEvent == null || (!mLastEvent.insideEventWindow(now)))
         {
             mLastEvent = new Event();
-            isNewEvent = true;
-            mLastEvent.save();
-        }
-        else if (!mLastEvent.insideEventWindow(now))
-        {
-            //save the current event
             mLastEvent.save();
 
-            //now create a new one
-            mLastEvent = new Event();
             isNewEvent = true;
-            mLastEvent.save();
         }
 
         EventTrigger eventTrigger = new EventTrigger();
         eventTrigger.setType(alertType);
         eventTrigger.setPath(path);
-        eventTrigger.save();
 
         mLastEvent.addEventTrigger(eventTrigger);
+
+        //we don't need to resave the event, only the trigger
+        eventTrigger.save();
 
         /*
          * If SMS mode is on we send an SMS alert to the specified
@@ -233,7 +226,7 @@ public class MonitorService extends Service {
             //get the manager
 
             StringBuffer alertMessage = new StringBuffer();
-            alertMessage.append(getString(R.string.intrusion_detected));
+            alertMessage.append(getString(R.string.intrusion_detected,eventTrigger.getStringType()));
 
             SmsManager manager = SmsManager.getDefault();
             manager.sendTextMessage(prefs.getSmsNumber(), null, alertMessage.toString(), null, null);
