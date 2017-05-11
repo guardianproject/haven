@@ -41,6 +41,7 @@ public class SettingsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         preferences = new PreferenceManager(this.getApplicationContext());
         
         /*

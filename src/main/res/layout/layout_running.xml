@@ -23,6 +23,7 @@
             android:id="@+id/timer_container"
             android:orientation="vertical"
             android:background="#aaffffff"
+            android:gravity="center_vertical"
 
             >
         <TextView
