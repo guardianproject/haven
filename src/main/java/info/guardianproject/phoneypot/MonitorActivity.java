@@ -32,8 +32,12 @@ import info.guardianproject.phoneypot.service.MonitorService;
 public class MonitorActivity extends FragmentActivity {
 	
 	private PreferenceManager preferences = null;
+
     private TextView txtTimer;
+    private View viewTimer;
+
     private CountDownTimer cTimer;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -42,6 +46,7 @@ public class MonitorActivity extends FragmentActivity {
         setContentView(R.layout.layout_running);
 
         txtTimer = (TextView)findViewById(R.id.timer_text);
+        viewTimer = findViewById(R.id.timer_container);
 
         initTimer();
 
@@ -59,10 +64,45 @@ public class MonitorActivity extends FragmentActivity {
             }
         });
 
+        fab = (FloatingActionButton)findViewById(R.id.fab_settings);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                showSettings();
+            }
+        });
+
+        if (getIntent().getBooleanExtra("firsttime",false))
+        {
+            showSettings();
+        }
 
 	}
 
-	private void initTimer ()
+	private void showSettings ()
+    {
+
+        if (cTimer != null) {
+            cTimer.cancel();
+            cTimer = null;
+        }
+
+        Intent i = new Intent(this,SettingsActivity.class);
+        startActivityForResult(i,9999);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 9999)
+        {
+            initTimer();
+        }
+    }
+
+    private void initTimer ()
     {
         cTimer = new CountDownTimer((preferences.getTimerDelay()+1)*1000, 1000) {
 
@@ -75,7 +115,7 @@ public class MonitorActivity extends FragmentActivity {
 
             public void onFinish() {
 
-                txtTimer.setVisibility(View.GONE);
+                viewTimer.setVisibility(View.GONE);
                 initMonitor();
             }
 

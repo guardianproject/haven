@@ -90,7 +90,7 @@ public class PreferenceManager {
     }
     
     public String getCamera() {
-    	return appSharedPrefs.getString(CAMERA, BACK);
+    	return appSharedPrefs.getString(CAMERA, FRONT);
     }
     
     public void setCameraSensitivity(String sensitivity) {
@@ -233,6 +233,6 @@ public class PreferenceManager {
 
     public int getAudioLength ()
     {
-        return 15000; //30 seconds
+        return 10000; //30 seconds
     }
 }

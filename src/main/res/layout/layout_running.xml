@@ -17,22 +17,47 @@
         android:layout_height="match_parent"
         android:visibility="gone"
         />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/timer_container"
+            android:orientation="vertical"
+            android:background="#aaffffff"
+
+            >
         <TextView
             android:id="@+id/timer_text"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="120dp"
-            android:text=""
-            android:background="@android:color/white"
+            android:text="100"
+
             />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="The final countdown... Motion, sound and camera events will be logged once the timer is complete.\n\nTap the Settings icon to customize\nor (X) Cancel to stop."
+                android:gravity="center"
+                android:layout_margin="40dp"
+
+                />
+        </LinearLayout>
     </FrameLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|left"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_settings_white_24dp"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center"
+        android:layout_gravity="bottom|right"
         android:layout_margin="@dimen/fab_margin"
         android:src="@drawable/ic_cancel_white_24dp"
         android:tint="@android:color/white" />

@@ -37,10 +37,10 @@ public class PPAppIntro extends AppIntro {
         addSlide(AppIntroFragment.newInstance(getString(R.string.intro4_title), getString(R.string.intro4_desc),
                 R.drawable.intro4, getResources().getColor(R.color.colorPrimaryDark)));
 
-        // OPTIONAL METHODS
-        // Override bar/separator color.
-        // setBarColor(Color.parseColor("#3F51B5"));
-        // setSeparatorColor(Color.parseColor("#2196F3"));
+        addSlide(AppIntroFragment.newInstance(getString(R.string.intro5_title), getString(R.string.intro5_desc),
+                R.drawable.intro1, getResources().getColor(R.color.colorPrimaryDark)));
+
+        setDoneText(getString(R.string.onboarding_action_end));
 
         // Hide Skip/Done button.
         showSkipButton(false);
@@ -60,7 +60,7 @@ public class PPAppIntro extends AppIntro {
         super.onDonePressed(currentFragment);
         // Do something when users tap on Done button.
 
-
+        setResult(RESULT_OK);
         finish();
     }
 

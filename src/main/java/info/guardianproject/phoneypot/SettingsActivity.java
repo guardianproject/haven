@@ -14,7 +14,6 @@ import java.io.File;
 import android.Manifest;
 import android.os.Bundle;
 import android.os.Environment;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -37,7 +36,7 @@ public class SettingsActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        setContentView(R.layout.activity_start);
+        setContentView(R.layout.activity_settings);
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -192,7 +191,7 @@ public class SettingsActivity extends AppCompatActivity {
 		}
 	}
 
-    private void startMonitoring ()
+    private void save ()
     {
 
         Spinner accelerometerSensitivity = (Spinner)
@@ -238,21 +237,10 @@ public class SettingsActivity extends AppCompatActivity {
 
         preferences.setTimerDelay(Integer.parseInt(timerDelay.getText().toString()));
 
-        launchMonitoringMode();
-
-    }
-    private void launchMonitoringMode ()
-    {
-
-        Intent intent = new Intent(
-                SettingsActivity.this,
-                MonitorActivity.class);
-
-        startActivity(intent);
+        setResult(RESULT_OK);
 
         finish();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -263,8 +251,8 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected (MenuItem item) {
         switch (item.getItemId()){
-            case R.id.menu_start:
-                startMonitoring();
+            case R.id.menu_save:
+                save();
                 break;
         }
         return true;

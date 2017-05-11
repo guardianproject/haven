@@ -28,15 +28,15 @@
     	    android:layout_height="wrap_content"
     	    android:paddingTop="10dp"
     	    />
-    	<Spinner
-    	    android:id="@+id/accelerometer_sensitivity_spinner"
-    	    android:layout_alignParentRight="true"
-    	    android:prompt="@string/accelerometer_prompt"
-    	    android:entries="@array/select_sensitivity"
-    	    android:layout_width="wrap_content"
-    	    android:layout_height="wrap_content"
-    	    android:layout_centerHorizontal="true"
-    	/>
+
+	<Spinner
+		android:id="@+id/accelerometer_sensitivity_spinner"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentRight="true"
+		android:layout_centerHorizontal="true"
+		android:entries="@array/select_sensitivity"
+		android:prompt="@string/accelerometer_prompt" />
 
     	<TextView 
     	    android:id="@+id/camera_prompt"

@@ -147,7 +147,7 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(ListActivity.this, SettingsActivity.class);
+                Intent i = new Intent(ListActivity.this, MonitorActivity.class);
                 startActivity(i);
 
             }
@@ -155,9 +155,19 @@ public class ListActivity extends AppCompatActivity {
 
 
 
-
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE_INTRO)
+        {
+            Intent i = new Intent(ListActivity.this, MonitorActivity.class);
+            i.putExtra("firsttime",true);
+            startActivity(i);
+        }
+    }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
