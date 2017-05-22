@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import info.guardianproject.phoneypot.ListActivity;
 import info.guardianproject.phoneypot.R;
@@ -131,10 +132,26 @@ public class EventActivity extends AppCompatActivity {
 
     private void shareEvent ()
     {
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plan");
-        intent.putExtra(Intent.EXTRA_TEXT,generateLog());
-        startActivity(intent);
+        String title = "Phoneypot: " + mEvent.getStartTime().toLocaleString();
+
+        //need to "send multiple" to get more than one attachment
+        final Intent emailIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
+        emailIntent.setType("text/plain");
+
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, title);
+        emailIntent.putExtra(Intent.EXTRA_TEXT, generateLog());
+        //has to be an ArrayList
+        ArrayList<Uri> uris = new ArrayList<Uri>();
+        //convert from paths to Android friendly Parcelable Uri's
+        for (EventTrigger trigger : mEvent.getEventTriggers())
+        {
+            File fileIn = new File(trigger.getPath());
+            Uri u = Uri.fromFile(fileIn);
+            uris.add(u);
+        }
+
+        emailIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
+        startActivity(Intent.createChooser(emailIntent, "Share event..."));
     }
 
     private String generateLog () {
