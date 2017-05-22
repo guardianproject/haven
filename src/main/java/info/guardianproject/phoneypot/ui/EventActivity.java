@@ -3,6 +3,7 @@ package info.guardianproject.phoneypot.ui;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.TextView;
 
@@ -25,6 +27,8 @@ public class EventActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private Event mEvent;
+    private Handler mHandler = new Handler();
+    private EventTriggerAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +49,11 @@ public class EventActivity extends AppCompatActivity {
 
             setTitle(mEvent.getStartTime().toLocaleString());
 
-            EventTriggerAdapter adapter = new EventTriggerAdapter(this, mEvent.getEventTriggers());
+            mAdapter = new EventTriggerAdapter(this, mEvent.getEventTriggers());
 
             LinearLayoutManager llm = new LinearLayoutManager(this);
             mRecyclerView.setLayoutManager(llm);
-            mRecyclerView.setAdapter(adapter);
+            mRecyclerView.setAdapter(mAdapter);
 
             FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
             fab.setOnClickListener(new View.OnClickListener() {
@@ -60,10 +64,69 @@ public class EventActivity extends AppCompatActivity {
                 }
             });
 
+            // Handling swipe to delete
+            ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+
+                @Override
+                public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                    return false;
+                }
+
+                @Override
+                public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                    //Remove swiped item from list and notify the RecyclerView
+
+                    final int position = viewHolder.getAdapterPosition();
+                    final EventTrigger eventTrigger = mEvent.getEventTriggers().get(viewHolder.getAdapterPosition());
+
+                    deleteEventTrigger (eventTrigger, position);
+
+
+                }
+
+            };
+
+
+            ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+            itemTouchHelper.attachToRecyclerView(mRecyclerView);
 
         }
         else
             finish();
+    }
+
+    private void deleteEventTrigger (final EventTrigger eventTrigger, final int position)
+    {
+
+        final Runnable runnableDelete = new Runnable ()
+        {
+            public void run ()
+            {
+
+                new File(eventTrigger.getPath()).delete();
+                eventTrigger.delete();
+
+            }
+        };
+
+        mHandler.postDelayed(runnableDelete,3000);
+
+        mEvent.getEventTriggers().remove(position);
+        mAdapter.notifyItemRemoved(position);
+
+        eventTrigger.delete();
+
+        Snackbar.make(mRecyclerView, "Event Trigger deleted", Snackbar.LENGTH_SHORT)
+                .setAction("UNDO", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mHandler.removeCallbacks(runnableDelete);
+                        eventTrigger.save();
+                        mEvent.getEventTriggers().add(position, eventTrigger);
+                        mAdapter.notifyItemInserted(position);
+                    }
+                })
+                .show();
     }
 
     private void shareEvent ()

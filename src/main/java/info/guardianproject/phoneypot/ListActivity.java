@@ -173,7 +173,7 @@ public class ListActivity extends AppCompatActivity {
         };
 
         handler.postDelayed(runnableDelete,3000);
-        
+
         events.remove(position);
         adapter.notifyItemRemoved(position);
 
