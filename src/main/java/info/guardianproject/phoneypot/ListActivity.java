@@ -1,5 +1,6 @@
 package info.guardianproject.phoneypot;
 
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -31,6 +32,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TimerTask;
 
 /**
  * Created by n8fr8 on 4/16/17.
@@ -49,6 +51,9 @@ public class ListActivity extends AppCompatActivity {
     int modifyPos = -1;
 
     int REQUEST_CODE_INTRO = 1001;
+
+
+    private Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,34 +86,13 @@ public class ListActivity extends AppCompatActivity {
                 final int position = viewHolder.getAdapterPosition();
                 final Event event = events.get(viewHolder.getAdapterPosition());
 
-                for (EventTrigger trigger : event.getEventTriggers())
-                {
-                    new File(trigger.getPath()).delete();
-                    trigger.delete();
-                }
+                deleteEvent (event, position);
 
-                events.remove(viewHolder.getAdapterPosition());
-                adapter.notifyItemRemoved(position);
 
-                event.delete();
-                initialCount -= 1;
-
-                Snackbar.make(recyclerView, "Event deleted", Snackbar.LENGTH_SHORT)
-                        .setAction("UNDO", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-
-                                event.save();
-                                events.add(position, event);
-                                adapter.notifyItemInserted(position);
-                                initialCount += 1;
-
-                            }
-                        })
-                        .show();
             }
 
         };
+
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
@@ -170,6 +154,45 @@ public class ListActivity extends AppCompatActivity {
 
 
 
+    }
+
+    private void deleteEvent (final Event event, final int position)
+    {
+
+        final Runnable runnableDelete = new Runnable ()
+        {
+            public void run ()
+            {
+                for (EventTrigger trigger : event.getEventTriggers())
+                {
+                    new File(trigger.getPath()).delete();
+                    trigger.delete();
+                }
+
+            }
+        };
+
+        handler.postDelayed(runnableDelete,3000);
+        
+        events.remove(position);
+        adapter.notifyItemRemoved(position);
+
+        event.delete();
+        initialCount -= 1;
+
+        Snackbar.make(recyclerView, "Event deleted", Snackbar.LENGTH_SHORT)
+                .setAction("UNDO", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        handler.removeCallbacks(runnableDelete);
+                        event.save();
+                        events.add(position, event);
+                        adapter.notifyItemInserted(position);
+                        initialCount += 1;
+
+                    }
+                })
+                .show();
     }
 
     @Override

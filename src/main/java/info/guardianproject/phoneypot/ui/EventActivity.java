@@ -60,20 +60,7 @@ public class EventActivity extends AppCompatActivity {
                 }
             });
 
-            /**
-            adapter.SetOnItemClickListener(new EventTriggerAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, int position) {
 
-                    EventTrigger eventTrigger = mEvent.getEventTriggers().get(position);
-
-                    if (eventTrigger.getPath() != null) {
-                        Intent i = new Intent(Intent.ACTION_VIEW);
-                        i.setDataAndType(Uri.fromFile(new File(eventTrigger.getPath())),eventTrigger.getMimeType());
-                        startActivity(i);
-                    }
-                }
-            });**/
         }
         else
             finish();
