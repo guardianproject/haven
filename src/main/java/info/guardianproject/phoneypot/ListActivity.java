@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 
 import info.guardianproject.phoneypot.model.Event;
+import info.guardianproject.phoneypot.model.EventTrigger;
 import info.guardianproject.phoneypot.ui.EventActivity;
 import info.guardianproject.phoneypot.ui.EventAdapter;
 import info.guardianproject.phoneypot.ui.PPAppIntro;
@@ -25,6 +26,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -60,27 +62,9 @@ public class ListActivity extends AppCompatActivity {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(llm);
 
-        initialCount = Event.count(Event.class);
-
         if (savedInstanceState != null)
             modifyPos = savedInstanceState.getInt("modify");
 
-
-        if (initialCount == 0) {
-
-            showOnboarding();
-
-        }
-        else
-        {
-            recyclerView.setVisibility(View.VISIBLE);
-            findViewById(R.id.empty_view).setVisibility(View.GONE);
-        }
-
-        events = Event.listAll(Event.class);
-
-        adapter = new EventAdapter(ListActivity.this, events);
-        recyclerView.setAdapter(adapter);
 
         // Handling swipe to delete
         ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -96,6 +80,13 @@ public class ListActivity extends AppCompatActivity {
 
                 final int position = viewHolder.getAdapterPosition();
                 final Event event = events.get(viewHolder.getAdapterPosition());
+
+                for (EventTrigger trigger : event.getEventTriggers())
+                {
+                    new File(trigger.getPath()).delete();
+                    trigger.delete();
+                }
+
                 events.remove(viewHolder.getAdapterPosition());
                 adapter.notifyItemRemoved(position);
 
@@ -123,18 +114,6 @@ public class ListActivity extends AppCompatActivity {
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
 
-        adapter.SetOnItemClickListener(new EventAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-
-                Intent i = new Intent(ListActivity.this, EventActivity.class);
-                i.putExtra("eventid", events.get(position).getId());
-                modifyPos = position;
-
-                startActivity(i);
-            }
-        });
-
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
 
@@ -155,6 +134,37 @@ public class ListActivity extends AppCompatActivity {
                 Intent i = new Intent(ListActivity.this, MonitorActivity.class);
                 startActivity(i);
 
+            }
+        });
+
+        initialCount = Event.count(Event.class);
+
+
+        if (initialCount == 0) {
+
+            showOnboarding();
+
+        }
+        else
+        {
+            recyclerView.setVisibility(View.VISIBLE);
+            findViewById(R.id.empty_view).setVisibility(View.GONE);
+        }
+
+        events = Event.listAll(Event.class);
+        adapter = new EventAdapter(ListActivity.this, events);
+        recyclerView.setAdapter(adapter);
+
+
+        adapter.SetOnItemClickListener(new EventAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+
+                Intent i = new Intent(ListActivity.this, EventActivity.class);
+                i.putExtra("eventid", events.get(position).getId());
+                modifyPos = position;
+
+                startActivity(i);
             }
         });
 
@@ -203,12 +213,21 @@ public class ListActivity extends AppCompatActivity {
             adapter.notifyItemInserted((int) newCount);
 
             initialCount = newCount;
+
+            recyclerView.setVisibility(View.VISIBLE);
+            findViewById(R.id.empty_view).setVisibility(View.GONE);
+        }
+        else if (newCount == 0)
+        {
+            recyclerView.setVisibility(View.GONE);
+            findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
         }
 
         if (modifyPos != -1) {
             //Event.set(modifyPos, Event.listAll(Event.class).get(modifyPos));
             adapter.notifyItemChanged(modifyPos);
         }
+
 
     }
 

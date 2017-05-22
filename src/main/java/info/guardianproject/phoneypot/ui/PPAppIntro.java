@@ -32,10 +32,10 @@ public class PPAppIntro extends AppIntro {
                 R.drawable.intro2, getResources().getColor(R.color.colorPrimaryDark)));
 
         addSlide(AppIntroFragment.newInstance(getString(R.string.intro3_title), getString(R.string.intro3_desc),
-                R.drawable.intro3, getResources().getColor(R.color.colorPrimaryDark)));
+                R.drawable.intro4, getResources().getColor(R.color.colorPrimaryDark)));
 
         addSlide(AppIntroFragment.newInstance(getString(R.string.intro4_title), getString(R.string.intro4_desc),
-                R.drawable.intro4, getResources().getColor(R.color.colorPrimaryDark)));
+                R.drawable.intro3, getResources().getColor(R.color.colorPrimaryDark)));
 
         addSlide(AppIntroFragment.newInstance(getString(R.string.intro5_title), getString(R.string.intro5_desc),
                 R.drawable.intro1, getResources().getColor(R.color.colorPrimaryDark)));

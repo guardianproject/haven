@@ -30,9 +30,10 @@ public class MicrophoneTaskFactory {
 	
 	private static MicSamplerTask samplerTask; 
 	
-	public static AudioRecorderTask makeRecorder(Context context) throws RecordLimitExceeded {
+	public static synchronized AudioRecorderTask makeRecorder(Context context) throws RecordLimitExceeded {
 		if (recorderTask != null && recorderTask.isRecording()) 
 			throw new RecordLimitExceeded();
+
 		recorderTask = new AudioRecorderTask(context);
 		return recorderTask;
 	}

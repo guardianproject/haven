@@ -1,6 +1,7 @@
 package info.guardianproject.phoneypot.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -33,7 +34,6 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
     public EventTriggerAdapter(Context context, List<EventTrigger> eventTriggers) {
         this.context = context;
         this.eventTriggers = eventTriggers;
-
     }
 
 
@@ -49,7 +49,7 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
     @Override
     public void onBindViewHolder(EventTriggerVH holder, int position) {
 
-        EventTrigger eventTrigger = eventTriggers.get(position);
+        final EventTrigger eventTrigger = eventTriggers.get(position);
 
         String title = eventTrigger.getStringType();
         String desc = eventTrigger.getTriggerTime().toString();
@@ -64,7 +64,15 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
             {
                 holder.image.setVisibility(View.VISIBLE);
                 Picasso.with(context).load(new File(eventTrigger.getPath())).into(holder.image);
+                holder.actionShare.setVisibility(View.VISIBLE);
 
+                holder.actionShare.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        shareMedia(eventTrigger);
+                    }
+                });
             }
             else if (eventTrigger.getType() == EventTrigger.MICROPHONE)
             {
@@ -77,16 +85,31 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
                 audioWife.init(context, Uri.fromFile(new File(eventTrigger.getPath())))
                         .useDefaultUi(holder.extra, inflater);
 
+                holder.actionShare.setVisibility(View.VISIBLE);
 
+                holder.actionShare.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        shareMedia(eventTrigger);
+                    }
+                });
 
             }
             else if (eventTrigger.getType() == EventTrigger.ACCELEROMETER)
             {
                 desc += "\nSPEED: " + eventTrigger.getPath();
+                holder.actionShare.setVisibility(View.GONE);
+
+                holder.actionShare.setOnClickListener(null);
+
             }
             else if (eventTrigger.getType() == EventTrigger.PRESSURE)
             {
                 desc += "\nCHANGE IN PRESSURE: " + eventTrigger.getPath();
+                holder.actionShare.setVisibility(View.GONE);
+
+                holder.actionShare.setOnClickListener(null);
             }
 
         }
@@ -95,8 +118,17 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
         holder.note.setText(desc);
 
 
+    }
 
+    private void shareMedia (EventTrigger eventTrigger)
+    {
 
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(eventTrigger.getPath())));
+        shareIntent.setType(eventTrigger.getMimeType());
+
+        context.startActivity(shareIntent);
     }
 
     @Override
@@ -108,6 +140,7 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
         TextView title, note;
         ImageView image;
         ViewGroup extra;
+        ImageView actionShare;
 
         public EventTriggerVH(View itemView) {
             super(itemView);
@@ -116,6 +149,7 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
             note = (TextView) itemView.findViewById(R.id.event_item_desc);
             image = (ImageView) itemView.findViewById(R.id.event_item_image);
             extra = (ViewGroup)itemView.findViewById(R.id.event_item_extra);
+            actionShare = (ImageView) itemView.findViewById(R.id.event_action_share);
 
             itemView.setOnClickListener(this);
         }
