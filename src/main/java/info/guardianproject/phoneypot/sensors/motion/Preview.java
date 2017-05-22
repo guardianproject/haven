@@ -55,7 +55,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 	private PreferenceManager prefs;
 	private int cameraFacing = 0;
 
-	private final static long PREVIEW_INTERVAL = 2000;
+	private final static int PREVIEW_INTERVAL = 2000;
 
 	private List<MotionAsyncTask.MotionListener> listeners = new ArrayList<MotionAsyncTask.MotionListener>();
 	
@@ -315,7 +315,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 			// the preview.
 			Camera.Parameters parameters = camera.getParameters();
 			parameters.setPreviewSize(w, h);
-
+			parameters.setPreviewFpsRange(PREVIEW_INTERVAL,PREVIEW_INTERVAL*2);
 			int degree = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getRotation();
 			int displayOrientation = 0;
 			switch (degree) {
