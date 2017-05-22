@@ -35,7 +35,13 @@ public final class MicrophoneMonitor implements MicSamplerTask.MicListener {
     /**
      * Threshold for the decibels sampled
      */
-    private double NOISE_THRESHOLD = 60.0;
+    private double NOISE_THRESHOLD = 40.0;
+
+    /**
+     * Baseline noise floor
+     *
+     */
+    private double mBaseLine = -1;
 
     /**
      * Messenger used to communicate with alert service
@@ -67,9 +73,9 @@ public final class MicrophoneMonitor implements MicSamplerTask.MicListener {
         prefs = new PreferenceManager(context);
 
         if (prefs.getMicrophoneSensitivity().equals("High")) {
-            NOISE_THRESHOLD = 30.0;
+            NOISE_THRESHOLD = 10.0;
         } else if (prefs.getMicrophoneSensitivity().equals("Medium")) {
-            NOISE_THRESHOLD = 40.0;
+            NOISE_THRESHOLD = 20.0;
         }
 
         context.bindService(new Intent(context,
@@ -120,8 +126,13 @@ public final class MicrophoneMonitor implements MicSamplerTask.MicListener {
             averageDB = 20 * Math.log10(Math.abs(average) / 1);
         }
 
+        if (mBaseLine == -1)
+        {
+            mBaseLine = averageDB;
+            Log.d("MicrophoneMonitor","Baseline is: " + mBaseLine);
+        }
 
-        if (averageDB > NOISE_THRESHOLD) {
+        if ((averageDB-mBaseLine) > NOISE_THRESHOLD) {
 
             if (!MicrophoneTaskFactory.isRecording()) {
                 try {
