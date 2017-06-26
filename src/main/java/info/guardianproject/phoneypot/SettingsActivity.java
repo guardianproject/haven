@@ -32,6 +32,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -225,6 +226,10 @@ public class SettingsActivity extends AppCompatActivity {
 
             if (TextUtils.isEmpty(preferences.getRemoteAccessOnion()))
                 OrbotHelper.requestHiddenServiceOnPort(this, WebServer.LOCAL_PORT);
+        }
+        else
+        {
+            Toast.makeText(this,"This feature requires the Orbot: Tor for Android app to be installed.",Toast.LENGTH_LONG);
         }
     }
 
