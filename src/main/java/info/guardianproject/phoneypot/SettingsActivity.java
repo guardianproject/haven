@@ -12,6 +12,7 @@ package info.guardianproject.phoneypot;
 import java.io.File;
 
 import android.Manifest;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.content.pm.PackageManager;
@@ -19,6 +20,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,6 +29,11 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.Spinner;
+
+import org.w3c.dom.Text;
+
+import info.guardianproject.netcipher.proxy.OrbotHelper;
+import info.guardianproject.phoneypot.service.WebServer;
 
 public class SettingsActivity extends AppCompatActivity {
 	
@@ -41,7 +48,6 @@ public class SettingsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         preferences = new PreferenceManager(this.getApplicationContext());
         
         /*
@@ -54,7 +60,8 @@ public class SettingsActivity extends AppCompatActivity {
          * Checkboxes for enabled app options
          */
         final CheckBox smsCheck = (CheckBox) this.findViewById(R.id.sms_check);
-        
+        final CheckBox remoteAccessCheck = (CheckBox) this.findViewById(R.id.remote_access_check);
+
         /*
          * Detecting if the device has a front camera
          * and configuring the spinner of camera selection
@@ -85,6 +92,8 @@ public class SettingsActivity extends AppCompatActivity {
         final EditText phoneNumber = (EditText)
         		this.findViewById(R.id.phone_number);
 
+        final EditText remoteAccessOnion = (EditText)
+                this.findViewById(R.id.remote_access_onion);
 
         final EditText timerDelay = (EditText)
                 this.findViewById(R.id.timer_delay);
@@ -97,6 +106,15 @@ public class SettingsActivity extends AppCompatActivity {
         		}
 			}
 		});
+
+        remoteAccessCheck.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked) {
+                    checkRemoteAccessOnion();
+                }
+            }
+        });
 
         /**
          * Loads preferences and sets view
@@ -149,6 +167,13 @@ public class SettingsActivity extends AppCompatActivity {
         if (preferences.getSmsActivation()) {
         	smsCheck.setChecked(true);
         	phoneNumber.setText(preferences.getSmsNumber());
+        }
+
+        if (preferences.getRemoteAccessActive())
+        {
+            remoteAccessCheck.setChecked(true);
+            remoteAccessOnion.setText(preferences.getRemoteAccessOnion() + ":" + WebServer.LOCAL_PORT);
+
         }
 
         timerDelay.setText(preferences.getTimerDelay()+"");
@@ -210,7 +235,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         Spinner selectCameraSpinner = (Spinner) this.findViewById(R.id.camera_spinner);
         CheckBox smsCheck = (CheckBox) this.findViewById(R.id.sms_check);
-
+        CheckBox remoteAccessCheck = (CheckBox) this.findViewById(R.id.remote_access_check);
 
         preferences.activateAccelerometer(true);
         preferences.setAccelerometerSensitivity(
@@ -236,6 +261,8 @@ public class SettingsActivity extends AppCompatActivity {
             preferences.activateSms(false);
         }
 
+        preferences.activateRemoteAccess(remoteAccessCheck.isChecked());
+
         preferences.setTimerDelay(Integer.parseInt(timerDelay.getText().toString()));
 
         setResult(RESULT_OK);
@@ -259,4 +286,34 @@ public class SettingsActivity extends AppCompatActivity {
         return true;
     }
 
+    private void checkRemoteAccessOnion ()
+    {
+        if (OrbotHelper.isOrbotInstalled(this))
+        {
+            OrbotHelper.requestStartTor(this);
+
+            if (TextUtils.isEmpty(preferences.getRemoteAccessOnion()))
+                OrbotHelper.requestHiddenServiceOnPort(this, WebServer.LOCAL_PORT);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK && data != null)
+        {
+            String onionHost = data.getStringExtra("hs_host");
+
+            if (!TextUtils.isEmpty(onionHost)) {
+                preferences.setRemoteAccessOnion(onionHost);
+                final EditText remoteAccessOnion = (EditText)
+                        this.findViewById(R.id.remote_access_onion);
+                remoteAccessOnion.setText(onionHost + ":" + WebServer.LOCAL_PORT);
+            }
+
+        }
+    }
+
 }
+

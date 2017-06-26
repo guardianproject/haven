@@ -22,7 +22,9 @@ import android.os.Messenger;
 import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
 import android.telephony.SmsManager;
+import android.util.Log;
 
+import java.io.IOException;
 import java.util.Date;
 
 import info.guardianproject.phoneypot.MonitorActivity;
@@ -90,6 +92,11 @@ public class MonitorService extends Service {
      */
     PowerManager.WakeLock wakeLock;
 
+    /*
+    ** Onion-available Web Server for optional remote access
+     */
+    WebServer mOnionServer = null;
+
 	/**
 	 * Called on service creation, sends a notification
 	 */
@@ -97,6 +104,9 @@ public class MonitorService extends Service {
     public void onCreate() {
         manager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         prefs = new PreferenceManager(this);
+
+        if (prefs.getRemoteAccessActive())
+            startServer();
 
         startSensors();
 
@@ -117,6 +127,10 @@ public class MonitorService extends Service {
 
         wakeLock.release();
         stopSensors();
+
+        if (mOnionServer != null)
+            mOnionServer.stop();
+
 		stopForeground(true);
 
 
@@ -235,5 +249,15 @@ public class MonitorService extends Service {
 
     }
 
+    private void startServer ()
+    {
+        try {
+            mOnionServer = new WebServer();
+        }
+        catch (IOException ioe)
+        {
+            Log.e("OnioNServer","unable to start onion server",ioe);
+        }
+    }
 
 }

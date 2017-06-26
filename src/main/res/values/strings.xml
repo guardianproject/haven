@@ -5,7 +5,7 @@
     <string name="menu_stop">Stop</string>
     <string name="menu_start">Start</string>
     <string name="menu_save">Save</string>
-
+    <string name="menu_remote_access">Remote Access</string>
 
     <string name="title_activity_start">PhoneyPot</string>
 
@@ -88,12 +88,14 @@
     <string name="intro3_title">DANGER WILL ROBINSON!</string>
     <string name="intro3_desc">You will be notified via text message of any intrusion event</string>
 
-    <string name="intro4_title">Captian\'s Log!</string>
+    <string name="intro4_title">Captain\'s Log!</string>
     <string name="intro4_desc">Any detection is logged for review upon your return for further investigation.</string>
 
     <string name="intro5_title">Ready to go?</string>
-    <string name="intro5_desc">Now we\'ll start your first Phoneypot session!</string>
+    <string name="intro5_desc">Now we\'ll help you configure your device for detection...</string>
 
     <string name="onboarding_action_end">Let\'s go!</string>
 
+    <string name="remote_access_label">Enable remote access via Tor Onion Service</string>
+    <string name="remote_access_hint">(onion service address will be displayed here)</string>
 </resources>

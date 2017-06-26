@@ -130,5 +130,20 @@
 		android:layout_height="wrap_content"
 		android:paddingTop="10dp"
 		/>
+	<CheckBox
+		android:id="@+id/remote_access_check"
+		android:text="@string/remote_access_label"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		tools:context=".SettingsActivity" />
+	<EditText
+		android:id="@+id/remote_access_onion"
+		android:hint="@string/remote_access_hint"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		tools:context=".SettingsActivity" />
+
 </LinearLayout>
 </LinearLayout>

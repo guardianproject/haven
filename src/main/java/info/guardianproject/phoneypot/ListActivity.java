@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 
 import info.guardianproject.phoneypot.model.Event;
 import info.guardianproject.phoneypot.model.EventTrigger;
+import info.guardianproject.phoneypot.service.WebServer;
 import info.guardianproject.phoneypot.ui.EventActivity;
 import info.guardianproject.phoneypot.ui.EventAdapter;
 import info.guardianproject.phoneypot.ui.PPAppIntro;
@@ -25,6 +26,8 @@ import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import java.io.File;
@@ -264,5 +267,22 @@ public class ListActivity extends AppCompatActivity {
         startActivityForResult(new Intent(this, PPAppIntro.class),REQUEST_CODE_INTRO);
 
     }
+
+    /**
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected (MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menu_remote:
+                enableRemoteAccess();
+                break;
+        }
+        return true;
+    }**/
 
 }

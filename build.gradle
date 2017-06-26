@@ -3,7 +3,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.0'
+        classpath 'com.android.tools.build:gradle:2.3.3'
     }
 
 }
@@ -54,6 +54,6 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'net.the4thdimension:audio-wife:1.0.3'
     compile 'com.github.paolorotolo:appintro:4.1.0'
+    compile 'info.guardianproject.netcipher:netcipher:2.0.0-alpha1'
 
-
-}
+    compile 'com.nanohttpd:nanohttpd-webserver:2.2.0'}

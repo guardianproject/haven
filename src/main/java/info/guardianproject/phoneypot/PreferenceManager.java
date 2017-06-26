@@ -49,14 +49,46 @@ public class PreferenceManager {
     private static final String TIMER_DELAY="timer_delay";
 	private static final String DIR_PATH = "/secureit";
 
-	private Context context;
+    private static final String REMOTE_ACCESS_ACTIVE = "remote_access_active";
+    private static final String REMOTE_ACCESS_ONION = "remote_access_onion";
+    private static final String REMOTE_ACCESS_CRED = "remote_access_credential";
+
+    private Context context;
 	
     public PreferenceManager(Context context) {
         this.context = context;
         this.appSharedPrefs = context.getSharedPreferences(APP_SHARED_PREFS, Activity.MODE_PRIVATE);
         this.prefsEditor = appSharedPrefs.edit();
     }
-    
+
+    public void activateRemoteAccess (boolean active) {
+        prefsEditor.putBoolean(REMOTE_ACCESS_ACTIVE,active);
+        prefsEditor.commit();
+    }
+
+    public boolean getRemoteAccessActive ()
+    {
+        return appSharedPrefs.getBoolean(REMOTE_ACCESS_ACTIVE,false);
+    }
+
+    public void setRemoteAccessOnion (String onionAddress) {
+        prefsEditor.putString(REMOTE_ACCESS_ONION,onionAddress);
+        prefsEditor.commit();
+    }
+
+    public String getRemoteAccessOnion () {
+        return appSharedPrefs.getString(REMOTE_ACCESS_ONION,"");
+    }
+
+    public void setRemoteAccessCredential (String remoteCredential) {
+        prefsEditor.putString(REMOTE_ACCESS_CRED,remoteCredential);
+        prefsEditor.commit();
+    }
+
+    public String getRemoteAccessCredential () {
+        return appSharedPrefs.getString(REMOTE_ACCESS_CRED,null);
+    }
+
     public void activateAccelerometer(boolean active) {
     	prefsEditor.putBoolean(ACCELEROMETER_ACTIVE, active);
     	prefsEditor.commit();
