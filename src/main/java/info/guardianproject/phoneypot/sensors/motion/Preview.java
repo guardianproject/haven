@@ -179,6 +179,10 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 			camera = Camera.open();
 			cameraFacing = Camera.CameraInfo.CAMERA_FACING_BACK;
 		}
+		else
+		{
+			camera = null;
+		}
 
 		if (camera != null) {
 			final Camera.Parameters parameters = camera.getParameters();

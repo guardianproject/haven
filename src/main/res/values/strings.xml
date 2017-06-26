@@ -10,15 +10,15 @@
     <string name="title_activity_start">PhoneyPot</string>
 
     <string name="accelerometer_prompt">
-    	Set movement &amp; vibration sensitivity
+    	Movement Sensitivity
     </string>
 
     <string name="microphone_sensitivity">
-    	Set microphone sensitivity
+    	Sound Sensitivity
     </string>
 
     <string name="camera_sensitivity">
-    	Set camera motion sensitivity
+    	Camera Motion sensitivity
     </string>
 
     <string name="timer_delay_label">
@@ -30,7 +30,7 @@
     </string>
 
     <string name="camera_label">
-    	Use the camera to detect motion
+    	Select Camera
     </string>
 
     <string name="flash_label">
@@ -38,7 +38,7 @@
     </string>
 
     <string name="sms_label">
-    	Send an SMS as alert
+    	Send an SMS alert when detection occurs
     </string>
 
     <string name="sms_hint">
@@ -98,4 +98,10 @@
 
     <string name="remote_access_label">Enable remote access via Tor Onion Service</string>
     <string name="remote_access_hint">(onion service address will be displayed here)</string>
+
+    <string name="camera_front">Front</string>
+    <string name="camera_back">Back</string>
+    <string name="camera_none">None</string>
+
+    <string name="action_configure">Configure</string>
 </resources>

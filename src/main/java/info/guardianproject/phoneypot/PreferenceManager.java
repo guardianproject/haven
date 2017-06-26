@@ -104,7 +104,7 @@ public class PreferenceManager {
     }
     
     public String getAccelerometerSensitivity() {
-    	return appSharedPrefs.getString(ACCELEROMETER_SENSITIVITY, "");
+    	return appSharedPrefs.getString(ACCELEROMETER_SENSITIVITY, MEDIUM);
     }
     
     public void activateCamera(boolean active) {
@@ -131,7 +131,7 @@ public class PreferenceManager {
     }
     
     public String getCameraSensitivity() {
-    	return appSharedPrefs.getString(CAMERA_SENSITIVITY, "");
+    	return appSharedPrefs.getString(CAMERA_SENSITIVITY, MEDIUM);
     }
     
     public void activateFlash(boolean active) {
@@ -158,7 +158,7 @@ public class PreferenceManager {
     }
     
     public String getMicrophoneSensitivity() {
-    	return appSharedPrefs.getString(MICROPHONE_SENSITIVITY, "");
+    	return appSharedPrefs.getString(MICROPHONE_SENSITIVITY, MEDIUM);
     }
     
     public void activateSms(boolean active) {
@@ -265,6 +265,6 @@ public class PreferenceManager {
 
     public int getAudioLength ()
     {
-        return 10000; //30 seconds
+        return 15000; //30 seconds
     }
 }

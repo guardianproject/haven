@@ -24,10 +24,13 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.NumberPicker;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 
 import org.w3c.dom.Text;
@@ -48,6 +51,8 @@ public class SettingsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        setTitle("PhoneyPot Settings");
+
         preferences = new PreferenceManager(this.getApplicationContext());
         
         /*
@@ -62,40 +67,14 @@ public class SettingsActivity extends AppCompatActivity {
         final CheckBox smsCheck = (CheckBox) this.findViewById(R.id.sms_check);
         final CheckBox remoteAccessCheck = (CheckBox) this.findViewById(R.id.remote_access_check);
 
-        /*
-         * Detecting if the device has a front camera
-         * and configuring the spinner of camera selection
-         * properly 
-         */
-        final Spinner selectCameraSpinner = (Spinner) this.findViewById(R.id.camera_spinner);
-        PackageManager pm = getPackageManager();
-        boolean frontCam;
-        
-        frontCam = pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT);
-        if (!frontCam) {
-        	selectCameraSpinner.setEnabled(false);
-        }
-        
-        /*
-         * Detecting if the device has the flash 
-         * and configuring properly the check box
-         */
 
-
-        final Spinner accelerometerSensitivity = (Spinner) 
-        		this.findViewById(R.id.accelerometer_sensitivity_spinner);
-        final Spinner cameraSensitivity = (Spinner) 
-        		this.findViewById(R.id.camera_sensitivity_spinner);
-        final Spinner microphoneSensitivity = (Spinner) 
-        		this.findViewById(R.id.microphone_sensitivity_spinner);
-        
         final EditText phoneNumber = (EditText)
         		this.findViewById(R.id.phone_number);
 
         final EditText remoteAccessOnion = (EditText)
                 this.findViewById(R.id.remote_access_onion);
 
-        final EditText timerDelay = (EditText)
+        final NumberPicker timerDelay = (NumberPicker)
                 this.findViewById(R.id.timer_delay);
 
         smsCheck.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -116,52 +95,17 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        /**
-         * Loads preferences and sets view
-         */
-        if (preferences.getAccelerometerActivation()) {
-        	String sensitivity = preferences.getAccelerometerSensitivity();
-        	if (sensitivity.equals(PreferenceManager.LOW))
-        		accelerometerSensitivity.setSelection(0);
-        	else if (sensitivity.equals(PreferenceManager.MEDIUM))
-        		accelerometerSensitivity.setSelection(1);
-        	else if (sensitivity.equals(PreferenceManager.HIGH))
-        		accelerometerSensitivity.setSelection(2);
-            else if (sensitivity.equals(PreferenceManager.OFF))
-                accelerometerSensitivity.setSelection(3);
-        }
 
         if (preferences.getCameraActivation()) {
-        	String sensitivity = preferences.getCameraSensitivity();
-        	if (sensitivity.equals(PreferenceManager.LOW))
-        		cameraSensitivity.setSelection(0);
-        	else if (sensitivity.equals(PreferenceManager.MEDIUM))
-        		cameraSensitivity.setSelection(1);
-        	else if (sensitivity.equals(PreferenceManager.HIGH))
-        		cameraSensitivity.setSelection(2);
-            else if (sensitivity.equals(PreferenceManager.OFF))
-                cameraSensitivity.setSelection(3);
 
             String camera = preferences.getCamera();
         	if (camera.equals(PreferenceManager.FRONT))
-        		selectCameraSpinner.setSelection(0);
+                ((RadioButton)findViewById(R.id.radio_camera_front)).setChecked(true);
         	else if (camera.equals(PreferenceManager.BACK))
-        		selectCameraSpinner.setSelection(1);
+                ((RadioButton)findViewById(R.id.radio_camera_back)).setChecked(true);
             else if (camera.equals(PreferenceManager.OFF))
-                selectCameraSpinner.setSelection(2);
+                ((RadioButton)findViewById(R.id.radio_camera_none)).setChecked(true);
 
-        }
-
-        if (preferences.getMicrophoneActivation()) {
-        	String sensitivity = preferences.getMicrophoneSensitivity();
-        	if (sensitivity.equals(PreferenceManager.LOW))
-        		microphoneSensitivity.setSelection(0);
-        	else if (sensitivity.equals(PreferenceManager.MEDIUM))
-        		microphoneSensitivity.setSelection(1);
-        	else if (sensitivity.equals(PreferenceManager.HIGH))
-        		microphoneSensitivity.setSelection(2);
-            else if (sensitivity.equals(PreferenceManager.OFF))
-                microphoneSensitivity.setSelection(3);
         }
 
         if (preferences.getSmsActivation()) {
@@ -176,7 +120,9 @@ public class SettingsActivity extends AppCompatActivity {
 
         }
 
-        timerDelay.setText(preferences.getTimerDelay()+"");
+        timerDelay.setMaxValue(600);
+        timerDelay.setMinValue(0);
+        timerDelay.setValue(preferences.getTimerDelay());
 
 		askForPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, 1);
 
@@ -220,37 +166,22 @@ public class SettingsActivity extends AppCompatActivity {
     private void save ()
     {
 
-        Spinner accelerometerSensitivity = (Spinner)
-                this.findViewById(R.id.accelerometer_sensitivity_spinner);
-        Spinner cameraSensitivity = (Spinner)
-                this.findViewById(R.id.camera_sensitivity_spinner);
-        Spinner microphoneSensitivity = (Spinner)
-                this.findViewById(R.id.microphone_sensitivity_spinner);
 
         EditText phoneNumber = (EditText)
                 this.findViewById(R.id.phone_number);
 
-        EditText timerDelay = (EditText)
+        NumberPicker timerDelay = (NumberPicker)
                 this.findViewById(R.id.timer_delay);
 
-        Spinner selectCameraSpinner = (Spinner) this.findViewById(R.id.camera_spinner);
         CheckBox smsCheck = (CheckBox) this.findViewById(R.id.sms_check);
         CheckBox remoteAccessCheck = (CheckBox) this.findViewById(R.id.remote_access_check);
 
         preferences.activateAccelerometer(true);
-        preferences.setAccelerometerSensitivity(
-                (String)accelerometerSensitivity.getSelectedItem());
 
         preferences.activateCamera(true);
-        preferences.setCamera(
-                (String)selectCameraSpinner.getSelectedItem());
-        preferences.setCameraSensitivity(
-                (String)cameraSensitivity.getSelectedItem());
 
 
         preferences.activateMicrophone(true);
-        preferences.setMicrophoneSensitivity(
-                (String)microphoneSensitivity.getSelectedItem());
 
         if (smsCheck.isChecked() && !phoneNumber.getText().toString().equals("")) {
             Log.i("StartActivity", "Send message alert is active");
@@ -263,7 +194,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         preferences.activateRemoteAccess(remoteAccessCheck.isChecked());
 
-        preferences.setTimerDelay(Integer.parseInt(timerDelay.getText().toString()));
+        preferences.setTimerDelay(timerDelay.getValue());
 
         setResult(RESULT_OK);
 
@@ -311,6 +242,28 @@ public class SettingsActivity extends AppCompatActivity {
                         this.findViewById(R.id.remote_access_onion);
                 remoteAccessOnion.setText(onionHost + ":" + WebServer.LOCAL_PORT);
             }
+
+        }
+    }
+
+    public void onRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.radio_camera_back:
+                if (checked)
+                    preferences.setCamera(PreferenceManager.BACK);
+                    break;
+            case R.id.radio_camera_front:
+                if (checked)
+                    preferences.setCamera(PreferenceManager.FRONT);
+                break;
+            case R.id.radio_camera_none:
+                if (checked)
+                    preferences.setCamera(PreferenceManager.OFF);
+                break;
 
         }
     }
