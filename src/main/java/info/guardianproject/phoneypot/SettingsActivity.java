@@ -24,7 +24,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -34,7 +34,6 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import org.w3c.dom.Text
 
 import info.guardianproject.netcipher.proxy.OrbotHelper;
 import info.guardianproject.phoneypot.service.WebServer;
@@ -72,7 +71,7 @@ public class SettingsActivity extends AppCompatActivity {
 
 
         final EditText phoneNumber = (EditText)
-        		this.findViewByd(R.id.phone_number);
+        		this.findViewById(R.id.phone_number);
 
         final EditText remoteAccessOnion = (EditText)
                 this.findViewById(R.id.remote_access_onion);
