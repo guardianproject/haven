@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/AppTheme.AppBarOverlay"/>
+    app:popupTheme="@style/AppTheme.PopupOverlay" />
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Current Audio Level"
+        />
+<TextView
+    android:id="@+id/text_display_level"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:textSize="80dp"
+    android:text="0"
+/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Configure Trigger Level"
+        android:layout_marginTop="15dp"
+        />
+
+        <me.angrybyte.numberpicker.view.ActualNumberPicker
+            android:id="@+id/number_trigger_level"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="3dp"
+            android:background="#FFFFFFFF"
+            app:bar_color="@android:color/darker_gray"
+            app:bar_width="1dp"
+            app:draw_over_controls="true"
+            app:max_value="100"
+            app:min_value="0"
+            app:show_text="true"
+            app:show_bars="true"
+            app:show_controls="false"
+            app:show_fast_controls="false"
+            app:text_color="@android:color/darker_gray"
+            app:text_size="16sp" />
+
+</LinearLayout>
+</ScrollView>
+    </LinearLayout>

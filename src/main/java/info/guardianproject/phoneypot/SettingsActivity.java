@@ -24,7 +24,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+import android.view.View
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -34,10 +34,12 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import org.w3c.dom.Text
 
 import info.guardianproject.netcipher.proxy.OrbotHelper;
 import info.guardianproject.phoneypot.service.WebServer;
+import info.guardianproject.phoneypot.ui.MicrophoneConfigureActivity;
+import me.angrybyte.numberpicker.view.ActualNumberPicker;
 
 public class SettingsActivity extends AppCompatActivity {
 	
@@ -70,12 +72,12 @@ public class SettingsActivity extends AppCompatActivity {
 
 
         final EditText phoneNumber = (EditText)
-        		this.findViewById(R.id.phone_number);
+        		this.findViewByd(R.id.phone_number);
 
         final EditText remoteAccessOnion = (EditText)
                 this.findViewById(R.id.remote_access_onion);
 
-        final NumberPicker timerDelay = (NumberPicker)
+        final ActualNumberPicker timerDelay = (ActualNumberPicker)
                 this.findViewById(R.id.timer_delay);
 
         smsCheck.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -125,6 +127,13 @@ public class SettingsActivity extends AppCompatActivity {
         timerDelay.setMinValue(0);
         timerDelay.setValue(preferences.getTimerDelay());
 
+        findViewById(R.id.action_configure_mic).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SettingsActivity.this, MicrophoneConfigureActivity.class));
+            }
+        });
+
 		askForPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, 1);
 
 	}
@@ -167,11 +176,10 @@ public class SettingsActivity extends AppCompatActivity {
     private void save ()
     {
 
-
         EditText phoneNumber = (EditText)
                 this.findViewById(R.id.phone_number);
 
-        NumberPicker timerDelay = (NumberPicker)
+        ActualNumberPicker timerDelay = (ActualNumberPicker)
                 this.findViewById(R.id.timer_delay);
 
         CheckBox smsCheck = (CheckBox) this.findViewById(R.id.sms_check);

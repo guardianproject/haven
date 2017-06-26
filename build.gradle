@@ -46,6 +46,8 @@ android {
 }
 
 dependencies {
+    
+
     compile 'com.android.support:support-v4:25.3.0'
     compile 'com.github.satyan:sugar:1.5'
     compile 'com.android.support:appcompat-v7:25.3.0'
@@ -55,5 +57,7 @@ dependencies {
     compile 'net.the4thdimension:audio-wife:1.0.3'
     compile 'com.github.paolorotolo:appintro:4.1.0'
     compile 'info.guardianproject.netcipher:netcipher:2.0.0-alpha1'
-
-    compile 'com.nanohttpd:nanohttpd-webserver:2.2.0'}
+    compile 'com.nanohttpd:nanohttpd-webserver:2.2.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'me.angrybyte.picker:picker:1.3.1'
+}
