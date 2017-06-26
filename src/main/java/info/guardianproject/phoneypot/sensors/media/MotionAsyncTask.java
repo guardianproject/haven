@@ -10,6 +10,7 @@ package info.guardianproject.phoneypot.sensors.media;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,7 +98,7 @@ public class MotionAsyncTask extends Thread {
 					newPic[changedPixel] = Color.RED;
 				}
 			}
-			
+
 			lastBitmap = ImageCodec.lumaToBitmapGreyscale(oldPicLuma, width, height);
 			newBitmap = Bitmap.createBitmap(newPic, width, height, Bitmap.Config.RGB_565);
 		}
@@ -118,32 +119,5 @@ public class MotionAsyncTask extends Thread {
 		});
 	}
 
-	private void saveImage ()
-	{
-/**
- *
-		try {
-			YuvImage image = new YuvImage(data, parameters.getPreviewFormat(),
-					size.width, size.height, null);
 
-			imageCount = (imageCount + 1)%(prefs.getMaxImages());
-
-			File file = new File(
-					Environment.getExternalStorageDirectory().getPath() +
-							prefs.getImagePath() +
-							imageCount +
-							".jpg");
-
-			FileOutputStream filecon = new FileOutputStream(file);
-
-			image.compressToJpeg(
-					new Rect(0, 0, image.getWidth(), image.getHeight()), 90,
-					filecon);
-
-		} catch (FileNotFoundException e) {
-			Toast toast = Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG);
-			toast.show();
-		}
- */
-	}
 }

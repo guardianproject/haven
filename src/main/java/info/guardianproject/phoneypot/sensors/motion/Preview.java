@@ -255,6 +255,8 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 												fileImageDir.mkdirs();
 
 												String ts = new Date().getTime() + ".jpg";
+
+												/**
 												File fileImage = new File(fileImageDir, "detected.original." + ts);
 												FileOutputStream stream = new FileOutputStream(fileImage);
 												newBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
@@ -262,9 +264,10 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 												stream.close();
 
 												message.getData().putString("original", fileImage.getAbsolutePath());
+												 **/
 
-												fileImage = new File(fileImageDir, "detected.match." + ts);
-												stream = new FileOutputStream(fileImage);
+												File fileImage = new File(fileImageDir, "detected.match." + ts);
+												FileOutputStream stream = new FileOutputStream(fileImage);
 												oldBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
 												stream.flush();
 												stream.close();

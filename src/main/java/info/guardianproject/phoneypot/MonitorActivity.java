@@ -14,10 +14,12 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Environment;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentActivity;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +28,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.w3c.dom.Text;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import info.guardianproject.phoneypot.service.MonitorService;
 
@@ -128,6 +134,17 @@ public class MonitorActivity extends FragmentActivity {
 
 	private void initMonitor ()
     {
+
+        //ensure folder exists and will not be scanned by the gallery app
+
+        try {
+            File fileImageDir = new File(Environment.getExternalStorageDirectory(), preferences.getImagePath());
+            fileImageDir.mkdirs();
+            new FileOutputStream(new File(fileImageDir, ".nomedia")).write(0);
+        }
+        catch (IOException e){
+            Log.e("Monitor","unable to init media storage directory",e);
+        }
 
         //Do something after 100ms
         startService(new Intent(MonitorActivity.this, MonitorService.class));
