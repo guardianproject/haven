@@ -11,14 +11,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.stfalcon.frescoimageviewer.ImageViewer;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import info.guardianproject.phoneypot.R;
 import info.guardianproject.phoneypot.model.Event;
 import info.guardianproject.phoneypot.model.EventTrigger;
 import nl.changer.audiowife.AudioWife;
+
+import static android.R.id.list;
 
 /**
  * Created by n8fr8 on 4/16/17.
@@ -28,12 +32,22 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
 
     Context context;
     List<EventTrigger> eventTriggers;
+    ArrayList<String> eventTriggerImagePaths;
 
     OnItemClickListener clickListener;
 
     public EventTriggerAdapter(Context context, List<EventTrigger> eventTriggers) {
         this.context = context;
         this.eventTriggers = eventTriggers;
+
+        this.eventTriggerImagePaths = new ArrayList<String>();
+        for (EventTrigger trigger : eventTriggers)
+        {
+            if (trigger.getType() == EventTrigger.CAMERA)
+            {
+                eventTriggerImagePaths.add("file:///" + trigger.getPath());
+            }
+        }
     }
 
 
@@ -64,13 +78,13 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
             {
                 holder.image.setVisibility(View.VISIBLE);
                 Picasso.with(context).load(new File(eventTrigger.getPath())).into(holder.image);
-                holder.actionShare.setVisibility(View.VISIBLE);
-
-                holder.actionShare.setOnClickListener(new View.OnClickListener() {
+                holder.image.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
-                        shareMedia(eventTrigger);
+                        new ImageViewer.Builder(context, eventTriggerImagePaths)
+                                .setStartPosition(0)
+                                .show();
                     }
                 });
             }
@@ -85,31 +99,15 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
                 audioWife.init(context, Uri.fromFile(new File(eventTrigger.getPath())))
                         .useDefaultUi(holder.extra, inflater);
 
-                holder.actionShare.setVisibility(View.VISIBLE);
-
-                holder.actionShare.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                        shareMedia(eventTrigger);
-                    }
-                });
-
             }
             else if (eventTrigger.getType() == EventTrigger.ACCELEROMETER)
             {
                 desc += "\nSPEED: " + eventTrigger.getPath();
-                holder.actionShare.setVisibility(View.GONE);
-
-                holder.actionShare.setOnClickListener(null);
 
             }
             else if (eventTrigger.getType() == EventTrigger.PRESSURE)
             {
                 desc += "\nCHANGE IN PRESSURE: " + eventTrigger.getPath();
-                holder.actionShare.setVisibility(View.GONE);
-
-                holder.actionShare.setOnClickListener(null);
             }
 
         }
@@ -140,7 +138,6 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
         TextView title, note;
         ImageView image;
         ViewGroup extra;
-        ImageView actionShare;
 
         public EventTriggerVH(View itemView) {
             super(itemView);
@@ -149,7 +146,6 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
             note = (TextView) itemView.findViewById(R.id.event_item_desc);
             image = (ImageView) itemView.findViewById(R.id.event_item_image);
             extra = (ViewGroup)itemView.findViewById(R.id.event_item_extra);
-            actionShare = (ImageView) itemView.findViewById(R.id.event_action_share);
 
             itemView.setOnClickListener(this);
         }

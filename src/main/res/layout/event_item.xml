@@ -27,6 +27,7 @@
             android:layout_height="200dp"
             android:id="@+id/event_item_image"
             android:visibility="gone"
+            android:scaleType="centerCrop"
             />
 
         <LinearLayout
