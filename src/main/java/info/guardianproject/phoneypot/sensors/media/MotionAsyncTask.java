@@ -19,6 +19,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.ImageFormat;
+import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.graphics.YuvImage;
 import android.os.Environment;
@@ -116,6 +117,11 @@ public class MotionAsyncTask extends Thread {
 
 				byte[] imageBytes = baos.toByteArray();
 				rawBitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+				// Setting post rotate to 90
+				Matrix mtx = new Matrix();
+				mtx.postRotate(-90);
+				// Rotating Bitmap
+				rawBitmap = Bitmap.createBitmap(rawBitmap, 0, 0, width, height, mtx, true);
 			}
 			else
 			{
