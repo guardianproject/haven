@@ -138,7 +138,7 @@ public class ListActivity extends AppCompatActivity {
             findViewById(R.id.empty_view).setVisibility(View.GONE);
         }
 
-        events = Event.listAll(Event.class);
+        events = Event.listAll(Event.class,"id DESC");
         adapter = new EventAdapter(ListActivity.this, events);
         recyclerView.setAdapter(adapter);
 
