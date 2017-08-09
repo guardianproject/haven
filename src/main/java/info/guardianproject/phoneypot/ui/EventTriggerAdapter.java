@@ -56,7 +56,6 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_item, parent, false);
         EventTriggerVH viewHolder = new EventTriggerVH(view);
 
-
         return viewHolder;
     }
 
@@ -82,8 +81,18 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
                     @Override
                     public void onClick(View view) {
 
+                        int startPosition = 0;
+                        for (int i = 0; i < eventTriggerImagePaths.size(); i++)
+                        {
+                            if (eventTriggerImagePaths.get(i).contains(eventTrigger.getPath()))
+                            {
+                                startPosition = i;
+                                break;
+                            }
+                        }
+
                         new ImageViewer.Builder(context, eventTriggerImagePaths)
-                                .setStartPosition(0)
+                                .setStartPosition(startPosition)
                                 .show();
                     }
                 });
