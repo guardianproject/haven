@@ -91,9 +91,23 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
                             }
                         }
 
-                        new ImageViewer.Builder(context, eventTriggerImagePaths)
+
+                        ShareOverlayView overlayView = new ShareOverlayView(context);
+                        ImageViewer viewer = new ImageViewer.Builder(context, eventTriggerImagePaths)
                                 .setStartPosition(startPosition)
+                                .setOverlayView(overlayView)
                                 .show();
+                        overlayView.setImageViewer(viewer);
+
+
+                    }
+                });
+
+                holder.image.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View view) {
+                        shareMedia(eventTrigger);
+                        return false;
                     }
                 });
             }
