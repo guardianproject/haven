@@ -235,9 +235,10 @@ public class ListActivity extends AppCompatActivity {
             // Just load the last added note (new)
             Event event = Event.last(Event.class);
 
-            events.add(event);
-            adapter.notifyItemInserted((int) newCount);
-
+            events.add(0,event);
+            adapter.notifyItemInserted(0);
+            adapter.notifyDataSetChanged();
+            
             initialCount = newCount;
 
             recyclerView.setVisibility(View.VISIBLE);
