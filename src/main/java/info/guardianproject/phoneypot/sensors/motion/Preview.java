@@ -244,6 +244,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 							task.addListener(new MotionAsyncTask.MotionListener() {
 
 								public void onProcess(Bitmap oldBitmap, Bitmap newBitmap,
+													  Bitmap rawBitmap,
 													  boolean motionDetected) {
 
 									if (motionDetected) {
@@ -260,24 +261,22 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 
 												String ts = new Date().getTime() + ".jpg";
 
-												/**
 												File fileImage = new File(fileImageDir, "detected.original." + ts);
 												FileOutputStream stream = new FileOutputStream(fileImage);
-												newBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+												rawBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
 												stream.flush();
 												stream.close();
+												message.getData().putString("path", fileImage.getAbsolutePath());
 
-												message.getData().putString("original", fileImage.getAbsolutePath());
-												 **/
-
-												File fileImage = new File(fileImageDir, "detected.match." + ts);
-												FileOutputStream stream = new FileOutputStream(fileImage);
+												/**
+												fileImage = new File(fileImageDir, "detected.match." + ts);
+												stream = new FileOutputStream(fileImage);
 												oldBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
 												stream.flush();
 												stream.close();
 
 												message.getData().putString("path", fileImage.getAbsolutePath());
-
+												**/
 
 												serviceMessenger.send(message);
 

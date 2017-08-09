@@ -68,7 +68,7 @@ public final class CameraFragment extends Fragment {
 
                 preview.addListener(new MotionAsyncTask.MotionListener() {
 
-                    public void onProcess(Bitmap oldBitmap, Bitmap newBitmap,
+                    public void onProcess(Bitmap oldBitmap, Bitmap newBitmap, Bitmap rawBitmap,
                                           boolean motionDetected) {
                         int rotation = 0;
                         boolean reflex = false;
@@ -78,6 +78,7 @@ public final class CameraFragment extends Fragment {
                             rotation = 270;
                             reflex = true;
                         }
+
                         // oldImage.setImageBitmap(ImageCodec.rotate(oldBitmap, rotation, reflex));
                         newImage.setImageBitmap(ImageCodec.rotate(newBitmap, rotation, reflex));
                     }

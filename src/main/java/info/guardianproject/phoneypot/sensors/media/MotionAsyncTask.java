@@ -7,6 +7,7 @@
 package info.guardianproject.phoneypot.sensors.media;
 
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -15,7 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.ImageFormat;
 import android.graphics.Rect;
 import android.graphics.YuvImage;
 import android.os.Environment;
@@ -49,11 +52,13 @@ public class MotionAsyncTask extends Thread {
 	
 	private Bitmap lastBitmap;
 	private Bitmap newBitmap;
+	private Bitmap rawBitmap;
 	private boolean hasChanged;
 	
 	public interface MotionListener {
 		public void onProcess(Bitmap oldBitmap,
 				Bitmap newBitmap,
+							  Bitmap rawBitmap,
 				boolean motionDetected);
 	}
 	
@@ -101,6 +106,21 @@ public class MotionAsyncTask extends Thread {
 
 			lastBitmap = ImageCodec.lumaToBitmapGreyscale(oldPicLuma, width, height);
 			newBitmap = Bitmap.createBitmap(newPic, width, height, Bitmap.Config.RGB_565);
+
+			if (hasChanged) {
+				YuvImage image = new YuvImage(rawNewPic, ImageFormat.NV21, width, height, null);
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				image.compressToJpeg(
+						new Rect(0, 0, image.getWidth(), image.getHeight()), 90,
+						baos);
+
+				byte[] imageBytes = baos.toByteArray();
+				rawBitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+			}
+			else
+			{
+				rawBitmap = null;
+			}
 		}
 		
 		Log.i("MotionAsyncTask", "Finished processing, sending results");
@@ -112,6 +132,7 @@ public class MotionAsyncTask extends Thread {
 					listener.onProcess(
 							lastBitmap,
 							newBitmap,
+							rawBitmap,
 							hasChanged);
 				}
 				
