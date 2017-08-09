@@ -52,7 +52,7 @@ public class AmbientLightMonitor implements SensorEventListener {
      */
     private PreferenceManager prefs;
 
-    private final static float LIGHT_CHANGE_THRESHOLD = 10f;
+    private final static float LIGHT_CHANGE_THRESHOLD = 100f;
 
     private int maxAlertPeriod = 30;
     private int remainingAlertPeriod = 0;
