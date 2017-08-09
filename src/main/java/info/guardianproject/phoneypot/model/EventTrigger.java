@@ -36,6 +36,10 @@ public class EventTrigger extends SugarRecord {
      */
     public static final int PRESSURE = 2;
 
+    /**
+     * Pressure change detected message
+     */
+    public static final int LIGHT = 3;
 
     public EventTrigger ()
     {
@@ -78,6 +82,9 @@ public class EventTrigger extends SugarRecord {
             case EventTrigger.ACCELEROMETER:
                 sType = "ACCELEROMETER";
                 break;
+            case EventTrigger.LIGHT:
+                sType = "LIGHT";
+                break;
             case EventTrigger.CAMERA:
                 sType = "CAMERA MOTION";
                 break;
@@ -97,9 +104,6 @@ public class EventTrigger extends SugarRecord {
         String sType = "";
 
         switch (getType()) {
-            case EventTrigger.ACCELEROMETER:
-                sType = null;
-                break;
             case EventTrigger.CAMERA:
                 sType = "image/*";
                 break;

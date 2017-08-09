@@ -108,10 +108,16 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
                 audioWife.init(context, Uri.fromFile(new File(eventTrigger.getPath())))
                         .useDefaultUi(holder.extra, inflater);
 
+
             }
             else if (eventTrigger.getType() == EventTrigger.ACCELEROMETER)
             {
                 desc += "\nSPEED: " + eventTrigger.getPath();
+
+            }
+            else if (eventTrigger.getType() == EventTrigger.LIGHT)
+            {
+                desc += "\nLIGHT: " + eventTrigger.getPath();
 
             }
             else if (eventTrigger.getType() == EventTrigger.PRESSURE)
@@ -125,6 +131,13 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
         holder.note.setText(desc);
 
 
+    }
+
+    @Override
+    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+
+        AudioWife.getInstance().release();
     }
 
     private void shareMedia (EventTrigger eventTrigger)

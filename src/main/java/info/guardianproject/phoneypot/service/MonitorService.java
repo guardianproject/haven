@@ -33,6 +33,7 @@ import info.guardianproject.phoneypot.PreferenceManager;
 import info.guardianproject.phoneypot.model.Event;
 import info.guardianproject.phoneypot.model.EventTrigger;
 import info.guardianproject.phoneypot.sensors.AccelerometerMonitor;
+import info.guardianproject.phoneypot.sensors.AmbientLightMonitor;
 import info.guardianproject.phoneypot.sensors.BarometerMonitor;
 import info.guardianproject.phoneypot.sensors.MicrophoneMonitor;
 
@@ -66,6 +67,7 @@ public class MonitorService extends Service {
     AccelerometerMonitor mAccelManager = null;
     MicrophoneMonitor mMicMonitor = null;
     BarometerMonitor mBaroMonitor = null;
+    AmbientLightMonitor mLightMonitor = null;
 
     /**
      * Last Event instances
@@ -188,6 +190,7 @@ public class MonitorService extends Service {
         if (prefs.getAccelerometerSensitivity() != PreferenceManager.OFF) {
             mAccelManager = new AccelerometerMonitor(this);
             mBaroMonitor = new BarometerMonitor(this);
+            mLightMonitor = new AmbientLightMonitor(this);
         }
 
         if (prefs.getMicrophoneSensitivity() != PreferenceManager.OFF)
@@ -201,6 +204,7 @@ public class MonitorService extends Service {
         if (prefs.getAccelerometerSensitivity() != PreferenceManager.OFF) {
             mAccelManager.stop(this);
             mBaroMonitor.stop(this);
+            mLightMonitor.stop(this);
         }
 
         if (prefs.getMicrophoneSensitivity() != PreferenceManager.OFF)

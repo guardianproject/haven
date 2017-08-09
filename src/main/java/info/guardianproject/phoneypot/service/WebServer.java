@@ -147,9 +147,6 @@ public class WebServer extends NanoHTTPD {
         String sType = "";
 
         switch (eventTrigger.getType()) {
-            case EventTrigger.ACCELEROMETER:
-                sType = null;
-                break;
             case EventTrigger.CAMERA:
                 sType = "image/jpeg";
                 break;
