@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 import fi.iki.elonen.NanoHTTPD;
 import info.guardianproject.phoneypot.model.Event;
@@ -23,13 +24,40 @@ public class WebServer extends NanoHTTPD {
 
     private final static String TAG = "WebServer";
 
+    private String mPassword = null;
+    private String mSession = null;
+
     public WebServer() throws IOException {
         super(LOCAL_PORT);
         start(NanoHTTPD.SOCKET_READ_TIMEOUT, false);
     }
 
+    public void setPassword (String password)
+    {
+        mPassword = password;
+    }
+
     @Override
     public Response serve(IHTTPSession session) {
+
+        StringBuffer page = new StringBuffer();
+
+        if (mPassword != null)
+        {
+            String inPassword = session.getParms().get("p");
+            String inSid = session.getCookies().read("sid");
+
+            if (inPassword != null && mPassword.equals(inPassword)) {
+                mSession = UUID.randomUUID().toString();
+                session.getCookies().set("sid",mSession,-1);
+            }
+            else if (inSid != null && (!mSession.equals(inSid))) {
+                showLogin(page);
+                return newFixedLengthResponse(page.toString());
+
+            }
+        }
+
 
         Uri uri = Uri.parse(session.getUri());
         List<String> pathSegs = uri.getPathSegments();
@@ -55,11 +83,9 @@ public class WebServer extends NanoHTTPD {
             }
         }
         else {
-            StringBuffer page = new StringBuffer();
             page.append("<html><head><title>PhoneyPot</title>");
             page.append("<meta http-equiv=\"Content-Type\" content=\"application/xhtml+xml; charset=utf-8\" />");
             page.append("<meta name = \"viewport\" content = \"user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width\">");
-
             page.append("</head><body>");
 
             if (TextUtils.isEmpty(uri.getPath()) || uri.getPath().equals("/"))
@@ -83,6 +109,24 @@ public class WebServer extends NanoHTTPD {
         }
 
         return newFixedLengthResponse(Response.Status.INTERNAL_ERROR,"text/plain","Error");
+    }
+
+    private void showLogin (StringBuffer page) {
+
+        page.append("<html><head><title>PhoneyPot</title>");
+        page.append("<meta http-equiv=\"Content-Type\" content=\"application/xhtml+xml; charset=utf-8\" />");
+        page.append("<meta name = \"viewport\" content = \"user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width\">");
+        page.append("</head><body>");
+
+        page.append("<form action=\"/\">" +
+                "  <div class=\"container\">\n" +
+                "    <label><b>Password</b></label>\n" +
+                "    <input type=\"password\" placeholder=\"Enter Password\" name=\"p\" required>\n" +
+                "\n" +
+                "    <button type=\"submit\">Login</button>\n" +
+                "  </div></form>");
+
+        page.append("</body></html>\n");
     }
 
     private void showEvent (Event event, StringBuffer page) {

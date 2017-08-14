@@ -61,6 +61,7 @@ public class MicSamplerTask extends AsyncTask<Void,Object,Void> {
 				//Nothing to do we exit next line 
 				
 			}
+			
 			boolean restartVolumeMeter = false;
 			if (paused) {
 				restartVolumeMeter = true;

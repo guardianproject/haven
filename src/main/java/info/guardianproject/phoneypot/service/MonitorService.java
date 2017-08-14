@@ -257,6 +257,7 @@ public class MonitorService extends Service {
     {
         try {
             mOnionServer = new WebServer();
+            mOnionServer.setPassword("foobar");
         }
         catch (IOException ioe)
         {
