@@ -1,5 +1,6 @@
 package info.guardianproject.phoneypot;
 
+import android.database.sqlite.SQLiteException;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -31,6 +32,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import java.io.File;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -89,7 +91,7 @@ public class ListActivity extends AppCompatActivity {
                 final int position = viewHolder.getAdapterPosition();
                 final Event event = events.get(viewHolder.getAdapterPosition());
 
-                deleteEvent (event, position);
+                deleteEvent(event, position);
 
 
             }
@@ -101,10 +103,9 @@ public class ListActivity extends AppCompatActivity {
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
 
-
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
 
-            Drawable drawable = ContextCompat.getDrawable(this, R.drawable.ic_ring_volume_black_24dp);
+            Drawable drawable = ContextCompat.getDrawable(this, R.drawable.ic_arrow_forward_white);
             drawable = DrawableCompat.wrap(drawable);
             DrawableCompat.setTint(drawable, Color.WHITE);
             DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_IN);
@@ -126,36 +127,35 @@ public class ListActivity extends AppCompatActivity {
 
         initialCount = Event.count(Event.class);
 
-
-        if (initialCount == 0) {
+        if (initialCount <= 0) {
 
             showOnboarding();
 
-        }
-        else
-        {
+        } else {
             recyclerView.setVisibility(View.VISIBLE);
             findViewById(R.id.empty_view).setVisibility(View.GONE);
-        }
 
-        events = Event.listAll(Event.class,"id DESC");
-        adapter = new EventAdapter(ListActivity.this, events);
-        recyclerView.setAdapter(adapter);
+            try {
+                events = Event.listAll(Event.class, "id DESC");
+                adapter = new EventAdapter(ListActivity.this, events);
+                recyclerView.setAdapter(adapter);
 
 
-        adapter.SetOnItemClickListener(new EventAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
+                adapter.SetOnItemClickListener(new EventAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
 
-                Intent i = new Intent(ListActivity.this, EventActivity.class);
-                i.putExtra("eventid", events.get(position).getId());
-                modifyPos = position;
+                        Intent i = new Intent(ListActivity.this, EventActivity.class);
+                        i.putExtra("eventid", events.get(position).getId());
+                        modifyPos = position;
 
-                startActivity(i);
+                        startActivity(i);
+                    }
+                });
+            } catch (SQLiteException sqe) {
+                Log.d(getClass().getName(), "database not yet initiatied", sqe);
             }
-        });
-
-
+        }
 
     }
 
