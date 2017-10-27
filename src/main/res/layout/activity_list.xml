@@ -24,7 +24,6 @@
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            android:background="@drawable/main_background"
             app:title="@string/app_name">
 
             <android.support.v7.widget.Toolbar

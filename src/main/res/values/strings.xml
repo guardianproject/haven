@@ -1,13 +1,13 @@
 <resources>
 
-    <string name="app_name">PhoneyPot</string>
+    <string name="app_name">Haven</string>
 
     <string name="menu_stop">Stop</string>
     <string name="menu_start">Start</string>
     <string name="menu_save">Save</string>
     <string name="menu_remote_access">Remote Access</string>
 
-    <string name="title_activity_start">PhoneyPot</string>
+    <string name="title_activity_start">Haven</string>
 
     <string name="accelerometer_prompt">
     	Movement Sensitivity
@@ -70,28 +70,28 @@
 
     </array>
 
-    <string name="secure_service_started">Phoneypot Activated</string>
+    <string name="secure_service_started">Haven Activated</string>
 
-    <string name="secure_service_stopped">Phoneypot Deactivated</string>
+    <string name="secure_service_stopped">Haven Deactivated</string>
 
     <string name="intrusion_detected">An intrusion was detected (Type: %s). Capturing audio and photo evidence now.</string>
     <string name="title_activity_event">EventActivity</string>
 
     <string name="action_settings">Settings</string>
 
-    <string name="intro1_title">The Phone Honeypot</string>
-    <string name="intro1_desc">Your first line of defense against evil maids!</string>
+    <string name="intro1_title">Enter Your Haven</string>
+    <string name="intro1_desc">Protect your space against unexpected and unwanted intruders</string>
 
-    <string name="intro2_title">Sensors are go!</string>
-    <string name="intro2_desc">We use all the sensors in your smartphone, to detect subtle variations around us.</string>
+    <string name="intro2_title">Sensors for Defense</string>
+    <string name="intro2_desc">We use all the sensors in your device to detect movement, noise and light</string>
 
-    <string name="intro3_title">DANGER WILL ROBINSON!</string>
+    <string name="intro3_title">Instant Notification</string>
     <string name="intro3_desc">You will be notified via text message of any intrusion event</string>
 
-    <string name="intro4_title">Captain\'s Log!</string>
-    <string name="intro4_desc">Any detection is logged for review upon your return for further investigation.</string>
+    <string name="intro4_title">Evidence Captured</string>
+    <string name="intro4_desc">Any intrusion is logged for review upon your return for further investigation</string>
 
-    <string name="intro5_title">Ready to go?</string>
+    <string name="intro5_title">Activate your Haven?</string>
     <string name="intro5_desc">Now we\'ll help you configure your device for detection...</string>
 
     <string name="onboarding_action_end">Let\'s go!</string>

@@ -53,8 +53,6 @@ public class SettingsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        setTitle("PhoneyPot Settings");
-
         preferences = new PreferenceManager(this.getApplicationContext());
         
         /*

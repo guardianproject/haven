@@ -173,7 +173,7 @@ public class MonitorService extends Service {
 
 		NotificationCompat.Builder mBuilder =
 				new NotificationCompat.Builder(this)
-						.setSmallIcon(R.drawable.ic_phone_alert)
+						.setSmallIcon(R.drawable.ic_stat_haven)
 						.setContentTitle(getString(R.string.app_name))
 						.setContentText(text);
 
