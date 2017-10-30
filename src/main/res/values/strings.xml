@@ -104,4 +104,6 @@
     <string name="camera_none">None</string>
 
     <string name="action_configure">Configure</string>
+
+    <string name="main_screen_title">Your Haven Log</string>
 </resources>
