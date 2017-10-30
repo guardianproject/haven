@@ -2,6 +2,8 @@ package info.guardianproject.phoneypot.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.media.RemoteControlClient;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.github.derlio.waveform.SimpleWaveformView;
+import com.github.derlio.waveform.soundfile.SoundFile;
 import com.squareup.picasso.Picasso;
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
@@ -23,6 +27,7 @@ import info.guardianproject.phoneypot.model.EventTrigger;
 import nl.changer.audiowife.AudioWife;
 
 import static android.R.id.list;
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by n8fr8 on 4/16/17.
@@ -69,6 +74,7 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
 
         holder.image.setVisibility(View.GONE);
         holder.extra.setVisibility(View.GONE);
+        holder.sound.setVisibility(View.GONE);
 
 
         if (eventTrigger.getPath() != null)
@@ -115,11 +121,33 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
             {
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
 
+                holder.sound.setVisibility(View.VISIBLE);
+                final File fileSound = new File(eventTrigger.getPath());
+                try {
+                    final SoundFile soundFile = SoundFile.create(fileSound.getPath(), new SoundFile.ProgressListener() {
+                        int lastProgress = 0;
+
+                        @Override
+                        public boolean reportProgress(double fractionComplete) {
+                            final int progress = (int) (fractionComplete * 100);
+                            if (lastProgress == progress) {
+                                return true;
+                            }
+                            lastProgress = progress;
+
+                            return true;
+                        }
+                    });
+                    holder.sound.setAudioFile(soundFile);
+                    holder.sound.invalidate();
+                }
+                catch (Exception e){}
+
                 holder.extra.setVisibility(View.VISIBLE);
                 holder.extra.removeAllViews();
 
                 AudioWife audioWife = new AudioWife();
-                audioWife.init(context, Uri.fromFile(new File(eventTrigger.getPath())))
+                audioWife.init(context, Uri.fromFile(fileSound))
                         .useDefaultUi(holder.extra, inflater);
 
 
@@ -174,7 +202,7 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
         TextView title, note;
         ImageView image;
         ViewGroup extra;
-
+        SimpleWaveformView sound;
         public EventTriggerVH(View itemView) {
             super(itemView);
 
@@ -182,7 +210,7 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
             note = (TextView) itemView.findViewById(R.id.event_item_desc);
             image = (ImageView) itemView.findViewById(R.id.event_item_image);
             extra = (ViewGroup)itemView.findViewById(R.id.event_item_extra);
-
+            sound = (SimpleWaveformView) itemView.findViewById(R.id.event_item_sound);
             itemView.setOnClickListener(this);
         }
 
