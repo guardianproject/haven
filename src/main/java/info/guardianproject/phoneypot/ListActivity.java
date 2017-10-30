@@ -127,9 +127,11 @@ public class ListActivity extends AppCompatActivity {
 
         initialCount = Event.count(Event.class);
 
+        showOnboarding();
+
         if (initialCount <= 0) {
 
-            showOnboarding();
+           // showOnboarding();
 
         } else {
             recyclerView.setVisibility(View.VISIBLE);
@@ -270,7 +272,7 @@ public class ListActivity extends AppCompatActivity {
 
     }
 
-    /**
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -280,11 +282,14 @@ public class ListActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected (MenuItem item) {
         switch (item.getItemId()){
-            case R.id.menu_remote:
-                enableRemoteAccess();
+            case R.id.menu_settings:
+                startActivity(new Intent(this,SettingsActivity.class));
+                break;
+            case R.id.action_about:
+                showOnboarding();
                 break;
         }
         return true;
-    }**/
+    }
 
 }

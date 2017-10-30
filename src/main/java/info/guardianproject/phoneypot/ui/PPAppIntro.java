@@ -1,13 +1,15 @@
 package info.guardianproject.phoneypot.ui;
 
 import com.github.paolorotolo.appintro.AppIntro;
+import com.github.paolorotolo.appintro.AppIntroFragment;
+import com.github.paolorotolo.appintro.model.SliderPage;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.widget.TextView;
 
-import com.github.paolorotolo.appintro.AppIntro;
-import com.github.paolorotolo.appintro.AppIntroFragment;
 
 import info.guardianproject.phoneypot.R;
 
@@ -28,17 +30,26 @@ public class PPAppIntro extends AppIntro {
         addSlide(AppIntroFragment.newInstance(getString(R.string.intro1_title), getString(R.string.intro1_desc),
                 R.drawable.web_hi_res_512, getResources().getColor(R.color.colorPrimaryDark)));
 
-        addSlide(AppIntroFragment.newInstance(getString(R.string.intro2_title), getString(R.string.intro2_desc),
-                R.drawable.intro2, getResources().getColor(R.color.colorPrimaryDark)));
+        /**
+        SliderPage sliderPage = new SliderPage();
+        sliderPage.setTitle(getString(R.string.intro2_title));
+     //   sliderPage.setDescription("This is a demo of the AppIntro library.");
+        sliderPage.setBgColor(getResources().getColor(R.color.colorPrimaryDark));
+        addSlide(AppIntroFragment.newInstance(sliderPage));**/
+        CustomIntroSlide cs1 = CustomIntroSlide.newInstance(R.layout.custom_slide_big_text);
+        cs1.setTitle(getString(R.string.intro2_title));
+        addSlide(cs1);
 
-        addSlide(AppIntroFragment.newInstance(getString(R.string.intro3_title), getString(R.string.intro3_desc),
-                R.drawable.intro4, getResources().getColor(R.color.colorPrimaryDark)));
+        CustomIntroSlide cs2 = CustomIntroSlide.newInstance(R.layout.custom_slide_big_text);
+        cs2.setTitle(getString(R.string.intro3_desc));
+        addSlide(cs2);
 
-        addSlide(AppIntroFragment.newInstance(getString(R.string.intro4_title), getString(R.string.intro4_desc),
-                R.drawable.intro3, getResources().getColor(R.color.colorPrimaryDark)));
+        CustomIntroSlide cs3 = CustomIntroSlide.newInstance(R.layout.custom_slide_big_text);
+        cs3.setTitle(getString(R.string.intro4_desc));
+        addSlide(cs3);
 
         addSlide(AppIntroFragment.newInstance(getString(R.string.intro5_title), getString(R.string.intro5_desc),
-                R.drawable.ic_play_arrow_white_24dp, getResources().getColor(R.color.colorPrimaryDark)));
+                R.drawable.web_hi_res_512, getResources().getColor(R.color.colorPrimaryDark)));
 
         setDoneText(getString(R.string.onboarding_action_end));
 
