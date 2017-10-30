@@ -1,11 +1,16 @@
 package info.guardianproject.phoneypot.ui;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.os.Message;
 import android.os.RemoteException;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -21,6 +26,8 @@ import com.maxproj.simplewaveform.SimpleWaveform;
 
 import java.util.LinkedList;
 
+import info.guardianproject.phoneypot.ListActivity;
+import info.guardianproject.phoneypot.MonitorActivity;
 import info.guardianproject.phoneypot.PreferenceManager;
 import info.guardianproject.phoneypot.R;
 import info.guardianproject.phoneypot.model.EventTrigger;
@@ -69,20 +76,7 @@ public class MicrophoneConfigureActivity extends AppCompatActivity implements Mi
 
         mPrefManager = new PreferenceManager(this.getApplicationContext());
 
-        /**
-        if (mPrefManager.getMicrophoneSensitivity().equals("High")) {
-            mNumberTrigger.setValue(40);
-        } else if (mPrefManager.getMicrophoneSensitivity().equals("Medium")) {
-            mNumberTrigger.setValue(60);
-        }
-        else
-        {
-            try {
-                //maybe it is a threshold value?
-                mNumberTrigger.setValue(Integer.parseInt(mPrefManager.getMicrophoneSensitivity()));
-            }
-            catch (Exception e){}
-        }**/
+
 
         initWave();
         startMic();
@@ -168,15 +162,45 @@ public class MicrophoneConfigureActivity extends AppCompatActivity implements Mi
         //show...
         mWaveform.refresh();
     }
-    private void startMic ()
-    {
-        try {
-            microphone = MicrophoneTaskFactory.makeSampler(this);
-            microphone.setMicListener(this);
-            microphone.execute();
-        } catch (MicrophoneTaskFactory.RecordLimitExceeded e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+    private void startMic () {
+        String permission = Manifest.permission.RECORD_AUDIO;
+        int requestCode = 999;
+        if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
+
+                //This is called if user has denied the permission before
+                //In this case I am just asking the permission again
+                ActivityCompat.requestPermissions(this, new String[]{permission}, requestCode);
+
+            } else {
+
+                ActivityCompat.requestPermissions(this, new String[]{permission}, requestCode);
+            }
+        } else {
+
+            try {
+                microphone = MicrophoneTaskFactory.makeSampler(this);
+                microphone.setMicListener(this);
+                microphone.execute();
+            } catch (MicrophoneTaskFactory.RecordLimitExceeded e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode) {
+            case 999:
+                startMic();
+                break;
+
         }
 
     }
