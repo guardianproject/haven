@@ -8,9 +8,11 @@
  */
 package info.guardianproject.phoneypot;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Camera;
 import android.os.Bundle;
@@ -18,7 +20,9 @@ import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.text.InputType;
 import android.util.Log;
 import android.view.DragEvent;
@@ -57,9 +61,17 @@ public class MonitorActivity extends FragmentActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		
-		preferences = new PreferenceManager(getApplicationContext());
+        super.onCreate(savedInstanceState);
+
+        boolean permsNeeded = askForPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, 1);
+
+        if (!permsNeeded)
+            initLayout();
+    }
+
+    private void initLayout ()
+    {
+        preferences = new PreferenceManager(getApplicationContext());
         setContentView(R.layout.layout_running);
 
         txtTimer = (TextView)findViewById(R.id.timer_text);
@@ -72,6 +84,14 @@ public class MonitorActivity extends FragmentActivity {
 
         txtTimer.setText(timerText);
         txtTimer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (cTimer == null)
+                    showNumberPicker();
+
+            }
+        });
+        findViewById(R.id.timer_text_title).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (cTimer == null)
@@ -111,7 +131,9 @@ public class MonitorActivity extends FragmentActivity {
             }
         });
 
-	}
+
+
+    }
 
 	private void switchCamera ()
     {
@@ -236,9 +258,11 @@ public class MonitorActivity extends FragmentActivity {
     private void close() {
 
   	  stopService(new Intent(this, MonitorService.class));
-  	  preferences.unsetAccessToken();
-  	  preferences.unsetDelegatedAccessToken();
-  	  preferences.unsetPhoneId();
+  	  if (preferences != null) {
+          preferences.unsetAccessToken();
+          preferences.unsetDelegatedAccessToken();
+          preferences.unsetPhoneId();
+      }
   	  finish();
     	
     }
@@ -275,6 +299,42 @@ public class MonitorActivity extends FragmentActivity {
                 })
                 .setNegativeButton(android.R.string.cancel, null)
                 .show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode) {
+            case 1:
+                askForPermission(Manifest.permission.CAMERA,2);
+                break;
+            case 2:
+                initLayout();
+                break;
+        }
+
+    }
+
+
+    private boolean askForPermission(String permission, Integer requestCode) {
+        if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
+
+                //This is called if user has denied the permission before
+                //In this case I am just asking the permission again
+                ActivityCompat.requestPermissions(this, new String[]{permission}, requestCode);
+
+            } else {
+
+                ActivityCompat.requestPermissions(this, new String[]{permission}, requestCode);
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

@@ -8,8 +8,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.widget.Toast;
 
 
+import info.guardianproject.phoneypot.PreferenceManager;
 import info.guardianproject.phoneypot.R;
 
 /**
@@ -53,7 +55,17 @@ public class PPAppIntro extends AppIntro {
         cs3.setTitle(getString(R.string.intro4_desc));
         addSlide(cs3);
 
-        CustomSlideNotify cs4 = CustomSlideNotify.newInstance(R.layout.custom_slide_notify);
+        final CustomSlideNotify cs4 = CustomSlideNotify.newInstance(R.layout.custom_slide_notify);
+        cs4.setSaveListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PreferenceManager pm = new PreferenceManager(PPAppIntro.this);
+                pm.activateSms(true);
+                pm.setSmsNumber(cs4.getPhoneNumber());
+                Toast.makeText(PPAppIntro.this,"Phone number saved!",Toast.LENGTH_SHORT).show();
+                getPager().setCurrentItem(getPager().getCurrentItem()+1);
+            }
+        });
         addSlide(cs4);
 
         addSlide(AppIntroFragment.newInstance(getString(R.string.intro5_title), getString(R.string.intro5_desc),

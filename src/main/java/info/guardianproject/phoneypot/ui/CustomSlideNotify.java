@@ -30,7 +30,7 @@ public class CustomSlideNotify extends Fragment {
     private static final String ARG_LAYOUT_RES_ID = "layoutResId";
     private int layoutResId;
     private EditText mEditNumber;
-
+    private View.OnClickListener mListener;
     public static CustomSlideNotify newInstance(int layoutResId) {
         CustomSlideNotify sampleSlide = new CustomSlideNotify();
 
@@ -39,6 +39,11 @@ public class CustomSlideNotify extends Fragment {
         sampleSlide.setArguments(args);
 
         return sampleSlide;
+    }
+
+    public void setSaveListener (View.OnClickListener listener)
+    {
+        mListener = listener;
     }
 
     @Override
@@ -70,22 +75,14 @@ public class CustomSlideNotify extends Fragment {
             mEditNumber.setText(pm.getSmsNumber());
 
         Button button = (Button)view.findViewById(R.id.btnSaveNumber);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveNumber();
-            }
-        });
+        button.setOnClickListener(mListener);
         return view;
 
     }
 
-    private void saveNumber ()
+    public String getPhoneNumber ()
     {
-        PreferenceManager pm = new PreferenceManager(getActivity());
-        pm.activateSms(true);
-        pm.setSmsNumber(mEditNumber.getText().toString());
-        Toast.makeText(getActivity(),"Phone number saved!",Toast.LENGTH_SHORT).show();
+        return mEditNumber.getText().toString();
     }
 
     private void askForPermission(String permission, Integer requestCode) {
