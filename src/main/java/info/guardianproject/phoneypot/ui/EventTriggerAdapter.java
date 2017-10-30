@@ -22,12 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import info.guardianproject.phoneypot.R;
-import info.guardianproject.phoneypot.model.Event;
 import info.guardianproject.phoneypot.model.EventTrigger;
 import nl.changer.audiowife.AudioWife;
-
-import static android.R.id.list;
-import static android.content.ContentValues.TAG;
 
 /**
  * Created by n8fr8 on 4/16/17.

@@ -11,18 +11,21 @@ import android.os.Bundle;
     import android.view.LayoutInflater;
     import android.view.View;
     import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import info.guardianproject.phoneypot.R;
 
-public class CustomIntroSlide extends Fragment {
+public class CustomSlideBigText extends Fragment {
 
     private static final String ARG_LAYOUT_RES_ID = "layoutResId";
     private int layoutResId;
     private String mTitle;
+    private String mButtonText;
+    private View.OnClickListener mButtonListener;
 
-    public static CustomIntroSlide newInstance(int layoutResId) {
-        CustomIntroSlide sampleSlide = new CustomIntroSlide();
+    public static CustomSlideBigText newInstance(int layoutResId) {
+        CustomSlideBigText sampleSlide = new CustomSlideBigText();
 
         Bundle args = new Bundle();
         args.putInt(ARG_LAYOUT_RES_ID, layoutResId);
@@ -34,6 +37,12 @@ public class CustomIntroSlide extends Fragment {
     public void setTitle (String title)
     {
         mTitle = title;
+    }
+
+    public void showButton (String buttonText, View.OnClickListener buttonListener)
+    {
+        mButtonText = buttonText;
+        mButtonListener = buttonListener;
     }
 
     @Override
@@ -51,6 +60,14 @@ public class CustomIntroSlide extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(layoutResId, container, false);
         ((TextView)view.findViewById(R.id.custom_slide_big_text)).setText(mTitle);
+
+        if (mButtonText != null)
+        {
+            Button button = (Button)view.findViewById(R.id.custom_slide_button);
+            button.setVisibility(View.VISIBLE);
+            button.setText(mButtonText);
+            button.setOnClickListener(mButtonListener);
+        }
         return view;
 
     }

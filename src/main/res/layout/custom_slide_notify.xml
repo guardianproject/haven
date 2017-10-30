@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:background="@color/colorPrimaryDark"
+    >
+
+    <TextView
+        android:id="@+id/custom_slide_big_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Know immediately when Haven detects something"
+        android:textColor="@color/colorPrimaryLight"
+        android:gravity="center"
+        android:layout_margin="10dp"
+        android:textStyle="bold"
+        android:textSize="28sp"/>
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/White"
+        android:backgroundTint="@color/colorPrimaryLight"
+        android:hint="212 555 1212"
+        android:gravity="center"
+        android:inputType="phone"
+        android:id="@+id/editNumber"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="You will receive a text when the app hears or sees something"
+        android:textColor="@color/colorPrimaryLight"
+        android:gravity="center"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+
+        android:textStyle="bold"
+        android:textSize="16dp"/>
+
+    <Button
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:text="@string/save_number"
+        android:layout_margin="10dp"
+        android:id="@+id/btnSaveNumber"
+        android:background="@drawable/round_drawable"
+        android:textColor="@color/White"
+
+        />
+
+</LinearLayout>

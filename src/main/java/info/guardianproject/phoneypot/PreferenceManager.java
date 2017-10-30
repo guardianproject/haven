@@ -171,6 +171,7 @@ public class PreferenceManager {
     }
     
     public void setSmsNumber(String number) {
+
     	prefsEditor.putString(SMS_NUMBER, number);
     	prefsEditor.commit();
     }

@@ -54,6 +54,18 @@ public final class CameraFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
+        initCamera ();
+    }
+
+    public void resetCamera ()
+    {
+        ((FrameLayout) getActivity().findViewById(R.id.preview)).removeAllViews();
+        preview = null;
+        initCamera();
+    }
+
+    private void initCamera ()
+    {
         if (preview == null) {
 
             PreferenceManager prefs = new PreferenceManager(getActivity());
@@ -61,6 +73,7 @@ public final class CameraFragment extends Fragment {
             if (prefs.getCameraSensitivity() != PreferenceManager.OFF) {
                 //Uncomment to see the camera
                 preview = new Preview(getActivity());
+
                 ((FrameLayout) getActivity().findViewById(R.id.preview)).addView(preview);
 
                 // oldImage = (ImageView) getActivity().findViewById(R.id.old_image);
@@ -86,7 +99,6 @@ public final class CameraFragment extends Fragment {
             }
         }
     }
-
     public void onSensorChanged(SensorEvent event) {
 
     }

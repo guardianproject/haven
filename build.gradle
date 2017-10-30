@@ -29,7 +29,7 @@ android {
 
     defaultConfig {
         applicationId "info.guardianproject.phoneypot"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 25
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_7
@@ -68,4 +68,5 @@ dependencies {
     compile 'com.facebook.fresco:fresco:1.4.0'
     compile 'com.github.derlio.waveform:library:1.0.3@aar'
     compile 'org.firezenk:audiowaves:1.1@aar'
+    compile 'com.maxproj.simplewaveform:app:1.0.0'
 }

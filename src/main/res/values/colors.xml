@@ -3,8 +3,8 @@
 <resources>
 <color name="colorPrimary">#2196F3</color>
 <color name="colorPrimaryDark">#1976D2</color>
-<color name="primary_light">#BBDEFB</color>
-<color name="colorAccent">#FFC107</color>
+<color name="colorPrimaryLight">#BBDEFB</color>
+<color name="colorAccent">#f5c229</color>
 <color name="primary_text">#212121</color>
 <color name="secondary_text">#757575</color>
 <color name="icons">#FFFFFF</color>

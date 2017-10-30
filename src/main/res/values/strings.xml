@@ -84,18 +84,16 @@
     <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the height find...\"\n-George Meredith</string>
 
     <string name="intro2_title">Haven is for people who want to keep an eye out for intrusions into their home, office, hotel room or other private space</string>
-    <string name="intro2_desc"></string>
+    <string name="intro3_desc">Turn an extra phone into a motion, sound, vibration and light detector, watching for unexpected guests and unwanted intruders</string>
 
-    <string name="intro3_title"></string>
-    <string name="intro3_desc">Position the camera to capture motion, or set your phone somewhere discreet to just listen for noises</string>
+    <string name="sensor_setup_info">Position the camera to capture motion, or set your phone somewhere discreet to just listen for noises</string>
 
-    <string name="intro4_title">Evidence Captured</string>
-    <string name="intro4_desc">Any intrusion is logged for review upon your return for further investigation</string>
+    <string name="intro4_desc">Get notified of intrusion events instantly and access the logs remotely or in-person later</string>
 
-    <string name="intro5_title">Activate your Haven?</string>
-    <string name="intro5_desc">Now we\'ll help you configure your device for detection...</string>
+    <string name="intro5_title">Your Haven is ready</string>
+    <string name="intro5_desc">Activate the app at anytime using the &gt; action button on the main screen</string>
 
-    <string name="onboarding_action_end">Let\'s go!</string>
+    <string name="onboarding_action_end">Finish</string>
 
     <string name="remote_access_label">Enable remote access via Tor Onion Service</string>
     <string name="remote_access_hint">(onion service address will be displayed here)</string>
@@ -107,4 +105,15 @@
     <string name="action_configure">Configure</string>
 
     <string name="main_screen_title">Your Haven Log</string>
+
+    <string name="current_noise_base">Current noise level is</string>
+    <string name="configure_trigger_level">Slide wheel to change detection threshold</string>
+    <string name="tune_the_sound_detection">Make some noise!</string>
+    <string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">Set your phone on the table, and make noises in the room to find the right level to detect</string>
+    <string name="set_a_countdown_time">Tap to change countdown</string>
+    <string name="start_now">Start Now</string>
+    <string name="start_later">Start Later</string>
+    <string name="save_number">Save Number</string>
+
+    <string name="action_cancel">Cancel</string>
 </resources>

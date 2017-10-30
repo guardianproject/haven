@@ -12,6 +12,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Camera;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
@@ -20,10 +21,16 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentActivity;
 import android.text.InputType;
 import android.util.Log;
+import android.view.DragEvent;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.NumberPicker;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,8 +39,12 @@ import org.w3c.dom.Text;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import info.guardianproject.phoneypot.service.MonitorService;
+import info.guardianproject.phoneypot.ui.CameraFragment;
+import info.guardianproject.phoneypot.ui.MicrophoneConfigureActivity;
 
 public class MonitorActivity extends FragmentActivity {
 	
@@ -54,37 +65,103 @@ public class MonitorActivity extends FragmentActivity {
         txtTimer = (TextView)findViewById(R.id.timer_text);
         viewTimer = findViewById(R.id.timer_container);
 
-        initTimer();
+        int timeM = preferences.getTimerDelay()*1000;
+        String timerText = String.format(Locale.getDefault(), "%02d:%02d",
+                TimeUnit.MILLISECONDS.toMinutes(timeM) % 60,
+                TimeUnit.MILLISECONDS.toSeconds(timeM) % 60);
 
-        FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.fab_cancel);
-        fab.setOnClickListener(new View.OnClickListener() {
+        txtTimer.setText(timerText);
+        txtTimer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (cTimer == null)
+                    showNumberPicker();
 
-                if (cTimer != null) {
-                    cTimer.cancel();
-                    cTimer = null;
-                }
-
-                close();
             }
         });
 
-        fab = (FloatingActionButton)findViewById(R.id.fab_settings);
-        fab.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btnStartLater).setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               doCancel();
+           }
+       });
+
+       findViewById(R.id.btnStartNow).setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               ((Button)findViewById(R.id.btnStartLater)).setText(R.string.action_cancel);
+               findViewById(R.id.btnStartNow).setVisibility(View.INVISIBLE);
+               findViewById(R.id.timer_text_title).setVisibility(View.INVISIBLE);
+               initTimer();
+           }
+       });
+
+       findViewById(R.id.btnMicSettings).setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               startActivity(new Intent(MonitorActivity.this, MicrophoneConfigureActivity.class));
+           }
+       });
+
+        findViewById(R.id.btnCameraSwitch).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
-                showSettings();
+            public void onClick(View v) {
+                switchCamera();
             }
         });
-
-        if (getIntent().getBooleanExtra("firsttime",false))
-        {
-            showSettings();
-        }
 
 	}
+
+	private void switchCamera ()
+    {
+
+        String camera = preferences.getCamera();
+        if (camera.equals(PreferenceManager.FRONT))
+            preferences.setCamera(PreferenceManager.BACK);
+        else if (camera.equals(PreferenceManager.BACK))
+            preferences.setCamera(PreferenceManager.FRONT);
+
+        ((CameraFragment)getSupportFragmentManager().findFragmentById(R.id.fragment_camera)).resetCamera();
+
+    }
+
+	private void updateTimerValue (int val)
+    {
+        preferences.setTimerDelay(val);
+        int valM = val * 1000;
+        String timerText = String.format(Locale.getDefault(), "%02d:%02d",
+                TimeUnit.MILLISECONDS.toMinutes(valM) % 60,
+                TimeUnit.MILLISECONDS.toSeconds(valM) % 60);
+
+        txtTimer.setText(timerText);
+    }
+
+	private void doCancel ()
+    {
+
+        if (cTimer != null) {
+            cTimer.cancel();
+            cTimer = null;
+            stopService(new Intent(this, MonitorService.class));
+
+            findViewById(R.id.btnStartNow).setVisibility(View.VISIBLE);
+            findViewById(R.id.timer_text_title).setVisibility(View.VISIBLE);
+
+            ((Button)findViewById(R.id.btnStartLater)).setText(R.string.start_later);
+
+            int timeM = preferences.getTimerDelay()*1000;
+            String timerText = String.format(Locale.getDefault(), "%02d:%02d",
+                    TimeUnit.MILLISECONDS.toMinutes(timeM) % 60,
+                    TimeUnit.MILLISECONDS.toSeconds(timeM) % 60);
+
+            txtTimer.setText(timerText);
+        }
+        else {
+
+            close();
+        }
+    }
 
 	private void showSettings ()
     {
@@ -110,13 +187,15 @@ public class MonitorActivity extends FragmentActivity {
 
     private void initTimer ()
     {
-        cTimer = new CountDownTimer((preferences.getTimerDelay()+1)*1000, 1000) {
+        txtTimer.setTextColor(getResources().getColor(R.color.colorAccent));
+        cTimer = new CountDownTimer((preferences.getTimerDelay())*1000, 1000) {
 
             public void onTick(long millisUntilFinished) {
-               // mTextField.setText("seconds remaining: " + millisUntilFinished / 1000);
-                //here you can have your logic to set text to edittext
+                String timerText = String.format(Locale.getDefault(), "%02d:%02d",
+                        TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) % 60,
+                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) % 60);
 
-                txtTimer.setText(""+millisUntilFinished/1000);
+                txtTimer.setText(timerText);
             }
 
             public void onFinish() {
@@ -160,7 +239,7 @@ public class MonitorActivity extends FragmentActivity {
   	  preferences.unsetAccessToken();
   	  preferences.unsetDelegatedAccessToken();
   	  preferences.unsetPhoneId();
-        finish();
+  	  finish();
     	
     }
     
@@ -171,6 +250,31 @@ public class MonitorActivity extends FragmentActivity {
     public void onBackPressed() {
 		close();
     }
-    
+
+    private void showNumberPicker ()
+    {
+        final NumberPicker picker = new NumberPicker(this);
+        picker.setMinValue(1);
+        picker.setMaxValue(60*30);
+        picker.setValue(preferences.getTimerDelay());
+
+        final FrameLayout layout = new FrameLayout(this);
+        layout.addView(picker, new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.WRAP_CONTENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT,
+                Gravity.CENTER));
+
+        new AlertDialog.Builder(this)
+                .setView(layout)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // do something with picker.getValue()
+                        updateTimerValue (picker.getValue());
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, null)
+                .show();
+    }
 
 }

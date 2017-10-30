@@ -4,7 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimary"
+    >
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -12,34 +15,54 @@
         android:background="?attr/colorPrimary"
         android:theme="@style/AppTheme.AppBarOverlay"/>
     app:popupTheme="@style/AppTheme.PopupOverlay" />
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
+    android:gravity="center_vertical"
     >
+
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Current Audio Level"
+        android:text="@string/tune_the_sound_detection"
+        android:textColor="@color/colorAccent"
+        android:textSize="28dp"
+        android:textStyle="bold"
+
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         />
-<TextView
-    android:id="@+id/text_display_level"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center"
-    android:textSize="80dp"
-    android:text="0"
-/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Configure Trigger Level"
-        android:layout_marginTop="15dp"
+        android:text="@string/set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect"
+        android:textColor="@color/colorAccent"
+        android:textSize="14dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+
+
+        />
+
+    <info.guardianproject.phoneypot.ui.SimpleWaveformExtended
+        android:id="@+id/simplewaveform"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:layout_margin="10dp"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/configure_trigger_level"
+        android:textColor="@color/colorAccent"
+
         />
 
         <me.angrybyte.numberpicker.view.ActualNumberPicker
@@ -61,6 +84,16 @@
             app:text_color="@android:color/darker_gray"
             app:text_size="16sp" />
 
+    <TextView
+        android:id="@+id/text_display_level"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="24dp"
+        android:text="@string/current_noise_base"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"
+        android:layout_margin="15dp"
+        />
 </LinearLayout>
-</ScrollView>
     </LinearLayout>

@@ -11,6 +11,7 @@ import info.guardianproject.phoneypot.model.EventTrigger;
 import info.guardianproject.phoneypot.service.WebServer;
 import info.guardianproject.phoneypot.ui.EventActivity;
 import info.guardianproject.phoneypot.ui.EventAdapter;
+import info.guardianproject.phoneypot.ui.MicrophoneConfigureActivity;
 import info.guardianproject.phoneypot.ui.PPAppIntro;
 
 
@@ -25,6 +26,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.Menu;
@@ -47,7 +49,7 @@ public class ListActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     FloatingActionButton fab;
-
+    Toolbar toolbar;
     EventAdapter adapter;
     List<Event> events = new ArrayList<>();
 
@@ -68,6 +70,8 @@ public class ListActivity extends AppCompatActivity {
 
         recyclerView = (RecyclerView) findViewById(R.id.main_list);
         fab = (FloatingActionButton) findViewById(R.id.fab);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(llm);
@@ -127,11 +131,9 @@ public class ListActivity extends AppCompatActivity {
 
         initialCount = Event.count(Event.class);
 
-        showOnboarding();
-
         if (initialCount <= 0) {
 
-           // showOnboarding();
+           showOnboarding();
 
         } else {
             recyclerView.setVisibility(View.VISIBLE);
@@ -208,7 +210,6 @@ public class ListActivity extends AppCompatActivity {
         if (requestCode == REQUEST_CODE_INTRO)
         {
             Intent i = new Intent(ListActivity.this, MonitorActivity.class);
-            i.putExtra("firsttime",true);
             startActivity(i);
         }
     }
@@ -282,7 +283,7 @@ public class ListActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected (MenuItem item) {
         switch (item.getItemId()){
-            case R.id.menu_settings:
+            case R.id.action_settings:
                 startActivity(new Intent(this,SettingsActivity.class));
                 break;
             case R.id.action_about:

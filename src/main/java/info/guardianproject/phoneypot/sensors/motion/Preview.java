@@ -22,6 +22,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.graphics.YuvImage;
@@ -55,7 +56,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 	private PreferenceManager prefs;
 	private int cameraFacing = 0;
 
-	private final static int PREVIEW_INTERVAL = 2000;
+	private final static int PREVIEW_INTERVAL = 500;
 
 	private List<MotionAsyncTask.MotionListener> listeners = new ArrayList<MotionAsyncTask.MotionListener>();
 	
@@ -324,20 +325,44 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 			parameters.setPreviewFpsRange(PREVIEW_INTERVAL,PREVIEW_INTERVAL*2);
 			int degree = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getRotation();
 			int displayOrientation = 0;
-			switch (degree) {
-				case Surface.ROTATION_0:
-					displayOrientation = 90;
-					break;
-				case Surface.ROTATION_90:
-					displayOrientation = 0;
-					break;
-				case Surface.ROTATION_180:
-					displayOrientation = 0;
-					break;
-				case Surface.ROTATION_270:
-					displayOrientation = 180;
-					break;
+
+			if (prefs.getCamera().equals(PreferenceManager.FRONT)) {
+
+				switch (degree) {
+					case Surface.ROTATION_0:
+						displayOrientation = 90;
+						break;
+					case Surface.ROTATION_90:
+						displayOrientation = 0;
+						break;
+					case Surface.ROTATION_180:
+						displayOrientation = 0;
+						break;
+					case Surface.ROTATION_270:
+						displayOrientation = 180;
+						break;
+				}
 			}
+			else
+			{
+                boolean isLandscape = false;// degree == Configuration.ORIENTATION_LANDSCAPE;
+
+				switch (degree) {
+					case Surface.ROTATION_0:
+						displayOrientation = isLandscape? 0 : 90;
+						break;
+					case Surface.ROTATION_90:
+						displayOrientation =  isLandscape? 0 :270;
+						break;
+					case Surface.ROTATION_180:
+						displayOrientation = isLandscape? 180 :270;
+						break;
+					case Surface.ROTATION_270:
+						displayOrientation = isLandscape? 180 :90;
+						break;
+				}
+			}
+
 			camera.setDisplayOrientation(displayOrientation);
 
 			//camera.setParameters(parameters);

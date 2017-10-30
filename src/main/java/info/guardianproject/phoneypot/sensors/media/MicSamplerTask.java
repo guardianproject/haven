@@ -56,7 +56,7 @@ public class MicSamplerTask extends AsyncTask<Void,Object,Void> {
 				publishProgress(volumeMeter.getAmplitude());
 			}
 			try {
-				Thread.sleep(500);
+				Thread.sleep(250);
 			} catch (InterruptedException e) { 
 				//Nothing to do we exit next line 
 				
@@ -70,7 +70,7 @@ public class MicSamplerTask extends AsyncTask<Void,Object,Void> {
 			}
 			while (paused) {
 				try {
-					Thread.sleep(1000);
+					Thread.sleep(500);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

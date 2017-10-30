@@ -2,13 +2,12 @@ package info.guardianproject.phoneypot.ui;
 
 import com.github.paolorotolo.appintro.AppIntro;
 import com.github.paolorotolo.appintro.AppIntroFragment;
-import com.github.paolorotolo.appintro.model.SliderPage;
 
-import android.graphics.Color;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.widget.TextView;
+import android.view.View;
 
 
 import info.guardianproject.phoneypot.R;
@@ -36,17 +35,26 @@ public class PPAppIntro extends AppIntro {
      //   sliderPage.setDescription("This is a demo of the AppIntro library.");
         sliderPage.setBgColor(getResources().getColor(R.color.colorPrimaryDark));
         addSlide(AppIntroFragment.newInstance(sliderPage));**/
-        CustomIntroSlide cs1 = CustomIntroSlide.newInstance(R.layout.custom_slide_big_text);
+        CustomSlideBigText cs1 = CustomSlideBigText.newInstance(R.layout.custom_slide_big_text);
         cs1.setTitle(getString(R.string.intro2_title));
         addSlide(cs1);
 
-        CustomIntroSlide cs2 = CustomIntroSlide.newInstance(R.layout.custom_slide_big_text);
+        CustomSlideBigText cs2 = CustomSlideBigText.newInstance(R.layout.custom_slide_big_text);
         cs2.setTitle(getString(R.string.intro3_desc));
+        cs2.showButton(getString(R.string.action_configure), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(PPAppIntro.this,MicrophoneConfigureActivity.class));
+            }
+        });
         addSlide(cs2);
 
-        CustomIntroSlide cs3 = CustomIntroSlide.newInstance(R.layout.custom_slide_big_text);
+        CustomSlideBigText cs3 = CustomSlideBigText.newInstance(R.layout.custom_slide_big_text);
         cs3.setTitle(getString(R.string.intro4_desc));
         addSlide(cs3);
+
+        CustomSlideNotify cs4 = CustomSlideNotify.newInstance(R.layout.custom_slide_notify);
+        addSlide(cs4);
 
         addSlide(AppIntroFragment.newInstance(getString(R.string.intro5_title), getString(R.string.intro5_desc),
                 R.drawable.web_hi_res_512, getResources().getColor(R.color.colorPrimaryDark)));
