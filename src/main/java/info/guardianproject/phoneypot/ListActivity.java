@@ -134,28 +134,29 @@ public class ListActivity extends AppCompatActivity {
         } else {
             recyclerView.setVisibility(View.VISIBLE);
             findViewById(R.id.empty_view).setVisibility(View.GONE);
-
-            try {
-                events = Event.listAll(Event.class, "id DESC");
-                adapter = new EventAdapter(ListActivity.this, events);
-                recyclerView.setAdapter(adapter);
-
-
-                adapter.SetOnItemClickListener(new EventAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
-
-                        Intent i = new Intent(ListActivity.this, EventActivity.class);
-                        i.putExtra("eventid", events.get(position).getId());
-                        modifyPos = position;
-
-                        startActivity(i);
-                    }
-                });
-            } catch (SQLiteException sqe) {
-                Log.d(getClass().getName(), "database not yet initiatied", sqe);
-            }
         }
+
+        try {
+            events = Event.listAll(Event.class, "id DESC");
+            adapter = new EventAdapter(ListActivity.this, events);
+            recyclerView.setAdapter(adapter);
+
+
+            adapter.SetOnItemClickListener(new EventAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+
+                    Intent i = new Intent(ListActivity.this, EventActivity.class);
+                    i.putExtra("eventid", events.get(position).getId());
+                    modifyPos = position;
+
+                    startActivity(i);
+                }
+            });
+        } catch (SQLiteException sqe) {
+            Log.d(getClass().getName(), "database not yet initiatied", sqe);
+        }
+
 
     }
 
