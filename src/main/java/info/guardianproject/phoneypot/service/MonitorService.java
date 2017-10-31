@@ -41,6 +41,11 @@ import info.guardianproject.phoneypot.sensors.MicrophoneMonitor;
 @SuppressLint("HandlerLeak")
 public class MonitorService extends Service {
 
+    /**
+     * Monitor instance
+     */
+    private static MonitorService sInstance;
+
 	/**
 	 * To show a notification on service start
 	 */
@@ -105,6 +110,9 @@ public class MonitorService extends Service {
 	 */
     @Override
     public void onCreate() {
+
+        sInstance = this;
+
         manager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         prefs = new PreferenceManager(this);
 
@@ -119,6 +127,11 @@ public class MonitorService extends Service {
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
                 "MyWakelockTag");
         wakeLock.acquire();
+    }
+
+    public static MonitorService getInstance ()
+    {
+        return sInstance;
     }
     
     /**
@@ -215,7 +228,7 @@ public class MonitorService extends Service {
     /**
     * Sends an alert according to type of connectivity
     */
-    private synchronized void alert(int alertType, String path) {
+    public synchronized void alert(int alertType, String path) {
 
         Date now = new Date();
         boolean isNewEvent = false;

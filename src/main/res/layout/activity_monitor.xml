@@ -28,11 +28,6 @@
             android:gravity="center_vertical|center_horizontal"
 
             >
-            <ImageView
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:src="@drawable/web_hi_res_512"
-                />
 
             <TextView
                 android:layout_width="wrap_content"

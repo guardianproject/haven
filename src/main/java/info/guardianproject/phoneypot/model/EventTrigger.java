@@ -37,9 +37,15 @@ public class EventTrigger extends SugarRecord {
     public static final int PRESSURE = 2;
 
     /**
-     * Pressure change detected message
+     * Light change detected message
      */
     public static final int LIGHT = 3;
+
+    /**
+     * Power change detected message
+     */
+    public static final int POWER = 4;
+
 
     public EventTrigger ()
     {
@@ -90,6 +96,9 @@ public class EventTrigger extends SugarRecord {
                 break;
             case EventTrigger.MICROPHONE:
                 sType = "SOUND";
+                break;
+            case EventTrigger.POWER:
+                sType = "POWER";
                 break;
             default:
                 sType = "UNKNOWN";

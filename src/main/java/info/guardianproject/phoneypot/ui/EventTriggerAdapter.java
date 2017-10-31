@@ -160,7 +160,11 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
             }
             else if (eventTrigger.getType() == EventTrigger.PRESSURE)
             {
-                desc += "\nCHANGE IN PRESSURE: " + eventTrigger.getPath();
+                desc += "\nCPRESSURE: " + eventTrigger.getPath();
+            }
+            else if (eventTrigger.getType() == EventTrigger.POWER)
+            {
+                desc += "\nPOWER: " + eventTrigger.getPath();
             }
 
         }

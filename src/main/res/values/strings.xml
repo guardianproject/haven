@@ -117,4 +117,5 @@
 
     <string name="action_cancel">Deactivate</string>
     <string name="status_on">ACTIVE</string>
+    <string name="status_charging">Charging:</string>
 </resources>
