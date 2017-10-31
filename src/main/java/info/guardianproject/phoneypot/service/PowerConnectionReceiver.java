@@ -26,7 +26,8 @@ public class PowerConnectionReceiver extends BroadcastReceiver {
         boolean usbCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_USB;
         boolean acCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_AC;
 
-        MonitorService.getInstance().alert(EventTrigger.POWER,context.getString(R.string.status_charging) + isCharging + " USB:"+usbCharge + " AC:"+acCharge);
-
+        if (MonitorService.getInstance() != null) {
+            MonitorService.getInstance().alert(EventTrigger.POWER, context.getString(R.string.status_charging) + isCharging + " USB:" + usbCharge + " AC:" + acCharge);
+        }
     }
 }
