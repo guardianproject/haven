@@ -115,5 +115,6 @@
     <string name="start_later">Start Later</string>
     <string name="save_number">Save Number</string>
 
-    <string name="action_cancel">Cancel</string>
+    <string name="action_cancel">Deactivate</string>
+    <string name="status_on">ACTIVE</string>
 </resources>
