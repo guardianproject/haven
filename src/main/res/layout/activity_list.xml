@@ -21,7 +21,7 @@
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleMarginBottom="32dp"
             app:expandedTitleMarginEnd="64dp"
-            app:expandedTitleMarginStart="48dp"
+            app:expandedTitleMarginStart="12dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:title="@string/main_screen_title">
 
