@@ -20,7 +20,9 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            android:background="@drawable/header"
+            >
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
