@@ -22,6 +22,7 @@ import android.os.Messenger;
 import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
 import android.telephony.SmsManager;
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.io.IOException;
@@ -245,6 +246,12 @@ public class MonitorService extends Service {
 
             StringBuffer alertMessage = new StringBuffer();
             alertMessage.append(getString(R.string.intrusion_detected,eventTrigger.getStringType()));
+
+            if (prefs.getRemoteAccessActive() && (!TextUtils.isEmpty(prefs.getRemoteAccessOnion())))
+            {
+                alertMessage.append(" http://").append(prefs.getRemoteAccessOnion())
+                        .append(':').append(WebServer.LOCAL_PORT);
+            }
 
             SmsManager manager = SmsManager.getDefault();
             manager.sendTextMessage(prefs.getSmsNumber(), null, alertMessage.toString(), null, null);
