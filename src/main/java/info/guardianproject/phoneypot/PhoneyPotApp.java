@@ -1,6 +1,7 @@
 package info.guardianproject.phoneypot;
 
 import android.app.Application;
+import android.support.multidex.MultiDexApplication;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.orm.SugarApp;
@@ -10,7 +11,7 @@ import com.orm.SugarContext;
  * Created by n8fr8 on 8/9/17.
  */
 
-public class PhoneyPotApp extends Application {
+public class PhoneyPotApp extends MultiDexApplication {
 
     @Override
     public void onCreate() {

@@ -1,0 +1,3 @@
+[submodule "external/libsignal-service-java"]
+	path = external/libsignal-service-java
+	url = https://github.com/WhisperSystems/libsignal-service-java.git

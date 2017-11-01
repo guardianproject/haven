@@ -1,0 +1,2 @@
+include ':external:libsignal-service-java:java'
+
