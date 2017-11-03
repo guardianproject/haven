@@ -44,7 +44,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventVH> {
         Event event = events.get(position);
 
         String title = event.getStartTime().toLocaleString();
-        String desc = event.getEventTriggers().size() + " triggered events";
+        String desc = event.getEventTriggers().size() + ' ' + context.getString(R.string.detection_events);
 
         holder.title.setText(title);
         holder.note.setText(desc);

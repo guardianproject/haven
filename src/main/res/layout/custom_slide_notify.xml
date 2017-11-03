@@ -11,7 +11,7 @@
         android:id="@+id/custom_slide_big_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Know immediately when Haven detects something"
+        android:text="@string/know_immediately_when_haven_detects_something"
         android:textColor="@color/colorPrimaryLight"
         android:gravity="center"
         android:layout_margin="10dp"
@@ -32,7 +32,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="You will receive a text when the app hears or sees something"
+        android:text="@string/you_will_receive_a_text_when_the_app_hears_or_sees_something"
         android:textColor="@color/colorPrimaryLight"
         android:gravity="center"
         android:layout_marginLeft="40dp"

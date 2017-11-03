@@ -151,7 +151,7 @@ public class EventActivity extends AppCompatActivity {
         }
 
         emailIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
-        startActivity(Intent.createChooser(emailIntent, "Share event..."));
+        startActivity(Intent.createChooser(emailIntent, getString(R.string.share_event_action)));
     }
 
     private String generateLog () {

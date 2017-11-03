@@ -66,7 +66,7 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
         final EventTrigger eventTrigger = eventTriggers.get(position);
 
         String title = eventTrigger.getStringType();
-        String desc = eventTrigger.getTriggerTime().toString();
+        String desc = eventTrigger.getTriggerTime().toLocaleString();
 
         holder.image.setVisibility(View.GONE);
         holder.extra.setVisibility(View.GONE);
@@ -150,21 +150,21 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
             }
             else if (eventTrigger.getType() == EventTrigger.ACCELEROMETER)
             {
-                desc += "\nSPEED: " + eventTrigger.getPath();
+                desc += "\n" + context.getString(R.string.data_speed) + ": " + eventTrigger.getPath();
 
             }
             else if (eventTrigger.getType() == EventTrigger.LIGHT)
             {
-                desc += "\nLIGHT: " + eventTrigger.getPath();
+                desc += "\n" + context.getString(R.string.data_light) + ": " + eventTrigger.getPath();
 
             }
             else if (eventTrigger.getType() == EventTrigger.PRESSURE)
             {
-                desc += "\nCPRESSURE: " + eventTrigger.getPath();
+                desc += "\n" + context.getString(R.string.data_pressure) + ": " + eventTrigger.getPath();
             }
             else if (eventTrigger.getType() == EventTrigger.POWER)
             {
-                desc += "\nPOWER: " + eventTrigger.getPath();
+                desc += "\n" + context.getString(R.string.data_power) + ": " + eventTrigger.getPath();
             }
 
         }
