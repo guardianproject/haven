@@ -23,6 +23,7 @@ public class WebServer extends NanoHTTPD {
     public final static int LOCAL_PORT = 8888;
 
     private final static String TAG = "WebServer";
+    private String appTitle = "Haven";
 
     private String mPassword = null;
     private String mSession = null;
@@ -83,7 +84,7 @@ public class WebServer extends NanoHTTPD {
             }
         }
         else {
-            page.append("<html><head><title>PhoneyPot</title>");
+            page.append("<html><head><title>" + appTitle + "</title>");
             page.append("<meta http-equiv=\"Content-Type\" content=\"application/xhtml+xml; charset=utf-8\" />");
             page.append("<meta name = \"viewport\" content = \"user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width\">");
             page.append("</head><body>");
