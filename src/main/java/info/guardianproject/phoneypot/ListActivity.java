@@ -236,6 +236,22 @@ public class ListActivity extends AppCompatActivity {
 
         if (newCount > initialCount) {
 
+            events = Event.listAll(Event.class, "id DESC");
+            adapter = new EventAdapter(ListActivity.this, events);
+            recyclerView.setAdapter(adapter);
+
+            adapter.SetOnItemClickListener(new EventAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+
+                    Intent i = new Intent(ListActivity.this, EventActivity.class);
+                    i.putExtra("eventid", events.get(position).getId());
+                    modifyPos = position;
+
+                    startActivity(i);
+                }
+            });
+            /**
             // Just load the last added note (new)
             Event event = Event.last(Event.class);
 
@@ -244,6 +260,10 @@ public class ListActivity extends AppCompatActivity {
             adapter.notifyDataSetChanged();
             
             initialCount = newCount;
+            **/
+
+            initialCount = newCount;
+
 
             recyclerView.setVisibility(View.VISIBLE);
             findViewById(R.id.empty_view).setVisibility(View.GONE);

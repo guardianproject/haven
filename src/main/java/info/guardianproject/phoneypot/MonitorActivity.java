@@ -46,7 +46,9 @@ public class MonitorActivity extends FragmentActivity {
 
     private CountDownTimer cTimer;
 
-	@Override
+    private boolean mIsMonitoring = false;
+
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -152,19 +154,26 @@ public class MonitorActivity extends FragmentActivity {
         if (cTimer != null) {
             cTimer.cancel();
             cTimer = null;
-            stopService(new Intent(this, MonitorService.class));
 
-            findViewById(R.id.btnStartNow).setVisibility(View.VISIBLE);
-            findViewById(R.id.timer_text_title).setVisibility(View.VISIBLE);
+            if (mIsMonitoring) {
+                mIsMonitoring = false;
+                stopService(new Intent(this, MonitorService.class));
+                finish();
+            }
+            else {
 
-            ((Button)findViewById(R.id.btnStartLater)).setText(R.string.start_later);
+                findViewById(R.id.btnStartNow).setVisibility(View.VISIBLE);
+                findViewById(R.id.timer_text_title).setVisibility(View.VISIBLE);
 
-            int timeM = preferences.getTimerDelay()*1000;
-            String timerText = String.format(Locale.getDefault(), "%02d:%02d",
-                    TimeUnit.MILLISECONDS.toMinutes(timeM) % 60,
-                    TimeUnit.MILLISECONDS.toSeconds(timeM) % 60);
+                ((Button) findViewById(R.id.btnStartLater)).setText(R.string.start_later);
 
-            txtTimer.setText(timerText);
+                int timeM = preferences.getTimerDelay() * 1000;
+                String timerText = String.format(Locale.getDefault(), "%02d:%02d",
+                        TimeUnit.MILLISECONDS.toMinutes(timeM) % 60,
+                        TimeUnit.MILLISECONDS.toSeconds(timeM) % 60);
+
+                txtTimer.setText(timerText);
+            }
         }
         else {
 
@@ -223,6 +232,7 @@ public class MonitorActivity extends FragmentActivity {
 	private void initMonitor ()
     {
 
+        mIsMonitoring = true;
         //ensure folder exists and will not be scanned by the gallery app
 
         try {
