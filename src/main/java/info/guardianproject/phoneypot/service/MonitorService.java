@@ -75,6 +75,7 @@ public class MonitorService extends Service {
     BarometerMonitor mBaroMonitor = null;
     AmbientLightMonitor mLightMonitor = null;
 
+    private boolean mIsRunning = false;
     /**
      * Last Event instances
      */
@@ -150,6 +151,7 @@ public class MonitorService extends Service {
 		stopForeground(true);
 
 
+
     }
 	
     /**
@@ -199,8 +201,16 @@ public class MonitorService extends Service {
 
     }
 
+    public boolean isRunning ()
+    {
+        return mIsRunning = true;
+
+    }
+
     private void startSensors ()
     {
+        mIsRunning = true;
+
         if (prefs.getAccelerometerSensitivity() != PreferenceManager.OFF) {
             mAccelManager = new AccelerometerMonitor(this);
             mBaroMonitor = new BarometerMonitor(this);
@@ -215,6 +225,8 @@ public class MonitorService extends Service {
 
     private void stopSensors ()
     {
+        mIsRunning = false;
+
         if (prefs.getAccelerometerSensitivity() != PreferenceManager.OFF) {
             mAccelManager.stop(this);
             mBaroMonitor.stop(this);
