@@ -17,7 +17,7 @@ Nivel de Sensibilidad de Movimiento</string>
 Sensibilidad de Sonido</string>
 
     <string name="camera_sensitivity">
-Sensibilidad de Deteccion de Movimiento</string>
+Sensibilidad de movimiento de la camara</string>
 
     <string name="timer_delay_label">
 Tiempo de espera para activacion (segundos)</string>
@@ -110,4 +110,13 @@ para determinar el nivel exacto de deteccion</string>
     <string name="action_cancel">Desactivar</string>
     <string name="status_on">Activo</string>
     <string name="status_charging">Cargando:</string>
-    </resources>
+    <string name="you_will_receive_a_text_when_the_app_hears_or_sees_something">Recubiras un texto cuando la aplicacion escuche o vea algo</string>
+    <string name="know_immediately_when_haven_detects_something">Recibe una notificacion inmediata si la aplicacion detecta algo</string>
+    <string name="phone_saved">Numero de telefono guardado!</string>
+    <string name="detection_events">Deteccion de eventos</string>
+    <string name="data_speed">Velocidad</string>
+    <string name="data_light">Luz</string>
+    <string name="data_pressure">Presion</string>
+    <string name="data_power">Cargando</string>
+    <string name="share_event_action">Compartir evento</string>
+</resources>
