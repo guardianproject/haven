@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="info.guardianproject.phoneypot"
-    android:versionCode="13"
-    android:versionName="0.0.13">
+    android:versionCode="14"
+    android:versionName="0.0.14">
 
     <uses-sdk
         android:minSdkVersion="10"
