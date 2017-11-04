@@ -1,4 +1,4 @@
-package info.guardianproject.phoneypot.service;
+package info.guardianproject.phoneypot.sensors;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -7,6 +7,7 @@ import android.os.BatteryManager;
 
 import info.guardianproject.phoneypot.R;
 import info.guardianproject.phoneypot.model.EventTrigger;
+import info.guardianproject.phoneypot.service.MonitorService;
 
 /**
  * Created by n8fr8 on 10/31/17.

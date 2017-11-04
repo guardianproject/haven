@@ -203,7 +203,7 @@ public class MonitorService extends Service {
 
     public boolean isRunning ()
     {
-        return mIsRunning = true;
+        return mIsRunning;
 
     }
 
