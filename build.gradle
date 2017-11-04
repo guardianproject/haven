@@ -42,6 +42,12 @@ android {
         exclude 'META-INF/NOTICE.txt'
     }
 
+    dexOptions {
+        javaMaxHeapSize "1536m"
+        preDexLibraries true
+    }
+
+
     defaultConfig {
         applicationId "info.guardianproject.phoneypot"
         minSdkVersion 16
@@ -63,6 +69,11 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
     }
 
 }
