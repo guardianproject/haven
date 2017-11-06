@@ -290,7 +290,14 @@ public class MonitorService extends Service {
                 StringTokenizer st = new StringTokenizer(prefs.getSmsNumber(),",");
                 while (st.hasMoreTokens())
                     recips.add(st.nextToken());
-                sender.sendMessage(recips,alertMessage.toString());
+
+                String attachment = null;
+                if (eventTrigger.getType() == EventTrigger.CAMERA)
+                {
+                    attachment = eventTrigger.getPath();
+                }
+
+                sender.sendMessage(recips,alertMessage.toString(), attachment);
             }
             else if (prefs.getSmsActivation())
             {

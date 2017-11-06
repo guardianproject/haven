@@ -396,7 +396,7 @@ public class SettingsActivity extends AppCompatActivity {
                 SignalSender sender =SignalSender.getInstance(SettingsActivity.this, preferences.getSignalUsername());
                 ArrayList<String> recip = new ArrayList<>();
                 recip.add(input.getText().toString());
-                sender.sendMessage(recip,getString(R.string.signal_test_message));
+                sender.sendMessage(recip,getString(R.string.signal_test_message),null);
             }
         });
 
