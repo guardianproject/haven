@@ -36,6 +36,7 @@ import android.widget.Toast;
 
 
 import info.guardianproject.netcipher.proxy.OrbotHelper;
+import info.guardianproject.phoneypot.service.SignalSender;
 import info.guardianproject.phoneypot.service.WebServer;
 import info.guardianproject.phoneypot.ui.MicrophoneConfigureActivity;
 import me.angrybyte.numberpicker.view.ActualNumberPicker;
@@ -124,13 +125,13 @@ public class SettingsActivity extends AppCompatActivity {
         timerDelay.setMinValue(0);
         timerDelay.setValue(preferences.getTimerDelay());
 
-        /**
-        findViewById(R.id.action_configure_movement).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.action_activate_signal).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                activateSignal();
 
             }
-        });**/
+        });
 
         findViewById(R.id.action_configure_mic).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -286,5 +287,11 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
+    private void activateSignal ()
+    {
+        SignalSender.getInstance(this).register("+17185697272");
+      //  SignalSender.getInstance(this).verify("+17185697272","484177");
+
+    }
 }
 

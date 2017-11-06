@@ -24,7 +24,13 @@ allprojects {
         version_number="0.0.13"
         group_info="haven"
         signal_version="2.3.0"
+        buildToolsVersion="26.0.2"
+        compileSdkVersion=25
+        minSdkVersion=16
+        targetSdkVersion=25
+        appcompat='com.android.support:appcompat-v7:25.2.0'
     }
+
 }
 
 
@@ -80,7 +86,7 @@ android {
 
 dependencies {
 
-//    compile project(':external:libsignal-service-java:java')
+    compile project(':external:signal-cli')
     compile 'com.android.support:support-v4:25.4.0'
     compile 'com.github.satyan:sugar:1.5'
     compile 'com.android.support:appcompat-v7:25.4.0'
