@@ -99,7 +99,8 @@ public final class MicrophoneMonitor implements MicSamplerTask.MicListener {
     public void stop (Context context)
     {
         context.unbindService(mConnection);
-        microphone.cancel(true);
+        if (microphone != null)
+            microphone.cancel(true);
     }
 
 

@@ -41,6 +41,13 @@ public class SignalSender {
         mUsername = username;
     }
 
+    public void reset ()
+    {
+        Main mainSignal = new Main(mContext);
+        mainSignal.resetUser();
+        mInstance = null;
+    }
+
     public void register ()
     {
         execute (new Runnable() {
@@ -82,6 +89,7 @@ public class SignalSender {
                 Main mainSignal = new Main(mContext);
                 HashMap<String, Object> map = new HashMap<>();
 
+                map.put("username", mUsername);
                 map.put("endsession",false);
                 map.put("recipient", recipients);
                 map.put("command", "send");

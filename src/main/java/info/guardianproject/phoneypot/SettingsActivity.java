@@ -326,7 +326,8 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 preferences.setSignalUsername(input.getText().toString());
-                activateSignal(input.getText().toString(),null);
+                resetSignal(preferences.getSignalUsername());
+                activateSignal(preferences.getSignalUsername(),null);
                 checkSignalUsername();
             }
         });
@@ -360,6 +361,12 @@ public class SettingsActivity extends AppCompatActivity {
 
         dialog.show();
 
+    }
+
+    private void resetSignal (String username)
+    {
+        SignalSender sender =SignalSender.getInstance(this, username);
+        sender.reset();
     }
 
     private void activateSignal (String username, String verifyCode)

@@ -25,8 +25,12 @@ import android.telephony.SmsManager;
 import android.text.TextUtils;
 import android.util.Log;
 
+import org.asamk.Signal;
+
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.StringTokenizer;
 
 import info.guardianproject.phoneypot.MonitorActivity;
 import info.guardianproject.phoneypot.R;
@@ -266,20 +270,39 @@ public class MonitorService extends Service {
          * If SMS mode is on we send an SMS alert to the specified
          * number
          */
-        if (isNewEvent && prefs.getSmsActivation()) {
+        if (isNewEvent) {
             //get the manager
 
             StringBuffer alertMessage = new StringBuffer();
             alertMessage.append(getString(R.string.intrusion_detected,eventTrigger.getStringType()));
 
-            if (prefs.getRemoteAccessActive() && (!TextUtils.isEmpty(prefs.getRemoteAccessOnion())))
+            if (prefs.getSignalUsername() != null)
             {
-                alertMessage.append(" http://").append(prefs.getRemoteAccessOnion())
-                        .append(':').append(WebServer.LOCAL_PORT);
+                //since this is a secure channel, we can add the Onion address
+                if (prefs.getRemoteAccessActive() && (!TextUtils.isEmpty(prefs.getRemoteAccessOnion())))
+                {
+                    alertMessage.append(" http://").append(prefs.getRemoteAccessOnion())
+                            .append(':').append(WebServer.LOCAL_PORT);
+                }
+
+                SignalSender sender = SignalSender.getInstance(this,prefs.getSignalUsername());
+                ArrayList<String> recips = new ArrayList<>();
+                StringTokenizer st = new StringTokenizer(prefs.getSmsNumber(),",");
+                while (st.hasMoreTokens())
+                    recips.add(st.nextToken());
+                sender.sendMessage(recips,alertMessage.toString());
+            }
+            else if (prefs.getSmsActivation())
+            {
+                SmsManager manager = SmsManager.getDefault();
+
+                StringTokenizer st = new StringTokenizer(prefs.getSmsNumber(),",");
+                while (st.hasMoreTokens())
+                    manager.sendTextMessage(st.nextToken(), null, alertMessage.toString(), null, null);
+
             }
 
-            SmsManager manager = SmsManager.getDefault();
-            manager.sendTextMessage(prefs.getSmsNumber(), null, alertMessage.toString(), null, null);
+
 
         }
 
