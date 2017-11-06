@@ -72,8 +72,7 @@ Grabando evidencia de audio e imagen ahora.</string>
     <string name="intro1_title">Bienvenido a Haven</string>
     <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the height find...\"\n-George Meredith</string>
 
-    <string name="intro2_title">Haven es para las personas que quiere detectar  invasiones
- a su hogar, oficina, cuarto de hotel o cualquier otro espacio privado. </string>
+    <string name="intro2_title">Haven es para las personas que quieren detectar invasiones a su hogar, oficina, cuarto de hotel o cualquier otro espacio privado.</string>
     <string name="intro3_desc">Convierte un telefono extra en un detector de sonido, movimiento, vibracion y luz, vigilando visitantes inesperados e intrusos indeseados. </string>
 
     <string name="sensor_setup_info">Posiciona la camara para capturar movimiento, o coloca el telefono en un lugar
@@ -91,7 +90,7 @@ discreto para escuchar sonidos. </string>
 
     <string name="camera_front">Frente</string>
     <string name="camera_back">Atras</string>
-    <string name="camera_none">Ninguno</string>
+    <string name="camera_none">Ninguna</string>
 
     <string name="action_configure">Configurar</string>
 
@@ -113,7 +112,7 @@ para determinar el nivel exacto de deteccion</string>
     <string name="you_will_receive_a_text_when_the_app_hears_or_sees_something">Recubiras un texto cuando la aplicacion escuche o vea algo</string>
     <string name="know_immediately_when_haven_detects_something">Recibe una notificacion inmediata si la aplicacion detecta algo</string>
     <string name="phone_saved">Numero de telefono guardado!</string>
-    <string name="detection_events">Deteccion de eventos</string>
+    <string name="detection_events">Eventos Detectados</string> 
     <string name="data_speed">Velocidad</string>
     <string name="data_light">Luz</string>
     <string name="data_pressure">Presion</string>
