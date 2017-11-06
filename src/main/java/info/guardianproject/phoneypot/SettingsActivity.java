@@ -124,6 +124,14 @@ public class SettingsActivity extends AppCompatActivity {
         timerDelay.setMinValue(0);
         timerDelay.setValue(preferences.getTimerDelay());
 
+        /**
+        findViewById(R.id.action_configure_movement).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });**/
+
         findViewById(R.id.action_configure_mic).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

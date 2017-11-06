@@ -66,6 +66,7 @@
 			android:layout_margin="6dp"/>
 	</RadioGroup>
 
+	<!--
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
@@ -87,7 +88,7 @@
 			android:text="@string/action_configure"
 			android:id="@+id/action_configure_movement"
 			/>
-</LinearLayout>
+</LinearLayout>-->
 
 	<LinearLayout
 		android:layout_width="wrap_content"
