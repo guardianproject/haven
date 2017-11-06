@@ -28,3 +28,17 @@ When one of the sensors is triggered (reaches the sensibility threshold) a notif
 
 Notifications are sent through a service running in background that is defined in class `MonitorService`.
 
+# ATTRIBUTIONS
+
+This project uses libsignal-service-java from Open Whisper Systems:
+
+https://github.com/WhisperSystems/libsignal-service-java
+
+Licensed under the GPLv3: http://www.gnu.org/licenses/gpl-3.0.html
+
+This project also used signal-cli from AsamK:
+
+https://github.com/AsamK/signal-cli
+
+Licensed under the GPLv3: http://www.gnu.org/licenses/gpl-3.0.html
+
