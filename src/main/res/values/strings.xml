@@ -127,4 +127,5 @@
     <string name="data_pressure">PRESSURE</string>
     <string name="data_power">POWER</string>
     <string name="share_event_action">Share event...</string>
+    <string name="signal_test_message">This is a test message from Haven</string>
 </resources>

@@ -10,14 +10,17 @@ package info.guardianproject.phoneypot;
 
 
 import java.io.File;
+import java.util.ArrayList;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -25,13 +28,17 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AlphabetIndexer;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -128,10 +135,11 @@ public class SettingsActivity extends AppCompatActivity {
         findViewById(R.id.action_activate_signal).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activateSignal();
-
+                activateSignalPrompt();
             }
         });
+
+        checkSignalUsername();
 
         findViewById(R.id.action_configure_mic).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,6 +151,24 @@ public class SettingsActivity extends AppCompatActivity {
 		askForPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, 1);
 
 	}
+
+	private void checkSignalUsername ()
+    {
+        if (preferences.getSignalUsername() != null)
+        {
+            TextView tv = (TextView)findViewById(R.id.label_signal_status);
+            tv.setText("Current Signal Number: " + preferences.getSignalUsername());
+
+            Button btnTestSignal = (Button)findViewById(R.id.action_test_signal);
+            btnTestSignal.setVisibility(View.VISIBLE);
+            btnTestSignal.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    sendTestSignal();
+                }
+            });
+        }
+    }
 
 	@Override
 	public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -287,11 +313,107 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
-    private void activateSignal ()
+    private void activateSignalPrompt ()
     {
-        SignalSender.getInstance(this).register("+17185697272");
-      //  SignalSender.getInstance(this).verify("+17185697272","484177");
+        // setup the alert builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
+        //number of code
+        final EditText input = new EditText(this);
+
+        // add a button
+        builder.setPositiveButton("Register", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                preferences.setSignalUsername(input.getText().toString());
+                activateSignal(input.getText().toString(),null);
+                checkSignalUsername();
+            }
+        });
+
+        // add a button
+        builder.setNeutralButton("Verify", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                activateSignal(preferences.getSignalUsername(),input.getText().toString());
+            }
+        });
+        // add a button
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+
+        // create and show the alert dialog
+        AlertDialog dialog = builder.create();
+
+        dialog.setTitle("Active Signal");
+        dialog.setMessage("Register a new phone number ((+12125551212)) with Signal in order to send secure notifications");
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        input.setLayoutParams(lp);
+        dialog.setView(input); // uncomment this line
+
+        dialog.show();
+
+    }
+
+    private void activateSignal (String username, String verifyCode)
+    {
+        SignalSender sender =SignalSender.getInstance(this, username);
+
+        if (TextUtils.isEmpty(verifyCode))
+            sender.register();
+        else
+            sender.verify(verifyCode);
+
+    }
+
+    private void sendTestSignal ()
+    {
+
+        // setup the alert builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        //number of code
+        final EditText input = new EditText(this);
+
+        // add a button
+        builder.setPositiveButton("Send Test", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                SignalSender sender =SignalSender.getInstance(SettingsActivity.this, preferences.getSignalUsername());
+                ArrayList<String> recip = new ArrayList<>();
+                recip.add(input.getText().toString());
+                sender.sendMessage(recip,getString(R.string.signal_test_message));
+            }
+        });
+
+        // add a button
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+
+        // create and show the alert dialog
+        AlertDialog dialog = builder.create();
+
+        dialog.setTitle("Send Test Signal");
+        dialog.setMessage("Enter a phone number (+12125551212) to send a test message to");
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        input.setLayoutParams(lp);
+        dialog.setView(input); // uncomment this line
+
+        dialog.show();
     }
 }
 

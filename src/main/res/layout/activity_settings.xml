@@ -200,6 +200,29 @@
 			android:id="@+id/action_activate_signal"
 			/>
 	</LinearLayout>
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:paddingTop="10dp"
+
+		>
+
+		<TextView
+			android:id="@+id/label_signal_status"
+			android:text=""
+			android:layout_alignParentLeft="true"
+			android:layout_width="200dp"
+			android:layout_height="wrap_content"
+			/>
+		<Button
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Send Text Message"
+			android:id="@+id/action_test_signal"
+			android:visibility="gone"
+			/>
+	</LinearLayout>
 </LinearLayout>
 
 	</ScrollView>

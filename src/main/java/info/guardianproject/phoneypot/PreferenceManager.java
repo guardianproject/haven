@@ -53,12 +53,26 @@ public class PreferenceManager {
     private static final String REMOTE_ACCESS_ONION = "remote_access_onion";
     private static final String REMOTE_ACCESS_CRED = "remote_access_credential";
 
+    private static final String SIGNAL_USERNAME = "signal_username";
+
+
     private Context context;
 	
     public PreferenceManager(Context context) {
         this.context = context;
         this.appSharedPrefs = context.getSharedPreferences(APP_SHARED_PREFS, Activity.MODE_PRIVATE);
         this.prefsEditor = appSharedPrefs.edit();
+    }
+
+    public String getSignalUsername ()
+    {
+        return appSharedPrefs.getString(SIGNAL_USERNAME,null);
+    }
+
+    public void setSignalUsername (String signalUsername)
+    {
+        prefsEditor.putString(SIGNAL_USERNAME,signalUsername);
+        prefsEditor.commit();
     }
 
     public void activateRemoteAccess (boolean active) {
