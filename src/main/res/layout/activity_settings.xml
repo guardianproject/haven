@@ -148,20 +148,6 @@
 			app:text_size="16sp" />
 	</LinearLayout>
 	<CheckBox
-		android:id="@+id/remote_access_check"
-		android:text="@string/remote_access_label"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_centerHorizontal="true"
-		tools:context=".SettingsActivity" />
-	<EditText
-		android:id="@+id/remote_access_onion"
-		android:hint="@string/remote_access_hint"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_centerHorizontal="true"
-		tools:context=".SettingsActivity" />
-	<CheckBox
 		android:id="@+id/sms_check"
 		android:text="@string/sms_label"
 		android:layout_width="wrap_content"
@@ -178,6 +164,31 @@
 		android:layout_height="wrap_content"
 		android:paddingTop="10dp"
 		/>
+
+	<TextView
+		android:text="**** WARNING ADVANCED FEATURES ****"
+		android:layout_alignParentLeft="true"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:textStyle="bold"
+		android:textColor="@color/Red"
+		/>
+
+	<CheckBox
+		android:id="@+id/remote_access_check"
+		android:text="@string/remote_access_label"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		tools:context=".SettingsActivity" />
+	<EditText
+		android:id="@+id/remote_access_onion"
+		android:hint="@string/remote_access_hint"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		tools:context=".SettingsActivity" />
+
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
@@ -188,7 +199,7 @@
 
 		<TextView
 			android:id="@+id/label_signal"
-			android:text="Activate Secure Notifications"
+			android:text="@string/activate_signal"
 			android:layout_alignParentLeft="true"
 			android:layout_width="200dp"
 			android:layout_height="wrap_content"
@@ -196,8 +207,15 @@
 		<Button
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Activate Signal"
-			android:id="@+id/action_activate_signal"
+			android:text="@string/register"
+			android:id="@+id/action_register_signal"
+			/>
+
+		<Button
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/verify"
+			android:id="@+id/action_verify_signal"
 			/>
 	</LinearLayout>
 	<LinearLayout
@@ -218,7 +236,7 @@
 		<Button
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Send Text Message"
+			android:text="@string/send_test_message"
 			android:id="@+id/action_test_signal"
 			android:visibility="gone"
 			/>

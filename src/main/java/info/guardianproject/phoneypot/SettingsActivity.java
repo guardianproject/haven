@@ -125,17 +125,23 @@ public class SettingsActivity extends AppCompatActivity {
         {
             remoteAccessCheck.setChecked(true);
             remoteAccessOnion.setText(preferences.getRemoteAccessOnion() + ":" + WebServer.LOCAL_PORT);
-
         }
 
         timerDelay.setMaxValue(600);
         timerDelay.setMinValue(0);
         timerDelay.setValue(preferences.getTimerDelay());
 
-        findViewById(R.id.action_activate_signal).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.action_register_signal).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activateSignalPrompt();
+                registerSignalPrompt();
+            }
+        });
+
+        findViewById(R.id.action_verify_signal).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                verifySignalPrompt();
             }
         });
 
@@ -313,7 +319,7 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
-    private void activateSignalPrompt ()
+    private void verifySignalPrompt ()
     {
         // setup the alert builder
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -322,25 +328,14 @@ public class SettingsActivity extends AppCompatActivity {
         final EditText input = new EditText(this);
 
         // add a button
-        builder.setPositiveButton("Register", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                preferences.setSignalUsername(input.getText().toString());
-                resetSignal(preferences.getSignalUsername());
-                activateSignal(preferences.getSignalUsername(),null);
-                checkSignalUsername();
-            }
-        });
-
-        // add a button
-        builder.setNeutralButton("Verify", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.verify, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 activateSignal(preferences.getSignalUsername(),input.getText().toString());
             }
         });
         // add a button
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
@@ -351,8 +346,51 @@ public class SettingsActivity extends AppCompatActivity {
         // create and show the alert dialog
         AlertDialog dialog = builder.create();
 
-        dialog.setTitle("Active Signal");
-        dialog.setMessage("Register a new phone number ((+12125551212)) with Signal in order to send secure notifications");
+        dialog.setTitle(getString(R.string.verify_signal));
+        dialog.setMessage(getString(R.string.enter_verification));
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        input.setLayoutParams(lp);
+        dialog.setView(input); // uncomment this line
+
+        dialog.show();
+
+    }
+
+    private void registerSignalPrompt ()
+    {
+        // setup the alert builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        //number of code
+        final EditText input = new EditText(this);
+
+        // add a button
+        builder.setPositiveButton(R.string.register, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                preferences.setSignalUsername(input.getText().toString());
+                resetSignal(preferences.getSignalUsername());
+                activateSignal(preferences.getSignalUsername(),null);
+                checkSignalUsername();
+            }
+        });
+
+        // add a button
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+
+        // create and show the alert dialog
+        AlertDialog dialog = builder.create();
+
+        dialog.setTitle(getString(R.string.register_title));
+        dialog.setMessage(getString(R.string.register_signal_desc));
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);

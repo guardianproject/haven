@@ -39,11 +39,11 @@
     </string>
 
     <string name="sms_label">
-    	Send an SMS alert when detection occurs
+    	Send an text message alert when detection occurs
     </string>
 
     <string name="sms_hint">
-    	Phone
+    	Phone number(s) to send notification to
     </string>
 
     <string name="unlock_code_hint">
@@ -128,4 +128,13 @@
     <string name="data_power">POWER</string>
     <string name="share_event_action">Share event...</string>
     <string name="signal_test_message">This is a test message from Haven</string>
+    <string name="send_test_message">Send Test Message</string>
+    <string name="verify">Verify</string>
+    <string name="register">Register</string>
+    <string name="activate_signal">Activate Signal</string>
+    <string name="verify_signal">Verify Signal</string>
+    <string name="enter_verification">Enter the verification code you received from the Signal registration step</string>
+    <string name="cancel">Cancel</string>
+    <string name="register_title">Register with Signal</string>
+    <string name="register_signal_desc">Register a new phone number (+12125551212) with Signal to send secure notifications. DO NOT USE YOUR EXISTING/PRIMARY SIGNAL NUMBER.</string>
 </resources>
