@@ -1,0 +1,3 @@
+[submodule "external/signal-cli"]
+	path = external/signal-cli
+	url = https://github.com/guardianproject/signal-cli-android.git
