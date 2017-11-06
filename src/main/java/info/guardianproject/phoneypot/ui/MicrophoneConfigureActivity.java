@@ -250,11 +250,13 @@ public class MicrophoneConfigureActivity extends AppCompatActivity implements Mi
             mNumberTrigger.invalidate();
         }
 
-        int perc = (int)((averageDB/140d)*100d);
+        int perc = (int)((averageDB/160d)*100d);
         mWaveAmpList.addFirst(new Integer((int)perc));
+
         if (mWaveAmpList.size() > mWaveform.width / mWaveform.barGap + 2) {
             mWaveAmpList.removeLast();
         }
+
         mWaveform.refresh();
         mTextLevel.setText(getString(R.string.current_noise_base) + ' ' + ((int)averageDB)+"db");
 
