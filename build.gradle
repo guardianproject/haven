@@ -86,7 +86,8 @@ android {
 
 dependencies {
 
-    compile project(':external:signal-cli')
+ //   compile project(':external:signal-cli')
+    compile 'com.github.guardianproject:signal-cli-android:-SNAPSHOT'
     compile 'com.android.support:support-v4:25.4.0'
     compile 'com.github.satyan:sugar:1.5'
     compile 'com.android.support:appcompat-v7:25.4.0'
