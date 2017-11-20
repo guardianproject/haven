@@ -1,6 +1,8 @@
 # PhoneyPot
 
-This project was based on original source code from the SecureIt project available at: https://github.com/mziccard/secureit
+# Authors and Attribution
+
+This project contains source code from the SecureIt project available at: https://github.com/mziccard/secureit Copyright (c) 2014 Marco Ziccardi
 
 # Application
 
