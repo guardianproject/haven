@@ -1,8 +1,12 @@
-# Haven (aka Phoneypot)
+# Haven: Protect Yourself
 
 ## About
 
-Haven is an android application that serves as a monitoring service by leveraging on-device sensors. The follow sensors are monitored for a measurable change, and then recorded to an event log on the device:
+Haven (formerly known as "Phoneypot") is an Android application that leverages on-device sensors to provide monitoring and protection of physical spaces.
+
+### Sensors
+
+The follow sensors are monitored for a measurable change, and then recorded to an event log on the device:
 
 -   **Accelerometer**: phone's motion and vibration
 -   **Camera**: motion in the phone's visible surroundings from front or back camera
