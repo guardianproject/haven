@@ -33,6 +33,7 @@ import java.util.Date;
 import java.util.StringTokenizer;
 
 import info.guardianproject.phoneypot.MonitorActivity;
+import info.guardianproject.phoneypot.PhoneyPotApp;
 import info.guardianproject.phoneypot.R;
 import info.guardianproject.phoneypot.PreferenceManager;
 import info.guardianproject.phoneypot.model.Event;
@@ -63,7 +64,7 @@ public class MonitorService extends Service {
 	/**
 	 * Object used to retrieve shared preferences
 	 */
-	private PreferenceManager prefs = null;
+	private PreferenceManager mPrefs = null;
 
 
 	/**
@@ -106,9 +107,10 @@ public class MonitorService extends Service {
     PowerManager.WakeLock wakeLock;
 
     /*
-    ** Onion-available Web Server for optional remote access
+    **
+    * Application
      */
-    WebServer mOnionServer = null;
+    PhoneyPotApp mApp = null;
 
 	/**
 	 * Called on service creation, sends a notification
@@ -118,11 +120,13 @@ public class MonitorService extends Service {
 
         sInstance = this;
 
-        manager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-        prefs = new PreferenceManager(this);
+        mApp = (PhoneyPotApp)getApplication();
 
-        if (prefs.getRemoteAccessActive())
-            startServer();
+        manager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+        mPrefs = new PreferenceManager(this);
+
+     //   if (mPrefs.getRemoteAccessActive())
+       //     startServer();
 
         startSensors();
 
@@ -148,10 +152,6 @@ public class MonitorService extends Service {
 
         wakeLock.release();
         stopSensors();
-
-        if (mOnionServer != null)
-            mOnionServer.stop();
-
 		stopForeground(true);
 
 
@@ -215,13 +215,13 @@ public class MonitorService extends Service {
     {
         mIsRunning = true;
 
-        if (prefs.getAccelerometerSensitivity() != PreferenceManager.OFF) {
+        if (mPrefs.getAccelerometerSensitivity() != PreferenceManager.OFF) {
             mAccelManager = new AccelerometerMonitor(this);
             mBaroMonitor = new BarometerMonitor(this);
             mLightMonitor = new AmbientLightMonitor(this);
         }
 
-        if (prefs.getMicrophoneSensitivity() != PreferenceManager.OFF)
+        if (mPrefs.getMicrophoneSensitivity() != PreferenceManager.OFF)
             mMicMonitor = new MicrophoneMonitor(this);
 
 
@@ -231,13 +231,13 @@ public class MonitorService extends Service {
     {
         mIsRunning = false;
 
-        if (prefs.getAccelerometerSensitivity() != PreferenceManager.OFF) {
+        if (mPrefs.getAccelerometerSensitivity() != PreferenceManager.OFF) {
             mAccelManager.stop(this);
             mBaroMonitor.stop(this);
             mLightMonitor.stop(this);
         }
 
-        if (prefs.getMicrophoneSensitivity() != PreferenceManager.OFF)
+        if (mPrefs.getMicrophoneSensitivity() != PreferenceManager.OFF)
             mMicMonitor.stop(this);
     }
 
@@ -276,18 +276,18 @@ public class MonitorService extends Service {
             StringBuffer alertMessage = new StringBuffer();
             alertMessage.append(getString(R.string.intrusion_detected,eventTrigger.getStringType()));
 
-            if (prefs.getSignalUsername() != null)
+            if (mPrefs.getSignalUsername() != null)
             {
                 //since this is a secure channel, we can add the Onion address
-                if (prefs.getRemoteAccessActive() && (!TextUtils.isEmpty(prefs.getRemoteAccessOnion())))
+                if (mPrefs.getRemoteAccessActive() && (!TextUtils.isEmpty(mPrefs.getRemoteAccessOnion())))
                 {
-                    alertMessage.append(" http://").append(prefs.getRemoteAccessOnion())
+                    alertMessage.append(" http://").append(mPrefs.getRemoteAccessOnion())
                             .append(':').append(WebServer.LOCAL_PORT);
                 }
 
-                SignalSender sender = SignalSender.getInstance(this,prefs.getSignalUsername());
+                SignalSender sender = SignalSender.getInstance(this,mPrefs.getSignalUsername());
                 ArrayList<String> recips = new ArrayList<>();
-                StringTokenizer st = new StringTokenizer(prefs.getSmsNumber(),",");
+                StringTokenizer st = new StringTokenizer(mPrefs.getSmsNumber(),",");
                 while (st.hasMoreTokens())
                     recips.add(st.nextToken());
 
@@ -299,11 +299,11 @@ public class MonitorService extends Service {
 
                 sender.sendMessage(recips,alertMessage.toString(), attachment);
             }
-            else if (prefs.getSmsActivation())
+            else if (mPrefs.getSmsActivation())
             {
                 SmsManager manager = SmsManager.getDefault();
 
-                StringTokenizer st = new StringTokenizer(prefs.getSmsNumber(),",");
+                StringTokenizer st = new StringTokenizer(mPrefs.getSmsNumber(),",");
                 while (st.hasMoreTokens())
                     manager.sendTextMessage(st.nextToken(), null, alertMessage.toString(), null, null);
 
@@ -315,16 +315,5 @@ public class MonitorService extends Service {
 
     }
 
-    private void startServer ()
-    {
-        try {
-            mOnionServer = new WebServer();
-            mOnionServer.setPassword("foobar");
-        }
-        catch (IOException ioe)
-        {
-            Log.e("OnioNServer","unable to start onion server",ioe);
-        }
-    }
 
 }

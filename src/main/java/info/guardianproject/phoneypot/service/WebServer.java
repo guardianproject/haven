@@ -42,6 +42,7 @@ public class WebServer extends NanoHTTPD {
     public Response serve(IHTTPSession session) {
 
         StringBuffer page = new StringBuffer();
+        Cookie cookie = null;
 
         if (mPassword != null)
         {
@@ -50,12 +51,12 @@ public class WebServer extends NanoHTTPD {
 
             if (inPassword != null && mPassword.equals(inPassword)) {
                 mSession = UUID.randomUUID().toString();
-                session.getCookies().set("sid",mSession,-1);
+                cookie = new OnionCookie ("sid",mSession,100000);
+                session.getCookies().set(cookie);
             }
-            else if (inSid != null && (!mSession.equals(inSid))) {
+            else if (inSid == null || (inSid != null && (!mSession.equals(inSid)))) {
                 showLogin(page);
                 return newFixedLengthResponse(page.toString());
-
             }
         }
 
@@ -74,7 +75,6 @@ public class WebServer extends NanoHTTPD {
                 File fileMedia = new File(eventTrigger.getPath());
                 FileInputStream fis = new FileInputStream(fileMedia);
                 Response res = newChunkedResponse(Response.Status.OK, getMimeType(eventTrigger), fis);
-          //      res.addHeader("Content-Disposition", "attachment; filename=\"" + fileMedia.getName() + "\"");
                 return res;
 
             }
@@ -106,10 +106,14 @@ public class WebServer extends NanoHTTPD {
             }
 
             page.append("</body></html>\n");
-            return newFixedLengthResponse(page.toString());
+            Response response = newFixedLengthResponse(page.toString());
+            session.getCookies().unloadQueue(response);
+            return response;
         }
 
-        return newFixedLengthResponse(Response.Status.INTERNAL_ERROR,"text/plain","Error");
+        Response response = newFixedLengthResponse(Response.Status.INTERNAL_ERROR,"text/plain","Error");
+        session.getCookies().unloadQueue(response);
+        return response;
     }
 
     private void showLogin (StringBuffer page) {
@@ -204,6 +208,18 @@ public class WebServer extends NanoHTTPD {
 
         return sType;
 
+    }
+
+    class OnionCookie extends Cookie
+    {
+
+        public OnionCookie(String name, String value, int numDays) {
+            super(name, value, numDays);
+        }
+
+        public String getHTTPHeader() {
+           return super.getHTTPHeader() + "; path=/";
+        }
     }
 
 }

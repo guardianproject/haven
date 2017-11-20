@@ -97,7 +97,7 @@
 
     <string name="remote_access_label">Enable remote access via Tor Onion Service</string>
     <string name="remote_access_hint">(onion service address will be displayed here)</string>
-
+    <string name="remote_access_credential_hint">Set remote access password here</string>
     <string name="camera_front">Front</string>
     <string name="camera_back">Back</string>
     <string name="camera_none">None</string>

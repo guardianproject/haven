@@ -23,8 +23,11 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -51,24 +54,28 @@ import me.angrybyte.numberpicker.view.ActualNumberPicker;
 public class SettingsActivity extends AppCompatActivity {
 	
 	private PreferenceManager preferences = null;
+    private PhoneyPotApp app = null;
+    private EditText remoteAccessCredential;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
         setContentView(R.layout.activity_settings);
 
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         preferences = new PreferenceManager(this.getApplicationContext());
-        
+
+        app = (PhoneyPotApp)getApplication();
+
         /*
          * We create an application directory to store images and audio
          */
-        File directory = new File(Environment.getExternalStorageDirectory()+preferences.getDirPath());
+        File directory = new File(Environment.getExternalStorageDirectory() + preferences.getDirPath());
         directory.mkdirs();
-        
+
         /**
          * Checkboxes for enabled app options
          */
@@ -77,54 +84,66 @@ public class SettingsActivity extends AppCompatActivity {
 
 
         final EditText phoneNumber = (EditText)
-        		this.findViewById(R.id.phone_number);
+                this.findViewById(R.id.phone_number);
 
         final EditText remoteAccessOnion = (EditText)
                 this.findViewById(R.id.remote_access_onion);
+
+        remoteAccessCredential = (EditText)
+                this.findViewById(R.id.remote_access_credential);
+
 
         final ActualNumberPicker timerDelay = (ActualNumberPicker)
                 this.findViewById(R.id.timer_delay);
 
         smsCheck.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-			
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				if (isChecked) {
-                    askForPermission(Manifest.permission.SEND_SMS,6);
-        		}
-			}
-		});
+
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    askForPermission(Manifest.permission.SEND_SMS, 6);
+                }
+            }
+        });
 
         remoteAccessCheck.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
                     checkRemoteAccessOnion();
+                    app.startServer();
+                }
+                else
+                {
+                    app.stopServer();
                 }
             }
         });
 
-
         if (preferences.getCameraActivation()) {
 
             String camera = preferences.getCamera();
-        	if (camera.equals(PreferenceManager.FRONT))
-                ((RadioButton)findViewById(R.id.radio_camera_front)).setChecked(true);
-        	else if (camera.equals(PreferenceManager.BACK))
-                ((RadioButton)findViewById(R.id.radio_camera_back)).setChecked(true);
+            if (camera.equals(PreferenceManager.FRONT))
+                ((RadioButton) findViewById(R.id.radio_camera_front)).setChecked(true);
+            else if (camera.equals(PreferenceManager.BACK))
+                ((RadioButton) findViewById(R.id.radio_camera_back)).setChecked(true);
             else if (camera.equals(PreferenceManager.OFF))
-                ((RadioButton)findViewById(R.id.radio_camera_none)).setChecked(true);
+                ((RadioButton) findViewById(R.id.radio_camera_none)).setChecked(true);
 
         }
 
         if (preferences.getSmsActivation()) {
-        	smsCheck.setChecked(true);
-        	phoneNumber.setText(preferences.getSmsNumber());
+            smsCheck.setChecked(true);
+            phoneNumber.setText(preferences.getSmsNumber());
         }
 
-        if (preferences.getRemoteAccessActive())
-        {
+        if (preferences.getRemoteAccessActive()) {
             remoteAccessCheck.setChecked(true);
             remoteAccessOnion.setText(preferences.getRemoteAccessOnion() + ":" + WebServer.LOCAL_PORT);
+        }
+
+        if (!TextUtils.isEmpty(preferences.getRemoteAccessCredential()))
+        {
+            ((EditText)findViewById(R.id.remote_access_credential)).setText(preferences.getRemoteAccessCredential());
         }
 
         timerDelay.setMaxValue(600);
@@ -240,6 +259,15 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         preferences.activateRemoteAccess(remoteAccessCheck.isChecked());
+
+        String password = remoteAccessCredential.getText().toString();
+        if (TextUtils.isEmpty(preferences.getRemoteAccessCredential())
+                || (!password.equals(preferences.getRemoteAccessCredential()))) {
+            preferences.setRemoteAccessCredential(password);
+            app.stopServer();
+            app.startServer();
+        }
+
 
         preferences.setTimerDelay(timerDelay.getValue());
 
