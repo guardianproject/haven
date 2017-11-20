@@ -1,14 +1,14 @@
-# PhoneyPot
+# Haven (aka Phoneypot)
 
-This project was based on original source code from the SecureIt project available at: https://github.com/mziccard/secureit
+# About
 
-# Application
+Haven is an android application that serves as a monitoring service by leveraging on-device sensors. The follow sensors are monitored for a measurable change, and then recorded to an event log on the device:
 
-Prototype Android application that serves as a monitoring service by leveraging on device sensors. Among sensors exploited we report:
-
--   **Accelerometer**: used to detect phone's motion and vibration
--   **Camera**: used to detect motion in the phone's surroundings 
--   **Microphone**: used to detected noises in the enviroment
+-   **Accelerometer**: phone's motion and vibration
+-   **Camera**: motion in the phone's visible surroundings from front or back camera
+-   **Microphone**: noises in the enviroment
+-   **Light**: change in light from ambient light sensor
+-   **Power**: detect device being unplugged or power loss  
 
 # Building
 
@@ -25,10 +25,17 @@ Application's main view allows the user to set which sensors to use and the corr
 When one of the sensors is triggered (reaches the sensibility threshold) a notifications is sent through the following channels (if enabled).
 
 - SMS: a message is sent to the number specified when monitoring started
+- Signal: if configured, can send end-to-end encryption notifications via Signal
 
 Notifications are sent through a service running in background that is defined in class `MonitorService`.
 
+# Remote Access
+
+All event logs and captured media can be remotely accessed through a Tor Onion Service. Haven must be configured as an Onion Service, and requires the device to also have Orbot: Tor for Android installed and running. 
+
 # ATTRIBUTIONS
+
+This project contains source code from the SecureIt project available at: https://github.com/mziccard/secureit Copyright (c) 2014 Marco Ziccardi
 
 This project uses libsignal-service-java from Open Whisper Systems:
 
