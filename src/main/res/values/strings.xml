@@ -23,7 +23,7 @@
     </string>
 
     <string name="timer_delay_label">
-    	Set the start delay time (seconds)
+    	Set Delay Time
     </string>
 
     <string name="microphone_label">
@@ -39,11 +39,11 @@
     </string>
 
     <string name="sms_label">
-    	Send an text message alert when detection occurs
+    	Send SMS or Signal message alert when detection occurs
     </string>
 
     <string name="sms_hint">
-    	Phone number(s) to send notification to
+    	Phone number(s) to send notification to (SMS / Signal)
     </string>
 
     <string name="unlock_code_hint">
@@ -96,8 +96,8 @@
     <string name="onboarding_action_end">Finish</string>
 
     <string name="remote_access_label">Enable remote access via Tor Onion Service</string>
-    <string name="remote_access_hint">(onion service address will be displayed here)</string>
-    <string name="remote_access_credential_hint">Set remote access password here</string>
+    <string name="remote_access_hint">Onion service address from Orbot</string>
+    <string name="remote_access_credential_hint">Set remote password</string>
     <string name="camera_front">Front</string>
     <string name="camera_back">Back</string>
     <string name="camera_none">None</string>
@@ -137,4 +137,5 @@
     <string name="cancel">Cancel</string>
     <string name="register_title">Register with Signal</string>
     <string name="register_signal_desc">Register a new phone number (+12125551212) with Signal to send secure notifications. DO NOT USE YOUR EXISTING/PRIMARY SIGNAL NUMBER.</string>
+    <string name="phone_hint">+12125551212</string>
 </resources>

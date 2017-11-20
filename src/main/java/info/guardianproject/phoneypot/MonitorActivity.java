@@ -24,6 +24,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
@@ -67,7 +68,7 @@ public class MonitorActivity extends FragmentActivity {
         viewTimer = findViewById(R.id.timer_container);
 
         int timeM = preferences.getTimerDelay()*1000;
-        String timerText = String.format(Locale.getDefault(), "%02d:%02d",
+        String timerText = String.format(Locale.getDefault(), "%02dm %02ds",
                 TimeUnit.MILLISECONDS.toMinutes(timeM) % 60,
                 TimeUnit.MILLISECONDS.toSeconds(timeM) % 60);
 
@@ -76,7 +77,7 @@ public class MonitorActivity extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 if (cTimer == null)
-                    showNumberPicker();
+                    showTimeDelayDialog();
 
             }
         });
@@ -84,7 +85,7 @@ public class MonitorActivity extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 if (cTimer == null)
-                    showNumberPicker();
+                    showTimeDelayDialog();
 
             }
         });
@@ -141,7 +142,7 @@ public class MonitorActivity extends FragmentActivity {
     {
         preferences.setTimerDelay(val);
         int valM = val * 1000;
-        String timerText = String.format(Locale.getDefault(), "%02d:%02d",
+        String timerText = String.format(Locale.getDefault(), "%02dm %02ds",
                 TimeUnit.MILLISECONDS.toMinutes(valM) % 60,
                 TimeUnit.MILLISECONDS.toSeconds(valM) % 60);
 
@@ -272,18 +273,58 @@ public class MonitorActivity extends FragmentActivity {
 		close();
     }
 
-    private void showNumberPicker ()
+    private void showTimeDelayDialog ()
     {
-        final NumberPicker picker = new NumberPicker(this);
-        picker.setMinValue(1);
-        picker.setMaxValue(60*30);
-        picker.setValue(preferences.getTimerDelay());
+        int totalSecs = preferences.getTimerDelay();
 
-        final FrameLayout layout = new FrameLayout(this);
-        layout.addView(picker, new FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.WRAP_CONTENT,
-                FrameLayout.LayoutParams.WRAP_CONTENT,
-                Gravity.CENTER));
+        int hours = totalSecs / 3600;
+        int minutes = (totalSecs % 3600) / 60;
+        int seconds = totalSecs % 60;
+
+
+        final NumberPicker pickerMinutes = new NumberPicker(this);
+        pickerMinutes.setMinValue(0);
+        pickerMinutes.setMaxValue(59);
+        pickerMinutes.setValue(minutes);
+
+        final NumberPicker pickerSeconds = new NumberPicker(this);
+        pickerSeconds.setMinValue(0);
+        pickerSeconds.setMaxValue(59);
+        pickerSeconds.setValue(seconds);
+
+        final TextView textViewMinutes = new TextView(this);
+        textViewMinutes.setText("m");
+        textViewMinutes.setTextSize(30);
+        textViewMinutes.setGravity(Gravity.CENTER_VERTICAL);
+
+        final TextView textViewSeconds = new TextView(this);
+        textViewSeconds.setText("s");
+        textViewSeconds.setTextSize(30);
+        textViewSeconds.setGravity(Gravity.CENTER_VERTICAL);
+
+
+        final LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.HORIZONTAL);
+        layout.addView(pickerMinutes, new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                Gravity.LEFT));
+
+        layout.addView(textViewMinutes, new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                Gravity.LEFT|Gravity.BOTTOM));
+
+        layout.addView(pickerSeconds, new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                Gravity.LEFT));
+
+        layout.addView(textViewSeconds, new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                Gravity.LEFT|Gravity.BOTTOM));
+
 
         new AlertDialog.Builder(this)
                 .setView(layout)
@@ -291,7 +332,8 @@ public class MonitorActivity extends FragmentActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         // do something with picker.getValue()
-                        updateTimerValue (picker.getValue());
+                        int delaySeconds = pickerSeconds.getValue() + (pickerMinutes.getValue() * 60);
+                        updateTimerValue (delaySeconds);
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, null)

@@ -23,10 +23,13 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -93,14 +96,12 @@ public class SettingsActivity extends AppCompatActivity {
                 this.findViewById(R.id.remote_access_credential);
 
 
-        final ActualNumberPicker timerDelay = (ActualNumberPicker)
-                this.findViewById(R.id.timer_delay);
-
         smsCheck.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
+                if (isChecked && TextUtils.isEmpty(preferences.getSignalUsername())) {
                     askForPermission(Manifest.permission.SEND_SMS, 6);
+                    askForPermission(Manifest.permission.READ_PHONE_STATE,6);
                 }
             }
         });
@@ -146,10 +147,6 @@ public class SettingsActivity extends AppCompatActivity {
             ((EditText)findViewById(R.id.remote_access_credential)).setText(preferences.getRemoteAccessCredential());
         }
 
-        timerDelay.setMaxValue(600);
-        timerDelay.setMinValue(0);
-        timerDelay.setValue(preferences.getTimerDelay());
-
         findViewById(R.id.action_register_signal).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -170,6 +167,13 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(SettingsActivity.this, MicrophoneConfigureActivity.class));
+            }
+        });
+
+        findViewById(R.id.action_configure_time).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTimeDelayDialog();
             }
         });
 
@@ -236,9 +240,6 @@ public class SettingsActivity extends AppCompatActivity {
         EditText phoneNumber = (EditText)
                 this.findViewById(R.id.phone_number);
 
-        ActualNumberPicker timerDelay = (ActualNumberPicker)
-                this.findViewById(R.id.timer_delay);
-
         CheckBox smsCheck = (CheckBox) this.findViewById(R.id.sms_check);
         CheckBox remoteAccessCheck = (CheckBox) this.findViewById(R.id.remote_access_check);
 
@@ -267,9 +268,6 @@ public class SettingsActivity extends AppCompatActivity {
             app.stopServer();
             app.startServer();
         }
-
-
-        preferences.setTimerDelay(timerDelay.getValue());
 
         setResult(RESULT_OK);
 
@@ -354,6 +352,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         //number of code
         final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_NUMBER);
 
         // add a button
         builder.setPositiveButton(R.string.verify, new DialogInterface.OnClickListener() {
@@ -370,7 +369,6 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-
         // create and show the alert dialog
         AlertDialog dialog = builder.create();
 
@@ -379,6 +377,7 @@ public class SettingsActivity extends AppCompatActivity {
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
+        lp.setMargins(6,6,6,6);
         input.setLayoutParams(lp);
         dialog.setView(input); // uncomment this line
 
@@ -393,12 +392,18 @@ public class SettingsActivity extends AppCompatActivity {
 
         //number of code
         final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_PHONE);
+        input.setLines(1);
+        input.setHint(R.string.phone_hint);
 
         // add a button
         builder.setPositiveButton(R.string.register, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                preferences.setSignalUsername(input.getText().toString());
+                String signalNum = input.getText().toString();
+                signalNum = "+" + signalNum.replaceAll("[^0-9]", "");
+
+                preferences.setSignalUsername(signalNum);
                 resetSignal(preferences.getSignalUsername());
                 activateSignal(preferences.getSignalUsername(),null);
                 checkSignalUsername();
@@ -422,6 +427,7 @@ public class SettingsActivity extends AppCompatActivity {
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
+        lp.setMargins(6,6,6,6);
         input.setLayoutParams(lp);
         dialog.setView(input); // uncomment this line
 
@@ -454,6 +460,12 @@ public class SettingsActivity extends AppCompatActivity {
 
         //number of code
         final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_PHONE);
+
+        if (!TextUtils.isEmpty(preferences.getSmsNumber()))
+        {
+            input.setText(preferences.getSmsNumber());
+        }
 
         // add a button
         builder.setPositiveButton("Send Test", new DialogInterface.OnClickListener() {
@@ -483,10 +495,78 @@ public class SettingsActivity extends AppCompatActivity {
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
+        lp.setMargins(6,6,6,6);
         input.setLayoutParams(lp);
         dialog.setView(input); // uncomment this line
 
         dialog.show();
+    }
+
+    private void showTimeDelayDialog ()
+    {
+        int totalSecs = preferences.getTimerDelay();
+
+        int hours = totalSecs / 3600;
+        int minutes = (totalSecs % 3600) / 60;
+        int seconds = totalSecs % 60;
+
+
+        final NumberPicker pickerMinutes = new NumberPicker(this);
+        pickerMinutes.setMinValue(0);
+        pickerMinutes.setMaxValue(59);
+        pickerMinutes.setValue(minutes);
+
+        final NumberPicker pickerSeconds = new NumberPicker(this);
+        pickerSeconds.setMinValue(0);
+        pickerSeconds.setMaxValue(59);
+        pickerSeconds.setValue(seconds);
+
+        final TextView textViewMinutes = new TextView(this);
+        textViewMinutes.setText("m");
+        textViewMinutes.setTextSize(30);
+        textViewMinutes.setGravity(Gravity.CENTER_VERTICAL);
+
+        final TextView textViewSeconds = new TextView(this);
+        textViewSeconds.setText("s");
+        textViewSeconds.setTextSize(30);
+        textViewSeconds.setGravity(Gravity.CENTER_VERTICAL);
+
+
+        final LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.HORIZONTAL);
+        layout.addView(pickerMinutes, new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                Gravity.LEFT));
+
+        layout.addView(textViewMinutes, new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                Gravity.LEFT|Gravity.BOTTOM));
+
+        layout.addView(pickerSeconds, new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                Gravity.LEFT));
+
+        layout.addView(textViewSeconds, new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                Gravity.LEFT|Gravity.BOTTOM));
+
+
+        new android.app.AlertDialog.Builder(this)
+                .setView(layout)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // do something with picker.getValue()
+                        int delaySeconds = pickerSeconds.getValue() + (pickerMinutes.getValue() * 60);
+                        preferences.setTimerDelay(delaySeconds);
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, null)
+                .show();
     }
 }
 
