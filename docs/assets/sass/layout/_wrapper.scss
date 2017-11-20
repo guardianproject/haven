@@ -1,0 +1,26 @@
+///
+/// Phantom by HTML5 UP
+/// html5up.net | @ajlkn
+/// Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+///
+
+/* Wrapper */
+
+	#wrapper {
+		> * {
+			> .inner {
+				$gutter: _size(gutter);
+
+				width: 100%;
+				max-width: _size(inner);
+				margin: 0 auto;
+				padding: 0 $gutter;
+
+				@include breakpoint(small) {
+					$gutter: _size(gutter) * 0.5;
+
+					padding: 0 $gutter;
+				}
+			}
+		}
+	}

@@ -1,0 +1,50 @@
+///
+/// Phantom by HTML5 UP
+/// html5up.net | @ajlkn
+/// Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+///
+
+/* Icon */
+
+	.icon {
+		@include icon;
+		border-bottom: none;
+		position: relative;
+
+		> .label {
+			display: none;
+		}
+
+		&.style1 {
+		}
+
+		&.style2 {
+			@include vendor('transition', (
+				'background-color #{_duration(transition)} ease-in-out',
+				'color #{_duration(transition)} ease-in-out',
+				'border-color #{_duration(transition)} ease-in-out'
+			));
+			background-color: transparent;
+			border: solid 1px _palette(border);
+			border-radius: _size(border-radius);
+			width: 2.65em;
+			height: 2.65em;
+			display: inline-block;
+			text-align: center;
+			line-height: 2.65em;
+			color: inherit;
+
+			&:before {
+				font-size: 1.1em;
+			}
+
+			&:hover {
+				color: _palette(accent1);
+				border-color: _palette(accent1);
+			}
+
+			&:active {
+				background-color: transparentize(_palette(accent1), 0.9);
+			}
+		}
+	}
