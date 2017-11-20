@@ -1,8 +1,17 @@
-# Haven (aka Phoneypot)
+# Haven: Protect Yourself
 
 ## About
 
-Haven is an android application that serves as a monitoring service by leveraging on-device sensors. The follow sensors are monitored for a measurable change, and then recorded to an event log on the device:
+Haven is for people who need a way to protect their personal spaces and possessions without compromising their own privacy. It is an Android application that leverages on-device sensors to provide monitoring and protection of physical spaces. Haven turns any Android phone into a motion, sound, vibration and light detector, watching for unexpected guests and 
+unwanted intruders. Designed originally to defeat the infamous “evil maid” attack, Haven can provide protection in a wide variety of situations: protecting sensitive computers, monitoring offices and homes, detecting "wild life", capturing evidence of human rights violations and disappearances, as well as common vandalism and harassment.
+
+Haven only saves images and sound when triggered by motion or volume, and stores everything locally on the device. You can position the device's camera to capture visible motion, or set your phone somewhere discreet to just listen for noises. Get secure notifications of intrusion events instantly and access the logs remotely or anytime later.
+
+View our current presentation deck on the project at: https://github.com/guardianproject/phoneypot/blob/master/docs/Haven%20App%20Presentation.pdf
+
+### Sensors
+
+The follow sensors are monitored for a measurable change, and then recorded to an event log on the device:
 
 -   **Accelerometer**: phone's motion and vibration
 -   **Camera**: motion in the phone's visible surroundings from front or back camera
