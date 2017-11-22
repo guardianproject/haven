@@ -1,11 +1,11 @@
+<img src="https://raw.githubusercontent.com/guardianproject/haven/master/art/web_hi_res_512.png" width="25%">
+
 # Haven: Protect Yourself
-<img src="https://raw.githubusercontent.com/guardianproject/haven/master/art/screens/havenob1.png" width="25%"> <img src="https://raw.githubusercontent.com/guardianproject/haven/master/art/screens/havenob2.png" width="25%"> <img src="https://raw.githubusercontent.com/guardianproject/haven/master/art/screens/havenob3.png" width="25%">
-
-
-## About
 
 Haven is for people who need a way to protect their personal spaces and possessions without compromising their own privacy. It is an Android application that leverages on-device sensors to provide monitoring and protection of physical spaces. Haven turns any Android phone into a motion, sound, vibration and light detector, watching for unexpected guests and 
 unwanted intruders. Designed originally to defeat the infamous “evil maid” attack, Haven can provide protection in a wide variety of situations: protecting sensitive computers, monitoring offices and homes, detecting "wild life", capturing evidence of human rights violations and disappearances, as well as common vandalism and harassment.
+
+<img src="https://raw.githubusercontent.com/guardianproject/haven/master/art/screens/havenob1.png" width="25%"> <img src="https://raw.githubusercontent.com/guardianproject/haven/master/art/screens/havenob2.png" width="25%"> <img src="https://raw.githubusercontent.com/guardianproject/haven/master/art/screens/havenob3.png" width="25%">
 
 Haven only saves images and sound when triggered by motion or volume, and stores everything locally on the device. You can position the device's camera to capture visible motion, or set your phone somewhere discreet to just listen for noises. Get secure notifications of intrusion events instantly and access the logs remotely or anytime later.
 
