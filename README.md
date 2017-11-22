@@ -47,21 +47,15 @@ Notifications are sent through a service running in background that is defined i
 
 ### Remote Access
 
-All event logs and captured media can be remotely accessed through a Tor Onion Service. Haven must be configured as an Onion Service, and requires the device to also have Orbot: Tor for Android installed and running. 
+All event logs and captured media can be remotely accessed through a [Tor Onion Service](https://www.torproject.org/docs/onion-services). Haven must be configured as an Onion Service, and requires the device to also have [Orbot: Tor for Android](https://guardianproject.info/apps/orbot) installed and running. 
 
 ## ATTRIBUTIONS
 
 This project contains source code from the SecureIt project available at: https://github.com/mziccard/secureit Copyright (c) 2014 Marco Ziccardi
 
-This project uses libsignal-service-java from Open Whisper Systems:
-
-https://github.com/WhisperSystems/libsignal-service-java
-
+This project uses libsignal-service-java from Open Whisper Systems: https://github.com/WhisperSystems/libsignal-service-java
 Licensed under the GPLv3: http://www.gnu.org/licenses/gpl-3.0.html
 
-This project also used signal-cli from AsamK:
-
-https://github.com/AsamK/signal-cli
-
+This project also used signal-cli from AsamK: https://github.com/AsamK/signal-cli
 Licensed under the GPLv3: http://www.gnu.org/licenses/gpl-3.0.html
 
