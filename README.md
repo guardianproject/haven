@@ -13,6 +13,9 @@ View our current presentation deck on the project at: https://github.com/guardia
 
 ### Sensors
 
+
+<img src="https://raw.githubusercontent.com/guardianproject/haven/master/art/screens/haven-sound-config.png" width="25%"> <img src="https://raw.githubusercontent.com/guardianproject/haven/master/art/screens/haven-event-media.png" width="25%"> <img src="https://raw.githubusercontent.com/guardianproject/haven/master/art/screens/haven-event-list.png" width="25%">
+
 The follow sensors are monitored for a measurable change, and then recorded to an event log on the device:
 
 -   **Accelerometer**: phone's motion and vibration
