@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2017 Nathanial Freitas / Guardian Project
  *  * Licensed under the GPLv3 license.

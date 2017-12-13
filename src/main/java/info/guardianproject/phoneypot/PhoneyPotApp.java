@@ -1,22 +1,32 @@
+/*
+ * Copyright (c) 2017 Nathanial Freitas
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
+ *
+ *     This program is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
+ *
+ *     You should have received a copy of the GNU General Public License
+ *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package info.guardianproject.phoneypot;
 
-import android.app.Application;
 import android.support.multidex.MultiDexApplication;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.orm.SugarApp;
 import com.orm.SugarContext;
 
 import java.io.IOException;
-import java.util.prefs.Preferences;
 
 import info.guardianproject.phoneypot.service.WebServer;
-
-/**
- * Created by n8fr8 on 8/9/17.
- */
 
 public class PhoneyPotApp extends MultiDexApplication {
 
