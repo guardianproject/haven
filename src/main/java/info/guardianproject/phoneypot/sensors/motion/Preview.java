@@ -202,7 +202,19 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 
 			parameters.setPictureSize(w, h);
 			parameters.setPreviewSize(w,h);
-			parameters.setPreviewFpsRange(30000,30000);
+			//parameters.setPreviewFpsRange(30000,30000);
+
+			List<int[]> fpsRange = parameters.getSupportedPreviewFpsRange();
+            //
+            parameters.setPreviewFpsRange(fpsRange.get(fpsRange.size()-1)[1],fpsRange.get(fpsRange.size()-1)[1]);
+
+            // parameters.set("fast-fps-mode", 0); // 0 for 30fps
+            //parameters.set("focus-mode", "continuous-video");
+
+            //parameters.setPreviewFpsRange(30000, 30000);
+
+            // for auto focus
+
 
 			/*
 			 * If the flash is needed
@@ -320,19 +332,6 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 
 	public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
 		if (camera != null) {
-			// Now that the size is known, set up the camera parameters and begin
-			// the preview.
-			Camera.Parameters parameters = camera.getParameters();
-			//parameters.setPreviewSize(w, h)
-            //List<int[]> fpsRange = parameters.getSupportedPreviewFpsRange();
-            //parameters.setPreviewFpsRange(fpsRange.get(fpsRange.size()-1)[1],fpsRange.get(fpsRange.size()-1)[1]);
-
-            // for 30fps
-           // parameters.set("fast-fps-mode", 0); // 0 for 30fps
-            //parameters.setPreviewFpsRange(30000, 30000);
-
-            // for auto focus
-            //parameters.set("focus-mode", "continuous-video");
 
             int degree = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getRotation();
 			int displayOrientation = 0;
