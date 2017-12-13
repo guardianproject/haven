@@ -337,7 +337,10 @@ public class ListActivity extends AppCompatActivity {
         new LibsBuilder()
                 //provide a style (optional) (LIGHT, DARK, LIGHT_DARK_TOOLBAR)
                 .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
-                //start the activity
+                .withAboutIconShown(true)
+                .withAboutVersionShown(true)
+                .withAboutAppName(getString(R.string.app_name))
+                                //start the activity
                 .start(this);
     }
 }
