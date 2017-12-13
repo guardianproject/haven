@@ -1,6 +1,6 @@
-<img src="https://raw.githubusercontent.com/guardianproject/haven/master/art/web_hi_res_512.png" width="25%">
-
 # Haven: Protect Yourself
+
+<img src="https://raw.githubusercontent.com/guardianproject/haven/master/art/web_hi_res_512.png" width="25%">
 
 Haven is for people who need a way to protect their personal spaces and possessions without compromising their own privacy. It is an Android application that leverages on-device sensors to provide monitoring and protection of physical spaces. Haven turns any Android phone into a motion, sound, vibration and light detector, watching for unexpected guests and 
 unwanted intruders. Designed originally to defeat the infamous “evil maid” attack, Haven can provide protection in a wide variety of situations: protecting sensitive computers, monitoring offices and homes, detecting "wild life", capturing evidence of human rights violations and disappearances, as well as common vandalism and harassment.
