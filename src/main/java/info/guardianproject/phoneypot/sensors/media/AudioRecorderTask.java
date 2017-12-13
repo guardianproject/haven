@@ -51,7 +51,14 @@ public class AudioRecorderTask extends Thread {
 	public boolean isRecording() {
 		return recording;
 	}
-	
+
+	private AudioRecorderListener mListener;
+
+	public interface AudioRecorderListener
+	{
+		public void recordingComplete (String path);
+	}
+
 	/**
 	 * We make recorder protected in order to forse
 	 * Factory usage
@@ -112,6 +119,9 @@ public class AudioRecorderTask extends Thread {
         
         MicrophoneTaskFactory.restartSampling();
 
+        if (mListener != null)
+        	mListener.recordingComplete(audioPath.toString());
+
 	}
 
 	public String getAudioFilePath ()
@@ -119,4 +129,8 @@ public class AudioRecorderTask extends Thread {
 		return audioPath.toString();
 	}
 
+	public void setAudioRecorderListener (AudioRecorderListener listener)
+	{
+		mListener = listener;
+	}
 }
