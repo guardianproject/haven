@@ -71,7 +71,7 @@ android {
 
     defaultConfig {
         applicationId "info.guardianproject.phoneypot"
-        versionCode 18
+        versionCode 19
         versionName getVersionName()
         archivesBaseName = "Haven-$versionName"
         minSdkVersion 16
