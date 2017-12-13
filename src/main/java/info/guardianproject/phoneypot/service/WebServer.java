@@ -83,6 +83,11 @@ public class WebServer extends NanoHTTPD {
                 Log.e(TAG,"unable to return media file",ioe);
             }
         }
+        else if (uri.getPath().startsWith("/feed"))
+        {
+            //do RSS feed
+
+        }
         else {
             page.append("<html><head><title>" + appTitle + "</title>");
             page.append("<meta http-equiv=\"Content-Type\" content=\"application/xhtml+xml; charset=utf-8\" />");
