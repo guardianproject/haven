@@ -19,7 +19,7 @@ public class LuminanceMotionDetector implements IMotionDetector {
 	/**
 	 * Difference in number of pixel for each image
 	 */
-	private int NUMBER_THRESHOLD = 10000;
+	private int NUMBER_THRESHOLD = 5000;
 	
 	/**
 	 * Levels of motion detection
@@ -43,8 +43,8 @@ public class LuminanceMotionDetector implements IMotionDetector {
 			NUMBER_THRESHOLD = 10000;
 			break;
 		case MOTION_HIGH:
-			VALUE_THRESHOLD = 40;
-			NUMBER_THRESHOLD = 9000;
+			VALUE_THRESHOLD = 20;
+			NUMBER_THRESHOLD = 2000;
 			break;
 		}
 		

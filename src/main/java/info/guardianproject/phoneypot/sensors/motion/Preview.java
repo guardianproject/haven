@@ -202,18 +202,19 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 
 			parameters.setPictureSize(w, h);
 			parameters.setPreviewSize(w,h);
-			//parameters.setPreviewFpsRange(30000,30000);
+			parameters.setPreviewFpsRange(15000,30000);
 
-			List<int[]> fpsRange = parameters.getSupportedPreviewFpsRange();
+//			/List<int[]> fpsRange = parameters.getSupportedPreviewFpsRange();
             //
-            parameters.setPreviewFpsRange(fpsRange.get(fpsRange.size()-1)[1],fpsRange.get(fpsRange.size()-1)[1]);
+          //  parameters.setPreviewFpsRange(fpsRange.get(fpsRange.size()-1)[1],fpsRange.get(fpsRange.size()-1)[1]);
 
-            // parameters.set("fast-fps-mode", 0); // 0 for 30fps
-            //parameters.set("focus-mode", "continuous-video");
+            /**
+            if (parameters.isAutoWhiteBalanceLockSupported())
+                parameters.setAutoWhiteBalanceLock(true);
 
-            //parameters.setPreviewFpsRange(30000, 30000);
-
-            // for auto focus
+            if (parameters.isAutoExposureLockSupported())
+                parameters.setAutoExposureLock(true);
+             **/
 
 
 			/*

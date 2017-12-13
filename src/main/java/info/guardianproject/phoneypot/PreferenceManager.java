@@ -145,7 +145,7 @@ public class PreferenceManager {
     }
     
     public String getCameraSensitivity() {
-    	return appSharedPrefs.getString(CAMERA_SENSITIVITY, MEDIUM);
+    	return appSharedPrefs.getString(CAMERA_SENSITIVITY, HIGH);
     }
     
     public void activateFlash(boolean active) {
