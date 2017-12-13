@@ -6,8 +6,6 @@
     <string name="menu_start">Iniciar</string>
     <string name="menu_save">Guardar</string>
     <string name="menu_remote_access">Acceso Remoto</string>
-    <string name="menu_about">Acerca de</string>
-
     <string name="title_activity_start">Haven</string>
 
     <string name="accelerometer_prompt">
@@ -19,9 +17,6 @@ Sensibilidad de Sonido</string>
     <string name="camera_sensitivity">
 Sensibilidad de movimiento de la camara</string>
 
-    <string name="timer_delay_label">
-Tiempo de espera para activacion (segundos)</string>
-
     <string name="microphone_label">
 Usar el microfono para detectar sonidos</string>
 
@@ -30,12 +25,6 @@ Seleccionar Camara</string>
 
     <string name="flash_label">
 Activar Flash</string>
-
-    <string name="sms_label">
-Enviar un texto cuando ocurra una activacion</string>
-
-    <string name="sms_hint">
-Telefono</string>
 
     <string name="unlock_code_hint">
 Codigo para detener la aplicacion</string>
@@ -86,8 +75,6 @@ discreto para escuchar sonidos. </string>
     <string name="onboarding_action_end">Terminar</string>
 
     <string name="remote_access_label">Habilitar acceso remoto via Tor Onion Service</string>
-    <string name="remote_access_hint">( La direccion del servicio de Onion sera mostrada aqui)</string>
-
     <string name="camera_front">Frente</string>
     <string name="camera_back">Atras</string>
     <string name="camera_none">Ninguna</string>
@@ -112,10 +99,10 @@ para determinar el nivel exacto de deteccion</string>
     <string name="you_will_receive_a_text_when_the_app_hears_or_sees_something">Recubiras un texto cuando la aplicacion escuche o vea algo</string>
     <string name="know_immediately_when_haven_detects_something">Recibe una notificacion inmediata si la aplicacion detecta algo</string>
     <string name="phone_saved">Numero de telefono guardado!</string>
-    <string name="detection_events">Eventos Detectados</string> 
+    <string name="detection_events">Eventos Detectados</string>
     <string name="data_speed">Velocidad</string>
     <string name="data_light">Luz</string>
     <string name="data_pressure">Presion</string>
     <string name="data_power">Cargando</string>
     <string name="share_event_action">Compartir evento</string>
-</resources>
+    </resources>
