@@ -10,6 +10,20 @@ buildscript {
 
 }
 
+
+
+/* gets the version name from the latest Git tag, stripping the leading v off */
+def getVersionName = { ->
+    def stdout = new ByteArrayOutputStream()
+    exec {
+        commandLine 'git', 'describe', '--tags', '--always', '--abbrev=0'
+        standardOutput = stdout
+    }
+    return stdout.toString().trim()
+}
+
+
+
 apply plugin: 'com.android.application'
 
 repositories {
@@ -22,7 +36,7 @@ repositories {
 allprojects {
     project.ext {
         // these are common variables used in */build.gradle
-        version_number="0.0.18"
+        version_number=getVersionName()
         group_info="haven"
         signal_version="2.3.0"
         buildToolsVersion="26.0.2"
@@ -113,14 +127,3 @@ dependencies {
     }
 
 }
-
-/* gets the version name from the latest Git tag, stripping the leading v off */
-def getVersionName = { ->
-    def stdout = new ByteArrayOutputStream()
-    exec {
-        commandLine 'git', 'describe', '--tags', '--always', '--abbrev=0'
-        standardOutput = stdout
-    }
-    return stdout.toString().trim()
-}
-
