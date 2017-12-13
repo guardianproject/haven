@@ -118,7 +118,7 @@ public class PreferenceManager {
     }
     
     public String getAccelerometerSensitivity() {
-    	return appSharedPrefs.getString(ACCELEROMETER_SENSITIVITY, MEDIUM);
+    	return appSharedPrefs.getString(ACCELEROMETER_SENSITIVITY, HIGH);
     }
     
     public void activateCamera(boolean active) {

@@ -73,13 +73,10 @@ public class AccelerometerMonitor implements SensorEventListener {
 		 */
         if (prefs.getAccelerometerSensitivity().equals("Medium")) {
             SHAKE_THRESHOLD = 400;
-            //   Log.i("AccelerometerFragment", "Sensitivity set to 2700");
         } else if (prefs.getAccelerometerSensitivity().equals("Low")) {
             SHAKE_THRESHOLD = 600;
-            //  Log.i("AccelerometerFragment", "Sensitivity set to 3100");
         } else {
             SHAKE_THRESHOLD = 200;
-            // Log.i("AccelerometerFragment", "Sensitivity set to 2300");
         }
 
         context.bindService(new Intent(context,
