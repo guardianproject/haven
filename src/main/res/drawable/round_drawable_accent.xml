@@ -5,8 +5,8 @@
         android:color="@color/colorAccent" />
 
     <padding
-        android:left="5dp"
-        android:right="5dp"/>
+        android:left="7dp"
+        android:right="7dp"/>
 
     <corners
         android:bottomLeftRadius="7dp"

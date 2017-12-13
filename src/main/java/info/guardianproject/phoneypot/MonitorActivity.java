@@ -120,6 +120,13 @@ public class MonitorActivity extends FragmentActivity {
             }
         });
 
+        findViewById(R.id.btnSettings).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSettings();
+            }
+        });
+
 
 
     }

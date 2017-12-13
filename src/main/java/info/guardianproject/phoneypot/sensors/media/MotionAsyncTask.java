@@ -101,7 +101,7 @@ public class MotionAsyncTask extends Thread {
 			if (changedPixels != null) {
 				hasChanged = true;
 				for (int changedPixel : changedPixels) {
-					newPic[changedPixel] = Color.RED;
+					newPic[changedPixel] = Color.YELLOW;
 				}
 			}
 

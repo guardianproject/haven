@@ -10,10 +10,8 @@
 		android:layout_height="1dp">
 	</FrameLayout>
 
-
   	<ImageView
    		android:id="@+id/new_image"
-   		android:layout_alignParentRight="true"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:layout_below="@id/preview"
