@@ -22,7 +22,7 @@ repositories {
 allprojects {
     project.ext {
         // these are common variables used in */build.gradle
-        version_number="0.0.16"
+        version_number="0.0.17"
         group_info="haven"
         signal_version="2.3.0"
         buildToolsVersion="26.0.2"
