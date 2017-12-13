@@ -288,6 +288,10 @@ public class MonitorService extends Service {
             {
                 attachment = eventTrigger.getPath();
             }
+            else if (eventTrigger.getType() == EventTrigger.MICROPHONE)
+            {
+                attachment = eventTrigger.getPath();
+            }
 
             sender.sendMessage(recips,alertMessage.toString(), attachment);
         }
