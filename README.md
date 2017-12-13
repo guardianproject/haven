@@ -28,7 +28,7 @@ The follow sensors are monitored for a measurable change, and then recorded to a
 
 ## Building
 
-The application can be built using Android Studio and Gradle. 
+The application can be built using Android Studio and Gradle. It relies on a number of third-party dependencies, all which are open-source.
 
 ## Usage
 
@@ -51,11 +51,22 @@ All event logs and captured media can be remotely accessed through a [Tor Onion 
 
 ## ATTRIBUTIONS
 
-This project contains source code from the SecureIt project available at: https://github.com/mziccard/secureit Copyright (c) 2014 Marco Ziccardi
+This project contains source code or library dependencies from the follow projects:
 
-This project uses libsignal-service-java from Open Whisper Systems: https://github.com/WhisperSystems/libsignal-service-java
-Licensed under the GPLv3: http://www.gnu.org/licenses/gpl-3.0.html
+* SecureIt project available at: https://github.com/mziccard/secureit Copyright (c) 2014 Marco Ziccardi (Modified BSD)
+* libsignal-service-java from Open Whisper Systems: https://github.com/WhisperSystems/libsignal-service-java (GPLv3)
+* signal-cli from AsamK: https://github.com/AsamK/signal-cli (GPLv3)
+* Sugar ORM from chennaione: https://github.com/chennaione/sugar/ (MIT)
+* Square's Picasso: https://github.com/square/picasso (Apache 2)
+* JayDeep's AudioWife: https://github.com/jaydeepw/audio-wife (MIT)
+* AppIntro: https://github.com/apl-devs/AppIntro (Apache 2)
+* Guardian Project's NetCipher: https://guardianproject.info/code/netcipher/ (Apache 2)
+* NanoHttpd: https://github.com/NanoHttpd/nanohttpd (BSD)
+* Milosmns' Actual Number Picker: https://github.com/milosmns/actual-number-picker (GPLv3)
+* Fresco Image Viewer: https://github.com/stfalcon-studio/FrescoImageViewer (Apache 2)
+* Facebook Fresco Image Library: https://github.com/facebook/fresco (BSD)
+* Audio Waveform Viewer: https://github.com/derlio/audio-waveform (Apache 2)
+* FireZenk's AudioWaves: https://github.com/FireZenk/AudioWaves (MIT)
+* MaxYou's SimpleWaveform: https://github.com/maxyou/SimpleWaveform (MIT)
 
-This project also used signal-cli from AsamK: https://github.com/AsamK/signal-cli
-Licensed under the GPLv3: http://www.gnu.org/licenses/gpl-3.0.html
 

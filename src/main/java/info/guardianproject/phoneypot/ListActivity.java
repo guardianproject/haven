@@ -33,6 +33,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.mikepenz.aboutlibraries.Libs;
+import com.mikepenz.aboutlibraries.LibsBuilder;
+
 import java.io.File;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -309,8 +312,19 @@ public class ListActivity extends AppCompatActivity {
             case R.id.action_about:
                 showOnboarding();
                 break;
+            case R.id.action_licenses:
+                showLicenses();
+                break;
         }
         return true;
     }
 
+    private void showLicenses ()
+    {
+        new LibsBuilder()
+                //provide a style (optional) (LIGHT, DARK, LIGHT_DARK_TOOLBAR)
+                .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
+                //start the activity
+                .start(this);
+    }
 }

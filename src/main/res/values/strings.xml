@@ -6,7 +6,7 @@
     <string name="menu_start">Start</string>
     <string name="menu_save">Save</string>
     <string name="menu_remote_access">Remote Access</string>
-    <string name="menu_about">About</string>
+    <string name="menu_about">Setup...</string>
 
     <string name="title_activity_start">Haven</string>
 
@@ -138,4 +138,6 @@
     <string name="register_title">Register with Signal</string>
     <string name="register_signal_desc">Register a new phone number (+12125551212) with Signal to send secure notifications. DO NOT USE YOUR EXISTING/PRIMARY SIGNAL NUMBER.</string>
     <string name="phone_hint">+12125551212</string>
+
+    <string name="menu_licenses">Licenses...</string>
 </resources>
