@@ -3,6 +3,8 @@
 Haven is for people who need a way to protect their personal spaces and possessions without compromising their own privacy. It is an Android application that leverages on-device sensors to provide monitoring and protection of physical spaces. Haven turns any Android phone into a motion, sound, vibration and light detector, watching for unexpected guests and 
 unwanted intruders. We designed Haven for investigative journalists, human rights defenders, and people at risk of forced disappearance to create a new kind of herd immunity. By combining the array of sensors found in any smartphone, with the world's most secure communications technologies, like Signal and Tor, Haven prevents the worst kind of people from silencing citizens without getting caught in the act.
 
+<img src="https://raw.githubusercontent.com/guardianproject/haven/master/art/screens/havenob1.png" width="25%"> <img src="https://raw.githubusercontent.com/guardianproject/haven/master/art/screens/havenob2.png" width="25%"> <img src="https://raw.githubusercontent.com/guardianproject/haven/master/art/screens/havenob3.png" width="25%">
+
 View our full [Haven App Overview](https://github.com/guardianproject/phoneypot/blob/master/docs/Haven%20App%20Presentation.pdf) presentation
 
 ## Announcement and Public Beta
@@ -18,10 +20,6 @@ https://freedom.press/
 https://guardianproject.info
 
 ## Safety through Sensors
-
-<img src="https://raw.githubusercontent.com/guardianproject/haven/master/art/screens/haven-sound-config.png" width="25%"> <img src="https://raw.githubusercontent.com/guardianproject/haven/master/art/screens/haven-event-media.png" width="25%"> <img src="https://raw.githubusercontent.com/guardianproject/haven/master/art/screens/haven-event-list.png" width="25%">
-
-<img src="https://raw.githubusercontent.com/guardianproject/haven/master/art/screens/havenob1.png" width="25%"> <img src="https://raw.githubusercontent.com/guardianproject/haven/master/art/screens/havenob2.png" width="25%"> <img src="https://raw.githubusercontent.com/guardianproject/haven/master/art/screens/havenob3.png" width="25%">
 
 Haven only saves images and sound when triggered by motion or volume, and stores everything locally on the device. You can position the device's camera to capture visible motion, or set your phone somewhere discreet to just listen for noises. Get secure notifications of intrusion events instantly and access the logs remotely or anytime later.
 
