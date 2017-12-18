@@ -9,8 +9,8 @@ paginate:     1
 locale: "en"
 
 # About/contact
-author:
-  name:       Guardian Project
-  url: https://guardianproject.info/contact
+#author:
+#  name:       Guardian Project
+#  url: https://guardianproject.info/contact
 
-show_downloads: true
+#show_downloads: true
