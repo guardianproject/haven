@@ -13,11 +13,10 @@ We are announcing Haven today, as an open-source project, along a public beta re
 
 ## Project Team
 
-![Freedom of the Press Foundation](https://raw.githubusercontent.com/guardianproject/haven/master/art/logos/fopflogo.png)
-Freedom of the Press Foundation: https://freedom.press/
+Haven was developed through a collaboration between [Freedom of the Press Foundation](https://freedom.press) and [Guardian Project](https://guardianproject.info). Prototype funding was generously provided by FoPF, and donations to support continuing work can be contributed through their site: https://freedom.press/donate-support-haven-open-source-project/
 
+![Freedom of the Press Foundation](https://raw.githubusercontent.com/guardianproject/haven/master/art/logos/fopflogo.png)
 ![Guardian Project](https://raw.githubusercontent.com/guardianproject/haven/master/art/logos/gplogo.png)
-Guardian Project: https://guardianproject.info
 
 ## Safety through Sensors
 
@@ -35,9 +34,11 @@ The follow sensors are monitored for a measurable change, and then recorded to a
 
 ## Building
 
-The application can be built using Android Studio and Gradle. It relies on a number of third-party dependencies, all which are open-source.
+The application can be built using Android Studio and Gradle. It relies on a number of third-party dependencies, all which are free, open-source and listed at the end of this document.
 
 ## Usage
+
+Haven is meant to provide an easy onboarding experience, that walks through user through configuring the sensors on their device to best detect intrusions into their environment. The current implementation has some of this implemented, but we are looking to improve this user experience dramatically.
 
 ### Main view
 
