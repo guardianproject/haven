@@ -4,13 +4,13 @@ theme: jekyll-theme-cayman
 
 title:        "Haven: Keep Watch, Stay Safe"
 tagline:      "Haven is for people who need a way to protect their personal spaces and possessions without compromising their own privacy."
-baseurl:      ""
-paginate:     0
-locale: "en"
+#baseurl:      ""
+#paginate:     0
+#locale: "en"
 
 # About/contact
-author:
-  name:       Guardian Project
-  url: https://guardianproject.info/contact
+#author:
+#  name:       Guardian Project
+#  url: https://guardianproject.info/contact
 
 #show_downloads: true
