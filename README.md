@@ -1,20 +1,29 @@
-# Haven: Protect Yourself
-
-<img src="https://raw.githubusercontent.com/guardianproject/haven/master/art/web_hi_res_512.png" width="25%">
+# Haven: Keep Watch, Stay Safe
 
 Haven is for people who need a way to protect their personal spaces and possessions without compromising their own privacy. It is an Android application that leverages on-device sensors to provide monitoring and protection of physical spaces. Haven turns any Android phone into a motion, sound, vibration and light detector, watching for unexpected guests and 
-unwanted intruders. Designed originally to defeat the infamous “evil maid” attack, Haven can provide protection in a wide variety of situations: protecting sensitive computers, monitoring offices and homes, detecting "wild life", capturing evidence of human rights violations and disappearances, as well as common vandalism and harassment.
+unwanted intruders. We designed Haven for investigative journalists, human rights defenders, and people at risk of forced disappearance to create a new kind of herd immunity. By combining the array of sensors found in any smartphone, with the world's most secure communications technologies, like Signal and Tor, Haven prevents the worst kind of people from silencing citizens without getting caught in the act.
+
+View our full [Haven App Overview](https://github.com/guardianproject/phoneypot/blob/master/docs/Haven%20App%20Presentation.pdf) presentation
+
+## Announcement and Public Beta
+
+We are announcing Haven today, as an open-source project, along a public beta release of the app. We are looking for contributors who understand that physical security is as important as digital, and who have an understanding and compassion for the kind of threats faced by the users and communities we want to support. We also think it is really cool, cutting edge, and making use of encrypted messaging and onion routing in whole new ways. We believe Haven points the way to a more sophisticated approach to securing communication within networks of things and home automation system.
+
+## Project Team
+
+![Freedom of the Press Foundation](https://raw.githubusercontent.com/guardianproject/haven/master/art/logos/fopflogo.png)
+https://freedom.press/
+
+![Guardian Project](https://guardianproject.info/wp-content/uploads/2013/09/cropped-GP_logo+txt_hires_black_on_trans-1024x341.png)
+https://guardianproject.info
+
+## Safety through Sensors
+
+<img src="https://raw.githubusercontent.com/guardianproject/haven/master/art/screens/haven-sound-config.png" width="25%"> <img src="https://raw.githubusercontent.com/guardianproject/haven/master/art/screens/haven-event-media.png" width="25%"> <img src="https://raw.githubusercontent.com/guardianproject/haven/master/art/screens/haven-event-list.png" width="25%">
 
 <img src="https://raw.githubusercontent.com/guardianproject/haven/master/art/screens/havenob1.png" width="25%"> <img src="https://raw.githubusercontent.com/guardianproject/haven/master/art/screens/havenob2.png" width="25%"> <img src="https://raw.githubusercontent.com/guardianproject/haven/master/art/screens/havenob3.png" width="25%">
 
 Haven only saves images and sound when triggered by motion or volume, and stores everything locally on the device. You can position the device's camera to capture visible motion, or set your phone somewhere discreet to just listen for noises. Get secure notifications of intrusion events instantly and access the logs remotely or anytime later.
-
-View our full [Haven App Overview](https://github.com/guardianproject/phoneypot/blob/master/docs/Haven%20App%20Presentation.pdf) presentation
-
-
-
-### Sensors
-
 
 <img src="https://raw.githubusercontent.com/guardianproject/haven/master/art/screens/haven-sound-config.png" width="25%"> <img src="https://raw.githubusercontent.com/guardianproject/haven/master/art/screens/haven-event-media.png" width="25%"> <img src="https://raw.githubusercontent.com/guardianproject/haven/master/art/screens/haven-event-list.png" width="25%">
 
