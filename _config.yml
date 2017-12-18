@@ -1,15 +1,16 @@
 theme: jekyll-theme-cayman
+
 # Setup
 
 title:        Haven
 tagline:      Haven is for people who need a way to protect their personal spaces and possessions without compromising their own privacy.
-baseurl:      ""
+baseurl:      "https://guardianproject.github.io/haven/"
 paginate:     1
 locale: "en"
 
 # About/contact
 author:
-name:       Guardian Project
-url: https://guardianproject.info/contact
+  name:       Guardian Project
+  url: https://guardianproject.info/contact
 
 show_downloads: true
