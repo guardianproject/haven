@@ -188,11 +188,12 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 		if (camera != null) {
 			final Camera.Parameters parameters = camera.getParameters();
 			List<Size> sizes = parameters.getSupportedPictureSizes();
-			int w = 640;
-			int h = 480;
+			int w = 1024;
+			int h = 768;
+
 			for (Size s : sizes) {
 				Log.i("SurfaceView", "width: " + s.width + " height: " + s.height);
-				if (s.width <= 640) {
+				if (s.width <= w) {
 					w = s.width;
 					h = s.height;
 					Log.i("SurfaceView", "selected width: " + w + " selected height: " + h);
@@ -202,20 +203,10 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 
 			parameters.setPictureSize(w, h);
 			parameters.setPreviewSize(w,h);
-			parameters.setPreviewFpsRange(15000,30000);
+			//parameters.setPreviewFpsRange(15000,30000);
 
-//			/List<int[]> fpsRange = parameters.getSupportedPreviewFpsRange();
-            //
-          //  parameters.setPreviewFpsRange(fpsRange.get(fpsRange.size()-1)[1],fpsRange.get(fpsRange.size()-1)[1]);
-
-            /**
-            if (parameters.isAutoWhiteBalanceLockSupported())
-                parameters.setAutoWhiteBalanceLock(true);
-
-            if (parameters.isAutoExposureLockSupported())
-                parameters.setAutoExposureLock(true);
-             **/
-
+			List<int[]> fpsRange = parameters.getSupportedPreviewFpsRange();
+            parameters.setPreviewFpsRange(fpsRange.get(fpsRange.size()-1)[1],fpsRange.get(fpsRange.size()-1)[1]);
 
 			/*
 			 * If the flash is needed
