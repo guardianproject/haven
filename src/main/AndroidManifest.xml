@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="info.guardianproject.phoneypot">
+    package="org.havenapp.main">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -16,12 +16,12 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".PhoneyPotApp"
+        android:name="org.havenapp.main.PhoneyPotApp"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ListActivity"
+            android:name="org.havenapp.main.ListActivity"
             android:label="@string/title_activity_start"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
@@ -31,19 +31,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SettingsActivity"
+            android:name="org.havenapp.main.SettingsActivity"
             android:label="@string/title_activity_start"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".ui.PPAppIntro"
+        <activity android:name="org.havenapp.main.ui.PPAppIntro"
             android:screenOrientation="portrait"
             />
         <activity
-            android:name=".MonitorActivity"
+            android:name="org.havenapp.main.MonitorActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
-        <service android:name=".service.MonitorService" />
+        <service android:name="org.havenapp.main.service.MonitorService" />
 
         <meta-data
             android:name="DATABASE"
@@ -59,11 +59,11 @@
             android:value="info.guardianproject.phoneypot.model" />
 
         <activity
-            android:name=".ui.EventActivity"
+            android:name="org.havenapp.main.ui.EventActivity"
             android:label="@string/title_activity_event"
             android:theme="@style/AppTheme" />
-        <activity android:name=".ui.MicrophoneConfigureActivity"></activity>
-        <receiver android:name=".sensors.PowerConnectionReceiver">
+        <activity android:name="org.havenapp.main.ui.MicrophoneConfigureActivity"></activity>
+        <receiver android:name="org.havenapp.main.sensors.PowerConnectionReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
                 <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>

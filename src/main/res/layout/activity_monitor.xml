@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <fragment class="info.guardianproject.phoneypot.ui.CameraFragment"
+    <fragment class="org.havenapp.main.ui.CameraFragment"
         android:id="@+id/fragment_camera"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

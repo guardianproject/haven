@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="info.guardianproject.phoneypot.ui.EventActivity">
+    tools:context="org.havenapp.main.ui.EventActivity">
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
