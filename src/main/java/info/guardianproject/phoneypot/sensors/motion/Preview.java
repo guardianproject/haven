@@ -186,28 +186,25 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 		}
 
 		if (camera != null) {
+
 			final Camera.Parameters parameters = camera.getParameters();
-			List<Size> sizes = parameters.getSupportedPictureSizes();
-			int w = 1024;
-			int h = 768;
 
-			for (Size s : sizes) {
-				Log.i("SurfaceView", "width: " + s.width + " height: " + s.height);
-				if (s.width <= w) {
-					w = s.width;
-					h = s.height;
-					Log.i("SurfaceView", "selected width: " + w + " selected height: " + h);
-					break;
-				}
-			}
-
-			parameters.setPictureSize(w, h);
-			parameters.setPreviewSize(w,h);
-			//parameters.setPreviewFpsRange(15000,30000);
+			try {
+                List<Size> sizesPreviews = parameters.getSupportedPreviewSizes();
+                parameters.setPreviewSize(sizesPreviews.get(4).width, sizesPreviews.get(4).height);
+            }
+            catch (Exception e){
+			    Log.w("Camera","Error setting camera preview size",e);
+            }
 
 			List<int[]> fpsRange = parameters.getSupportedPreviewFpsRange();
-            parameters.setPreviewFpsRange(fpsRange.get(fpsRange.size()-1)[1],fpsRange.get(fpsRange.size()-1)[1]);
-
+            try {
+                parameters.setPreviewFpsRange(fpsRange.get(fpsRange.size() - 1)[1], fpsRange.get(fpsRange.size() - 1)[1]);
+            }
+            catch (Exception e) {
+                Log.w("Camera","Error setting frames per second",e);
+            }
+            
 			/*
 			 * If the flash is needed
 			 */
@@ -367,7 +364,6 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 
 			camera.setDisplayOrientation(displayOrientation);
 
-			//camera.setParameters(parameters);
 			camera.startPreview();
 		}
 	}
