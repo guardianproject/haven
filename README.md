@@ -5,7 +5,7 @@ unwanted intruders. We designed Haven for investigative journalists, human right
 
 <img src="https://raw.githubusercontent.com/guardianproject/haven/master/art/screens/havenob1.png" width="25%"> <img src="https://raw.githubusercontent.com/guardianproject/haven/master/art/screens/havenob2.png" width="25%"> <img src="https://raw.githubusercontent.com/guardianproject/haven/master/art/screens/havenob3.png" width="25%">
 
-View our full [Haven App Overview](https://github.com/guardianproject/phoneypot/blob/master/docs/Haven%20App%20Presentation.pdf) presentation
+View our full [Haven App Overview](https://guardianproject.github.io/haven/docs/preso/) presentation for more about the origins and goals of the project.
 
 ## Announcement and Public Beta
 
