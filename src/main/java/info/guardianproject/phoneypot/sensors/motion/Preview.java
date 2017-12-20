@@ -204,7 +204,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
             catch (Exception e) {
                 Log.w("Camera","Error setting frames per second",e);
             }
-            
+
 			/*
 			 * If the flash is needed
 			 */
