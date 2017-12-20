@@ -17,7 +17,7 @@ import android.view.View;
 import java.io.File;
 import java.util.ArrayList;
 
-import info.guardianproject.phoneypot.R;
+import org.havenapp.main.R;
 import org.havenapp.main.model.Event;
 import org.havenapp.main.model.EventTrigger;
 

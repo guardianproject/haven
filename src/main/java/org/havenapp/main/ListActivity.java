@@ -23,7 +23,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 
-import info.guardianproject.phoneypot.R;
 
 import org.havenapp.main.model.Event;
 import org.havenapp.main.model.EventTrigger;

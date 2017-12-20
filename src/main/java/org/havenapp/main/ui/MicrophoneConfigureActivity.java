@@ -20,8 +20,8 @@ import com.maxproj.simplewaveform.SimpleWaveform;
 import java.util.LinkedList;
 
 import org.havenapp.main.PreferenceManager;
-import info.guardianproject.phoneypot.R;
 
+import org.havenapp.main.R;
 import org.havenapp.main.sensors.media.MicSamplerTask;
 import org.havenapp.main.sensors.media.MicrophoneTaskFactory;
 import me.angrybyte.numberpicker.listener.OnValueChangeListener;

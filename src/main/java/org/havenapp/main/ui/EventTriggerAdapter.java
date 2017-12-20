@@ -19,7 +19,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import info.guardianproject.phoneypot.R;
+import org.havenapp.main.R;
 import org.havenapp.main.model.EventTrigger;
 import nl.changer.audiowife.AudioWife;
 

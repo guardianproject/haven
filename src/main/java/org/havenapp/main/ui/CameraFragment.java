@@ -20,7 +20,7 @@ import android.widget.ImageView;
 import android.widget.FrameLayout;
 
 import org.havenapp.main.PreferenceManager;
-import info.guardianproject.phoneypot.R;
+import org.havenapp.main.R;
 import org.havenapp.main.sensors.media.MotionAsyncTask;
 import org.havenapp.main.sensors.media.ImageCodec;
 import org.havenapp.main.sensors.motion.Preview;

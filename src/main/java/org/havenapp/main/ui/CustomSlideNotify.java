@@ -20,7 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import org.havenapp.main.PreferenceManager;
-import info.guardianproject.phoneypot.R;
+import org.havenapp.main.R;
 
 public class CustomSlideNotify extends Fragment {
 

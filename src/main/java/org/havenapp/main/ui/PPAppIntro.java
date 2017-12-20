@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 
 import org.havenapp.main.PreferenceManager;
-import info.guardianproject.phoneypot.R;
+import org.havenapp.main.R;
 
 /**
  * Created by n8fr8 on 5/8/17.

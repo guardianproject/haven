@@ -30,8 +30,8 @@ import java.util.StringTokenizer;
 
 import org.havenapp.main.MonitorActivity;
 import org.havenapp.main.PhoneyPotApp;
-import info.guardianproject.phoneypot.R;
 import org.havenapp.main.PreferenceManager;
+import org.havenapp.main.R;
 import org.havenapp.main.model.Event;
 import org.havenapp.main.model.EventTrigger;
 import org.havenapp.main.sensors.AccelerometerMonitor;

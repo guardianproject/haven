@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import info.guardianproject.phoneypot.R;
+import org.havenapp.main.R;
 import org.havenapp.main.model.Event;
 
 /**

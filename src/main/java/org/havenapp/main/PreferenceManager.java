@@ -24,7 +24,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-import info.guardianproject.phoneypot.R;
 
 public class PreferenceManager {
 	

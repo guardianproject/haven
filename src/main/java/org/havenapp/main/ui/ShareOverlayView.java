@@ -9,7 +9,8 @@ import android.widget.RelativeLayout;
 
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
-import info.guardianproject.phoneypot.R;
+import org.havenapp.main.R;
+
 
 /*
  * Created by Alexander Krol (troy379) on 29.08.16.

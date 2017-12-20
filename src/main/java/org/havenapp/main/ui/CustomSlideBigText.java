@@ -14,7 +14,8 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
-import info.guardianproject.phoneypot.R;
+import org.havenapp.main.R;
+
 
 public class CustomSlideBigText extends Fragment {
 

@@ -41,7 +41,6 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-import info.guardianproject.phoneypot.R;
 
 import org.havenapp.main.service.MonitorService;
 import org.havenapp.main.ui.CameraFragment;

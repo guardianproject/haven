@@ -52,7 +52,6 @@ import android.widget.Toast;
 
 
 import info.guardianproject.netcipher.proxy.OrbotHelper;
-import info.guardianproject.phoneypot.R;
 
 import org.havenapp.main.service.SignalSender;
 import org.havenapp.main.service.WebServer;

@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.BatteryManager;
 
-import info.guardianproject.phoneypot.R;
+import org.havenapp.main.R;
 import org.havenapp.main.model.EventTrigger;
 import org.havenapp.main.service.MonitorService;
 
