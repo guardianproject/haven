@@ -1,0 +1,58 @@
+sudo: required
+language: android
+jdk: oraclejdk8
+
+env:
+  global:
+    - QEMU_AUDIO_DRV=none # sometimes the emulator audio causes trouble
+    - ADB_INSTALL_TIMEOUT=5 # minutes
+
+addons:
+  apt:
+    sources:
+      - sourceline: 'ppa:fdroid/fdroidserver'
+    packages:
+      - fdroidserver
+      - openssh-client
+
+android:
+  components:
+    - tools # to get the new `repository-11.xml`
+    - tools # see https://github.com/travis-ci/travis-ci/issues/6040#issuecomment-219367943)
+    - platform-tools
+    - build-tools-26.0.2
+    - android-22
+    - android-25
+    - extra-android-m2repository
+    - extra-google-m2repository
+    - extra-google-google_play_services
+    - addon-google_apis-google-25
+    - sys-img-armeabi-v7a-android-22
+  licenses:
+    - 'android-sdk-preview-license-52d11cd2'
+    - 'android-sdk-license-.+'
+    - 'google-gdk-license-.+'
+
+before_install:
+  - mkdir -p "$ANDROID_HOME/licenses"
+  - echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
+  - echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
+  - chmod +x gradlew
+  - ./gradlew dependencies || true
+
+script:
+  - ./gradlew assembleDebug -PdisablePreDex
+  #- ./gradlew test -PdisablePreDex  # enable once lint errors are fixed
+  - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
+  - emulator -avd test -no-audio -no-window &
+  - android-wait-for-emulator
+  - adb shell input keyevent 82 &
+  - ./gradlew connectedCheck -PdisablePreDex
+
+after_success:
+  - git clone --depth=1 https://gitlab.com/fdroid/fdroidserver
+  - export PATH=`pwd`/fdroidserver:$PATH
+  - fdroid nightly -v
+
+after_failure:
+  - find * -name lint-results.xml | xargs cat
