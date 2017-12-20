@@ -103,24 +103,31 @@ public class AudioRecorderTask extends Thread {
             e.printStackTrace();
             return;
         }
-        
-        Log.i("AudioRecorderTask", "Start recording");
-        recorder.start();
-        try {
-			Thread.sleep(prefs.getAudioLength());
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-        
-        recorder.stop();
-        Log.i("AudioRecorderTask", "Stopped recording");
-        recorder.release();
-        recording = false;
-        
-        MicrophoneTaskFactory.restartSampling();
 
-        if (mListener != null)
-        	mListener.recordingComplete(audioPath.toString());
+        try {
+			Log.i("AudioRecorderTask", "Start recording");
+			recorder.start();
+			try {
+				Thread.sleep(prefs.getAudioLength());
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
+			recorder.stop();
+			Log.i("AudioRecorderTask", "Stopped recording");
+			recorder.release();
+
+			recording = false;
+        
+    	    MicrophoneTaskFactory.restartSampling();
+
+			if (mListener != null)
+				mListener.recordingComplete(audioPath.toString());
+		}
+		catch (IllegalStateException ise)
+		{
+			Log.w("AudioRecorderTask","error with media recorder");
+		}
 
 	}
 
