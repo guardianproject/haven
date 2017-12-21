@@ -3,20 +3,23 @@
   <head>
     <meta charset="UTF-8">
 
-{% seo %}
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#157878">
+<!--
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+-->
+
     <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
   </head>
   <body>
     <section class="page-header">
-      <h1 class="project-name"><img src="https://raw.githubusercontent.com/guardianproject/haven/master/art/web_hi_res_512.png" style="height:96px;vertical-align: middle"/><br/>{{ site.title | default: site.github.repository_name }}</h1>
+      <h1 class="project-name"><img src="https://raw.githubusercontent.com/guardianproject/haven/master/fastlane/android/metadata/en-US/images/icon.png" style="height:96px;vertical-align: middle"/><br/>{{ site.title | default: site.github.repository_name }}</h1>
       <h2 class="project-tagline">{{ site.description | default: site.github.project_tagline }}</h2>
       {% if site.github.is_project_page %}
-        <a href="{{ site.github.repository_url }}" class="btn">View Project</a>
-        <a href="https://github.com/guardianproject/haven/releases" class="btn">Install Beta</a>
+        <a href="{{ site.github.repository_url }}" class="btn">View Github</a>
+        <a href="https://play.google.com/apps/testing/org.havenapp.main" class="btn">Join Beta</a>
         <a href="https://freedom.press/donate-support-haven-open-source-project/" class="btn">Donate Funds</a>
+        <a href="https://guardianproject.info/contact/" class="btn">Contact Us</a>
       {% endif %}
 <div><sm>Developed in partnership by Freedom of the Press Foundation and Guardian Project</sm></div>
 
@@ -33,15 +36,5 @@
       </footer>
     </section>
 
-    {% if site.google_analytics %}
-      <script type="text/javascript">
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-        ga('create', '{{ site.google_analytics }}', 'auto');
-        ga('send', 'pageview');
-      </script>
-    {% endif %}
   </body>
 </html>
