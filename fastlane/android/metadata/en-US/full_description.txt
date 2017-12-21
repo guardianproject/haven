@@ -1,0 +1,39 @@
+Haven is for people who need a way to protect their personal spaces
+and possessions without compromising their own privacy. It is an
+Android application that leverages on-device sensors to provide
+monitoring and protection of physical spaces. Haven turns any Android
+phone into a motion, sound, vibration and light detector, watching for
+unexpected guests and unwanted intruders. We designed Haven for
+investigative journalists, human rights defenders, and people at risk
+of forced disappearance to create a new kind of herd immunity. By
+combining the array of sensors found in any smartphone, with the
+world’s most secure communications technologies, like Signal and Tor,
+Haven prevents the worst kind of people from silencing citizens
+without getting caught in the act.
+
+Project Team
+
+Haven was developed through a collaboration between Freedom of the
+Press Foundation and Guardian Project. Prototype funding was
+generously provided by FoPF, and donations to support continuing work
+can be contributed through their site:
+https://freedom.press/donate-support-haven-open-source-project
+
+Safety through Sensors
+
+Haven only saves images and sound when triggered by motion or volume,
+and stores everything locally on the device. You can position the
+device’s camera to capture visible motion, or set your phone somewhere
+discreet to just listen for noises. Get secure notifications of
+intrusion events instantly and access the logs remotely or anytime
+later.
+
+The follow sensors are monitored for a measurable change, and then
+recorded to an event log on the device:
+
+* Accelerometer: phone’s motion and vibration
+* Camera: motion in the phone’s visible surroundings from front or back camera
+* Microphone: noises in the enviroment
+* Light: change in light from ambient light sensor
+* Power: detect device being unplugged or power loss
+
