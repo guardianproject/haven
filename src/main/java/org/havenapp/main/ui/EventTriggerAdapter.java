@@ -63,7 +63,7 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
 
         final EventTrigger eventTrigger = eventTriggers.get(position);
 
-        String title = eventTrigger.getStringType();
+        String title = eventTrigger.getStringType(context);
         String desc = eventTrigger.getTriggerTime().toLocaleString();
 
         holder.image.setVisibility(View.GONE);

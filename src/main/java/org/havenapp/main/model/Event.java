@@ -18,7 +18,7 @@ public class Event extends SugarRecord {
     @Ignore
     ArrayList<EventTrigger> mEventTriggers;
 
-    public final static long EVENT_WINDOW_TIME = 1000 * 60; //1 minutes
+    public final static long EVENT_WINDOW_TIME = 1000 * 60 * 5; //1 minutes
 
     public Event ()
     {

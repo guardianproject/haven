@@ -16,7 +16,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:name="org.havenapp.main.PhoneyPotApp"
+        android:name="org.havenapp.main.HavenApp"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
@@ -47,7 +47,7 @@
 
         <meta-data
             android:name="DATABASE"
-            android:value="phoneypot.db" />
+            android:value="haven.db" />
         <meta-data
             android:name="VERSION"
             android:value="3" />
@@ -56,13 +56,15 @@
             android:value="true" />
         <meta-data
             android:name="DOMAIN_PACKAGE_NAME"
-            android:value="info.guardianproject.phoneypot.model" />
+            android:value="org.havenapp.main.model" />
 
         <activity
             android:name="org.havenapp.main.ui.EventActivity"
             android:label="@string/title_activity_event"
             android:theme="@style/AppTheme" />
-        <activity android:name="org.havenapp.main.ui.MicrophoneConfigureActivity"></activity>
+        <activity android:name="org.havenapp.main.ui.MicrophoneConfigureActivity"/>
+        <activity android:name="org.havenapp.main.ui.AccelConfigureActivity"/>
+
         <receiver android:name="org.havenapp.main.sensors.PowerConnectionReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>

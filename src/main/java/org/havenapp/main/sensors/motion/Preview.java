@@ -198,6 +198,11 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
                 Log.w("Camera","Error setting frames per second",e);
             }
 
+            try {
+            	parameters.setAutoExposureLock(false);
+				parameters.setExposureCompensation(parameters.getMaxExposureCompensation());
+			}
+			catch (Exception e){}
 			/*
 			 * If the flash is needed
 			 */
@@ -289,6 +294,15 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 							});
 							task.start();
 							lastPic = data;
+
+							try {
+
+								Camera.Parameters parameters = cam.getParameters();
+								parameters.setExposureCompensation(parameters.getMaxExposureCompensation());
+								cam.setParameters(parameters);
+
+							}
+							catch (Exception e){}
 						}
 					}
 				});

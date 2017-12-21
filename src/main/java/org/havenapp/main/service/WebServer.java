@@ -1,5 +1,6 @@
 package org.havenapp.main.service;
 
+import android.content.Context;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
@@ -28,8 +29,11 @@ public class WebServer extends NanoHTTPD {
     private String mPassword = null;
     private String mSession = null;
 
-    public WebServer() throws IOException {
+    private Context mContext;
+
+    public WebServer(Context context) throws IOException {
         super(LOCAL_PORT);
+        mContext = context;
         start(NanoHTTPD.SOCKET_READ_TIMEOUT, false);
     }
 
@@ -147,7 +151,7 @@ public class WebServer extends NanoHTTPD {
 
         for (EventTrigger eventTrigger: triggers)
         {
-            String title = eventTrigger.getStringType();
+            String title = eventTrigger.getStringType(mContext);
             String desc = eventTrigger.getTriggerTime().toString();
 
             page.append("<b>");

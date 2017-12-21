@@ -1,6 +1,10 @@
 package org.havenapp.main.model;
 
+import android.content.Context;
+
 import com.orm.SugarRecord;
+
+import org.havenapp.main.R;
 
 import java.util.Date;
 
@@ -80,28 +84,29 @@ public class EventTrigger extends SugarRecord {
         this.mPath = mPath;
     }
 
-    public String getStringType ()
+
+    public String getStringType (Context context)
     {
         String sType = "";
 
         switch (getType()) {
             case EventTrigger.ACCELEROMETER:
-                sType = "ACCELEROMETER";
+                sType = context.getString(R.string.sensor_accel);
                 break;
             case EventTrigger.LIGHT:
-                sType = "LIGHT";
+                sType = context.getString(R.string.sensor_light);
                 break;
             case EventTrigger.CAMERA:
-                sType = "CAMERA MOTION";
+                sType = context.getString(R.string.sensor_camera);
                 break;
             case EventTrigger.MICROPHONE:
-                sType = "SOUND";
+                sType = context.getString(R.string.sensor_sound);
                 break;
             case EventTrigger.POWER:
-                sType = "POWER";
+                sType = context.getString(R.string.sensor_power);
                 break;
             default:
-                sType = "UNKNOWN";
+                sType = context.getString(R.string.sensor_unknown);
         }
 
         return sType;

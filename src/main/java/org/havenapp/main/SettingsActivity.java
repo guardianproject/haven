@@ -55,12 +55,13 @@ import info.guardianproject.netcipher.proxy.OrbotHelper;
 
 import org.havenapp.main.service.SignalSender;
 import org.havenapp.main.service.WebServer;
+import org.havenapp.main.ui.AccelConfigureActivity;
 import org.havenapp.main.ui.MicrophoneConfigureActivity;
 
 public class SettingsActivity extends AppCompatActivity {
 	
 	private PreferenceManager preferences = null;
-    private PhoneyPotApp app = null;
+    private HavenApp app = null;
     private EditText remoteAccessCredential;
 
     @Override
@@ -74,7 +75,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         preferences = new PreferenceManager(this.getApplicationContext());
 
-        app = (PhoneyPotApp)getApplication();
+        app = (HavenApp)getApplication();
 
         /*
          * We create an application directory to store images and audio
@@ -172,6 +173,15 @@ public class SettingsActivity extends AppCompatActivity {
                 startActivity(new Intent(SettingsActivity.this, MicrophoneConfigureActivity.class));
             }
         });
+
+        findViewById(R.id.action_configure_accel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SettingsActivity.this, AccelConfigureActivity.class));
+            }
+        });
+
+
 
         findViewById(R.id.action_configure_time).setOnClickListener(new View.OnClickListener() {
             @Override

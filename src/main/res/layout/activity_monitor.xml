@@ -99,6 +99,13 @@
                 android:layout_margin="20dp"
                 />
             <ImageView
+                android:id="@+id/btnAccelSettings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_vibration_white_36dp"
+                android:layout_margin="20dp"
+                />
+            <ImageView
                 android:id="@+id/btnSettings"
                 android:layout_width="36dp"
                 android:layout_height="36dp"

@@ -23,13 +23,14 @@ import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
 import android.telephony.SmsManager;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.StringTokenizer;
 
 import org.havenapp.main.MonitorActivity;
-import org.havenapp.main.PhoneyPotApp;
+import org.havenapp.main.HavenApp;
 import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.R;
 import org.havenapp.main.model.Event;
@@ -106,7 +107,7 @@ public class MonitorService extends Service {
     **
     * Application
      */
-    PhoneyPotApp mApp = null;
+    HavenApp mApp = null;
 
 	/**
 	 * Called on service creation, sends a notification
@@ -116,7 +117,7 @@ public class MonitorService extends Service {
 
         sInstance = this;
 
-        mApp = (PhoneyPotApp)getApplication();
+        mApp = (HavenApp)getApplication();
 
         manager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         mPrefs = new PreferenceManager(this);
@@ -262,7 +263,9 @@ public class MonitorService extends Service {
          * number
          */
         StringBuffer alertMessage = new StringBuffer();
-        alertMessage.append(getString(R.string.intrusion_detected,eventTrigger.getStringType()));
+        alertMessage.append(getString(R.string.intrusion_detected,eventTrigger.getStringType(this)));
+
+        Toast.makeText(this,alertMessage.toString(),Toast.LENGTH_SHORT).show();
 
         if (mPrefs.getSignalUsername() != null)
         {

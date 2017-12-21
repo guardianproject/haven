@@ -66,30 +66,6 @@
 			android:layout_margin="6dp"/>
 	</RadioGroup>
 
-	<!--
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:orientation="horizontal"
-		android:paddingTop="10dp"
-
-		>
-
-	<TextView
-    	    android:id="@+id/accelerometer_prompt"
-    	    android:text="@string/accelerometer_prompt"
-    	    android:layout_alignParentLeft="true"
-    	    android:layout_width="200dp"
-    	    android:layout_height="wrap_content"
-    	    />
-		<Button
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/action_configure"
-			android:id="@+id/action_configure_movement"
-			/>
-</LinearLayout>-->
-
 	<LinearLayout
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
@@ -115,7 +91,30 @@
 			/>
 </LinearLayout>
 
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:paddingTop="10dp"
 
+		>
+
+
+		<TextView
+			android:id="@+id/accelerometer_prompt"
+			android:text="@string/accelerometer_prompt"
+			android:layout_alignParentLeft="true"
+			android:layout_width="200dp"
+			android:layout_height="wrap_content"
+			/>
+		<Button
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/action_configure"
+
+			android:id="@+id/action_configure_accel"
+			/>
+	</LinearLayout>
 
 	<LinearLayout
 		android:layout_width="match_parent"
@@ -153,34 +152,6 @@
 		android:paddingTop="10dp"
 		/>
 
-	<TextView
-		android:text="**** WARNING ADVANCED FEATURES ****"
-		android:layout_alignParentLeft="true"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:textStyle="bold"
-		android:textColor="@color/Red"
-		/>
-
-	<CheckBox
-		android:id="@+id/remote_access_check"
-		android:text="@string/remote_access_label"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		tools:context="org.havenapp.main.SettingsActivity" />
-	<EditText
-		android:id="@+id/remote_access_onion"
-		android:hint="@string/remote_access_hint"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		tools:context="org.havenapp.main.SettingsActivity" />
-	<EditText
-		android:id="@+id/remote_access_credential"
-		android:hint="@string/remote_access_credential_hint"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:inputType="textPassword"
-		tools:context="org.havenapp.main.SettingsActivity" />
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
@@ -193,7 +164,7 @@
 			android:id="@+id/label_signal"
 			android:text="@string/activate_signal"
 			android:layout_alignParentLeft="true"
-			android:layout_width="200dp"
+			android:layout_width="150dp"
 			android:layout_height="wrap_content"
 			/>
 		<Button
@@ -222,7 +193,7 @@
 			android:id="@+id/label_signal_status"
 			android:text=""
 			android:layout_alignParentLeft="true"
-			android:layout_width="200dp"
+			android:layout_width="150dp"
 			android:layout_height="wrap_content"
 			/>
 		<Button
@@ -233,6 +204,26 @@
 			android:visibility="gone"
 			/>
 	</LinearLayout>
+	<CheckBox
+		android:id="@+id/remote_access_check"
+		android:text="@string/remote_access_label"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		tools:context="org.havenapp.main.SettingsActivity" />
+	<EditText
+		android:id="@+id/remote_access_onion"
+		android:hint="@string/remote_access_hint"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		tools:context="org.havenapp.main.SettingsActivity" />
+	<EditText
+		android:id="@+id/remote_access_credential"
+		android:hint="@string/remote_access_credential_hint"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:inputType="textPassword"
+		tools:context="org.havenapp.main.SettingsActivity" />
+
 </LinearLayout>
 
 	</ScrollView>

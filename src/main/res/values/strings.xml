@@ -39,11 +39,11 @@
     </string>
 
     <string name="sms_label">
-    	Send SMS or Signal message alert when detection occurs
+    	Send SMS or Signal message alerts
     </string>
 
     <string name="sms_hint">
-    	Phone number(s) to send notification to (SMS / Signal)
+    	+12125551212
     </string>
 
     <string name="unlock_code_hint">
@@ -75,7 +75,7 @@
 
     <string name="secure_service_stopped">Haven Deactivated</string>
 
-    <string name="intrusion_detected">An intrusion was detected (Type: %s). Capturing audio and photo evidence now.</string>
+    <string name="intrusion_detected">A Haven sensor was triggered (Type: %s)</string>
     <string name="title_activity_event">EventActivity</string>
 
     <string name="action_settings">Settings</string>
@@ -107,12 +107,17 @@
     <string name="main_screen_title">Your Haven Log</string>
 
     <string name="current_noise_base">Current noise level is</string>
+    <string name="current_accel_base">Current motion level is</string>
+
     <string name="configure_trigger_level">Slide wheel to change detection threshold</string>
     <string name="tune_the_sound_detection">Make some noise!</string>
     <string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">Set your phone on the table, and make noises in the room to find the right level to detect</string>
+
+    <string name="tune_the_accel_detection">Shake it up!</string>
+    <string name="tune_the_accel_detection_more">Move your phone around to tune the motion detection threshold</string>
     <string name="set_a_countdown_time">Tap to change countdown</string>
     <string name="start_now">Start Now</string>
-    <string name="start_later">Start Later</string>
+    <string name="start_later">View Logs</string>
     <string name="save_number">Save Number</string>
 
     <string name="action_cancel">Deactivate</string>
@@ -140,4 +145,10 @@
     <string name="phone_hint">+12125551212</string>
 
     <string name="menu_licenses">Licenses...</string>
+    <string name="sensor_light">Ambient Light</string>
+    <string name="sensor_accel">Motion (Accelerometer)</string>
+    <string name="sensor_camera">Motion (Camera)</string>
+    <string name="sensor_sound">Microphone</string>
+    <string name="sensor_power">USB Power</string>
+    <string name="sensor_unknown">Unknown</string>
 </resources>

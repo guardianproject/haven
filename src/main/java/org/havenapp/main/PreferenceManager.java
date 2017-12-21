@@ -39,7 +39,7 @@ public class PreferenceManager {
     public static final String FRONT = "Front";
     public static final String BACK = "Back";
 	
-	private static final String APP_SHARED_PREFS="me.ziccard.secureit";
+	private static final String APP_SHARED_PREFS="org.havenapp.main";
 	private static final String ACCELEROMETER_ACTIVE="accelerometer_active";
 	private static final String ACCELEROMETER_SENSITIVITY="accelerometer_sensibility";
 	private static final String CAMERA_ACTIVE="camera_active";

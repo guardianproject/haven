@@ -161,7 +161,7 @@ public class EventActivity extends AppCompatActivity {
 
             mEventLog.append("Event Triggered @ " + eventTrigger.getTriggerTime().toLocaleString()).append("\n");
 
-            String sType = eventTrigger.getStringType();
+            String sType = eventTrigger.getStringType(this);
 
             mEventLog.append("Event Type: " + sType);
             mEventLog.append("\n==========================\n");

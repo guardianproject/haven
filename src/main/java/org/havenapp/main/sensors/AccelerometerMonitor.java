@@ -55,7 +55,7 @@ public class AccelerometerMonitor implements SensorEventListener {
     /**
      * Shake threshold
      */
-    private static int SHAKE_THRESHOLD = 2300;
+    private int shakeThreshold = -1;
 
     /**
      * Text showing accelerometer values
@@ -71,12 +71,13 @@ public class AccelerometerMonitor implements SensorEventListener {
 		/*
 		 * Set sensitivity value
 		 */
-        if (prefs.getAccelerometerSensitivity().equals("Medium")) {
-            SHAKE_THRESHOLD = 400;
-        } else if (prefs.getAccelerometerSensitivity().equals("Low")) {
-            SHAKE_THRESHOLD = 600;
-        } else {
-            SHAKE_THRESHOLD = 200;
+		try
+        {
+            shakeThreshold = Integer.parseInt(prefs.getAccelerometerSensitivity());
+        }
+        catch (Exception e)
+        {
+            shakeThreshold = 50;
         }
 
         context.bindService(new Intent(context,
@@ -119,9 +120,9 @@ public class AccelerometerMonitor implements SensorEventListener {
                     float speed = Math.abs(
                             accel_values[0] + accel_values[1] + accel_values[2] -
                                     last_accel_values[0] + last_accel_values[1] + last_accel_values[2])
-                            / diffTime * 10000;
+                            / diffTime * 1000;
 
-                    if (speed > SHAKE_THRESHOLD) {
+                    if (speed > shakeThreshold) {
 						/*
 						 * Send Alert
 						 */

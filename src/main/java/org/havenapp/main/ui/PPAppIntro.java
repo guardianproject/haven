@@ -47,6 +47,8 @@ public class PPAppIntro extends AppIntro {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(PPAppIntro.this,MicrophoneConfigureActivity.class));
+                startActivity(new Intent(PPAppIntro.this,AccelConfigureActivity.class));
+
             }
         });
         addSlide(cs2);

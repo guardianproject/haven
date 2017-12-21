@@ -43,6 +43,7 @@ import java.util.concurrent.TimeUnit;
 
 
 import org.havenapp.main.service.MonitorService;
+import org.havenapp.main.ui.AccelConfigureActivity;
 import org.havenapp.main.ui.CameraFragment;
 import org.havenapp.main.ui.MicrophoneConfigureActivity;
 
@@ -115,12 +116,19 @@ public class MonitorActivity extends FragmentActivity {
            }
        });
 
-       findViewById(R.id.btnMicSettings).setOnClickListener(new View.OnClickListener() {
+       findViewById(R.id.btnAccelSettings).setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               startActivity(new Intent(MonitorActivity.this, MicrophoneConfigureActivity.class));
+               startActivity(new Intent(MonitorActivity.this, AccelConfigureActivity.class));
            }
        });
+
+        findViewById(R.id.btnMicSettings).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MonitorActivity.this, MicrophoneConfigureActivity.class));
+            }
+        });
 
         findViewById(R.id.btnCameraSwitch).setOnClickListener(new View.OnClickListener() {
             @Override

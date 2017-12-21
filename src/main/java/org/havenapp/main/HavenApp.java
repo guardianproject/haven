@@ -28,7 +28,7 @@ import java.io.IOException;
 
 import org.havenapp.main.service.WebServer;
 
-public class PhoneyPotApp extends MultiDexApplication {
+public class HavenApp extends MultiDexApplication {
 
 
     /*
@@ -58,7 +58,7 @@ public class PhoneyPotApp extends MultiDexApplication {
         if (mOnionServer == null || (!mOnionServer.isAlive()))
         {
             try {
-                mOnionServer = new WebServer();
+                mOnionServer = new WebServer(this);
 
                 if (!TextUtils.isEmpty(mPrefs.getRemoteAccessCredential()))
                     mOnionServer.setPassword(mPrefs.getRemoteAccessCredential());
