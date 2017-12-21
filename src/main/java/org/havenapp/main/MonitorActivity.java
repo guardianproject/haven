@@ -208,13 +208,19 @@ public class MonitorActivity extends FragmentActivity {
 	private void showSettings ()
     {
 
+        Intent i = new Intent(this,SettingsActivity.class);
+
         if (cTimer != null) {
             cTimer.cancel();
             cTimer = null;
+            startActivityForResult(i,9999);
+
+        }
+        else
+        {
+            startActivity(i);
         }
 
-        Intent i = new Intent(this,SettingsActivity.class);
-        startActivityForResult(i,9999);
     }
 
     @Override
