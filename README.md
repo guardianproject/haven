@@ -13,6 +13,12 @@ View our full [Haven App Overview](https://guardianproject.github.io/haven/docs/
 
 We are announcing Haven today, as an open-source project, along a public beta release of the app. We are looking for contributors who understand that physical security is as important as digital, and who have an understanding and compassion for the kind of threats faced by the users and communities we want to support. We also think it is really cool, cutting edge, and making use of encrypted messaging and onion routing in whole new ways. We believe Haven points the way to a more sophisticated approach to securing communication within networks of things and home automation system.
 
+Learn more about the story of this project at the links below:
+
+* [Haven: Building the Most Secure Baby Monitor Ever?](https://guardianproject.info/2017/12/22/haven-building-the-most-secure-baby-monitor-ever/)
+* [Snowden’s New App Uses Your Smartphone To Physically Guard Your Laptop](https://theintercept.com/2017/12/22/snowdens-new-app-uses-your-smartphone-to-physically-guard-your-laptop/)
+* [Snowden's New App Turns Your Phone Into a Home Security System](https://www.wired.com/story/snowden-haven-app-turns-phone-into-home-security-system/)
+
 ## Project Team
 
 Haven was developed through a collaboration between [Freedom of the Press Foundation](https://freedom.press) and [Guardian Project](https://guardianproject.info). Prototype funding was generously provided by FoPF, and donations to support continuing work can be contributed through their site: https://freedom.press/donate-support-haven-open-source-project/
@@ -39,6 +45,23 @@ The follow sensors are monitored for a measurable change, and then recorded to a
 ## Building
 
 The application can be built using Android Studio and Gradle. It relies on a number of third-party dependencies, all which are free, open-source and listed at the end of this document.
+
+## Install
+
+You can currently get the Haven BETA release in one of three ways:
+
+* Download [Haven from Google Play](https://play.google.com/store/apps/details?id=org.havenapp.main)
+* First, [install F-Droid](https://f-droid.org) the open-source app store, and second, add our Haven Nightly "Bleeding Edge" repository by scanning the QR Code below:
+
+<img src="https://guardianproject.github.io/haven-nightly/icon.png" width="50%"/> 
+
+or add this repository manually in F-Droid's Settings->Repositories: [https://guardianproject.github.io/haven-nightly/fdroid/repo/](https://guardianproject.github.io/haven-nightly/fdroid/repo/)
+
+* Grab the APK files from the [Github releases page](https://github.com/guardianproject/haven/releases)
+
+You can, of course, build the app yourself, from source.
+
+If you are an Android developer, you can learn more about how you can make use of F-Droid in your development workflow, for nightly builds, testing, reproducability and more here: [F-Droid Documentation](https://f-droid.org/en/docs/)
 
 ## Usage
 
