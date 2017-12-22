@@ -63,6 +63,12 @@ You can, of course, build the app yourself, from source.
 
 If you are an Android developer, you can learn more about how you can make use of F-Droid in your development workflow, for nightly builds, testing, reproducability and more here: [F-Droid Documentation](https://f-droid.org/en/docs/)
 
+## Why no iPhone Support?
+
+While we hope to support a version of Haven that runs directly on iOS devices in the future, iPhone users can still benefit from Haven today. You can purchase an inexpensive Android phone for less than $100, and use that as your "Haven Device", that you leave behind, while you keep your iPhone with you. If you run Signal on your iPhone, you can configure Haven on Android to send encrypted notifications, with photos and audio, directly to you. If you enable the "Tor Onion Service" feature in Haven (requires installing "Orbot" app as well), you can remotely access all Haven log data from your iPhone, using the Onion Browser app.
+
+So, no, iPhone users we didn't forget about you, and hope you'll pick up an Android burner today for a few bucks!
+
 ## Usage
 
 Haven is meant to provide an easy onboarding experience, that walks through user through configuring the sensors on their device to best detect intrusions into their environment. The current implementation has some of this implemented, but we are looking to improve this user experience dramatically.
