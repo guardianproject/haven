@@ -6,7 +6,7 @@
 
     <padding
         android:left="7dp"
-        android:right="7dp"/>
+        android:right="7dp" />
 
     <corners
         android:bottomLeftRadius="7dp"

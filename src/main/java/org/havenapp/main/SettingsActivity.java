@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2017 Nathanial Freitas
  *
@@ -18,15 +17,12 @@
 package org.havenapp.main;
 
 
-import java.io.File;
-import java.util.ArrayList;
-
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
-import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -42,25 +38,27 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-import info.guardianproject.netcipher.proxy.OrbotHelper;
-
 import org.havenapp.main.service.SignalSender;
 import org.havenapp.main.service.WebServer;
 import org.havenapp.main.ui.AccelConfigureActivity;
 import org.havenapp.main.ui.MicrophoneConfigureActivity;
 
+import java.io.File;
+import java.util.ArrayList;
+
+import info.guardianproject.netcipher.proxy.OrbotHelper;
+
 public class SettingsActivity extends AppCompatActivity {
-	
-	private PreferenceManager preferences = null;
+
+    private PreferenceManager preferences = null;
     private HavenApp app = null;
     private EditText remoteAccessCredential;
 
@@ -75,7 +73,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         preferences = new PreferenceManager(this.getApplicationContext());
 
-        app = (HavenApp)getApplication();
+        app = (HavenApp) getApplication();
 
         /*
          * We create an application directory to store images and audio
@@ -105,7 +103,7 @@ public class SettingsActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked && TextUtils.isEmpty(preferences.getSignalUsername())) {
                     askForPermission(Manifest.permission.SEND_SMS, 6);
-                    askForPermission(Manifest.permission.READ_PHONE_STATE,6);
+                    askForPermission(Manifest.permission.READ_PHONE_STATE, 6);
                 }
             }
         });
@@ -116,9 +114,7 @@ public class SettingsActivity extends AppCompatActivity {
                 if (isChecked) {
                     checkRemoteAccessOnion();
                     app.startServer();
-                }
-                else
-                {
+                } else {
                     app.stopServer();
                 }
             }
@@ -146,9 +142,8 @@ public class SettingsActivity extends AppCompatActivity {
             remoteAccessOnion.setText(preferences.getRemoteAccessOnion() + ":" + WebServer.LOCAL_PORT);
         }
 
-        if (!TextUtils.isEmpty(preferences.getRemoteAccessCredential()))
-        {
-            ((EditText)findViewById(R.id.remote_access_credential)).setText(preferences.getRemoteAccessCredential());
+        if (!TextUtils.isEmpty(preferences.getRemoteAccessCredential())) {
+            ((EditText) findViewById(R.id.remote_access_credential)).setText(preferences.getRemoteAccessCredential());
         }
 
         findViewById(R.id.action_register_signal).setOnClickListener(new View.OnClickListener() {
@@ -182,7 +177,6 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
 
-
         findViewById(R.id.action_configure_time).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -190,18 +184,16 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-		askForPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, 1);
+        askForPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, 1);
 
-	}
+    }
 
-	private void checkSignalUsername ()
-    {
-        if (preferences.getSignalUsername() != null)
-        {
-            TextView tv = (TextView)findViewById(R.id.label_signal_status);
+    private void checkSignalUsername() {
+        if (preferences.getSignalUsername() != null) {
+            TextView tv = (TextView) findViewById(R.id.label_signal_status);
             tv.setText("Current Signal Number: " + preferences.getSignalUsername());
 
-            Button btnTestSignal = (Button)findViewById(R.id.action_test_signal);
+            Button btnTestSignal = (Button) findViewById(R.id.action_test_signal);
             btnTestSignal.setVisibility(View.VISIBLE);
             btnTestSignal.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -212,43 +204,42 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
-	@Override
-	public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-		switch (requestCode) {
+        switch (requestCode) {
             case 1:
-                askForPermission(Manifest.permission.CAMERA,2);
+                askForPermission(Manifest.permission.CAMERA, 2);
                 break;
-			case 2:
-				askForPermission(Manifest.permission.RECORD_AUDIO,3);
-				break;
+            case 2:
+                askForPermission(Manifest.permission.RECORD_AUDIO, 3);
+                break;
 
-		}
+        }
 
-	}
+    }
 
 
-	private void askForPermission(String permission, Integer requestCode) {
-		if (ContextCompat.checkSelfPermission(SettingsActivity.this, permission) != PackageManager.PERMISSION_GRANTED) {
+    private void askForPermission(String permission, Integer requestCode) {
+        if (ContextCompat.checkSelfPermission(SettingsActivity.this, permission) != PackageManager.PERMISSION_GRANTED) {
 
-			// Should we show an explanation?
-			if (ActivityCompat.shouldShowRequestPermissionRationale(SettingsActivity.this, permission)) {
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(SettingsActivity.this, permission)) {
 
-				//This is called if user has denied the permission before
-				//In this case I am just asking the permission again
-				ActivityCompat.requestPermissions(SettingsActivity.this, new String[]{permission}, requestCode);
+                //This is called if user has denied the permission before
+                //In this case I am just asking the permission again
+                ActivityCompat.requestPermissions(SettingsActivity.this, new String[]{permission}, requestCode);
 
-			} else {
+            } else {
 
-				ActivityCompat.requestPermissions(SettingsActivity.this, new String[]{permission}, requestCode);
-			}
-		} else {
-		}
-	}
+                ActivityCompat.requestPermissions(SettingsActivity.this, new String[]{permission}, requestCode);
+            }
+        } else {
+        }
+    }
 
-    private void save ()
-    {
+    private void save() {
 
         EditText phoneNumber = (EditText)
                 this.findViewById(R.id.phone_number);
@@ -294,8 +285,8 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected (MenuItem item) {
-        switch (item.getItemId()){
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case R.id.menu_save:
                 save();
                 break;
@@ -303,18 +294,14 @@ public class SettingsActivity extends AppCompatActivity {
         return true;
     }
 
-    private void checkRemoteAccessOnion ()
-    {
-        if (OrbotHelper.isOrbotInstalled(this))
-        {
+    private void checkRemoteAccessOnion() {
+        if (OrbotHelper.isOrbotInstalled(this)) {
             OrbotHelper.requestStartTor(this);
 
             if (TextUtils.isEmpty(preferences.getRemoteAccessOnion()))
                 OrbotHelper.requestHiddenServiceOnPort(this, WebServer.LOCAL_PORT);
-        }
-        else
-        {
-            Toast.makeText(this,"This feature requires the Orbot: Tor for Android app to be installed.",Toast.LENGTH_LONG);
+        } else {
+            Toast.makeText(this, "This feature requires the Orbot: Tor for Android app to be installed.", Toast.LENGTH_LONG);
         }
     }
 
@@ -322,8 +309,7 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == RESULT_OK && data != null)
-        {
+        if (resultCode == RESULT_OK && data != null) {
             String onionHost = data.getStringExtra("hs_host");
 
             if (!TextUtils.isEmpty(onionHost)) {
@@ -341,11 +327,11 @@ public class SettingsActivity extends AppCompatActivity {
         boolean checked = ((RadioButton) view).isChecked();
 
         // Check which radio button was clicked
-        switch(view.getId()) {
+        switch (view.getId()) {
             case R.id.radio_camera_back:
                 if (checked)
                     preferences.setCamera(PreferenceManager.BACK);
-                    break;
+                break;
             case R.id.radio_camera_front:
                 if (checked)
                     preferences.setCamera(PreferenceManager.FRONT);
@@ -358,8 +344,7 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
-    private void verifySignalPrompt ()
-    {
+    private void verifySignalPrompt() {
         // setup the alert builder
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
@@ -371,7 +356,7 @@ public class SettingsActivity extends AppCompatActivity {
         builder.setPositiveButton(R.string.verify, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                activateSignal(preferences.getSignalUsername(),input.getText().toString());
+                activateSignal(preferences.getSignalUsername(), input.getText().toString());
             }
         });
         // add a button
@@ -390,7 +375,7 @@ public class SettingsActivity extends AppCompatActivity {
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
-        lp.setMargins(6,6,6,6);
+        lp.setMargins(6, 6, 6, 6);
         input.setLayoutParams(lp);
         dialog.setView(input); // uncomment this line
 
@@ -398,8 +383,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     }
 
-    private void registerSignalPrompt ()
-    {
+    private void registerSignalPrompt() {
         // setup the alert builder
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
@@ -418,7 +402,7 @@ public class SettingsActivity extends AppCompatActivity {
 
                 preferences.setSignalUsername(signalNum);
                 resetSignal(preferences.getSignalUsername());
-                activateSignal(preferences.getSignalUsername(),null);
+                activateSignal(preferences.getSignalUsername(), null);
                 checkSignalUsername();
             }
         });
@@ -440,7 +424,7 @@ public class SettingsActivity extends AppCompatActivity {
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
-        lp.setMargins(6,6,6,6);
+        lp.setMargins(6, 6, 6, 6);
         input.setLayoutParams(lp);
         dialog.setView(input); // uncomment this line
 
@@ -448,15 +432,13 @@ public class SettingsActivity extends AppCompatActivity {
 
     }
 
-    private void resetSignal (String username)
-    {
-        SignalSender sender =SignalSender.getInstance(this, username);
+    private void resetSignal(String username) {
+        SignalSender sender = SignalSender.getInstance(this, username);
         sender.reset();
     }
 
-    private void activateSignal (String username, String verifyCode)
-    {
-        SignalSender sender =SignalSender.getInstance(this, username);
+    private void activateSignal(String username, String verifyCode) {
+        SignalSender sender = SignalSender.getInstance(this, username);
 
         if (TextUtils.isEmpty(verifyCode))
             sender.register();
@@ -465,8 +447,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     }
 
-    private void sendTestSignal ()
-    {
+    private void sendTestSignal() {
 
         // setup the alert builder
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -475,8 +456,7 @@ public class SettingsActivity extends AppCompatActivity {
         final EditText input = new EditText(this);
         input.setInputType(InputType.TYPE_CLASS_PHONE);
 
-        if (!TextUtils.isEmpty(preferences.getSmsNumber()))
-        {
+        if (!TextUtils.isEmpty(preferences.getSmsNumber())) {
             input.setText(preferences.getSmsNumber());
         }
 
@@ -484,10 +464,10 @@ public class SettingsActivity extends AppCompatActivity {
         builder.setPositiveButton("Send Test", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                SignalSender sender =SignalSender.getInstance(SettingsActivity.this, preferences.getSignalUsername());
+                SignalSender sender = SignalSender.getInstance(SettingsActivity.this, preferences.getSignalUsername());
                 ArrayList<String> recip = new ArrayList<>();
                 recip.add(input.getText().toString());
-                sender.sendMessage(recip,getString(R.string.signal_test_message),null);
+                sender.sendMessage(recip, getString(R.string.signal_test_message), null);
             }
         });
 
@@ -508,15 +488,14 @@ public class SettingsActivity extends AppCompatActivity {
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
-        lp.setMargins(6,6,6,6);
+        lp.setMargins(6, 6, 6, 6);
         input.setLayoutParams(lp);
         dialog.setView(input); // uncomment this line
 
         dialog.show();
     }
 
-    private void showTimeDelayDialog ()
-    {
+    private void showTimeDelayDialog() {
         int totalSecs = preferences.getTimerDelay();
 
         int hours = totalSecs / 3600;
@@ -555,7 +534,7 @@ public class SettingsActivity extends AppCompatActivity {
         layout.addView(textViewMinutes, new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                Gravity.LEFT|Gravity.BOTTOM));
+                Gravity.LEFT | Gravity.BOTTOM));
 
         layout.addView(pickerSeconds, new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -565,7 +544,7 @@ public class SettingsActivity extends AppCompatActivity {
         layout.addView(textViewSeconds, new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                Gravity.LEFT|Gravity.BOTTOM));
+                Gravity.LEFT | Gravity.BOTTOM));
 
 
         new android.app.AlertDialog.Builder(this)

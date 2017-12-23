@@ -5,6 +5,9 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 
+import org.havenapp.main.model.Event;
+import org.havenapp.main.model.EventTrigger;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -12,8 +15,6 @@ import java.util.List;
 import java.util.UUID;
 
 import fi.iki.elonen.NanoHTTPD;
-import org.havenapp.main.model.Event;
-import org.havenapp.main.model.EventTrigger;
 
 /**
  * Created by n8fr8 on 6/25/17.
@@ -37,8 +38,7 @@ public class WebServer extends NanoHTTPD {
         start(NanoHTTPD.SOCKET_READ_TIMEOUT, false);
     }
 
-    public void setPassword (String password)
-    {
+    public void setPassword(String password) {
         mPassword = password;
     }
 
@@ -48,17 +48,15 @@ public class WebServer extends NanoHTTPD {
         StringBuffer page = new StringBuffer();
         Cookie cookie = null;
 
-        if (mPassword != null)
-        {
+        if (mPassword != null) {
             String inPassword = session.getParms().get("p");
             String inSid = session.getCookies().read("sid");
 
             if (inPassword != null && mPassword.equals(inPassword)) {
                 mSession = UUID.randomUUID().toString();
-                cookie = new OnionCookie ("sid",mSession,100000);
+                cookie = new OnionCookie("sid", mSession, 100000);
                 session.getCookies().set(cookie);
-            }
-            else if (inSid == null || (inSid != null && (!mSession.equals(inSid)))) {
+            } else if (inSid == null || (inSid != null && (!mSession.equals(inSid)))) {
                 showLogin(page);
                 return newFixedLengthResponse(page.toString());
             }
@@ -68,8 +66,7 @@ public class WebServer extends NanoHTTPD {
         Uri uri = Uri.parse(session.getUri());
         List<String> pathSegs = uri.getPathSegments();
 
-        if (pathSegs.size() == 4  && pathSegs.get(2).equals("trigger"))
-        {
+        if (pathSegs.size() == 4 && pathSegs.get(2).equals("trigger")) {
             //long eventId = Long.parseLong(pathSegs.get(1));
 
             long eventTriggerId = Long.parseLong(pathSegs.get(3));
@@ -81,18 +78,13 @@ public class WebServer extends NanoHTTPD {
                 Response res = newChunkedResponse(Response.Status.OK, getMimeType(eventTrigger), fis);
                 return res;
 
+            } catch (IOException ioe) {
+                Log.e(TAG, "unable to return media file", ioe);
             }
-            catch (IOException ioe)
-            {
-                Log.e(TAG,"unable to return media file",ioe);
-            }
-        }
-        else if (uri.getPath().startsWith("/feed"))
-        {
+        } else if (uri.getPath().startsWith("/feed")) {
             //do RSS feed
 
-        }
-        else {
+        } else {
             page.append("<html><head><title>" + appTitle + "</title>");
             page.append("<meta http-equiv=\"Content-Type\" content=\"application/xhtml+xml; charset=utf-8\" />");
             page.append("<meta name = \"viewport\" content = \"user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width\">");
@@ -120,12 +112,12 @@ public class WebServer extends NanoHTTPD {
             return response;
         }
 
-        Response response = newFixedLengthResponse(Response.Status.INTERNAL_ERROR,"text/plain","Error");
+        Response response = newFixedLengthResponse(Response.Status.INTERNAL_ERROR, "text/plain", "Error");
         session.getCookies().unloadQueue(response);
         return response;
     }
 
-    private void showLogin (StringBuffer page) {
+    private void showLogin(StringBuffer page) {
 
         page.append("<html><head><title>PhoneyPot</title>");
         page.append("<meta http-equiv=\"Content-Type\" content=\"application/xhtml+xml; charset=utf-8\" />");
@@ -143,14 +135,13 @@ public class WebServer extends NanoHTTPD {
         page.append("</body></html>\n");
     }
 
-    private void showEvent (Event event, StringBuffer page) {
+    private void showEvent(Event event, StringBuffer page) {
 
         List<EventTrigger> triggers = event.getEventTriggers();
 
         page.append("<h1>Event: ").append(event.getStartTime().toLocaleString()).append("</h1><hr/>\n");
 
-        for (EventTrigger eventTrigger: triggers)
-        {
+        for (EventTrigger eventTrigger : triggers) {
             String title = eventTrigger.getStringType(mContext);
             String desc = eventTrigger.getTriggerTime().toString();
 
@@ -160,14 +151,11 @@ public class WebServer extends NanoHTTPD {
 
             String mediaPath = "/event/" + event.getId() + "/trigger/" + eventTrigger.getId();
 
-            if (eventTrigger.getType() == EventTrigger.CAMERA)
-            {
+            if (eventTrigger.getType() == EventTrigger.CAMERA) {
                 page.append("<img src=\"").append(mediaPath).append("\" width=\"100%\"/>");
                 page.append("<a href=\"" + mediaPath + "\">Download Media").append("</a>");
 
-            }
-            else if (eventTrigger.getType() == EventTrigger.MICROPHONE)
-            {
+            } else if (eventTrigger.getType() == EventTrigger.MICROPHONE) {
                 page.append("<audio src=\"").append(mediaPath).append("\"></audio>");
                 page.append("<a href=\"" + mediaPath + "\">Download Media").append("</a>");
 
@@ -178,17 +166,14 @@ public class WebServer extends NanoHTTPD {
         }
 
 
-
     }
 
-    private void showEvents(StringBuffer page)
-    {
+    private void showEvents(StringBuffer page) {
         page.append("<h1>Events</h1><hr/>\n");
 
         List<Event> events = Event.listAll(Event.class);
 
-        for (Event event: events)
-        {
+        for (Event event : events) {
             String title = event.getStartTime().toLocaleString();
             String desc = event.getEventTriggers().size() + " triggered events";
 
@@ -200,8 +185,7 @@ public class WebServer extends NanoHTTPD {
 
     }
 
-    private String getMimeType (EventTrigger eventTrigger)
-    {
+    private String getMimeType(EventTrigger eventTrigger) {
         String sType = "";
 
         switch (eventTrigger.getType()) {
@@ -219,15 +203,14 @@ public class WebServer extends NanoHTTPD {
 
     }
 
-    class OnionCookie extends Cookie
-    {
+    class OnionCookie extends Cookie {
 
         public OnionCookie(String name, String value, int numDays) {
             super(name, value, numDays);
         }
 
         public String getHTTPHeader() {
-           return super.getHTTPHeader() + "; path=/";
+            return super.getHTTPHeader() + "; path=/";
         }
     }
 

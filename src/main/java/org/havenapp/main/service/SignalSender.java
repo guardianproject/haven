@@ -15,41 +15,35 @@ import java.util.HashMap;
 
 public class SignalSender {
 
-    private Context mContext;
     private static SignalSender mInstance;
+    private Context mContext;
     private String mUsername; //aka your signal phone number
 
-    private SignalSender(Context context, String username)
-    {
+    private SignalSender(Context context, String username) {
         mContext = context;
         mUsername = username;
     }
 
-    public static synchronized SignalSender getInstance (Context context, String username)
-    {
-        if (mInstance == null)
-        {
+    public static synchronized SignalSender getInstance(Context context, String username) {
+        if (mInstance == null) {
             mInstance = new SignalSender(context, username);
         }
 
         return mInstance;
     }
 
-    public void setUsername (String username)
-    {
+    public void setUsername(String username) {
         mUsername = username;
     }
 
-    public void reset ()
-    {
+    public void reset() {
         Main mainSignal = new Main(mContext);
         mainSignal.resetUser();
         mInstance = null;
     }
 
-    public void register ()
-    {
-        execute (new Runnable() {
+    public void register() {
+        execute(new Runnable() {
             public void run() {
                 Main mainSignal = new Main(mContext);
                 HashMap<String, Object> map = new HashMap<>();
@@ -64,9 +58,8 @@ public class SignalSender {
         });
     }
 
-    public void verify (final String verificationCode)
-    {
-        execute (new Runnable() {
+    public void verify(final String verificationCode) {
+        execute(new Runnable() {
             public void run() {
                 Main mainSignal = new Main(mContext);
                 HashMap<String, Object> map = new HashMap<>();
@@ -81,24 +74,22 @@ public class SignalSender {
         });
     }
 
-    public void sendMessage (final ArrayList<String> recipients, final String message, final String attachment)
-    {
-        execute (new Runnable() {
+    public void sendMessage(final ArrayList<String> recipients, final String message, final String attachment) {
+        execute(new Runnable() {
             public void run() {
                 Main mainSignal = new Main(mContext);
                 HashMap<String, Object> map = new HashMap<>();
 
                 map.put("username", mUsername);
-                map.put("endsession",false);
+                map.put("endsession", false);
                 map.put("recipient", recipients);
                 map.put("command", "send");
                 map.put("message", message);
 
-                if (attachment != null)
-                {
+                if (attachment != null) {
                     ArrayList<String> attachments = new ArrayList<>();
                     attachments.add(attachment);
-                    map.put("attachment",attachments);
+                    map.put("attachment", attachments);
                 }
 
                 Namespace ns = new Namespace(map);
@@ -107,8 +98,7 @@ public class SignalSender {
         });
     }
 
-    private void execute (Runnable runnable)
-    {
-        new Thread (runnable).start();
+    private void execute(Runnable runnable) {
+        new Thread(runnable).start();
     }
 }

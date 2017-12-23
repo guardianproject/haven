@@ -2,10 +2,7 @@
 
     <string name="app_name">Haven</string>
 
-    <string name="menu_stop">Detener</string>
-    <string name="menu_start">Iniciar</string>
     <string name="menu_save">Guardar</string>
-    <string name="menu_remote_access">Acceso Remoto</string>
     <string name="title_activity_start">Haven</string>
 
     <string name="accelerometer_prompt">
@@ -14,43 +11,10 @@ Nivel de Sensibilidad de Movimiento</string>
     <string name="microphone_sensitivity">
 Sensibilidad de Sonido</string>
 
-    <string name="camera_sensitivity">
-Sensibilidad de movimiento de la camara</string>
-
-    <string name="microphone_label">
-Usar el microfono para detectar sonidos</string>
-
-    <string name="camera_label">
-Seleccionar Camara</string>
-
-    <string name="flash_label">
-Activar Flash</string>
-
-    <string name="unlock_code_hint">
-Codigo para detener la aplicacion</string>
-
-    <string name="start_button">
-Iniciar</string>
-
     <string name="camera_prompt">
 Seleccionar la Camara</string>
 
-    <array name="select_sensitivity">
-        <item>Low</item>
-        <item>Medium</item>
-        <item>High</item>
-        <item>Off</item>
-    </array>
-    <array name="select_camera">
-        <item>Front</item>
-        <item>Back</item>
-        <item>Off</item>
-
-    </array>
-
     <string name="secure_service_started">Haven Activado</string>
-
-    <string name="secure_service_stopped">Haven Desactivado</string>
 
     <string name="intrusion_detected">Se ha detectado un intruso (Type: %s)
 Grabando evidencia de audio e imagen ahora.</string>
@@ -63,9 +27,6 @@ Grabando evidencia de audio e imagen ahora.</string>
 
     <string name="intro2_title">Haven es para las personas que quieren detectar invasiones a su hogar, oficina, cuarto de hotel o cualquier otro espacio privado.</string>
     <string name="intro3_desc">Convierte un telefono extra en un detector de sonido, movimiento, vibracion y luz, vigilando visitantes inesperados e intrusos indeseados. </string>
-
-    <string name="sensor_setup_info">Posiciona la camara para capturar movimiento, o coloca el telefono en un lugar
-discreto para escuchar sonidos. </string>
 
     <string name="intro4_desc">Recibe notificaciones de intrusos inmediatamente y accesa las detecciones de manera remota o posteriormente en persona.</string>
 
@@ -105,4 +66,4 @@ para determinar el nivel exacto de deteccion</string>
     <string name="data_pressure">Presion</string>
     <string name="data_power">Cargando</string>
     <string name="share_event_action">Compartir evento</string>
-    </resources>
+</resources>

@@ -24,59 +24,64 @@ import org.havenapp.main.service.MonitorService;
  */
 public class AccelerometerMonitor implements SensorEventListener {
 
+    private final static int CHECK_INTERVAL = 1000;
     // For shake motion detection.
     private SensorManager sensorMgr;
-
     /**
      * Accelerometer sensor
      */
     private Sensor accelerometer;
-
     /**
      * Last update of the accelerometer
      */
     private long lastUpdate = -1;
-
     /**
      * Current accelerometer values
      */
     private float accel_values[];
-
     /**
      * Last accelerometer values
      */
     private float last_accel_values[];
-
     /**
      * Data field used to retrieve application prefences
      */
     private PreferenceManager prefs;
-
     /**
      * Shake threshold
      */
     private int shakeThreshold = -1;
-
     /**
      * Text showing accelerometer values
      */
     private int maxAlertPeriod = 30;
     private int remainingAlertPeriod = 0;
     private boolean alert = false;
-    private final static int CHECK_INTERVAL = 1000;
+    private Messenger serviceMessenger = null;
+    private ServiceConnection mConnection = new ServiceConnection() {
+
+        public void onServiceConnected(ComponentName className,
+                                       IBinder service) {
+            Log.i("AccelerometerFragment", "SERVICE CONNECTED");
+            // We've bound to LocalService, cast the IBinder and get LocalService instance
+            serviceMessenger = new Messenger(service);
+        }
+
+        public void onServiceDisconnected(ComponentName arg0) {
+            Log.i("AccelerometerFragment", "SERVICE DISCONNECTED");
+            serviceMessenger = null;
+        }
+    };
 
     public AccelerometerMonitor(Context context) {
         prefs = new PreferenceManager(context);
 
 		/*
-		 * Set sensitivity value
+         * Set sensitivity value
 		 */
-		try
-        {
+        try {
             shakeThreshold = Integer.parseInt(prefs.getAccelerometerSensitivity());
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             shakeThreshold = 50;
         }
 
@@ -123,8 +128,8 @@ public class AccelerometerMonitor implements SensorEventListener {
                             / diffTime * 1000;
 
                     if (speed > shakeThreshold) {
-						/*
-						 * Send Alert
+                        /*
+                         * Send Alert
 						 */
 
                         alert = true;
@@ -132,7 +137,7 @@ public class AccelerometerMonitor implements SensorEventListener {
 
                         Message message = new Message();
                         message.what = EventTrigger.ACCELEROMETER;
-                        message.getData().putString("path",speed+"");
+                        message.getData().putString("path", speed + "");
 
                         try {
                             if (serviceMessenger != null) {
@@ -153,22 +158,5 @@ public class AccelerometerMonitor implements SensorEventListener {
         sensorMgr.unregisterListener(this);
         context.unbindService(mConnection);
     }
-
-    private Messenger serviceMessenger = null;
-
-    private ServiceConnection mConnection = new ServiceConnection() {
-
-        public void onServiceConnected(ComponentName className,
-                                       IBinder service) {
-            Log.i("AccelerometerFragment", "SERVICE CONNECTED");
-            // We've bound to LocalService, cast the IBinder and get LocalService instance
-            serviceMessenger = new Messenger(service);
-        }
-
-        public void onServiceDisconnected(ComponentName arg0) {
-            Log.i("AccelerometerFragment", "SERVICE DISCONNECTED");
-            serviceMessenger = null;
-        }
-    };
 
 }

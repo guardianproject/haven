@@ -10,8 +10,6 @@ buildscript {
 
 }
 
-
-
 /* gets the version name from the latest Git tag, stripping the leading v off */
 def getVersionName = { ->
     def stdout = new ByteArrayOutputStream()
@@ -29,21 +27,21 @@ apply plugin: 'com.android.application'
 repositories {
     jcenter()
     google()
-    maven { url 'https://github.com/FireZenk/maven-repo/raw/master/'}
+    maven { url 'https://github.com/FireZenk/maven-repo/raw/master/' }
     maven { url 'https://jitpack.io' }
 }
 
 allprojects {
     project.ext {
         // these are common variables used in */build.gradle
-        version_number=getVersionName()
-        group_info="haven"
-        signal_version="2.3.0"
-        buildToolsVersion="26.0.2"
-        compileSdkVersion=25
-        minSdkVersion=16
-        targetSdkVersion=25
-        appcompat='com.android.support:appcompat-v7:25.2.0'
+        version_number = getVersionName()
+        group_info = "haven"
+        signal_version = "2.3.0"
+        buildToolsVersion = "26.0.2"
+        compileSdkVersion = 25
+        minSdkVersion = 16
+        targetSdkVersion = 25
+        appcompat = 'com.android.support:appcompat-v7:25.2.0'
     }
 
 }
