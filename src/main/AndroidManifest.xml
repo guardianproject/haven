@@ -34,16 +34,17 @@
             android:name="org.havenapp.main.SettingsActivity"
             android:label="@string/title_activity_start"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name="org.havenapp.main.ui.PPAppIntro"
-            android:screenOrientation="portrait"
-            />
+        <activity
+            android:name="org.havenapp.main.ui.PPAppIntro"
+            android:screenOrientation="portrait" />
         <activity
             android:name="org.havenapp.main.MonitorActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
-        <service android:name="org.havenapp.main.service.MonitorService"
+        <service
+            android:name="org.havenapp.main.service.MonitorService"
             android:exported="false" />
 
         <meta-data
@@ -63,13 +64,13 @@
             android:name="org.havenapp.main.ui.EventActivity"
             android:label="@string/title_activity_event"
             android:theme="@style/AppTheme" />
-        <activity android:name="org.havenapp.main.ui.MicrophoneConfigureActivity"/>
-        <activity android:name="org.havenapp.main.ui.AccelConfigureActivity"/>
+        <activity android:name="org.havenapp.main.ui.MicrophoneConfigureActivity" />
+        <activity android:name="org.havenapp.main.ui.AccelConfigureActivity" />
 
         <receiver android:name="org.havenapp.main.sensors.PowerConnectionReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
-                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
             </intent-filter>
         </receiver>
     </application>

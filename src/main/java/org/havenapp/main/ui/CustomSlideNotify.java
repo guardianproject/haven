@@ -28,6 +28,7 @@ public class CustomSlideNotify extends Fragment {
     private int layoutResId;
     private EditText mEditNumber;
     private View.OnClickListener mListener;
+
     public static CustomSlideNotify newInstance(int layoutResId) {
         CustomSlideNotify sampleSlide = new CustomSlideNotify();
 
@@ -38,8 +39,7 @@ public class CustomSlideNotify extends Fragment {
         return sampleSlide;
     }
 
-    public void setSaveListener (View.OnClickListener listener)
-    {
+    public void setSaveListener(View.OnClickListener listener) {
         mListener = listener;
     }
 
@@ -58,12 +58,12 @@ public class CustomSlideNotify extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(layoutResId, container, false);
 
-        mEditNumber = (EditText)view.findViewById(R.id.editNumber);
+        mEditNumber = (EditText) view.findViewById(R.id.editNumber);
         mEditNumber.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                askForPermission(Manifest.permission.SEND_SMS,6);
-                askForPermission(Manifest.permission.READ_PHONE_STATE,6);
+                askForPermission(Manifest.permission.SEND_SMS, 6);
+                askForPermission(Manifest.permission.READ_PHONE_STATE, 6);
 
             }
         });
@@ -71,14 +71,13 @@ public class CustomSlideNotify extends Fragment {
         if (!TextUtils.isEmpty(pm.getSmsNumber()))
             mEditNumber.setText(pm.getSmsNumber());
 
-        Button button = (Button)view.findViewById(R.id.btnSaveNumber);
+        Button button = (Button) view.findViewById(R.id.btnSaveNumber);
         button.setOnClickListener(mListener);
         return view;
 
     }
 
-    public String getPhoneNumber ()
-    {
+    public String getPhoneNumber() {
         return mEditNumber.getText().toString();
     }
 

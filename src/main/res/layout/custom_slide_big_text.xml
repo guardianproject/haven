@@ -2,21 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
     android:background="@color/colorPrimaryDark"
-    >
+    android:gravity="center"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/custom_slide_big_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center"
         android:text="@string/intro2_title"
         android:textColor="@color/colorPrimaryLight"
-        android:gravity="center"
-        android:layout_margin="10dp"
-        android:textStyle="bold"
-        android:textSize="28sp"/>
+        android:textSize="28sp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/custom_slide_button"

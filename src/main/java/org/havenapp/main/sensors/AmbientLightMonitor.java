@@ -24,40 +24,48 @@ import org.havenapp.main.service.MonitorService;
  */
 public class AmbientLightMonitor implements SensorEventListener {
 
+    private final static float LIGHT_CHANGE_THRESHOLD = 100f;
+    private final static int CHECK_INTERVAL = 1000;
     // For shake motion detection.
     private SensorManager sensorMgr;
-
     /**
      * Accelerometer sensor
      */
     private Sensor sensor;
-
     /**
      * Last update of the accelerometer
      */
     private long lastUpdate = -1;
-
     /**
      * Current accelerometer values
      */
     private float current_values[];
-
     /**
      * Last accelerometer values
      */
     private float last_values[];
-
     /**
      * Data field used to retrieve application prefences
      */
     private PreferenceManager prefs;
-
-    private final static float LIGHT_CHANGE_THRESHOLD = 100f;
-
     private int maxAlertPeriod = 30;
     private int remainingAlertPeriod = 0;
     private boolean alert = false;
-    private final static int CHECK_INTERVAL = 1000;
+    private Messenger serviceMessenger = null;
+    private ServiceConnection mConnection = new ServiceConnection() {
+
+        public void onServiceConnected(ComponentName className,
+                                       IBinder service) {
+            Log.i("AccelerometerFragment", "SERVICE CONNECTED");
+            // We've bound to LocalService, cast the IBinder and get LocalService instance
+            serviceMessenger = new Messenger(service);
+        }
+
+        public void onServiceDisconnected(ComponentName arg0) {
+            Log.i("AccelerometerFragment", "SERVICE DISCONNECTED");
+            serviceMessenger = null;
+        }
+    };
 
     public AmbientLightMonitor(Context context) {
         prefs = new PreferenceManager(context);
@@ -101,17 +109,17 @@ public class AmbientLightMonitor implements SensorEventListener {
 
                     boolean isChanged = false;
 
-                    float lightChangedValue = Math.abs(last_values[0]-current_values[0]);
+                    float lightChangedValue = Math.abs(last_values[0] - current_values[0]);
 
-                    Log.d("LightSensor","Light changed: " + lightChangedValue);
+                    Log.d("LightSensor", "Light changed: " + lightChangedValue);
 
                     //see if light value changed more than 10 values
-                    isChanged = lightChangedValue >LIGHT_CHANGE_THRESHOLD;
+                    isChanged = lightChangedValue > LIGHT_CHANGE_THRESHOLD;
 
 
                     if (isChanged) {
-						/*
-						 * Send Alert
+                        /*
+                         * Send Alert
 						 */
 
                         alert = true;
@@ -119,7 +127,7 @@ public class AmbientLightMonitor implements SensorEventListener {
 
                         Message message = new Message();
                         message.what = EventTrigger.LIGHT;
-                        message.getData().putString("path",lightChangedValue+"");
+                        message.getData().putString("path", lightChangedValue + "");
 
                         try {
                             if (serviceMessenger != null) {
@@ -140,22 +148,5 @@ public class AmbientLightMonitor implements SensorEventListener {
         sensorMgr.unregisterListener(this);
         context.unbindService(mConnection);
     }
-
-    private Messenger serviceMessenger = null;
-
-    private ServiceConnection mConnection = new ServiceConnection() {
-
-        public void onServiceConnected(ComponentName className,
-                                       IBinder service) {
-            Log.i("AccelerometerFragment", "SERVICE CONNECTED");
-            // We've bound to LocalService, cast the IBinder and get LocalService instance
-            serviceMessenger = new Messenger(service);
-        }
-
-        public void onServiceDisconnected(ComponentName arg0) {
-            Log.i("AccelerometerFragment", "SERVICE DISCONNECTED");
-            serviceMessenger = null;
-        }
-    };
 
 }

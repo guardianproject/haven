@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2017 Nathanial Freitas / Guardian Project
  *  * Licensed under the GPLv3 license.
@@ -25,12 +24,8 @@ import android.telephony.SmsManager;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.StringTokenizer;
-
-import org.havenapp.main.MonitorActivity;
 import org.havenapp.main.HavenApp;
+import org.havenapp.main.MonitorActivity;
 import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.R;
 import org.havenapp.main.model.Event;
@@ -40,6 +35,10 @@ import org.havenapp.main.sensors.AmbientLightMonitor;
 import org.havenapp.main.sensors.BarometerMonitor;
 import org.havenapp.main.sensors.MicrophoneMonitor;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.StringTokenizer;
+
 @SuppressLint("HandlerLeak")
 public class MonitorService extends Service {
 
@@ -47,28 +46,14 @@ public class MonitorService extends Service {
      * Monitor instance
      */
     private static MonitorService sInstance;
-
-	/**
-	 * To show a notification on service start
-	 */
-	private NotificationManager manager;
-
-	/**
-	* True only if service has been alerted by the accelerometer
-	*/
-	private boolean already_alerted;
-	
-	/**
-	 * Object used to retrieve shared preferences
-	 */
-	private PreferenceManager mPrefs = null;
-
-
-	/**
-	 * Incrementing alert id
-	 */
-	int mNotificationAlertId = 7007;
-
+    /**
+     * Messenger interface used by clients to interact
+     */
+    private final Messenger messenger = new Messenger(new MessageHandler());
+    /**
+     * Incrementing alert id
+     */
+    int mNotificationAlertId = 7007;
     /**
      * Sensor Monitors
      */
@@ -76,50 +61,48 @@ public class MonitorService extends Service {
     MicrophoneMonitor mMicMonitor = null;
     BarometerMonitor mBaroMonitor = null;
     AmbientLightMonitor mLightMonitor = null;
-
-    private boolean mIsRunning = false;
     /**
      * Last Event instances
      */
     Event mLastEvent;
-
-    /**
-	 * Handler for incoming messages
-	 */
-	class MessageHandler extends Handler {
-		@Override
-		public void handleMessage(Message msg) {
-			alert(msg.what,msg.getData().getString("path"));
-		}
-	}
-		
-	/**
-	 * Messenger interface used by clients to interact
-	 */
-	private final Messenger messenger = new Messenger(new MessageHandler());
-
     /*
     ** Helps keep the service awake when screen is off
      */
     PowerManager.WakeLock wakeLock;
-
     /*
     **
     * Application
      */
     HavenApp mApp = null;
+    /**
+     * To show a notification on service start
+     */
+    private NotificationManager manager;
+    /**
+     * True only if service has been alerted by the accelerometer
+     */
+    private boolean already_alerted;
+    /**
+     * Object used to retrieve shared preferences
+     */
+    private PreferenceManager mPrefs = null;
+    private boolean mIsRunning = false;
 
-	/**
-	 * Called on service creation, sends a notification
-	 */
+    public static MonitorService getInstance() {
+        return sInstance;
+    }
+
+    /**
+     * Called on service creation, sends a notification
+     */
     @Override
     public void onCreate() {
 
         sInstance = this;
 
-        mApp = (HavenApp)getApplication();
+        mApp = (HavenApp) getApplication();
 
-        manager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+        manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         mPrefs = new PreferenceManager(this);
 
         startSensors();
@@ -132,11 +115,6 @@ public class MonitorService extends Service {
         wakeLock.acquire();
     }
 
-    public static MonitorService getInstance ()
-    {
-        return sInstance;
-    }
-    
     /**
      * Called on service destroy, cancels persistent notification
      * and shows a toast
@@ -146,10 +124,10 @@ public class MonitorService extends Service {
 
         wakeLock.release();
         stopSensors();
-		stopForeground(true);
+        stopForeground(true);
 
     }
-	
+
     /**
      * When binding to the service, we return an interface to our messenger
      * for sending messages to the service.
@@ -158,15 +136,15 @@ public class MonitorService extends Service {
     public IBinder onBind(Intent intent) {
         return messenger.getBinder();
     }
-    
+
     /**
      * Show a notification while this service is running.
      */
     @SuppressWarnings("deprecation")
-	private void showNotification() {
+    private void showNotification() {
 
-    	Intent toLaunch = new Intent(getApplicationContext(),
-    	                                          MonitorActivity.class);
+        Intent toLaunch = new Intent(getApplicationContext(),
+                MonitorActivity.class);
 
         toLaunch.setAction(Intent.ACTION_MAIN);
         toLaunch.addCategory(Intent.CATEGORY_LAUNCHER);
@@ -183,28 +161,26 @@ public class MonitorService extends Service {
         // In this sample, we'll use the same text for the ticker and the expanded notification
         CharSequence text = getText(R.string.secure_service_started);
 
-		NotificationCompat.Builder mBuilder =
-				new NotificationCompat.Builder(this)
-						.setSmallIcon(R.drawable.ic_stat_haven)
-						.setContentTitle(getString(R.string.app_name))
-						.setContentText(text);
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.ic_stat_haven)
+                        .setContentTitle(getString(R.string.app_name))
+                        .setContentText(text);
 
-		mBuilder.setPriority(NotificationCompat.PRIORITY_MIN);
+        mBuilder.setPriority(NotificationCompat.PRIORITY_MIN);
         mBuilder.setContentIntent(resultPendingIntent);
         mBuilder.setWhen(System.currentTimeMillis());
 
-		startForeground(1, mBuilder.build());
+        startForeground(1, mBuilder.build());
 
     }
 
-    public boolean isRunning ()
-    {
+    public boolean isRunning() {
         return mIsRunning;
 
     }
 
-    private void startSensors ()
-    {
+    private void startSensors() {
         mIsRunning = true;
 
         if (mPrefs.getAccelerometerSensitivity() != PreferenceManager.OFF) {
@@ -219,8 +195,7 @@ public class MonitorService extends Service {
 
     }
 
-    private void stopSensors ()
-    {
+    private void stopSensors() {
         mIsRunning = false;
 
         if (mPrefs.getAccelerometerSensitivity() != PreferenceManager.OFF) {
@@ -234,15 +209,14 @@ public class MonitorService extends Service {
     }
 
     /**
-    * Sends an alert according to type of connectivity
-    */
+     * Sends an alert according to type of connectivity
+     */
     public synchronized void alert(int alertType, String path) {
 
         Date now = new Date();
         boolean isNewEvent = false;
 
-        if (mLastEvent == null || (!mLastEvent.insideEventWindow(now)))
-        {
+        if (mLastEvent == null || (!mLastEvent.insideEventWindow(now))) {
             mLastEvent = new Event();
             mLastEvent.save();
 
@@ -263,51 +237,51 @@ public class MonitorService extends Service {
          * number
          */
         StringBuffer alertMessage = new StringBuffer();
-        alertMessage.append(getString(R.string.intrusion_detected,eventTrigger.getStringType(this)));
+        alertMessage.append(getString(R.string.intrusion_detected, eventTrigger.getStringType(this)));
 
-        Toast.makeText(this,alertMessage.toString(),Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, alertMessage.toString(), Toast.LENGTH_SHORT).show();
 
-        if (mPrefs.getSignalUsername() != null)
-        {
+        if (mPrefs.getSignalUsername() != null) {
             //since this is a secure channel, we can add the Onion address
-            if (mPrefs.getRemoteAccessActive() && (!TextUtils.isEmpty(mPrefs.getRemoteAccessOnion())))
-            {
+            if (mPrefs.getRemoteAccessActive() && (!TextUtils.isEmpty(mPrefs.getRemoteAccessOnion()))) {
                 alertMessage.append(" http://").append(mPrefs.getRemoteAccessOnion())
                         .append(':').append(WebServer.LOCAL_PORT);
             }
 
-            SignalSender sender = SignalSender.getInstance(this,mPrefs.getSignalUsername());
+            SignalSender sender = SignalSender.getInstance(this, mPrefs.getSignalUsername());
             ArrayList<String> recips = new ArrayList<>();
-            StringTokenizer st = new StringTokenizer(mPrefs.getSmsNumber(),",");
+            StringTokenizer st = new StringTokenizer(mPrefs.getSmsNumber(), ",");
             while (st.hasMoreTokens())
                 recips.add(st.nextToken());
 
             String attachment = null;
-            if (eventTrigger.getType() == EventTrigger.CAMERA)
-            {
+            if (eventTrigger.getType() == EventTrigger.CAMERA) {
                 attachment = eventTrigger.getPath();
-            }
-            else if (eventTrigger.getType() == EventTrigger.MICROPHONE)
-            {
+            } else if (eventTrigger.getType() == EventTrigger.MICROPHONE) {
                 attachment = eventTrigger.getPath();
             }
 
-            sender.sendMessage(recips,alertMessage.toString(), attachment);
-        }
-        else if (mPrefs.getSmsActivation() && isNewEvent)
-        {
+            sender.sendMessage(recips, alertMessage.toString(), attachment);
+        } else if (mPrefs.getSmsActivation() && isNewEvent) {
             SmsManager manager = SmsManager.getDefault();
 
-            StringTokenizer st = new StringTokenizer(mPrefs.getSmsNumber(),",");
+            StringTokenizer st = new StringTokenizer(mPrefs.getSmsNumber(), ",");
             while (st.hasMoreTokens())
                 manager.sendTextMessage(st.nextToken(), null, alertMessage.toString(), null, null);
 
         }
 
 
+    }
 
-
-
+    /**
+     * Handler for incoming messages
+     */
+    class MessageHandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            alert(msg.what, msg.getData().getString("path"));
+        }
     }
 
 

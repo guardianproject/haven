@@ -2,52 +2,50 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
     android:background="@color/colorPrimaryDark"
-    >
+    android:gravity="center"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/custom_slide_big_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center"
         android:text="@string/know_immediately_when_haven_detects_something"
         android:textColor="@color/colorPrimaryLight"
-        android:gravity="center"
-        android:layout_margin="10dp"
-        android:textStyle="bold"
-        android:textSize="28sp"/>
+        android:textSize="28sp"
+        android:textStyle="bold" />
 
     <EditText
+        android:id="@+id/editNumber"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/White"
         android:backgroundTint="@color/colorPrimaryLight"
-        android:hint="+12125551212"
         android:gravity="center"
+        android:hint="+12125551212"
         android:inputType="phone"
-        android:id="@+id/editNumber"
-        />
+        android:textColor="@color/White" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/you_will_receive_a_text_when_the_app_hears_or_sees_something"
-        android:textColor="@color/colorPrimaryLight"
-        android:gravity="center"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
+        android:gravity="center"
+        android:text="@string/you_will_receive_a_text_when_the_app_hears_or_sees_something"
+        android:textColor="@color/colorPrimaryLight"
 
-        android:textStyle="bold"
-        android:textSize="16dp"/>
+        android:textSize="16dp"
+        android:textStyle="bold" />
 
     <Button
+        android:id="@+id/btnSaveNumber"
         android:layout_width="120dp"
         android:layout_height="40dp"
-        android:text="@string/save_number"
         android:layout_margin="10dp"
-        android:id="@+id/btnSaveNumber"
         android:background="@drawable/round_drawable"
+        android:text="@string/save_number"
         android:textColor="@color/White"
 
         />

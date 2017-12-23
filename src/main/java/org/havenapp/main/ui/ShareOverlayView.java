@@ -34,8 +34,7 @@ public class ShareOverlayView extends RelativeLayout {
         init();
     }
 
-    public void setImageViewer (ImageViewer viewer)
-    {
+    public void setImageViewer(ImageViewer viewer) {
         this.viewer = viewer;
     }
 

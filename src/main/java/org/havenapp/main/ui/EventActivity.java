@@ -14,12 +14,12 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 
-import java.io.File;
-import java.util.ArrayList;
-
 import org.havenapp.main.R;
 import org.havenapp.main.model.Event;
 import org.havenapp.main.model.EventTrigger;
+
+import java.io.File;
+import java.util.ArrayList;
 
 public class EventActivity extends AppCompatActivity {
 
@@ -39,12 +39,12 @@ public class EventActivity extends AppCompatActivity {
 
         StrictMode.setVmPolicy(StrictMode.VmPolicy.LAX);
 
-        long eventId = getIntent().getLongExtra("eventid",-1);
+        long eventId = getIntent().getLongExtra("eventid", -1);
 
         if (eventId != -1) {
 
             mEvent = Event.findById(Event.class, eventId);
-            mRecyclerView = (RecyclerView)findViewById(R.id.event_trigger_list);
+            mRecyclerView = (RecyclerView) findViewById(R.id.event_trigger_list);
 
             setTitle(mEvent.getStartTime().toLocaleString());
 
@@ -78,7 +78,7 @@ public class EventActivity extends AppCompatActivity {
                     final int position = viewHolder.getAdapterPosition();
                     final EventTrigger eventTrigger = mEvent.getEventTriggers().get(viewHolder.getAdapterPosition());
 
-                    deleteEventTrigger (eventTrigger, position);
+                    deleteEventTrigger(eventTrigger, position);
 
 
                 }
@@ -89,18 +89,14 @@ public class EventActivity extends AppCompatActivity {
             ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
             itemTouchHelper.attachToRecyclerView(mRecyclerView);
 
-        }
-        else
+        } else
             finish();
     }
 
-    private void deleteEventTrigger (final EventTrigger eventTrigger, final int position)
-    {
+    private void deleteEventTrigger(final EventTrigger eventTrigger, final int position) {
 
-        final Runnable runnableDelete = new Runnable ()
-        {
-            public void run ()
-            {
+        final Runnable runnableDelete = new Runnable() {
+            public void run() {
 
                 new File(eventTrigger.getPath()).delete();
                 eventTrigger.delete();
@@ -108,7 +104,7 @@ public class EventActivity extends AppCompatActivity {
             }
         };
 
-        mHandler.postDelayed(runnableDelete,3000);
+        mHandler.postDelayed(runnableDelete, 3000);
 
         mEvent.getEventTriggers().remove(position);
         mAdapter.notifyItemRemoved(position);
@@ -128,8 +124,7 @@ public class EventActivity extends AppCompatActivity {
                 .show();
     }
 
-    private void shareEvent ()
-    {
+    private void shareEvent() {
         String title = "Phoneypot: " + mEvent.getStartTime().toLocaleString();
 
         //need to "send multiple" to get more than one attachment
@@ -141,8 +136,7 @@ public class EventActivity extends AppCompatActivity {
         //has to be an ArrayList
         ArrayList<Uri> uris = new ArrayList<Uri>();
         //convert from paths to Android friendly Parcelable Uri's
-        for (EventTrigger trigger : mEvent.getEventTriggers())
-        {
+        for (EventTrigger trigger : mEvent.getEventTriggers()) {
             File fileIn = new File(trigger.getPath());
             Uri u = Uri.fromFile(fileIn);
             uris.add(u);
@@ -152,7 +146,7 @@ public class EventActivity extends AppCompatActivity {
         startActivity(Intent.createChooser(emailIntent, getString(R.string.share_event_action)));
     }
 
-    private String generateLog () {
+    private String generateLog() {
         StringBuffer mEventLog = new StringBuffer();
 
         setTitle("Event @ " + mEvent.getStartTime().toLocaleString());
