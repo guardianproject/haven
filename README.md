@@ -57,7 +57,7 @@ You can currently get the Haven BETA release in one of three ways:
 
 or add this repository manually in F-Droid's Settings->Repositories: [https://guardianproject.github.io/haven-nightly/fdroid/repo/](https://guardianproject.github.io/haven-nightly/fdroid/repo/)
 
-* Grab the APK files from the [Github releases page](https://github.com/guardianproject/haven/releases)
+* Grab the APK files from the [GitHub releases page](https://github.com/guardianproject/haven/releases)
 
 You can, of course, build the app yourself, from source.
 
