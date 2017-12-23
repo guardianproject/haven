@@ -33,7 +33,7 @@ recorded to an event log on the device:
 
 * Accelerometer: phone’s motion and vibration
 * Camera: motion in the phone’s visible surroundings from front or back camera
-* Microphone: noises in the enviroment
+* Microphone: noises in the environment
 * Light: change in light from ambient light sensor
 * Power: detect device being unplugged or power loss
 
