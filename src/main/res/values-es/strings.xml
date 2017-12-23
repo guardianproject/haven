@@ -15,36 +15,36 @@ Nivel de Sensibilidad de Movimiento</string>
 Sensibilidad de Sonido</string>
 
     <string name="camera_sensitivity">
-Sensibilidad de movimiento de la camara</string>
+Sensibilidad de movimiento de la cámara</string>
 
     <string name="microphone_label">
-Usar el microfono para detectar sonidos</string>
+Usar el micrófono para detectar sonidos</string>
 
     <string name="camera_label">
-Seleccionar Camara</string>
+Seleccionar Cámara</string>
 
     <string name="flash_label">
 Activar Flash</string>
 
     <string name="unlock_code_hint">
-Codigo para detener la aplicacion</string>
+Código para detener la aplicación</string>
 
     <string name="start_button">
 Iniciar</string>
 
     <string name="camera_prompt">
-Seleccionar la Camara</string>
+Seleccionar la Cámara</string>
 
     <array name="select_sensitivity">
-        <item>Low</item>
-        <item>Medium</item>
-        <item>High</item>
-        <item>Off</item>
+        <item>Baja</item>
+        <item>Media</item>
+        <item>Alta</item>
+        <item>Apagado</item>
     </array>
     <array name="select_camera">
-        <item>Front</item>
-        <item>Back</item>
-        <item>Off</item>
+        <item>Frente</item>
+        <item>Atrás</item>
+        <item>Apagado</item>
 
     </array>
 
@@ -56,53 +56,53 @@ Seleccionar la Camara</string>
 Grabando evidencia de audio e imagen ahora.</string>
     <string name="title_activity_event">EventActivity</string>
 
-    <string name="action_settings">Configuracion</string>
+    <string name="action_settings">Configuración</string>
 
     <string name="intro1_title">Bienvenido a Haven</string>
     <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the height find...\"\n-George Meredith</string>
 
     <string name="intro2_title">Haven es para las personas que quieren detectar invasiones a su hogar, oficina, cuarto de hotel o cualquier otro espacio privado.</string>
-    <string name="intro3_desc">Convierte un telefono extra en un detector de sonido, movimiento, vibracion y luz, vigilando visitantes inesperados e intrusos indeseados. </string>
+    <string name="intro3_desc">Convierte un teléfono extra en un detector de sonido, movimiento, vibración y luz, vigilando visitantes inesperados e intrusos indeseados. </string>
 
-    <string name="sensor_setup_info">Posiciona la camara para capturar movimiento, o coloca el telefono en un lugar
+    <string name="sensor_setup_info">Posiciona la cámara para capturar movimiento, o coloca el teléfono en un lugar
 discreto para escuchar sonidos. </string>
 
     <string name="intro4_desc">Recibe notificaciones de intrusos inmediatamente y accesa las detecciones de manera remota o posteriormente en persona.</string>
 
     <string name="intro5_title">Haven esta listo. </string>
-    <string name="intro5_desc">Activa la Aplicacion en cualquier momento usando el boton &gt; en la pantalla principal.</string>
+    <string name="intro5_desc">Activa la Aplicación en cualquier momento usando el botón &gt; en la pantalla principal.</string>
 
     <string name="onboarding_action_end">Terminar</string>
 
     <string name="remote_access_label">Habilitar acceso remoto via Tor Onion Service</string>
     <string name="camera_front">Frente</string>
-    <string name="camera_back">Atras</string>
+    <string name="camera_back">Atrás</string>
     <string name="camera_none">Ninguna</string>
 
     <string name="action_configure">Configurar</string>
 
-    <string name="main_screen_title">Inicio de Sesion Haven</string>
+    <string name="main_screen_title">Inicio de Sesión Haven</string>
 
     <string name="current_noise_base">Niveles de sonido actuales</string>
-    <string name="configure_trigger_level">Desliza la barra para cambiar el nivel de deteccion</string>
+    <string name="configure_trigger_level">Desliza la barra para cambiar el nivel de detección</string>
     <string name="tune_the_sound_detection">Has ruido!</string>
-    <string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">Coloca tu telefono en una mesa y has ruido en la habitacion 
-para determinar el nivel exacto de deteccion</string>
+    <string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">Coloca tu teléfono en una mesa y has ruido en la habitación
+para determinar el nivel exacto de detección</string>
     <string name="set_a_countdown_time">Toca para cambiar el conteo</string>
     <string name="start_now">Iniciar ahora</string>
-    <string name="start_later">Iniciar Despues</string>
-    <string name="save_number">Guardar el numero</string>
+    <string name="start_later">Iniciar Después</string>
+    <string name="save_number">Guardar el número</string>
 
     <string name="action_cancel">Desactivar</string>
     <string name="status_on">Activo</string>
     <string name="status_charging">Cargando:</string>
-    <string name="you_will_receive_a_text_when_the_app_hears_or_sees_something">Recubiras un texto cuando la aplicacion escuche o vea algo</string>
-    <string name="know_immediately_when_haven_detects_something">Recibe una notificacion inmediata si la aplicacion detecta algo</string>
-    <string name="phone_saved">Numero de telefono guardado!</string>
+    <string name="you_will_receive_a_text_when_the_app_hears_or_sees_something">Recibirás un texto cuando la aplicación escuche o vea algo</string>
+    <string name="know_immediately_when_haven_detects_something">Recibe una notificación inmediata si la aplicación detecta algo</string>
+    <string name="phone_saved">Número de telefono guardado!</string>
     <string name="detection_events">Eventos Detectados</string>
     <string name="data_speed">Velocidad</string>
     <string name="data_light">Luz</string>
-    <string name="data_pressure">Presion</string>
+    <string name="data_pressure">Presión</string>
     <string name="data_power">Cargando</string>
     <string name="share_event_action">Compartir evento</string>
     </resources>
