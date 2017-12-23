@@ -8,6 +8,8 @@ import android.util.Log;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.security.MessageDigest;
 import java.util.List;
 import java.util.UUID;
 
@@ -53,12 +55,12 @@ public class WebServer extends NanoHTTPD {
             String inPassword = session.getParms().get("p");
             String inSid = session.getCookies().read("sid");
 
-            if (inPassword != null && mPassword.equals(inPassword)) {
+            if (inPassword != null && safeEquals(inPassword, mPassword)) {
                 mSession = UUID.randomUUID().toString();
                 cookie = new OnionCookie ("sid",mSession,100000);
                 session.getCookies().set(cookie);
             }
-            else if (inSid == null || (inSid != null && (!mSession.equals(inSid)))) {
+            else if (inSid == null || (inSid != null && (!safeEquals(inSid, mSession)))) {
                 showLogin(page);
                 return newFixedLengthResponse(page.toString());
             }
@@ -217,6 +219,12 @@ public class WebServer extends NanoHTTPD {
 
         return sType;
 
+    }
+
+    private boolean safeEquals (String a, String b) {
+        byte[] aByteArray = a.getBytes(Charset.forName("UTF-8"));
+        byte[] bByteArray = b.getBytes(Charset.forName("UTF-8"));
+        return MessageDigest.isEqual(aByteArray, bByteArray);
     }
 
     class OnionCookie extends Cookie
