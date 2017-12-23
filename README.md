@@ -78,16 +78,16 @@ Application's main view allows the user to set which sensors to use and the corr
 
 ### Notifications
 
-When one of the sensors is triggered (reaches the sensibility threshold) a notifications is sent through the following channels (if enabled).
+When one of the sensors is triggered (reaches the sensibility threshold) a notifications are sent through the following channels (if enabled).
 
 - SMS: a message is sent to the number specified when monitoring started
 - Signal: if configured, can send end-to-end encryption notifications via Signal
 
-Notifications are sent through a service running in background that is defined in class `MonitorService`.
+Notifications are sent through a service running in the background that is defined in class `MonitorService`.
 
 ### Remote Access
 
-All event logs and captured media can be remotely accessed through a [Tor Onion Service](https://www.torproject.org/docs/onion-services). Haven must be configured as an Onion Service, and requires the device to also have [Orbot: Tor for Android](https://guardianproject.info/apps/orbot) installed and running. 
+All event logs and captured media can be remotely accessed through a [Tor Onion Service](https://www.torproject.org/docs/onion-services). Haven must be configured as an Onion Service and requires the device to also have [Orbot: Tor for Android](https://guardianproject.info/apps/orbot) installed and running. 
 
 ## ATTRIBUTIONS
 
