@@ -43,7 +43,8 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
-        <service android:name="org.havenapp.main.service.MonitorService" />
+        <service android:name="org.havenapp.main.service.MonitorService"
+            android:exported="false" />
 
         <meta-data
             android:name="DATABASE"
