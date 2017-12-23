@@ -92,7 +92,7 @@ All event logs and captured media can be remotely accessed through a [Tor Onion 
 
 ## ATTRIBUTIONS
 
-This project contains source code or library dependencies from the follow projects:
+This project contains source code or library dependencies from the following projects:
 
 * SecureIt project available at: https://github.com/mziccard/secureit Copyright (c) 2014 Marco Ziccardi (Modified BSD)
 * libsignal-service-java from Open Whisper Systems: https://github.com/WhisperSystems/libsignal-service-java (GPLv3)
