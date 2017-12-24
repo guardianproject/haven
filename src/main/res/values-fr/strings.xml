@@ -36,10 +36,6 @@
 		Activer le flash
 	</string>
 
-	<string name="flash_label">
-		Activer le flash
-	</string>
-
 	<string name="sms_label">
 		Envoyer SMS ou des alertes par message Signal
 	</string>
@@ -66,7 +62,9 @@
 		<item>Haute</item>
 		<item>Desactivée</item>
 	</array>
+
 	<array name="select_camera">
+
 		<item>Frontale</item>
 		<item>Arrière</item>
 		<item>Desactivée</item>
@@ -78,7 +76,8 @@
 	<string name="secure_service_stopped">Haven desactivé</string>
 
 	<string name="intrusion_detected">Un intrus a été détecté (type: %s)
-		Enregistrement audio et image en cours.</string>
+		Enregistrement audio et image en cours.
+	</string>
 	<string name="title_activity_event">EventActivity</string>
 
 	<string name="action_settings">Configuration</string>
