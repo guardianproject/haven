@@ -150,7 +150,6 @@
 	<string name="sensor_sound">Micrófono</string>
 	<string name="sensor_power">Alimentación USB</string>
 	<string name="sensor_unknown">Desconocido</string>
-	<string name="menu_stop">Detener</string>
 	<string name="menu_start">Iniciar</string>
 	<string name="menu_save">Guardar</string>
 	<string name="menu_remote_access">Acceso Remoto</string>
