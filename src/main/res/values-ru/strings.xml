@@ -26,23 +26,23 @@
     </string>
 
     <string name="microphone_label">
-    	Используйте микрофон для обнаружения любого звука
+    	Использовать микрофон для обнаружения звука
     </string>
 
     <string name="camera_label">
-    	Выбранная камера
+    	Выбрать камеру
     </string>
 
     <string name="flash_label">
-    	Активация вспышки
+    	Активировать вспышку
     </string>
 
     <string name="sms_label">
-    	Отправить SMS или оповещение сигналом
+    	Отправлять SMS или сигналы оповещений
     </string>
 
     <string name="sms_hint">
-    	+12125551212
+    	+79125551212
     </string>
 
     <string name="unlock_code_hint">
@@ -54,100 +54,96 @@
     </string>
 
     <string name="camera_prompt">
-    	Выберите камеру
+    	Выбрать камеру
     </string>
 
     <array name="select_sensitivity">
-        <item>Низкое</item>
-        <item>Среднее</item>
-        <item>Высокое</item>
-        <item>Откл.</item>
+        <item>Низкая</item>
+        <item>Средняя</item>
+        <item>Высокая</item>
+        <item>Отключить</item>
     </array>
 
     <array name="select_camera">
         <item>Передняя</item>
         <item>Задняя</item>
-        <item>Выкл.</item>
+        <item>Отключить</item>
     </array>
 
-    <string name="secure_service_started">Haven активировать</string>
+    <string name="secure_service_started">Haven включен</string>
 
-    <string name="secure_service_stopped">Haven отключить</string>
+    <string name="secure_service_stopped">Haven отключен</string>
 
-    <string name="intrusion_detected">Был вызван датчик Haven (Type: %s)</string>
-    <string name="title_activity_event">EventActivity</string>
+    <string name="intrusion_detected">Haven заметил срабатывание датчика (Тип: %s)</string>
+    <string name="title_activity_event">Активное событие</string>
 
     <string name="action_settings">Настройки</string>
 
     <string name="intro1_title">Добро пожаловать в Haven</string>
-    <string name="intro1_desc">\"Теперь, когда ковчег человеческой судьбы,\nLong сбитый с толку непосильным ветром,\nдрейфует со своим людским грузом,\nБЕЗОПАСНОСТЬ HAVEN на высоте найти...\"\n-George Meredith</string>
-
-    <string name="intro2_title">Haven для людей, которые хотят следить за вторжения в их дом, офис, гостиницу или другое личное пространство</string>
-    <string name="intro3_desc">Превратите дополнительный телефон в детектор движения, звука, вибрации и света, наблюдая за неожиданными гостями и нежелательными злоумышленниками</string>
-
-    <string name="sensor_setup_info">Расположите камеру для захвата движения или установите телефон в любом месте, чтобы просто слушать шум</string>
-
-    <string name="intro4_desc">Получите мгновенное уведомление о событиях вторжения и получите доступ к журналам удаленно или лично позже</string>
-
+    <string name="intro1_desc">\"Теперь, когда ковчег человеческой судьбы,\nдлинный сбитый с пути своенравным ветром,\nдрейфует со своим людским грузом,\nБЕЗОПАСНОСТЬ HAVEN на Вашей защите...\"\n-Джордж Мередит</string>
+    <string name="intro2_title">Haven предназначен для людей, которые хотят следить за проникновением в свой дом, офис, гостиничный номер или другое личное пространство</string>
+    <string name="intro3_desc">Превратите дополнительный телефон в детектор движения, звука, вибрации и света, наблюдая за неожиданными гостями и злоумышленниками</string>
+    <string name="intro4_desc">Получайте уведомления о проникновениях мгновенно, а также доступ к журналам удаленно или лично позже</string>
     <string name="intro5_title">Ваш Haven готов</string>
-    <string name="intro5_desc">Активируйте приложение в любое время с помощью кнопки действий &gt; на главном экране</string>
+    <string name="intro5_desc">Активируйте приложение в любое время, используя кнопку действия &gt; на главном экране</string>
+    <string name="onboarding_action_end">Закончить</string>
 
-    <string name="onboarding_action_end">Конец</string>
+    <string name="sensor_setup_info">Расположите камеру для захвата движения или установите телефон в любом месте, чтобы просто слушать звук</string>
 
     <string name="remote_access_label">Включить удаленный доступ через службу Tor Onion</string>
     <string name="remote_access_hint">Адрес службы Onion от Orbot</string>
     <string name="remote_access_credential_hint">Установка удаленного пароля</string>
     <string name="camera_front">Передняя</string>
     <string name="camera_back">Задняя</string>
-    <string name="camera_none">Не выбрана</string>
+    <string name="camera_none">Никакая</string>
 
-    <string name="action_configure">Конфигурация</string>
+    <string name="action_configure">Настроить</string>
 
-    <string name="main_screen_title">Ваш Haven журнал</string>
+    <string name="main_screen_title">Ваш журнал Haven</string>
 
-    <string name="current_noise_base">Текущий уровень шума</string>
+    <string name="current_noise_base">Текущий уровень звука</string>
     <string name="current_accel_base">Текущий уровень движения</string>
 
-    <string name="configure_trigger_level">Передвинуть колесо для изменения порога обнаружения</string>
-    <string name="tune_the_sound_detection">Сделай немного шума!</string>
-    <string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">Положите телефон на стол, и сделайте шум в комнате, чтобы найти нужный уровень для обнаружения</string>
+    <string name="configure_trigger_level">Передвиньте колесо для изменения порога обнаружения</string>
+    <string name="tune_the_sound_detection">Пошумите!</string>
+    <string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">Положите телефон на стол и пошумите в комнате, чтобы определить нужный уровень обнаружения звука</string>
 
-    <string name="tune_the_accel_detection">Встряхните его!</string>
-    <string name="tune_the_accel_detection_more">Сделайте круговое движение телефоном, чтобы настроить порог обнаружения движения</string>
+    <string name="tune_the_accel_detection">Встряхните!</string>
+    <string name="tune_the_accel_detection_more">Потрясите телефон, чтобы определить нужный уровень обнаружения движения</string>
     <string name="set_a_countdown_time">Нажмите, чтобы изменить обратный отсчет</string>
-    <string name="start_now">Начать сейчас</string>
+    <string name="start_now">Запустить</string>
     <string name="start_later">Просмотр журналов</string>
     <string name="save_number">Сохранить номер</string>
 
     <string name="action_cancel">Отключить</string>
-    <string name="status_on">ACTIVE</string>
+    <string name="status_on">ВКЛЮЧЕНО</string>
     <string name="status_charging">Зарядка:</string>
-    <string name="you_will_receive_a_text_when_the_app_hears_or_sees_something">Вы получите текст, когда приложение слышит или видит что-то</string>
-    <string name="know_immediately_when_haven_detects_something">Узнайте сразу, когда Haven обнаруживает что-то</string>
+    <string name="you_will_receive_a_text_when_the_app_hears_or_sees_something">Вы получите текст, когда приложение что то услышит или увидит</string>
+    <string name="know_immediately_when_haven_detects_something">Узнайте сразу же, как только Haven что то обнаружит</string>
     <string name="phone_saved">Номер телефона сохранен!</string>
-    <string name="detection_events">события обнаружения</string>
-    <string name="data_speed">SPEED</string>
-    <string name="data_light">LIGHT</string>
-    <string name="data_pressure">PRESSURE</string>
-    <string name="data_power">POWER</string>
-    <string name="share_event_action">Поделитесь событием...</string>
+    <string name="detection_events">события обнаружены</string>
+    <string name="data_speed">СКОРОСТЬ</string>
+    <string name="data_light">СВЕТ</string>
+    <string name="data_pressure">НАЖАТИЕ</string>
+    <string name="data_power">ПИТАНИЕ</string>
+    <string name="share_event_action">Поделиться событием...</string>
     <string name="signal_test_message">Это тестовое сообщение от Haven</string>
     <string name="send_test_message">Отправить тестовое сообщение</string>
-    <string name="verify">Проверить</string>
+    <string name="verify">Подтверждение</string>
     <string name="register">Регистрация</string>
     <string name="activate_signal">Активировать сигнал</string>
-    <string name="verify_signal">Проверка сигнала</string>
-    <string name="enter_verification">Введите проверочный код, который Вы получили при шаге регистрации сигнала</string>
+    <string name="verify_signal">Подтвердить сигнал</string>
+    <string name="enter_verification">Введите проверочный код, который Вы получили при регистрации сигнала</string>
     <string name="cancel">Отмена</string>
     <string name="register_title">Регистрация с помощью сигнала</string>
-    <string name="register_signal_desc">Зарегистрировать новый номер телефона (+12125551212) с сигналом для отправки безопасных уведомлений. НЕ ИСПОЛЬЗУЙТЕ СУЩЕСТВУЮЩИЙ/ПЕРВИЧНЫЙ СИГНАЛЬНЫЙ НОМЕР.</string>
-    <string name="phone_hint">+12125551212</string>
+    <string name="register_signal_desc">Зарегистрировать новый номер телефона (+79125551212) для отправки защищенных уведомлений. НЕ ИСПОЛЬЗУЙТЕ СУЩЕСТВУЮЩИЙ/ПЕРВОНАЧАЛЬНЫЙ НОМЕР.</string>
+    <string name="phone_hint">+79125551212</string>
 
     <string name="menu_licenses">Лицензии...</string>
     <string name="sensor_light">Окружающий свет</string>
     <string name="sensor_accel">Движение (акселерометр)</string>
     <string name="sensor_camera">Движение (камера)</string>
     <string name="sensor_sound">Микрофон</string>
-    <string name="sensor_power">Питание от USB</string>
+    <string name="sensor_power">Питание USB</string>
     <string name="sensor_unknown">Неизвестный</string>
 </resources>
