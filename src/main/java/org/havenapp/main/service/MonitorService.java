@@ -11,10 +11,13 @@ package org.havenapp.main.service;
 
 
 import android.annotation.SuppressLint;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -25,12 +28,8 @@ import android.telephony.SmsManager;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.StringTokenizer;
-
-import org.havenapp.main.MonitorActivity;
 import org.havenapp.main.HavenApp;
+import org.havenapp.main.MonitorActivity;
 import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.R;
 import org.havenapp.main.model.Event;
@@ -39,6 +38,10 @@ import org.havenapp.main.sensors.AccelerometerMonitor;
 import org.havenapp.main.sensors.AmbientLightMonitor;
 import org.havenapp.main.sensors.BarometerMonitor;
 import org.havenapp.main.sensors.MicrophoneMonitor;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.StringTokenizer;
 
 @SuppressLint("HandlerLeak")
 public class MonitorService extends Service {
@@ -51,7 +54,11 @@ public class MonitorService extends Service {
 	/**
 	 * To show a notification on service start
 	 */
-	private NotificationManager manager;
+	NotificationManager manager;
+    NotificationChannel mChannel;
+    final static String channelId = "monitor_id";
+    final static CharSequence channelName = "Haven notifications";
+    final static String channelDescription= "Important messages from Haven";
 
 	/**
 	* True only if service has been alerted by the accelerometer
@@ -122,6 +129,14 @@ public class MonitorService extends Service {
         manager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         mPrefs = new PreferenceManager(this);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            mChannel = new NotificationChannel(channelId, channelName,
+                    NotificationManager.IMPORTANCE_HIGH);
+            mChannel.setDescription(channelDescription);
+            mChannel.setLightColor(Color.RED);
+            manager.createNotificationChannel(mChannel);
+        }
+
         startSensors();
 
         showNotification();
@@ -184,7 +199,7 @@ public class MonitorService extends Service {
         CharSequence text = getText(R.string.secure_service_started);
 
 		NotificationCompat.Builder mBuilder =
-				new NotificationCompat.Builder(this)
+				new NotificationCompat.Builder(this, channelId)
 						.setSmallIcon(R.drawable.ic_stat_haven)
 						.setContentTitle(getString(R.string.app_name))
 						.setContentText(text);
