@@ -146,7 +146,7 @@
 	<string name="enter_verification">Entrer le code de vérification que vous avez reçu depuis l'inscription de Signal</string>
 	<string name="cancel">Annuler</string>
 	<string name="register_title">S'inscrire avec Signal</string>
-	<string name="register_signal_desc">Inscrire un nouveau numéro de téléphone (+12125551212) avec Signal pour envoyer des notifications sécurisées. NE PAS UTILISER UN NUMÉRO SIGNAL DÉJÀ EXISTANT.</string>
+	<string name="register_signal_desc">Inscrire un nouveau numéro de téléphone (+12125551212) avec Signal pour envoyer des notifications sécurisées. NE PAS UTILISER VOTRE NUMÉRO SIGNAL PRINCIPAL.</string>
 	<string name="phone_hint">+12125551212</string>
 
 	<string name="menu_licenses">Licenses...</string>
