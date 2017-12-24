@@ -109,7 +109,7 @@
 	<string name="main_screen_title">Ouverture de la session Haven</string>
 
 	<string name="current_noise_base">Niveaux de sons actuels</string>
-	<string name="current_noise_base">Niveaux de mouvements actuels</string>
+	<string name="current_accel_base">Niveaux de mouvements actuels</string>
 	<string name="configure_trigger_level">Glisser la roue pour changer le niveau de détection</string>
 	<string name="tune_the_sound_detection">Faites du bruit!</string>
 	<string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">Placez le téléphone sur une table et faites du bruit pour determiner le niveau exact de détection</string>
