@@ -35,7 +35,7 @@
     <string name="title_activity_event">Событие</string>
     <string name="action_settings">Настройки</string>
     <string name="intro1_title">Добро пожаловать в Haven</string>
-    <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the height find...\"\n-George Meredith</string>
+    <string name="intro1_desc">\"Теперь, когда ковчег человеческой судьбы,\nДолго сбитый с толку своенравным ветром,\nДрейфует с населенным грузом,\nБезопасное убежище (SAVE HAVEN) на высоте найти...\"\n-George Meredith</string>
     <string name="intro2_title">Haven предназначен для людей, которые хотят следить за проникновением в свой дом, офис, гостиничный номер или другое личное пространство</string>
     <string name="intro3_desc">Превратите дополнительный телефон в детектор движения, звука, вибрации и света, наблюдая за неожиданными гостями и злоумышленниками</string>
     <string name="sensor_setup_info">Расположите камеру для захвата движения или установите телефон в любом месте, чтобы просто слушать звук</string>
