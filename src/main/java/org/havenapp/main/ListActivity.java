@@ -67,6 +67,7 @@ public class ListActivity extends AppCompatActivity {
     Toolbar toolbar;
     EventAdapter adapter;
     List<Event> events = new ArrayList<>();
+    PreferenceManager preferences;
 
     long initialCount;
 
@@ -83,6 +84,7 @@ public class ListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list);
         Log.d("Main", "onCreate");
 
+        preferences = new PreferenceManager(this.getApplicationContext());
         recyclerView = (RecyclerView) findViewById(R.id.main_list);
         fab = (FloatingActionButton) findViewById(R.id.fab);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -146,18 +148,18 @@ public class ListActivity extends AppCompatActivity {
 
         initialCount = Event.count(Event.class);
 
-        if (initialCount <= 0) {
+        if (preferences.isFirstLaunch()) {
+            showOnboarding();
+        }
 
-           showOnboarding();
-
-        } else {
-            recyclerView.setVisibility(View.VISIBLE);
+        if (initialCount > 0) {
             findViewById(R.id.empty_view).setVisibility(View.GONE);
         }
 
         try {
             events = Event.listAll(Event.class, "id DESC");
             adapter = new EventAdapter(ListActivity.this, events);
+            recyclerView.setVisibility(View.VISIBLE);
             recyclerView.setAdapter(adapter);
 
 
@@ -224,6 +226,7 @@ public class ListActivity extends AppCompatActivity {
 
         if (requestCode == REQUEST_CODE_INTRO)
         {
+            preferences.setFirstLaunch(false);
             Intent i = new Intent(ListActivity.this, MonitorActivity.class);
             startActivity(i);
         }

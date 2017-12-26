@@ -65,6 +65,8 @@ public class PreferenceManager {
 
     private static final String SIGNAL_USERNAME = "signal_username";
 
+    private static final String FIRST_LAUNCH = "first_launch";
+
 
     private Context context;
 	
@@ -72,6 +74,15 @@ public class PreferenceManager {
         this.context = context;
         this.appSharedPrefs = context.getSharedPreferences(APP_SHARED_PREFS, Activity.MODE_PRIVATE);
         this.prefsEditor = appSharedPrefs.edit();
+    }
+
+    public boolean isFirstLaunch() {
+        return appSharedPrefs.getBoolean(FIRST_LAUNCH, true);
+    }
+
+    public void setFirstLaunch(boolean firstLaunch) {
+        prefsEditor.putBoolean(FIRST_LAUNCH, firstLaunch);
+        prefsEditor.commit();
     }
 
     public String getSignalUsername ()
