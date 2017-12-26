@@ -1,0 +1,154 @@
+<resources>
+	<string name="app_name">Haven</string>
+
+	<string name="menu_stop">Arreter</string>
+	<string name="menu_start">Lancer</string>
+	<string name="menu_save">Sauvegarder</string>
+	<string name="menu_remote_access">Accès à distance</string>
+	<string name="menu_about">Configuration</string>
+
+	<string name="title_activity_start">Haven</string>
+
+	<string name="accelerometer_prompt">
+		Sensibilité du mouvement
+	</string>
+
+	<string name="microphone_sensitivity">
+		Sensibilité du son
+	</string>
+
+	<string name="camera_sensitivity">
+		Sensibilité du mouvement de la caméra
+	</string>
+
+	<string name="timer_delay_label">
+		Determiner un délai
+	</string>
+
+	<string name="microphone_label">
+		Utiliser le microphone pour detecter des sons</string>
+
+	<string name="camera_label">
+		Selectionner la caméra
+	</string>
+
+	<string name="flash_label">
+		Activer le flash
+	</string>
+
+	<string name="sms_label">
+		Envoyer SMS ou des alertes par message Signal
+	</string>
+
+	<string name="sms_hint">
+		+12125551212
+	</string>
+
+	<string name="unlock_code_hint">
+		Code pour arreter l'aplication
+	</string>
+
+	<string name="start_button">
+		Demarrer
+	</string>
+
+	<string name="camera_prompt">
+		Selectionner la caméra
+	</string>
+
+	<array name="select_sensitivity">
+		<item>Faible</item>
+		<item>Moyenne</item>
+		<item>Haute</item>
+		<item>Desactivée</item>
+	</array>
+
+	<array name="select_camera">
+
+		<item>Frontale</item>
+		<item>Arrière</item>
+		<item>Desactivée</item>
+
+	</array>
+
+	<string name="secure_service_started">Haven activé</string>
+
+	<string name="secure_service_stopped">Haven desactivé</string>
+
+	<string name="intrusion_detected">Un intrus a été détecté (type: %s)
+		Enregistrement audio et image en cours.
+	</string>
+	<string name="title_activity_event">EventActivity</string>
+
+	<string name="action_settings">Configuration</string>
+
+	<string name="intro1_title">Bienvenu(e) a Haven</string>
+	<string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the height find...\"\n-George Meredith</string>
+
+	<string name="intro2_title">Haven est pour les persones qui veulent detecter des violations de domicile, de son lieu de travail, chambre d'hotel ou n'importe quel espace privé.</string>
+	<string name="intro3_desc">Convertisser un téléphone supplémentaire en un détecteur de sons, mouvements, vibrations et lumière pour detecter des visiteurs inespéres et des intrus non désirés.</string>
+
+	<string name="sensor_setup_info">Placez la caméra pour enregister des mouvements, ou placez le téléphone dans un endroit discret pour écouter des sons.</string>
+
+	<string name="intro4_desc">Recevez des notifications d'intrus immédiatement et accedez aux détections à distance ou en personne.</string>
+
+	<string name="intro5_title">Haven est prêt.</string>
+	<string name="intro5_desc">Activez l'application quand vous voulez en utilisant le bouton &gt; sur l'écran principal.</string>
+
+	<string name="onboarding_action_end">Terminer</string>
+
+	<string name="remote_access_label">Activer l'accès à distance via Tor</string>
+	<string name="remote_access_hint">Adresse Onion de Orbot</string>
+	<string name="remote_access_credential_hint">Proteger l'accès à distance avec un mot de passe</string>
+	<string name="camera_front">Frontale</string>
+	<string name="camera_back">Arrière</string>
+	<string name="camera_none">Aucune</string>
+
+	<string name="action_configure">Configurer</string>
+
+	<string name="main_screen_title">Ouverture de la session Haven</string>
+
+	<string name="current_noise_base">Niveaux de sons actuels</string>
+	<string name="current_accel_base">Niveaux de mouvements actuels</string>
+	<string name="configure_trigger_level">Glisser la roue pour changer le niveau de détection</string>
+	<string name="tune_the_sound_detection">Faites du bruit!</string>
+	<string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">Placez le téléphone sur une table et faites du bruit pour determiner le niveau exact de détection</string>
+	<string name="tune_the_accel_detection">Bougez le téléphone!</string>
+	<string name="tune_the_accel_detection_more">Bougez votre téléphone pour determiner le niveau exact de mouvement</string>
+	<string name="set_a_countdown_time">Touchez pour changer le compte à rebours</string>
+	<string name="start_now">Lancer maintenant</string>
+	<string name="start_later">Lancer après</string>
+	<string name="save_number">Enregistrer le numéro</string>
+
+	<string name="action_cancel">Desactiver</string>
+	<string name="status_on">ACTIF</string>
+	<string name="status_charging">Chargement en cours:</string>
+	<string name="you_will_receive_a_text_when_the_app_hears_or_sees_something">Vous receverez un texte quand l'aplication detecte un son ou un mouvement</string>
+	<string name="know_immediately_when_haven_detects_something">Recevez une notification immédiate si l'aplication detecte quelque chose.</string>
+	<string name="phone_saved">Numéro de telephone enregistré!</string>
+	<string name="detection_events">Événements detectés</string>
+	<string name="data_speed">VITESSE</string>
+	<string name="data_light">LUMIÈRE</string>
+	<string name="data_pressure">PRESSION</string>
+	<string name="data_power">ALIMENTATION</string>
+	<string name="share_event_action">Partager événement...</string>
+	<string name="signal_test_message">Ceci est un message de test de Haven</string>
+	<string name="send_test_message">Envoyer un message de test</string>
+	<string name="verify">Verifier</string>
+	<string name="register">S'inscrire</string>
+	<string name="activate_signal">Activer Signal</string>
+	<string name="verify_signal">Verifier Signal</string>
+	<string name="enter_verification">Entrer le code de vérification que vous avez reçu depuis l'inscription de Signal</string>
+	<string name="cancel">Annuler</string>
+	<string name="register_title">S'inscrire avec Signal</string>
+	<string name="register_signal_desc">Inscrire un nouveau numéro de téléphone (+12125551212) avec Signal pour envoyer des notifications sécurisées. NE PAS UTILISER VOTRE NUMÉRO SIGNAL PRINCIPAL.</string>
+	<string name="phone_hint">+12125551212</string>
+
+	<string name="menu_licenses">Licenses...</string>
+	<string name="sensor_light">Lumière ambiante</string>
+	<string name="sensor_accel">Mouvement (acceleromètre)</string>
+	<string name="sensor_camera">Mouvement (caméra)</string>
+	<string name="sensor_sound">Microphone</string>
+	<string name="sensor_power">Alimentation USB</string>
+	<string name="sensor_unknown">Inconnu</string>
+</resources>

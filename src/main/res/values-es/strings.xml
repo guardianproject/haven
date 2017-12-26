@@ -71,7 +71,7 @@
 
     <string name="secure_service_stopped">Haven Desactivado</string>
 
-    <string name="intrusion_detected">Se ha detectado un intruso (Type: %s)
+    <string name="intrusion_detected">Se ha detectado un intruso (Type: %s)
         Grabando prueba de audio e imagen.
     </string>
     <string name="title_activity_event">EventActivity</string>
@@ -123,7 +123,7 @@
     <string name="action_cancel">Desactivar</string>
     <string name="status_on">Activo</string>
     <string name="status_charging">Cargando:</string>
-    <string name="you_will_receive_a_text_when_the_app_hears_or_sees_something">Recibirás un mensaje de texto cuando la aplicación escuche o vea algo</string>
+    <string name="you_will_receive_a_text_when_the_app_hears_or_sees_something">Recibirás un mensaje de texto cuando la aplicación escuche o vea algo</string>
     <string name="know_immediately_when_haven_detects_something">Recibe una notificación inmediatamente si la aplicacion detecta algo</string>
     <string name="phone_saved">Número de teléfono guardado!</string>
     <string name="detection_events">Eventos Detectados</string>
