@@ -38,7 +38,7 @@ The follow sensors are monitored for a measurable change, and then recorded to a
 
 -   **Accelerometer**: phone's motion and vibration
 -   **Camera**: motion in the phone's visible surroundings from front or back camera
--   **Microphone**: noises in the enviroment
+-   **Microphone**: noises in the environment
 -   **Light**: change in light from ambient light sensor
 -   **Power**: detect device being unplugged or power loss  
 
@@ -61,7 +61,7 @@ or add this repository manually in F-Droid's Settings->Repositories: [https://gu
 
 You can, of course, build the app yourself, from source.
 
-If you are an Android developer, you can learn more about how you can make use of F-Droid in your development workflow, for nightly builds, testing, reproducability and more here: [F-Droid Documentation](https://f-droid.org/en/docs/)
+If you are an Android developer, you can learn more about how you can make use of F-Droid in your development workflow, for nightly builds, testing, reproducibility and more here: [F-Droid Documentation](https://f-droid.org/en/docs/)
 
 ## Why no iPhone Support?
 
