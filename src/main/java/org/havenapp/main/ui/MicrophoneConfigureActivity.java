@@ -35,6 +35,7 @@ public class MicrophoneConfigureActivity extends AppCompatActivity implements Mi
     private PreferenceManager mPrefManager;
     private SimpleWaveformExtended mWaveform;
     private LinkedList<Integer> mWaveAmpList;
+    static final int MAX_SLIDER_VALUE = 120;
 
     private double maxAmp = 0;
 
@@ -52,9 +53,10 @@ public class MicrophoneConfigureActivity extends AppCompatActivity implements Mi
         mTextLevel = (TextView)findViewById(R.id.text_display_level);
         mNumberTrigger = (ActualNumberPicker)findViewById(R.id.number_trigger_level);
         mWaveform = (SimpleWaveformExtended)findViewById(R.id.simplewaveform);
+        mWaveform.setMaxVal(MAX_SLIDER_VALUE);
 
         mNumberTrigger.setMinValue(0);
-        mNumberTrigger.setMaxValue(120);
+        mNumberTrigger.setMaxValue(MAX_SLIDER_VALUE);
         mNumberTrigger.setListener(new OnValueChangeListener() {
             @Override
             public void onValueChanged(int oldValue, int newValue) {
