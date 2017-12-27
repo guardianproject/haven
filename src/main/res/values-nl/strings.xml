@@ -1,0 +1,154 @@
+<resources>
+
+    <string name="app_name" translatable="false">Haven</string>
+
+    <string name="menu_stop">Stop</string>
+    <string name="menu_start">Start</string>
+    <string name="menu_save">Save</string>
+    <string name="menu_remote_access">Remote Access</string>
+    <string name="menu_about">Setup...</string>
+
+    <string name="title_activity_start">Haven</string>
+
+    <string name="accelerometer_prompt">
+    	Movement Sensitivity
+    </string>
+
+    <string name="microphone_sensitivity">
+    	Sound Sensitivity
+    </string>
+
+    <string name="camera_sensitivity">
+    	Camera Motion sensitivity
+    </string>
+
+    <string name="timer_delay_label">
+    	Set Delay Time
+    </string>
+
+    <string name="microphone_label">
+    	Use microphone to detect any sound
+    </string>
+
+    <string name="camera_label">
+    	Select Camera
+    </string>
+
+    <string name="flash_label">
+    	Activate the flash
+    </string>
+
+    <string name="sms_label">
+    	Send SMS or Signal message alerts
+    </string>
+
+    <string name="sms_hint">
+    	+12125551212
+    </string>
+
+    <string name="unlock_code_hint">
+    	Code to stop the app
+    </string>
+
+    <string name="start_button">
+    	Start
+    </string>
+
+    <string name="camera_prompt">
+    	Select the camera
+    </string>
+
+    <array name="select_sensitivity">
+        <item>Low</item>
+        <item>Medium</item>
+        <item>High</item>
+        <item>Off</item>
+    </array>
+    <array name="select_camera">
+        <item>Front</item>
+        <item>Back</item>
+        <item>Off</item>
+
+    </array>
+
+    <string name="secure_service_started">Haven Activated</string>
+
+    <string name="secure_service_stopped">Haven Deactivated</string>
+
+    <string name="intrusion_detected">A Haven sensor was triggered (Type: %s)</string>
+    <string name="title_activity_event">EventActivity</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="intro1_title">Welcome to Haven</string>
+    <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the height find...\"\n-George Meredith</string>
+
+    <string name="intro2_title">Haven is for people who want to keep an eye out for intrusions into their home, office, hotel room or other private space</string>
+    <string name="intro3_desc">Turn an extra phone into a motion, sound, vibration and light detector, watching for unexpected guests and unwanted intruders</string>
+
+    <string name="sensor_setup_info">Position the camera to capture motion, or set your phone somewhere discreet to just listen for noises</string>
+
+    <string name="intro4_desc">Get notified of intrusion events instantly and access the logs remotely or in-person later</string>
+
+    <string name="intro5_title">Your Haven is ready</string>
+    <string name="intro5_desc">Activate the app at anytime using the &gt; action button on the main screen</string>
+
+    <string name="onboarding_action_end">Finish</string>
+
+    <string name="remote_access_label">Enable remote access via Tor Onion Service</string>
+    <string name="remote_access_hint">Onion service address from Orbot</string>
+    <string name="remote_access_credential_hint">Set remote password</string>
+    <string name="camera_front">Front</string>
+    <string name="camera_back">Back</string>
+    <string name="camera_none">None</string>
+
+    <string name="action_configure">Configure</string>
+
+    <string name="main_screen_title">Your Haven Log</string>
+
+    <string name="current_noise_base">Current noise level is</string>
+    <string name="current_accel_base">Current motion level is</string>
+
+    <string name="configure_trigger_level">Slide to set detection threshold</string>
+    <string name="tune_the_sound_detection">Make some noise!</string>
+    <string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">Set your phone on the table, and make noises in the room to find the right level to detect</string>
+
+    <string name="tune_the_accel_detection">Shake it up!</string>
+    <string name="tune_the_accel_detection_more">Move your phone around to tune the motion detection threshold</string>
+    <string name="set_a_countdown_time">Tap to change countdown</string>
+    <string name="start_now">Start Now</string>
+    <string name="start_later">View Logs</string>
+    <string name="save_number">Save Number</string>
+
+    <string name="action_cancel">Deactivate</string>
+    <string name="status_on">ACTIVE</string>
+    <string name="status_charging">Charging:</string>
+    <string name="you_will_receive_a_text_when_the_app_hears_or_sees_something">You will receive a text when the app hears or sees something</string>
+    <string name="know_immediately_when_haven_detects_something">Know immediately when Haven detects something</string>
+    <string name="phone_saved">Phone number saved!</string>
+    <string name="detection_events">detection events</string>
+    <string name="data_speed">SPEED</string>
+    <string name="data_light">LIGHT</string>
+    <string name="data_pressure">PRESSURE</string>
+    <string name="data_power">POWER</string>
+    <string name="share_event_action">Share event...</string>
+    <string name="signal_test_message">This is a test message from Haven</string>
+    <string name="send_test_message">Send Test Message</string>
+    <string name="verify">Verify</string>
+    <string name="register">Register</string>
+    <string name="activate_signal">Activate Signal</string>
+    <string name="verify_signal">Verify Signal</string>
+    <string name="enter_verification">Enter the verification code you received from the Signal registration step</string>
+    <string name="cancel">Cancel</string>
+    <string name="register_title">Register with Signal</string>
+    <string name="register_signal_desc">Register a new phone number (+12125551212) with Signal to send secure notifications. DO NOT USE YOUR EXISTING/PRIMARY SIGNAL NUMBER.</string>
+    <string name="phone_hint">+12125551212</string>
+
+    <string name="menu_licenses">Licenses...</string>
+    <string name="sensor_light">Ambient Light</string>
+    <string name="sensor_accel">Motion (Accelerometer)</string>
+    <string name="sensor_camera">Motion (Camera)</string>
+    <string name="sensor_sound">Microphone</string>
+    <string name="sensor_power">USB Power</string>
+    <string name="sensor_unknown">Unknown</string>
+</resources>
