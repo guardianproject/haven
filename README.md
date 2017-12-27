@@ -78,7 +78,7 @@ Application's main view allows the user to set which sensors to use and the corr
 
 ### Notifications
 
-When one of the sensors is triggered (reaches the sensibility threshold) notifications are sent through the following channels (if enabled).
+When one of the sensors is triggered (reaches the configured sensitivity threshold), notifications are sent through the following channels (if enabled):
 
 - SMS: a message is sent to the number specified when monitoring started
 - Signal: if configured, can send end-to-end encryption notifications via Signal
