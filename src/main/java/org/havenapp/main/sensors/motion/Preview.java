@@ -192,7 +192,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 
 			List<int[]> fpsRange = parameters.getSupportedPreviewFpsRange();
             try {
-                parameters.setPreviewFpsRange(fpsRange.get(fpsRange.size() - 1)[1], fpsRange.get(fpsRange.size() - 1)[1]);
+                parameters.setPreviewFpsRange(fpsRange.get(fpsRange.size() - 1)[0], fpsRange.get(fpsRange.size() - 1)[1]);
             }
             catch (Exception e) {
                 Log.w("Camera","Error setting frames per second",e);
