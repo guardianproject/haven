@@ -192,6 +192,7 @@ public class MonitorService extends Service {
 		mBuilder.setPriority(NotificationCompat.PRIORITY_MIN);
         mBuilder.setContentIntent(resultPendingIntent);
         mBuilder.setWhen(System.currentTimeMillis());
+        mBuilder.setVisibility(NotificationCompat.VISIBILITY_SECRET);
 
 		startForeground(1, mBuilder.build());
 
