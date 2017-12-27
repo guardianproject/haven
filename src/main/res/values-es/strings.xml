@@ -98,7 +98,7 @@ discreto para escuchar sonidos. </string>
     <string name="remote_access_credential_hint">Contraseña</string>
     <string name="camera_front">Frente</string>
     <string name="camera_back">Atrás</string>
-    <string name="camera_none">Ninguna</string>
+    <string name="camera_none">Apagada</string>
 
     <string name="action_configure">Configurar</string>
 
