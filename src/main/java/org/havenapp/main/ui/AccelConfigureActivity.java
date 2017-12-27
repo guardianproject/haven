@@ -44,6 +44,8 @@ public class AccelConfigureActivity extends AppCompatActivity implements SensorE
     private SimpleWaveformExtended mWaveform;
     private LinkedList<Integer> mWaveAmpList;
 
+    static final int MAX_SLIDER_VALUE = 100;
+
     private double maxAmp = 0;
 
     /**
@@ -90,9 +92,10 @@ public class AccelConfigureActivity extends AppCompatActivity implements SensorE
         mTextLevel = (TextView)findViewById(R.id.text_display_level);
         mNumberTrigger = (ActualNumberPicker)findViewById(R.id.number_trigger_level);
         mWaveform = (SimpleWaveformExtended)findViewById(R.id.simplewaveform);
+        mWaveform.setMaxVal(MAX_SLIDER_VALUE);
 
         mNumberTrigger.setMinValue(0);
-        mNumberTrigger.setMaxValue(100);
+        mNumberTrigger.setMaxValue(MAX_SLIDER_VALUE);
         mNumberTrigger.setListener(new OnValueChangeListener() {
             @Override
             public void onValueChanged(int oldValue, int newValue) {
