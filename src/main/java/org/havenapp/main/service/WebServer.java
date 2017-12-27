@@ -79,6 +79,7 @@ public class WebServer extends NanoHTTPD {
                 File fileMedia = new File(eventTrigger.getPath());
                 FileInputStream fis = new FileInputStream(fileMedia);
                 Response res = newChunkedResponse(Response.Status.OK, getMimeType(eventTrigger), fis);
+                fis.close();
                 return res;
 
             }
