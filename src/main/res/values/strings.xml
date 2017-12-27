@@ -2,10 +2,7 @@
 
     <string name="app_name" translatable="false">Haven</string>
 
-    <string name="menu_stop">Stop</string>
-    <string name="menu_start">Start</string>
     <string name="menu_save">Save</string>
-    <string name="menu_remote_access">Remote Access</string>
     <string name="menu_about">Setup...</string>
 
     <string name="title_activity_start">Haven</string>
@@ -18,24 +15,8 @@
     	Sound Sensitivity
     </string>
 
-    <string name="camera_sensitivity">
-    	Camera Motion sensitivity
-    </string>
-
     <string name="timer_delay_label">
     	Set Delay Time
-    </string>
-
-    <string name="microphone_label">
-    	Use microphone to detect any sound
-    </string>
-
-    <string name="camera_label">
-    	Select Camera
-    </string>
-
-    <string name="flash_label">
-    	Activate the flash
     </string>
 
     <string name="sms_label">
@@ -46,34 +27,11 @@
     	+12125551212
     </string>
 
-    <string name="unlock_code_hint">
-    	Code to stop the app
-    </string>
-
-    <string name="start_button">
-    	Start
-    </string>
-
     <string name="camera_prompt">
     	Select the camera
     </string>
 
-    <array name="select_sensitivity">
-        <item>Low</item>
-        <item>Medium</item>
-        <item>High</item>
-        <item>Off</item>
-    </array>
-    <array name="select_camera">
-        <item>Front</item>
-        <item>Back</item>
-        <item>Off</item>
-
-    </array>
-
     <string name="secure_service_started">Haven Activated</string>
-
-    <string name="secure_service_stopped">Haven Deactivated</string>
 
     <string name="intrusion_detected">A Haven sensor was triggered (Type: %s)</string>
     <string name="title_activity_event">EventActivity</string>
@@ -85,8 +43,6 @@
 
     <string name="intro2_title">Haven is for people who want to keep an eye out for intrusions into their home, office, hotel room or other private space</string>
     <string name="intro3_desc">Turn an extra phone into a motion, sound, vibration and light detector, watching for unexpected guests and unwanted intruders</string>
-
-    <string name="sensor_setup_info">Position the camera to capture motion, or set your phone somewhere discreet to just listen for noises</string>
 
     <string name="intro4_desc">Get notified of intrusion events instantly and access the logs remotely or in-person later</string>
 

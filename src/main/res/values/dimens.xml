@@ -7,10 +7,7 @@
     <dimen name="appbar_height">192dp</dimen>
 
 
-    <dimen name="statusbar_toolbar_height">80dp</dimen>
-    <dimen name="appbar_height_offset">136dp</dimen>
     <dimen name="activity_margin_half">8dp</dimen>
     <dimen name="app_bar_height">180dp</dimen>
-    <dimen name="text_margin">16dp</dimen>
 
 </resources>

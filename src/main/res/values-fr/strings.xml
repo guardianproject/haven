@@ -1,11 +1,8 @@
 <resources>
 	<string name="app_name">Haven</string>
 
-	<string name="menu_stop">Arreter</string>
-	<string name="menu_start">Lancer</string>
-	<string name="menu_save">Sauvegarder</string>
-	<string name="menu_remote_access">Accès à distance</string>
-	<string name="menu_about">Configuration</string>
+    <string name="menu_save">Sauvegarder</string>
+    <string name="menu_about">Configuration</string>
 
 	<string name="title_activity_start">Haven</string>
 
@@ -17,26 +14,11 @@
 		Sensibilité du son
 	</string>
 
-	<string name="camera_sensitivity">
-		Sensibilité du mouvement de la caméra
-	</string>
-
-	<string name="timer_delay_label">
+    <string name="timer_delay_label">
 		Determiner un délai
 	</string>
 
-	<string name="microphone_label">
-		Utiliser le microphone pour detecter des sons</string>
-
-	<string name="camera_label">
-		Selectionner la caméra
-	</string>
-
-	<string name="flash_label">
-		Activer le flash
-	</string>
-
-	<string name="sms_label">
+    <string name="sms_label">
 		Envoyer SMS ou des alertes par message Signal
 	</string>
 
@@ -44,38 +26,13 @@
 		+12125551212
 	</string>
 
-	<string name="unlock_code_hint">
-		Code pour arreter l'aplication
-	</string>
-
-	<string name="start_button">
-		Demarrer
-	</string>
-
-	<string name="camera_prompt">
+    <string name="camera_prompt">
 		Selectionner la caméra
 	</string>
 
-	<array name="select_sensitivity">
-		<item>Faible</item>
-		<item>Moyenne</item>
-		<item>Haute</item>
-		<item>Desactivée</item>
-	</array>
+    <string name="secure_service_started">Haven activé</string>
 
-	<array name="select_camera">
-
-		<item>Frontale</item>
-		<item>Arrière</item>
-		<item>Desactivée</item>
-
-	</array>
-
-	<string name="secure_service_started">Haven activé</string>
-
-	<string name="secure_service_stopped">Haven desactivé</string>
-
-	<string name="intrusion_detected">Un intrus a été détecté (type: %s)
+    <string name="intrusion_detected">Un intrus a été détecté (type: %s)
 		Enregistrement audio et image en cours.
 	</string>
 	<string name="title_activity_event">EventActivity</string>
@@ -88,9 +45,7 @@
 	<string name="intro2_title">Haven est pour les persones qui veulent detecter des violations de domicile, de son lieu de travail, chambre d'hotel ou n'importe quel espace privé.</string>
 	<string name="intro3_desc">Convertisser un téléphone supplémentaire en un détecteur de sons, mouvements, vibrations et lumière pour detecter des visiteurs inespéres et des intrus non désirés.</string>
 
-	<string name="sensor_setup_info">Placez la caméra pour enregister des mouvements, ou placez le téléphone dans un endroit discret pour écouter des sons.</string>
-
-	<string name="intro4_desc">Recevez des notifications d'intrus immédiatement et accedez aux détections à distance ou en personne.</string>
+    <string name="intro4_desc">Recevez des notifications d'intrus immédiatement et accedez aux détections à distance ou en personne.</string>
 
 	<string name="intro5_title">Haven est prêt.</string>
 	<string name="intro5_desc">Activez l'application quand vous voulez en utilisant le bouton &gt; sur l'écran principal.</string>
