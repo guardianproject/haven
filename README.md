@@ -71,7 +71,7 @@ So, no, iPhone users we didn't forget about you, and hope you'll pick up an Andr
 
 ## Usage
 
-Haven is meant to provide an easy onboarding experience, that walks through user through configuring the sensors on their device to best detect intrusions into their environment. The current implementation has some of this implemented, but we are looking to improve this user experience dramatically.
+Haven is meant to provide an easy onboarding experience, that walks users through configuring the sensors on their device to best detect intrusions into their environment. The current implementation has some of this implemented, but we are looking to improve this user experience dramatically.
 
 ### Main view
 
