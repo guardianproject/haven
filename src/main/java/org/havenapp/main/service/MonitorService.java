@@ -134,6 +134,7 @@ public class MonitorService extends Service {
                     NotificationManager.IMPORTANCE_HIGH);
             mChannel.setDescription(channelDescription);
             mChannel.setLightColor(Color.RED);
+            mChannel.setImportance(NotificationManager.IMPORTANCE_MIN);
             manager.createNotificationChannel(mChannel);
         }
 
