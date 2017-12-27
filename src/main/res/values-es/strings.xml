@@ -61,10 +61,9 @@
         <item>Apagada</item>
     </array>
     <array name="select_camera">
-        <item>Delantera</item>
-        <item>Trasera</item>
-        <item>Ninguna</item>
-
+        <item>Frente</item>
+        <item>Atrás</item>
+        <item>Apagada</item>
     </array>
 
     <string name="secure_service_started">Haven Activado</string>
@@ -81,11 +80,11 @@
     <string name="intro1_title">Bienvenido a Haven</string>
     <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the height find...\"\n-George Meredith</string>
 
-    <string name="intro2_title">Haven es para aquellos que quieren detectar invasiones a su hogar, oficina, cuarto de hotel o cualquier otro espacio privado.</string>
-    <string name="intro3_desc">Convierte un telefono extra en un detector de sonido, movimiento, vibración y luz, vigilando visitantes inesperados e intrusos indeseados.</string>
+    <string name="intro2_title">Haven es para las personas que quieren detectar invasiones a su hogar, oficina, cuarto de hotel o cualquier otro espacio privado.</string>
+    <string name="intro3_desc">Convierte un teléfono extra en un detector de sonido, movimiento, vibración y luz, vigilando visitantes inesperados e intrusos indeseados. </string>
 
     <string name="sensor_setup_info">Posiciona la cámara para capturar movimiento, o coloca el teléfono en un lugar
-        discreto para escuchar sonidos. </string>
+discreto para escuchar sonidos. </string>
 
     <string name="intro4_desc">Recibe notificaciones de intrusos inmediatamente y accede a las detecciones de manera remota o en persona posteriormente.</string>
 
@@ -97,8 +96,8 @@
     <string name="remote_access_label">Habilitar acceso remoto via Tor Onion Service</string>
     <string name="remote_access_hint">Dirección del servicio Onion de Orbot</string>
     <string name="remote_access_credential_hint">Contraseña</string>
-    <string name="camera_front">Delantera</string>
-    <string name="camera_back">Trasera</string>
+    <string name="camera_front">Frente</string>
+    <string name="camera_back">Atrás</string>
     <string name="camera_none">Ninguna</string>
 
     <string name="action_configure">Configurar</string>
