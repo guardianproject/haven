@@ -10,6 +10,10 @@
 
     <string name="title_activity_start">Haven</string>
 
+    <string name="show_notification_prompt">
+      Show notification on lock screen
+    </string>
+
     <string name="accelerometer_prompt">
     	Movement Sensitivity
     </string>

@@ -67,6 +67,8 @@ public class PreferenceManager {
 
     private static final String FIRST_LAUNCH = "first_launch";
 
+    private static final String SHOW_NOTIFICATION = "show_notification";
+
 
     private Context context;
 	
@@ -302,5 +304,14 @@ public class PreferenceManager {
     public int getAudioLength ()
     {
         return 15000; //30 seconds
+    }
+
+    public void setShowNotification(boolean showNotification) {
+      prefsEditor.putBoolean(SHOW_NOTIFICATION, showNotification);
+      prefsEditor.commit();
+    }
+
+    public boolean getShowNotification() {
+      return appSharedPrefs.getBoolean(SHOW_NOTIFICATION, true);
     }
 }
