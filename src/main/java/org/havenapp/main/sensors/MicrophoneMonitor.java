@@ -60,8 +60,7 @@ public final class MicrophoneMonitor implements MicSamplerTask.MicListener {
     };
 
 
-    public MicrophoneMonitor(Context context)
-    {
+    public MicrophoneMonitor(Context context) {
         this.context = context;
 
         prefs = new PreferenceManager(context);
@@ -70,14 +69,12 @@ public final class MicrophoneMonitor implements MicSamplerTask.MicListener {
             mNoiseThreshold = 40;
         } else if (prefs.getMicrophoneSensitivity().equals("Medium")) {
             mNoiseThreshold = 60;
-        }
-        else
-        {
+        } else {
             try {
                 //maybe it is a threshold value?
                 mNoiseThreshold = Double.parseDouble(prefs.getMicrophoneSensitivity());
+            } catch (Exception e) {
             }
-            catch (Exception e){}
         }
 
         context.bindService(new Intent(context,
@@ -93,11 +90,9 @@ public final class MicrophoneMonitor implements MicSamplerTask.MicListener {
         }
 
 
-
     }
 
-    public void stop (Context context)
-    {
+    public void stop(Context context) {
         context.unbindService(mConnection);
         if (microphone != null)
             microphone.cancel(true);
@@ -107,7 +102,7 @@ public final class MicrophoneMonitor implements MicSamplerTask.MicListener {
     public void onSignalReceived(short[] signal) {
 
 		/*
-		 * We do and average of the 512 samples
+         * We do and average of the 512 samples
 		 */
         int total = 0;
         int count = 0;
@@ -118,7 +113,7 @@ public final class MicrophoneMonitor implements MicSamplerTask.MicListener {
                 count++;
             }
         }
-      //  Log.i("MicrophoneFragment", "Total value: " + total);
+        //  Log.i("MicrophoneFragment", "Total value: " + total);
         int average = 0;
         if (count > 0) average = total / count;
 		/*
@@ -138,7 +133,7 @@ public final class MicrophoneMonitor implements MicSamplerTask.MicListener {
 
                         Message message = new Message();
                         message.what = EventTrigger.MICROPHONE;
-                        message.getData().putString("path",path);
+                        message.getData().putString("path", path);
                         try {
                             if (serviceMessenger != null)
                                 serviceMessenger.send(message);

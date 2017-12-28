@@ -24,9 +24,9 @@ import android.util.Log;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.orm.SugarContext;
 
-import java.io.IOException;
-
 import org.havenapp.main.service.WebServer;
+
+import java.io.IOException;
 
 public class HavenApp extends MultiDexApplication {
 
@@ -53,10 +53,8 @@ public class HavenApp extends MultiDexApplication {
     }
 
 
-    public void startServer ()
-    {
-        if (mOnionServer == null || (!mOnionServer.isAlive()))
-        {
+    public void startServer() {
+        if (mOnionServer == null || (!mOnionServer.isAlive())) {
             try {
                 mOnionServer = new WebServer(this);
 
@@ -68,10 +66,8 @@ public class HavenApp extends MultiDexApplication {
         }
     }
 
-    public void stopServer ()
-    {
-        if (mOnionServer != null && mOnionServer.isAlive())
-        {
+    public void stopServer() {
+        if (mOnionServer != null && mOnionServer.isAlive()) {
             mOnionServer.stop();
         }
     }

@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2017 Nathanial Freitas / Guardian Project
  *  * Licensed under the GPLv3 license.
@@ -8,20 +7,18 @@
  */
 package org.havenapp.main.ui;
 
-import android.os.Bundle;
-import android.graphics.Bitmap;
-import android.support.v4.app.Fragment;
 import android.hardware.Camera;
 import android.hardware.SensorEvent;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.R;
-import org.havenapp.main.sensors.media.MotionAsyncTask;
 import org.havenapp.main.sensors.media.ImageCodec;
 import org.havenapp.main.sensors.motion.Preview;
 
@@ -29,7 +26,7 @@ public final class CameraFragment extends Fragment {
 
     private Preview preview;
 
-//    private ImageView oldImage;
+    //    private ImageView oldImage;
     private ImageView newImage;
 
     @Override
@@ -54,18 +51,16 @@ public final class CameraFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        initCamera ();
+        initCamera();
     }
 
-    public void resetCamera ()
-    {
+    public void resetCamera() {
         ((FrameLayout) getActivity().findViewById(R.id.preview)).removeAllViews();
         preview = null;
         initCamera();
     }
 
-    private void initCamera ()
-    {
+    private void initCamera() {
         if (preview == null) {
 
             PreferenceManager prefs = new PreferenceManager(getActivity());
@@ -95,6 +90,7 @@ public final class CameraFragment extends Fragment {
             }
         }
     }
+
     public void onSensorChanged(SensorEvent event) {
 
     }

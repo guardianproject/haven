@@ -15,12 +15,13 @@ import com.github.derlio.waveform.soundfile.SoundFile;
 import com.squareup.picasso.Picasso;
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
+import org.havenapp.main.R;
+import org.havenapp.main.model.EventTrigger;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.havenapp.main.R;
-import org.havenapp.main.model.EventTrigger;
 import nl.changer.audiowife.AudioWife;
 
 /**
@@ -40,10 +41,8 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
         this.eventTriggers = eventTriggers;
 
         this.eventTriggerImagePaths = new ArrayList<>();
-        for (EventTrigger trigger : eventTriggers)
-        {
-            if (trigger.getType() == EventTrigger.CAMERA)
-            {
+        for (EventTrigger trigger : eventTriggers) {
+            if (trigger.getType() == EventTrigger.CAMERA) {
                 eventTriggerImagePaths.add("file:///" + trigger.getPath());
             }
         }
@@ -71,19 +70,15 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
         holder.sound.setVisibility(View.GONE);
 
 
-        if (eventTrigger.getPath() != null)
-        {
-            if (eventTrigger.getType() == EventTrigger.CAMERA)
-            {
+        if (eventTrigger.getPath() != null) {
+            if (eventTrigger.getType() == EventTrigger.CAMERA) {
                 holder.image.setVisibility(View.VISIBLE);
                 Picasso.with(context).load(new File(eventTrigger.getPath())).into(holder.image);
                 holder.image.setOnClickListener(view -> {
 
                     int startPosition = 0;
-                    for (int i = 0; i < eventTriggerImagePaths.size(); i++)
-                    {
-                        if (eventTriggerImagePaths.get(i).contains(eventTrigger.getPath()))
-                        {
+                    for (int i = 0; i < eventTriggerImagePaths.size(); i++) {
+                        if (eventTriggerImagePaths.get(i).contains(eventTrigger.getPath())) {
                             startPosition = i;
                             break;
                         }
@@ -104,10 +99,8 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
                     shareMedia(eventTrigger);
                     return false;
                 });
-            }
-            else if (eventTrigger.getType() == EventTrigger.MICROPHONE)
-            {
-                LayoutInflater inflater = (LayoutInflater) context.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
+            } else if (eventTrigger.getType() == EventTrigger.MICROPHONE) {
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
                 holder.sound.setVisibility(View.VISIBLE);
                 final File fileSound = new File(eventTrigger.getPath());
@@ -128,8 +121,8 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
                     });
                     holder.sound.setAudioFile(soundFile);
                     holder.sound.invalidate();
+                } catch (Exception e) {
                 }
-                catch (Exception e){}
 
                 holder.extra.setVisibility(View.VISIBLE);
                 holder.extra.removeAllViews();
@@ -139,23 +132,15 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
                         .useDefaultUi(holder.extra, inflater);
 
 
-            }
-            else if (eventTrigger.getType() == EventTrigger.ACCELEROMETER)
-            {
+            } else if (eventTrigger.getType() == EventTrigger.ACCELEROMETER) {
                 desc += "\n" + context.getString(R.string.data_speed) + ": " + eventTrigger.getPath();
 
-            }
-            else if (eventTrigger.getType() == EventTrigger.LIGHT)
-            {
+            } else if (eventTrigger.getType() == EventTrigger.LIGHT) {
                 desc += "\n" + context.getString(R.string.data_light) + ": " + eventTrigger.getPath();
 
-            }
-            else if (eventTrigger.getType() == EventTrigger.PRESSURE)
-            {
+            } else if (eventTrigger.getType() == EventTrigger.PRESSURE) {
                 desc += "\n" + context.getString(R.string.data_pressure) + ": " + eventTrigger.getPath();
-            }
-            else if (eventTrigger.getType() == EventTrigger.POWER)
-            {
+            } else if (eventTrigger.getType() == EventTrigger.POWER) {
                 desc += "\n" + context.getString(R.string.data_power) + ": " + eventTrigger.getPath();
             }
 
@@ -174,8 +159,7 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
         AudioWife.getInstance().release();
     }
 
-    private void shareMedia (EventTrigger eventTrigger)
-    {
+    private void shareMedia(EventTrigger eventTrigger) {
 
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
@@ -190,15 +174,24 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
         return eventTriggers.size();
     }
 
+    public void SetOnItemClickListener(final OnItemClickListener itemClickListener) {
+        this.clickListener = itemClickListener;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
+    }
+
     class EventTriggerVH extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView title, note;
         ImageView image;
         ViewGroup extra;
         SimpleWaveformView sound;
+
         public EventTriggerVH(View itemView) {
             super(itemView);
 
-           title = itemView.findViewById(R.id.event_item_title);
+            title = itemView.findViewById(R.id.event_item_title);
             note = itemView.findViewById(R.id.event_item_desc);
             image = itemView.findViewById(R.id.event_item_image);
             extra = itemView.findViewById(R.id.event_item_extra);
@@ -213,15 +206,6 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
                 clickListener.onItemClick(v, getAdapterPosition());
         }
     }
-
-    public interface OnItemClickListener {
-        void onItemClick(View view, int position);
-    }
-
-    public void SetOnItemClickListener(final OnItemClickListener itemClickListener) {
-        this.clickListener = itemClickListener;
-    }
-
 
 
 }

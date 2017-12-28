@@ -28,6 +28,7 @@ public class CustomSlideNotify extends Fragment {
     private int layoutResId;
     private EditText mEditNumber;
     private View.OnClickListener mListener;
+
     public static CustomSlideNotify newInstance(int layoutResId) {
         CustomSlideNotify sampleSlide = new CustomSlideNotify();
 
@@ -38,8 +39,7 @@ public class CustomSlideNotify extends Fragment {
         return sampleSlide;
     }
 
-    public void setSaveListener (View.OnClickListener listener)
-    {
+    public void setSaveListener(View.OnClickListener listener) {
         mListener = listener;
     }
 
@@ -60,8 +60,8 @@ public class CustomSlideNotify extends Fragment {
 
         mEditNumber = view.findViewById(R.id.editNumber);
         mEditNumber.setOnClickListener(v -> {
-            askForPermission(Manifest.permission.SEND_SMS,6);
-            askForPermission(Manifest.permission.READ_PHONE_STATE,6);
+            askForPermission(Manifest.permission.SEND_SMS, 6);
+            askForPermission(Manifest.permission.READ_PHONE_STATE, 6);
 
         });
         PreferenceManager pm = new PreferenceManager(getActivity());
@@ -74,8 +74,7 @@ public class CustomSlideNotify extends Fragment {
 
     }
 
-    public String getPhoneNumber ()
-    {
+    public String getPhoneNumber() {
         return mEditNumber.getText().toString();
     }
 
