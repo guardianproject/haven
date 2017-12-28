@@ -34,8 +34,7 @@ public class ShareOverlayView extends RelativeLayout {
         init();
     }
 
-    public void setImageViewer (ImageViewer viewer)
-    {
+    public void setImageViewer(ImageViewer viewer) {
         this.viewer = viewer;
     }
 
@@ -50,11 +49,6 @@ public class ShareOverlayView extends RelativeLayout {
 
     private void init() {
         View view = inflate(getContext(), R.layout.view_image_overlay, this);
-        view.findViewById(R.id.btnShare).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendShareIntent();
-            }
-        });
+        view.findViewById(R.id.btnShare).setOnClickListener(v -> sendShareIntent());
     }
 }

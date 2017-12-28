@@ -13,32 +13,26 @@ import java.util.List;
 
 public class Event extends SugarRecord {
 
+    public final static long EVENT_WINDOW_TIME = 1000 * 60 * 5; //1 minutes
     Date mStartTime;
-
     @Ignore
     ArrayList<EventTrigger> mEventTriggers;
 
-    public final static long EVENT_WINDOW_TIME = 1000 * 60 * 5; //1 minutes
-
-    public Event ()
-    {
+    public Event() {
         mStartTime = new Date();
         mEventTriggers = new ArrayList<>();
     }
 
-    public Date getStartTime ()
-    {
+    public Date getStartTime() {
         return mStartTime;
     }
 
-    public void addEventTrigger (EventTrigger eventTrigger)
-    {
+    public void addEventTrigger(EventTrigger eventTrigger) {
         mEventTriggers.add(eventTrigger);
         eventTrigger.setEventId(getId());
     }
 
-    public ArrayList<EventTrigger> getEventTriggers ()
-    {
+    public ArrayList<EventTrigger> getEventTriggers() {
         if (mEventTriggers.size() == 0) {
             List<EventTrigger> eventTriggers = EventTrigger.find(EventTrigger.class, "M_EVENT_ID = ?", getId() + "");
 
@@ -49,14 +43,14 @@ public class Event extends SugarRecord {
 
         return mEventTriggers;
     }
+
     /**
-    * Are we within the time window of this event, or should we start a new event?
+     * Are we within the time window of this event, or should we start a new event?
      */
-    public boolean insideEventWindow (Date now)
-    {
+    public boolean insideEventWindow(Date now) {
         if (mEventTriggers.size() == 0)
             return now.getTime() - mStartTime.getTime() <= EVENT_WINDOW_TIME;
         else
-            return now.getTime() - mEventTriggers.get(mEventTriggers.size()-1).getTriggerTime().getTime() <= EVENT_WINDOW_TIME;
+            return now.getTime() - mEventTriggers.get(mEventTriggers.size() - 1).getTriggerTime().getTime() <= EVENT_WINDOW_TIME;
     }
 }

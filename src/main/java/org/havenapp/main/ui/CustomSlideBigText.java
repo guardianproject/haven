@@ -6,11 +6,11 @@ package org.havenapp.main.ui;
 
 
 import android.os.Bundle;
-    import android.support.annotation.Nullable;
-    import android.support.v4.app.Fragment;
-    import android.view.LayoutInflater;
-    import android.view.View;
-    import android.view.ViewGroup;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -35,13 +35,11 @@ public class CustomSlideBigText extends Fragment {
         return sampleSlide;
     }
 
-    public void setTitle (String title)
-    {
+    public void setTitle(String title) {
         mTitle = title;
     }
 
-    public void showButton (String buttonText, View.OnClickListener buttonListener)
-    {
+    public void showButton(String buttonText, View.OnClickListener buttonListener) {
         mButtonText = buttonText;
         mButtonListener = buttonListener;
     }
@@ -60,11 +58,10 @@ public class CustomSlideBigText extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(layoutResId, container, false);
-        ((TextView)view.findViewById(R.id.custom_slide_big_text)).setText(mTitle);
+        ((TextView) view.findViewById(R.id.custom_slide_big_text)).setText(mTitle);
 
-        if (mButtonText != null)
-        {
-            Button button = (Button)view.findViewById(R.id.custom_slide_button);
+        if (mButtonText != null) {
+            Button button = view.findViewById(R.id.custom_slide_button);
             button.setVisibility(View.VISIBLE);
             button.setText(mButtonText);
             button.setOnClickListener(mButtonListener);

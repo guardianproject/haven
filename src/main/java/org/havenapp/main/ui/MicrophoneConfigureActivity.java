@@ -2,14 +2,13 @@ package org.havenapp.main.ui;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,26 +16,24 @@ import android.widget.TextView;
 
 import com.maxproj.simplewaveform.SimpleWaveform;
 
-import java.util.LinkedList;
-
 import org.havenapp.main.PreferenceManager;
-
 import org.havenapp.main.R;
 import org.havenapp.main.sensors.media.MicSamplerTask;
 import org.havenapp.main.sensors.media.MicrophoneTaskFactory;
-import me.angrybyte.numberpicker.listener.OnValueChangeListener;
+
+import java.util.LinkedList;
+
 import me.angrybyte.numberpicker.view.ActualNumberPicker;
 
 public class MicrophoneConfigureActivity extends AppCompatActivity implements MicSamplerTask.MicListener {
 
+    static final int MAX_SLIDER_VALUE = 120;
     private MicSamplerTask microphone;
     private TextView mTextLevel;
     private ActualNumberPicker mNumberTrigger;
     private PreferenceManager mPrefManager;
     private SimpleWaveformExtended mWaveform;
     private LinkedList<Integer> mWaveAmpList;
-    static final int MAX_SLIDER_VALUE = 120;
-
     private double maxAmp = 0;
 
     @Override
@@ -44,36 +41,29 @@ public class MicrophoneConfigureActivity extends AppCompatActivity implements Mi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_microphone_configure);
 
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mTextLevel = (TextView)findViewById(R.id.text_display_level);
-        mNumberTrigger = (ActualNumberPicker)findViewById(R.id.number_trigger_level);
-        mWaveform = (SimpleWaveformExtended)findViewById(R.id.simplewaveform);
+        mTextLevel = findViewById(R.id.text_display_level);
+        mNumberTrigger = findViewById(R.id.number_trigger_level);
+        mWaveform = findViewById(R.id.simplewaveform);
         mWaveform.setMaxVal(MAX_SLIDER_VALUE);
 
         mNumberTrigger.setMinValue(0);
         mNumberTrigger.setMaxValue(MAX_SLIDER_VALUE);
-        mNumberTrigger.setListener(new OnValueChangeListener() {
-            @Override
-            public void onValueChanged(int oldValue, int newValue) {
-                mWaveform.setThreshold(newValue);
-            }
-        });
+        mNumberTrigger.setListener((oldValue, newValue) -> mWaveform.setThreshold(newValue));
 
         mPrefManager = new PreferenceManager(this.getApplicationContext());
-
 
 
         initWave();
         startMic();
     }
 
-    private void initWave ()
-    {
+    private void initWave() {
         mWaveform.init();
 
         mWaveAmpList = new LinkedList<>();
@@ -134,25 +124,20 @@ public class MicrophoneConfigureActivity extends AppCompatActivity implements Mi
 
 
         //define how to clear screen
-        mWaveform.clearScreenListener = new SimpleWaveform.ClearScreenListener() {
-            @Override
-            public void clearScreen(Canvas canvas) {
-                canvas.drawColor(Color.WHITE, PorterDuff.Mode.CLEAR);
-            }
-        };
+        mWaveform.clearScreenListener = canvas -> canvas.drawColor(Color.WHITE, PorterDuff.Mode.CLEAR);
         /**
-        mWaveform.progressTouch = new SimpleWaveform.ProgressTouch() {
-            @Override
-            public void progressTouch(int progress, MotionEvent event) {
-                Log.d("", "you touch at: " + progress);
-                mWaveform.firstPartNum = progress;
-                mWaveform.refresh();
-            }
+         mWaveform.progressTouch = new SimpleWaveform.ProgressTouch() {
+        @Override public void progressTouch(int progress, MotionEvent event) {
+        Log.d("", "you touch at: " + progress);
+        mWaveform.firstPartNum = progress;
+        mWaveform.refresh();
+        }
         };**/
         //show...
         mWaveform.refresh();
     }
-    private void startMic () {
+
+    private void startMic() {
         String permission = Manifest.permission.RECORD_AUDIO;
         int requestCode = 999;
         if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
@@ -203,16 +188,15 @@ public class MicrophoneConfigureActivity extends AppCompatActivity implements Mi
 
     }
 
-    private void save ()
-    {
-        mPrefManager.setMicrophoneSensitivity(mNumberTrigger.getValue()+"");
+    private void save() {
+        mPrefManager.setMicrophoneSensitivity(mNumberTrigger.getValue() + "");
         finish();
     }
 
     @Override
     public void onSignalReceived(short[] signal) {
         /*
-		 * We do and average of the 512 samples
+         * We do and average of the 512 samples
 		 */
         int total = 0;
         int count = 0;
@@ -236,19 +220,19 @@ public class MicrophoneConfigureActivity extends AppCompatActivity implements Mi
 
         if (averageDB > maxAmp) {
             maxAmp = averageDB + 5d; //add 5db buffer
-            mNumberTrigger.setValue(new Integer((int)maxAmp));
+            mNumberTrigger.setValue(new Integer((int) maxAmp));
             mNumberTrigger.invalidate();
         }
 
-        int perc = (int)((averageDB/160d)*100d);
-        mWaveAmpList.addFirst(new Integer((int)perc));
+        int perc = (int) ((averageDB / 160d) * 100d);
+        mWaveAmpList.addFirst(new Integer(perc));
 
         if (mWaveAmpList.size() > mWaveform.width / mWaveform.barGap + 2) {
             mWaveAmpList.removeLast();
         }
 
         mWaveform.refresh();
-        mTextLevel.setText(getString(R.string.current_noise_base) + ' ' + ((int)averageDB)+"db");
+        mTextLevel.setText(getString(R.string.current_noise_base) + ' ' + ((int) averageDB) + "db");
 
     }
 
@@ -264,8 +248,8 @@ public class MicrophoneConfigureActivity extends AppCompatActivity implements Mi
     }
 
     @Override
-    public boolean onOptionsItemSelected (MenuItem item) {
-        switch (item.getItemId()){
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case R.id.menu_save:
                 save();
                 break;
