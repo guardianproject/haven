@@ -1,0 +1,154 @@
+<resources>
+
+    <string name="app_name">Haven</string>
+
+    <string name="menu_stop">停止</string>
+    <string name="menu_start">開始</string>
+    <string name="menu_save">保存</string>
+    <string name="menu_remote_access">リモート接続</string>
+    <string name="menu_about">設定...</string>
+
+    <string name="title_activity_start">Haven</string>
+
+    <string name="accelerometer_prompt">
+    	動きの感度
+    </string>
+
+    <string name="microphone_sensitivity">
+    	音の感度
+    </string>
+
+    <string name="camera_sensitivity">
+    	カメラモーション感度
+    </string>
+
+    <string name="timer_delay_label">
+    	開始遅延時間
+    </string>
+
+    <string name="microphone_label">
+    	マイクを使って音を検出する
+    </string>
+
+    <string name="camera_label">
+    	カメラ選択
+    </string>
+
+    <string name="flash_label">
+    	フラッシュを有効
+    </string>
+
+    <string name="sms_label">
+    	ショートメールで警告を送信
+    </string>
+
+    <string name="sms_hint">
+    	08012345678
+    </string>
+
+    <string name="unlock_code_hint">
+        解除コード
+    </string>
+
+    <string name="start_button">
+    	開始
+    </string>
+
+    <string name="camera_prompt">
+    	カメラ選択
+    </string>
+
+    <array name="select_sensitivity">
+        <item>低</item>
+        <item>中</item>
+        <item>高</item>
+        <item>オフ</item>
+    </array>
+    <array name="select_camera">
+        <item>前面カメラ</item>
+        <item>背面カメラ</item>
+        <item>オフ</item>
+
+    </array>
+
+    <string name="secure_service_started">Haven 起動</string>
+
+    <string name="secure_service_stopped">Haven 停止</string>
+
+    <string name="intrusion_detected">(Type: %s) センサーがトリガされた</string>
+    <string name="title_activity_event">イベントアクティビティ</string>
+
+    <string name="action_settings">設定</string>
+
+    <string name="intro1_title">ようこそ Havenへ</string>
+    <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the height find...\"\n- ジョージ・メレディス</string>
+
+    <string name="intro2_title">Havenは自宅や会社、ホテルルーム、その他プライベート空間への進入を見張りたい人の為のものです。</string>
+    <string name="intro3_desc">余っている携帯電話を、動き、音、振動、光センサーに変えて、招かれざる客や望まない侵入者を監視します</string>
+
+    <string name="sensor_setup_info">カメラを撮影角度に合わせるか、電話を隠れた場所に置き、騒音を聞く</string>
+
+    <string name="intro4_desc">直ちに侵入の通知を受け、そして、後からログをリモートや直接に確認します</string>
+
+    <string name="intro5_title">Havenは準備完了</string>
+    <string name="intro5_desc">メインスクリーンの &gt; を押す事で何時でもアプリを有効にします</string>
+
+    <string name="onboarding_action_end">完了</string>
+
+    <string name="remote_access_label">Tor Onion Service経由のリモートアクセスを有効にする</string>
+    <string name="remote_access_hint">Onion service address from Orbot</string>
+    <string name="remote_access_credential_hint">リモートパスワードを設定</string>
+    <string name="camera_front">前面カメラ</string>
+    <string name="camera_back">背面カメラ</string>
+    <string name="camera_none">無し</string>
+
+    <string name="action_configure">設定へ</string>
+
+    <string name="main_screen_title">Havenのログ</string>
+
+    <string name="current_noise_base">現在のノイズレベル</string>
+    <string name="current_accel_base">現在のモーションレベル</string>
+
+    <string name="configure_trigger_level">ホイールをスワイプして検出の閾値を変更します</string>
+    <string name="tune_the_sound_detection">何かノイズを出して！</string>
+    <string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">携帯を机の上に置き、部屋で何らかの騒音を出す事で、適切な騒音レベルを見つける事が出来ます</string>
+
+    <string name="tune_the_accel_detection">シェイクしてください！</string>
+    <string name="tune_the_accel_detection_more">携帯を動かして動き検出の閾値を調整する</string>
+    <string name="set_a_countdown_time">タップしてカウントダウンを変更する</string>
+    <string name="start_now">今すぐ始めましょう</string>
+    <string name="start_later">ログを確認する</string>
+    <string name="save_number">電話番号を保存する</string>
+
+    <string name="action_cancel">取り消し</string>
+    <string name="status_on">アクティブ</string>
+    <string name="status_charging">充電中:</string>
+    <string name="you_will_receive_a_text_when_the_app_hears_or_sees_something">このアプリが何かを聞いたり見たりすると、ショートメールが届きます</string>
+    <string name="know_immediately_when_haven_detects_something">Havenが何か検知した時にすぐに知る</string>
+    <string name="phone_saved">電話番号が保存されました！</string>
+    <string name="detection_events">イベントの検出</string>
+    <string name="data_speed">速度</string>
+    <string name="data_light">明かり</string>
+    <string name="data_pressure">圧力</string>
+    <string name="data_power">電力</string>
+    <string name="share_event_action">イベントを共有する...</string>
+    <string name="signal_test_message">これは Havenのテストメッセージです</string>
+    <string name="send_test_message">テストメッセージを送信する</string>
+    <string name="verify">ベリファイ</string>
+    <string name="register">登録</string>
+    <string name="activate_signal">シグナルを有効にする</string>
+    <string name="verify_signal">シグナルを確認する</string>
+    <string name="enter_verification">シグナル登録手続きから受け取った確認コードを入力してください</string>
+    <string name="cancel">取消</string>
+    <string name="register_title">シグナルを登録</string>
+    <string name="register_signal_desc">新しい電話番号でシグナルに署名してセキュリティ通知を送信します。 あなたの現在またはメインのシグナル番号を使用しないでください。</string>
+    <string name="phone_hint">08012345678</string>
+
+    <string name="menu_licenses">ライセンス...</string>
+    <string name="sensor_light">環境光</string>
+    <string name="sensor_accel">動き (加速度計)</string>
+    <string name="sensor_camera">モーション (カメラ)</string>
+    <string name="sensor_sound">マイク</string>
+    <string name="sensor_power">USB電源</string>
+    <string name="sensor_unknown">不明</string>
+</resources>
