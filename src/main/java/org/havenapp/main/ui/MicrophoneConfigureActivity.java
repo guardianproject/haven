@@ -44,15 +44,15 @@ public class MicrophoneConfigureActivity extends AppCompatActivity implements Mi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_microphone_configure);
 
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mTextLevel = (TextView)findViewById(R.id.text_display_level);
-        mNumberTrigger = (ActualNumberPicker)findViewById(R.id.number_trigger_level);
-        mWaveform = (SimpleWaveformExtended)findViewById(R.id.simplewaveform);
+        mTextLevel = findViewById(R.id.text_display_level);
+        mNumberTrigger = findViewById(R.id.number_trigger_level);
+        mWaveform = findViewById(R.id.simplewaveform);
         mWaveform.setMaxVal(MAX_SLIDER_VALUE);
 
         mNumberTrigger.setMinValue(0);
@@ -241,7 +241,7 @@ public class MicrophoneConfigureActivity extends AppCompatActivity implements Mi
         }
 
         int perc = (int)((averageDB/160d)*100d);
-        mWaveAmpList.addFirst((int) perc);
+        mWaveAmpList.addFirst(perc);
 
         if (mWaveAmpList.size() > mWaveform.width / mWaveform.barGap + 2) {
             mWaveAmpList.removeLast();

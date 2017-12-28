@@ -74,15 +74,15 @@ public class AccelConfigureActivity extends AppCompatActivity implements SensorE
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accel_configure);
 
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mTextLevel = (TextView)findViewById(R.id.text_display_level);
-        mNumberTrigger = (ActualNumberPicker)findViewById(R.id.number_trigger_level);
-        mWaveform = (SimpleWaveformExtended)findViewById(R.id.simplewaveform);
+        mTextLevel = findViewById(R.id.text_display_level);
+        mNumberTrigger = findViewById(R.id.number_trigger_level);
+        mWaveform = findViewById(R.id.simplewaveform);
         mWaveform.setMaxVal(MAX_SLIDER_VALUE);
 
         mNumberTrigger.setMinValue(0);
@@ -179,7 +179,7 @@ public class AccelConfigureActivity extends AppCompatActivity implements SensorE
             try {
 
                 SensorManager sensorMgr = (SensorManager) getSystemService(Activity.SENSOR_SERVICE);
-                Sensor sensor = (Sensor) sensorMgr.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+                Sensor sensor = sensorMgr.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
                 if (sensor == null) {
                     Log.i("AccelerometerFrament", "Warning: no accelerometer");
@@ -245,7 +245,7 @@ public class AccelConfigureActivity extends AppCompatActivity implements SensorE
                         }
 
                         mWaveform.refresh();
-                        mTextLevel.setText(getString(R.string.current_accel_base) + ' ' + ((int)speed));
+                        mTextLevel.setText(getString(R.string.current_accel_base) + ' ' + speed);
 
 
 

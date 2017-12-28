@@ -77,7 +77,7 @@ public final class CameraFragment extends Fragment {
                 ((FrameLayout) getActivity().findViewById(R.id.preview)).addView(preview);
 
                 // oldImage = (ImageView) getActivity().findViewById(R.id.old_image);
-                newImage = (ImageView) getActivity().findViewById(R.id.new_image);
+                newImage = getActivity().findViewById(R.id.new_image);
 
                 preview.addListener(new MotionAsyncTask.MotionListener() {
 

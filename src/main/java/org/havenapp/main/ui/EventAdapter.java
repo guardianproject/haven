@@ -7,10 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.List;
-
 import org.havenapp.main.R;
 import org.havenapp.main.model.Event;
+
+import java.util.List;
 
 /**
  * Created by n8fr8 on 4/16/17.
@@ -61,8 +61,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventVH> {
         public EventVH(View itemView) {
             super(itemView);
 
-           title = (TextView) itemView.findViewById(R.id.event_item_title);
-            note = (TextView) itemView.findViewById(R.id.event_item_desc);
+           title = itemView.findViewById(R.id.event_item_title);
+            note = itemView.findViewById(R.id.event_item_desc);
 
             itemView.setOnClickListener(this);
         }

@@ -35,17 +35,16 @@ import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
+import org.havenapp.main.service.MonitorService;
+import org.havenapp.main.ui.AccelConfigureActivity;
+import org.havenapp.main.ui.CameraFragment;
+import org.havenapp.main.ui.MicrophoneConfigureActivity;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
-
-
-import org.havenapp.main.service.MonitorService;
-import org.havenapp.main.ui.AccelConfigureActivity;
-import org.havenapp.main.ui.CameraFragment;
-import org.havenapp.main.ui.MicrophoneConfigureActivity;
 
 public class MonitorActivity extends FragmentActivity {
 	
@@ -73,7 +72,7 @@ public class MonitorActivity extends FragmentActivity {
         preferences = new PreferenceManager(getApplicationContext());
         setContentView(R.layout.activity_monitor);
 
-        txtTimer = (TextView)findViewById(R.id.timer_text);
+        txtTimer = findViewById(R.id.timer_text);
         viewTimer = findViewById(R.id.timer_container);
 
         int timeM = preferences.getTimerDelay()*1000;

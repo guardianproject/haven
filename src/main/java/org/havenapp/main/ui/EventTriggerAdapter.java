@@ -199,11 +199,11 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
         public EventTriggerVH(View itemView) {
             super(itemView);
 
-           title = (TextView) itemView.findViewById(R.id.event_item_title);
-            note = (TextView) itemView.findViewById(R.id.event_item_desc);
-            image = (ImageView) itemView.findViewById(R.id.event_item_image);
-            extra = (ViewGroup)itemView.findViewById(R.id.event_item_extra);
-            sound = (SimpleWaveformView) itemView.findViewById(R.id.event_item_sound);
+           title = itemView.findViewById(R.id.event_item_title);
+            note = itemView.findViewById(R.id.event_item_desc);
+            image = itemView.findViewById(R.id.event_item_image);
+            extra = itemView.findViewById(R.id.event_item_extra);
+            sound = itemView.findViewById(R.id.event_item_sound);
             itemView.setOnClickListener(this);
         }
 
