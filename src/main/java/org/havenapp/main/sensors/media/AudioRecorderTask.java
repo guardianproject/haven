@@ -54,7 +54,7 @@ public class AudioRecorderTask extends Thread {
 
 	public interface AudioRecorderListener
 	{
-		public void recordingComplete (String path);
+		void recordingComplete(String path);
 	}
 
 	/**

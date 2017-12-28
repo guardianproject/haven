@@ -66,7 +66,7 @@ public class AmbientLightMonitor implements SensorEventListener {
                 MonitorService.class), mConnection, Context.BIND_ABOVE_CLIENT);
 
         sensorMgr = (SensorManager) context.getSystemService(Activity.SENSOR_SERVICE);
-        sensor = (Sensor) sensorMgr.getDefaultSensor(Sensor.TYPE_LIGHT);
+        sensor = sensorMgr.getDefaultSensor(Sensor.TYPE_LIGHT);
 
         if (sensor == null) {
             Log.i("AccelerometerFrament", "Warning: no accelerometer");

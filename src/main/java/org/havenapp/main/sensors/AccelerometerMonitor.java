@@ -84,7 +84,7 @@ public class AccelerometerMonitor implements SensorEventListener {
                 MonitorService.class), mConnection, Context.BIND_ABOVE_CLIENT);
 
         sensorMgr = (SensorManager) context.getSystemService(Activity.SENSOR_SERVICE);
-        accelerometer = (Sensor) sensorMgr.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        accelerometer = sensorMgr.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
         if (accelerometer == null) {
             Log.i("AccelerometerFrament", "Warning: no accelerometer");

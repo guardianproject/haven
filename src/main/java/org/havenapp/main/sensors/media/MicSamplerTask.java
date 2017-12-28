@@ -22,9 +22,9 @@ public class MicSamplerTask extends AsyncTask<Void,Object,Void> {
 	private boolean sampling = true;
 	private boolean paused = false;
 	
-	public static interface MicListener {
-		public void onSignalReceived(short[] signal);
-		public void onMicError();
+	public interface MicListener {
+		void onSignalReceived(short[] signal);
+		void onMicError();
 	}
 	
 	public void setMicListener(MicListener listener) {

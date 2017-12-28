@@ -72,7 +72,7 @@ public class BarometerMonitor implements SensorEventListener {
                 MonitorService.class), mConnection, Context.BIND_ABOVE_CLIENT);
 
         sensorMgr = (SensorManager) context.getSystemService(Activity.SENSOR_SERVICE);
-        sensor = (Sensor) sensorMgr.getDefaultSensor(Sensor.TYPE_PRESSURE);
+        sensor = sensorMgr.getDefaultSensor(Sensor.TYPE_PRESSURE);
 
         if (sensor == null) {
             Log.i("Pressure", "Warning: no barometer sensor");

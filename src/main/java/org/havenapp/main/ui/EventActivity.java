@@ -34,7 +34,7 @@ public class EventActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         StrictMode.setVmPolicy(StrictMode.VmPolicy.LAX);
@@ -44,7 +44,7 @@ public class EventActivity extends AppCompatActivity {
         if (eventId != -1) {
 
             mEvent = Event.findById(Event.class, eventId);
-            mRecyclerView = (RecyclerView)findViewById(R.id.event_trigger_list);
+            mRecyclerView = findViewById(R.id.event_trigger_list);
 
             setTitle(mEvent.getStartTime().toLocaleString());
 
@@ -54,7 +54,7 @@ public class EventActivity extends AppCompatActivity {
             mRecyclerView.setLayoutManager(llm);
             mRecyclerView.setAdapter(mAdapter);
 
-            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+            FloatingActionButton fab = findViewById(R.id.fab);
             fab.setOnClickListener(view -> shareEvent());
 
             // Handling swipe to delete

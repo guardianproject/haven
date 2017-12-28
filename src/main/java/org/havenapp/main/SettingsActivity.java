@@ -70,7 +70,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_settings);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         preferences = new PreferenceManager(this.getApplicationContext());
@@ -86,18 +86,15 @@ public class SettingsActivity extends AppCompatActivity {
         /**
          * Checkboxes for enabled app options
          */
-        final CheckBox smsCheck = (CheckBox) this.findViewById(R.id.sms_check);
-        final CheckBox remoteAccessCheck = (CheckBox) this.findViewById(R.id.remote_access_check);
+        final CheckBox smsCheck = this.findViewById(R.id.sms_check);
+        final CheckBox remoteAccessCheck = this.findViewById(R.id.remote_access_check);
 
 
-        final EditText phoneNumber = (EditText)
-                this.findViewById(R.id.phone_number);
+        final EditText phoneNumber = this.findViewById(R.id.phone_number);
 
-        final EditText remoteAccessOnion = (EditText)
-                this.findViewById(R.id.remote_access_onion);
+        final EditText remoteAccessOnion = this.findViewById(R.id.remote_access_onion);
 
-        remoteAccessCredential = (EditText)
-                this.findViewById(R.id.remote_access_credential);
+        remoteAccessCredential = this.findViewById(R.id.remote_access_credential);
 
 
         smsCheck.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -167,10 +164,10 @@ public class SettingsActivity extends AppCompatActivity {
     {
         if (preferences.getSignalUsername() != null)
         {
-            TextView tv = (TextView)findViewById(R.id.label_signal_status);
+            TextView tv = findViewById(R.id.label_signal_status);
             tv.setText("Current Signal Number: " + preferences.getSignalUsername());
 
-            Button btnTestSignal = (Button)findViewById(R.id.action_test_signal);
+            Button btnTestSignal = findViewById(R.id.action_test_signal);
             btnTestSignal.setVisibility(View.VISIBLE);
             btnTestSignal.setOnClickListener(v -> sendTestSignal());
         }
@@ -214,11 +211,10 @@ public class SettingsActivity extends AppCompatActivity {
     private void save ()
     {
 
-        EditText phoneNumber = (EditText)
-                this.findViewById(R.id.phone_number);
+        EditText phoneNumber = this.findViewById(R.id.phone_number);
 
-        CheckBox smsCheck = (CheckBox) this.findViewById(R.id.sms_check);
-        CheckBox remoteAccessCheck = (CheckBox) this.findViewById(R.id.remote_access_check);
+        CheckBox smsCheck = this.findViewById(R.id.sms_check);
+        CheckBox remoteAccessCheck = this.findViewById(R.id.remote_access_check);
 
         preferences.activateAccelerometer(true);
 
@@ -292,8 +288,7 @@ public class SettingsActivity extends AppCompatActivity {
 
             if (!TextUtils.isEmpty(onionHost)) {
                 preferences.setRemoteAccessOnion(onionHost);
-                final EditText remoteAccessOnion = (EditText)
-                        this.findViewById(R.id.remote_access_onion);
+                final EditText remoteAccessOnion = this.findViewById(R.id.remote_access_onion);
                 remoteAccessOnion.setText(onionHost + ":" + WebServer.LOCAL_PORT);
             }
 

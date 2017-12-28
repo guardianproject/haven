@@ -73,7 +73,7 @@ public class MonitorActivity extends FragmentActivity {
         preferences = new PreferenceManager(getApplicationContext());
         setContentView(R.layout.activity_monitor);
 
-        txtTimer = (TextView)findViewById(R.id.timer_text);
+        txtTimer = findViewById(R.id.timer_text);
         viewTimer = findViewById(R.id.timer_container);
 
         int timeM = preferences.getTimerDelay()*1000;

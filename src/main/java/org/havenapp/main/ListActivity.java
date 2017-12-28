@@ -85,9 +85,9 @@ public class ListActivity extends AppCompatActivity {
         Log.d("Main", "onCreate");
 
         preferences = new PreferenceManager(this.getApplicationContext());
-        recyclerView = (RecyclerView) findViewById(R.id.main_list);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        recyclerView = findViewById(R.id.main_list);
+        fab = findViewById(R.id.fab);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         LinearLayoutManager llm = new LinearLayoutManager(this);

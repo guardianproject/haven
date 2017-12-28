@@ -64,7 +64,7 @@ public class CustomSlideBigText extends Fragment {
 
         if (mButtonText != null)
         {
-            Button button = (Button)view.findViewById(R.id.custom_slide_button);
+            Button button = view.findViewById(R.id.custom_slide_button);
             button.setVisibility(View.VISIBLE);
             button.setText(mButtonText);
             button.setOnClickListener(mButtonListener);

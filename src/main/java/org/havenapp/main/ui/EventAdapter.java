@@ -61,8 +61,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventVH> {
         public EventVH(View itemView) {
             super(itemView);
 
-           title = (TextView) itemView.findViewById(R.id.event_item_title);
-            note = (TextView) itemView.findViewById(R.id.event_item_desc);
+           title = itemView.findViewById(R.id.event_item_title);
+            note = itemView.findViewById(R.id.event_item_desc);
 
             itemView.setOnClickListener(this);
         }
@@ -74,7 +74,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventVH> {
     }
 
     public interface OnItemClickListener {
-        public void onItemClick(View view, int position);
+        void onItemClick(View view, int position);
     }
 
     public void SetOnItemClickListener(final OnItemClickListener itemClickListener) {

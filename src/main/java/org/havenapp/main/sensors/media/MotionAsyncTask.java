@@ -51,10 +51,10 @@ public class MotionAsyncTask extends Thread {
 	private boolean hasChanged;
 	
 	public interface MotionListener {
-		public void onProcess(Bitmap oldBitmap,
-				Bitmap newBitmap,
-							  Bitmap rawBitmap,
-				boolean motionDetected);
+		void onProcess(Bitmap oldBitmap,
+                       Bitmap newBitmap,
+                       Bitmap rawBitmap,
+                       boolean motionDetected);
 	}
 	
 	public void addListener(MotionListener listener) {
