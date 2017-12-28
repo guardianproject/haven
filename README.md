@@ -106,7 +106,7 @@ This project contains source code or library dependencies from the following pro
 * AppIntro: https://github.com/apl-devs/AppIntro (Apache 2)
 * Guardian Project's NetCipher: https://guardianproject.info/code/netcipher/ (Apache 2)
 * NanoHttpd: https://github.com/NanoHttpd/nanohttpd (BSD)
-* Milosmns' Actual Number Picker: https://github.com/milosmns/actual-number-picker (GPLv3)
+* MaterialDateTimePicker from wdullaer: https://github.com/wdullaer/MaterialDateTimePicker (Apache 2)
 * Fresco Image Viewer: https://github.com/stfalcon-studio/FrescoImageViewer (Apache 2)
 * Facebook Fresco Image Library: https://github.com/facebook/fresco (BSD)
 * Audio Waveform Viewer: https://github.com/derlio/audio-waveform (Apache 2)

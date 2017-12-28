@@ -10,7 +10,6 @@ buildscript {
 
 }
 
-
 /* gets the version name from the latest Git tag, stripping the leading v off */
 def getVersionName = { ->
     def stdout = new ByteArrayOutputStream()
@@ -28,21 +27,21 @@ apply plugin: 'com.android.application'
 repositories {
     jcenter()
     google()
-    maven { url 'https://github.com/FireZenk/maven-repo/raw/master/'}
+    maven { url 'https://github.com/FireZenk/maven-repo/raw/master/' }
     maven { url 'https://jitpack.io' }
 }
 
 allprojects {
     project.ext {
         // these are common variables used in */build.gradle
-        version_number=getVersionName()
-        group_info="haven"
-        signal_version="2.3.0"
-        buildToolsVersion="27.0.3"
-        compileSdkVersion=27
-        minSdkVersion=16
-        targetSdkVersion=27
-        appcompat='com.android.support:appcompat-v7:27.0.3'
+        version_number = getVersionName()
+        group_info = "haven"
+        signal_version = "2.3.0"
+        buildToolsVersion = "27.0.3"
+        compileSdkVersion = 27
+        minSdkVersion = 16
+        targetSdkVersion = 27
+        appcompat = 'com.android.support:appcompat-v7:27.0.3'
     }
 
 }
@@ -121,6 +120,7 @@ dependencies {
     compile 'org.firezenk:audiowaves:1.1@aar'
     compile 'com.maxproj.simplewaveform:app:1.0.0'
     compile 'com.android.support:preference-v14:27.0.2'
+    compile 'com.wdullaer:materialdatetimepicker:3.5.0'
 
     implementation('com.mikepenz:aboutlibraries:6.0.1@aar') {
         transitive = true
