@@ -128,7 +128,7 @@ public final class MicrophoneMonitor implements MicSamplerTask.MicListener {
 		 */
         double averageDB = 0.0;
         if (average != 0) {
-            averageDB = 20 * Math.log10(Math.abs(average) / 1);
+            averageDB = 20 * Math.log10(Math.abs(average));
         }
 
         if (averageDB > mNoiseThreshold) {
