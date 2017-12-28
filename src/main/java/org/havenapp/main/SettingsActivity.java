@@ -18,15 +18,12 @@
 package org.havenapp.main;
 
 
-import java.io.File;
-import java.util.ArrayList;
-
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
-import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -42,21 +39,23 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-import info.guardianproject.netcipher.proxy.OrbotHelper;
-
 import org.havenapp.main.service.SignalSender;
 import org.havenapp.main.service.WebServer;
 import org.havenapp.main.ui.AccelConfigureActivity;
 import org.havenapp.main.ui.MicrophoneConfigureActivity;
+
+import java.io.File;
+import java.util.ArrayList;
+
+import info.guardianproject.netcipher.proxy.OrbotHelper;
 
 public class SettingsActivity extends AppCompatActivity {
 	
@@ -127,12 +126,17 @@ public class SettingsActivity extends AppCompatActivity {
         if (preferences.getCameraActivation()) {
 
             String camera = preferences.getCamera();
-            if (camera.equals(PreferenceManager.FRONT))
-                ((RadioButton) findViewById(R.id.radio_camera_front)).setChecked(true);
-            else if (camera.equals(PreferenceManager.BACK))
-                ((RadioButton) findViewById(R.id.radio_camera_back)).setChecked(true);
-            else if (camera.equals(PreferenceManager.OFF))
-                ((RadioButton) findViewById(R.id.radio_camera_none)).setChecked(true);
+            switch (camera) {
+                case PreferenceManager.FRONT:
+                    ((RadioButton) findViewById(R.id.radio_camera_front)).setChecked(true);
+                    break;
+                case PreferenceManager.BACK:
+                    ((RadioButton) findViewById(R.id.radio_camera_back)).setChecked(true);
+                    break;
+                case PreferenceManager.OFF:
+                    ((RadioButton) findViewById(R.id.radio_camera_none)).setChecked(true);
+                    break;
+            }
 
         }
 

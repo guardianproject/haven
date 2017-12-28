@@ -38,21 +38,21 @@ public class EventTrigger extends SugarRecord {
     /**
      * Pressure change detected message
      */
-    public static final int PRESSURE = 2;
+    public static final int PRESSURE = 3;
 
     /**
      * Light change detected message
      */
-    public static final int LIGHT = 3;
+    public static final int LIGHT = 4;
 
     /**
      * Power change detected message
      */
-    public static final int POWER = 4;
+    public static final int POWER = 5;
     /**
      * Significant motion detected message
      */
-    public static final int BUMP = 5;
+    public static final int BUMP = 6;
 
 
     public EventTrigger ()
