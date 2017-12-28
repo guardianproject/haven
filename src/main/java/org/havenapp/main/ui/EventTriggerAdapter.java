@@ -54,9 +54,8 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
     @Override
     public EventTriggerVH onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_item, parent, false);
-        EventTriggerVH viewHolder = new EventTriggerVH(view);
 
-        return viewHolder;
+        return new EventTriggerVH(view);
     }
 
     @Override
