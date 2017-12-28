@@ -14,12 +14,12 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 
-import java.io.File;
-import java.util.ArrayList;
-
 import org.havenapp.main.R;
 import org.havenapp.main.model.Event;
 import org.havenapp.main.model.EventTrigger;
+
+import java.io.File;
+import java.util.ArrayList;
 
 public class EventActivity extends AppCompatActivity {
 
@@ -153,7 +153,7 @@ public class EventActivity extends AppCompatActivity {
     }
 
     private String generateLog () {
-        StringBuffer mEventLog = new StringBuffer();
+        StringBuilder mEventLog = new StringBuilder();
 
         setTitle("Event @ " + mEvent.getStartTime().toLocaleString());
 

@@ -26,7 +26,6 @@ import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
 import android.telephony.SmsManager;
 import android.text.TextUtils;
-import android.widget.Toast;
 
 import org.havenapp.main.HavenApp;
 import org.havenapp.main.MonitorActivity;
@@ -293,7 +292,7 @@ public class MonitorService extends Service {
          * If SMS mode is on we send an SMS or Signal alert to the specified
          * number
          */
-        StringBuffer alertMessage = new StringBuffer();
+        StringBuilder alertMessage = new StringBuilder();
         alertMessage.append(getString(R.string.intrusion_detected,eventTrigger.getStringType(this)));
 
   // removing toast, but we should have some visual feedback for testing on the monitor screen
