@@ -9,13 +9,6 @@
 
 package org.havenapp.main.sensors.motion;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -31,15 +24,22 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.util.Log;
+import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.Surface;
 import android.view.WindowManager;
 
 import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.model.EventTrigger;
 import org.havenapp.main.sensors.media.MotionAsyncTask;
 import org.havenapp.main.service.MonitorService;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 	
@@ -51,7 +51,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 
 	private final static int PREVIEW_INTERVAL = 500;
 
-	private List<MotionAsyncTask.MotionListener> listeners = new ArrayList<MotionAsyncTask.MotionListener>();
+	private List<MotionAsyncTask.MotionListener> listeners = new ArrayList<>();
 	
 	/**
 	 * Timestamp of the last picture processed

@@ -15,12 +15,13 @@ import com.github.derlio.waveform.soundfile.SoundFile;
 import com.squareup.picasso.Picasso;
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
+import org.havenapp.main.R;
+import org.havenapp.main.model.EventTrigger;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.havenapp.main.R;
-import org.havenapp.main.model.EventTrigger;
 import nl.changer.audiowife.AudioWife;
 
 /**
@@ -39,7 +40,7 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
         this.context = context;
         this.eventTriggers = eventTriggers;
 
-        this.eventTriggerImagePaths = new ArrayList<String>();
+        this.eventTriggerImagePaths = new ArrayList<>();
         for (EventTrigger trigger : eventTriggers)
         {
             if (trigger.getType() == EventTrigger.CAMERA)

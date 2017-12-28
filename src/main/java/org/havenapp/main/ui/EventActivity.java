@@ -139,7 +139,7 @@ public class EventActivity extends AppCompatActivity {
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, title);
         emailIntent.putExtra(Intent.EXTRA_TEXT, generateLog());
         //has to be an ArrayList
-        ArrayList<Uri> uris = new ArrayList<Uri>();
+        ArrayList<Uri> uris = new ArrayList<>();
         //convert from paths to Android friendly Parcelable Uri's
         for (EventTrigger trigger : mEvent.getEventTriggers())
         {
