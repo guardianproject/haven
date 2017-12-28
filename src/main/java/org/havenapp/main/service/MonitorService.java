@@ -231,9 +231,11 @@ public class MonitorService extends Service {
             if(Build.VERSION.SDK_INT>=18) {
                 mBumpMonitor = new BumpMonitor(this);
             }
-            mBaroMonitor = new BarometerMonitor(this);
-            mLightMonitor = new AmbientLightMonitor(this);
         }
+
+        //moving these out of the accelerometer pref, but need to enable off prefs for them too
+        mBaroMonitor = new BarometerMonitor(this);
+        mLightMonitor = new AmbientLightMonitor(this);
 
         if (mPrefs.getMicrophoneSensitivity() != PreferenceManager.OFF)
             mMicMonitor = new MicrophoneMonitor(this);
@@ -252,9 +254,11 @@ public class MonitorService extends Service {
             if(Build.VERSION.SDK_INT>=18) {
                 mBumpMonitor.stop(this);
             }
-            mBaroMonitor.stop(this);
-            mLightMonitor.stop(this);
         }
+
+        //moving these out of the accelerometer pref, but need to enable off prefs for them too
+        mBaroMonitor.stop(this);
+        mLightMonitor.stop(this);
 
         if (mPrefs.getMicrophoneSensitivity() != PreferenceManager.OFF)
             mMicMonitor.stop(this);
