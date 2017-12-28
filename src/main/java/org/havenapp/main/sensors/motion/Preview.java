@@ -183,17 +183,36 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 			final Camera.Parameters parameters = camera.getParameters();
 
 			try {
-                List<Size> sizesPreviews = parameters.getSupportedPreviewSizes();
-                parameters.setPreviewSize(sizesPreviews.get(4).width, sizesPreviews.get(4).height);
-            }
-            catch (Exception e){
-			    Log.w("Camera","Error setting camera preview size",e);
-            }
+				List<Size> sizesPreviews = parameters.getSupportedPreviewSizes();
 
-			List<int[]> fpsRange = parameters.getSupportedPreviewFpsRange();
-            try {
-                parameters.setPreviewFpsRange(fpsRange.get(fpsRange.size() - 1)[1], fpsRange.get(fpsRange.size() - 1)[1]);
-            }
+				Size bestSize = sizesPreviews.get(0);
+
+				for (int i = 1; i < sizesPreviews.size(); i++) {
+					if ((sizesPreviews.get(i).width * sizesPreviews.get(i).height) >
+							(bestSize.width * bestSize.height)) {
+						bestSize = sizesPreviews.get(i);
+					}
+				}
+
+				parameters.setPreviewSize(bestSize.width, bestSize.height);
+
+			} catch (Exception e) {
+				Log.w("Camera", "Error setting camera preview size", e);
+			}
+
+			try {
+				List<int[]> ranges = parameters.getSupportedPreviewFpsRange();
+				int[] bestRange = ranges.get(0);
+				for (int i = 1; i < ranges.size(); i++) {
+					if (ranges.get(i)[1] >
+							bestRange[1]) {
+						bestRange[0] = ranges.get(i)[0];
+						bestRange[1] = ranges.get(i)[1];
+
+					}
+				}
+				parameters.setPreviewFpsRange(bestRange[0], bestRange[1]);
+			}
             catch (Exception e) {
                 Log.w("Camera","Error setting frames per second",e);
             }
