@@ -31,6 +31,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -82,6 +83,16 @@ public class SettingsActivity extends AppCompatActivity {
          */
         File directory = new File(Environment.getExternalStorageDirectory() + preferences.getDirPath());
         directory.mkdirs();
+
+        final SwitchCompat showNotifications = (SwitchCompat) this.findViewById(R.id.show_notification);
+
+        showNotifications.setChecked(preferences.getShowNotification());
+
+        showNotifications.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                preferences.setShowNotification(isChecked);
+            }
+        });
 
         /**
          * Checkboxes for enabled app options
@@ -249,6 +260,9 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void save ()
     {
+        SwitchCompat showNotifications = (SwitchCompat) findViewById(R.id.show_notification);
+
+        preferences.setShowNotification(showNotifications.isChecked());
 
         EditText phoneNumber = (EditText)
                 this.findViewById(R.id.phone_number);

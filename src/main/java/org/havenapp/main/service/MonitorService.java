@@ -140,7 +140,9 @@ public class MonitorService extends Service {
 
         startSensors();
 
-        showNotification();
+        if(mPrefs.getShowNotification()) {
+          showNotification();
+        }
 
         PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
