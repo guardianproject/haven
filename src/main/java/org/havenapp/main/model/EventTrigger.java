@@ -49,6 +49,10 @@ public class EventTrigger extends SugarRecord {
      * Power change detected message
      */
     public static final int POWER = 4;
+    /**
+     * Significant motion detected message
+     */
+    public static final int BUMP = 5;
 
 
     public EventTrigger ()
@@ -104,6 +108,9 @@ public class EventTrigger extends SugarRecord {
                 break;
             case EventTrigger.POWER:
                 sType = context.getString(R.string.sensor_power);
+                break;
+            case EventTrigger.BUMP:
+                sType = context.getString(R.string.sensor_bump);
                 break;
             default:
                 sType = context.getString(R.string.sensor_unknown);

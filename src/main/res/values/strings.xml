@@ -106,5 +106,6 @@
     <string name="sensor_camera">Motion (Camera)</string>
     <string name="sensor_sound">Microphone</string>
     <string name="sensor_power">USB Power</string>
+    <string name="sensor_bump">Bump (Accelerometer)</string>
     <string name="sensor_unknown">Unknown</string>
 </resources>
