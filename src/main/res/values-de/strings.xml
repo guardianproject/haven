@@ -1,7 +1,4 @@
 <resources>
-
-    <string name="app_name">Haven</string>
-
     <string name="menu_save">Speichern</string>
     <string name="menu_about">Einrichtung...</string>
 
