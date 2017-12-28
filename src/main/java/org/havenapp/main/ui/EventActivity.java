@@ -55,13 +55,7 @@ public class EventActivity extends AppCompatActivity {
             mRecyclerView.setAdapter(mAdapter);
 
             FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    shareEvent();
-                }
-            });
+            fab.setOnClickListener(view -> shareEvent());
 
             // Handling swipe to delete
             ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -97,15 +91,11 @@ public class EventActivity extends AppCompatActivity {
     private void deleteEventTrigger (final EventTrigger eventTrigger, final int position)
     {
 
-        final Runnable runnableDelete = new Runnable ()
-        {
-            public void run ()
-            {
+        final Runnable runnableDelete = () -> {
 
-                new File(eventTrigger.getPath()).delete();
-                eventTrigger.delete();
+            new File(eventTrigger.getPath()).delete();
+            eventTrigger.delete();
 
-            }
         };
 
         mHandler.postDelayed(runnableDelete,3000);
@@ -116,14 +106,11 @@ public class EventActivity extends AppCompatActivity {
         eventTrigger.delete();
 
         Snackbar.make(mRecyclerView, "Event Trigger deleted", Snackbar.LENGTH_SHORT)
-                .setAction("UNDO", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mHandler.removeCallbacks(runnableDelete);
-                        eventTrigger.save();
-                        mEvent.getEventTriggers().add(position, eventTrigger);
-                        mAdapter.notifyItemInserted(position);
-                    }
+                .setAction("UNDO", v -> {
+                    mHandler.removeCallbacks(runnableDelete);
+                    eventTrigger.save();
+                    mEvent.getEventTriggers().add(position, eventTrigger);
+                    mAdapter.notifyItemInserted(position);
                 })
                 .show();
     }
@@ -139,7 +126,7 @@ public class EventActivity extends AppCompatActivity {
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, title);
         emailIntent.putExtra(Intent.EXTRA_TEXT, generateLog());
         //has to be an ArrayList
-        ArrayList<Uri> uris = new ArrayList<Uri>();
+        ArrayList<Uri> uris = new ArrayList<>();
         //convert from paths to Android friendly Parcelable Uri's
         for (EventTrigger trigger : mEvent.getEventTriggers())
         {

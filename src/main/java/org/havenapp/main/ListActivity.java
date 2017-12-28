@@ -136,14 +136,11 @@ public class ListActivity extends AppCompatActivity {
         }
 
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        fab.setOnClickListener(v -> {
 
-                Intent i = new Intent(ListActivity.this, MonitorActivity.class);
-                startActivity(i);
+            Intent i = new Intent(ListActivity.this, MonitorActivity.class);
+            startActivity(i);
 
-            }
         });
 
         initialCount = Event.count(Event.class);
@@ -163,16 +160,13 @@ public class ListActivity extends AppCompatActivity {
             recyclerView.setAdapter(adapter);
 
 
-            adapter.SetOnItemClickListener(new EventAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, int position) {
+            adapter.SetOnItemClickListener((view, position) -> {
 
-                    Intent i = new Intent(ListActivity.this, EventActivity.class);
-                    i.putExtra("eventid", events.get(position).getId());
-                    modifyPos = position;
+                Intent i = new Intent(ListActivity.this, EventActivity.class);
+                i.putExtra("eventid", events.get(position).getId());
+                modifyPos = position;
 
-                    startActivity(i);
-                }
+                startActivity(i);
             });
         } catch (SQLiteException sqe) {
             Log.d(getClass().getName(), "database not yet initiatied", sqe);
@@ -184,17 +178,13 @@ public class ListActivity extends AppCompatActivity {
     private void deleteEvent (final Event event, final int position)
     {
 
-        final Runnable runnableDelete = new Runnable ()
-        {
-            public void run ()
+        final Runnable runnableDelete = () -> {
+            for (EventTrigger trigger : event.getEventTriggers())
             {
-                for (EventTrigger trigger : event.getEventTriggers())
-                {
-                    new File(trigger.getPath()).delete();
-                    trigger.delete();
-                }
-
+                new File(trigger.getPath()).delete();
+                trigger.delete();
             }
+
         };
 
         handler.postDelayed(runnableDelete,3000);
@@ -206,16 +196,13 @@ public class ListActivity extends AppCompatActivity {
         initialCount -= 1;
 
         Snackbar.make(recyclerView, "Event deleted", Snackbar.LENGTH_SHORT)
-                .setAction("UNDO", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        handler.removeCallbacks(runnableDelete);
-                        event.save();
-                        events.add(position, event);
-                        adapter.notifyItemInserted(position);
-                        initialCount += 1;
+                .setAction("UNDO", v -> {
+                    handler.removeCallbacks(runnableDelete);
+                    event.save();
+                    events.add(position, event);
+                    adapter.notifyItemInserted(position);
+                    initialCount += 1;
 
-                    }
                 })
                 .show();
     }
@@ -258,16 +245,13 @@ public class ListActivity extends AppCompatActivity {
             adapter = new EventAdapter(ListActivity.this, events);
             recyclerView.setAdapter(adapter);
 
-            adapter.SetOnItemClickListener(new EventAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, int position) {
+            adapter.SetOnItemClickListener((view, position) -> {
 
-                    Intent i = new Intent(ListActivity.this, EventActivity.class);
-                    i.putExtra("eventid", events.get(position).getId());
-                    modifyPos = position;
+                Intent i = new Intent(ListActivity.this, EventActivity.class);
+                i.putExtra("eventid", events.get(position).getId());
+                modifyPos = position;
 
-                    startActivity(i);
-                }
+                startActivity(i);
             });
             /**
             // Just load the last added note (new)

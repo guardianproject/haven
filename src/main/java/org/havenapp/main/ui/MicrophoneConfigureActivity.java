@@ -57,12 +57,7 @@ public class MicrophoneConfigureActivity extends AppCompatActivity implements Mi
 
         mNumberTrigger.setMinValue(0);
         mNumberTrigger.setMaxValue(MAX_SLIDER_VALUE);
-        mNumberTrigger.setListener(new OnValueChangeListener() {
-            @Override
-            public void onValueChanged(int oldValue, int newValue) {
-                mWaveform.setThreshold(newValue);
-            }
-        });
+        mNumberTrigger.setListener((oldValue, newValue) -> mWaveform.setThreshold(newValue));
 
         mPrefManager = new PreferenceManager(this.getApplicationContext());
 
@@ -134,12 +129,7 @@ public class MicrophoneConfigureActivity extends AppCompatActivity implements Mi
 
 
         //define how to clear screen
-        mWaveform.clearScreenListener = new SimpleWaveform.ClearScreenListener() {
-            @Override
-            public void clearScreen(Canvas canvas) {
-                canvas.drawColor(Color.WHITE, PorterDuff.Mode.CLEAR);
-            }
-        };
+        mWaveform.clearScreenListener = canvas -> canvas.drawColor(Color.WHITE, PorterDuff.Mode.CLEAR);
         /**
         mWaveform.progressTouch = new SimpleWaveform.ProgressTouch() {
             @Override

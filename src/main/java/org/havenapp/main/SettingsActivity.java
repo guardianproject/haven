@@ -100,27 +100,21 @@ public class SettingsActivity extends AppCompatActivity {
                 this.findViewById(R.id.remote_access_credential);
 
 
-        smsCheck.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked && TextUtils.isEmpty(preferences.getSignalUsername())) {
-                    askForPermission(Manifest.permission.SEND_SMS, 6);
-                    askForPermission(Manifest.permission.READ_PHONE_STATE,6);
-                }
+        smsCheck.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked && TextUtils.isEmpty(preferences.getSignalUsername())) {
+                askForPermission(Manifest.permission.SEND_SMS, 6);
+                askForPermission(Manifest.permission.READ_PHONE_STATE,6);
             }
         });
 
-        remoteAccessCheck.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if (isChecked) {
-                    checkRemoteAccessOnion();
-                    app.startServer();
-                }
-                else
-                {
-                    app.stopServer();
-                }
+        remoteAccessCheck.setOnCheckedChangeListener((compoundButton, isChecked) -> {
+            if (isChecked) {
+                checkRemoteAccessOnion();
+                app.startServer();
+            }
+            else
+            {
+                app.stopServer();
             }
         });
 
@@ -151,44 +145,19 @@ public class SettingsActivity extends AppCompatActivity {
             ((EditText)findViewById(R.id.remote_access_credential)).setText(preferences.getRemoteAccessCredential());
         }
 
-        findViewById(R.id.action_register_signal).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                registerSignalPrompt();
-            }
-        });
+        findViewById(R.id.action_register_signal).setOnClickListener(v -> registerSignalPrompt());
 
-        findViewById(R.id.action_verify_signal).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                verifySignalPrompt();
-            }
-        });
+        findViewById(R.id.action_verify_signal).setOnClickListener(v -> verifySignalPrompt());
 
         checkSignalUsername();
 
-        findViewById(R.id.action_configure_mic).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(SettingsActivity.this, MicrophoneConfigureActivity.class));
-            }
-        });
+        findViewById(R.id.action_configure_mic).setOnClickListener(view -> startActivity(new Intent(SettingsActivity.this, MicrophoneConfigureActivity.class)));
 
-        findViewById(R.id.action_configure_accel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(SettingsActivity.this, AccelConfigureActivity.class));
-            }
-        });
+        findViewById(R.id.action_configure_accel).setOnClickListener(view -> startActivity(new Intent(SettingsActivity.this, AccelConfigureActivity.class)));
 
 
 
-        findViewById(R.id.action_configure_time).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showTimeDelayDialog();
-            }
-        });
+        findViewById(R.id.action_configure_time).setOnClickListener(v -> showTimeDelayDialog());
 
 		askForPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, 1);
 
@@ -203,12 +172,7 @@ public class SettingsActivity extends AppCompatActivity {
 
             Button btnTestSignal = (Button)findViewById(R.id.action_test_signal);
             btnTestSignal.setVisibility(View.VISIBLE);
-            btnTestSignal.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    sendTestSignal();
-                }
-            });
+            btnTestSignal.setOnClickListener(v -> sendTestSignal());
         }
     }
 
@@ -368,19 +332,9 @@ public class SettingsActivity extends AppCompatActivity {
         input.setInputType(InputType.TYPE_CLASS_NUMBER);
 
         // add a button
-        builder.setPositiveButton(R.string.verify, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                activateSignal(preferences.getSignalUsername(),input.getText().toString());
-            }
-        });
+        builder.setPositiveButton(R.string.verify, (dialog, which) -> activateSignal(preferences.getSignalUsername(),input.getText().toString()));
         // add a button
-        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
+        builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.cancel());
 
         // create and show the alert dialog
         AlertDialog dialog = builder.create();
@@ -410,26 +364,18 @@ public class SettingsActivity extends AppCompatActivity {
         input.setHint(R.string.phone_hint);
 
         // add a button
-        builder.setPositiveButton(R.string.register, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String signalNum = input.getText().toString();
-                signalNum = "+" + signalNum.replaceAll("[^0-9]", "");
+        builder.setPositiveButton(R.string.register, (dialog, which) -> {
+            String signalNum = input.getText().toString();
+            signalNum = "+" + signalNum.replaceAll("[^0-9]", "");
 
-                preferences.setSignalUsername(signalNum);
-                resetSignal(preferences.getSignalUsername());
-                activateSignal(preferences.getSignalUsername(),null);
-                checkSignalUsername();
-            }
+            preferences.setSignalUsername(signalNum);
+            resetSignal(preferences.getSignalUsername());
+            activateSignal(preferences.getSignalUsername(),null);
+            checkSignalUsername();
         });
 
         // add a button
-        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
+        builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.cancel());
 
 
         // create and show the alert dialog
@@ -481,23 +427,15 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         // add a button
-        builder.setPositiveButton("Send Test", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                SignalSender sender =SignalSender.getInstance(SettingsActivity.this, preferences.getSignalUsername());
-                ArrayList<String> recip = new ArrayList<>();
-                recip.add(input.getText().toString());
-                sender.sendMessage(recip,getString(R.string.signal_test_message),null);
-            }
+        builder.setPositiveButton("Send Test", (dialog, which) -> {
+            SignalSender sender =SignalSender.getInstance(SettingsActivity.this, preferences.getSignalUsername());
+            ArrayList<String> recip = new ArrayList<>();
+            recip.add(input.getText().toString());
+            sender.sendMessage(recip,getString(R.string.signal_test_message),null);
         });
 
         // add a button
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
 
 
         // create and show the alert dialog
@@ -570,13 +508,10 @@ public class SettingsActivity extends AppCompatActivity {
 
         new android.app.AlertDialog.Builder(this)
                 .setView(layout)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        // do something with picker.getValue()
-                        int delaySeconds = pickerSeconds.getValue() + (pickerMinutes.getValue() * 60);
-                        preferences.setTimerDelay(delaySeconds);
-                    }
+                .setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
+                    // do something with picker.getValue()
+                    int delaySeconds = pickerSeconds.getValue() + (pickerMinutes.getValue() * 60);
+                    preferences.setTimerDelay(delaySeconds);
                 })
                 .setNegativeButton(android.R.string.cancel, null)
                 .show();

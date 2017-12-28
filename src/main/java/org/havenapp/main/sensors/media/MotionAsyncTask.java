@@ -35,7 +35,7 @@ public class MotionAsyncTask extends Thread {
 	
 	// Input data
 	
-	private List<MotionListener> listeners = new ArrayList<MotionListener>();
+	private List<MotionListener> listeners = new ArrayList<>();
 	private byte[] rawOldPic;
 	private byte[] rawNewPic;
 	private int width;
@@ -124,20 +124,17 @@ public class MotionAsyncTask extends Thread {
 		}
 		
 		Log.i("MotionAsyncTask", "Finished processing, sending results");
-		handler.post(new Runnable() {
-			
-			public void run() {
-				for (MotionListener listener : listeners) {
-					Log.i("MotionAsyncTask", "Updating back view");
-					listener.onProcess(
-							lastBitmap,
-							newBitmap,
-							rawBitmap,
-							hasChanged);
-				}
-				
-			}
-		});
+		handler.post(() -> {
+            for (MotionListener listener : listeners) {
+                Log.i("MotionAsyncTask", "Updating back view");
+                listener.onProcess(
+                        lastBitmap,
+                        newBitmap,
+                        rawBitmap,
+                        hasChanged);
+            }
+
+        });
 	}
 
 

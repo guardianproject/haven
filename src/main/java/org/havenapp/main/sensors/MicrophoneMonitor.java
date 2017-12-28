@@ -134,19 +134,16 @@ public final class MicrophoneMonitor implements MicSamplerTask.MicListener {
             if (!MicrophoneTaskFactory.isRecording()) {
                 try {
                     AudioRecorderTask audioRecorderTask = MicrophoneTaskFactory.makeRecorder(context);
-                    audioRecorderTask.setAudioRecorderListener(new AudioRecorderTask.AudioRecorderListener() {
-                        @Override
-                        public void recordingComplete(String path) {
+                    audioRecorderTask.setAudioRecorderListener(path -> {
 
-                            Message message = new Message();
-                            message.what = EventTrigger.MICROPHONE;
-                            message.getData().putString("path",path);
-                            try {
-                                if (serviceMessenger != null)
-                                    serviceMessenger.send(message);
-                            } catch (RemoteException e) {
-                                // Cannot happen
-                            }
+                        Message message = new Message();
+                        message.what = EventTrigger.MICROPHONE;
+                        message.getData().putString("path",path);
+                        try {
+                            if (serviceMessenger != null)
+                                serviceMessenger.send(message);
+                        } catch (RemoteException e) {
+                            // Cannot happen
                         }
                     });
                     audioRecorderTask.start();

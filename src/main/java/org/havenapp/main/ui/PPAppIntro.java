@@ -43,13 +43,10 @@ public class PPAppIntro extends AppIntro {
 
         CustomSlideBigText cs2 = CustomSlideBigText.newInstance(R.layout.custom_slide_big_text);
         cs2.setTitle(getString(R.string.intro3_desc));
-        cs2.showButton(getString(R.string.action_configure), new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(PPAppIntro.this,MicrophoneConfigureActivity.class));
-                startActivity(new Intent(PPAppIntro.this,AccelConfigureActivity.class));
+        cs2.showButton(getString(R.string.action_configure), v -> {
+            startActivity(new Intent(PPAppIntro.this,MicrophoneConfigureActivity.class));
+            startActivity(new Intent(PPAppIntro.this,AccelConfigureActivity.class));
 
-            }
         });
         addSlide(cs2);
 
@@ -58,15 +55,12 @@ public class PPAppIntro extends AppIntro {
         addSlide(cs3);
 
         final CustomSlideNotify cs4 = CustomSlideNotify.newInstance(R.layout.custom_slide_notify);
-        cs4.setSaveListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PreferenceManager pm = new PreferenceManager(PPAppIntro.this);
-                pm.activateSms(true);
-                pm.setSmsNumber(cs4.getPhoneNumber());
-                Toast.makeText(PPAppIntro.this, R.string.phone_saved,Toast.LENGTH_SHORT).show();
-                getPager().setCurrentItem(getPager().getCurrentItem()+1);
-            }
+        cs4.setSaveListener(v -> {
+            PreferenceManager pm = new PreferenceManager(PPAppIntro.this);
+            pm.activateSms(true);
+            pm.setSmsNumber(cs4.getPhoneNumber());
+            Toast.makeText(PPAppIntro.this, R.string.phone_saved,Toast.LENGTH_SHORT).show();
+            getPager().setCurrentItem(getPager().getCurrentItem()+1);
         });
         addSlide(cs4);
 

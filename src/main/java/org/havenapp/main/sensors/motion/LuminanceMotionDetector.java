@@ -59,7 +59,7 @@ public class LuminanceMotionDetector implements IMotionDetector {
 		if (oldImage == null || newImage == null) throw new NullPointerException();
 		if (oldImage.length != newImage.length) throw new IllegalArgumentException();
 		
-		ArrayList<Integer> differentPixels = new ArrayList<Integer>();	
+		ArrayList<Integer> differentPixels = new ArrayList<>();
 		int differentPixelNumber = 0;
 		for (int ij=0; ij < height*width; ij++) {
 		  int newPixelValue = newImage[ij];

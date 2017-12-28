@@ -51,7 +51,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 
 	private final static int PREVIEW_INTERVAL = 500;
 
-	private List<MotionAsyncTask.MotionListener> listeners = new ArrayList<MotionAsyncTask.MotionListener>();
+	private List<MotionAsyncTask.MotionListener> listeners = new ArrayList<>();
 	
 	/**
 	 * Timestamp of the last picture processed
@@ -217,95 +217,87 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 
 				camera.setPreviewDisplay(mHolder);
 
-				camera.setPreviewCallback(new PreviewCallback() {
+				camera.setPreviewCallback((data, cam) -> {
 
-					public void onPreviewFrame(byte[] data, Camera cam) {
-
-						final Camera.Size size = cam.getParameters().getPreviewSize();
-						if (size == null) return;
-						long now = System.currentTimeMillis();
-						if (now < Preview.this.lastTimestamp + PREVIEW_INTERVAL)
-							return;
-						if (!doingProcessing) {
+                    final Size size = cam.getParameters().getPreviewSize();
+                    if (size == null) return;
+                    long now = System.currentTimeMillis();
+                    if (now < Preview.this.lastTimestamp + PREVIEW_INTERVAL)
+                        return;
+                    if (!doingProcessing) {
 
 
-							Log.i("Preview", "Processing new image");
-							Preview.this.lastTimestamp = now;
-							MotionAsyncTask task = new MotionAsyncTask(
-									lastPic,
-									data,
-									size.width,
-									size.height,
-									updateHandler,
-									motionSensitivity);
-							for (MotionAsyncTask.MotionListener listener : listeners) {
-								Log.i("Preview", "Added listener");
-								task.addListener(listener);
-							}
-							doingProcessing = true;
-							task.addListener(new MotionAsyncTask.MotionListener() {
+                        Log.i("Preview", "Processing new image");
+                        Preview.this.lastTimestamp = now;
+                        MotionAsyncTask task = new MotionAsyncTask(
+                                lastPic,
+                                data,
+                                size.width,
+                                size.height,
+                                updateHandler,
+                                motionSensitivity);
+                        for (MotionAsyncTask.MotionListener listener : listeners) {
+                            Log.i("Preview", "Added listener");
+                            task.addListener(listener);
+                        }
+                        doingProcessing = true;
+                        task.addListener((oldBitmap, newBitmap, rawBitmap, motionDetected) -> {
 
-								public void onProcess(Bitmap oldBitmap, Bitmap newBitmap,
-													  Bitmap rawBitmap,
-													  boolean motionDetected) {
-
-									if (motionDetected) {
-										Log.i("MotionListener", "Motion detected");
-										if (serviceMessenger != null) {
-											Message message = new Message();
-											message.what = EventTrigger.CAMERA;
+if (motionDetected) {
+Log.i("MotionListener", "Motion detected");
+if (serviceMessenger != null) {
+Message message = new Message();
+message.what = EventTrigger.CAMERA;
 
 
-											try {
+try {
 
-												File fileImageDir = new File(Environment.getExternalStorageDirectory(), prefs.getImagePath());
-												fileImageDir.mkdirs();
+File fileImageDir = new File(Environment.getExternalStorageDirectory(), prefs.getImagePath());
+fileImageDir.mkdirs();
 
-												String ts = new Date().getTime() + ".jpg";
+String ts = new Date().getTime() + ".jpg";
 
-												File fileImage = new File(fileImageDir, "detected.original." + ts);
-												FileOutputStream stream = new FileOutputStream(fileImage);
-												rawBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-												stream.flush();
-												stream.close();
-												message.getData().putString("path", fileImage.getAbsolutePath());
+File fileImage = new File(fileImageDir, "detected.original." + ts);
+FileOutputStream stream = new FileOutputStream(fileImage);
+rawBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+stream.flush();
+stream.close();
+message.getData().putString("path", fileImage.getAbsolutePath());
 
-												/**
-												fileImage = new File(fileImageDir, "detected.match." + ts);
-												stream = new FileOutputStream(fileImage);
-												oldBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-												stream.flush();
-												stream.close();
+/**
+fileImage = new File(fileImageDir, "detected.match." + ts);
+stream = new FileOutputStream(fileImage);
+oldBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+stream.flush();
+stream.close();
 
-												message.getData().putString("path", fileImage.getAbsolutePath());
-												**/
+message.getData().putString("path", fileImage.getAbsolutePath());
+**/
 
-												serviceMessenger.send(message);
+serviceMessenger.send(message);
 
-											} catch (Exception e) {
-												// Cannot happen
-												Log.e("Preview", "error creating imnage", e);
-											}
-										}
-									}
-									Log.i("MotionListener", "Allowing further processing");
-									doingProcessing = false;
-								}
-							});
-							task.start();
-							lastPic = data;
+} catch (Exception e) {
+// Cannot happen
+Log.e("Preview", "error creating imnage", e);
+}
+}
+}
+Log.i("MotionListener", "Allowing further processing");
+doingProcessing = false;
+});
+                        task.start();
+                        lastPic = data;
 
-							try {
+                        try {
 
-								Camera.Parameters parameters = cam.getParameters();
-								parameters.setExposureCompensation(parameters.getMaxExposureCompensation());
-								cam.setParameters(parameters);
+                            Parameters parameters1 = cam.getParameters();
+                            parameters1.setExposureCompensation(parameters1.getMaxExposureCompensation());
+                            cam.setParameters(parameters1);
 
-							}
-							catch (Exception e){}
-						}
-					}
-				});
+                        }
+                        catch (Exception e){}
+                    }
+                });
 
 			} catch (IOException e) {
 				e.printStackTrace();

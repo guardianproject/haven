@@ -82,67 +82,33 @@ public class MonitorActivity extends FragmentActivity {
                 TimeUnit.MILLISECONDS.toSeconds(timeM) % 60);
 
         txtTimer.setText(timerText);
-        txtTimer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (cTimer == null)
-                    showTimeDelayDialog();
+        txtTimer.setOnClickListener(v -> {
+            if (cTimer == null)
+                showTimeDelayDialog();
 
-            }
         });
-        findViewById(R.id.timer_text_title).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (cTimer == null)
-                    showTimeDelayDialog();
+        findViewById(R.id.timer_text_title).setOnClickListener(v -> {
+            if (cTimer == null)
+                showTimeDelayDialog();
 
-            }
         });
 
-        findViewById(R.id.btnStartLater).setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               doCancel();
-           }
+        findViewById(R.id.btnStartLater).setOnClickListener(v -> doCancel());
+
+       findViewById(R.id.btnStartNow).setOnClickListener(v -> {
+           ((Button)findViewById(R.id.btnStartLater)).setText(R.string.action_cancel);
+           findViewById(R.id.btnStartNow).setVisibility(View.INVISIBLE);
+           findViewById(R.id.timer_text_title).setVisibility(View.INVISIBLE);
+           initTimer();
        });
 
-       findViewById(R.id.btnStartNow).setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               ((Button)findViewById(R.id.btnStartLater)).setText(R.string.action_cancel);
-               findViewById(R.id.btnStartNow).setVisibility(View.INVISIBLE);
-               findViewById(R.id.timer_text_title).setVisibility(View.INVISIBLE);
-               initTimer();
-           }
-       });
+       findViewById(R.id.btnAccelSettings).setOnClickListener(v -> startActivity(new Intent(MonitorActivity.this, AccelConfigureActivity.class)));
 
-       findViewById(R.id.btnAccelSettings).setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               startActivity(new Intent(MonitorActivity.this, AccelConfigureActivity.class));
-           }
-       });
+        findViewById(R.id.btnMicSettings).setOnClickListener(v -> startActivity(new Intent(MonitorActivity.this, MicrophoneConfigureActivity.class)));
 
-        findViewById(R.id.btnMicSettings).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MonitorActivity.this, MicrophoneConfigureActivity.class));
-            }
-        });
+        findViewById(R.id.btnCameraSwitch).setOnClickListener(v -> switchCamera());
 
-        findViewById(R.id.btnCameraSwitch).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switchCamera();
-            }
-        });
-
-        findViewById(R.id.btnSettings).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showSettings();
-            }
-        });
+        findViewById(R.id.btnSettings).setOnClickListener(v -> showSettings());
 
 
 
@@ -357,13 +323,10 @@ public class MonitorActivity extends FragmentActivity {
 
         new AlertDialog.Builder(this)
                 .setView(layout)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        // do something with picker.getValue()
-                        int delaySeconds = pickerSeconds.getValue() + (pickerMinutes.getValue() * 60);
-                        updateTimerValue (delaySeconds);
-                    }
+                .setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
+                    // do something with picker.getValue()
+                    int delaySeconds = pickerSeconds.getValue() + (pickerMinutes.getValue() * 60);
+                    updateTimerValue (delaySeconds);
                 })
                 .setNegativeButton(android.R.string.cancel, null)
                 .show();

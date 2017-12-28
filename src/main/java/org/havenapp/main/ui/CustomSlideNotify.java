@@ -59,13 +59,10 @@ public class CustomSlideNotify extends Fragment {
         View view = inflater.inflate(layoutResId, container, false);
 
         mEditNumber = (EditText)view.findViewById(R.id.editNumber);
-        mEditNumber.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                askForPermission(Manifest.permission.SEND_SMS,6);
-                askForPermission(Manifest.permission.READ_PHONE_STATE,6);
+        mEditNumber.setOnClickListener(v -> {
+            askForPermission(Manifest.permission.SEND_SMS,6);
+            askForPermission(Manifest.permission.READ_PHONE_STATE,6);
 
-            }
         });
         PreferenceManager pm = new PreferenceManager(getActivity());
         if (!TextUtils.isEmpty(pm.getSmsNumber()))

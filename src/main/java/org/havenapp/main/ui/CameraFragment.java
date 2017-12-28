@@ -79,22 +79,18 @@ public final class CameraFragment extends Fragment {
                 // oldImage = (ImageView) getActivity().findViewById(R.id.old_image);
                 newImage = (ImageView) getActivity().findViewById(R.id.new_image);
 
-                preview.addListener(new MotionAsyncTask.MotionListener() {
-
-                    public void onProcess(Bitmap oldBitmap, Bitmap newBitmap, Bitmap rawBitmap,
-                                          boolean motionDetected) {
-                        int rotation = 0;
-                        boolean reflex = false;
-                        if (preview.getCameraFacing() == Camera.CameraInfo.CAMERA_FACING_BACK) {
-                            rotation = 90;
-                        } else {
-                            rotation = 270;
-                            reflex = true;
-                        }
-
-                        // oldImage.setImageBitmap(ImageCodec.rotate(oldBitmap, rotation, reflex));
-                        newImage.setImageBitmap(ImageCodec.rotate(newBitmap, rotation, reflex));
+                preview.addListener((oldBitmap, newBitmap, rawBitmap, motionDetected) -> {
+                    int rotation = 0;
+                    boolean reflex = false;
+                    if (preview.getCameraFacing() == Camera.CameraInfo.CAMERA_FACING_BACK) {
+                        rotation = 90;
+                    } else {
+                        rotation = 270;
+                        reflex = true;
                     }
+
+                    // oldImage.setImageBitmap(ImageCodec.rotate(oldBitmap, rotation, reflex));
+                    newImage.setImageBitmap(ImageCodec.rotate(newBitmap, rotation, reflex));
                 });
             }
         }

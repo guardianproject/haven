@@ -39,7 +39,7 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
         this.context = context;
         this.eventTriggers = eventTriggers;
 
-        this.eventTriggerImagePaths = new ArrayList<String>();
+        this.eventTriggerImagePaths = new ArrayList<>();
         for (EventTrigger trigger : eventTriggers)
         {
             if (trigger.getType() == EventTrigger.CAMERA)
@@ -77,38 +77,32 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
             {
                 holder.image.setVisibility(View.VISIBLE);
                 Picasso.with(context).load(new File(eventTrigger.getPath())).into(holder.image);
-                holder.image.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
+                holder.image.setOnClickListener(view -> {
 
-                        int startPosition = 0;
-                        for (int i = 0; i < eventTriggerImagePaths.size(); i++)
+                    int startPosition = 0;
+                    for (int i = 0; i < eventTriggerImagePaths.size(); i++)
+                    {
+                        if (eventTriggerImagePaths.get(i).contains(eventTrigger.getPath()))
                         {
-                            if (eventTriggerImagePaths.get(i).contains(eventTrigger.getPath()))
-                            {
-                                startPosition = i;
-                                break;
-                            }
+                            startPosition = i;
+                            break;
                         }
-
-
-                        ShareOverlayView overlayView = new ShareOverlayView(context);
-                        ImageViewer viewer = new ImageViewer.Builder(context, eventTriggerImagePaths)
-                                .setStartPosition(startPosition)
-                                .setOverlayView(overlayView)
-                                .show();
-                        overlayView.setImageViewer(viewer);
-
-
                     }
+
+
+                    ShareOverlayView overlayView = new ShareOverlayView(context);
+                    ImageViewer viewer = new ImageViewer.Builder(context, eventTriggerImagePaths)
+                            .setStartPosition(startPosition)
+                            .setOverlayView(overlayView)
+                            .show();
+                    overlayView.setImageViewer(viewer);
+
+
                 });
 
-                holder.image.setOnLongClickListener(new View.OnLongClickListener() {
-                    @Override
-                    public boolean onLongClick(View view) {
-                        shareMedia(eventTrigger);
-                        return false;
-                    }
+                holder.image.setOnLongClickListener(view -> {
+                    shareMedia(eventTrigger);
+                    return false;
                 });
             }
             else if (eventTrigger.getType() == EventTrigger.MICROPHONE)
