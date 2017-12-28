@@ -1,8 +1,6 @@
 package org.havenapp.main.ui;
 
-import android.Manifest;
 import android.app.Activity;
-import android.content.pm.PackageManager;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -12,10 +10,6 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.os.Message;
-import android.os.RemoteException;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -27,9 +21,6 @@ import com.maxproj.simplewaveform.SimpleWaveform;
 
 import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.R;
-import org.havenapp.main.model.EventTrigger;
-import org.havenapp.main.sensors.media.MicSamplerTask;
-import org.havenapp.main.sensors.media.MicrophoneTaskFactory;
 
 import java.util.LinkedList;
 
@@ -238,16 +229,16 @@ public class AccelConfigureActivity extends AppCompatActivity implements SensorE
 
                         double averageDB = 0.0;
                         if (speed != 0) {
-                            averageDB = 20 * Math.log10(Math.abs(speed) / 1);
+                            averageDB = 20 * Math.log10(Math.abs(speed));
                         }
 
                         if (averageDB > maxAmp) {
                             maxAmp = averageDB + 5d; //add 5db buffer
-                            mNumberTrigger.setValue(new Integer((int)maxAmp));
+                            mNumberTrigger.setValue((int) maxAmp);
                             mNumberTrigger.invalidate();
                         }
 
-                        mWaveAmpList.addFirst(new Integer(speed));
+                        mWaveAmpList.addFirst(speed);
 
                         if (mWaveAmpList.size() > mWaveform.width / mWaveform.barGap + 2) {
                             mWaveAmpList.removeLast();
