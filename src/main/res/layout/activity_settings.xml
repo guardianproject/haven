@@ -10,7 +10,7 @@
 				android:layout_width="match_parent"
 				android:layout_height="?attr/actionBarSize"
 				android:background="?attr/colorPrimary"
-                android:theme="@style/AppTheme.AppBarOverlay"/>
+                android:theme="@style/AppTheme.AppBarOverlay"
 				app:popupTheme="@style/AppTheme.PopupOverlay" />
 <ScrollView
 	android:layout_width="match_parent"
