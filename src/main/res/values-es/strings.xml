@@ -2,10 +2,7 @@
 
     <string name="app_name">Haven</string>
 
-    <string name="menu_stop">Detener</string>
-    <string name="menu_start">Iniciar</string>
     <string name="menu_save">Guardar</string>
-    <string name="menu_remote_access">Acceso Remoto</string>
     <string name="menu_about">Configurar...</string>
 
     <string name="title_activity_start">Haven</string>
@@ -18,57 +15,19 @@
         Sensibilidad de sonido
     </string>
 
-    <string name="camera_sensitivity">
-        Sensibilidad de movimiento de la cámara
-    </string>
-
     <string name="timer_delay_label">
         Temporizador
-    </string>
-
-    <string name="microphone_label">
-        Usar el micrófono para detectar sonidos
-    </string>
-
-    <string name="camera_label">
-        Seleccionar cámara
-    </string>
-
-    <string name="flash_label">
-        Activar flash
     </string>
 
     <string name="sms_label">
         Enviar SMS o mensaje de alerta por Signal
     </string>
 
-    <string name="unlock_code_hint">
-        Código para detener la aplicación
-    </string>
-
-    <string name="start_button">
-        Iniciar
-    </string>
-
     <string name="camera_prompt">
         Seleccionar la cámara
     </string>
 
-    <array name="select_sensitivity">
-        <item>Baja</item>
-        <item>Media</item>
-        <item>Alta</item>
-        <item>Apagada</item>
-    </array>
-    <array name="select_camera">
-        <item>Frente</item>
-        <item>Atrás</item>
-        <item>Apagada</item>
-    </array>
-
     <string name="secure_service_started">Haven Activado</string>
-
-    <string name="secure_service_stopped">Haven Desactivado</string>
 
     <string name="intrusion_detected">Se ha detectado un intruso (Type: %s)
         Grabando prueba de audio e imagen.
@@ -82,9 +41,6 @@
 
     <string name="intro2_title">Haven es para las personas que quieren detectar invasiones a su hogar, oficina, cuarto de hotel o cualquier otro espacio privado.</string>
     <string name="intro3_desc">Convierte un teléfono extra en un detector de sonido, movimiento, vibración y luz, vigilando visitantes inesperados e intrusos indeseados. </string>
-
-    <string name="sensor_setup_info">Posiciona la cámara para capturar movimiento, o coloca el teléfono en un lugar
-discreto para escuchar sonidos. </string>
 
     <string name="intro4_desc">Recibe notificaciones de intrusos inmediatamente y accede a las detecciones de manera remota o en persona posteriormente.</string>
 

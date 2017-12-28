@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.BatteryManager;
+import android.util.Log;
 
 import org.havenapp.main.R;
 import org.havenapp.main.model.EventTrigger;
@@ -19,17 +20,30 @@ public class PowerConnectionReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
-        boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
-                status == BatteryManager.BATTERY_STATUS_FULL;
+        // Can't use intent.getIntExtra(BatteryManager.EXTRA_STATUS), as the extra is not provided.
+        // The code example at
+        // https://developer.android.com/training/monitoring-device-state/battery-monitoring.html
+        // is wrong
+        // see https://stackoverflow.com/questions/10211609/problems-with-action-power-connected
 
-        int chargePlug = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
-        boolean usbCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_USB;
-        boolean acCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_AC;
+        // explicitly check the intent action
+        // avoids lint issue UnsafeProtectedBroadcastReceiver
+        boolean isCharging;
+        if(intent.getAction() == null) return;
+        switch(intent.getAction()){
+            case Intent.ACTION_POWER_CONNECTED:
+                isCharging = true;
+                break;
+            case Intent.ACTION_POWER_DISCONNECTED:
+                isCharging = false;
+                break;
+            default:
+                return;
+        }
 
         if (MonitorService.getInstance() != null
                 && MonitorService.getInstance().isRunning()) {
-            MonitorService.getInstance().alert(EventTrigger.POWER, context.getString(R.string.status_charging) + isCharging + " USB:" + usbCharge + " AC:" + acCharge);
+            MonitorService.getInstance().alert(EventTrigger.POWER, context.getString(R.string.status_charging) + isCharging );
         }
     }
 }

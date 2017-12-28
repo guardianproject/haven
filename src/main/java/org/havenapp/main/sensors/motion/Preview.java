@@ -1,3 +1,4 @@
+
 /*
  * Copyright (c) 2017 Nathanial Freitas / Guardian Project
  *  * Licensed under the GPLv3 license.
@@ -7,6 +8,13 @@
  */
 
 package org.havenapp.main.sensors.motion;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -22,9 +30,9 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.util.Log;
-import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.Surface;
 import android.view.WindowManager;
 
 import org.havenapp.main.PreferenceManager;
@@ -32,28 +40,18 @@ import org.havenapp.main.model.EventTrigger;
 import org.havenapp.main.sensors.media.MotionAsyncTask;
 import org.havenapp.main.service.MonitorService;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 
-    private final static int PREVIEW_INTERVAL = 500;
-    /**
-     * Handler used to update back the UI after motion detection
-     */
-    private final Handler updateHandler = new Handler();
-    public Camera camera;
-    SurfaceHolder mHolder;
     /**
      * Object to retrieve and set shared preferences
      */
     private PreferenceManager prefs;
     private int cameraFacing = 0;
+
+    private final static int PREVIEW_INTERVAL = 500;
+
     private List<MotionAsyncTask.MotionListener> listeners = new ArrayList<>();
+
     /**
      * Timestamp of the last picture processed
      */
@@ -66,18 +64,27 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
      * True IFF there's an async task processing images
      */
     private boolean doingProcessing;
+
+    /**
+     * Handler used to update back the UI after motion detection
+     */
+    private final Handler updateHandler = new Handler();
+
     /**
      * Last frame captured
      */
     private int imageCount = 0;
+
     /**
      * Sensitivity of motion detection
      */
     private int motionSensitivity = LuminanceMotionDetector.MOTION_MEDIUM;
+
     /**
      * Messenger used to signal motion to the alert service
      */
     private Messenger serviceMessenger = null;
+
     private ServiceConnection mConnection = new ServiceConnection() {
 
         public void onServiceConnected(ComponentName className,
@@ -92,9 +99,13 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
             serviceMessenger = null;
         }
     };
+
+
+    SurfaceHolder mHolder;
+    public Camera camera;
     private Context context;
 
-    public Preview(Context context) {
+    public Preview (Context context) {
         super(context);
         this.context = context;
         // Install a SurfaceHolder.Callback so we get notified when the
@@ -104,7 +115,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
         prefs = new PreferenceManager(context);
 
 		/*
-         * Set sensitivity value
+		 * Set sensitivity value
 		 */
         if (prefs.getCameraSensitivity().equals("Medium")) {
             motionSensitivity = LuminanceMotionDetector.MOTION_MEDIUM;
@@ -130,13 +141,13 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
      * in order to minimize CPU usage
      */
     public void surfaceCreated(SurfaceHolder holder) {
-		
+
 		/*
 		 * We bind to the alert service
 		 */
         context.bindService(new Intent(context,
                 MonitorService.class), mConnection, Context.BIND_ABOVE_CLIENT);
-		
+
 		/*
 		 *  The Surface has been created, acquire the camera and tell it where
 		 *  to draw.
@@ -160,7 +171,9 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 
             camera = Camera.open();
             cameraFacing = Camera.CameraInfo.CAMERA_FACING_BACK;
-        } else {
+        }
+        else
+        {
             camera = null;
         }
 
@@ -170,23 +183,44 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 
             try {
                 List<Size> sizesPreviews = parameters.getSupportedPreviewSizes();
-                parameters.setPreviewSize(sizesPreviews.get(4).width, sizesPreviews.get(4).height);
+
+                Size bestSize = sizesPreviews.get(0);
+
+                for (int i = 1; i < sizesPreviews.size(); i++) {
+                    if ((sizesPreviews.get(i).width * sizesPreviews.get(i).height) >
+                            (bestSize.width * bestSize.height)) {
+                        bestSize = sizesPreviews.get(i);
+                    }
+                }
+
+                parameters.setPreviewSize(bestSize.width, bestSize.height);
+
             } catch (Exception e) {
                 Log.w("Camera", "Error setting camera preview size", e);
             }
 
-            List<int[]> fpsRange = parameters.getSupportedPreviewFpsRange();
             try {
-                parameters.setPreviewFpsRange(fpsRange.get(fpsRange.size() - 1)[1], fpsRange.get(fpsRange.size() - 1)[1]);
-            } catch (Exception e) {
-                Log.w("Camera", "Error setting frames per second", e);
+                List<int[]> ranges = parameters.getSupportedPreviewFpsRange();
+                int[] bestRange = ranges.get(0);
+                for (int i = 1; i < ranges.size(); i++) {
+                    if (ranges.get(i)[1] >
+                            bestRange[1]) {
+                        bestRange[0] = ranges.get(i)[0];
+                        bestRange[1] = ranges.get(i)[1];
+
+                    }
+                }
+                parameters.setPreviewFpsRange(bestRange[0], bestRange[1]);
+            }
+            catch (Exception e) {
+                Log.w("Camera","Error setting frames per second",e);
             }
 
             try {
                 parameters.setAutoExposureLock(false);
                 parameters.setExposureCompensation(parameters.getMaxExposureCompensation());
-            } catch (Exception e) {
             }
+            catch (Exception e){}
 			/*
 			 * If the flash is needed
 			 */
@@ -247,6 +281,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
                                         stream.flush();
                                         stream.close();
                                         message.getData().putString("path", fileImage.getAbsolutePath());
+
                                         /**
                                          fileImage = new File(fileImageDir, "detected.match." + ts);
                                          stream = new FileOutputStream(fileImage);
@@ -256,6 +291,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 
                                          message.getData().putString("path", fileImage.getAbsolutePath());
                                          **/
+
                                         serviceMessenger.send(message);
 
                                     } catch (Exception e) {
@@ -276,8 +312,8 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
                             parameters1.setExposureCompensation(parameters1.getMaxExposureCompensation());
                             cam.setParameters(parameters1);
 
-                        } catch (Exception e) {
                         }
+                        catch (Exception e){}
                     }
                 });
 
@@ -322,21 +358,23 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
                         displayOrientation = 180;
                         break;
                 }
-            } else {
+            }
+            else
+            {
                 boolean isLandscape = false;// degree == Configuration.ORIENTATION_LANDSCAPE;
 
                 switch (degree) {
                     case Surface.ROTATION_0:
-                        displayOrientation = isLandscape ? 0 : 90;
+                        displayOrientation = isLandscape? 0 : 90;
                         break;
                     case Surface.ROTATION_90:
-                        displayOrientation = isLandscape ? 0 : 270;
+                        displayOrientation =  isLandscape? 0 :270;
                         break;
                     case Surface.ROTATION_180:
-                        displayOrientation = isLandscape ? 180 : 270;
+                        displayOrientation = isLandscape? 180 :270;
                         break;
                     case Surface.ROTATION_270:
-                        displayOrientation = isLandscape ? 180 : 90;
+                        displayOrientation = isLandscape? 180 :90;
                         break;
                 }
             }
