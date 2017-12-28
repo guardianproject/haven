@@ -37,6 +37,7 @@ import org.havenapp.main.model.EventTrigger;
 import org.havenapp.main.sensors.AccelerometerMonitor;
 import org.havenapp.main.sensors.AmbientLightMonitor;
 import org.havenapp.main.sensors.BarometerMonitor;
+import org.havenapp.main.sensors.BumpMonitor;
 import org.havenapp.main.sensors.MicrophoneMonitor;
 
 import java.util.ArrayList;
@@ -80,6 +81,7 @@ public class MonitorService extends Service {
      * Sensor Monitors
      */
     AccelerometerMonitor mAccelManager = null;
+    BumpMonitor mBumpMonitor = null;
     MicrophoneMonitor mMicMonitor = null;
     BarometerMonitor mBaroMonitor = null;
     AmbientLightMonitor mLightMonitor = null;
@@ -226,6 +228,9 @@ public class MonitorService extends Service {
 
         if (mPrefs.getAccelerometerSensitivity() != PreferenceManager.OFF) {
             mAccelManager = new AccelerometerMonitor(this);
+            if(Build.VERSION.SDK_INT>=18) {
+                mBumpMonitor = new BumpMonitor(this);
+            }
             mBaroMonitor = new BarometerMonitor(this);
             mLightMonitor = new AmbientLightMonitor(this);
         }
@@ -239,9 +244,14 @@ public class MonitorService extends Service {
     private void stopSensors ()
     {
         mIsRunning = false;
-
+        //this will never be false:
+        // -you can't use ==, != for string comparisons, use equals() instead
+        // -Value is never set to OFF in the first place
         if (mPrefs.getAccelerometerSensitivity() != PreferenceManager.OFF) {
             mAccelManager.stop(this);
+            if(Build.VERSION.SDK_INT>=18) {
+                mBumpMonitor.stop(this);
+            }
             mBaroMonitor.stop(this);
             mLightMonitor.stop(this);
         }
