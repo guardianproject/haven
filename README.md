@@ -83,6 +83,8 @@ When one of the sensors is triggered (reaches the configured sensitivity thresho
 - SMS: a message is sent to the number specified when monitoring started
 - Signal: if configured, can send end-to-end encryption notifications via Signal
 
+Note that it's not necessary to install the Signal app on the device that runs Haven. Doing so may invalidate the app's previous Signal registration and safety numbers. Haven uses APIs to communicate via Signal.
+
 Notifications are sent through a service running in the background that is defined in class `MonitorService`.
 
 ### Remote Access
