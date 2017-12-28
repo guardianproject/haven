@@ -159,11 +159,11 @@ public class EventActivity extends AppCompatActivity {
 
         for (EventTrigger eventTrigger : mEvent.getEventTriggers()) {
 
-            mEventLog.append("Event Triggered @ " + eventTrigger.getTriggerTime().toLocaleString()).append("\n");
+            mEventLog.append("Event Triggered @ ").append(eventTrigger.getTriggerTime().toString()).append("\n");
 
             String sType = eventTrigger.getStringType(this);
 
-            mEventLog.append("Event Type: " + sType);
+            mEventLog.append("Event Type: ").append(sType);
             mEventLog.append("\n==========================\n");
         }
 

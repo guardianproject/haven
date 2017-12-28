@@ -42,8 +42,7 @@ public class Event extends SugarRecord {
         if (mEventTriggers.size() == 0) {
             List<EventTrigger> eventTriggers = EventTrigger.find(EventTrigger.class, "M_EVENT_ID = ?", getId() + "");
 
-            for (EventTrigger et : eventTriggers)
-                mEventTriggers.add(et);
+            mEventTriggers.addAll(eventTriggers);
 
         }
 
