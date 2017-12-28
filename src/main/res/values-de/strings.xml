@@ -2,10 +2,7 @@
 
     <string name="app_name">Haven</string>
 
-    <string name="menu_stop">Stop</string>
-    <string name="menu_start">Start</string>
     <string name="menu_save">Speichern</string>
-    <string name="menu_remote_access">Fernzugriff</string>
     <string name="menu_about">Einrichtung...</string>
 
     <string name="title_activity_start">Haven</string>
@@ -18,58 +15,19 @@
     	Empfindlichkeit Geräusche
     </string>
 
-    <string name="camera_sensitivity">
-    	Empfindlichkeit Kamerabewegung
-    </string>
-
     <string name="timer_delay_label">
     	Verzögerungszeit setzen
-    </string>
-
-    <string name="microphone_label">
-    	Mikrofon nutzen für Geräuschüberwachung
-    </string>
-
-    <string name="camera_label">
-    	Kamera auswählen
-    </string>
-
-    <string name="flash_label">
-    	Blitz aktivieren
     </string>
 
     <string name="sms_label">"Bei Alarm SMS oder Signal Nachricht senden "</string>
 
     <string name="sms_hint">+4917712345678</string>
 
-    <string name="unlock_code_hint">
-    	Code zum entsperren
-    </string>
-
-    <string name="start_button">
-    	Start
-    </string>
-
     <string name="camera_prompt">
     	Kamera wählen
     </string>
 
-    <array name="select_sensitivity">
-        <item>Niedrig</item>
-        <item>Mittel</item>
-        <item>Hoch</item>
-        <item>Aus</item>
-    </array>
-    <array name="select_camera">
-        <item>Vordere Kamera</item>
-        <item>Hintere Kamera</item>
-        <item>Aus</item>
-
-    </array>
-
     <string name="secure_service_started">Haven aktiviert</string>
-
-    <string name="secure_service_stopped">Haven deaktiviert</string>
 
     <string name="intrusion_detected">Ein Haven Sensor wurde ausgelöst (Typ: %s)</string>
     <string name="title_activity_event">EventActivity</string>
@@ -81,8 +39,6 @@
 
     <string name="intro2_title">Haven ist für Personen die gerne wissen was in Ihrem Haus, Büro, Hotelraum, ... vorgeht.</string>
     <string name="intro3_desc">Verwandle ein zweites Telefon in einen Geräusch, Vibrations, Licht und Bewegungssensor um ungewünschte Besucher direkt zu erkennen.</string>
-
-    <string name="sensor_setup_info">Positioniere dein Telefon so das die Kamera Bewegungen erkennen kann oder lege es diskret hin um Geräusche aufzunehmen</string>
 
     <string name="intro4_desc">Werde direkt benachrichtigt wenn Haven etwas erkennt und schaue per Fenzugriff in die Logs oder schaue nach den Logs direkt am Telefon</string>
 
