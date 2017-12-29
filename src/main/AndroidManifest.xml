@@ -35,7 +35,8 @@
         </activity>
         <activity
             android:name="org.havenapp.main.SettingsActivity"
-            android:label="@string/title_activity_start"
+            android:label="@string/settings"
+            android:theme="@style/SettingsTheme"
             android:configChanges="orientation|screenSize"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name="org.havenapp.main.ui.PPAppIntro"

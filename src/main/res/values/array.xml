@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="camera">
+        <item>@string/camera_front</item>
+        <item>@string/camera_back</item>
+        <item>@string/camera_none</item>
+    </string-array>
+    <string-array name="camera_alias">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+</resources>
