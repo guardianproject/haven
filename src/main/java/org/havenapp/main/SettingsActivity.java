@@ -60,7 +60,7 @@ import org.havenapp.main.ui.MicrophoneConfigureActivity;
 
 public class SettingsActivity extends AppCompatActivity {
 	
-	private PreferenceManager preferences = null;
+    private PreferenceManager preferences = null;
     private HavenApp app = null;
     private EditText remoteAccessCredential;
 
