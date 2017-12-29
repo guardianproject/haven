@@ -1,3 +1,154 @@
 <resources>
 
-    </resources>
+    <string name="app_name">Haven</string>
+
+    <string name="menu_stop">停止</string>
+    <string name="menu_start">开始</string>
+    <string name="menu_save">保存</string>
+    <string name="menu_remote_access">远程连接</string>
+    <string name="menu_about">设置中...</string>
+
+    <string name="title_activity_start">Haven</string>
+
+    <string name="accelerometer_prompt">
+    	运动敏感度
+    </string>
+
+    <string name="microphone_sensitivity">
+    	声音敏感度
+    </string>
+
+    <string name="camera_sensitivity">
+    	相机图像敏感度
+    </string>
+
+    <string name="timer_delay_label">
+    	设置延时
+    </string>
+
+    <string name="microphone_label">
+    	使用麦克风探测任何声音
+    </string>
+
+    <string name="camera_label">
+    	选择相机
+    </string>
+
+    <string name="flash_label">
+    	启用闪光灯
+    </string>
+
+    <string name="sms_label">
+    	发送短信警报
+    </string>
+
+    <string name="sms_hint">
+    	+8613901231234
+    </string>
+
+    <string name="unlock_code_hint">
+        解锁密码
+    </string>
+
+    <string name="start_button">
+    	开始
+    </string>
+
+    <string name="camera_prompt">
+    	选择相机
+    </string>
+
+    <array name="select_sensitivity">
+        <item>低</item>
+        <item>中</item>
+        <item>高</item>
+        <item>关闭</item>
+    </array>
+    <array name="select_camera">
+        <item>前相机</item>
+        <item>后相机</item>
+        <item>关闭</item>
+
+    </array>
+
+    <string name="secure_service_started">Haven 启动了</string>
+
+    <string name="secure_service_stopped">Haven 停止了</string>
+
+    <string name="intrusion_detected">(Type: %s) 传感器被触发了</string>
+    <string name="title_activity_event">事件活动</string>
+
+    <string name="action_settings">设置</string>
+
+    <string name="intro1_title"> 欢迎来到 Haven</string>
+    <string name="intro1_desc">\"现在当人类命运的方舟，\n长久以来被风向阻挡，\n正以其人流而漂流，\n在高处发现安全的避难所...\"\n- 乔治·梅瑞迪斯</string>
+
+    <string name="intro2_title">Haven 是为那些想要注意侵入他们的家，办公室，旅馆房间或其他私人空间的不速之客而设计的</string>
+    <string name="intro3_desc">将额外的手机变成运动，声音，振动和光线探测器，观察不速之客和入侵者</string>
+
+    <string name="sensor_setup_info">将相机放置为拍摄角度，或者将手机放置在隐蔽的地方以便听取噪音</string>
+
+    <string name="intro4_desc">立即获取入侵事件通知，并在稍后远程或亲自访问日</string>
+
+    <string name="intro5_title">你的 Haven 已经设置好了</string>
+    <string name="intro5_desc">任何时间你可以使用在主屏幕上的 &gt; 按钮来开启</string>
+
+    <string name="onboarding_action_end">结束</string>
+
+    <string name="remote_access_label">使用 Tor Onion Service 启动远程登入</string>
+    <string name="remote_access_hint">Onion service address from Orbot</string>
+    <string name="remote_access_credential_hint">设置远程密码</string>
+    <string name="camera_front">前相机</string>
+    <string name="camera_back">后相机</string>
+    <string name="camera_none">无</string>
+
+    <string name="action_configure">设置</string>
+
+    <string name="main_screen_title">你的 Haven 日志</string>
+
+    <string name="current_noise_base">现在的噪音量为</string>
+    <string name="current_accel_base">现在的运动量为</string>
+
+    <string name="configure_trigger_level">滑动轮子以更改检测阈值</string>
+    <string name="tune_the_sound_detection">发出一些声音!</string>
+    <string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">将手机放在桌子上并且在房间里发出一些噪音，来找到合适的噪音水平来检测</string>
+
+    <string name="tune_the_accel_detection">摇一摇!</string>
+    <string name="tune_the_accel_detection_more">移动手机来调整运动检测的阈值</string>
+    <string name="set_a_countdown_time">轻触来改变倒计时</string>
+    <string name="start_now">现在开始</string>
+    <string name="start_later">查看日志</string>
+    <string name="save_number">保存电话</string>
+
+    <string name="action_cancel">停止</string>
+    <string name="status_on">开始了</string>
+    <string name="status_charging">充电中:</string>
+    <string name="you_will_receive_a_text_when_the_app_hears_or_sees_something">当app听到或看到什么的时候，您将会收到短信</string>
+    <string name="know_immediately_when_haven_detects_something">当Haven发现什么时立即知道</string>
+    <string name="phone_saved">电话号码保存好了!</string>
+    <string name="detection_events">侦测事件</string>
+    <string name="data_speed">速度</string>
+    <string name="data_light">亮度</string>
+    <string name="data_pressure">压力</string>
+    <string name="data_power">电力</string>
+    <string name="share_event_action">分享事件...</string>
+    <string name="signal_test_message">这是来自Haven的测试消息</string>
+    <string name="send_test_message">发送测试信息</string>
+    <string name="verify">验证</string>
+    <string name="register">注册</string>
+    <string name="activate_signal">启动 Signal</string>
+    <string name="verify_signal">验证 Signal</string>
+    <string name="enter_verification">输入您从Signal注册步骤收到的验证码</string>
+    <string name="cancel">取消</string>
+    <string name="register_title">注册 Signal</string>
+    <string name="register_signal_desc">使用一个新的手机号注册Signal来发送安全通知。不要使用您当前的／主要的Signal号码。</string>
+    <string name="phone_hint">+8613903211212</string>
+
+    <string name="menu_licenses">许可协议...</string>
+    <string name="sensor_light">环境光</string>
+    <string name="sensor_accel">运动 (加速度仪)</string>
+    <string name="sensor_camera">运动 (相机)</string>
+    <string name="sensor_sound">麦克风</string>
+    <string name="sensor_power">USB 电源</string>
+    <string name="sensor_unknown">不明</string>
+</resources>
