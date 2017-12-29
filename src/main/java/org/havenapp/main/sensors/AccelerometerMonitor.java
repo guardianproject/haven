@@ -71,8 +71,7 @@ public class AccelerometerMonitor implements SensorEventListener {
 		/*
 		 * Set sensitivity value
 		 */
-		try
-        {
+	try {
             shakeThreshold = Integer.parseInt(prefs.getAccelerometerSensitivity());
         }
         catch (Exception e)
