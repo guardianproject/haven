@@ -23,6 +23,7 @@ import org.havenapp.main.model.EventTrigger;
 
 public class WebServer extends NanoHTTPD {
 
+    public final static String LOCAL_HOST = "127.0.0.1";
     public final static int LOCAL_PORT = 8888;
 
     private final static String TAG = "WebServer";
@@ -34,7 +35,7 @@ public class WebServer extends NanoHTTPD {
     private Context mContext;
 
     public WebServer(Context context) throws IOException {
-        super(LOCAL_PORT);
+        super(LOCAL_HOST, LOCAL_PORT);
         mContext = context;
         start(NanoHTTPD.SOCKET_READ_TIMEOUT, false);
     }
