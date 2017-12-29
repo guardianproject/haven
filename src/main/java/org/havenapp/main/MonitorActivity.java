@@ -49,7 +49,7 @@ import org.havenapp.main.ui.MicrophoneConfigureActivity;
 
 public class MonitorActivity extends FragmentActivity {
 	
-	private PreferenceManager preferences = null;
+    private PreferenceManager preferences = null;
 
     private TextView txtTimer;
     private View viewTimer;
