@@ -1,0 +1,113 @@
+<resources>
+
+    <string name="app_name" translatable="false">Haven</string>
+
+    <string name="menu_save">Kaydet</string>
+    <string name="menu_about">Kurulum...</string>
+
+    <string name="title_activity_start">Haven</string>
+
+    <string name="accelerometer_prompt">
+    	Hareket Hassasiyeti
+    </string>
+
+    <string name="microphone_sensitivity">
+    	Ses Hassasiyeti
+    </string>
+
+    <string name="timer_delay_label">
+    	Bekleme Süresi
+    </string>
+
+    <string name="sms_label">
+    	SMS veya Signal ile uyarı mesajı gönder
+    </string>
+
+    <string name="sms_hint">
+    	+905321234567
+    </string>
+
+    <string name="camera_prompt">
+    	Kamerayı seç
+    </string>
+
+    <string name="secure_service_started">Haven Etkinleştirildi</string>
+
+    <string name="intrusion_detected">İzinsiz giriş saptandı (Tip: %s)</string>
+    <string name="title_activity_event">OlayGeçmişi</string>
+
+    <string name="action_settings">Ayarlar</string>
+
+    <string name="intro1_title">Haven'a Hoşgeldiniz</string>
+    <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the height find...\"\n-George Meredith</string>
+	<!-- Turkish translation of poem 
+	<string name="intro1_desc">\"Şimdi insan kaderinin gemisi,\nAsi rüzgarda afallamış,\nKalabalık yüküyle sürüklenir,\nGÜVENLİ bir LİMAN arayışında...\"\n-George Meredith</string>
+	-->
+    <string name="intro2_title">Haven; evine, ofisine, otel odasına veya özel alanına izinsiz girişlere karşı tetikte olmak isteyen insanlar içindir</string>
+    <string name="intro3_desc">Yedek telefonunuzu, davetsiz misafirlerden haberdar olabileceğiniz bir hareket, ses, titreşim ve ışık algılayıcıya dönüştürün</string>
+
+    <string name="intro4_desc">İzinsiz girişlerde anında bilgilendirilir, kayıtlara uzaktan erişim sağlayabilir veya daha sonra cihazdan erişebilirsiniz</string>
+
+    <string name="intro5_title">Haven kullanıma hazır</string>
+    <string name="intro5_desc">Uygulamayı istediğiniz zaman ana ekrandaki &gt; butonuna basarak etkinleştirebilirsiniz</string>
+
+    <string name="onboarding_action_end">Bitir</string>
+
+    <string name="remote_access_label">Tor Onion ile uzaktan erişimi etkinleştir</string>
+    <string name="remote_access_hint">Orbot Onion hizmeti adresi</string>
+    <string name="remote_access_credential_hint">Uzaktan erişim şifresi belirle</string>
+    <string name="camera_front">Ön</string>
+    <string name="camera_back">Arka</string>
+    <string name="camera_none">Hiçbiri</string>
+
+    <string name="action_configure">Ayarla</string>
+
+    <string name="main_screen_title">Haven Kayıtlarınız</string>
+
+    <string name="current_noise_base">Ses seviyesi</string>
+    <string name="current_accel_base">Hareket seviyesi</string>
+
+    <string name="configure_trigger_level">Algılama eşiğini belirlemek için kaydırın</string>
+    <string name="tune_the_sound_detection">Ses çıkarın!</string>
+    <string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">Telefonu masaya koyup algılanmasını istediğiniz seviyede ses çıkarın</string>
+
+    <string name="tune_the_accel_detection">Sallayın!</string>
+    <string name="tune_the_accel_detection_more">Algılama eşiğini ayarlamak için telefonu hareket ettirin</string>
+    <string name="set_a_countdown_time">Süreyi değiştirmek için dokunun</string>
+    <string name="start_now">Başlat</string>
+    <string name="start_later">Kayıtları Görüntüle</string>
+    <string name="save_number">Numarayı Kaydet</string>
+
+    <string name="action_cancel">Devre Dışı Bırak</string>
+    <string name="status_on">AKTİF</string>
+    <string name="status_charging">Şarj oluyor:</string>
+    <string name="you_will_receive_a_text_when_the_app_hears_or_sees_something">Uygulama bir şey gördüğünde veya duyduğunda mesaj alacaksınız</string>
+    <string name="know_immediately_when_haven_detects_something">Haven bir şey algıladığıda anında öğrenin</string>
+    <string name="phone_saved">Telefon numarası kaydedildi!</string>
+    <string name="detection_events">tespit edilen olaylar</string>
+    <string name="data_speed">HIZ</string>
+    <string name="data_light">IŞIK</string>
+    <string name="data_pressure">BASINÇ</string>
+    <string name="data_power">GÜÇ</string>
+    <string name="share_event_action">Olayı paylaş...</string>
+    <string name="signal_test_message">Bu Haven tarafından gönderilen bir deneme mesajıdır</string>
+    <string name="send_test_message">Deneme mesajı gönder</string>
+    <string name="verify">Doğrula</string>
+    <string name="register">Kaydol</string>
+    <string name="activate_signal">Signal'ı Etkinleştir</string>
+    <string name="verify_signal">Signal'ı Onayla</string>
+    <string name="enter_verification">Signal'a kayıt sırasında gelen mesajdaki onay kodunu girin</string>
+    <string name="cancel">İptal</string>
+    <string name="register_title">Signal'a Kaydol</string>
+    <string name="register_signal_desc">Bildirimleri göndereceğiniz yeni bir telefon numarasını (+905321234567) Signal'a kaydedin. SIGNAL UYGULAMASINDA MEVCUT/ÖNCEDEN KAYDEDİLMİŞ BİR NUMARA KULLANMAYIN.</string>
+    <string name="phone_hint">+905321234567</string>
+
+    <string name="menu_licenses">Lisans...</string>
+    <string name="sensor_light">Ortam Işığı</string>
+    <string name="sensor_accel">Hareket (İvmeölçer)</string>
+    <string name="sensor_camera">Hareket (Kamera)</string>
+    <string name="sensor_sound">Mikrofon</string>
+    <string name="sensor_power">USB Bağlantısı</string>
+    <string name="sensor_bump">Sarsıntı (İvmeölçer)</string>
+    <string name="sensor_unknown">Bilinmeyen</string>
+</resources>
