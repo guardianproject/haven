@@ -1,75 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/colorPrimary">
+    android:background="@color/colorPrimary"
+    android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        android:theme="@style/AppTheme.AppBarOverlay"/>
-    app:popupTheme="@style/AppTheme.PopupOverlay" />
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center_vertical"
-    >
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/tune_the_accel_detection"
-        android:textColor="@color/colorAccent"
-        android:textSize="28dp"
-        android:textStyle="bold"
-
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/tune_the_accel_detection_more"
-        android:textColor="@color/colorAccent"
-        android:textSize="14dp"
-        android:textStyle="bold"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
+        android:layout_height="match_parent"
+        android:weightSum="10"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
 
 
-        />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/tune_the_accel_detection"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-    <org.havenapp.main.ui.SimpleWaveformExtended
-        android:id="@+id/simplewaveform"
-        android:layout_width="match_parent"
-        android:layout_height="240dp"
-        android:layout_margin="10dp"
-        android:background="#FFFFFF"
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/tune_the_accel_detection_more"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
-        />
+        <org.havenapp.main.ui.SimpleWaveformExtended
+            android:id="@+id/simplewaveform"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:layout_margin="10dp"
+            android:background="#FFFFFF" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/configure_trigger_level"
-        android:textColor="@color/colorAccent"
-
-        />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/configure_trigger_level"
+            android:textColor="@color/colorAccent" />
 
         <me.angrybyte.numberpicker.view.ActualNumberPicker
             android:id="@+id/number_trigger_level"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_centerHorizontal="true"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="3dp"
             android:background="#FFFFFF"
             app:bar_color="@android:color/darker_gray"
@@ -77,23 +71,23 @@
             app:draw_over_controls="true"
             app:max_value="100"
             app:min_value="0"
-            app:show_text="true"
             app:show_bars="true"
             app:show_controls="false"
             app:show_fast_controls="false"
+            app:show_text="true"
             app:text_color="@android:color/darker_gray"
             app:text_size="16sp" />
 
-    <TextView
-        android:id="@+id/text_display_level"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="24dp"
-        android:text="@string/current_noise_base"
-        android:textColor="@color/colorAccent"
-        android:textStyle="bold"
-        android:layout_margin="15dp"
-        />
-</LinearLayout>
+        <TextView
+            android:id="@+id/text_display_level"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_margin="15dp"
+            android:gravity="center"
+            android:text="@string/current_noise_base"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp"
+            android:textStyle="bold" />
     </LinearLayout>
+</LinearLayout>
