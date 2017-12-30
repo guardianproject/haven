@@ -1,0 +1,34 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="@dimen/activity_vertical_large_margin"
+    android:layout_marginTop="@dimen/activity_vertical_large_margin"
+    android:overScrollMode="ifContentScrolls">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/alert_def_padding"
+        android:paddingBottom="@dimen/alert_def_padding"
+        android:paddingStart="?dialogPreferredPadding"
+        android:paddingLeft="?dialogPreferredPadding"
+        android:paddingEnd="?dialogPreferredPadding"
+        android:paddingRight="?dialogPreferredPadding"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@android:id/message"
+            style="?android:attr/textAppearanceSmall"
+            android:layout_marginBottom="@dimen/alert_def_padding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="?android:attr/textColorSecondary" />
+
+        <EditText
+            android:id="@android:id/edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+</ScrollView>

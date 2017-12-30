@@ -9,5 +9,7 @@
 
     <dimen name="activity_margin_half">8dp</dimen>
     <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="alert_def_padding">18dp</dimen>
+    <dimen name="activity_vertical_large_margin">48dp</dimen>
 
 </resources>

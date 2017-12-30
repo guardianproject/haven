@@ -51,6 +51,7 @@
 
     <string name="onboarding_action_end">Finish</string>
 
+    <string name="remote_access">Remote Access</string>
     <string name="remote_access_label">Enable remote access via Tor Onion Service</string>
     <string name="remote_access_hint">Onion service address from Orbot</string>
     <string name="remote_access_credential_hint">Set remote password</string>
@@ -108,4 +109,21 @@
     <string name="sensor_power">USB Power</string>
     <string name="sensor_bump">Bump (Accelerometer)</string>
     <string name="sensor_unknown">Unknown</string>
+
+    <string name="settings">Settings</string>
+    <string name="remote_access_onion_error">This feature requires the Orbot: Tor for Android app to be installed.</string>
+
+    <!--Preference Settings -->
+    <string name="hint_number" translatable="false">+12125551212</string>
+    <string name="sms_dialog_message">Register a phone number (+12125551212) to receive a text when the app hears or sees something</string>
+    <string name="sms_dialog_summary">Register a phone number to receive a text when the app hears or sees something</string>
+    <string name="signal_dialog_summary">Register a new phone number with signal to send secure notifications</string>
+    <string name="verification_dialog_summary">Verify the code received from the signal registration step</string>
+    <string name="send_message_dialog">Enter a phone number (+12125551212) to send a text message to</string>
+    <string name="send_text_message">Send Text Message</string>
+    <string name="service_address">Service Address</string>
+    <string name="password">Password</string>
+    <string name="signal_number">Signal Number</string>
+    <string name="phone_number">Phone Number</string>
+
 </resources>
