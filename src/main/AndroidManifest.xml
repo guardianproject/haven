@@ -70,9 +70,9 @@
             android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme" />
         <activity android:name="org.havenapp.main.ui.MicrophoneConfigureActivity"
-            android:screenOrientation="portrait"/>
+            android:configChanges="orientation|screenSize|keyboardHidden"/>
         <activity android:name="org.havenapp.main.ui.AccelConfigureActivity"
-            android:screenOrientation="portrait"/>
+            android:configChanges="orientation|screenSize|keyboardHidden"/>
 
         <receiver android:name="org.havenapp.main.sensors.PowerConnectionReceiver">
             <intent-filter>
