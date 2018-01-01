@@ -44,7 +44,7 @@ public class AccelConfigureActivity extends AppCompatActivity implements SensorE
     private SimpleWaveformExtended mWaveform;
     private LinkedList<Integer> mWaveAmpList;
 
-    static final int MAX_SLIDER_VALUE = 100;
+    private static final int MAX_SLIDER_VALUE = 100;
 
     private double maxAmp = 0;
 

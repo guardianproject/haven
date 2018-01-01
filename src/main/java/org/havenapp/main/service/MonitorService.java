@@ -55,11 +55,11 @@ public class MonitorService extends Service {
 	/**
 	 * To show a notification on service start
 	 */
-	NotificationManager manager;
-    NotificationChannel mChannel;
-    final static String channelId = "monitor_id";
-    final static CharSequence channelName = "Haven notifications";
-    final static String channelDescription= "Important messages from Haven";
+    private NotificationManager manager;
+    private NotificationChannel mChannel;
+    private final static String channelId = "monitor_id";
+    private final static CharSequence channelName = "Haven notifications";
+    private final static String channelDescription= "Important messages from Haven";
 
 	/**
 	* True only if service has been alerted by the accelerometer
@@ -75,27 +75,27 @@ public class MonitorService extends Service {
 	/**
 	 * Incrementing alert id
 	 */
-	int mNotificationAlertId = 7007;
+    private int mNotificationAlertId = 7007;
 
     /**
      * Sensor Monitors
      */
-    AccelerometerMonitor mAccelManager = null;
-    BumpMonitor mBumpMonitor = null;
-    MicrophoneMonitor mMicMonitor = null;
-    BarometerMonitor mBaroMonitor = null;
-    AmbientLightMonitor mLightMonitor = null;
+    private AccelerometerMonitor mAccelManager = null;
+    private BumpMonitor mBumpMonitor = null;
+    private MicrophoneMonitor mMicMonitor = null;
+    private BarometerMonitor mBaroMonitor = null;
+    private AmbientLightMonitor mLightMonitor = null;
 
     private boolean mIsRunning = false;
     /**
      * Last Event instances
      */
-    Event mLastEvent;
+    private Event mLastEvent;
 
     /**
 	 * Handler for incoming messages
 	 */
-	class MessageHandler extends Handler {
+    private class MessageHandler extends Handler {
 		@Override
 		public void handleMessage(Message msg) {
 			alert(msg.what,msg.getData().getString("path"));
@@ -110,13 +110,13 @@ public class MonitorService extends Service {
     /*
     ** Helps keep the service awake when screen is off
      */
-    PowerManager.WakeLock wakeLock;
+    private PowerManager.WakeLock wakeLock;
 
     /*
     **
     * Application
      */
-    HavenApp mApp = null;
+    private HavenApp mApp = null;
 
 	/**
 	 * Called on service creation, sends a notification
@@ -335,10 +335,6 @@ public class MonitorService extends Service {
                 manager.sendTextMessage(st.nextToken(), null, alertMessage.toString(), null, null);
 
         }
-
-
-
-
 
     }
 

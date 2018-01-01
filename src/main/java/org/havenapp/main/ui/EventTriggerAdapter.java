@@ -29,11 +29,11 @@ import nl.changer.audiowife.AudioWife;
 
 public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapter.EventTriggerVH> {
 
-    Context context;
-    List<EventTrigger> eventTriggers;
-    ArrayList<String> eventTriggerImagePaths;
+    private Context context;
+    private List<EventTrigger> eventTriggers;
+    private ArrayList<String> eventTriggerImagePaths;
 
-    OnItemClickListener clickListener;
+    private OnItemClickListener clickListener;
 
     public EventTriggerAdapter(Context context, List<EventTrigger> eventTriggers) {
         this.context = context;
