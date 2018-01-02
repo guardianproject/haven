@@ -24,6 +24,7 @@ import android.database.sqlite.SQLiteException;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -42,6 +43,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.LibsBuilder;
@@ -69,6 +71,7 @@ public class ListActivity extends AppCompatActivity {
     private EventAdapter adapter;
     private List<Event> events = new ArrayList<>();
     private PreferenceManager preferences;
+    private ProgressBar progressBar;
 
 
     private long initialCount;
@@ -87,11 +90,12 @@ public class ListActivity extends AppCompatActivity {
         Log.d("Main", "onCreate");
 
         preferences = new PreferenceManager(this.getApplicationContext());
-      
+
         recyclerView = findViewById(R.id.main_list);
         fab = findViewById(R.id.fab);
         toolbar = findViewById(R.id.toolbar);
-        delete_all_fab = (FloatingActionButton) findViewById(R.id.delete_all_fab);
+        delete_all_fab = findViewById(R.id.delete_all_fab);
+        progressBar = findViewById(R.id.progressBar);
         setSupportActionBar(toolbar);
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
@@ -200,17 +204,7 @@ public class ListActivity extends AppCompatActivity {
         builder.setMessage("Do you want delete all events ?");
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                for (Event event : events) {
-                    for (EventTrigger trigger : event.getEventTriggers()) {
-                        new File(trigger.getPath()).delete();
-                        trigger.delete();
-                    }
-                    event.delete();
-                }
-                events.clear();
-                adapter.notifyDataSetChanged();
-                findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
-                delete_all_fab.setVisibility(View.GONE);
+                new ProgressTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 dialog.cancel();
             }
         });
@@ -220,6 +214,34 @@ public class ListActivity extends AppCompatActivity {
             }
         });
         builder.show();
+    }
+
+    private class ProgressTask extends AsyncTask<Void,Void,Void> {
+        @Override
+        protected void onPreExecute(){
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            for (Event event : events) {
+                for (EventTrigger trigger : event.getEventTriggers()) {
+                    new File(trigger.getPath()).delete();
+                    trigger.delete();
+                }
+                event.delete();
+            }
+            events.clear();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            adapter.notifyDataSetChanged();
+            findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
+            delete_all_fab.setVisibility(View.GONE);
+            progressBar.setVisibility(View.GONE);
+        }
     }
 
     private void deleteEvent (final Event event, final int position)

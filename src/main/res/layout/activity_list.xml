@@ -71,4 +71,14 @@
         app:srcCompat="@drawable/ic_play_arrow_white_48dp"
         android:tint="@android:color/white" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:visibility="gone"
+        android:indeterminate="true" >
+    </ProgressBar>
+
 </android.support.design.widget.CoordinatorLayout>
