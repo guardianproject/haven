@@ -27,7 +27,7 @@ import android.content.SharedPreferences.Editor;
 
 public class PreferenceManager {
 	
-	private SharedPreferences appSharedPrefs;
+    private SharedPreferences appSharedPrefs;
     private Editor prefsEditor;
     
     public static final String LOW = "Low";
@@ -40,31 +40,31 @@ public class PreferenceManager {
     public static final String BACK = "Back";
     public static final String NONE = "None";
 	
-	private static final String APP_SHARED_PREFS="org.havenapp.main";
-	private static final String ACCELEROMETER_ACTIVE="accelerometer_active";
-	private static final String ACCELEROMETER_SENSITIVITY="accelerometer_sensibility";
-	private static final String CAMERA_ACTIVE="camera_active";
-	public static final String CAMERA="camera";
-	private static final String CAMERA_SENSITIVITY="camera_sensitivity";
+    private static final String APP_SHARED_PREFS="org.havenapp.main";
+    private static final String ACCELEROMETER_ACTIVE="accelerometer_active";
+    private static final String ACCELEROMETER_SENSITIVITY="accelerometer_sensibility";
+    private static final String CAMERA_ACTIVE="camera_active";
+    public static final String CAMERA="camera";
+    private static final String CAMERA_SENSITIVITY="camera_sensitivity";
     public static final String CONFIG_MOVEMENT ="config_movement";
-	private static final String FLASH_ACTIVE="flash_active";
-	private static final String MICROPHONE_ACTIVE="microphone_active";
-	private static final String MICROPHONE_SENSITIVITY="microphone_sensitivity";
+    private static final String FLASH_ACTIVE="flash_active";
+    private static final String MICROPHONE_ACTIVE="microphone_active";
+    private static final String MICROPHONE_SENSITIVITY="microphone_sensitivity";
     public static final String CONFIG_SOUND = "config_sound";
     public static final String CONFIG_TIME_DELAY = "config_delay_time";
-	public static final String SMS_ACTIVE = "sms_active";
+    public static final String SMS_ACTIVE = "sms_active";
     public static final String SMS_NUMBER = "sms_number";
     public static final String REGISTER_SIGNAL = "register_signal";
     public static final String VERIFY_SIGNAL = "verify_signal";
     public static final String SEND_SMS = "send_sms";
-	private static final String UNLOCK_CODE="unlock_code";
+    private static final String UNLOCK_CODE="unlock_code";
 	
-	private static final String ACCESS_TOKEN="access_token";
-	private static final String DELEGATED_ACCESS_TOKEN="deferred_access_token";
+    private static final String ACCESS_TOKEN="access_token";
+    private static final String DELEGATED_ACCESS_TOKEN="deferred_access_token";
 	
-	private static final String PHONE_ID="phone_id";
+    private static final String PHONE_ID="phone_id";
     private static final String TIMER_DELAY="timer_delay";
-	private static final String DIR_PATH = "/secureit";
+    private static final String DIR_PATH = "/secureit";
 
     public static final String REMOTE_ACCESS_ACTIVE = "remote_access_active";
     public static final String REMOTE_ACCESS_ONION = "remote_access_onion";

@@ -17,8 +17,6 @@
 package org.havenapp.main;
 
 import android.Manifest;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -28,38 +26,36 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.NumberPicker;
 import android.widget.TextView;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Locale;
-import java.util.concurrent.TimeUnit;
-
-
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 import org.havenapp.main.service.MonitorService;
 import org.havenapp.main.ui.AccelConfigureActivity;
 import org.havenapp.main.ui.CameraFragment;
 import org.havenapp.main.ui.MicrophoneConfigureActivity;
 
-public class MonitorActivity extends FragmentActivity {
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import static org.havenapp.main.Utils.getTimerText;
+
+public class MonitorActivity extends FragmentActivity implements TimePickerDialog.OnTimeSetListener {
 	
-	private PreferenceManager preferences = null;
+    private PreferenceManager preferences = null;
 
     private TextView txtTimer;
-    private View viewTimer;
 
     private CountDownTimer cTimer;
 
     private boolean mIsMonitoring = false;
+    private boolean mIsInitializedLayout = false;
+    private boolean mOnTimerTicking = false;
 
     @Override
-	protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         boolean permsNeeded = askForPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, 1);
@@ -68,20 +64,16 @@ public class MonitorActivity extends FragmentActivity {
             initLayout();
     }
 
-    private void initLayout ()
-    {
+    private void initLayout() {
         preferences = new PreferenceManager(getApplicationContext());
         setContentView(R.layout.activity_monitor);
 
-        txtTimer = (TextView)findViewById(R.id.timer_text);
-        viewTimer = findViewById(R.id.timer_container);
+        txtTimer = (TextView) findViewById(R.id.timer_text);
+        View viewTimer = findViewById(R.id.timer_container);
 
-        int timeM = preferences.getTimerDelay()*1000;
-        String timerText = String.format(Locale.getDefault(), "%02dm %02ds",
-                TimeUnit.MILLISECONDS.toMinutes(timeM) % 60,
-                TimeUnit.MILLISECONDS.toSeconds(timeM) % 60);
+        int timeM = preferences.getTimerDelay() * 1000;
 
-        txtTimer.setText(timerText);
+        txtTimer.setText(getTimerText(timeM));
         txtTimer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,28 +92,28 @@ public class MonitorActivity extends FragmentActivity {
         });
 
         findViewById(R.id.btnStartLater).setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               doCancel();
-           }
-       });
+            @Override
+            public void onClick(View v) {
+                doCancel();
+            }
+        });
 
-       findViewById(R.id.btnStartNow).setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               ((Button)findViewById(R.id.btnStartLater)).setText(R.string.action_cancel);
-               findViewById(R.id.btnStartNow).setVisibility(View.INVISIBLE);
-               findViewById(R.id.timer_text_title).setVisibility(View.INVISIBLE);
-               initTimer();
-           }
-       });
+        findViewById(R.id.btnStartNow).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((Button) findViewById(R.id.btnStartLater)).setText(R.string.action_cancel);
+                findViewById(R.id.btnStartNow).setVisibility(View.INVISIBLE);
+                findViewById(R.id.timer_text_title).setVisibility(View.INVISIBLE);
+                initTimer();
+            }
+        });
 
-       findViewById(R.id.btnAccelSettings).setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               startActivity(new Intent(MonitorActivity.this, AccelConfigureActivity.class));
-           }
-       });
+        findViewById(R.id.btnAccelSettings).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MonitorActivity.this, AccelConfigureActivity.class));
+            }
+        });
 
         findViewById(R.id.btnMicSettings).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,12 +136,10 @@ public class MonitorActivity extends FragmentActivity {
             }
         });
 
-
-
+        mIsInitializedLayout = true;
     }
 
-	private void switchCamera ()
-    {
+    private void switchCamera() {
 
         String camera = preferences.getCamera();
         if (camera.equals(PreferenceManager.FRONT))
@@ -157,23 +147,17 @@ public class MonitorActivity extends FragmentActivity {
         else if (camera.equals(PreferenceManager.BACK))
             preferences.setCamera(PreferenceManager.FRONT);
 
-        ((CameraFragment)getSupportFragmentManager().findFragmentById(R.id.fragment_camera)).resetCamera();
+        ((CameraFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_camera)).resetCamera();
 
     }
 
-	private void updateTimerValue (int val)
-    {
+    private void updateTimerValue(int val) {
         preferences.setTimerDelay(val);
         int valM = val * 1000;
-        String timerText = String.format(Locale.getDefault(), "%02dm %02ds",
-                TimeUnit.MILLISECONDS.toMinutes(valM) % 60,
-                TimeUnit.MILLISECONDS.toSeconds(valM) % 60);
-
-        txtTimer.setText(timerText);
+        txtTimer.setText(getTimerText(valM));
     }
 
-	private void doCancel ()
-    {
+    private void doCancel() {
 
         if (cTimer != null) {
             cTimer.cancel();
@@ -183,8 +167,7 @@ public class MonitorActivity extends FragmentActivity {
                 mIsMonitoring = false;
                 stopService(new Intent(this, MonitorService.class));
                 finish();
-            }
-            else {
+            } else {
 
                 findViewById(R.id.btnStartNow).setVisibility(View.VISIBLE);
                 findViewById(R.id.timer_text_title).setVisibility(View.VISIBLE);
@@ -192,32 +175,24 @@ public class MonitorActivity extends FragmentActivity {
                 ((Button) findViewById(R.id.btnStartLater)).setText(R.string.start_later);
 
                 int timeM = preferences.getTimerDelay() * 1000;
-                String timerText = String.format(Locale.getDefault(), "%02d:%02d",
-                        TimeUnit.MILLISECONDS.toMinutes(timeM) % 60,
-                        TimeUnit.MILLISECONDS.toSeconds(timeM) % 60);
-
-                txtTimer.setText(timerText);
+                txtTimer.setText(getTimerText(timeM));
             }
-        }
-        else {
+        } else {
 
             close();
         }
     }
 
-	private void showSettings ()
-    {
+    private void showSettings() {
 
-        Intent i = new Intent(this,SettingsActivity.class);
+        Intent i = new Intent(this, SettingsActivity.class);
 
         if (cTimer != null) {
             cTimer.cancel();
             cTimer = null;
-            startActivityForResult(i,9999);
+            startActivityForResult(i, 9999);
 
-        }
-        else
-        {
+        } else {
             startActivity(i);
         }
 
@@ -227,29 +202,25 @@ public class MonitorActivity extends FragmentActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 9999)
-        {
+        if (requestCode == 9999) {
             initTimer();
         }
     }
 
-    private void initTimer ()
-    {
+    private void initTimer() {
         txtTimer.setTextColor(getResources().getColor(R.color.colorAccent));
-        cTimer = new CountDownTimer((preferences.getTimerDelay())*1000, 1000) {
+        cTimer = new CountDownTimer((preferences.getTimerDelay()) * 1000, 1000) {
 
             public void onTick(long millisUntilFinished) {
-                String timerText = String.format(Locale.getDefault(), "%02d:%02d",
-                        TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) % 60,
-                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) % 60);
-
-                txtTimer.setText(timerText);
+                mOnTimerTicking = true;
+                txtTimer.setText(getTimerText(millisUntilFinished));
             }
 
             public void onFinish() {
 
                 txtTimer.setText(R.string.status_on);
                 initMonitor();
+                mOnTimerTicking = false;
             }
 
         };
@@ -259,8 +230,7 @@ public class MonitorActivity extends FragmentActivity {
 
     }
 
-	private void initMonitor ()
-    {
+    private void initMonitor() {
 
         mIsMonitoring = true;
         //ensure folder exists and will not be scanned by the gallery app
@@ -269,104 +239,57 @@ public class MonitorActivity extends FragmentActivity {
             File fileImageDir = new File(Environment.getExternalStorageDirectory(), preferences.getImagePath());
             fileImageDir.mkdirs();
             new FileOutputStream(new File(fileImageDir, ".nomedia")).write(0);
-        }
-        catch (IOException e){
-            Log.e("Monitor","unable to init media storage directory",e);
+        } catch (IOException e) {
+            Log.e("Monitor", "unable to init media storage directory", e);
         }
 
         //Do something after 100ms
         startService(new Intent(MonitorActivity.this, MonitorService.class));
 
     }
-    
+
     /**
      * Closes the monitor activity and unset session properties
      */
     private void close() {
 
-  	  stopService(new Intent(this, MonitorService.class));
-  	  if (preferences != null) {
-          preferences.unsetAccessToken();
-          preferences.unsetDelegatedAccessToken();
-          preferences.unsetPhoneId();
-      }
-  	  finish();
-    	
+        stopService(new Intent(this, MonitorService.class));
+        if (preferences != null) {
+            preferences.unsetAccessToken();
+            preferences.unsetDelegatedAccessToken();
+            preferences.unsetPhoneId();
+        }
+        finish();
+
     }
-    
+
     /**
      * When user closes the activity
      */
     @Override
     public void onBackPressed() {
-		close();
+        close();
     }
 
-    private void showTimeDelayDialog ()
-    {
+    private void showTimeDelayDialog() {
         int totalSecs = preferences.getTimerDelay();
 
         int hours = totalSecs / 3600;
         int minutes = (totalSecs % 3600) / 60;
         int seconds = totalSecs % 60;
 
+        TimePickerDialog mTimePickerDialog = TimePickerDialog.newInstance(this, hours, minutes, seconds, true);
+        mTimePickerDialog.enableSeconds(true);
+        mTimePickerDialog.show(getFragmentManager(), "TimePickerDialog");
+    }
 
-        final NumberPicker pickerMinutes = new NumberPicker(this);
-        pickerMinutes.setMinValue(0);
-        pickerMinutes.setMaxValue(59);
-        pickerMinutes.setValue(minutes);
-
-        final NumberPicker pickerSeconds = new NumberPicker(this);
-        pickerSeconds.setMinValue(0);
-        pickerSeconds.setMaxValue(59);
-        pickerSeconds.setValue(seconds);
-
-        final TextView textViewMinutes = new TextView(this);
-        textViewMinutes.setText("m");
-        textViewMinutes.setTextSize(30);
-        textViewMinutes.setGravity(Gravity.CENTER_VERTICAL);
-
-        final TextView textViewSeconds = new TextView(this);
-        textViewSeconds.setText("s");
-        textViewSeconds.setTextSize(30);
-        textViewSeconds.setGravity(Gravity.CENTER_VERTICAL);
-
-
-        final LinearLayout layout = new LinearLayout(this);
-        layout.setOrientation(LinearLayout.HORIZONTAL);
-        layout.addView(pickerMinutes, new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                Gravity.LEFT));
-
-        layout.addView(textViewMinutes, new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                Gravity.LEFT|Gravity.BOTTOM));
-
-        layout.addView(pickerSeconds, new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                Gravity.LEFT));
-
-        layout.addView(textViewSeconds, new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                Gravity.LEFT|Gravity.BOTTOM));
-
-
-        new AlertDialog.Builder(this)
-                .setView(layout)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        // do something with picker.getValue()
-                        int delaySeconds = pickerSeconds.getValue() + (pickerMinutes.getValue() * 60);
-                        updateTimerValue (delaySeconds);
-                    }
-                })
-                .setNegativeButton(android.R.string.cancel, null)
-                .show();
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mIsInitializedLayout && !mOnTimerTicking) {
+            int totalMilliseconds = preferences.getTimerDelay() * 1000;
+            txtTimer.setText(getTimerText(totalMilliseconds));
+        }
     }
 
     @Override
@@ -375,7 +298,7 @@ public class MonitorActivity extends FragmentActivity {
 
         switch (requestCode) {
             case 1:
-                askForPermission(Manifest.permission.CAMERA,2);
+                askForPermission(Manifest.permission.CAMERA, 2);
                 break;
             case 2:
                 initLayout();
@@ -405,4 +328,9 @@ public class MonitorActivity extends FragmentActivity {
         }
     }
 
+    @Override
+    public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
+        int delaySeconds = second + minute * 60 + hourOfDay * 60 * 60;
+        updateTimerValue(delaySeconds);
+    }
 }

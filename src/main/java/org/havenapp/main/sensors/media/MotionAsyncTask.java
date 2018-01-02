@@ -7,10 +7,6 @@
 package org.havenapp.main.sensors.media;
 
 
-import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
-import java.util.List;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -24,6 +20,10 @@ import android.util.Log;
 import org.havenapp.main.sensors.motion.IMotionDetector;
 import org.havenapp.main.sensors.motion.LuminanceMotionDetector;
 
+import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Task doing all image processing in backgrounds, 
  * has a collection of listeners to notify in after having processed
@@ -35,7 +35,7 @@ public class MotionAsyncTask extends Thread {
 	
 	// Input data
 	
-	private List<MotionListener> listeners = new ArrayList<MotionListener>();
+	private List<MotionListener> listeners = new ArrayList<>();
 	private byte[] rawOldPic;
 	private byte[] rawNewPic;
 	private int width;

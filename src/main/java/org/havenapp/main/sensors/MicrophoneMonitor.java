@@ -66,18 +66,20 @@ public final class MicrophoneMonitor implements MicSamplerTask.MicListener {
 
         prefs = new PreferenceManager(context);
 
-        if (prefs.getMicrophoneSensitivity().equals("High")) {
-            mNoiseThreshold = 40;
-        } else if (prefs.getMicrophoneSensitivity().equals("Medium")) {
-            mNoiseThreshold = 60;
-        }
-        else
-        {
-            try {
-                //maybe it is a threshold value?
-                mNoiseThreshold = Double.parseDouble(prefs.getMicrophoneSensitivity());
-            }
-            catch (Exception e){}
+        switch (prefs.getMicrophoneSensitivity()) {
+            case "High":
+                mNoiseThreshold = 40;
+                break;
+            case "Medium":
+                mNoiseThreshold = 60;
+                break;
+            default:
+                try {
+                    //maybe it is a threshold value?
+                    mNoiseThreshold = Double.parseDouble(prefs.getMicrophoneSensitivity());
+                } catch (Exception e) {
+                }
+                break;
         }
 
         context.bindService(new Intent(context,
@@ -126,7 +128,7 @@ public final class MicrophoneMonitor implements MicSamplerTask.MicListener {
 		 */
         double averageDB = 0.0;
         if (average != 0) {
-            averageDB = 20 * Math.log10(Math.abs(average) / 1);
+            averageDB = 20 * Math.log10(Math.abs(average));
         }
 
         if (averageDB > mNoiseThreshold) {

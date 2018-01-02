@@ -31,6 +31,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
+
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -86,10 +87,11 @@ public class ListActivity extends AppCompatActivity {
         Log.d("Main", "onCreate");
 
         preferences = new PreferenceManager(this.getApplicationContext());
-        recyclerView = (RecyclerView) findViewById(R.id.main_list);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
+      
+        recyclerView = findViewById(R.id.main_list);
+        fab = findViewById(R.id.fab);
+        toolbar = findViewById(R.id.toolbar);
         delete_all_fab = (FloatingActionButton) findViewById(R.id.delete_all_fab);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
