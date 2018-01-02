@@ -218,6 +218,9 @@ public class ListActivity extends AppCompatActivity {
                     }
                 })
                 .show();
+        if (events.size() == 0) {
+            findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
