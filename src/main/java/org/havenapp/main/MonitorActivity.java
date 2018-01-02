@@ -31,7 +31,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
-
 import org.havenapp.main.service.MonitorService;
 import org.havenapp.main.ui.AccelConfigureActivity;
 import org.havenapp.main.ui.CameraFragment;

@@ -5,6 +5,9 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 
+import org.havenapp.main.model.Event;
+import org.havenapp.main.model.EventTrigger;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -16,8 +19,6 @@ import java.util.Map;
 import java.util.UUID;
 
 import fi.iki.elonen.NanoHTTPD;
-import org.havenapp.main.model.Event;
-import org.havenapp.main.model.EventTrigger;
 
 /**
  * Created by n8fr8 on 6/25/17.
@@ -94,8 +95,7 @@ public class WebServer extends NanoHTTPD {
             try {
                 File fileMedia = new File(eventTrigger.getPath());
                 FileInputStream fis = new FileInputStream(fileMedia);
-                Response res = newChunkedResponse(Response.Status.OK, getMimeType(eventTrigger), fis);
-                return res;
+                return newChunkedResponse(Response.Status.OK, getMimeType(eventTrigger), fis);
 
             }
             catch (IOException ioe)
@@ -109,7 +109,7 @@ public class WebServer extends NanoHTTPD {
 
         }
         else {
-            page.append("<html><head><title>" + appTitle + "</title>");
+            page.append("<html><head><title>").append(appTitle).append("</title>");
             page.append("<meta http-equiv=\"Content-Type\" content=\"application/xhtml+xml; charset=utf-8\" />");
             page.append("<meta name = \"viewport\" content = \"user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width\">");
             page.append("</head><body>");
@@ -179,13 +179,13 @@ public class WebServer extends NanoHTTPD {
             if (eventTrigger.getType() == EventTrigger.CAMERA)
             {
                 page.append("<img src=\"").append(mediaPath).append("\" width=\"100%\"/>");
-                page.append("<a href=\"" + mediaPath + "\">Download Media").append("</a>");
+                page.append("<a href=\"").append(mediaPath).append("\">Download Media").append("</a>");
 
             }
             else if (eventTrigger.getType() == EventTrigger.MICROPHONE)
             {
                 page.append("<audio src=\"").append(mediaPath).append("\"></audio>");
-                page.append("<a href=\"" + mediaPath + "\">Download Media").append("</a>");
+                page.append("<a href=\"").append(mediaPath).append("\">Download Media").append("</a>");
 
             }
 

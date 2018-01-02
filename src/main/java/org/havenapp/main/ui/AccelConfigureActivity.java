@@ -1,8 +1,6 @@
 package org.havenapp.main.ui;
 
-import android.Manifest;
 import android.app.Activity;
-import android.content.pm.PackageManager;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -12,10 +10,6 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.os.Message;
-import android.os.RemoteException;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -27,9 +21,6 @@ import com.maxproj.simplewaveform.SimpleWaveform;
 
 import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.R;
-import org.havenapp.main.model.EventTrigger;
-import org.havenapp.main.sensors.media.MicSamplerTask;
-import org.havenapp.main.sensors.media.MicrophoneTaskFactory;
 
 import java.util.LinkedList;
 
@@ -83,15 +74,15 @@ public class AccelConfigureActivity extends AppCompatActivity implements SensorE
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accel_configure);
 
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mTextLevel = (TextView)findViewById(R.id.text_display_level);
-        mNumberTrigger = (ActualNumberPicker)findViewById(R.id.number_trigger_level);
-        mWaveform = (SimpleWaveformExtended)findViewById(R.id.simplewaveform);
+        mTextLevel = findViewById(R.id.text_display_level);
+        mNumberTrigger = findViewById(R.id.number_trigger_level);
+        mWaveform = findViewById(R.id.simplewaveform);
         mWaveform.setMaxVal(MAX_SLIDER_VALUE);
 
         mNumberTrigger.setMinValue(0);
@@ -188,7 +179,7 @@ public class AccelConfigureActivity extends AppCompatActivity implements SensorE
             try {
 
                 SensorManager sensorMgr = (SensorManager) getSystemService(Activity.SENSOR_SERVICE);
-                Sensor sensor = (Sensor) sensorMgr.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+                Sensor sensor = sensorMgr.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
                 if (sensor == null) {
                     Log.i("AccelerometerFrament", "Warning: no accelerometer");
@@ -238,23 +229,23 @@ public class AccelConfigureActivity extends AppCompatActivity implements SensorE
 
                         double averageDB = 0.0;
                         if (speed != 0) {
-                            averageDB = 20 * Math.log10(Math.abs(speed) / 1);
+                            averageDB = 20 * Math.log10(Math.abs(speed));
                         }
 
                         if (averageDB > maxAmp) {
                             maxAmp = averageDB + 5d; //add 5db buffer
-                            mNumberTrigger.setValue(new Integer((int)maxAmp));
+                            mNumberTrigger.setValue((int) maxAmp);
                             mNumberTrigger.invalidate();
                         }
 
-                        mWaveAmpList.addFirst(new Integer(speed));
+                        mWaveAmpList.addFirst(speed);
 
                         if (mWaveAmpList.size() > mWaveform.width / mWaveform.barGap + 2) {
                             mWaveAmpList.removeLast();
                         }
 
                         mWaveform.refresh();
-                        mTextLevel.setText(getString(R.string.current_accel_base) + ' ' + ((int)speed));
+                        mTextLevel.setText(getString(R.string.current_accel_base) + ' ' + speed);
 
 
 

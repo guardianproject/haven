@@ -70,14 +70,14 @@ public final class CameraFragment extends Fragment {
 
             PreferenceManager prefs = new PreferenceManager(getActivity());
 
-            if (prefs.getCameraSensitivity() != PreferenceManager.OFF) {
+            if (!prefs.getCameraSensitivity().equals(PreferenceManager.OFF)) {
                 //Uncomment to see the camera
                 preview = new Preview(getActivity());
 
                 ((FrameLayout) getActivity().findViewById(R.id.preview)).addView(preview);
 
                 // oldImage = (ImageView) getActivity().findViewById(R.id.old_image);
-                newImage = (ImageView) getActivity().findViewById(R.id.new_image);
+                newImage = getActivity().findViewById(R.id.new_image);
 
                 preview.addListener(new MotionAsyncTask.MotionListener() {
 

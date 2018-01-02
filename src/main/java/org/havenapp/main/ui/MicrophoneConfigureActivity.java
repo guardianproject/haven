@@ -6,10 +6,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,13 +17,13 @@ import android.widget.TextView;
 
 import com.maxproj.simplewaveform.SimpleWaveform;
 
-import java.util.LinkedList;
-
 import org.havenapp.main.PreferenceManager;
-
 import org.havenapp.main.R;
 import org.havenapp.main.sensors.media.MicSamplerTask;
 import org.havenapp.main.sensors.media.MicrophoneTaskFactory;
+
+import java.util.LinkedList;
+
 import me.angrybyte.numberpicker.listener.OnValueChangeListener;
 import me.angrybyte.numberpicker.view.ActualNumberPicker;
 
@@ -44,15 +44,15 @@ public class MicrophoneConfigureActivity extends AppCompatActivity implements Mi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_microphone_configure);
 
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mTextLevel = (TextView)findViewById(R.id.text_display_level);
-        mNumberTrigger = (ActualNumberPicker)findViewById(R.id.number_trigger_level);
-        mWaveform = (SimpleWaveformExtended)findViewById(R.id.simplewaveform);
+        mTextLevel = findViewById(R.id.text_display_level);
+        mNumberTrigger = findViewById(R.id.number_trigger_level);
+        mWaveform = findViewById(R.id.simplewaveform);
         mWaveform.setMaxVal(MAX_SLIDER_VALUE);
 
         mNumberTrigger.setMinValue(0);
@@ -231,17 +231,17 @@ public class MicrophoneConfigureActivity extends AppCompatActivity implements Mi
 		 */
         double averageDB = 0.0;
         if (average != 0) {
-            averageDB = 20 * Math.log10(Math.abs(average) / 1);
+            averageDB = 20 * Math.log10(Math.abs(average));
         }
 
         if (averageDB > maxAmp) {
             maxAmp = averageDB + 5d; //add 5db buffer
-            mNumberTrigger.setValue(new Integer((int)maxAmp));
+            mNumberTrigger.setValue((int) maxAmp);
             mNumberTrigger.invalidate();
         }
 
         int perc = (int)((averageDB/160d)*100d);
-        mWaveAmpList.addFirst(new Integer((int)perc));
+        mWaveAmpList.addFirst(perc);
 
         if (mWaveAmpList.size() > mWaveform.width / mWaveform.barGap + 2) {
             mWaveAmpList.removeLast();
