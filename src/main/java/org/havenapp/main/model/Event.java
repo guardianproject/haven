@@ -13,10 +13,10 @@ import java.util.List;
 
 public class Event extends SugarRecord {
 
-    Date mStartTime;
+    private Date mStartTime;
 
     @Ignore
-    ArrayList<EventTrigger> mEventTriggers;
+    private ArrayList<EventTrigger> mEventTriggers;
 
     public final static long EVENT_WINDOW_TIME = 1000 * 60 * 5; //1 minutes
 

@@ -100,10 +100,10 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
             serviceMessenger = null;
         }
     };
-	
-	
-	SurfaceHolder mHolder;
-	public Camera camera;
+
+
+	private SurfaceHolder mHolder;
+	private Camera camera;
 	private Context context;
 
 	public Preview (Context context) {

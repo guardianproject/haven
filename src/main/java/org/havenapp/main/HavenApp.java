@@ -34,9 +34,9 @@ public class HavenApp extends MultiDexApplication {
     /*
     ** Onion-available Web Server for optional remote access
      */
-    WebServer mOnionServer = null;
+    private WebServer mOnionServer = null;
 
-    PreferenceManager mPrefs = null;
+    private PreferenceManager mPrefs = null;
 
     @Override
     public void onCreate() {
