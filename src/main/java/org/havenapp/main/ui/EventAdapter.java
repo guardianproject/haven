@@ -18,10 +18,10 @@ import org.havenapp.main.model.Event;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventVH> {
 
-    Context context;
-    List<Event> events;
+    private Context context;
+    private List<Event> events;
 
-    OnItemClickListener clickListener;
+    private OnItemClickListener clickListener;
 
     public EventAdapter(Context context, List<Event> events) {
         this.context = context;
