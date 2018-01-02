@@ -17,31 +17,22 @@
 
 package org.havenapp.main;
 
-import android.database.sqlite.SQLiteException;
-import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-
-
-import org.havenapp.main.model.Event;
-import org.havenapp.main.model.EventTrigger;
-import org.havenapp.main.ui.EventActivity;
-import org.havenapp.main.ui.EventAdapter;
-import org.havenapp.main.ui.PPAppIntro;
-
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.sqlite.SQLiteException;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
@@ -51,6 +42,12 @@ import android.view.View;
 
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.LibsBuilder;
+
+import org.havenapp.main.model.Event;
+import org.havenapp.main.model.EventTrigger;
+import org.havenapp.main.ui.EventActivity;
+import org.havenapp.main.ui.EventAdapter;
+import org.havenapp.main.ui.PPAppIntro;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -62,18 +59,18 @@ import java.util.List;
 
 public class ListActivity extends AppCompatActivity {
 
-    RecyclerView recyclerView;
-    FloatingActionButton fab;
-    Toolbar toolbar;
-    EventAdapter adapter;
-    List<Event> events = new ArrayList<>();
-    PreferenceManager preferences;
+    private RecyclerView recyclerView;
+    private FloatingActionButton fab;
+    private Toolbar toolbar;
+    private EventAdapter adapter;
+    private List<Event> events = new ArrayList<>();
+    private PreferenceManager preferences;
 
-    long initialCount;
+    private long initialCount;
 
-    int modifyPos = -1;
+    private int modifyPos = -1;
 
-    int REQUEST_CODE_INTRO = 1001;
+    private int REQUEST_CODE_INTRO = 1001;
 
 
     private Handler handler = new Handler();
@@ -85,9 +82,9 @@ public class ListActivity extends AppCompatActivity {
         Log.d("Main", "onCreate");
 
         preferences = new PreferenceManager(this.getApplicationContext());
-        recyclerView = (RecyclerView) findViewById(R.id.main_list);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        recyclerView = findViewById(R.id.main_list);
+        fab = findViewById(R.id.fab);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         LinearLayoutManager llm = new LinearLayoutManager(this);

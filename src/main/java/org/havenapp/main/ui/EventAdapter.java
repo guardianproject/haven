@@ -7,10 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.List;
-
 import org.havenapp.main.R;
 import org.havenapp.main.model.Event;
+
+import java.util.List;
 
 /**
  * Created by n8fr8 on 4/16/17.
@@ -18,10 +18,10 @@ import org.havenapp.main.model.Event;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventVH> {
 
-    Context context;
-    List<Event> events;
+    private Context context;
+    private List<Event> events;
 
-    OnItemClickListener clickListener;
+    private OnItemClickListener clickListener;
 
     public EventAdapter(Context context, List<Event> events) {
         this.context = context;
@@ -33,8 +33,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventVH> {
     @Override
     public EventVH onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_item, parent, false);
-        EventVH viewHolder = new EventVH(view);
-        return viewHolder;
+        return new EventVH(view);
     }
 
     @Override
@@ -61,8 +60,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventVH> {
         public EventVH(View itemView) {
             super(itemView);
 
-           title = (TextView) itemView.findViewById(R.id.event_item_title);
-            note = (TextView) itemView.findViewById(R.id.event_item_desc);
+           title = itemView.findViewById(R.id.event_item_title);
+            note = itemView.findViewById(R.id.event_item_desc);
 
             itemView.setOnClickListener(this);
         }

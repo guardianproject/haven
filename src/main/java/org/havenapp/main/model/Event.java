@@ -13,10 +13,10 @@ import java.util.List;
 
 public class Event extends SugarRecord {
 
-    Date mStartTime;
+    private Date mStartTime;
 
     @Ignore
-    ArrayList<EventTrigger> mEventTriggers;
+    private ArrayList<EventTrigger> mEventTriggers;
 
     public final static long EVENT_WINDOW_TIME = 1000 * 60 * 5; //1 minutes
 
@@ -42,8 +42,7 @@ public class Event extends SugarRecord {
         if (mEventTriggers.size() == 0) {
             List<EventTrigger> eventTriggers = EventTrigger.find(EventTrigger.class, "M_EVENT_ID = ?", getId() + "");
 
-            for (EventTrigger et : eventTriggers)
-                mEventTriggers.add(et);
+            mEventTriggers.addAll(eventTriggers);
 
         }
 

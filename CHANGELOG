@@ -1,0 +1,419 @@
+
+/** 0.1.0 beta 6 build 106 / 2 January 2018 / 8e26de7c4e98c5ae7dbf3c06dad76419f7573aba **/
+
+8e26de7 update build version to 106
+d83f7c1 Merge branch 'btrice-master'
+37b279c fix merge issue
+1eb7c3b Merge branch 'master' of https://github.com/btrice/haven into btrice-master
+05352b0 Merge branch 'fat-tire-fixLintIssues'
+10bf557 Merge branch 'fixLintIssues' of https://github.com/fat-tire/haven into fat-tire-fixLintIssues
+a649a35 Merge branch 'opticod-fix4'
+c752211 Merge branch 'fix4' of https://github.com/opticod/haven into opticod-fix4
+d659dff Merge pull request #169 from FREEWING-JP/fix_oom
+b6571c2 Merge branch 'mig5-73_use_POST_for_onion_login'
+6b1b539 handle the case when the mSession variable is null
+4eff931 Merge branch '73_use_POST_for_onion_login' of https://github.com/mig5/haven into mig5-73_use_POST_for_onion_login
+8ce9167 Merge branch 'pk-development-master'
+cf27d6c Merge branch 'master' of https://github.com/pk-development/haven into pk-development-master
+55582ab Clean Up - Ecapsulation
+35c7184 Merge branch 'percy-g2-patch-1'
+6d1608d Integrating material design time picker.
+465c403 Merge branch 'patch-1' of https://github.com/percy-g2/haven into percy-g2-patch-1
+db91aa8 Merge pull request #165 from kbrls/patch-1
+e1a31ab Merge branch 'master' of github.com:guardianproject/haven
+41b814a Merge branch 'opticod-preference_settings'
+2167444 Merge branch 'preference_settings' of https://github.com/opticod/haven into opticod-preference_settings
+4f537bb Merge pull request #170 from opticod/fix6
+793557e Adding TravisCI icon in README.md
+98aff80 Added material design preference settings.
+b7fc74b add largeHeap true for Prevent OutOfMemoryError OOM
+127f30f #73 use POST for password in Onion Service
+9ff7790 Added Turkish translation
+80395a2 update accelerometer config UI also
+fa1558a UI changes with weights and use sp instead of dp
+6dabcdb Don't keep in portrait mode
+d908fb7 Code indentation
+6e389d9 Code indentation
+ebd01ff Code indentation
+5a680c3 Code indentation
+fdd5af2 Code indentation
+200b04b Code indentation
+7bf5dfc adding SDK 27 license agreement to travis
+db5ca2e update build version to 105
+6bab9ea update transifex configuration with type info
+a117f9b update transifex config to add fastlane app store info
+b05cb5a Merge pull request #119 from yihuaf/chinese-translation
+2cff6d1 Merge pull request #143 from FREEWING-JP/japanese-translation
+8c9644d Merge branch 'mig5-71_webserver_localhost'
+86ff0b9 #71 bind WebServer to 127.0.0.1
+7d173f8 Lint:  remove redundant local variables.
+031fef9 Lint:  remove redundant types and casts
+9e9dd2b Lint: replace == with equals() for string comparison
+d2d4f54 Lint:  recommended performance changes
+92b9608 replace average/1 with average
+a401745 Lint:  replace complex if with switch statement + Fix EventTrigger bug
+c9f1d67 Lint:  Don't need explicit type argument in <>
+33582b3 Lint: Remove unnecessary boxing
+f24942c Lint: Use StringBuilder instead of StringBuffer
+404b959 Lint:  Fix broken popupTheme tags
+a6652d2 Lint:  Don't translate app name (it's marked untranslatable).
+4c0582d Lint: In Strings, precede apostrophes with backslash.
+
+
+//0.1.0 beta 5 build 105
+e9270ed Merge branch 'rockgecko-development-accelerometer'
+a21a0ca move barometer and light sensor out from accelerometer preference
+5b78640 Merge branch 'accelerometer' of https://github.com/rockgecko-development/haven into rockgecko-development-accelerometer
+56838a0 update version code to 104 (0.1.0 beta 4)
+94e2c3a Merge pull request #98 from GreyLeshy/master
+0c74aeb Merge branch 'rockgecko-development-power'
+455b6f0 Merge branch 'power' of https://github.com/rockgecko-development/haven into rockgecko-development-power
+4582e28 Merge branch 'opticod-remove-unused-resources'
+63ad01e Merge branch 'remove-unused-resources' of https://github.com/opticod/haven into opticod-remove-unused-resources
+5b5e69b Merge branch 'fvcaputo-master'
+1087573 Merge branch 'master' of https://github.com/fvcaputo/haven into fvcaputo-master
+e81952a Merge branch 'fat-tire-fixcameraparams'
+752e8e0 Merge branch 'fixcameraparams' of https://github.com/fat-tire/haven into fat-tire-fixcameraparams
+9f322a5 Merge pull request #131 from rockgecko-development/notification2
+8102be6 Merge pull request #140 from mig5/readme_no_signal_app_required
+a18856c Set the "best" valid preview size and fpsrange cameraPreferences.
+0a49d91 Make it clear that Signal app is not a prerequisite for Signal notifications to work
+f7ebf69 Hide the service notification from secure lockscreen
+3a48526 CLEANUP: Removing unused resources from the project.
+5192b52 Monitor significant motion with BumpMonitor
+335ec39 Merge branch 'oliviakumar-patch-3'
+8fd9523 Merge branch 'patch-3' of https://github.com/oliviakumar/haven into oliviakumar-patch-3
+57859b9 Merge pull request #127 from oliviakumar/patch-2
+e0ed1e9 Merge branch 'fat-tire-sliderchanges'
+0bb97af Merge branch 'sliderchanges' of https://github.com/fat-tire/haven into fat-tire-sliderchanges
+2053600 set notification important to minimum - keep the ongoing notification low profile
+e33f2f8 change Ninguna to Apagada for "off"
+44146b3 Merge branch 'jempe-master'
+629a047 Merge branch 'master' of https://github.com/jempe/haven into jempe-master
+e899dcc Merge pull request #92 from Ajimi/master
+0e9599f remove Toast UI notification, as it is not effective or needed
+ca4535e Merge branch 'opticod-fix2'
+9d0ac69 Merge branch 'fix2' of https://github.com/opticod/haven into opticod-fix2
+32e558a update travis for SDK 27 and build tools 27.0.3
+3dbde9f Merge branch 'fat-tire-updateproj'
+375e69b Merge branch 'updateproj' of https://github.com/fat-tire/haven into fat-tire-updateproj
+32f8977 correctly log the current charging state
+f14a91e Update README.md
+fbc4420 Update README.md
+17ebbbd Merge pull request #68 from fat-tire/nosettingsbackup
+2707872 Merge pull request #77 from brainwane/capitalization-fix
+d77d961 Merge pull request #86 from mattr777/master
+54e81dd Merge pull request #93 from louiswolfers/master
+05fb7d9 Merge pull request #74 from tbroadley/fix-typos
+d0e7c45 Merge pull request #123 from licaon-kter/patch-1
+77d635b Merge pull request #79 from ninharp/master
+1fd369e Merge pull request #113 from TheDorkKnightRises/onboarding-first-launch
+6db4825 Keep app name untranslatable
+b9309c5 language: to remove the translation of the quatrains from the Russian translation
+0312e87 Slider changes to fix #108 and betterize the slider behavior generally
+9da2846 woops, another double
+8d9b043 Show onboarding only on first launch
+50f1d07 what is going on
+eee4ae3 Removed some strings that where there twice
+6a8b5b8 Indenting
+8047287 Merge branch 'master' into master
+1cdc75f no conflicts pls
+5ed1a4f Fixed some typos
+000bbfb Delete strings.xml
+8a20831 Added some missing strings
+f2ed63d language: fix Russian translation
+d9b1789 Fix small typo
+2c47b51 Fixes #100: Device orientation and handling orientation change
+3fcfc61 Merge pull request #76 from opticod/fix1
+591e64d Merge pull request #95 from diego09310/improve-spanish-translation
+bd7c4c4 Merge pull request #99 from OldMetalmind/master
+e30134c language: added Portuguese (Portugal), pt-PT translation
+3e2231c Use Notification channel (required for API 27, but backwards compatible)
+a46937a Also update Java to 1.8 from 1.7
+a58992a Improved and completed Spanish translation
+830800e Spanish translation improved
+7de3e76 Added french translation
+63da03e Fix small typos
+e1590a8 Fix small typos
+96d0ab7 Fix typo
+56ef8af language: added Russian translation
+9aba2c5 Adds time constant comparison
+29900f2 fix spanish typos
+176eb47 Change "follow projects" to "following projects" under Attributions
+c48988f Added german translation
+1c64432 Capitalize GitHub in documentation
+7d1d5d5 Fixes #75: Prevent loss of data on Device Rotation in Accel and Microphone Configure Activity by fixing the layout to portrait.
+aafbeca docs: fix typos
+8740fa8 Merge pull request #59 from dazcode/master
+2c0c24e Merge pull request #69 from fat-tire/noserviceexport
+10ad51a Don't export the service.  There are no filters yet but jic this is good to have.
+413296c Don't automatically back up app settings.
+fb988cd Update project/libraries/tools to latest stable + fix breakage on older API
+d0ac183 fix tools:context from pointing to an unresolved package (info.guardianproject.phoneypot.)
+8b56cda update readme with iPhone message
+4fc2d21 update website
+adca3b9 update the beta install link
+c6b7f3e Merge branch 'master' of github.com:guardianproject/haven
+ffb5396 update website with new media locations
+b15d552 Merge pull request #53 from eighthave/master
+807ea72 include app title, short, and long descriptions in fastlane
+ebe3dfa move graphics into Fastlane structure, to publish on F-Droid and Play
+524fa30 update site layout
+5af3ece update site title
+918237d update to build 102 and org.havenapp.main package
+91edf69 make the monitor background the right color
+b5868a1 don't autoactive timer unless already running
+0fd6f69 tuning of accel/motion sensor; new UI for configuration
+1c62775 update package imports after refactor
+f2dc953 refactored to org.havenapp.main package and project name
+2d5185e upgrade to build 101
+d38a3ff formatting space
+22e6308 more conservative use of the camera params for now
+b6ba321 handle crashes from the media record better
+1737d0d adding travis configuration
+afa52b5 update to build 100 for 0.1.0-beta-1
+46f53a2 update preso pdf
+d1bf951 update readme presentation link
+33e4e0e add jsreveal presentation
+89f5956 update to v20
+6e6789c set supported frame rate
+cd6da98 update layout
+cc5c6a2 update config yml
+da9d389 more site updates
+0c266fd update site and logos
+cddb4e7 update site config
+016b73a fix the tagline
+e49441f fix the jekyll
+840e876 updates to jekyll
+8301334 Merge branch 'master' of github.com:guardianproject/phoneypot
+41bd042 update website
+67d0529 Set theme jekyll-theme-cayman
+d3e6fc5 build 19
+294c75b make sure audio file is done recording before sending
+e9c4f21 fix bug in gradle
+63662da update build and manifest
+12c8090 improvements to spanish translation
+9c1a076 increase sensitivy of motion detection
+7a93a4e add support for sending audio notifications over Signal
+e4c3661 tweak accel detection
+d40ab2c tweak about display
+2cb0d09 updated to 0.0.17
+bb218d1 make out the preview fps
+d7ff89a improve the camera preview speed
+d15980f source code cleanup
+2ed2152 start supporting RSS for onion syncing
+194ede7 Merge branch 'master' of github.com:guardianproject/phoneypot
+5b168f1 adding more information about 3rd party libs and licenses
+9810877 Update README.md
+3cc3259 Update README.md
+7682c45 Update README.md
+80bd1eb Update README.md
+7e942df Update README.md
+bca8358 Update README.md
+dc5c379 Update README.md
+cdda905 Update README.md
+ec12936 add screens
+8834c71 improvements to time configuration UI
+1cf930f Merge branch 'master' of github.com:guardianproject/phoneypot
+73841cb fixes for #41 to enable basic password for onion service
+ebeef2f Update README.md
+82f910a Update README.md
+48b1903 Set theme jekyll-theme-tactile
+70e31f9 Update README.md
+4dc1006 remove index, we will just use the readme for now
+16f49b2 Merge branch 'master' of github.com:guardianproject/phoneypot
+70fea70 Update README.md
+9981c8b Update README.md
+d6d2ac8 add gh-pages website
+d407993 remove template website
+daa60da Merge branch 'master' of github.com:guardianproject/phoneypot
+6760bd2 add website template
+e1c6bae Set theme jekyll-theme-slate
+c6b561d test docs page
+d3d97d6 removed signal-cli as submodule; moved to gradle
+6db0bdf Removed submodule signal-cli
+096762f update to 0.0.15
+e3e6a33 improve the Signal setup a little bit
+29c0f1d update readme with signal license info
+0574ceb add support for sending photos via Signal
+404e46a for #21, add signal sending support for event notifications
+75c5236 more progress on #21, can register and verify almost
+e4a1f0d For #21, building, but now working, support for Signal
+7e68ca5 update to guardianproject fork of signal-cli for android
+22dbf35 removing Signal as a submodule
+ea48f2c tune the mic threshold configure display a bit
+a9fc690 remove movement sensitivty adjustor for now
+3a8f487 fixed typos in spanish strings
+c787aa0 add our current presentation
+bf96630 update build to add enough memory to complete
+03dfebe update to 0.0.14
+635c6ee remove custom protocol store for now
+d261747 update package for power sensor
+6ab5e71 update spanish strings
+dfe024a improve cancel/deactivate logic
+29b9581 fix typo that turned an int into a car
+2233edb update UI for localizatoin and extract remaining strings
+c8236b7 make sure monitor service is running
+083d895 change title of webpage to match app
+cb1b640 lock onboarding into portrait mode
+4f7ddfe add transifex support and add our first spanish localization!
+68db8d6 add initial support for Signal message sending
+1e0871f update to 0.0.13
+e8fd0e8 Make sure monitor service is not null
+cedfd4f update to 0.0.12
+5be5838 add support for detecting power changes
+74c54f1 update art
+319f24d add a fancy header
+aedfb9b remove unused graphics
+dbfe832 tweak layout of header text
+507734e improve layout of main screen
+9c45128 append onion address to text message notificatoins
+8d4c48e update to build 11 (0.0.11)
+91227e7 a few more onboarding and permissions tweaks
+6a867f5 ensure mic permissions are requested!
+5c29260 Major UI overhaul in line with #37 proposals
+25467c8 improve onboarding
+6978de9 add support for audiowaves library
+1ebeba0 add the display of audio waveforms
+2b803fc add art assets to project
+eff9b90 update how Sugar OOM is setup and called
+d0ee22a update depenencies
+7fe0319 updating logo and color scheme
+9c9d3fb branding updates!
+d3290ad android sdk updates and gradle too
+e27424d don't crash when there are no items in the list
+71ff1c6 improve #21 by adding simple authenticated session option
+6bc171f update to 0.0.10
+41bf504 enable easy sharing of photos from event stream
+5ab8adb let's set light threshold to 100 for now
+01ccae0 add support for light sensor - can detect flash lights in the room!
+3133763 insert new event into the top of the list
+9b13ca6 tap to zoom image display starts in right spot
+3a11e22 reverse the order of the image display
+511ed98 add improved support for image display and browsing
+b2defa1 rotate preview images so they are vertical
+593ce54 captured photos should be in full color!
+798682f update to 0.0.9
+7d3acca fix typos
+7322a3e improve microphone sound threshold configuratoin UI/UX
+bbd6ec8 add warning if they enable onion services w/o Orbot
+ae64ba0 improve layout and UX of Setting screen (part 1)
+734f275 more work on file deletion and blocking of gallery indexing added ".nomedia" to phoneypot folder so that the Gallery app won't try to suck these in
+dc22847 implement #21 remote access via onion server and orbot! The app allows you to now enable remote access through an HTTP web interface that is available, in coordination with the Orbot Tor for Android app, as a Tor Hidden or "onion" service.
+c944a86 update to 0.0.8
+3dcdcc2 add first noise "room tone" baseline #12
+6d98ef9 support batch sending of event log with attachments
+a83c4e2 for #24 add ability to swipe away false trigger events
+4ba0436 improve the delete / undo capability
+c5a95ba for #19 reduce framerate of preview, should help with battery
+787a57b fixes #30 ensures swipe deletes; also add share per item!
+91e9891 update to 0.0.7
+7f70d29 improve list display of images and audio
+fc1181b update to build 0.0.6
+d4dbb14 a few more UI tweaks
+e3138c0 improvements to onboarding, first-time logic
+46028b7 minor UI/color tweaking
+a2ba058 fix issues with persistence of event triggers
+3d65072 fix bug with crashing after event window
+456ddf4 make the threshold lower for change detection
+69c47ba add Barometer/Pressure sensor #32 first bits of code - need to figure out what a typical "diff" in pressure looks like when a door opens
+3f6a0b5 implemented onboarding #11 very basic start with graphics
+b0f5558 make all sensors support "off" - also fix issues with audio and media paths
+4a95206 tweak accel readings to be more sensitive
+c0f7c2f update to 0.0.5
+29efbde add countdown timer and fix audio playback
+55b2bce add countdown screen and cancel buttons - also fix a bug with persisting the audio file path
+99251ac updated to 0.0.4
+9983f44 improve layout and add support for inline image and audio
+389afc0 update eventtrigger list UI and add support for storing detection images
+8d4154a 0.0.3
+11953e7 more progress on #15 for the alert/event log
+43ae704 very basic event display and share UI
+d078907 major progress on #15 with data persistence and log UI
+7332fec using Sugar ORM for data persistence of event info
+b0d17c9 code package refactor
+fe0d363 remove notifications, and hide them from lockscreen
+4585a84 update to 0.0.2
+a3de1b6 update build files
+ec218a2 updating source code headers as appropriate
+06b6781 update readme
+4ffba25 add wakelock to keep it from sleeping
+f5ae3ce camera motion detection also working
+861c709 sound and motion/accel working
+4324206 basic accel alert is working
+6211580 delete old readme
+a09a22e update README
+1e5bf02 change how the service is triggered - also add new notification icon
+ec545ae 0.0.1
+37d7d3c changes to permissions and preference management
+eb048d3 add new launcher icon
+5f1601f Merge branch 'master' of github.com:guardianproject/phoneypot
+c7563cb move old project files
+e1208b4 fixes for repackaging
+685c250 refactor to new package for phoneypot
+fb22841 update phoneypot readme
+e97f2e2 removing out of date screenshots
+de7710d first major update and refactoring for phoneypot
+2825a23 Initial commit
+3e05ffd Resized screenshots, fixed typo
+b7f9893 Fixed image format
+67ca524 Updated README file
+e9ef42c Added screenshots
+72eedac Avoid re-creating camera preview upon resume
+a61f402 Added license and readme
+32be231 Gitignore for a gradle project
+0b0a6a4 Removed old and unnecessary files
+fe47005 Refactoring to a Gradle project
+3431c8b Aggiunta slide architettura
+0cd5ba0 Sistemata relazione ipermediali. Correti refusi grammaticali e aggiunta sezione per Calibrazione del dispositivo.
+fe2df2c Riletto e corretto relazione wireless.
+aa1819a Creata presentazione wireless
+329c703 Modifiche relazioni
+8448bc8 Corretta cappella
+cccc76d Added architecture section
+3034a83 Style fix
+9100b34 Fixed binding in AndroidManifest for refactored UploadService
+49c41d7 Deleted VolumeDynamicSeries. Renamed BluetoothService. Deleted warnings.
+d3262a9 Merge branch 'master' of git.assembla.com:iperwireless
+c256b10 Added alert label in accelerometer fragment. Changed accelerometer threshold.
+c93b06f Aggiunta presentazione .tex e modificato gitignore
+3e609ce Merge branch 'master' of git.assembla.com:iperwireless
+add3565 Aggiunta e corretta presentazione
+29b8e30 Merge branch 'master' of git.assembla.com:iperwireless
+96c1970 Sistemata orientazione bitmap per fotocamera frontale
+19969fa Sistemati errori diagramma di classe
+ac1864b Sistemato errore \ref image
+5f17d8c Eliminato paragrafo riguardante prove sperimentali per motion detection. Altre modifiche minori grammaticali.
+0641e1d Ultime modifiche relazione reti wireless
+f447f1b Sistemata relazione ipermediali: creata prima pagina e fatto controllo con aspell
+41eba61 corretti due errori nella sezione immagini (relazione ipermediali)
+88b2614 Eliminate parti in inglese relazione di reti wireless
+3a16846 Sistemati serie di bug, aggiunte nuove immagini, sistemato e testato invio dati bluetooth
+f4c9c38 Corretta relazione reti wireless, aggiunta screenshot sezione microfono relazione wireless
+8ff0903 risolti conflitti
+51562cc Terminata stesura sezione di allarme
+a9cada1 Stesa sezione audio relazione ipermediali
+769f5a6 Aggiunta estensione bluetooth a relazione wireless
+8be5611 Inserita introduzione e sezione sull'accelerometro
+1670bb7 Merge branch 'master' of git.assembla.com:iperwireless
+1a8b255 Terminata stesura relativa alle immagini.
+62868cb Aggiunta sezione 'Data representation' per microfono
+82e3534 Fixati una serie di bug di chiusura e apertura applicazione, integrata relazione wireless con nuove screenshot
+8cac88d Reorganized ImageCodec. Moved computational work from Preview to MotionAsyncTask.
+fb1c8dc Fixed initialization of motion sensitivity threshold
+7f3e129 Updated graphical volume picker. Fixed running background sound-sampling when stopped application.
+d29d9fb Merge branch 'master' of git.assembla.com:iperwireless
+cf6b1a0 Eliminato file temporaneo che non so che abbia creato e sistemato logaritmo relazione palazzi
+adafbf6 Creata bozza per la relazione di ipermediali riguardante gestione immaini.
+b46c149 Relazione wireless
+9b9f9f9 Bound alert service to the microphone, set sensitivity levels in decibels
+f915c58 Added flash support
+b6fbf4a Bound alert service to the camera
+f486a3c Fixed some bugs added accelerometer sensitivity, added test before using location provider
+bc93368 Fixed microphone and camera bugs, changed VolumePicker
+b0a597c Merge branch 'master' of git.assembla.com:iperwireless
+407a7b6 Added async tasks to upload images, positions and stuff, fixed some errors
+86698d6 An attempt to porting to the java code. Not Compiled yet, need few fixes yet
+9c35d08 labels are now dinamically created according with the Scale/Noise/Clipping values
+0b016c2 Added original Haxe implementation of the volume level meter as comment in the Microphone Volume Picker class
+13c3e21 Wireless networks project, first commit

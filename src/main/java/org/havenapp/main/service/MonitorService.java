@@ -26,7 +26,6 @@ import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
 import android.telephony.SmsManager;
 import android.text.TextUtils;
-import android.widget.Toast;
 
 import org.havenapp.main.HavenApp;
 import org.havenapp.main.MonitorActivity;
@@ -52,50 +51,49 @@ public class MonitorService extends Service {
      */
     private static MonitorService sInstance;
 
-	/**
-	 * To show a notification on service start
-	 */
-	NotificationManager manager;
-    NotificationChannel mChannel;
-    final static String channelId = "monitor_id";
-    final static CharSequence channelName = "Haven notifications";
-    final static String channelDescription= "Important messages from Haven";
+    /**
+     * To show a notification on service start
+     */
+    private NotificationManager manager;
+    private NotificationChannel mChannel;
+    private final static String channelId = "monitor_id";
+    private final static CharSequence channelName = "Haven notifications";
+    private final static String channelDescription= "Important messages from Haven";
 
-	/**
-	* True only if service has been alerted by the accelerometer
-	*/
-	private boolean already_alerted;
+    /**
+     * True only if service has been alerted by the accelerometer
+     */
+     private boolean already_alerted;
 	
-	/**
-	 * Object used to retrieve shared preferences
-	 */
-	private PreferenceManager mPrefs = null;
-
-
-	/**
-	 * Incrementing alert id
-	 */
-	int mNotificationAlertId = 7007;
+    /**
+     * Object used to retrieve shared preferences
+     */
+     private PreferenceManager mPrefs = null;
+	
+     /**
+      * Incrementing alert id
+      */
+     private int mNotificationAlertId = 7007;
 
     /**
      * Sensor Monitors
      */
-    AccelerometerMonitor mAccelManager = null;
-    BumpMonitor mBumpMonitor = null;
-    MicrophoneMonitor mMicMonitor = null;
-    BarometerMonitor mBaroMonitor = null;
-    AmbientLightMonitor mLightMonitor = null;
+    private AccelerometerMonitor mAccelManager = null;
+    private BumpMonitor mBumpMonitor = null;
+    private MicrophoneMonitor mMicMonitor = null;
+    private BarometerMonitor mBaroMonitor = null;
+    private AmbientLightMonitor mLightMonitor = null;
 
     private boolean mIsRunning = false;
     /**
      * Last Event instances
      */
-    Event mLastEvent;
+    private Event mLastEvent;
 
-    /**
+        /**
 	 * Handler for incoming messages
 	 */
-	class MessageHandler extends Handler {
+    private class MessageHandler extends Handler {
 		@Override
 		public void handleMessage(Message msg) {
 			alert(msg.what,msg.getData().getString("path"));
@@ -107,16 +105,15 @@ public class MonitorService extends Service {
 	 */
 	private final Messenger messenger = new Messenger(new MessageHandler());
 
-    /*
-    ** Helps keep the service awake when screen is off
+    /**
+     * Helps keep the service awake when screen is off
      */
-    PowerManager.WakeLock wakeLock;
+    private PowerManager.WakeLock wakeLock;
 
-    /*
-    **
-    * Application
+    /**
+     * Application
      */
-    HavenApp mApp = null;
+    private HavenApp mApp = null;
 
 	/**
 	 * Called on service creation, sends a notification
@@ -226,7 +223,7 @@ public class MonitorService extends Service {
     {
         mIsRunning = true;
 
-        if (mPrefs.getAccelerometerSensitivity() != PreferenceManager.OFF) {
+        if (!mPrefs.getAccelerometerSensitivity().equals(PreferenceManager.OFF)) {
             mAccelManager = new AccelerometerMonitor(this);
             if(Build.VERSION.SDK_INT>=18) {
                 mBumpMonitor = new BumpMonitor(this);
@@ -237,7 +234,7 @@ public class MonitorService extends Service {
         mBaroMonitor = new BarometerMonitor(this);
         mLightMonitor = new AmbientLightMonitor(this);
 
-        if (mPrefs.getMicrophoneSensitivity() != PreferenceManager.OFF)
+        if (!mPrefs.getMicrophoneSensitivity().equals(PreferenceManager.OFF))
             mMicMonitor = new MicrophoneMonitor(this);
 
 
@@ -249,7 +246,7 @@ public class MonitorService extends Service {
         //this will never be false:
         // -you can't use ==, != for string comparisons, use equals() instead
         // -Value is never set to OFF in the first place
-        if (mPrefs.getAccelerometerSensitivity() != PreferenceManager.OFF) {
+        if (!mPrefs.getAccelerometerSensitivity().equals(PreferenceManager.OFF)) {
             mAccelManager.stop(this);
             if(Build.VERSION.SDK_INT>=18) {
                 mBumpMonitor.stop(this);
@@ -260,7 +257,7 @@ public class MonitorService extends Service {
         mBaroMonitor.stop(this);
         mLightMonitor.stop(this);
 
-        if (mPrefs.getMicrophoneSensitivity() != PreferenceManager.OFF)
+        if (!mPrefs.getMicrophoneSensitivity().equals(PreferenceManager.OFF))
             mMicMonitor.stop(this);
     }
 
@@ -293,7 +290,7 @@ public class MonitorService extends Service {
          * If SMS mode is on we send an SMS or Signal alert to the specified
          * number
          */
-        StringBuffer alertMessage = new StringBuffer();
+        StringBuilder alertMessage = new StringBuilder();
         alertMessage.append(getString(R.string.intrusion_detected,eventTrigger.getStringType(this)));
 
   // removing toast, but we should have some visual feedback for testing on the monitor screen
@@ -335,10 +332,6 @@ public class MonitorService extends Service {
                 manager.sendTextMessage(st.nextToken(), null, alertMessage.toString(), null, null);
 
         }
-
-
-
-
 
     }
 

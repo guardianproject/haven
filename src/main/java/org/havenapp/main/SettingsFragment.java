@@ -6,7 +6,6 @@ package org.havenapp.main;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -21,14 +20,12 @@ import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.SwitchPreferenceCompat;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.LinearLayout;
-import android.widget.NumberPicker;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import org.havenapp.main.service.SignalSender;
 import org.havenapp.main.service.WebServer;
@@ -40,7 +37,7 @@ import java.util.ArrayList;
 
 import info.guardianproject.netcipher.proxy.OrbotHelper;
 
-public class SettingsFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class SettingsFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener, TimePickerDialog.OnTimeSetListener {
 
     private PreferenceManager preferences;
     private HavenApp app;
@@ -339,62 +336,9 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         int seconds = totalSecs % 60;
 
 
-        final NumberPicker pickerMinutes = new NumberPicker(mActivity);
-        pickerMinutes.setMinValue(0);
-        pickerMinutes.setMaxValue(59);
-        pickerMinutes.setValue(minutes);
-
-        final NumberPicker pickerSeconds = new NumberPicker(mActivity);
-        pickerSeconds.setMinValue(0);
-        pickerSeconds.setMaxValue(59);
-        pickerSeconds.setValue(seconds);
-
-        final TextView textViewMinutes = new TextView(mActivity);
-        textViewMinutes.setText("m");
-        textViewMinutes.setTextSize(30);
-        textViewMinutes.setGravity(Gravity.CENTER_VERTICAL);
-
-        final TextView textViewSeconds = new TextView(mActivity);
-        textViewSeconds.setText("s");
-        textViewSeconds.setTextSize(30);
-        textViewSeconds.setGravity(Gravity.CENTER_VERTICAL);
-
-
-        final LinearLayout layout = new LinearLayout(mActivity);
-        layout.setOrientation(LinearLayout.HORIZONTAL);
-        layout.addView(pickerMinutes, new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                Gravity.LEFT));
-
-        layout.addView(textViewMinutes, new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                Gravity.LEFT | Gravity.BOTTOM));
-
-        layout.addView(pickerSeconds, new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                Gravity.LEFT));
-
-        layout.addView(textViewSeconds, new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                Gravity.LEFT | Gravity.BOTTOM));
-
-
-        new android.app.AlertDialog.Builder(mActivity)
-                .setView(layout)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        // do something with picker.getValue()
-                        int delaySeconds = pickerSeconds.getValue() + (pickerMinutes.getValue() * 60);
-                        preferences.setTimerDelay(delaySeconds);
-                    }
-                })
-                .setNegativeButton(android.R.string.cancel, null)
-                .show();
+        TimePickerDialog mTimePickerDialog = TimePickerDialog.newInstance(this, hours, minutes, seconds, true);
+        mTimePickerDialog.enableSeconds(true);
+        mTimePickerDialog.show(mActivity.getFragmentManager(), "TimePickerDialog");
     }
 
     private boolean checkValidString(String a) {
@@ -469,5 +413,11 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 ActivityCompat.requestPermissions(mActivity, new String[]{permission}, requestCode);
             }
         }
+    }
+
+    @Override
+    public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
+        int delaySeconds = second + minute * 60 + hourOfDay * 60 * 60;
+        preferences.setTimerDelay(delaySeconds);
     }
 }

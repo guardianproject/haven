@@ -6,11 +6,11 @@ package org.havenapp.main.ui;
 
 
 import android.os.Bundle;
-    import android.support.annotation.Nullable;
-    import android.support.v4.app.Fragment;
-    import android.view.LayoutInflater;
-    import android.view.View;
-    import android.view.ViewGroup;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -64,7 +64,7 @@ public class CustomSlideBigText extends Fragment {
 
         if (mButtonText != null)
         {
-            Button button = (Button)view.findViewById(R.id.custom_slide_button);
+            Button button = view.findViewById(R.id.custom_slide_button);
             button.setVisibility(View.VISIBLE);
             button.setText(mButtonText);
             button.setOnClickListener(mButtonListener);

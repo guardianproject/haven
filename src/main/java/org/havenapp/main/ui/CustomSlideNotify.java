@@ -58,7 +58,7 @@ public class CustomSlideNotify extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(layoutResId, container, false);
 
-        mEditNumber = (EditText)view.findViewById(R.id.editNumber);
+        mEditNumber = view.findViewById(R.id.editNumber);
         mEditNumber.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,7 +71,7 @@ public class CustomSlideNotify extends Fragment {
         if (!TextUtils.isEmpty(pm.getSmsNumber()))
             mEditNumber.setText(pm.getSmsNumber());
 
-        Button button = (Button)view.findViewById(R.id.btnSaveNumber);
+        Button button = view.findViewById(R.id.btnSaveNumber);
         button.setOnClickListener(mListener);
         return view;
 
