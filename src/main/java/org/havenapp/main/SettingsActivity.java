@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import info.guardianproject.netcipher.proxy.OrbotHelper;
 
 public class SettingsActivity extends AppCompatActivity {
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -51,30 +51,29 @@ public class MonitorService extends Service {
      */
     private static MonitorService sInstance;
 
-	/**
-	 * To show a notification on service start
-	 */
+    /**
+     * To show a notification on service start
+     */
     private NotificationManager manager;
     private NotificationChannel mChannel;
     private final static String channelId = "monitor_id";
     private final static CharSequence channelName = "Haven notifications";
     private final static String channelDescription= "Important messages from Haven";
 
-	/**
-	* True only if service has been alerted by the accelerometer
-	*/
-	private boolean already_alerted;
+    /**
+     * True only if service has been alerted by the accelerometer
+     */
+     private boolean already_alerted;
 	
-	/**
-	 * Object used to retrieve shared preferences
-	 */
-	private PreferenceManager mPrefs = null;
-
-
-	/**
-	 * Incrementing alert id
-	 */
-    private int mNotificationAlertId = 7007;
+    /**
+     * Object used to retrieve shared preferences
+     */
+     private PreferenceManager mPrefs = null;
+	
+     /**
+      * Incrementing alert id
+      */
+     private int mNotificationAlertId = 7007;
 
     /**
      * Sensor Monitors
@@ -91,7 +90,7 @@ public class MonitorService extends Service {
      */
     private Event mLastEvent;
 
-    /**
+        /**
 	 * Handler for incoming messages
 	 */
     private class MessageHandler extends Handler {
@@ -106,14 +105,13 @@ public class MonitorService extends Service {
 	 */
 	private final Messenger messenger = new Messenger(new MessageHandler());
 
-    /*
-    ** Helps keep the service awake when screen is off
+    /**
+     * Helps keep the service awake when screen is off
      */
     private PowerManager.WakeLock wakeLock;
 
-    /*
-    **
-    * Application
+    /**
+     * Application
      */
     private HavenApp mApp = null;
 
