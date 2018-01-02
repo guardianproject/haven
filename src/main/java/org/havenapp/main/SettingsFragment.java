@@ -341,7 +341,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             preferences.setMailAddress(text);
         } else if (PreferenceManager.PASSWORD_ID.equals(key)) {
             String text = ((EditTextPreference) findPreference(PreferenceManager.PASSWORD_ID)).getText();
-            preferences.setMaillPassword(text);
+            preferences.setMailPassword(text);
         }
     }
 

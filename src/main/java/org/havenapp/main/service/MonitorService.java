@@ -279,7 +279,7 @@ public class MonitorService extends Service {
         // removing toast, but we should have some visual feedback for testing on the monitor screen
         //        Toast.makeText(this,alertMessage.toString(),Toast.LENGTH_SHORT).show();
 
-        if (mPrefs.getIsEmailAlertsActive() && !mPrefs.getMailAddress().isEmpty() && !mPrefs.getMaillPassword().isEmpty()) {
+        if (mPrefs.getIsEmailAlertsActive() && !mPrefs.getMailAddress().isEmpty() && !mPrefs.getMailPassword().isEmpty()) {
             String attachment;
             if (eventTrigger.getType() == EventTrigger.CAMERA) {
                 attachment = eventTrigger.getPath();
@@ -345,7 +345,7 @@ public class MonitorService extends Service {
             try {
                 Log.i("SendMailTask", "About to instantiate GMail...");
                 GMail androidEmail = new GMail(mPrefs.getMailAddress(),
-                        mPrefs.getMaillPassword(), new ArrayList<>(Collections.singletonList(mPrefs.getMailAddress())), "Haven Alert",
+                        mPrefs.getMailPassword(), new ArrayList<>(Collections.singletonList(mPrefs.getMailAddress())), "Haven Alert",
                         "Intrusion Detected", attachment, date);
                 try {
                     androidEmail.createEmailMessage();

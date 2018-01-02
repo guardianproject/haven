@@ -125,11 +125,11 @@ public class PreferenceManager {
         prefsEditor.commit();
     }
 
-    public String getMaillPassword () {
+    public String getMailPassword() {
         return appSharedPrefs.getString(PASSWORD_ID,"");
     }
 
-    public void setMaillPassword (String password) {
+    public void setMailPassword(String password) {
         prefsEditor.putString(PASSWORD_ID, password);
         prefsEditor.commit();
     }
