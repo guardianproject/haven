@@ -305,10 +305,8 @@ public class MonitorService extends Service {
             String attachment = null;
             if (eventTrigger.getType() == EventTrigger.CAMERA) {
                 attachment = eventTrigger.getPath();
-                new SendMailTask(attachment, eventTrigger.getTriggerTime()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             } else if (eventTrigger.getType() == EventTrigger.MICROPHONE) {
                 attachment = eventTrigger.getPath();
-                new SendMailTask(attachment, eventTrigger.getTriggerTime()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
 
             sender.sendMessage(recips, alertMessage.toString(), attachment);
