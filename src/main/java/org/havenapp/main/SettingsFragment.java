@@ -6,10 +6,11 @@ package org.havenapp.main;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.DialogInterface;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
@@ -18,17 +19,21 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.preference.EditTextPreference;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
-import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.SwitchPreferenceCompat;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.i18n.phonenumbers.PhoneNumberUtil;
+import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompat;
 
 import org.havenapp.main.service.SignalSender;
 import org.havenapp.main.service.WebServer;
@@ -37,6 +42,7 @@ import org.havenapp.main.ui.MicrophoneConfigureActivity;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import info.guardianproject.netcipher.proxy.OrbotHelper;
 
@@ -47,7 +53,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     private Activity mActivity;
 
     @Override
-    public void onCreatePreferences(Bundle bundle, String s) {
+    public void onCreatePreferencesFix(Bundle bundle, String s) {
         addPreferencesFromResource(R.xml.settings);
         mActivity = getActivity();
         preferences = new PreferenceManager(mActivity);
@@ -66,23 +72,33 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             switch (camera) {
                 case PreferenceManager.FRONT:
                     ((ListPreference) findPreference(PreferenceManager.CAMERA)).setValueIndex(0);
-                    findPreference(PreferenceManager.CAMERA).setSummary(PreferenceManager.FRONT);
                     break;
                 case PreferenceManager.BACK:
                     ((ListPreference) findPreference(PreferenceManager.CAMERA)).setValueIndex(1);
-                    findPreference(PreferenceManager.CAMERA).setSummary(PreferenceManager.BACK);
                     break;
                 case PreferenceManager.OFF:
                     ((ListPreference) findPreference(PreferenceManager.CAMERA)).setValueIndex(2);
-                    findPreference(PreferenceManager.CAMERA).setSummary(PreferenceManager.NONE);
                     break;
             }
-
         }
 
         if (preferences.getSmsActivation()) {
             ((SwitchPreferenceCompat) findPreference(PreferenceManager.SMS_ACTIVE)).setChecked(true);
         }
+
+        findPreference(PreferenceManager.SMS_NUMBER).setOnPreferenceClickListener(preference -> {
+            if (preferences.getSmsNumber().isEmpty()) {
+                ((EditTextPreference) findPreference(PreferenceManager.SMS_NUMBER)).setText(getCountryCode());
+            }
+            return false;
+        });
+
+        findPreference(PreferenceManager.REGISTER_SIGNAL).setOnPreferenceClickListener(preference -> {
+            if (preferences.getSignalUsername() == null) {
+                ((EditTextPreference) findPreference(PreferenceManager.REGISTER_SIGNAL)).setText(getCountryCode());
+            }
+            return false;
+        });
 
         if (checkValidString(preferences.getSmsNumber())) {
             ((EditTextPreference) findPreference(PreferenceManager.SMS_NUMBER)).setText(preferences.getSmsNumber().trim());
@@ -153,6 +169,11 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         }
 
         return false;
+    }
+
+    String getCountryCode() {
+        PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
+        return "+" + String.valueOf(phoneUtil.getCountryCodeForRegion(Locale.getDefault().getCountry()));
     }
 
     private void save() {
@@ -270,7 +291,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         } else if (PreferenceManager.REGISTER_SIGNAL.equals(key)) {
             String signalNum = ((EditTextPreference) findPreference(PreferenceManager.REGISTER_SIGNAL)).getText();
 
-            if (checkValidString(signalNum)) {
+            if (checkValidString(signalNum) && !getCountryCode().equalsIgnoreCase(signalNum)) {
                 findPreference(PreferenceManager.SEND_SMS).setSelectable(true);
                 signalNum = "+" + signalNum.trim().replaceAll("[^0-9]", "");
 
@@ -279,7 +300,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
                 resetSignal(preferences.getSignalUsername());
                 activateSignal(preferences.getSignalUsername(), null);
-            } else {
+            } else if (!getCountryCode().equalsIgnoreCase(signalNum)) {
                 preferences.setSignalUsername(signalNum);
                 findPreference(PreferenceManager.SEND_SMS).setSelectable(false);
                 findPreference(PreferenceManager.REGISTER_SIGNAL).setSummary(R.string.register_signal_desc);
@@ -317,13 +338,13 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     private void setPhoneNumber() {
         boolean smsActive = ((SwitchPreferenceCompat) findPreference(PreferenceManager.SMS_ACTIVE)).isChecked();
         String phoneNumber = ((EditTextPreference) findPreference(PreferenceManager.SMS_NUMBER)).getText();
-        if (smsActive && checkValidString(phoneNumber)) {
+        if (smsActive && checkValidString(phoneNumber) && !phoneNumber.equalsIgnoreCase(getCountryCode())) {
             preferences.activateSms(true);
         } else {
             preferences.activateSms(false);
         }
 
-        if (checkValidString(phoneNumber)) {
+        if (checkValidString(phoneNumber) && !phoneNumber.equalsIgnoreCase(getCountryCode())) {
             preferences.setSmsNumber(phoneNumber.trim());
             findPreference(PreferenceManager.SMS_NUMBER).setSummary(phoneNumber.trim());
         } else {
@@ -334,7 +355,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     private void showTimeDelayDialog() {
         int totalSecs = preferences.getTimerDelay();
 
-        int hours = totalSecs / 3600;
+       // int hours = totalSecs / 3600;
         int minutes = (totalSecs % 3600) / 60;
         int seconds = totalSecs % 60;
 
@@ -351,12 +372,18 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
         final TextView textViewMinutes = new TextView(mActivity);
         textViewMinutes.setText("m");
-        textViewMinutes.setTextSize(30);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            textViewMinutes.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        }
+        textViewMinutes.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
         textViewMinutes.setGravity(Gravity.CENTER_VERTICAL);
 
         final TextView textViewSeconds = new TextView(mActivity);
         textViewSeconds.setText("s");
-        textViewSeconds.setTextSize(30);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            textViewSeconds.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        }
+        textViewSeconds.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
         textViewSeconds.setGravity(Gravity.CENTER_VERTICAL);
 
 
@@ -365,33 +392,30 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         layout.addView(pickerMinutes, new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT,
-                Gravity.LEFT));
+                Gravity.START));
 
         layout.addView(textViewMinutes, new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                Gravity.LEFT | Gravity.BOTTOM));
+                Gravity.START | Gravity.BOTTOM));
 
         layout.addView(pickerSeconds, new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                Gravity.LEFT));
+                Gravity.START));
 
         layout.addView(textViewSeconds, new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                Gravity.LEFT | Gravity.BOTTOM));
+                Gravity.START | Gravity.BOTTOM));
 
 
-        new android.app.AlertDialog.Builder(mActivity)
+        new AlertDialog.Builder(mActivity)
                 .setView(layout)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        // do something with picker.getValue()
-                        int delaySeconds = pickerSeconds.getValue() + (pickerMinutes.getValue() * 60);
-                        preferences.setTimerDelay(delaySeconds);
-                    }
+                .setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
+                    // do something with picker.getValue()
+                    int delaySeconds = pickerSeconds.getValue() + (pickerMinutes.getValue() * 60);
+                    preferences.setTimerDelay(delaySeconds);
                 })
                 .setNegativeButton(android.R.string.cancel, null)
                 .show();
@@ -456,16 +480,13 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
     private void askForPermission(String permission, Integer requestCode) {
         if (mActivity != null && ContextCompat.checkSelfPermission(mActivity, permission) != PackageManager.PERMISSION_GRANTED) {
-
             // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(mActivity, permission)) {
 
                 //This is called if user has denied the permission before
                 //In this case I am just asking the permission again
                 ActivityCompat.requestPermissions(mActivity, new String[]{permission}, requestCode);
-
             } else {
-
                 ActivityCompat.requestPermissions(mActivity, new String[]{permission}, requestCode);
             }
         }

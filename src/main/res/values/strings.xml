@@ -125,5 +125,6 @@
     <string name="password">Password</string>
     <string name="signal_number">Signal Number</string>
     <string name="phone_number">Phone Number</string>
+    <string name="_1_00">1:00</string>
 
 </resources>

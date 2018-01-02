@@ -18,9 +18,9 @@ package org.havenapp.main;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
@@ -28,6 +28,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -35,17 +36,16 @@ import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
+import org.havenapp.main.service.MonitorService;
+import org.havenapp.main.ui.AccelConfigureActivity;
+import org.havenapp.main.ui.CameraFragment;
+import org.havenapp.main.ui.MicrophoneConfigureActivity;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
-
-
-import org.havenapp.main.service.MonitorService;
-import org.havenapp.main.ui.AccelConfigureActivity;
-import org.havenapp.main.ui.CameraFragment;
-import org.havenapp.main.ui.MicrophoneConfigureActivity;
 
 public class MonitorActivity extends FragmentActivity {
 	
@@ -302,11 +302,10 @@ public class MonitorActivity extends FragmentActivity {
 		close();
     }
 
-    private void showTimeDelayDialog ()
-    {
+    private void showTimeDelayDialog() {
         int totalSecs = preferences.getTimerDelay();
 
-        int hours = totalSecs / 3600;
+        // int hours = totalSecs / 3600;
         int minutes = (totalSecs % 3600) / 60;
         int seconds = totalSecs % 60;
 
@@ -323,12 +322,18 @@ public class MonitorActivity extends FragmentActivity {
 
         final TextView textViewMinutes = new TextView(this);
         textViewMinutes.setText("m");
-        textViewMinutes.setTextSize(30);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            textViewMinutes.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        }
+        textViewMinutes.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
         textViewMinutes.setGravity(Gravity.CENTER_VERTICAL);
 
         final TextView textViewSeconds = new TextView(this);
         textViewSeconds.setText("s");
-        textViewSeconds.setTextSize(30);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            textViewSeconds.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        }
+        textViewSeconds.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
         textViewSeconds.setGravity(Gravity.CENTER_VERTICAL);
 
 
@@ -337,33 +342,30 @@ public class MonitorActivity extends FragmentActivity {
         layout.addView(pickerMinutes, new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT,
-                Gravity.LEFT));
+                Gravity.START));
 
         layout.addView(textViewMinutes, new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                Gravity.LEFT|Gravity.BOTTOM));
+                Gravity.START | Gravity.BOTTOM));
 
         layout.addView(pickerSeconds, new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                Gravity.LEFT));
+                Gravity.START));
 
         layout.addView(textViewSeconds, new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                Gravity.LEFT|Gravity.BOTTOM));
+                Gravity.START | Gravity.BOTTOM));
 
 
         new AlertDialog.Builder(this)
                 .setView(layout)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        // do something with picker.getValue()
-                        int delaySeconds = pickerSeconds.getValue() + (pickerMinutes.getValue() * 60);
-                        updateTimerValue (delaySeconds);
-                    }
+                .setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
+                    // do something with picker.getValue()
+                    int delaySeconds = pickerSeconds.getValue() + (pickerMinutes.getValue() * 60);
+                    updateTimerValue (delaySeconds);
                 })
                 .setNegativeButton(android.R.string.cancel, null)
                 .show();

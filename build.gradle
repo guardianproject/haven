@@ -120,10 +120,9 @@ dependencies {
     compile 'com.github.derlio.waveform:library:1.0.3@aar'
     compile 'org.firezenk:audiowaves:1.1@aar'
     compile 'com.maxproj.simplewaveform:app:1.0.0'
-    compile 'com.android.support:preference-v14:27.0.2'
-
+    compile 'com.takisoft.fix:preference-v7:27.0.2.0'
+    compile 'com.googlecode.libphonenumber:libphonenumber:8.7.0'
     implementation('com.mikepenz:aboutlibraries:6.0.1@aar') {
         transitive = true
     }
-
 }
