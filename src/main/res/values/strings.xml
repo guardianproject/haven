@@ -115,6 +115,7 @@
 
     <!--Preference Settings -->
     <string name="hint_number" translatable="false">+12125551212</string>
+    <string name="gmail_app_password_dialog_message">Go to your GMail and then click on my account and then select Sign-in &amp; security option, Create App Password</string>
     <string name="sms_dialog_message">Register a phone number (+12125551212) to receive a text when the app hears or sees something</string>
     <string name="sms_dialog_summary">Register a phone number to receive a text when the app hears or sees something</string>
     <string name="signal_dialog_summary">Register a new phone number with signal to send secure notifications</string>

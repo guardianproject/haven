@@ -14,37 +14,26 @@ import java.util.Date;
 
 public class EventTrigger extends SugarRecord {
 
-    int mType;
-    Date mTime;
-    long mEventId;
-
-    String mPath;
-
     /**
      * Acceleration detected message
      */
     public static final int ACCELEROMETER = 0;
-
     /**
      * Camera motion detected message
      */
     public static final int CAMERA = 1;
-
     /**
      * Mic noise detected message
      */
     public static final int MICROPHONE = 2;
-
     /**
      * Pressure change detected message
      */
     public static final int PRESSURE = 2;
-
     /**
      * Light change detected message
      */
     public static final int LIGHT = 3;
-
     /**
      * Power change detected message
      */
@@ -53,6 +42,10 @@ public class EventTrigger extends SugarRecord {
      * Significant motion detected message
      */
     public static final int BUMP = 5;
+    private int mType;
+    private Date mTime;
+    private long mEventId;
+    private String mPath;
 
 
     public EventTrigger ()
@@ -60,14 +53,14 @@ public class EventTrigger extends SugarRecord {
         mTime = new Date();
     }
 
-    public void setType (int type)
-    {
-        mType = type;
-    }
-
     public int getType ()
     {
         return mType;
+    }
+
+    public void setType (int type)
+    {
+        mType = type;
     }
 
     public Date getTriggerTime ()
@@ -91,7 +84,7 @@ public class EventTrigger extends SugarRecord {
 
     public String getStringType (Context context)
     {
-        String sType = "";
+        String sType;
 
         switch (getType()) {
             case EventTrigger.ACCELEROMETER:
@@ -122,7 +115,7 @@ public class EventTrigger extends SugarRecord {
 
     public String getMimeType ()
     {
-        String sType = "";
+        String sType;
 
         switch (getType()) {
             case EventTrigger.CAMERA:

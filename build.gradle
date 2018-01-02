@@ -125,4 +125,7 @@ dependencies {
     implementation('com.mikepenz:aboutlibraries:6.0.1@aar') {
         transitive = true
     }
+    implementation files('src/main/jniLibs/activation.jar')
+    implementation files('src/main/jniLibs/additionnal.jar')
+    implementation files('src/main/jniLibs/mail.jar')
 }

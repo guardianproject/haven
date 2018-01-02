@@ -27,29 +27,15 @@ import android.content.SharedPreferences.Editor;
 
 public class PreferenceManager {
 	
-	private SharedPreferences appSharedPrefs;
-    private Editor prefsEditor;
-    
     public static final String LOW = "Low";
     public static final String MEDIUM = "Medium";
     public static final String HIGH = "High";
     public static final String OFF = "Off";
-
-
     public static final String FRONT = "Front";
     public static final String BACK = "Back";
     public static final String NONE = "None";
-	
-	private static final String APP_SHARED_PREFS="org.havenapp.main";
-	private static final String ACCELEROMETER_ACTIVE="accelerometer_active";
-	private static final String ACCELEROMETER_SENSITIVITY="accelerometer_sensibility";
-	private static final String CAMERA_ACTIVE="camera_active";
 	public static final String CAMERA="camera";
-	private static final String CAMERA_SENSITIVITY="camera_sensitivity";
     public static final String CONFIG_MOVEMENT ="config_movement";
-	private static final String FLASH_ACTIVE="flash_active";
-	private static final String MICROPHONE_ACTIVE="microphone_active";
-	private static final String MICROPHONE_SENSITIVITY="microphone_sensitivity";
     public static final String CONFIG_SOUND = "config_sound";
     public static final String CONFIG_TIME_DELAY = "config_delay_time";
 	public static final String SMS_ACTIVE = "sms_active";
@@ -57,24 +43,30 @@ public class PreferenceManager {
     public static final String REGISTER_SIGNAL = "register_signal";
     public static final String VERIFY_SIGNAL = "verify_signal";
     public static final String SEND_SMS = "send_sms";
-	private static final String UNLOCK_CODE="unlock_code";
-	
-	private static final String ACCESS_TOKEN="access_token";
-	private static final String DELEGATED_ACCESS_TOKEN="deferred_access_token";
-	
-	private static final String PHONE_ID="phone_id";
-    private static final String TIMER_DELAY="timer_delay";
-	private static final String DIR_PATH = "/secureit";
-
+    public static final String EMAIL_ACTIVE = "email_active";
+    public static final String EMAIL_ID = "email_id";
+    public static final String PASSWORD_ID = "password_id";
     public static final String REMOTE_ACCESS_ACTIVE = "remote_access_active";
     public static final String REMOTE_ACCESS_ONION = "remote_access_onion";
     public static final String REMOTE_ACCESS_CRED = "remote_access_credential";
-
+	private static final String APP_SHARED_PREFS="org.havenapp.main";
+	private static final String ACCELEROMETER_ACTIVE="accelerometer_active";
+	private static final String ACCELEROMETER_SENSITIVITY="accelerometer_sensibility";
+	private static final String CAMERA_ACTIVE="camera_active";
+	private static final String CAMERA_SENSITIVITY="camera_sensitivity";
+	private static final String FLASH_ACTIVE="flash_active";
+	private static final String MICROPHONE_ACTIVE="microphone_active";
+	private static final String MICROPHONE_SENSITIVITY="microphone_sensitivity";
+	private static final String UNLOCK_CODE="unlock_code";
+	private static final String ACCESS_TOKEN="access_token";
+	private static final String DELEGATED_ACCESS_TOKEN="deferred_access_token";
+	private static final String PHONE_ID="phone_id";
+    private static final String TIMER_DELAY="timer_delay";
+	private static final String DIR_PATH = "/secureit";
     private static final String SIGNAL_USERNAME = "signal_username";
-
     private static final String FIRST_LAUNCH = "first_launch";
-
-
+	private SharedPreferences appSharedPrefs;
+    private Editor prefsEditor;
     private Context context;
 	
     public PreferenceManager(Context context) {
@@ -113,8 +105,32 @@ public class PreferenceManager {
         return appSharedPrefs.getBoolean(REMOTE_ACCESS_ACTIVE,false);
     }
 
-    public void setRemoteAccessOnion (String onionAddress) {
-        prefsEditor.putString(REMOTE_ACCESS_ONION,onionAddress);
+    public boolean getIsEmailAlertsActive ()
+    {
+        return appSharedPrefs.getBoolean(EMAIL_ACTIVE,false);
+    }
+
+    public void setIsEmailAlertsActive (boolean active)
+    {
+        prefsEditor.putBoolean(EMAIL_ACTIVE, active);
+        prefsEditor.commit();
+    }
+
+    public String getMailAddress () {
+        return appSharedPrefs.getString(EMAIL_ID,"");
+    }
+
+    public void setMailAddress (String mail) {
+        prefsEditor.putString(EMAIL_ID,mail);
+        prefsEditor.commit();
+    }
+
+    public String getMaillPassword () {
+        return appSharedPrefs.getString(PASSWORD_ID,"");
+    }
+
+    public void setMaillPassword (String password) {
+        prefsEditor.putString(PASSWORD_ID, password);
         prefsEditor.commit();
     }
 
@@ -122,13 +138,18 @@ public class PreferenceManager {
         return appSharedPrefs.getString(REMOTE_ACCESS_ONION,"");
     }
 
-    public void setRemoteAccessCredential (String remoteCredential) {
-        prefsEditor.putString(REMOTE_ACCESS_CRED,remoteCredential);
+    public void setRemoteAccessOnion (String onionAddress) {
+        prefsEditor.putString(REMOTE_ACCESS_ONION,onionAddress);
         prefsEditor.commit();
     }
 
     public String getRemoteAccessCredential () {
         return appSharedPrefs.getString(REMOTE_ACCESS_CRED,null);
+    }
+
+    public void setRemoteAccessCredential (String remoteCredential) {
+        prefsEditor.putString(REMOTE_ACCESS_CRED,remoteCredential);
+        prefsEditor.commit();
     }
 
     public void activateAccelerometer(boolean active) {
@@ -140,13 +161,13 @@ public class PreferenceManager {
     	return appSharedPrefs.getBoolean(ACCELEROMETER_ACTIVE, true);
     }
     
+    public String getAccelerometerSensitivity() {
+    	return appSharedPrefs.getString(ACCELEROMETER_SENSITIVITY, HIGH);
+    }
+    
     public void setAccelerometerSensitivity(String sensitivity) {
     	prefsEditor.putString(ACCELEROMETER_SENSITIVITY, sensitivity);
     	prefsEditor.commit();
-    }
-    
-    public String getAccelerometerSensitivity() {
-    	return appSharedPrefs.getString(ACCELEROMETER_SENSITIVITY, HIGH);
     }
     
     public void activateCamera(boolean active) {
@@ -158,22 +179,22 @@ public class PreferenceManager {
     	return appSharedPrefs.getBoolean(CAMERA_ACTIVE, true);
     }
     
+    public String getCamera() {
+    	return appSharedPrefs.getString(CAMERA, FRONT);
+    }
+    
     public void setCamera(String camera) {
     	prefsEditor.putString(CAMERA, camera);
     	prefsEditor.commit();
     }
     
-    public String getCamera() {
-    	return appSharedPrefs.getString(CAMERA, FRONT);
+    public String getCameraSensitivity() {
+    	return appSharedPrefs.getString(CAMERA_SENSITIVITY, HIGH);
     }
     
     public void setCameraSensitivity(String sensitivity) {
     	prefsEditor.putString(CAMERA_SENSITIVITY, sensitivity);
     	prefsEditor.commit();
-    }
-    
-    public String getCameraSensitivity() {
-    	return appSharedPrefs.getString(CAMERA_SENSITIVITY, HIGH);
     }
     
     public void activateFlash(boolean active) {
@@ -194,13 +215,13 @@ public class PreferenceManager {
     	return appSharedPrefs.getBoolean(MICROPHONE_ACTIVE, true);
     }
     
+    public String getMicrophoneSensitivity() {
+    	return appSharedPrefs.getString(MICROPHONE_SENSITIVITY, MEDIUM);
+    }
+    
     public void setMicrophoneSensitivity(String sensitivity) {
     	prefsEditor.putString(MICROPHONE_SENSITIVITY, sensitivity);
     	prefsEditor.commit();
-    }
-    
-    public String getMicrophoneSensitivity() {
-    	return appSharedPrefs.getString(MICROPHONE_SENSITIVITY, MEDIUM);
     }
     
     public void activateSms(boolean active) {
@@ -212,37 +233,40 @@ public class PreferenceManager {
     	return appSharedPrefs.getBoolean(SMS_ACTIVE, false);
     }
     
+    public String getSmsNumber() {
+    	return appSharedPrefs.getString(SMS_NUMBER, "");
+    }
+    
     public void setSmsNumber(String number) {
 
     	prefsEditor.putString(SMS_NUMBER, number);
     	prefsEditor.commit();
     }
-    
-    public String getSmsNumber() {
-    	return appSharedPrefs.getString(SMS_NUMBER, "");
-    }
 
+    public String getUnlockCode() {
+    	return appSharedPrefs.getString(UNLOCK_CODE, "");
+    }
     
     public void setUnlockCode(String unlockCode) {
     	prefsEditor.putString(UNLOCK_CODE, unlockCode);
     	prefsEditor.commit();
     }
-    
-    public String getUnlockCode() {
-    	return appSharedPrefs.getString(UNLOCK_CODE, "");
-    }
 
+    public String getAccessToken() {
+    	return appSharedPrefs.getString(ACCESS_TOKEN, "");
+    }
+    
     public void setAccessToken(String accessToken) {
     	prefsEditor.putString(ACCESS_TOKEN, accessToken);
     	prefsEditor.commit();
     }
     
-    public String getAccessToken() {
-    	return appSharedPrefs.getString(ACCESS_TOKEN, "");
-    }
-    
     public void unsetAccessToken() {
     	prefsEditor.remove(ACCESS_TOKEN);
+    }
+    
+    public String getDelegatedAccessToken() {
+    	return appSharedPrefs.getString(DELEGATED_ACCESS_TOKEN, "");
     }
     
     public void setDelegatedAccessToken(String deferredAccessToken) {
@@ -250,25 +274,21 @@ public class PreferenceManager {
     	prefsEditor.commit();
     }
     
-    public String getDelegatedAccessToken() {
-    	return appSharedPrefs.getString(DELEGATED_ACCESS_TOKEN, "");
-    }
-    
     public void unsetDelegatedAccessToken() {
     	prefsEditor.remove(DELEGATED_ACCESS_TOKEN);
     }
 
-    public void setPhoneId(String phoneId) {
-    	prefsEditor.putString(PHONE_ID, phoneId);
-    	prefsEditor.commit();
-    }
-    
     public void unsetPhoneId() {
     	prefsEditor.remove(PHONE_ID);
     }
     
     public String getPhoneId() {
     	return appSharedPrefs.getString(PHONE_ID, "");
+    }
+    
+    public void setPhoneId(String phoneId) {
+    	prefsEditor.putString(PHONE_ID, phoneId);
+    	prefsEditor.commit();
     }
 
     public int getTimerDelay ()

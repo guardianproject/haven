@@ -15,9 +15,9 @@ import android.media.MediaRecorder;
 import android.os.Environment;
 import android.util.Log;
 
-import java.io.File;
-
 import org.havenapp.main.PreferenceManager;
+
+import java.io.File;
 
 public class AudioRecorderTask extends Thread {
 	
@@ -42,20 +42,7 @@ public class AudioRecorderTask extends Thread {
 	 * True iff the thread is recording
 	 */
 	private boolean recording = false;
-	
-	/**
-	 * Getter for recording data field
-	 */
-	public boolean isRecording() {
-		return recording;
-	}
-
 	private AudioRecorderListener mListener;
-
-	public interface AudioRecorderListener
-	{
-		public void recordingComplete (String path);
-	}
 
 	/**
 	 * We make recorder protected in order to forse
@@ -72,21 +59,27 @@ public class AudioRecorderTask extends Thread {
         audioPath = new File(fileFolder,new java.util.Date().getTime() + ".m4a");
 
     }
-	
+
+	/**
+	 * Getter for recording data field
+	 */
+	public boolean isRecording() {
+		return recording;
+	}
+
 	@Override
 	public void run() {
 
 		MicrophoneTaskFactory.pauseSampling();
-        
+
         while (MicrophoneTaskFactory.isSampling()) {
         	try {
 				Thread.sleep(50);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
         }
-		
+
 		recording = true;
 		final MediaRecorder recorder = new MediaRecorder();
 
@@ -116,7 +109,7 @@ public class AudioRecorderTask extends Thread {
 			recorder.release();
 
 			recording = false;
-        
+
     	    MicrophoneTaskFactory.restartSampling();
 
 			if (mListener != null)
@@ -128,7 +121,7 @@ public class AudioRecorderTask extends Thread {
 		}
 
 	}
-
+	
 	public String getAudioFilePath ()
 	{
 		return audioPath.toString();
@@ -137,5 +130,10 @@ public class AudioRecorderTask extends Thread {
 	public void setAudioRecorderListener (AudioRecorderListener listener)
 	{
 		mListener = listener;
+	}
+
+	public interface AudioRecorderListener
+	{
+		void recordingComplete (String path);
 	}
 }

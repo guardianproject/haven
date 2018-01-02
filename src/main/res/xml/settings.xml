@@ -20,6 +20,24 @@
             android:key="config_delay_time"
             android:title="@string/timer_delay_label" />
 
+        <EditTextPreference
+            android:inputType="textEmailAddress"
+            android:key="email_id"
+            android:summary="Configure Your Email"
+            android:title="GMail" />
+
+        <EditTextPreference
+            android:dialogMessage="@string/gmail_app_password_dialog_message"
+            android:inputType="textPassword"
+            android:key="password_id"
+            android:summary="Configure GMail App Password"
+            android:title="GMail App Password" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="email_active"
+            android:title="Send email alerts" />
+
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/activate_signal">
 

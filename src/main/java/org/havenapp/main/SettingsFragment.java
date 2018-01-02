@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.support.v14.preference.SwitchPreference;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.preference.EditTextPreference;
@@ -332,6 +333,15 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 preferences.setRemoteAccessCredential(text);
                 findPreference(PreferenceManager.REMOTE_ACCESS_CRED).setSummary(R.string.remote_access_credential_hint);
             }
+        } else if (PreferenceManager.EMAIL_ACTIVE.equals(key)) {
+            boolean emailActive = ((SwitchPreference) findPreference(PreferenceManager.EMAIL_ACTIVE)).isChecked();
+            preferences.setIsEmailAlertsActive(emailActive);
+        } else if (PreferenceManager.EMAIL_ID.equals(key)) {
+            String text = ((EditTextPreference) findPreference(PreferenceManager.EMAIL_ID)).getText();
+            preferences.setMailAddress(text);
+        } else if (PreferenceManager.PASSWORD_ID.equals(key)) {
+            String text = ((EditTextPreference) findPreference(PreferenceManager.PASSWORD_ID)).getText();
+            preferences.setMaillPassword(text);
         }
     }
 

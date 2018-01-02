@@ -17,31 +17,22 @@
 
 package org.havenapp.main;
 
-import android.database.sqlite.SQLiteException;
-import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-
-
-import org.havenapp.main.model.Event;
-import org.havenapp.main.model.EventTrigger;
-import org.havenapp.main.ui.EventActivity;
-import org.havenapp.main.ui.EventAdapter;
-import org.havenapp.main.ui.PPAppIntro;
-
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.sqlite.SQLiteException;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
@@ -51,6 +42,12 @@ import android.view.View;
 
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.LibsBuilder;
+
+import org.havenapp.main.model.Event;
+import org.havenapp.main.model.EventTrigger;
+import org.havenapp.main.ui.EventActivity;
+import org.havenapp.main.ui.EventAdapter;
+import org.havenapp.main.ui.PPAppIntro;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -78,6 +75,11 @@ public class ListActivity extends AppCompatActivity {
 
     private Handler handler = new Handler();
 
+    @SuppressLint("SimpleDateFormat")
+    public static String getDateFormat(long date) {
+        return new SimpleDateFormat("dd MMM yyyy").format(new Date(date));
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,9 +87,9 @@ public class ListActivity extends AppCompatActivity {
         Log.d("Main", "onCreate");
 
         preferences = new PreferenceManager(this.getApplicationContext());
-        recyclerView = (RecyclerView) findViewById(R.id.main_list);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        recyclerView = findViewById(R.id.main_list);
+        fab = findViewById(R.id.fab);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
@@ -127,6 +129,7 @@ public class ListActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
 
             Drawable drawable = ContextCompat.getDrawable(this, R.drawable.ic_play_arrow_white_24dp);
+            assert drawable != null;
             drawable = DrawableCompat.wrap(drawable);
             DrawableCompat.setTint(drawable, Color.WHITE);
             DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_IN);
@@ -136,14 +139,11 @@ public class ListActivity extends AppCompatActivity {
         }
 
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        fab.setOnClickListener(v -> {
 
-                Intent i = new Intent(ListActivity.this, MonitorActivity.class);
-                startActivity(i);
+            Intent i = new Intent(ListActivity.this, MonitorActivity.class);
+            startActivity(i);
 
-            }
         });
 
         initialCount = Event.count(Event.class);
@@ -163,16 +163,13 @@ public class ListActivity extends AppCompatActivity {
             recyclerView.setAdapter(adapter);
 
 
-            adapter.SetOnItemClickListener(new EventAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, int position) {
+            adapter.SetOnItemClickListener((view, position) -> {
 
-                    Intent i = new Intent(ListActivity.this, EventActivity.class);
-                    i.putExtra("eventid", events.get(position).getId());
-                    modifyPos = position;
+                Intent i = new Intent(ListActivity.this, EventActivity.class);
+                i.putExtra("eventid", events.get(position).getId());
+                modifyPos = position;
 
-                    startActivity(i);
-                }
+                startActivity(i);
             });
         } catch (SQLiteException sqe) {
             Log.d(getClass().getName(), "database not yet initiatied", sqe);
@@ -184,17 +181,13 @@ public class ListActivity extends AppCompatActivity {
     private void deleteEvent (final Event event, final int position)
     {
 
-        final Runnable runnableDelete = new Runnable ()
-        {
-            public void run ()
+        final Runnable runnableDelete = () -> {
+            for (EventTrigger trigger : event.getEventTriggers())
             {
-                for (EventTrigger trigger : event.getEventTriggers())
-                {
-                    new File(trigger.getPath()).delete();
-                    trigger.delete();
-                }
-
+                new File(trigger.getPath()).delete();
+                trigger.delete();
             }
+
         };
 
         handler.postDelayed(runnableDelete,3000);
@@ -206,16 +199,13 @@ public class ListActivity extends AppCompatActivity {
         initialCount -= 1;
 
         Snackbar.make(recyclerView, "Event deleted", Snackbar.LENGTH_SHORT)
-                .setAction("UNDO", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        handler.removeCallbacks(runnableDelete);
-                        event.save();
-                        events.add(position, event);
-                        adapter.notifyItemInserted(position);
-                        initialCount += 1;
+                .setAction("UNDO", v -> {
+                    handler.removeCallbacks(runnableDelete);
+                    event.save();
+                    events.add(position, event);
+                    adapter.notifyItemInserted(position);
+                    initialCount += 1;
 
-                    }
                 })
                 .show();
     }
@@ -258,16 +248,13 @@ public class ListActivity extends AppCompatActivity {
             adapter = new EventAdapter(ListActivity.this, events);
             recyclerView.setAdapter(adapter);
 
-            adapter.SetOnItemClickListener(new EventAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, int position) {
+            adapter.SetOnItemClickListener((view, position) -> {
 
-                    Intent i = new Intent(ListActivity.this, EventActivity.class);
-                    i.putExtra("eventid", events.get(position).getId());
-                    modifyPos = position;
+                Intent i = new Intent(ListActivity.this, EventActivity.class);
+                i.putExtra("eventid", events.get(position).getId());
+                modifyPos = position;
 
-                    startActivity(i);
-                }
+                startActivity(i);
             });
             /**
             // Just load the last added note (new)
@@ -276,7 +263,7 @@ public class ListActivity extends AppCompatActivity {
             events.add(0,event);
             adapter.notifyItemInserted(0);
             adapter.notifyDataSetChanged();
-            
+
             initialCount = newCount;
             **/
 
@@ -298,11 +285,6 @@ public class ListActivity extends AppCompatActivity {
         }
 
 
-    }
-
-    @SuppressLint("SimpleDateFormat")
-    public static String getDateFormat(long date) {
-        return new SimpleDateFormat("dd MMM yyyy").format(new Date(date));
     }
 
     private void showOnboarding()

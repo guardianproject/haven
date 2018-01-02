@@ -10,10 +10,10 @@
 package org.havenapp.main.sensors.media;
 
 
-import java.io.IOException;
-
 import android.os.AsyncTask;
 import android.util.Log;
+
+import java.io.IOException;
 
 public class MicSamplerTask extends AsyncTask<Void,Object,Void> {
 	
@@ -22,11 +22,6 @@ public class MicSamplerTask extends AsyncTask<Void,Object,Void> {
 	private boolean sampling = true;
 	private boolean paused = false;
 	
-	public static interface MicListener {
-		public void onSignalReceived(short[] signal);
-		public void onMicError();
-	}
-	
 	public void setMicListener(MicListener listener) {
 		this.listener = listener;
 	}
@@ -34,10 +29,10 @@ public class MicSamplerTask extends AsyncTask<Void,Object,Void> {
 	protected Void onPreExecute(Void...params) {
 		return null;
 	}
-
+	
 	@Override
 	protected Void doInBackground(Void... params) {
-		
+
 		try {
 			volumeMeter.start();
 		} catch (Exception e) {
@@ -48,7 +43,7 @@ public class MicSamplerTask extends AsyncTask<Void,Object,Void> {
 			}
 			return null;
 		}
-		
+
 		while (true) {
 
 			if (listener != null) {
@@ -57,11 +52,11 @@ public class MicSamplerTask extends AsyncTask<Void,Object,Void> {
 			}
 			try {
 				Thread.sleep(250);
-			} catch (InterruptedException e) { 
-				//Nothing to do we exit next line 
-				
+			} catch (InterruptedException e) {
+				//Nothing to do we exit next line
+
 			}
-			
+
 			boolean restartVolumeMeter = false;
 			if (paused) {
 				restartVolumeMeter = true;
@@ -72,7 +67,6 @@ public class MicSamplerTask extends AsyncTask<Void,Object,Void> {
 				try {
 					Thread.sleep(500);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -83,17 +77,15 @@ public class MicSamplerTask extends AsyncTask<Void,Object,Void> {
 					volumeMeter.start();
 					sampling = true;
 				} catch (IllegalStateException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 			if (isCancelled()) { volumeMeter.stop(); sampling = false; return null; }
-		}	
+		}
 	}
-	
+
 	public boolean isSampling() {
 		return sampling;
 	}
@@ -104,7 +96,7 @@ public class MicSamplerTask extends AsyncTask<Void,Object,Void> {
 	}
 	
 	public void pause() {
-		paused = true;		
+		paused = true;
 	}
 	
 	@Override
@@ -112,4 +104,9 @@ public class MicSamplerTask extends AsyncTask<Void,Object,Void> {
 		short[] data = (short[]) progress[0];
         listener.onSignalReceived(data);
     }
+	
+	public static interface MicListener {
+		public void onSignalReceived(short[] signal);
+		public void onMicError();
+	}
 }
