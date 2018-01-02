@@ -26,7 +26,6 @@ import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
 import android.telephony.SmsManager;
 import android.text.TextUtils;
-import android.widget.Toast;
 
 import org.havenapp.main.HavenApp;
 import org.havenapp.main.MonitorActivity;
@@ -226,7 +225,7 @@ public class MonitorService extends Service {
     {
         mIsRunning = true;
 
-        if (mPrefs.getAccelerometerSensitivity() != PreferenceManager.OFF) {
+        if (!mPrefs.getAccelerometerSensitivity().equals(PreferenceManager.OFF)) {
             mAccelManager = new AccelerometerMonitor(this);
             if(Build.VERSION.SDK_INT>=18) {
                 mBumpMonitor = new BumpMonitor(this);
@@ -237,7 +236,7 @@ public class MonitorService extends Service {
         mBaroMonitor = new BarometerMonitor(this);
         mLightMonitor = new AmbientLightMonitor(this);
 
-        if (mPrefs.getMicrophoneSensitivity() != PreferenceManager.OFF)
+        if (!mPrefs.getMicrophoneSensitivity().equals(PreferenceManager.OFF))
             mMicMonitor = new MicrophoneMonitor(this);
 
 
@@ -249,7 +248,7 @@ public class MonitorService extends Service {
         //this will never be false:
         // -you can't use ==, != for string comparisons, use equals() instead
         // -Value is never set to OFF in the first place
-        if (mPrefs.getAccelerometerSensitivity() != PreferenceManager.OFF) {
+        if (!mPrefs.getAccelerometerSensitivity().equals(PreferenceManager.OFF)) {
             mAccelManager.stop(this);
             if(Build.VERSION.SDK_INT>=18) {
                 mBumpMonitor.stop(this);
@@ -260,7 +259,7 @@ public class MonitorService extends Service {
         mBaroMonitor.stop(this);
         mLightMonitor.stop(this);
 
-        if (mPrefs.getMicrophoneSensitivity() != PreferenceManager.OFF)
+        if (!mPrefs.getMicrophoneSensitivity().equals(PreferenceManager.OFF))
             mMicMonitor.stop(this);
     }
 
@@ -293,7 +292,7 @@ public class MonitorService extends Service {
          * If SMS mode is on we send an SMS or Signal alert to the specified
          * number
          */
-        StringBuffer alertMessage = new StringBuffer();
+        StringBuilder alertMessage = new StringBuilder();
         alertMessage.append(getString(R.string.intrusion_detected,eventTrigger.getStringType(this)));
 
   // removing toast, but we should have some visual feedback for testing on the monitor screen

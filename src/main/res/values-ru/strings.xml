@@ -1,6 +1,4 @@
 <resources>
-    <string name="app_name">Haven</string>
-
     <string name="menu_start">Запуск</string>
     <string name="menu_stop">Остановить</string>
     <string name="menu_save">Сохранить</string>
