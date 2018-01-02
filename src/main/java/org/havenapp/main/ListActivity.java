@@ -17,31 +17,24 @@
 
 package org.havenapp.main;
 
-import android.database.sqlite.SQLiteException;
-import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-
-
-import org.havenapp.main.model.Event;
-import org.havenapp.main.model.EventTrigger;
-import org.havenapp.main.ui.EventActivity;
-import org.havenapp.main.ui.EventAdapter;
-import org.havenapp.main.ui.PPAppIntro;
-
-
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteException;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
@@ -51,6 +44,12 @@ import android.view.View;
 
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.LibsBuilder;
+
+import org.havenapp.main.model.Event;
+import org.havenapp.main.model.EventTrigger;
+import org.havenapp.main.ui.EventActivity;
+import org.havenapp.main.ui.EventAdapter;
+import org.havenapp.main.ui.PPAppIntro;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -64,6 +63,7 @@ public class ListActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     FloatingActionButton fab;
+    FloatingActionButton delete_all_fab;
     Toolbar toolbar;
     EventAdapter adapter;
     List<Event> events = new ArrayList<>();
@@ -87,6 +87,7 @@ public class ListActivity extends AppCompatActivity {
         preferences = new PreferenceManager(this.getApplicationContext());
         recyclerView = (RecyclerView) findViewById(R.id.main_list);
         fab = (FloatingActionButton) findViewById(R.id.fab);
+        delete_all_fab = (FloatingActionButton) findViewById(R.id.delete_all_fab);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -146,6 +147,13 @@ public class ListActivity extends AppCompatActivity {
             }
         });
 
+        delete_all_fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                delete_all_events();
+            }
+        });
+
         initialCount = Event.count(Event.class);
 
         if (preferences.isFirstLaunch()) {
@@ -160,6 +168,7 @@ public class ListActivity extends AppCompatActivity {
             events = Event.listAll(Event.class, "id DESC");
             adapter = new EventAdapter(ListActivity.this, events);
             recyclerView.setVisibility(View.VISIBLE);
+            delete_all_fab.setVisibility(View.VISIBLE);
             recyclerView.setAdapter(adapter);
 
 
@@ -179,6 +188,35 @@ public class ListActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    private void delete_all_events () {
+        AlertDialog.Builder builder =
+                new AlertDialog.Builder(this, R.style.Theme_AppCompat_Light_Dialog_Alert);
+        builder.setTitle("Confirm");
+        builder.setMessage("Do you want delete all events ?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                for (Event event : events) {
+                    for (EventTrigger trigger : event.getEventTriggers()) {
+                        new File(trigger.getPath()).delete();
+                        trigger.delete();
+                    }
+                    event.delete();
+                }
+                events.clear();
+                adapter.notifyDataSetChanged();
+                findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
+                delete_all_fab.setVisibility(View.GONE);
+                dialog.cancel();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
     }
 
     private void deleteEvent (final Event event, final int position)
@@ -220,6 +258,7 @@ public class ListActivity extends AppCompatActivity {
                 .show();
         if (events.size() == 0) {
             findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
+            delete_all_fab.setVisibility(View.GONE);
         }
     }
 
@@ -287,11 +326,13 @@ public class ListActivity extends AppCompatActivity {
 
 
             recyclerView.setVisibility(View.VISIBLE);
+            delete_all_fab.setVisibility(View.VISIBLE);
             findViewById(R.id.empty_view).setVisibility(View.GONE);
         }
         else if (newCount == 0)
         {
             recyclerView.setVisibility(View.GONE);
+            delete_all_fab.setVisibility(View.GONE);
             findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
         }
 
