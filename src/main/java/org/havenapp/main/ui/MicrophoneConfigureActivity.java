@@ -35,7 +35,7 @@ public class MicrophoneConfigureActivity extends AppCompatActivity implements Mi
     private PreferenceManager mPrefManager;
     private SimpleWaveformExtended mWaveform;
     private LinkedList<Integer> mWaveAmpList;
-    static final int MAX_SLIDER_VALUE = 120;
+    private static final int MAX_SLIDER_VALUE = 120;
 
     private double maxAmp = 0;
 

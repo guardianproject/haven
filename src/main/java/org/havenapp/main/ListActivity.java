@@ -61,19 +61,20 @@ import java.util.List;
 
 public class ListActivity extends AppCompatActivity {
 
-    RecyclerView recyclerView;
-    FloatingActionButton fab;
-    FloatingActionButton delete_all_fab;
-    Toolbar toolbar;
-    EventAdapter adapter;
-    List<Event> events = new ArrayList<>();
-    PreferenceManager preferences;
 
-    long initialCount;
+    private RecyclerView recyclerView;
+    private FloatingActionButton fab, delete_all_fab;
+    private Toolbar toolbar;
+    private EventAdapter adapter;
+    private List<Event> events = new ArrayList<>();
+    private PreferenceManager preferences;
 
-    int modifyPos = -1;
 
-    int REQUEST_CODE_INTRO = 1001;
+    private long initialCount;
+
+    private int modifyPos = -1;
+
+    private int REQUEST_CODE_INTRO = 1001;
 
 
     private Handler handler = new Handler();

@@ -14,8 +14,8 @@ public class SimpleWaveformExtended extends SimpleWaveform {
 
 
     private int mThreshold = 0;
-    int lineY;
-    int maxVal = 100; // default max value of slider
+    private int lineY;
+    private int maxVal = 100; // default max value of slider
 
     public SimpleWaveformExtended(Context context) {
         super(context);

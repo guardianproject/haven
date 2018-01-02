@@ -14,11 +14,11 @@ import java.util.Date;
 
 public class EventTrigger extends SugarRecord {
 
-    int mType;
-    Date mTime;
-    long mEventId;
+    private int mType;
+    private Date mTime;
+    private long mEventId;
 
-    String mPath;
+    private String mPath;
 
     /**
      * Acceleration detected message
