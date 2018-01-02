@@ -74,7 +74,7 @@ public class WebServer extends NanoHTTPD {
                 cookie = new OnionCookie ("sid",mSession,100000);
                 session.getCookies().set(cookie);
             }
-            else if (inSid == null || (inSid != null && (!safeEquals(inSid, mSession)))) {
+            else if (inSid == null || mSession == null || (inSid != null && (!safeEquals(inSid, mSession)))) {
                 showLogin(page);
                 return newFixedLengthResponse(page.toString());
             }
