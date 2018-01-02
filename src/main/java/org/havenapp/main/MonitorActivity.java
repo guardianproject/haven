@@ -43,8 +43,6 @@ import java.io.IOException;
 import static org.havenapp.main.Utils.getTimerText;
 
 public class MonitorActivity extends FragmentActivity implements TimePickerDialog.OnTimeSetListener {
-
-public class MonitorActivity extends FragmentActivity {
 	
     private PreferenceManager preferences = null;
 
