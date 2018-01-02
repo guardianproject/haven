@@ -10,7 +10,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import fi.iki.elonen.NanoHTTPD;
@@ -53,6 +55,17 @@ public class WebServer extends NanoHTTPD {
 
         if (mPassword != null)
         {
+            // We have to use session.parseBody() to obtain POST data.
+            // See https://github.com/NanoHttpd/nanohttpd/issues/427
+            Map<String, String> content = new HashMap<String, String>();
+            Method method = session.getMethod();
+            if (Method.PUT.equals(method) || Method.POST.equals(method)) try {
+                session.parseBody(content);
+            } catch (IOException ioe) {
+                Log.e(TAG,"unable to parse body of request",ioe);
+            } catch (ResponseException re) {
+                Log.e(TAG,"unable to parse body of request",re);
+            }
             String inPassword = session.getParms().get("p");
             String inSid = session.getCookies().read("sid");
 
@@ -135,7 +148,7 @@ public class WebServer extends NanoHTTPD {
         page.append("<meta name = \"viewport\" content = \"user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width\">");
         page.append("</head><body>");
 
-        page.append("<form action=\"/\">" +
+        page.append("<form action=\"/\" method=\"post\">" +
                 "  <div class=\"container\">\n" +
                 "    <label><b>Password</b></label>\n" +
                 "    <input type=\"password\" placeholder=\"Enter Password\" name=\"p\" required>\n" +
