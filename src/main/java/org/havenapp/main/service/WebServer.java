@@ -143,7 +143,7 @@ public class WebServer extends NanoHTTPD {
 
     private void showLogin (StringBuffer page) {
 
-        page.append("<html><head><title>PhoneyPot</title>");
+        page.append("<html><head><title>").append(appTitle).append("</title>");
         page.append("<meta http-equiv=\"Content-Type\" content=\"application/xhtml+xml; charset=utf-8\" />");
         page.append("<meta name = \"viewport\" content = \"user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width\">");
         page.append("</head><body>");

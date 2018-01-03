@@ -258,18 +258,10 @@ public class MicrophoneConfigureActivity extends AppCompatActivity implements Mi
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.monitor_start, menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected (MenuItem item) {
         switch (item.getItemId()){
-            case R.id.menu_save:
-                save();
-                break;
             case android.R.id.home:
+                save();
                 finish();
                 break;
         }
