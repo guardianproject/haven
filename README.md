@@ -22,7 +22,7 @@ Learn more about the story of this project at the links below:
 
 ## Project Team
 
-Haven was developed through a collaboration between [Freedom of the Press Foundation](https://freedom.press) and [Guardian Project](https://guardianproject.info). Prototype funding was generously provided by FoPF, and donations to support continuing work can be contributed through their site: https://freedom.press/donate-support-haven-open-source-project/
+Haven was developed through a collaboration between [Freedom of the Press Foundation](https://freedom.press) and [Guardian Project](https://guardianproject.info). Prototype funding was generously provided by FPF, and donations to support continuing work can be contributed through their site: https://freedom.press/donate-support-haven-open-source-project/
 
 ![Freedom of the Press Foundation](https://raw.githubusercontent.com/guardianproject/haven/master/art/logos/fopflogo.png)
 ![Guardian Project](https://raw.githubusercontent.com/guardianproject/haven/master/art/logos/gplogo.png)
