@@ -17,15 +17,12 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.preference.EditTextPreference;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
-import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.SwitchPreferenceCompat;
-import android.telephony.SmsManager;
 import android.text.TextUtils;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompat;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import org.havenapp.main.service.SignalSender;
@@ -34,8 +31,6 @@ import org.havenapp.main.ui.AccelConfigureActivity;
 import org.havenapp.main.ui.MicrophoneConfigureActivity;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
 
 import info.guardianproject.netcipher.proxy.OrbotHelper;
 
@@ -46,7 +41,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     private Activity mActivity;
 
     @Override
-    public void onCreatePreferences(Bundle bundle, String s) {
+    public void onCreatePreferencesFix(Bundle bundle, String s) {
         addPreferencesFromResource(R.xml.settings);
         mActivity = getActivity();
         preferences = new PreferenceManager(mActivity);
