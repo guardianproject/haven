@@ -19,6 +19,7 @@ import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.SwitchPreferenceCompat;
+import android.telephony.SmsManager;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -34,6 +35,7 @@ import org.havenapp.main.ui.MicrophoneConfigureActivity;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 import info.guardianproject.netcipher.proxy.OrbotHelper;
 
@@ -50,6 +52,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         preferences = new PreferenceManager(mActivity);
         setHasOptionsMenu(true);
         app = (HavenApp) mActivity.getApplication();
+
 
         /*
          * We create an application directory to store images and audio
@@ -142,7 +145,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_save:
+            case android.R.id.home:
                 save();
                 return true;
             default:
@@ -193,12 +196,6 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 }
             }
         }
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.monitor_start, menu);
-        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
@@ -283,7 +280,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             }
         } else if (PreferenceManager.SEND_SMS.equals(key)) {
             String text = ((EditTextPreference) findPreference(PreferenceManager.SEND_SMS)).getText();
-            sendTestSignal(text);
+            sendTestNotification(text);
         } else if (PreferenceManager.VERIFY_SIGNAL.equals(key)) {
             String text = ((EditTextPreference) findPreference(PreferenceManager.VERIFY_SIGNAL)).getText();
             activateSignal(preferences.getSignalUsername(), text);
@@ -349,12 +346,22 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         return a != null && !a.trim().isEmpty() && b != null && !b.trim().isEmpty();
     }
 
-    private void sendTestSignal(String text) {
-        if (checkValidStrings(text, preferences.getSignalUsername())) {
+    private void sendTestNotification(String testMessage) {
+        if (checkValidStrings(testMessage, preferences.getSignalUsername())) {
             SignalSender sender = SignalSender.getInstance(mActivity, preferences.getSignalUsername().trim());
             ArrayList<String> recip = new ArrayList<>();
-            recip.add(text);
+            recip.add(testMessage);
             sender.sendMessage(recip, getString(R.string.signal_test_message), null);
+        }
+        else if (preferences.getSmsActivation()
+                && checkValidStrings(testMessage,preferences.getSmsNumber())) {
+
+            SmsManager manager = SmsManager.getDefault();
+
+            StringTokenizer st = new StringTokenizer(preferences.getSmsNumber(),",");
+            while (st.hasMoreTokens())
+                manager.sendTextMessage(st.nextToken(), null, testMessage, null, null);
+
         }
     }
 
