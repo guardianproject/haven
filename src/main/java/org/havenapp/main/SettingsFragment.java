@@ -19,10 +19,7 @@ import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.SwitchPreferenceCompat;
-import android.telephony.SmsManager;
 import android.text.TextUtils;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -34,8 +31,6 @@ import org.havenapp.main.ui.AccelConfigureActivity;
 import org.havenapp.main.ui.MicrophoneConfigureActivity;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
 
 import info.guardianproject.netcipher.proxy.OrbotHelper;
 
@@ -66,15 +61,12 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             switch (camera) {
                 case PreferenceManager.FRONT:
                     ((ListPreference) findPreference(PreferenceManager.CAMERA)).setValueIndex(0);
-                    findPreference(PreferenceManager.CAMERA).setSummary(PreferenceManager.FRONT);
                     break;
                 case PreferenceManager.BACK:
                     ((ListPreference) findPreference(PreferenceManager.CAMERA)).setValueIndex(1);
-                    findPreference(PreferenceManager.CAMERA).setSummary(PreferenceManager.BACK);
                     break;
                 case PreferenceManager.OFF:
                     ((ListPreference) findPreference(PreferenceManager.CAMERA)).setValueIndex(2);
-                    findPreference(PreferenceManager.CAMERA).setSummary(PreferenceManager.NONE);
                     break;
             }
 

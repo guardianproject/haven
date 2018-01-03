@@ -11,6 +11,7 @@
             android:entries="@array/camera"
             android:entryValues="@array/camera_alias"
             android:key="camera"
+            android:summary="%s"
             android:title="@string/camera_prompt" />
 
         <Preference
