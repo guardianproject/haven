@@ -120,7 +120,7 @@
     <string name="signal_dialog_summary">Register a new phone number with signal to send secure notifications</string>
     <string name="verification_dialog_summary">Verify the code received from the signal registration step</string>
     <string name="send_message_dialog">Enter a phone number (+12125551212) to send a text message to</string>
-    <string name="send_text_message">Send Text Message</string>
+    <string name="send_text_message">Send test message</string>
     <string name="service_address">Service Address</string>
     <string name="password">Password</string>
     <string name="signal_number">Signal Number</string>
