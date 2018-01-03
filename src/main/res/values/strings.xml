@@ -98,7 +98,7 @@
     <string name="enter_verification">Enter the verification code you received from the Signal registration step</string>
     <string name="cancel">Cancel</string>
     <string name="register_title">Register with Signal</string>
-    <string name="register_signal_desc">Register a new phone number (+12125551212) with Signal to send secure notifications. DO NOT USE YOUR EXISTING/PRIMARY SIGNAL NUMBER.</string>
+    <string name="register_signal_desc">Enter a phone number to register with Signal, to use to send secure notifications. You can use this device\'s phone number or setup a virtual number.\n\nWARNING: If this number is already configured with a Signal app install, it will stop working there, and only work within Haven.</string>
     <string name="phone_hint">+12125551212</string>
 
     <string name="menu_licenses">Licenses...</string>
@@ -115,15 +115,17 @@
 
     <!--Preference Settings -->
     <string name="hint_number" translatable="false">+12125551212</string>
-    <string name="sms_dialog_message">Register a phone number (+12125551212) to receive a text when the app hears or sees something</string>
-    <string name="sms_dialog_summary">Register a phone number to receive a text when the app hears or sees something</string>
-    <string name="signal_dialog_summary">Register a new phone number with signal to send secure notifications</string>
-    <string name="verification_dialog_summary">Verify the code received from the signal registration step</string>
-    <string name="send_message_dialog">Enter a phone number (+12125551212) to send a text message to</string>
-    <string name="send_text_message">Send test message</string>
+    <string name="sms_dialog_summary">Remote phone number to send notifications to</string>
+    <string name="sms_dialog_message">Enter a remote phone number to send alert notifications to</string>
+    <string name="signal_dialog_summary">A phone number to send from using Signal</string>
+    <string name="verification_dialog_summary">Tap to verify your Signal number</string>
+    <string name="send_message_dialog">Enter a phone number to send a test alert notification message to</string>
+    <string name="send_text_message">Test notifications...</string>
     <string name="service_address">Service Address</string>
     <string name="password">Password</string>
-    <string name="signal_number">Signal Number</string>
-    <string name="phone_number">Phone Number</string>
+    <string name="signal_number">Signal Number (Local)</string>
+    <string name="phone_number">Notification Number (Remote)</string>
+    <string name="sensors">Sensors</string>
+    <string name="label_notifications">Notifications</string>
 
 </resources>

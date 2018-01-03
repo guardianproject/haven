@@ -1,11 +1,17 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <ListPreference
-        android:entries="@array/camera"
-        android:entryValues="@array/camera_alias"
-        android:key="camera"
-        android:title="@string/camera_prompt" />
 
-    <PreferenceCategory android:title="@string/action_configure">
+
+    <Preference
+        android:key="config_delay_time"
+        android:title="@string/timer_delay_label" />
+
+    <PreferenceCategory android:title="@string/sensors">
+
+        <ListPreference
+            android:entries="@array/camera"
+            android:entryValues="@array/camera_alias"
+            android:key="camera"
+            android:title="@string/camera_prompt" />
 
         <Preference
             android:key="config_sound"
@@ -15,12 +21,9 @@
             android:key="config_movement"
             android:title="@string/accelerometer_prompt" />
 
-        <Preference
-            android:key="config_delay_time"
-            android:title="@string/timer_delay_label" />
 
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/activate_signal">
+    <PreferenceCategory android:title="@string/label_notifications">
 
         <SwitchPreferenceCompat
             android:defaultValue="true"
@@ -53,16 +56,10 @@
             android:key="verify_signal"
             android:summary="@string/verification_dialog_summary"
             android:title="@string/verify_signal" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/remote_access">
 
-        <EditTextPreference
-            style="@style/AppPreference.DialogPreferenceSendText"
-            android:dialogLayout="@layout/pref_dialog_edit_text"
-            android:dialogMessage="@string/send_message_dialog"
-            android:inputType="phone"
-            android:key="send_sms"
-            android:title="@string/send_text_message" />
-
-        <SwitchPreferenceCompat
+    <SwitchPreferenceCompat
             android:defaultValue="false"
             android:key="remote_access_active"
             android:summary="@string/remote_access_label"

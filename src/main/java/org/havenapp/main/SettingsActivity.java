@@ -57,4 +57,9 @@ public class SettingsActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         mFragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
+
+    @Override
+    public void onBackPressed() {
+       mFragment.save();
+    }
 }
