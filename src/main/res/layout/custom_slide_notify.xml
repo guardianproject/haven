@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/White"
         android:backgroundTint="@color/colorPrimaryLight"
-        android:hint="+12125551212"
+        android:hint="@string/sms_hint"
         android:gravity="center"
         android:inputType="phone"
         android:id="@+id/editNumber"
