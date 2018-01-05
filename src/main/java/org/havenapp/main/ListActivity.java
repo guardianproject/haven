@@ -18,6 +18,7 @@
 package org.havenapp.main;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteException;
@@ -32,7 +33,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
-
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -43,7 +43,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ProgressBar;
 
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.LibsBuilder;
@@ -71,7 +70,6 @@ public class ListActivity extends AppCompatActivity {
     private EventAdapter adapter;
     private List<Event> events = new ArrayList<>();
     private PreferenceManager preferences;
-    private ProgressBar progressBar;
 
 
     private long initialCount;
@@ -95,7 +93,6 @@ public class ListActivity extends AppCompatActivity {
         fab = findViewById(R.id.fab);
         toolbar = findViewById(R.id.toolbar);
         delete_all_fab = findViewById(R.id.delete_all_fab);
-        progressBar = findViewById(R.id.progressBar);
         setSupportActionBar(toolbar);
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
@@ -216,10 +213,17 @@ public class ListActivity extends AppCompatActivity {
         builder.show();
     }
 
+    @SuppressLint("StaticFieldLeak")
     private class ProgressTask extends AsyncTask<Void,Void,Void> {
+        ProgressDialog pdLoading = new ProgressDialog(ListActivity.this);
+
         @Override
         protected void onPreExecute(){
-            progressBar.setVisibility(View.VISIBLE);
+            pdLoading.setTitle("Deleting...");
+            pdLoading.setMessage("Please wait while deleting events...");
+            pdLoading.setIndeterminate(true);
+            pdLoading.setCancelable(false);
+            pdLoading.show();
         }
 
         @Override
@@ -236,11 +240,16 @@ public class ListActivity extends AppCompatActivity {
         }
 
         @Override
+        protected void onProgressUpdate(Void... result) {
+            super.onProgressUpdate(result);
+        }
+
+        @Override
         protected void onPostExecute(Void result) {
             adapter.notifyDataSetChanged();
             findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
             delete_all_fab.setVisibility(View.GONE);
-            progressBar.setVisibility(View.GONE);
+            pdLoading.dismiss();
         }
     }
 
