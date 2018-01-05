@@ -1,4 +1,18 @@
 
+/** 0.1.0 beta 7 build 107 / 2 January 2017 / 615265bec5d50f8fe8eb829a20f6cadd77a8c869 **/
+
+615265b update to build 107
+37396bc More tweaks to Settings, SMS / Signal setup and testing
+19b0779 Merge pull request #183 from mig5/webserver_title_header
+b5d0c67 cleanup, enhance send test notification code
+14a76a9 use up/back to persist values intead of "Save"
+e706c06 Fix typo "test message" vs "text message"
+8a74a62 mark telephony features optional so we can support tablets and chromebooks
+84ce00c For #185 ensure intent results and permissions get back to fragment
+4aa4729 Use appTitle string for <title> on showLogin
+4f92133 Change the <title> of the webserver interface to Haven
+96355eb adding text changelog
+
 /** 0.1.0 beta 6 build 106 / 2 January 2018 / 8e26de7c4e98c5ae7dbf3c06dad76419f7573aba **/
 
 8e26de7 update build version to 106

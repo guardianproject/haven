@@ -39,6 +39,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.telephony.SmsManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -49,6 +51,7 @@ import com.mikepenz.aboutlibraries.LibsBuilder;
 
 import org.havenapp.main.model.Event;
 import org.havenapp.main.model.EventTrigger;
+import org.havenapp.main.service.SignalSender;
 import org.havenapp.main.ui.EventActivity;
 import org.havenapp.main.ui.EventAdapter;
 import org.havenapp.main.ui.PPAppIntro;
@@ -58,7 +61,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+import java.util.StringTokenizer;
 
 
 public class ListActivity extends AppCompatActivity {
@@ -408,6 +411,9 @@ public class ListActivity extends AppCompatActivity {
             case R.id.action_licenses:
                 showLicenses();
                 break;
+            case R.id.action_test_notification:
+                testNotifications();
+                break;
         }
         return true;
     }
@@ -422,5 +428,25 @@ public class ListActivity extends AppCompatActivity {
                 .withAboutAppName(getString(R.string.app_name))
                                 //start the activity
                 .start(this);
+    }
+
+    private void testNotifications ()
+    {
+
+        if (!TextUtils.isEmpty(preferences.getSignalUsername())) {
+            SignalSender sender = SignalSender.getInstance(this, preferences.getSignalUsername().trim());
+            ArrayList<String> recip = new ArrayList<>();
+            recip.add(preferences.getSmsNumber());
+            sender.sendMessage(recip, getString(R.string.signal_test_message), null);
+        }
+        else if (!TextUtils.isEmpty(preferences.getSmsNumber())) {
+
+            SmsManager manager = SmsManager.getDefault();
+
+            StringTokenizer st = new StringTokenizer(preferences.getSmsNumber(),",");
+            while (st.hasMoreTokens())
+                manager.sendTextMessage(st.nextToken(), null, getString(R.string.signal_test_message), null, null);
+
+        }
     }
 }
