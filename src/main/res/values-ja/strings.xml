@@ -1,11 +1,8 @@
 <resources>
 
-    <string name="app_name">Haven</string>
 
-    <string name="menu_stop">停止</string>
-    <string name="menu_start">開始</string>
+
     <string name="menu_save">保存</string>
-    <string name="menu_remote_access">リモート接続</string>
     <string name="menu_about">設定...</string>
 
     <string name="title_activity_start">Haven</string>
@@ -18,24 +15,8 @@
     	音の感度
     </string>
 
-    <string name="camera_sensitivity">
-    	カメラモーション感度
-    </string>
-
     <string name="timer_delay_label">
     	開始遅延時間
-    </string>
-
-    <string name="microphone_label">
-    	マイクを使って音を検出する
-    </string>
-
-    <string name="camera_label">
-    	カメラ選択
-    </string>
-
-    <string name="flash_label">
-    	フラッシュを有効
     </string>
 
     <string name="sms_label">
@@ -43,37 +24,14 @@
     </string>
 
     <string name="sms_hint">
-    	08012345678
-    </string>
-
-    <string name="unlock_code_hint">
-        解除コード
-    </string>
-
-    <string name="start_button">
-    	開始
+    	+818012345678
     </string>
 
     <string name="camera_prompt">
     	カメラ選択
     </string>
 
-    <array name="select_sensitivity">
-        <item>低</item>
-        <item>中</item>
-        <item>高</item>
-        <item>オフ</item>
-    </array>
-    <array name="select_camera">
-        <item>前面カメラ</item>
-        <item>背面カメラ</item>
-        <item>オフ</item>
-
-    </array>
-
     <string name="secure_service_started">Haven 起動</string>
-
-    <string name="secure_service_stopped">Haven 停止</string>
 
     <string name="intrusion_detected">(Type: %s) センサーがトリガされた</string>
     <string name="title_activity_event">イベントアクティビティ</string>
@@ -86,8 +44,6 @@
     <string name="intro2_title">Havenは自宅や会社、ホテルルーム、その他プライベート空間への進入を見張りたい人の為のものです。</string>
     <string name="intro3_desc">余っている携帯電話を、動き、音、振動、光センサーに変えて、招かれざる客や望まない侵入者を監視します</string>
 
-    <string name="sensor_setup_info">カメラを撮影角度に合わせるか、電話を隠れた場所に置き、騒音を聞く</string>
-
     <string name="intro4_desc">直ちに侵入の通知を受け、そして、後からログをリモートや直接に確認します</string>
 
     <string name="intro5_title">Havenは準備完了</string>
@@ -95,6 +51,7 @@
 
     <string name="onboarding_action_end">完了</string>
 
+    <string name="remote_access">リモートアクセス</string>
     <string name="remote_access_label">Tor Onion Service経由のリモートアクセスを有効にする</string>
     <string name="remote_access_hint">Onion service address from Orbot</string>
     <string name="remote_access_credential_hint">リモートパスワードを設定</string>
@@ -109,7 +66,7 @@
     <string name="current_noise_base">現在のノイズレベル</string>
     <string name="current_accel_base">現在のモーションレベル</string>
 
-    <string name="configure_trigger_level">ホイールをスワイプして検出の閾値を変更します</string>
+    <string name="configure_trigger_level">スライド操作で検出の閾値を変更します</string>
     <string name="tune_the_sound_detection">何かノイズを出して！</string>
     <string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">携帯を机の上に置き、部屋で何らかの騒音を出す事で、適切な騒音レベルを見つける事が出来ます</string>
 
@@ -137,12 +94,12 @@
     <string name="verify">ベリファイ</string>
     <string name="register">登録</string>
     <string name="activate_signal">シグナルを有効にする</string>
-    <string name="verify_signal">シグナルを確認する</string>
-    <string name="enter_verification">シグナル登録手続きから受け取った確認コードを入力してください</string>
+    <string name="verify_signal">シグナルのベリファイ</string>
+    <string name="enter_verification">シグナル登録手続きから受け取った確認コードを入力してください（6桁の数字）</string>
     <string name="cancel">取消</string>
     <string name="register_title">シグナルを登録</string>
-    <string name="register_signal_desc">新しい電話番号でシグナルに署名してセキュリティ通知を送信します。 あなたの現在またはメインのシグナル番号を使用しないでください。</string>
-    <string name="phone_hint">08012345678</string>
+    <string name="register_signal_desc">信号に登録する電話番号を入力して、セキュアな通知を送信するために使用します。このデバイスの携帯番号、または、仮想の番号を設定する事が出来ます。\n\n警告：この番号が Signalアプリのインストールで既に設定されている場合は、その動作が停止します。そして、Havenアプリ内でのみ機能します。</string>
+    <string name="phone_hint">+818012345678</string>
 
     <string name="menu_licenses">ライセンス...</string>
     <string name="sensor_light">環境光</string>
@@ -150,5 +107,25 @@
     <string name="sensor_camera">モーション (カメラ)</string>
     <string name="sensor_sound">マイク</string>
     <string name="sensor_power">USB電源</string>
+    <string name="sensor_bump">衝撃 (加速度計)</string>
     <string name="sensor_unknown">不明</string>
+
+    <string name="settings">設定</string>
+    <string name="remote_access_onion_error">この機能は the Orbot: Tor for Android appのインストールが必要です。</string>
+
+    <!--Preference Settings -->
+    <string name="hint_number" translatable="false">+818012345678</string>
+    <string name="sms_dialog_summary">警告を送信する携帯番号を入力</string>
+    <string name="sms_dialog_message">警告を送信する携帯番号を入力</string>
+    <string name="signal_dialog_summary">シグナルから使用する携帯番号</string>
+    <string name="verification_dialog_summary">シグナル番号の確認コードを入力</string>
+    <string name="send_message_dialog">テスト用の警告通知メッセージを送信する携帯番号を入力</string>
+    <string name="send_text_message">テストの通知...</string>
+    <string name="service_address">サービスアドレス</string>
+    <string name="password">パスワード</string>
+    <string name="signal_number">シグナル番号(ローカル)</string>
+    <string name="phone_number">通知番号(リモート)</string>
+    <string name="sensors">センサー</string>
+    <string name="label_notifications">通知</string>
+
 </resources>
