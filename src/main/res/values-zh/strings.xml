@@ -81,7 +81,7 @@
    <string name="action_cancel">停止</string>
     <string name="status_on">已激活</string>
     <string name="status_charging">充电中:</string>
-    <string name="you_will_receive_a_text_when_the_app_hears_or_sees_something">当app侦测到异动的时候，您将会收到短信提示</string>
+    <string name="you_will_receive_a_text_when_the_app_hears_or_sees_something">当 Haven 侦测到异动的时候，您将会收到短信提示</string>
     <string name="know_immediately_when_haven_detects_something">当 Haven 侦测到异动时立即通知</string>
     <string name="phone_saved">电话号码已保存!</string>
     <string name="detection_events">侦测事件</string>
@@ -122,7 +122,7 @@
     <string name="verification_dialog_summary">点击验证您的 Signal 号码</string>
     <string name="send_message_dialog">输入用于接受测试通知的号码</string>
     <string name="send_text_message">测试通知...</string>
-    <string name="service_address">服务地址</string> <!-- Not sure about this. 不确定如何翻译。-->
+    <string name="service_address">服务地址</string>
     <string name="password">密码</string>
     <string name="signal_number">Signal 号码 (本地)</string>
     <string name="phone_number"> 通知号码 (远程)</string>
