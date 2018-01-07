@@ -1,0 +1,89 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <Preference
+        android:key="config_delay_time"
+        android:title="@string/timer_delay_label" />
+
+	<SwitchPreferenceCompat
+        android:defaultValue="true"
+        android:key="ambient_light_active"
+        android:title="Ambient Light Enabled" />
+
+    <PreferenceCategory android:title="@string/sensors">
+
+        <ListPreference
+            android:entries="@array/camera"
+            android:entryValues="@array/camera_alias"
+            android:key="camera"
+            android:title="@string/camera_prompt" />
+
+        <Preference
+            android:key="config_sound"
+            android:title="@string/microphone_sensitivity" />
+
+        <Preference
+            android:key="config_movement"
+            android:title="@string/accelerometer_prompt" />
+
+
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/label_notifications">
+
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="sms_active"
+            android:title="@string/sms_label" />
+
+        <EditTextPreference
+            style="@style/AppPreference.DialogPreferenceRegister"
+            android:dialogLayout="@layout/pref_dialog_edit_text_hint"
+            android:dialogMessage="@string/sms_dialog_message"
+            android:inputType="phone"
+            android:key="sms_number"
+            android:summary="@string/sms_dialog_summary"
+            android:title="@string/phone_number" />
+
+        <EditTextPreference
+            style="@style/AppPreference.DialogPreferenceRegister"
+            android:dialogLayout="@layout/pref_dialog_edit_text_hint"
+            android:dialogMessage="@string/register_signal_desc"
+            android:inputType="phone"
+            android:key="register_signal"
+            android:summary="@string/signal_dialog_summary"
+            android:title="@string/signal_number" />
+
+        <EditTextPreference
+            style="@style/AppPreference.DialogPreferenceVerify"
+            android:dialogLayout="@layout/pref_dialog_edit_text"
+            android:dialogMessage="@string/enter_verification"
+            android:inputType="number"
+            android:key="verify_signal"
+            android:summary="@string/verification_dialog_summary"
+            android:title="@string/verify_signal" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/remote_access">
+
+    <SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:key="remote_access_active"
+            android:summary="@string/remote_access_label"
+            android:title="@string/remote_access" />
+
+        <EditTextPreference
+            android:dialogLayout="@layout/pref_dialog_edit_text"
+            android:dialogMessage="@string/remote_access_hint"
+            android:key="remote_access_onion"
+            android:summary="@string/remote_access_hint"
+            android:title="@string/service_address" />
+
+        <EditTextPreference
+            android:dialogLayout="@layout/pref_dialog_edit_text"
+            android:dialogMessage="@string/remote_access_credential_hint"
+            android:inputType="textPassword"
+            android:key="remote_access_credential"
+            android:summary="@string/remote_access_credential_hint"
+            android:title="@string/password" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
