@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textSize="78dp"
+            android:textSize="78sp"
             android:text="1:00"
             android:textStyle="bold"
             android:textColor="@color/White"
@@ -57,7 +57,7 @@
                 android:background="@drawable/round_drawable_accent"
                 android:id="@+id/btnStartNow"
                 android:layout_margin="10dp"
-                android:textSize="25dp"
+                android:textSize="25sp"
                 android:padding="6dp"
                 />
             <Button
