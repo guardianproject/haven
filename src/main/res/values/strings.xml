@@ -1,7 +1,7 @@
 <resources>
 
     <string name="app_name" translatable="false">Haven</string>
-
+    <string name="bullets" translatable="false">•••••••</string>
     <string name="menu_save">Save</string>
     <string name="menu_about">Setup...</string>
 

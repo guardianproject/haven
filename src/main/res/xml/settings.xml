@@ -73,7 +73,7 @@
             android:title="@string/service_address" />
 
         <EditTextPreference
-            android:dialogLayout="@layout/pref_dialog_edit_text"
+            android:dialogLayout="@layout/pref_dialog_edit_password"
             android:dialogMessage="@string/remote_access_credential_hint"
             android:inputType="textPassword"
             android:key="remote_access_credential"

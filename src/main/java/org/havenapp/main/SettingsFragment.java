@@ -104,7 +104,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
         if (checkValidString(preferences.getRemoteAccessCredential())) {
             ((EditTextPreference) findPreference(PreferenceManager.REMOTE_ACCESS_CRED)).setText(preferences.getRemoteAccessCredential().trim());
-            findPreference(PreferenceManager.REMOTE_ACCESS_CRED).setSummary(preferences.getRemoteAccessCredential().trim());
+            findPreference(PreferenceManager.REMOTE_ACCESS_CRED).setSummary(R.string.bullets);
         } else {
             findPreference(PreferenceManager.REMOTE_ACCESS_CRED).setSummary(R.string.remote_access_credential_hint);
         }
@@ -293,7 +293,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             String text = ((EditTextPreference) findPreference(PreferenceManager.REMOTE_ACCESS_CRED)).getText();
             if (checkValidString(text)) {
                 preferences.setRemoteAccessCredential(text.trim());
-                findPreference(PreferenceManager.REMOTE_ACCESS_CRED).setSummary(preferences.getRemoteAccessCredential().trim());
+                findPreference(PreferenceManager.REMOTE_ACCESS_CRED).setSummary(R.string.bullets);
             } else {
                 preferences.setRemoteAccessCredential(text);
                 findPreference(PreferenceManager.REMOTE_ACCESS_CRED).setSummary(R.string.remote_access_credential_hint);
