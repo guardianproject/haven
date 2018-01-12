@@ -3,16 +3,22 @@
     package="org.havenapp.main">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.SEND_SMS" android:required="false"/>
+    <uses-permission android:name="android.permission.SEND_SMS"/>
 
-    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera"  android:required="false" />
     <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
+    <uses-feature android:name="android.hardware.telephony" android:required="false" />
+    <uses-feature android:name="android.hardware.microphone" android:required="false" />
+    <!-- Some Chromebooks don't support touch. Although not essential,
+            it's a good idea to explicitly include this declaration. -->
+    <uses-feature android:name="android.hardware.touchscreen"
+        android:required="false" />
 
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" android:required="false"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application  xmlns:tools="http://schemas.android.com/tools"

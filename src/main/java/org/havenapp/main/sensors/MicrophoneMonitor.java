@@ -77,7 +77,7 @@ public final class MicrophoneMonitor implements MicSamplerTask.MicListener {
                 try {
                     //maybe it is a threshold value?
                     mNoiseThreshold = Double.parseDouble(prefs.getMicrophoneSensitivity());
-                } catch (Exception e) {
+                } catch (Exception ignored) {
                 }
                 break;
         }

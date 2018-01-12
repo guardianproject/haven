@@ -58,7 +58,7 @@ public class WebServer extends NanoHTTPD {
         {
             // We have to use session.parseBody() to obtain POST data.
             // See https://github.com/NanoHttpd/nanohttpd/issues/427
-            Map<String, String> content = new HashMap<String, String>();
+            Map<String, String> content = new HashMap<>();
             Method method = session.getMethod();
             if (Method.PUT.equals(method) || Method.POST.equals(method)) try {
                 session.parseBody(content);

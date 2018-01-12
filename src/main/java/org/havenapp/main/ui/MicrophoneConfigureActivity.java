@@ -11,7 +11,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -140,15 +139,6 @@ public class MicrophoneConfigureActivity extends AppCompatActivity implements Mi
                 canvas.drawColor(Color.WHITE, PorterDuff.Mode.CLEAR);
             }
         };
-        /**
-        mWaveform.progressTouch = new SimpleWaveform.ProgressTouch() {
-            @Override
-            public void progressTouch(int progress, MotionEvent event) {
-                Log.d("", "you touch at: " + progress);
-                mWaveform.firstPartNum = progress;
-                mWaveform.refresh();
-            }
-        };**/
         //show...
         mWaveform.refresh();
     }
@@ -248,7 +238,7 @@ public class MicrophoneConfigureActivity extends AppCompatActivity implements Mi
         }
 
         mWaveform.refresh();
-        mTextLevel.setText(getString(R.string.current_noise_base) + ' ' + ((int)averageDB)+"db");
+        mTextLevel.setText(getString(R.string.current_noise_base).concat(" ").concat(Integer.toString((int) averageDB)).concat("db"));
 
     }
 
