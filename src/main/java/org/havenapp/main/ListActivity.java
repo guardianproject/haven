@@ -289,7 +289,13 @@ public class ListActivity extends AppCompatActivity {
                         events.add(position, event);
                         adapter.notifyItemInserted(position);
                         initialCount += 1;
-
+                        if (events.size() == 0) {
+                            findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
+                            delete_all_fab.setVisibility(View.GONE);
+                        } else {
+                            findViewById(R.id.empty_view).setVisibility(View.GONE);
+                            delete_all_fab.setVisibility(View.VISIBLE);
+                        }
                     }
                 })
                 .show();
