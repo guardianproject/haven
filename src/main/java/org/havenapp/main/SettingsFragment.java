@@ -61,15 +61,12 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             switch (camera) {
                 case PreferenceManager.FRONT:
                     ((ListPreference) findPreference(PreferenceManager.CAMERA)).setValueIndex(0);
-                    findPreference(PreferenceManager.CAMERA).setSummary(PreferenceManager.FRONT);
                     break;
                 case PreferenceManager.BACK:
                     ((ListPreference) findPreference(PreferenceManager.CAMERA)).setValueIndex(1);
-                    findPreference(PreferenceManager.CAMERA).setSummary(PreferenceManager.BACK);
                     break;
                 case PreferenceManager.OFF:
                     ((ListPreference) findPreference(PreferenceManager.CAMERA)).setValueIndex(2);
-                    findPreference(PreferenceManager.CAMERA).setSummary(PreferenceManager.NONE);
                     break;
             }
 
