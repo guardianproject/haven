@@ -41,6 +41,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.LibsBuilder;
@@ -59,12 +60,21 @@ import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 
 public class ListActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
-    private FloatingActionButton fab;
-    private Toolbar toolbar;
+    @BindView(R.id.main_list)
+    RecyclerView recyclerView;
+    @BindView(R.id.empty_view)
+    ImageView emptyView;
+    @BindView(R.id.fab)
+    FloatingActionButton fab;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     private EventAdapter adapter;
     private List<Event> events = new ArrayList<>();
     private PreferenceManager preferences;
@@ -82,12 +92,10 @@ public class ListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
+        ButterKnife.bind(this);
         Log.d("Main", "onCreate");
 
         preferences = new PreferenceManager(this.getApplicationContext());
-        recyclerView = findViewById(R.id.main_list);
-        fab = findViewById(R.id.fab);
-        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
@@ -136,16 +144,6 @@ public class ListActivity extends AppCompatActivity {
         }
 
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent i = new Intent(ListActivity.this, MonitorActivity.class);
-                startActivity(i);
-
-            }
-        });
-
         initialCount = Event.count(Event.class);
 
         if (preferences.isFirstLaunch()) {
@@ -153,7 +151,7 @@ public class ListActivity extends AppCompatActivity {
         }
 
         if (initialCount > 0) {
-            findViewById(R.id.empty_view).setVisibility(View.GONE);
+            emptyView.setVisibility(View.GONE);
         }
 
         try {
@@ -181,15 +179,11 @@ public class ListActivity extends AppCompatActivity {
 
     }
 
-    private void deleteEvent (final Event event, final int position)
-    {
+    private void deleteEvent(final Event event, final int position) {
 
-        final Runnable runnableDelete = new Runnable ()
-        {
-            public void run ()
-            {
-                for (EventTrigger trigger : event.getEventTriggers())
-                {
+        final Runnable runnableDelete = new Runnable() {
+            public void run() {
+                for (EventTrigger trigger : event.getEventTriggers()) {
                     new File(trigger.getPath()).delete();
                     trigger.delete();
                 }
@@ -197,7 +191,7 @@ public class ListActivity extends AppCompatActivity {
             }
         };
 
-        handler.postDelayed(runnableDelete,3000);
+        handler.postDelayed(runnableDelete, 3000);
 
         events.remove(position);
         adapter.notifyItemRemoved(position);
@@ -224,8 +218,7 @@ public class ListActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == REQUEST_CODE_INTRO)
-        {
+        if (requestCode == REQUEST_CODE_INTRO) {
             preferences.setFirstLaunch(false);
             Intent i = new Intent(ListActivity.this, MonitorActivity.class);
             startActivity(i);
@@ -270,26 +263,24 @@ public class ListActivity extends AppCompatActivity {
                 }
             });
             /**
-            // Just load the last added note (new)
-            Event event = Event.last(Event.class);
+             // Just load the last added note (new)
+             Event event = Event.last(Event.class);
 
-            events.add(0,event);
-            adapter.notifyItemInserted(0);
-            adapter.notifyDataSetChanged();
-            
-            initialCount = newCount;
-            **/
+             events.add(0,event);
+             adapter.notifyItemInserted(0);
+             adapter.notifyDataSetChanged();
+
+             initialCount = newCount;
+             **/
 
             initialCount = newCount;
 
 
             recyclerView.setVisibility(View.VISIBLE);
-            findViewById(R.id.empty_view).setVisibility(View.GONE);
-        }
-        else if (newCount == 0)
-        {
+            emptyView.setVisibility(View.GONE);
+        } else if (newCount == 0) {
             recyclerView.setVisibility(View.GONE);
-            findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.VISIBLE);
         }
 
         if (modifyPos != -1) {
@@ -305,9 +296,8 @@ public class ListActivity extends AppCompatActivity {
         return new SimpleDateFormat("dd MMM yyyy").format(new Date(date));
     }
 
-    private void showOnboarding()
-    {
-        startActivityForResult(new Intent(this, PPAppIntro.class),REQUEST_CODE_INTRO);
+    private void showOnboarding() {
+        startActivityForResult(new Intent(this, PPAppIntro.class), REQUEST_CODE_INTRO);
 
     }
 
@@ -319,10 +309,10 @@ public class ListActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected (MenuItem item) {
-        switch (item.getItemId()){
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case R.id.action_settings:
-                startActivity(new Intent(this,SettingsActivity.class));
+                startActivity(new Intent(this, SettingsActivity.class));
                 break;
             case R.id.action_about:
                 showOnboarding();
@@ -337,35 +327,38 @@ public class ListActivity extends AppCompatActivity {
         return true;
     }
 
-    private void showLicenses ()
-    {
+    private void showLicenses() {
         new LibsBuilder()
                 //provide a style (optional) (LIGHT, DARK, LIGHT_DARK_TOOLBAR)
                 .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
                 .withAboutIconShown(true)
                 .withAboutVersionShown(true)
                 .withAboutAppName(getString(R.string.app_name))
-                                //start the activity
+                //start the activity
                 .start(this);
     }
 
-    private void testNotifications ()
-    {
+    private void testNotifications() {
 
         if (!TextUtils.isEmpty(preferences.getSignalUsername())) {
             SignalSender sender = SignalSender.getInstance(this, preferences.getSignalUsername().trim());
             ArrayList<String> recip = new ArrayList<>();
             recip.add(preferences.getSmsNumber());
             sender.sendMessage(recip, getString(R.string.signal_test_message), null);
-        }
-        else if (!TextUtils.isEmpty(preferences.getSmsNumber())) {
+        } else if (!TextUtils.isEmpty(preferences.getSmsNumber())) {
 
             SmsManager manager = SmsManager.getDefault();
 
-            StringTokenizer st = new StringTokenizer(preferences.getSmsNumber(),",");
+            StringTokenizer st = new StringTokenizer(preferences.getSmsNumber(), ",");
             while (st.hasMoreTokens())
                 manager.sendTextMessage(st.nextToken(), null, getString(R.string.signal_test_message), null, null);
 
         }
+    }
+
+    @OnClick(R.id.fab)
+    public void onClick() {
+        Intent i = new Intent(ListActivity.this, MonitorActivity.class);
+        startActivity(i);
     }
 }

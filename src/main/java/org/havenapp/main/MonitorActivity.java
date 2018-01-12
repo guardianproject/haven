@@ -22,15 +22,19 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
+
 import org.havenapp.main.service.MonitorService;
 import org.havenapp.main.ui.AccelConfigureActivity;
 import org.havenapp.main.ui.CameraFragment;
@@ -40,13 +44,35 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 import static org.havenapp.main.Utils.getTimerText;
 
 public class MonitorActivity extends FragmentActivity implements TimePickerDialog.OnTimeSetListener {
-	
-    private PreferenceManager preferences = null;
 
-    private TextView txtTimer;
+    @BindView(R.id.timer_text_title)
+    TextView timerTextTitle;
+    @BindView(R.id.timer_text)
+    TextView txtTimer;
+    @BindView(R.id.btnStartNow)
+    Button btnStartNow;
+    @BindView(R.id.btnStartLater)
+    Button btnStartLater;
+    @BindView(R.id.btnCameraSwitch)
+    ImageView btnCameraSwitch;
+    @BindView(R.id.btnMicSettings)
+    ImageView btnMicSettings;
+    @BindView(R.id.btnAccelSettings)
+    ImageView btnAccelSettings;
+    @BindView(R.id.btnSettings)
+    ImageView btnSettings;
+    @BindView(R.id.timer_container)
+    LinearLayout timerContainer;
+    @BindView(R.id.main_content)
+    CoordinatorLayout mainContent;
+    private PreferenceManager preferences = null;
 
     private CountDownTimer cTimer;
 
@@ -57,85 +83,17 @@ public class MonitorActivity extends FragmentActivity implements TimePickerDialo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_monitor);
+        ButterKnife.bind(this);
         boolean permsNeeded = askForPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, 1);
-
         if (!permsNeeded)
             initLayout();
     }
 
     private void initLayout() {
         preferences = new PreferenceManager(getApplicationContext());
-        setContentView(R.layout.activity_monitor);
-
-        txtTimer = (TextView) findViewById(R.id.timer_text);
-        View viewTimer = findViewById(R.id.timer_container);
-
         int timeM = preferences.getTimerDelay() * 1000;
-
         txtTimer.setText(getTimerText(timeM));
-        txtTimer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (cTimer == null)
-                    showTimeDelayDialog();
-
-            }
-        });
-        findViewById(R.id.timer_text_title).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (cTimer == null)
-                    showTimeDelayDialog();
-
-            }
-        });
-
-        findViewById(R.id.btnStartLater).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                doCancel();
-            }
-        });
-
-        findViewById(R.id.btnStartNow).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((Button) findViewById(R.id.btnStartLater)).setText(R.string.action_cancel);
-                findViewById(R.id.btnStartNow).setVisibility(View.INVISIBLE);
-                findViewById(R.id.timer_text_title).setVisibility(View.INVISIBLE);
-                initTimer();
-            }
-        });
-
-        findViewById(R.id.btnAccelSettings).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MonitorActivity.this, AccelConfigureActivity.class));
-            }
-        });
-
-        findViewById(R.id.btnMicSettings).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MonitorActivity.this, MicrophoneConfigureActivity.class));
-            }
-        });
-
-        findViewById(R.id.btnCameraSwitch).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switchCamera();
-            }
-        });
-
-        findViewById(R.id.btnSettings).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showSettings();
-            }
-        });
-
         mIsInitializedLayout = true;
     }
 
@@ -169,10 +127,10 @@ public class MonitorActivity extends FragmentActivity implements TimePickerDialo
                 finish();
             } else {
 
-                findViewById(R.id.btnStartNow).setVisibility(View.VISIBLE);
-                findViewById(R.id.timer_text_title).setVisibility(View.VISIBLE);
+                btnStartNow.setVisibility(View.VISIBLE);
+                timerTextTitle.setVisibility(View.VISIBLE);
 
-                ((Button) findViewById(R.id.btnStartLater)).setText(R.string.start_later);
+                btnStartLater.setText(R.string.start_later);
 
                 int timeM = preferences.getTimerDelay() * 1000;
                 txtTimer.setText(getTimerText(timeM));
@@ -332,5 +290,40 @@ public class MonitorActivity extends FragmentActivity implements TimePickerDialo
     public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
         int delaySeconds = second + minute * 60 + hourOfDay * 60 * 60;
         updateTimerValue(delaySeconds);
+    }
+
+    @OnClick({R.id.timer_text_title, R.id.timer_text, R.id.btnStartNow, R.id.btnStartLater, R.id.btnCameraSwitch, R.id.btnMicSettings, R.id.btnAccelSettings, R.id.btnSettings})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.timer_text_title:
+                if (cTimer == null)
+                    showTimeDelayDialog();
+                break;
+            case R.id.timer_text:
+                if (cTimer == null)
+                    showTimeDelayDialog();
+                break;
+            case R.id.btnStartNow:
+                btnStartLater.setText(R.string.action_cancel);
+                btnStartNow.setVisibility(View.INVISIBLE);
+                timerTextTitle.setVisibility(View.INVISIBLE);
+                initTimer();
+                break;
+            case R.id.btnStartLater:
+                doCancel();
+                break;
+            case R.id.btnCameraSwitch:
+                switchCamera();
+                break;
+            case R.id.btnMicSettings:
+                startActivity(new Intent(MonitorActivity.this, MicrophoneConfigureActivity.class));
+                break;
+            case R.id.btnAccelSettings:
+                startActivity(new Intent(MonitorActivity.this, AccelConfigureActivity.class));
+                break;
+            case R.id.btnSettings:
+                showSettings();
+                break;
+        }
     }
 }

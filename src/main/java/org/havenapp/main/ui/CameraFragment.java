@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2017 Nathanial Freitas / Guardian Project
  *  * Licensed under the GPLv3 license.
@@ -8,35 +7,45 @@
  */
 package org.havenapp.main.ui;
 
-import android.os.Bundle;
 import android.graphics.Bitmap;
-import android.support.v4.app.Fragment;
 import android.hardware.Camera;
 import android.hardware.SensorEvent;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.R;
-import org.havenapp.main.sensors.media.MotionAsyncTask;
 import org.havenapp.main.sensors.media.ImageCodec;
+import org.havenapp.main.sensors.media.MotionAsyncTask;
 import org.havenapp.main.sensors.motion.Preview;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public final class CameraFragment extends Fragment {
 
+    @BindView(R.id.preview)
+    FrameLayout preview1;
+    @BindView(R.id.new_image)
+    ImageView newImage;
+    Unbinder unbinder;
     private Preview preview;
 
-//    private ImageView oldImage;
-    private ImageView newImage;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.camera_fragment, container, false);
+        View view = inflater.inflate(R.layout.camera_fragment, container, false);
+        unbinder = ButterKnife.bind(this, view);
+        return view;
 
     }
 
@@ -54,18 +63,16 @@ public final class CameraFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        initCamera ();
+        initCamera();
     }
 
-    public void resetCamera ()
-    {
-        ((FrameLayout) getActivity().findViewById(R.id.preview)).removeAllViews();
+    public void resetCamera() {
+        preview1.removeAllViews();
         preview = null;
         initCamera();
     }
 
-    private void initCamera ()
-    {
+    private void initCamera() {
         if (preview == null) {
 
             PreferenceManager prefs = new PreferenceManager(getActivity());
@@ -74,10 +81,7 @@ public final class CameraFragment extends Fragment {
                 //Uncomment to see the camera
                 preview = new Preview(getActivity());
 
-                ((FrameLayout) getActivity().findViewById(R.id.preview)).addView(preview);
-
-                // oldImage = (ImageView) getActivity().findViewById(R.id.old_image);
-                newImage = getActivity().findViewById(R.id.new_image);
+                preview1.addView(preview);
 
                 preview.addListener(new MotionAsyncTask.MotionListener() {
 
@@ -99,7 +103,14 @@ public final class CameraFragment extends Fragment {
             }
         }
     }
+
     public void onSensorChanged(SensorEvent event) {
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

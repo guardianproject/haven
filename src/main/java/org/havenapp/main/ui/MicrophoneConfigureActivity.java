@@ -23,16 +23,23 @@ import org.havenapp.main.sensors.media.MicrophoneTaskFactory;
 
 import java.util.LinkedList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import me.angrybyte.numberpicker.listener.OnValueChangeListener;
 import me.angrybyte.numberpicker.view.ActualNumberPicker;
 
 public class MicrophoneConfigureActivity extends AppCompatActivity implements MicSamplerTask.MicListener {
 
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.simplewaveform)
+    SimpleWaveformExtended mWaveform;
+    @BindView(R.id.number_trigger_level)
+    ActualNumberPicker mNumberTrigger;
+    @BindView(R.id.text_display_level)
+    TextView mTextLevel;
     private MicSamplerTask microphone;
-    private TextView mTextLevel;
-    private ActualNumberPicker mNumberTrigger;
     private PreferenceManager mPrefManager;
-    private SimpleWaveformExtended mWaveform;
     private LinkedList<Integer> mWaveAmpList;
     private static final int MAX_SLIDER_VALUE = 120;
 
@@ -42,8 +49,8 @@ public class MicrophoneConfigureActivity extends AppCompatActivity implements Mi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_microphone_configure);
+        ButterKnife.bind(this);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         setTitle("");
@@ -66,13 +73,11 @@ public class MicrophoneConfigureActivity extends AppCompatActivity implements Mi
         mPrefManager = new PreferenceManager(this.getApplicationContext());
 
 
-
         initWave();
         startMic();
     }
 
-    private void initWave ()
-    {
+    private void initWave() {
         mWaveform.init();
 
         mWaveAmpList = new LinkedList<>();
@@ -142,7 +147,8 @@ public class MicrophoneConfigureActivity extends AppCompatActivity implements Mi
         //show...
         mWaveform.refresh();
     }
-    private void startMic () {
+
+    private void startMic() {
         String permission = Manifest.permission.RECORD_AUDIO;
         int requestCode = 999;
         if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
@@ -193,16 +199,15 @@ public class MicrophoneConfigureActivity extends AppCompatActivity implements Mi
 
     }
 
-    private void save ()
-    {
-        mPrefManager.setMicrophoneSensitivity(mNumberTrigger.getValue()+"");
+    private void save() {
+        mPrefManager.setMicrophoneSensitivity(mNumberTrigger.getValue() + "");
         finish();
     }
 
     @Override
     public void onSignalReceived(short[] signal) {
         /*
-		 * We do and average of the 512 samples
+         * We do and average of the 512 samples
 		 */
         int total = 0;
         int count = 0;
@@ -230,7 +235,7 @@ public class MicrophoneConfigureActivity extends AppCompatActivity implements Mi
             mNumberTrigger.invalidate();
         }
 
-        int perc = (int)((averageDB/160d)*100d);
+        int perc = (int) ((averageDB / 160d) * 100d);
         mWaveAmpList.addFirst(perc);
 
         if (mWaveAmpList.size() > mWaveform.width / mWaveform.barGap + 2) {
@@ -248,11 +253,10 @@ public class MicrophoneConfigureActivity extends AppCompatActivity implements Mi
     }
 
     @Override
-    public boolean onOptionsItemSelected (MenuItem item) {
-        switch (item.getItemId()){
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 save();
-                finish();
                 break;
         }
         return true;
