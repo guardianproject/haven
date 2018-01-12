@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -24,15 +23,22 @@ import org.havenapp.main.R;
 
 import java.util.LinkedList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import me.angrybyte.numberpicker.listener.OnValueChangeListener;
 import me.angrybyte.numberpicker.view.ActualNumberPicker;
 
 public class AccelConfigureActivity extends AppCompatActivity implements SensorEventListener {
 
-    private TextView mTextLevel;
-    private ActualNumberPicker mNumberTrigger;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.simplewaveform)
+    SimpleWaveformExtended mWaveform;
+    @BindView(R.id.number_trigger_level)
+    ActualNumberPicker mNumberTrigger;
+    @BindView(R.id.text_display_level)
+    TextView mTextLevel;
     private PreferenceManager mPrefManager;
-    private SimpleWaveformExtended mWaveform;
     private LinkedList<Integer> mWaveAmpList;
 
     private static final int MAX_SLIDER_VALUE = 100;
@@ -73,16 +79,13 @@ public class AccelConfigureActivity extends AppCompatActivity implements SensorE
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accel_configure);
+        ButterKnife.bind(this);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mTextLevel = findViewById(R.id.text_display_level);
-        mNumberTrigger = findViewById(R.id.number_trigger_level);
-        mWaveform = findViewById(R.id.simplewaveform);
         mWaveform.setMaxVal(MAX_SLIDER_VALUE);
 
         mNumberTrigger.setMinValue(0);
@@ -97,13 +100,11 @@ public class AccelConfigureActivity extends AppCompatActivity implements SensorE
         mPrefManager = new PreferenceManager(this.getApplicationContext());
 
 
-
         initWave();
         startAccel();
     }
 
-    private void initWave ()
-    {
+    private void initWave() {
         mWaveform.init();
 
         mWaveAmpList = new LinkedList<>();
@@ -174,25 +175,26 @@ public class AccelConfigureActivity extends AppCompatActivity implements SensorE
         //show...
         mWaveform.refresh();
     }
-    private void startAccel () {
 
-            try {
+    private void startAccel() {
 
-                SensorManager sensorMgr = (SensorManager) getSystemService(Activity.SENSOR_SERVICE);
-                Sensor sensor = sensorMgr.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        try {
 
-                if (sensor == null) {
-                    Log.i("AccelerometerFrament", "Warning: no accelerometer");
-                } else {
-                    sensorMgr.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
+            SensorManager sensorMgr = (SensorManager) getSystemService(Activity.SENSOR_SERVICE);
+            Sensor sensor = sensorMgr.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
-                }
+            if (sensor == null) {
+                Log.i("AccelerometerFrament", "Warning: no accelerometer");
+            } else {
+                sensorMgr.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
 
-
-            } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
             }
+
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
     }
 
@@ -214,13 +216,13 @@ public class AccelConfigureActivity extends AppCompatActivity implements SensorE
 
                 if (last_accel_values != null) {
 
-                    int speed = (int)(Math.abs(
+                    int speed = (int) (Math.abs(
                             accel_values[0] + accel_values[1] + accel_values[2] -
                                     last_accel_values[0] + last_accel_values[1] + last_accel_values[2])
                             / diffTime * 1000);
 
                     if (speed > shakeThreshold) {
-						/*
+                        /*
 						 * Send Alert
 						 */
 
@@ -248,7 +250,6 @@ public class AccelConfigureActivity extends AppCompatActivity implements SensorE
                         mTextLevel.setText(getString(R.string.current_accel_base) + ' ' + speed);
 
 
-
                     }
                 }
                 last_accel_values = accel_values.clone();
@@ -268,21 +269,19 @@ public class AccelConfigureActivity extends AppCompatActivity implements SensorE
 
     }
 
-    private void save ()
-    {
+    private void save() {
         //mPrefManager.setMicrophoneSensitivity(mNumberTrigger.getValue()+"");
 
-        mPrefManager.setAccelerometerSensitivity(mNumberTrigger.getValue()+"");
+        mPrefManager.setAccelerometerSensitivity(mNumberTrigger.getValue() + "");
         finish();
     }
 
 
     @Override
-    public boolean onOptionsItemSelected (MenuItem item) {
-        switch (item.getItemId()){
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 save();
-                finish();
                 break;
         }
         return true;
