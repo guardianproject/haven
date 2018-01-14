@@ -6,4 +6,7 @@
     <color name="colorAccent">#f5c229</color>
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#757575</color>
+
+    <!-- 20% black -->
+    <color name="translucentOverlay20">#30000000</color>
 </resources>
