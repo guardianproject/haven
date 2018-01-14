@@ -74,6 +74,41 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
         if (eventTrigger.getPath() != null)
         {
             switch (eventTrigger.getType()) {
+                case EventTrigger.CAMERA_VIDEO:
+                    holder.image.setVisibility(View.VISIBLE);
+                    Picasso.with(context).load(new File(eventTrigger.getPath())).into(holder.image);
+                    holder.image.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            int startPosition = 0;
+                            for (int i = 0; i < eventTriggerImagePaths.size(); i++) {
+                                if (eventTriggerImagePaths.get(i).contains(eventTrigger.getPath())) {
+                                    startPosition = i;
+                                    break;
+                                }
+                            }
+
+
+                            ShareOverlayView overlayView = new ShareOverlayView(context);
+                            ImageViewer viewer = new ImageViewer.Builder(context, eventTriggerImagePaths)
+                                    .setStartPosition(startPosition)
+                                    .setOverlayView(overlayView)
+                                    .show();
+                            overlayView.setImageViewer(viewer);
+
+
+                        }
+                    });
+
+                    holder.image.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View view) {
+                            shareMedia(eventTrigger);
+                            return false;
+                        }
+                    });
+                    break;
                 case EventTrigger.CAMERA:
                     holder.image.setVisibility(View.VISIBLE);
                     Picasso.with(context).load(new File(eventTrigger.getPath())).into(holder.image);

@@ -109,6 +109,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
     private SurfaceHolder mHolder;
     private Camera camera;
     private Context context;
+    private String videoFile;
 
     public Preview(Context context) {
         super(context);
@@ -343,9 +344,9 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
     Handler handler = new Handler();
     void record(Camera cam, Messenger messenger) {
         String ts1 = String.valueOf(new Date().getTime());
-        String file = Environment.getExternalStorageDirectory() + File.separator + prefs.getImagePath() + File.separator + ts1 + ".mp4";
+        videoFile = Environment.getExternalStorageDirectory() + File.separator + prefs.getImagePath() + File.separator + ts1 + ".mp4";
         int seconds = prefs.getMonitoringTime() * 1000;
-        MediaRecorderTask mediaRecorderTask = new MediaRecorderTask(cam, file, seconds);
+        MediaRecorderTask mediaRecorderTask = new MediaRecorderTask(cam, videoFile, seconds);
         mediaRecorder = mediaRecorderTask.getPreparedMediaRecorder();
         AudioManager audioManager = (AudioManager) context.getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
         if (audioManager != null) {
@@ -358,7 +359,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
             if (messenger != null) {
                 Message message = new Message();
                 message.what = EventTrigger.CAMERA_VIDEO;
-                message.getData().putString("path", file);
+                message.getData().putString("path", videoFile);
                 try {
                     messenger.send(message);
                 } catch (RemoteException e) {
@@ -378,6 +379,16 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 
     public void surfaceDestroyed(SurfaceHolder holder) {
 
+        if (doingVideoProcessing && serviceMessenger != null) {
+            Message message = new Message();
+            message.what = EventTrigger.CAMERA_VIDEO;
+            message.getData().putString("path", videoFile);
+            try {
+                serviceMessenger.send(message);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
         if (camera != null) {
             // Surface will be destroyed when we return, so stop the preview.
             // Because the CameraDevice object is not a shared resource, it's very

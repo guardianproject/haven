@@ -295,7 +295,7 @@ public class PreferenceManager {
 
     public int getMonitoringTime ()
     {
-        return appSharedPrefs.getInt(VIDEO_LENGTH,5);
+        return appSharedPrefs.getInt(VIDEO_LENGTH,30);
     }
 
     public void setMonitoringTime (int delay)
