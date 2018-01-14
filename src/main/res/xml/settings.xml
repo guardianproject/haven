@@ -5,16 +5,15 @@
         android:key="config_delay_time"
         android:title="@string/timer_delay_label" />
 
-    <PreferenceCategory android:title="Video Settings">
+    <PreferenceCategory android:title="@string/video_settings">
         <Preference
             android:key="config_video_length"
-            android:title="Set Monitoring Video Length" />
+            android:title="@string/config_video_length_label" />
 
         <SwitchPreference
             android:defaultValue="false"
             android:key="@string/video_active_preference_key"
-            android:summary="Enable Video Monitoring"
-            android:title="Video Monitoring" />
+            android:title="@string/video_monitoring" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/sensors">
