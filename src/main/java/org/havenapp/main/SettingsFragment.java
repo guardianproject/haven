@@ -12,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.support.v14.preference.SwitchPreference;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.preference.EditTextPreference;
@@ -153,6 +154,10 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         preferences.activateMicrophone(true);
 
         setPhoneNumber();
+
+        boolean videoMonitoringActive = ((SwitchPreference) findPreference(mActivity.getResources().getString(R.string.video_active_preference_key))).isChecked();
+
+        preferences.setActivateVideoMonitoring(videoMonitoringActive);
 
         boolean remoteAccessActive = ((SwitchPreferenceCompat) findPreference(PreferenceManager.REMOTE_ACCESS_ACTIVE)).isChecked();
 

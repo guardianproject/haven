@@ -148,7 +148,16 @@ public class PreferenceManager {
     public String getAccelerometerSensitivity() {
     	return appSharedPrefs.getString(ACCELEROMETER_SENSITIVITY, HIGH);
     }
-    
+
+    public void setActivateVideoMonitoring(boolean active) {
+        prefsEditor.putBoolean(context.getResources().getString(R.string.video_active_preference_key), active);
+        prefsEditor.commit();
+    }
+
+    public boolean getVideoMonitoringActive() {
+        return appSharedPrefs.getBoolean(context.getResources().getString(R.string.video_active_preference_key), false);
+    }
+
     public void activateCamera(boolean active) {
     	prefsEditor.putBoolean(CAMERA_ACTIVE, active);
     	prefsEditor.commit();
