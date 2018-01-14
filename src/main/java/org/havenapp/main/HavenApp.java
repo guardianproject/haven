@@ -18,6 +18,7 @@
 package org.havenapp.main;
 
 import android.support.multidex.MultiDexApplication;
+import android.support.v7.app.AppCompatDelegate;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -46,6 +47,7 @@ public class HavenApp extends MultiDexApplication {
 
         Fresco.initialize(this);
         SugarContext.init(this);
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
         if (mPrefs.getRemoteAccessActive())
             startServer();
