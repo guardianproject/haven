@@ -18,6 +18,7 @@ import android.hardware.Camera;
 import android.hardware.Camera.Parameters;
 import android.hardware.Camera.PreviewCallback;
 import android.hardware.Camera.Size;
+import android.media.AudioManager;
 import android.media.MediaRecorder;
 import android.os.Environment;
 import android.os.Handler;
@@ -345,6 +346,11 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
         String file = Environment.getExternalStorageDirectory() + File.separator + prefs.getImagePath() + File.separator + ts1 + ".mp4";
         MediaRecorderTask mediaRecorderTask = new MediaRecorderTask(cam, file);
         mediaRecorder = mediaRecorderTask.getPreparedMediaRecorder();
+        AudioManager audioManager = (AudioManager) context.getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+        if (audioManager != null) {
+            audioManager.setStreamMute(AudioManager.STREAM_SYSTEM, true);
+            audioManager.setStreamMute(AudioManager.STREAM_MUSIC,true);
+        }
         mediaRecorder.start();
         doingVideoProcessing = true;
         handler.postDelayed(() -> {
@@ -356,6 +362,10 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
                     messenger.send(message);
                 } catch (RemoteException e) {
                     e.printStackTrace();
+                }
+                if (audioManager != null) {
+                    audioManager.setStreamMute(AudioManager.STREAM_SYSTEM, false);
+                    audioManager.setStreamMute(AudioManager.STREAM_MUSIC, false);
                 }
                 mediaRecorder.stop();
                 mediaRecorder.reset();
