@@ -121,7 +121,7 @@ dependencies {
     compile 'com.maxproj.simplewaveform:app:1.0.0'
     compile 'com.takisoft.fix:preference-v7:27.0.2.0'
     compile 'com.wdullaer:materialdatetimepicker:3.5.0'
-
+    compile 'com.googlecode.libphonenumber:libphonenumber:8.7.0'
     implementation('com.mikepenz:aboutlibraries:6.0.1@aar') {
         transitive = true
     }

@@ -22,6 +22,7 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompat;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
@@ -31,6 +32,7 @@ import org.havenapp.main.ui.AccelConfigureActivity;
 import org.havenapp.main.ui.MicrophoneConfigureActivity;
 
 import java.io.File;
+import java.util.Locale;
 
 import info.guardianproject.netcipher.proxy.OrbotHelper;
 
@@ -75,6 +77,19 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         if (preferences.getSmsActivation()) {
             ((SwitchPreferenceCompat) findPreference(PreferenceManager.SMS_ACTIVE)).setChecked(true);
         }
+
+        findPreference(PreferenceManager.SMS_NUMBER).setOnPreferenceClickListener(preference -> {
+            if (preferences.getSmsNumber().isEmpty()) {
+                ((EditTextPreference) findPreference(PreferenceManager.SMS_NUMBER)).setText(getCountryCode());
+            }
+            return false;
+        });
+        findPreference(PreferenceManager.REGISTER_SIGNAL).setOnPreferenceClickListener(preference -> {
+            if (preferences.getSignalUsername() == null) {
+                ((EditTextPreference) findPreference(PreferenceManager.REGISTER_SIGNAL)).setText(getCountryCode());
+            }
+            return false;
+        });
 
         if (checkValidString(preferences.getSmsNumber())) {
             ((EditTextPreference) findPreference(PreferenceManager.SMS_NUMBER)).setText(preferences.getSmsNumber().trim());
@@ -254,7 +269,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             case PreferenceManager.REGISTER_SIGNAL:
                 String signalNum = ((EditTextPreference) findPreference(PreferenceManager.REGISTER_SIGNAL)).getText();
 
-                if (checkValidString(signalNum)) {
+                if (checkValidString(signalNum) && !getCountryCode().equalsIgnoreCase(signalNum)) {
                     signalNum = "+" + signalNum.trim().replaceAll("[^0-9]", "");
 
                     preferences.setSignalUsername(signalNum);
@@ -262,7 +277,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
                     resetSignal(preferences.getSignalUsername());
                     activateSignal(preferences.getSignalUsername(), null);
-                } else {
+                } else if (!getCountryCode().equalsIgnoreCase(signalNum)) {
                     preferences.setSignalUsername("");
                     findPreference(PreferenceManager.REGISTER_SIGNAL).setSummary(R.string.register_signal_desc);
                 }
@@ -305,6 +320,11 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         }
     }
 
+    String getCountryCode() {
+        PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
+        return "+" + String.valueOf(phoneUtil.getCountryCodeForRegion(Locale.getDefault().getCountry()));
+    }
+
     private void setPhoneNumber() {
         boolean smsActive = ((SwitchPreferenceCompat) findPreference(PreferenceManager.SMS_ACTIVE)).isChecked();
         String phoneNumber = ((EditTextPreference) findPreference(PreferenceManager.SMS_NUMBER)).getText();
@@ -314,10 +334,10 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             preferences.activateSms(false);
         }
 
-        if (checkValidString(phoneNumber)) {
+        if (checkValidString(phoneNumber) && !getCountryCode().equalsIgnoreCase(phoneNumber)) {
             preferences.setSmsNumber(phoneNumber.trim());
             findPreference(PreferenceManager.SMS_NUMBER).setSummary(phoneNumber.trim());
-        } else {
+        } else if (!getCountryCode().equalsIgnoreCase(phoneNumber)){
             preferences.setSmsNumber("");
             findPreference(PreferenceManager.SMS_NUMBER).setSummary(R.string.sms_dialog_message);
         }
