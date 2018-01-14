@@ -298,7 +298,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
                                                 stream.flush();
                                                 stream.close();
                                                 message.getData().putString("path", fileImage.getAbsolutePath());
-                                                if (!doingVideoProcessing) {
+                                                if (!doingVideoProcessing && prefs.getVideoMonitoringActive()) {
                                                     record(camera, serviceMessenger);
                                                 }
                                                 /**
@@ -379,7 +379,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 
     public void surfaceDestroyed(SurfaceHolder holder) {
 
-        if (doingVideoProcessing && serviceMessenger != null) {
+        if (doingVideoProcessing && serviceMessenger != null && prefs.getVideoMonitoringActive()) {
             Message message = new Message();
             message.what = EventTrigger.CAMERA_VIDEO;
             message.getData().putString("path", videoFile);
