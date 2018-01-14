@@ -344,7 +344,8 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
     void record(Camera cam, Messenger messenger) {
         String ts1 = String.valueOf(new Date().getTime());
         String file = Environment.getExternalStorageDirectory() + File.separator + prefs.getImagePath() + File.separator + ts1 + ".mp4";
-        MediaRecorderTask mediaRecorderTask = new MediaRecorderTask(cam, file);
+        int seconds = prefs.getMonitoringTime() * 1000;
+        MediaRecorderTask mediaRecorderTask = new MediaRecorderTask(cam, file, seconds);
         mediaRecorder = mediaRecorderTask.getPreparedMediaRecorder();
         AudioManager audioManager = (AudioManager) context.getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
         if (audioManager != null) {
@@ -372,7 +373,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
                 mediaRecorder.release();
                 doingVideoProcessing = false;
             }
-        }, 5000);
+        }, seconds);
     }
 
     public void surfaceDestroyed(SurfaceHolder holder) {

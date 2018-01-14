@@ -64,6 +64,8 @@ public class PreferenceManager {
 	
     private static final String PHONE_ID="phone_id";
     private static final String TIMER_DELAY="timer_delay";
+    private static final String VIDEO_LENGTH="video_length";
+    public static final String CONFIG_VIDEO_LENGTH ="config_video_length";
     private static final String DIR_PATH = "/secureit";
 
     public static final String REMOTE_ACCESS_ACTIVE = "remote_access_active";
@@ -288,6 +290,17 @@ public class PreferenceManager {
     public void setTimerDelay (int delay)
     {
         prefsEditor.putInt(TIMER_DELAY,delay);
+        prefsEditor.commit();
+    }
+
+    public int getMonitoringTime ()
+    {
+        return appSharedPrefs.getInt(VIDEO_LENGTH,5);
+    }
+
+    public void setMonitoringTime (int delay)
+    {
+        prefsEditor.putInt(VIDEO_LENGTH,delay);
         prefsEditor.commit();
     }
 

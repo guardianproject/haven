@@ -5,6 +5,18 @@
         android:key="config_delay_time"
         android:title="@string/timer_delay_label" />
 
+    <PreferenceCategory android:title="Video Settings">
+        <Preference
+            android:key="config_video_length"
+            android:title="Set Monitoring Video Length" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="@string/video_active_preference_key"
+            android:summary="Enable Video Monitoring"
+            android:title="Video Monitoring" />
+    </PreferenceCategory>
+
     <PreferenceCategory android:title="@string/sensors">
 
         <ListPreference
@@ -25,12 +37,6 @@
 
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/label_notifications">
-
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="@string/video_active_preference_key"
-            android:summary="Enable Video Monitoring"
-            android:title="Video Monitoring" />
 
         <SwitchPreferenceCompat
             android:defaultValue="true"
@@ -66,7 +72,7 @@
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/remote_access">
 
-    <SwitchPreferenceCompat
+        <SwitchPreferenceCompat
             android:defaultValue="false"
             android:key="remote_access_active"
             android:summary="@string/remote_access_label"

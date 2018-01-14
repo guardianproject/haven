@@ -15,10 +15,12 @@ public class MediaRecorderTask  {
     private String mOutputFile;
     private android.media.MediaRecorder mMediaRecorder;
     private Camera mCamera;
+    private int mSeconds;
 
-    public MediaRecorderTask(Camera camera, String fileImageDir) {
+    public MediaRecorderTask(Camera camera, String fileImageDir, int seconds) {
         mCamera = camera;
         mOutputFile = fileImageDir;
+        mSeconds = seconds;
         if(prepare(mCamera)){
             Log.d("Done", "Media Recorder prepared");
         } else {
@@ -42,7 +44,7 @@ public class MediaRecorderTask  {
         mMediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
         mMediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
         mMediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.MPEG_4_SP);
-        mMediaRecorder.setMaxDuration(5000);
+        mMediaRecorder.setMaxDuration(mSeconds);
         mMediaRecorder.setOutputFile(mOutputFile);
         try {
             mMediaRecorder.prepare();

@@ -123,7 +123,13 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
         Preference prefConfigTimeDelay = findPreference(PreferenceManager.CONFIG_TIME_DELAY);
         prefConfigTimeDelay.setOnPreferenceClickListener(preference -> {
-            showTimeDelayDialog();
+            showTimeDelayDialog(PreferenceManager.CONFIG_TIME_DELAY);
+            return true;
+        });
+
+        Preference prefConfigVideoLength = findPreference(PreferenceManager.CONFIG_VIDEO_LENGTH);
+        prefConfigVideoLength.setOnPreferenceClickListener(preference -> {
+            showTimeDelayDialog(PreferenceManager.CONFIG_VIDEO_LENGTH);
             return true;
         });
 
@@ -328,9 +334,13 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         }
     }
 
-    private void showTimeDelayDialog() {
-        int totalSecs = preferences.getTimerDelay();
-
+    private void showTimeDelayDialog(String configVideoLength) {
+        int totalSecs;
+        if (configVideoLength.equalsIgnoreCase(PreferenceManager.CONFIG_TIME_DELAY)) {
+            totalSecs = preferences.getTimerDelay();
+        } else {
+            totalSecs = preferences.getMonitoringTime();
+        }
         int hours = totalSecs / 3600;
         int minutes = (totalSecs % 3600) / 60;
         int seconds = totalSecs % 60;
@@ -338,7 +348,11 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
         TimePickerDialog mTimePickerDialog = TimePickerDialog.newInstance(this, hours, minutes, seconds, true);
         mTimePickerDialog.enableSeconds(true);
-        mTimePickerDialog.show(mActivity.getFragmentManager(), "TimePickerDialog");
+        if (configVideoLength.equalsIgnoreCase(PreferenceManager.CONFIG_TIME_DELAY)) {
+            mTimePickerDialog.show(mActivity.getFragmentManager(), "TimeDelayPickerDialog");
+        } else {
+            mTimePickerDialog.show(mActivity.getFragmentManager(), "VideoLengthPickerDialog");
+        }
     }
 
     private boolean checkValidString(String a) {
@@ -406,7 +420,11 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
     @Override
     public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
-        int delaySeconds = second + minute * 60 + hourOfDay * 60 * 60;
-        preferences.setTimerDelay(delaySeconds);
+        int Seconds = second + minute * 60 + hourOfDay * 60 * 60;
+        if (view.getTag().equalsIgnoreCase("TimeDelayPickerDialog")) {
+            preferences.setTimerDelay(Seconds);
+        } else if (view.getTag().equalsIgnoreCase("VideoLengthPickerDialog")) {
+            preferences.setMonitoringTime(Seconds);
+        }
     }
 }
