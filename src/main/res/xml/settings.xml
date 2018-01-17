@@ -32,7 +32,7 @@
             android:title="@string/sms_label" />
 
         <EditTextPreference
-            style="@style/AppPreference.DialogPreferenceRegister"
+            style="@style/AppPreference.DialogPreferenceSave"
             android:dialogLayout="@layout/pref_dialog_edit_text_hint"
             android:dialogMessage="@string/sms_dialog_message"
             android:inputType="phone"
