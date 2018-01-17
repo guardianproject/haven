@@ -286,7 +286,7 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
     @Override
     public void onResume() {
         super.onResume();
-        if (mIsInitializedLayout && !mOnTimerTicking) {
+        if (mIsInitializedLayout && (!mOnTimerTicking) && (!mIsMonitoring)) {
             int totalMilliseconds = preferences.getTimerDelay() * 1000;
             txtTimer.setText(getTimerText(totalMilliseconds));
         }
