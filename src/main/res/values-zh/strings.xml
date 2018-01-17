@@ -52,8 +52,7 @@
     <string name="onboarding_action_end">结束</string>
 
     <string name="remote_access">远程访问</string>
-    <string name="remote_access_label">使用 Tor 洋葱
-    启动远程访问</string>
+    <string name="remote_access_label">使用 Tor 洋葱启动远程访问</string>
     <string name="remote_access_hint">Orbot 提供的 Tor 洋葱地址</string>
     <string name="remote_access_credential_hint">Set remote password</string>
     <string name="camera_front">前置摄像头</string>
@@ -121,12 +120,13 @@
     <string name="signal_dialog_summary">用于接受通知的 Signal 号码</string>
     <string name="verification_dialog_summary">点击验证您的 Signal 号码</string>
     <string name="send_message_dialog">输入用于接受测试通知的号码</string>
-    <string name="send_text_message">测试通知...</string>
+    <string name="send_text_message">发送测试通知...</string>
     <string name="service_address">服务地址</string>
-    <string name="password">密码</string>
+    <string name="password">密码 (必填)</string>
     <string name="signal_number">Signal 号码 (本地)</string>
     <string name="phone_number"> 通知号码 (远程)</string>
     <string name="sensors">传感器</string>
     <string name="label_notifications">通知</string>
 
+    <string name="camera_sensitivity">相机敏感度</string>
 </resources>
