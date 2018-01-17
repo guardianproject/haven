@@ -40,7 +40,9 @@ public class WebServer extends NanoHTTPD {
     public WebServer(Context context) throws IOException {
         super(LOCAL_HOST, LOCAL_PORT);
         mContext = context;
-        start(NanoHTTPD.SOCKET_READ_TIMEOUT, false);
+
+        if (!TextUtils.isEmpty(mPassword)) //require a password to start the server
+            start(NanoHTTPD.SOCKET_READ_TIMEOUT, false);
     }
 
     public void setPassword (String password)
