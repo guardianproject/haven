@@ -17,37 +17,22 @@
 package org.havenapp.main.ui;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Camera;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.SeekBar;
-import android.widget.TextView;
-
-import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.R;
-import org.havenapp.main.SettingsActivity;
-import org.havenapp.main.service.MonitorService;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 
 public class CameraConfigureActivity extends AppCompatActivity {
-	
+
     private PreferenceManager preferences = null;
 
     private boolean mIsMonitoring = false;
@@ -84,7 +69,7 @@ public class CameraConfigureActivity extends AppCompatActivity {
             }
         });
 
-        SeekBar sBar = ((SeekBar)findViewById(R.id.seekCameraSensitivity));
+        SeekBar sBar = ((SeekBar) findViewById(R.id.seekCameraSensitivity));
         sBar.setProgress(preferences.getCameraSensitivity());
         sBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -120,43 +105,18 @@ public class CameraConfigureActivity extends AppCompatActivity {
     }
 
 
-
-    private void initMonitor() {
-
-        mIsMonitoring = true;
-        //ensure folder exists and will not be scanned by the gallery app
-
-        try {
-            File fileImageDir = new File(Environment.getExternalStorageDirectory(), preferences.getImagePath());
-            fileImageDir.mkdirs();
-            new FileOutputStream(new File(fileImageDir, ".nomedia")).write(0);
-        } catch (IOException e) {
-            Log.e("Monitor", "unable to init media storage directory", e);
-        }
-
-        //Do something after 100ms
-        startService(new Intent(CameraConfigureActivity.this, MonitorService.class));
-
-    }
-
     /**
      * Closes the monitor activity and unset session properties
      */
     private void close() {
 
-        stopService(new Intent(this, MonitorService.class));
-        if (preferences != null) {
-            preferences.unsetAccessToken();
-            preferences.unsetDelegatedAccessToken();
-            preferences.unsetPhoneId();
-        }
         finish();
 
     }
 
     @Override
-    public boolean onOptionsItemSelected (MenuItem item) {
-        switch (item.getItemId()){
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 close();
                 break;

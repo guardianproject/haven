@@ -18,8 +18,6 @@ public class Event extends SugarRecord {
     @Ignore
     private ArrayList<EventTrigger> mEventTriggers;
 
-    public final static long EVENT_WINDOW_TIME = 1000 * 60 * 5; //1 minutes
-
     public Event ()
     {
         mStartTime = new Date();
@@ -48,14 +46,5 @@ public class Event extends SugarRecord {
 
         return mEventTriggers;
     }
-    /**
-    * Are we within the time window of this event, or should we start a new event?
-     */
-    public boolean insideEventWindow (Date now)
-    {
-        if (mEventTriggers.size() == 0)
-            return now.getTime() - mStartTime.getTime() <= EVENT_WINDOW_TIME;
-        else
-            return now.getTime() - mEventTriggers.get(mEventTriggers.size()-1).getTriggerTime().getTime() <= EVENT_WINDOW_TIME;
-    }
+
 }

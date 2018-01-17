@@ -5,6 +5,12 @@
         android:key="config_delay_time"
         android:title="@string/timer_delay_label" />
 
+
+    <Preference
+        android:key="config_battery_optimizations"
+        android:title="@string/disable_battery_opt_title"
+        android:summary="@string/disable_battery_opt_summary"/>
+
     <PreferenceCategory android:title="@string/sensors">
 
         <ListPreference
@@ -61,6 +67,18 @@
             android:key="verify_signal"
             android:summary="@string/verification_dialog_summary"
             android:title="@string/verify_signal" />
+
+        <EditTextPreference
+            style="@style/AppPreference.DialogPreferenceSave"
+            android:dialogLayout="@layout/pref_dialog_edit_text"
+            android:dialogMessage="@string/notification_time_dialog"
+            android:inputType="number"
+            android:key="notification_time"
+            android:summary="@string/notification_time_summary"
+            android:title="@string/notification_time"
+            />
+
+
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/remote_access">
 

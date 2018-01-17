@@ -76,6 +76,9 @@ public class PreferenceManager {
 
     private static final String FIRST_LAUNCH = "first_launch";
 
+    public static final String NOTIFICATION_TIME = "notification_time";
+
+    public static final String DISABLE_BATTERY_OPT = "config_battery_optimizations";
 
     private Context context;
 	
@@ -224,55 +227,6 @@ public class PreferenceManager {
     	return appSharedPrefs.getString(SMS_NUMBER, "");
     }
 
-    
-    public void setUnlockCode(String unlockCode) {
-    	prefsEditor.putString(UNLOCK_CODE, unlockCode);
-    	prefsEditor.commit();
-    }
-    
-    public String getUnlockCode() {
-    	return appSharedPrefs.getString(UNLOCK_CODE, "");
-    }
-
-    public void setAccessToken(String accessToken) {
-    	prefsEditor.putString(ACCESS_TOKEN, accessToken);
-    	prefsEditor.commit();
-    }
-    
-    public String getAccessToken() {
-    	return appSharedPrefs.getString(ACCESS_TOKEN, "");
-    }
-    
-    public void unsetAccessToken() {
-    	prefsEditor.remove(ACCESS_TOKEN);
-    }
-    
-    public void setDelegatedAccessToken(String deferredAccessToken) {
-    	prefsEditor.putString(DELEGATED_ACCESS_TOKEN, deferredAccessToken);
-    	prefsEditor.commit();
-    }
-    
-    public String getDelegatedAccessToken() {
-    	return appSharedPrefs.getString(DELEGATED_ACCESS_TOKEN, "");
-    }
-    
-    public void unsetDelegatedAccessToken() {
-    	prefsEditor.remove(DELEGATED_ACCESS_TOKEN);
-    }
-
-    public void setPhoneId(String phoneId) {
-    	prefsEditor.putString(PHONE_ID, phoneId);
-    	prefsEditor.commit();
-    }
-    
-    public void unsetPhoneId() {
-    	prefsEditor.remove(PHONE_ID);
-    }
-    
-    public String getPhoneId() {
-    	return appSharedPrefs.getString(PHONE_ID, "");
-    }
-
     public int getTimerDelay ()
     {
         return appSharedPrefs.getInt(TIMER_DELAY,30);
@@ -304,12 +258,21 @@ public class PreferenceManager {
 
     public String getAudioPath ()
     {
-        return "/phoneypot";
-
+        return "/phoneypot"; //phoneypot is the old code name for Haven
     }
 
     public int getAudioLength ()
     {
         return 15000; //30 seconds
     }
+
+    public int getNotificationTimeMs () {
+        return appSharedPrefs.getInt(NOTIFICATION_TIME,-1); //time in minutes times by seconds
+    }
+
+    public void setNotificationTimeMs (int notificationTimeMs) {
+        prefsEditor.putInt(NOTIFICATION_TIME,notificationTimeMs);
+        prefsEditor.commit();
+    }
+
 }

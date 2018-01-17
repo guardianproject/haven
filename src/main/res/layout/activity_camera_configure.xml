@@ -27,21 +27,35 @@
             android:layout_marginTop="60dp"
             android:visibility="gone" />
 
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal|bottom"
+            android:orientation="vertical"
+            android:padding="10dp">
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="100dp"
             android:gravity="center_horizontal|bottom"
-            android:text="@string/tune_the_sound_detection"
+            android:text="@string/keep_watch"
             android:textColor="@color/colorAccent"
             android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal|bottom"
+            android:text="@string/camera_sensitivity_tip"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp"
             android:textStyle="bold" />
 
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal|bottom"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="10dp">
 
@@ -63,6 +77,7 @@
                 android:min="2000"
                 />
 
+        </LinearLayout>
         </LinearLayout>
     </FrameLayout>
 </android.support.design.widget.CoordinatorLayout>
