@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 
+import org.havenapp.main.R;
 import org.havenapp.main.model.Event;
 import org.havenapp.main.model.EventTrigger;
 
@@ -152,7 +153,7 @@ public class WebServer extends NanoHTTPD {
 
         page.append("<form action=\"/\" method=\"post\">" +
                 "  <div class=\"container\">\n" +
-                "    <label><b>Password</b></label>\n" +
+                "    <label><b>" + mContext.getString(R.string.password) + "</b></label>\n" +
                 "    <input type=\"password\" placeholder=\"Enter Password\" name=\"p\" required>\n" +
                 "\n" +
                 "    <button type=\"submit\">Login</button>\n" +
