@@ -72,11 +72,11 @@
                 android:id="@+id/event_action_share"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_share_black_18dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:visibility="gone"
-                />
+                android:tint="@android:color/black"
+                app:srcCompat="@drawable/ic_share" />
         </RelativeLayout>
 
     </LinearLayout>

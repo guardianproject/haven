@@ -23,8 +23,8 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -42,7 +42,7 @@ import java.io.IOException;
 
 import static org.havenapp.main.Utils.getTimerText;
 
-public class MonitorActivity extends FragmentActivity implements TimePickerDialog.OnTimeSetListener {
+public class MonitorActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
 	
     private PreferenceManager preferences = null;
 
