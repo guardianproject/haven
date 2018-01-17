@@ -76,6 +76,8 @@ public class PreferenceManager {
 
     private static final String FIRST_LAUNCH = "first_launch";
 
+    public static final String NOTIFICATION_TIME = "notification_time";
+
 
     private Context context;
 	
@@ -304,12 +306,21 @@ public class PreferenceManager {
 
     public String getAudioPath ()
     {
-        return "/phoneypot";
-
+        return "/phoneypot"; //phoneypot is the old code name for Haven
     }
 
     public int getAudioLength ()
     {
         return 15000; //30 seconds
     }
+
+    public int getNotificationTimeMs () {
+        return appSharedPrefs.getInt(NOTIFICATION_TIME,-1); //time in minutes times by seconds
+    }
+
+    public void setNotificationTimeMs (int notificationTimeMs) {
+        prefsEditor.putInt(NOTIFICATION_TIME,notificationTimeMs);
+        prefsEditor.commit();
+    }
+
 }

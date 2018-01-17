@@ -109,6 +109,11 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             findPreference(PreferenceManager.REGISTER_SIGNAL).setSummary(R.string.register_signal_desc);
         }
 
+        if (preferences.getNotificationTimeMs()>0)
+        {
+            findPreference(PreferenceManager.NOTIFICATION_TIME).setSummary(preferences.getNotificationTimeMs()/60000 + " " + getString(R.string.minutes));
+        }
+
         Preference prefCameraSensitivity = findPreference(PreferenceManager.CAMERA_SENSITIVITY);
         prefCameraSensitivity.setOnPreferenceClickListener(preference -> {
             startActivity(new Intent(mActivity, CameraConfigureActivity.class));
@@ -286,6 +291,21 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                     askForPermission(Manifest.permission.READ_PHONE_STATE, 6);
                 }
                 setPhoneNumber();
+                break;
+            case PreferenceManager.NOTIFICATION_TIME:
+                try
+                {
+                    String text = ((EditTextPreference)findPreference(PreferenceManager.NOTIFICATION_TIME)).getText();
+                    int notificationTimeMs = Integer.parseInt(text)*60000;
+                    preferences.setNotificationTimeMs(notificationTimeMs);
+                    findPreference(PreferenceManager.NOTIFICATION_TIME).setSummary(preferences.getNotificationTimeMs()/60000 + " " + getString(R.string.minutes));
+
+                }
+                catch (NumberFormatException ne)
+                {
+                    //error parsing user value
+                }
+
                 break;
             case PreferenceManager.REMOTE_ACCESS_ONION: {
                 String text = ((EditTextPreference) findPreference(PreferenceManager.REMOTE_ACCESS_ONION)).getText();

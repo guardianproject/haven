@@ -129,4 +129,11 @@
     <string name="label_notifications">Notifications</string>
 
     <string name="camera_sensitivity">Camera Sensitivity</string>
+
+    <string name="notification_time">Notification Time Interval</string>
+    <string name="notification_time_summary">Only send notifications at configured interval</string>
+    <string name="notification_time_dialog">Enter time (minutes) to limit notifications. \'0\' to send every notification.</string>
+    <string name="minutes">minutes(s)</string>
+
+
 </resources>

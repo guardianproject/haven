@@ -75,10 +75,16 @@ public class MonitorService extends Service {
     private AmbientLightMonitor mLightMonitor = null;
 
     private boolean mIsRunning = false;
+
     /**
      * Last Event instances
      */
     private Event mLastEvent;
+
+    /**
+     * Last sent notification time
+     */
+    private Date mLastNotification;
 
         /**
 	 * Handler for incoming messages
@@ -257,14 +263,17 @@ public class MonitorService extends Service {
     public synchronized void alert(int alertType, String path) {
 
         Date now = new Date();
-        boolean isNewEvent = false;
+        boolean doNotification = false;
 
-        if (mLastEvent == null || (!mLastEvent.insideEventWindow(now)))
-        {
+        if (mLastEvent == null) {
             mLastEvent = new Event();
             mLastEvent.save();
-
-            isNewEvent = true;
+            doNotification = true;
+        }
+        else
+        {
+            //check if time window is within configured notification time window
+            doNotification = !((now.getTime()-mLastNotification.getTime())<mPrefs.getNotificationTimeMs());
         }
 
         EventTrigger eventTrigger = new EventTrigger();
@@ -276,48 +285,45 @@ public class MonitorService extends Service {
         //we don't need to resave the event, only the trigger
         eventTrigger.save();
 
-        /*
-         * If SMS mode is on we send an SMS or Signal alert to the specified
-         * number
-         */
-        StringBuilder alertMessage = new StringBuilder();
-        alertMessage.append(getString(R.string.intrusion_detected,eventTrigger.getStringType(this)));
+        if (doNotification) {
 
-        if (mPrefs.getSignalUsername() != null)
-        {
-            //since this is a secure channel, we can add the Onion address
-            if (mPrefs.getRemoteAccessActive() && (!TextUtils.isEmpty(mPrefs.getRemoteAccessOnion())))
-            {
-                alertMessage.append(" http://").append(mPrefs.getRemoteAccessOnion())
-                        .append(':').append(WebServer.LOCAL_PORT);
+            mLastNotification = new Date();
+            /*
+             * If SMS mode is on we send an SMS or Signal alert to the specified
+             * number
+             */
+            StringBuilder alertMessage = new StringBuilder();
+            alertMessage.append(getString(R.string.intrusion_detected, eventTrigger.getStringType(this)));
+
+            if (mPrefs.getSignalUsername() != null) {
+                //since this is a secure channel, we can add the Onion address
+                if (mPrefs.getRemoteAccessActive() && (!TextUtils.isEmpty(mPrefs.getRemoteAccessOnion()))) {
+                    alertMessage.append(" http://").append(mPrefs.getRemoteAccessOnion())
+                            .append(':').append(WebServer.LOCAL_PORT);
+                }
+
+                SignalSender sender = SignalSender.getInstance(this, mPrefs.getSignalUsername());
+                ArrayList<String> recips = new ArrayList<>();
+                StringTokenizer st = new StringTokenizer(mPrefs.getSmsNumber(), ",");
+                while (st.hasMoreTokens())
+                    recips.add(st.nextToken());
+
+                String attachment = null;
+                if (eventTrigger.getType() == EventTrigger.CAMERA) {
+                    attachment = eventTrigger.getPath();
+                } else if (eventTrigger.getType() == EventTrigger.MICROPHONE) {
+                    attachment = eventTrigger.getPath();
+                }
+
+                sender.sendMessage(recips, alertMessage.toString(), attachment);
+            } else if (mPrefs.getSmsActivation()) {
+                SmsManager manager = SmsManager.getDefault();
+
+                StringTokenizer st = new StringTokenizer(mPrefs.getSmsNumber(), ",");
+                while (st.hasMoreTokens())
+                    manager.sendTextMessage(st.nextToken(), null, alertMessage.toString(), null, null);
+
             }
-
-            SignalSender sender = SignalSender.getInstance(this,mPrefs.getSignalUsername());
-            ArrayList<String> recips = new ArrayList<>();
-            StringTokenizer st = new StringTokenizer(mPrefs.getSmsNumber(),",");
-            while (st.hasMoreTokens())
-                recips.add(st.nextToken());
-
-            String attachment = null;
-            if (eventTrigger.getType() == EventTrigger.CAMERA)
-            {
-                attachment = eventTrigger.getPath();
-            }
-            else if (eventTrigger.getType() == EventTrigger.MICROPHONE)
-            {
-                attachment = eventTrigger.getPath();
-            }
-
-            sender.sendMessage(recips,alertMessage.toString(), attachment);
-        }
-        else if (mPrefs.getSmsActivation() && isNewEvent)
-        {
-            SmsManager manager = SmsManager.getDefault();
-
-            StringTokenizer st = new StringTokenizer(mPrefs.getSmsNumber(),",");
-            while (st.hasMoreTokens())
-                manager.sendTextMessage(st.nextToken(), null, alertMessage.toString(), null, null);
-
         }
 
     }
