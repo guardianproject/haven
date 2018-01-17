@@ -46,8 +46,9 @@ public class PPAppIntro extends AppIntro {
         cs2.showButton(getString(R.string.action_configure), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(PPAppIntro.this,MicrophoneConfigureActivity.class));
                 startActivity(new Intent(PPAppIntro.this,AccelConfigureActivity.class));
+                startActivity(new Intent(PPAppIntro.this,MicrophoneConfigureActivity.class));
+                startActivity(new Intent(PPAppIntro.this,CameraConfigureActivity.class));
 
             }
         });
