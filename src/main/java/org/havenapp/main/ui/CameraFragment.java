@@ -28,8 +28,6 @@ import org.havenapp.main.sensors.motion.Preview;
 public final class CameraFragment extends Fragment {
 
     private Preview preview;
-
-//    private ImageView oldImage;
     private ImageView newImage;
 
     @Override
@@ -38,6 +36,11 @@ public final class CameraFragment extends Fragment {
 
         return inflater.inflate(R.layout.camera_fragment, container, false);
 
+    }
+
+    public void setMotionSensitivity (int threshold)
+    {
+        preview.setMotionSensitivity(threshold);
     }
 
     @Override
@@ -70,7 +73,7 @@ public final class CameraFragment extends Fragment {
 
             PreferenceManager prefs = new PreferenceManager(getActivity());
 
-            if (!prefs.getCameraSensitivity().equals(PreferenceManager.OFF)) {
+            if (prefs.getCameraActivation()) {
                 //Uncomment to see the camera
                 preview = new Preview(getActivity());
 

@@ -106,6 +106,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 	private SurfaceHolder mHolder;
 	private Camera camera;
 	private Context context;
+	private MotionAsyncTask task;
 
 	public Preview (Context context) {
 		super(context);
@@ -116,23 +117,12 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 		mHolder.addCallback(this);
 		prefs = new PreferenceManager(context);
 		
-		/*
-		 * Set sensitivity value
-		 */
-		switch (prefs.getCameraSensitivity()) {
-			case "Medium":
-				motionSensitivity = LuminanceMotionDetector.MOTION_MEDIUM;
-				Log.i("CameraFragment", "Sensitivity set to Medium");
-				break;
-			case "Low":
-				motionSensitivity = LuminanceMotionDetector.MOTION_LOW;
-				Log.i("CameraFragment", "Sensitivity set to Low");
-				break;
-			default:
-				motionSensitivity = LuminanceMotionDetector.MOTION_HIGH;
-				Log.i("CameraFragment", "Sensitivity set to High");
-				break;
-		}
+		motionSensitivity = prefs.getCameraSensitivity();
+	}
+
+	public void setMotionSensitivity (int motionSensitivity)
+	{
+		this.motionSensitivity = motionSensitivity;
 	}
 	
 	public void addListener(MotionAsyncTask.MotionListener listener) {
@@ -257,7 +247,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 
 							Log.i("Preview", "Processing new image");
 							Preview.this.lastTimestamp = now;
-							MotionAsyncTask task = new MotionAsyncTask(
+							task = new MotionAsyncTask(
 									lastPic,
 									data,
 									size.width,

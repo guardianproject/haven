@@ -24,6 +24,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
+import org.havenapp.main.sensors.motion.LuminanceMotionDetector;
+
 
 public class PreferenceManager {
 	
@@ -45,7 +47,7 @@ public class PreferenceManager {
     private static final String ACCELEROMETER_SENSITIVITY="accelerometer_sensibility";
     private static final String CAMERA_ACTIVE="camera_active";
     public static final String CAMERA="camera";
-    private static final String CAMERA_SENSITIVITY="camera_sensitivity";
+    public static final String CAMERA_SENSITIVITY="camera_sensitivity";
     public static final String CONFIG_MOVEMENT ="config_movement";
     private static final String FLASH_ACTIVE="flash_active";
     private static final String MICROPHONE_ACTIVE="microphone_active";
@@ -167,13 +169,13 @@ public class PreferenceManager {
     	return appSharedPrefs.getString(CAMERA, FRONT);
     }
     
-    public void setCameraSensitivity(String sensitivity) {
-    	prefsEditor.putString(CAMERA_SENSITIVITY, sensitivity);
+    public void setCameraSensitivity(int sensitivity) {
+    	prefsEditor.putInt(CAMERA_SENSITIVITY, sensitivity);
     	prefsEditor.commit();
     }
     
-    public String getCameraSensitivity() {
-    	return appSharedPrefs.getString(CAMERA_SENSITIVITY, HIGH);
+    public int getCameraSensitivity() {
+    	return appSharedPrefs.getInt(CAMERA_SENSITIVITY, LuminanceMotionDetector.MOTION_MEDIUM);
     }
     
     public void activateFlash(boolean active) {

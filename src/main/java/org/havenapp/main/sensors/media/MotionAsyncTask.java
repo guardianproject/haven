@@ -49,6 +49,8 @@ public class MotionAsyncTask extends Thread {
 	private Bitmap newBitmap;
 	private Bitmap rawBitmap;
 	private boolean hasChanged;
+
+	private IMotionDetector detector;
 	
 	public interface MotionListener {
 		public void onProcess(Bitmap oldBitmap,
@@ -77,6 +79,12 @@ public class MotionAsyncTask extends Thread {
 		
 	}
 
+	public void setMotionSensitivity (int motionSensitivity)
+	{
+		this.motionSensitivity = motionSensitivity;
+		detector.setThreshold(motionSensitivity);
+	}
+
 	@Override
 	public void run() {
 		int[] newPicLuma = ImageCodec.N21toLuma(rawNewPic, width, height);
@@ -85,7 +93,7 @@ public class MotionAsyncTask extends Thread {
 			lastBitmap = newBitmap;
 		} else {
 		    int[] oldPicLuma = ImageCodec.N21toLuma(rawOldPic, width, height);
-			IMotionDetector detector = new LuminanceMotionDetector();
+			detector = new LuminanceMotionDetector();
 			detector.setThreshold(motionSensitivity);
 			List<Integer> changedPixels = 
 					detector.detectMotion(oldPicLuma, newPicLuma, width, height);
