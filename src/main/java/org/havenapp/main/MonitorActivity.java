@@ -32,6 +32,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
+
 import org.havenapp.main.service.MonitorService;
 import org.havenapp.main.ui.AccelConfigureActivity;
 import org.havenapp.main.ui.CameraFragment;
@@ -44,7 +45,7 @@ import java.io.IOException;
 import static org.havenapp.main.Utils.getTimerText;
 
 public class MonitorActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
-	
+
     private PreferenceManager preferences = null;
 
     private TextView txtTimer;
@@ -61,14 +62,32 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
 
         boolean permsNeeded = askForPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, 1);
 
-        if (!permsNeeded)
-            initLayout();
+        if (!permsNeeded) {
+
+            initSetupLayout();
+
+            if (MonitorService.getInstance() != null)
+                if (MonitorService.getInstance().isRunning())
+                    initActiveLayout();
+
+        }
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
     }
 
-    private void initLayout() {
+    private void initActiveLayout() {
+
+        ((Button) findViewById(R.id.btnStartLater)).setText(R.string.action_cancel);
+        findViewById(R.id.btnStartNow).setVisibility(View.INVISIBLE);
+        findViewById(R.id.timer_text_title).setVisibility(View.INVISIBLE);
+        txtTimer.setText(R.string.status_on);
+
+        mOnTimerTicking = false;
+        mIsMonitoring = true;
+    }
+
+    private void initSetupLayout() {
         preferences = new PreferenceManager(getApplicationContext());
         setContentView(R.layout.activity_monitor);
 
@@ -166,25 +185,24 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
         if (cTimer != null) {
             cTimer.cancel();
             cTimer = null;
+            mOnTimerTicking = false;
+        }
 
-            if (mIsMonitoring) {
-                mIsMonitoring = false;
-                stopService(new Intent(this, MonitorService.class));
-                finish();
-            } else {
-
-                findViewById(R.id.btnStartNow).setVisibility(View.VISIBLE);
-                findViewById(R.id.timer_text_title).setVisibility(View.VISIBLE);
-
-                ((Button) findViewById(R.id.btnStartLater)).setText(R.string.start_later);
-
-                int timeM = preferences.getTimerDelay() * 1000;
-                txtTimer.setText(getTimerText(timeM));
-            }
+        if (mIsMonitoring) {
+            mIsMonitoring = false;
+            stopService(new Intent(this, MonitorService.class));
+            finish();
         } else {
 
-            close();
+            findViewById(R.id.btnStartNow).setVisibility(View.VISIBLE);
+            findViewById(R.id.timer_text_title).setVisibility(View.VISIBLE);
+
+            ((Button) findViewById(R.id.btnStartLater)).setText(R.string.start_later);
+
+            int timeM = preferences.getTimerDelay() * 1000;
+            txtTimer.setText(getTimerText(timeM));
         }
+
     }
 
     private void showSettings() {
@@ -257,12 +275,6 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
      */
     private void close() {
 
-        stopService(new Intent(this, MonitorService.class));
-        if (preferences != null) {
-            preferences.unsetAccessToken();
-            preferences.unsetDelegatedAccessToken();
-            preferences.unsetPhoneId();
-        }
         finish();
 
     }
@@ -305,7 +317,7 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
                 askForPermission(Manifest.permission.CAMERA, 2);
                 break;
             case 2:
-                initLayout();
+                initSetupLayout();
                 break;
         }
 

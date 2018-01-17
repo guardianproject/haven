@@ -227,55 +227,6 @@ public class PreferenceManager {
     	return appSharedPrefs.getString(SMS_NUMBER, "");
     }
 
-    
-    public void setUnlockCode(String unlockCode) {
-    	prefsEditor.putString(UNLOCK_CODE, unlockCode);
-    	prefsEditor.commit();
-    }
-    
-    public String getUnlockCode() {
-    	return appSharedPrefs.getString(UNLOCK_CODE, "");
-    }
-
-    public void setAccessToken(String accessToken) {
-    	prefsEditor.putString(ACCESS_TOKEN, accessToken);
-    	prefsEditor.commit();
-    }
-    
-    public String getAccessToken() {
-    	return appSharedPrefs.getString(ACCESS_TOKEN, "");
-    }
-    
-    public void unsetAccessToken() {
-    	prefsEditor.remove(ACCESS_TOKEN);
-    }
-    
-    public void setDelegatedAccessToken(String deferredAccessToken) {
-    	prefsEditor.putString(DELEGATED_ACCESS_TOKEN, deferredAccessToken);
-    	prefsEditor.commit();
-    }
-    
-    public String getDelegatedAccessToken() {
-    	return appSharedPrefs.getString(DELEGATED_ACCESS_TOKEN, "");
-    }
-    
-    public void unsetDelegatedAccessToken() {
-    	prefsEditor.remove(DELEGATED_ACCESS_TOKEN);
-    }
-
-    public void setPhoneId(String phoneId) {
-    	prefsEditor.putString(PHONE_ID, phoneId);
-    	prefsEditor.commit();
-    }
-    
-    public void unsetPhoneId() {
-    	prefsEditor.remove(PHONE_ID);
-    }
-    
-    public String getPhoneId() {
-    	return appSharedPrefs.getString(PHONE_ID, "");
-    }
-
     public int getTimerDelay ()
     {
         return appSharedPrefs.getInt(TIMER_DELAY,30);
