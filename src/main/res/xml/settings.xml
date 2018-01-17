@@ -5,6 +5,12 @@
         android:key="config_delay_time"
         android:title="@string/timer_delay_label" />
 
+
+    <Preference
+        android:key="config_battery_optimizations"
+        android:title="@string/disable_battery_opt_title"
+        android:summary="@string/disable_battery_opt_summary"/>
+
     <PreferenceCategory android:title="@string/sensors">
 
         <ListPreference

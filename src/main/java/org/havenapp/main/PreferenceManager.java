@@ -78,6 +78,7 @@ public class PreferenceManager {
 
     public static final String NOTIFICATION_TIME = "notification_time";
 
+    public static final String DISABLE_BATTERY_OPT = "config_battery_optimizations";
 
     private Context context;
 	
