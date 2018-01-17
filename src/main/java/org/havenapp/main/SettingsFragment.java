@@ -28,6 +28,7 @@ import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 import org.havenapp.main.service.SignalSender;
 import org.havenapp.main.service.WebServer;
 import org.havenapp.main.ui.AccelConfigureActivity;
+import org.havenapp.main.ui.CameraConfigureActivity;
 import org.havenapp.main.ui.MicrophoneConfigureActivity;
 
 import java.io.File;
@@ -107,6 +108,12 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         } else {
             findPreference(PreferenceManager.REGISTER_SIGNAL).setSummary(R.string.register_signal_desc);
         }
+
+        Preference prefCameraSensitivity = findPreference(PreferenceManager.CAMERA_SENSITIVITY);
+        prefCameraSensitivity.setOnPreferenceClickListener(preference -> {
+            startActivity(new Intent(mActivity, CameraConfigureActivity.class));
+            return true;
+        });
 
         Preference prefConfigMovement = findPreference(PreferenceManager.CONFIG_MOVEMENT);
         prefConfigMovement.setOnPreferenceClickListener(preference -> {

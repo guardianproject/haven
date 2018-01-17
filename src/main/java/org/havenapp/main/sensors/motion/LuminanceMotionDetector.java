@@ -33,21 +33,8 @@ public class LuminanceMotionDetector implements IMotionDetector {
 	 * @param thresh sensitivity identifier
 	 */	
 	public void setThreshold(int thresh) {
-		switch(thresh) {
-		case MOTION_LOW:
-			VALUE_THRESHOLD = 60;
-			NUMBER_THRESHOLD = 20000;
-			break;
-		case MOTION_MEDIUM:
-			VALUE_THRESHOLD = 50;
-			NUMBER_THRESHOLD = 10000;
-			break;
-		case MOTION_HIGH:
-			VALUE_THRESHOLD = 20;
-			NUMBER_THRESHOLD = 2000;
-			break;
-		}
-		
+		NUMBER_THRESHOLD = thresh;
+		VALUE_THRESHOLD = thresh/1000;
 	}
 
 	/*

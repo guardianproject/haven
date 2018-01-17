@@ -38,7 +38,7 @@
         android:id="@+id/event_trigger_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/event_item"
+        tools:listitem="@layout/item_event"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <android.support.design.widget.FloatingActionButton
@@ -48,6 +48,7 @@
         android:layout_margin="@dimen/fab_margin"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@android:drawable/ic_menu_share" />
+        app:fabSize="normal"
+        app:srcCompat="@drawable/ic_share" />
 
 </android.support.design.widget.CoordinatorLayout>

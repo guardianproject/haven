@@ -283,9 +283,6 @@ public class MonitorService extends Service {
         StringBuilder alertMessage = new StringBuilder();
         alertMessage.append(getString(R.string.intrusion_detected,eventTrigger.getStringType(this)));
 
-  // removing toast, but we should have some visual feedback for testing on the monitor screen
-//        Toast.makeText(this,alertMessage.toString(),Toast.LENGTH_SHORT).show();
-
         if (mPrefs.getSignalUsername() != null)
         {
             //since this is a secure channel, we can add the Onion address

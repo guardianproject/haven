@@ -44,6 +44,11 @@
         <item name="negativeButtonText">@android:string/cancel</item>
     </style>
 
+    <style name="AppPreference.DialogPreferenceSave">
+        <item name="positiveButtonText">@string/save_number</item>
+        <item name="negativeButtonText">@android:string/cancel</item>
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

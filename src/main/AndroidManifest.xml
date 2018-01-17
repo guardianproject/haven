@@ -80,6 +80,8 @@
             android:configChanges="orientation|screenSize|keyboardHidden"/>
         <activity android:name="org.havenapp.main.ui.AccelConfigureActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"/>
+        <activity android:name="org.havenapp.main.ui.CameraConfigureActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"/>
 
         <receiver android:name="org.havenapp.main.sensors.PowerConnectionReceiver">
             <intent-filter>

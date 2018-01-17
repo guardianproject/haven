@@ -122,10 +122,11 @@
     <string name="send_message_dialog">Enter a phone number to send a test alert notification message to</string>
     <string name="send_text_message">Test notifications...</string>
     <string name="service_address">Service Address</string>
-    <string name="password">Password</string>
+    <string name="password">Password (Required)</string>
     <string name="signal_number">Signal Number (Local)</string>
     <string name="phone_number">Notification Number (Remote)</string>
     <string name="sensors">Sensors</string>
     <string name="label_notifications">Notifications</string>
 
+    <string name="camera_sensitivity">Camera Sensitivity</string>
 </resources>
