@@ -39,12 +39,12 @@
     <string name="action_settings">设置</string>
 
     <string name="intro1_title"> 欢迎使用 Haven</string>
-    <string name="intro1_desc">\"现在当人类命运的方舟，\n长久以来被风向阻挡，\n正以其人流而漂流，\n在高处发现安全的避难所...\"\n- 乔治·梅瑞迪斯</string>
+    <string name="intro1_desc">\"现在当人类命运的方舟, \n长久以来被风向阻挡, \n正以其人流而漂流, \n在高处发现安全的避难所...\"\n- 乔治·梅瑞迪斯</string>
 
-    <string name="intro2_title">Haven 旨在帮助用户监测他们的家、办公室、酒店房间以及其他私人空间，当不速之客来临之时发出警示。</string>
-    <string name="intro3_desc">利用闲置手机作为运动、声音、振动和光线探测器，侦测不速之客和入侵者。</string>
+    <string name="intro2_title">Haven 旨在帮助用户监测他们的家、办公室、酒店房间以及其他私人空间, 当不速之客来临之时发出警示. </string>
+    <string name="intro3_desc">利用闲置手机作为运动、声音、振动和光线探测器, 侦测不速之客和入侵者. </string>
 
-    <string name="intro4_desc">获取实时入侵事件通知，并提供日志以供远程或在场访问。</string>
+    <string name="intro4_desc">获取实时入侵事件通知, 并提供日志以供远程或在场访问. </string>
 
     <string name="intro5_title">你的 Haven 已经就绪</string>
     <string name="intro5_desc">任何时间你可以通过主屏幕上的 &gt; 按钮来激活 Haven</string>
@@ -68,7 +68,7 @@
 
     <string name="configure_trigger_level">滑动以更改侦测阈值</string>
     <string name="tune_the_sound_detection">制造一些噪音!</string>
-    <string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">将手机放在桌子上并且在房间里制造一些噪音，来校准至合适的噪音侦测阈值</string>
+    <string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">将手机放在桌子上并且在房间里制造一些噪音, 来校准至合适的噪音侦测阈值</string>
 
     <string name="tune_the_accel_detection">摇一摇!</string>
     <string name="tune_the_accel_detection_more">移动手机来校准至合适的运动侦测阈值</string>
@@ -80,7 +80,7 @@
    <string name="action_cancel">停止</string>
     <string name="status_on">已激活</string>
     <string name="status_charging">充电中:</string>
-    <string name="you_will_receive_a_text_when_the_app_hears_or_sees_something">当 Haven 侦测到异动的时候，您将会收到短信提示</string>
+    <string name="you_will_receive_a_text_when_the_app_hears_or_sees_something">当 Haven 侦测到异动的时候, 您将会收到短信提示</string>
     <string name="know_immediately_when_haven_detects_something">当 Haven 侦测到异动时立即通知</string>
     <string name="phone_saved">电话号码已保存!</string>
     <string name="detection_events">侦测事件</string>
@@ -98,7 +98,7 @@
     <string name="enter_verification">输入您从 Signal 收到的注册验证码</string>
     <string name="cancel">取消</string>
     <string name="register_title">注册 Signal</string>
-    <string name="register_signal_desc">请使用一个新的手机号注册 Signal 用以发送安全通知。请不要使用您当前的／主要的 Signal 号码。</string>
+    <string name="register_signal_desc">请使用一个新的手机号注册 Signal 用以发送安全通知. 请不要使用您当前的/主要的 Signal 号码. </string>
     <string name="phone_hint">+8613800138000</string>
 
      <string name="menu_licenses">许可协议...</string>
@@ -129,4 +129,15 @@
     <string name="label_notifications">通知</string>
 
     <string name="camera_sensitivity">相机敏感度</string>
+
+    <string name="notification_time">通知间隔</string>
+    <string name="notification_time_summary">仅在特定间隔后发送通知</string>
+    <string name="notification_time_dialog">输入时间 (分钟) 以限制通知, 输入 \'0\' 则会发送所有通知.</string>
+    <string name="minutes">分钟</string>
+    <string name="keep_watch">注意观察!</string>
+    <string name="camera_sensitivity_tip">选择摄像头, 滑动调整运动侦测敏感度</string>
+    <string name="disable_battery_opt_title">关闭电池优化</string>
+    <string name="disable_battery_opt_summary">允许 Haven 熄屏后保持允许</string>
+
+
 </resources>
