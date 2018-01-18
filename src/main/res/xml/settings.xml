@@ -19,7 +19,7 @@
         <SwitchPreference
             android:defaultValue="false"
             android:key="@string/video_active_preference_key"
-            android:title="@string/video_monitoring" />
+            android:title="@string/video_monitoring"/>
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/sensors">
