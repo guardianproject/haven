@@ -1,4 +1,60 @@
 
+/** 0.1.0 beta 8 build 108 / 18 January 2017 / fa3d445584fb29d4fd227c84a58274c48a5339aa **/
+
+fa3d445 update to build 108 (beta 8)
+3a438ee for #137 #211 ensure MonitorActivity state is in sync with MonitorService - this allows you to leave and re-exit the monitor activity with bg service still running - this should also improve cases where activity crases but monitoservice is still live
+e206c56 show the localized "password" in web interface
+ded33f2 for #162, implement pause/resume handling of camera preview
+a58f7ed more on #111 to keep screen on, to keep camera active
+d3ef157 if running, don't update string with timer message
+a8ef1cc work on #111 disable battery opt to allow full background mode
+c7d694b update localizations from transifex
+2373f2a add camera sensitivity config to onboarding
+985f14e update camera sensitivty config UI
+e54a6ee for #213 re-implemented time windows for notifications
+47395d9 initial work on camera sensitivity config #146 #85 #212
+52f9627 require a password for the web server
+72b03f4 Merge branch 'mig5-192_use_Save_message_for_remote_number'
+0d1fc97 Merge branch '192_use_Save_message_for_remote_number' of https://github.com/mig5/haven into mig5-192_use_Save_message_for_remote_number
+ee6aade Merge branch 'christxph-ck/ui-improvements'
+e49a3ee Merge branch 'ck/ui-improvements' of https://github.com/christxph/haven into christxph-ck/ui-improvements
+69e7fc6 Merge branch 'percy-g2-bug-fix'
+ee0f2fe Darken overlay by 5%
+7fb8940 Add Toolbar back button in EventActivity
+e84ccc6 Add semi-transparent overlay to camera preview to improve text/icon readability
+07b8940 Replace png icons with VectorDrawables
+6e24045 Force transparent background because API<=16 defaults to a black one
+53d0418 Fix camera images can be upside down from rare camera.
+1baf43d Merge pull request #4 from guardianproject/master
+913b893 Merge branch 'percy-g2-settings-p2'
+e7fa68e Merge branch 'settings-p2' of https://github.com/percy-g2/haven into percy-g2-settings-p2
+9e1ef72 Merge branch 'percy-g2-settings-p1'
+d3ff765 don't require touchscreens (support chromebooks, RPi's, TVs)
+0071417 Merge branch 'settings-p1' of https://github.com/percy-g2/haven into percy-g2-settings-p1
+f166f34 fix marking of not required features to support tablets
+78d6196 Merge branch 'fat-tire-misc_small_fixes'
+e21f837 re-enable password masking
+81db4fb Merge branch 'misc_small_fixes' of https://github.com/fat-tire/haven into fat-tire-misc_small_fixes
+111e9e7 Merge pull request #204 from fat-tire/hide_password
+a1b9105 Don't show passwords on screen
+54da36d Lint:  Misc fixes (see below)  Still not a big cleanup but little bits
+df07c6d Merge pull request #199 from WangQiru/master
+4dd82c3 Minor change
+f522de6 Merge pull request #3 from guardianproject/master
+ec13b57 Updated Chinese translation
+79b5293 adding in code of conduct into the project
+968a5e6 Merge pull request #191 from kushaldas/fpf
+d9c5281 Merge pull request #196 from FREEWING-JP/japanese-translation
+6a1fb24 Merge pull request #197 from FREEWING-JP/fix_hard_coded_string
+bd0ef70 Fix Hard coded string
+32904c8 Update Japanese translation
+4c08a2a Use 'Save Number' dialog for Remote Signal number rather than Register
+3d9daaf Fixes the abbreviation of FPF
+6e658a8 The summary with string formatting marker.
+1fa9dfa Address https://github.com/guardianproject/haven/issues/187
+b654559 Merge pull request #2 from guardianproject/master
+
+
 /** 0.1.0 beta 7 build 107 / 2 January 2017 / 615265bec5d50f8fe8eb829a20f6cadd77a8c869 **/
 
 615265b update to build 107

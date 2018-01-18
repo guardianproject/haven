@@ -123,7 +123,7 @@
     <string name="send_message_dialog">Enter a phone number to send a test alert notification message to</string>
     <string name="send_text_message">Test notifications...</string>
     <string name="service_address">Service Address</string>
-    <string name="password">Password</string>
+    <string name="password">Password (Required)</string>
     <string name="signal_number">Signal Number (Local)</string>
     <string name="phone_number">Notification Number (Remote)</string>
     <string name="sensors">Sensors</string>
@@ -132,5 +132,17 @@
     <string name="config_video_length_label">Set Video Monitoring Length</string>
     <string name="video_monitoring">Video Monitoring</string>
     <string name="video_settings">Video Settings</string>
+
+    <string name="camera_sensitivity">Camera Sensitivity</string>
+
+    <string name="notification_time">Notification Time Interval</string>
+    <string name="notification_time_summary">Only send notifications at configured interval</string>
+    <string name="notification_time_dialog">Enter time (minutes) to limit notifications. \'0\' to send every notification.</string>
+    <string name="minutes">minutes(s)</string>
+    <string name="keep_watch">Keep Watch!</string>
+    <string name="camera_sensitivity_tip">Select camera and use the slider to adjust motion detection sensitivity</string>
+    <string name="disable_battery_opt_title">Disable Battery Optimizations</string>
+    <string name="disable_battery_opt_summary">Allow app to run when screen is off</string>
+
 
 </resources>

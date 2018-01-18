@@ -34,6 +34,7 @@ import android.view.WindowManager;
 
 import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.model.EventTrigger;
+import org.havenapp.main.sensors.media.ImageCodec;
 import org.havenapp.main.sensors.media.MediaRecorderTask;
 import org.havenapp.main.sensors.media.MotionAsyncTask;
 import org.havenapp.main.service.MonitorService;
@@ -106,43 +107,35 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
     };
 
 
-    private SurfaceHolder mHolder;
-    private Camera camera;
-    private Context context;
+	private SurfaceHolder mHolder;
+	private Camera camera;
+	private Context context;
+	private MotionAsyncTask task;
     private String videoFile;
 
-    public Preview(Context context) {
-        super(context);
-        this.context = context;
-        // Install a SurfaceHolder.Callback so we get notified when the
-        // underlying surface is created and destroyed.
-        mHolder = getHolder();
-        mHolder.addCallback(this);
-        prefs = new PreferenceManager(context);
+	public Preview (Context context) {
+		super(context);
+		this.context = context;
+		// Install a SurfaceHolder.Callback so we get notified when the
+		// underlying surface is created and destroyed.
+		mHolder = getHolder();
+		mHolder.addCallback(this);
+		prefs = new PreferenceManager(context);
+		
+		motionSensitivity =prefs.getCameraSensitivity();
+			}
 
-		/*
-         * Set sensitivity value
-		 */
-        switch (prefs.getCameraSensitivity()) {
-            case "Medium":
-                motionSensitivity = LuminanceMotionDetector.MOTION_MEDIUM;
-                Log.i("CameraFragment", "Sensitivity set to Medium");
-                break;
-            case "Low":
-                motionSensitivity = LuminanceMotionDetector.MOTION_LOW;
-                Log.i("CameraFragment", "Sensitivity set to Low");
-                break;
-            default:
-                motionSensitivity = LuminanceMotionDetector.MOTION_HIGH;
-                Log.i("CameraFragment", "Sensitivity set to High");
-                break;
-        }
-    }
-
-    public void addListener(MotionAsyncTask.MotionListener listener) {
-        listeners.add(listener);
-    }
-
+				public void setMotionSensitivity (int
+				motionSensitivity )
+				{
+				this.
+				motionSensitivity = motionSensitivity;
+	}
+	
+	public void addListener(MotionAsyncTask.MotionListener listener) {
+		listeners.add(listener);
+	}
+	
 
     /**
      * Called on the creation of the surface:
@@ -258,21 +251,21 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
                         if (!doingProcessing) {
 
 
-                            Log.i("Preview", "Processing new image");
-                            Preview.this.lastTimestamp = now;
-                            MotionAsyncTask task = new MotionAsyncTask(
-                                    lastPic,
-                                    data,
-                                    size.width,
-                                    size.height,
-                                    updateHandler,
-                                    motionSensitivity);
-                            for (MotionAsyncTask.MotionListener listener : listeners) {
-                                Log.i("Preview", "Added listener");
-                                task.addListener(listener);
-                            }
-                            doingProcessing = true;
-                            task.addListener(new MotionAsyncTask.MotionListener() {
+							Log.i("Preview", "Processing new image");
+							Preview.this.lastTimestamp = now;
+							 task = new MotionAsyncTask(
+									lastPic,
+									data,
+									size.width,
+									size.height,
+									updateHandler,
+									motionSensitivity);
+							for (MotionAsyncTask.MotionListener listener : listeners) {
+								Log.i("Preview", "Added listener");
+								task.addListener(listener);
+							}
+							doingProcessing = true;
+							task.addListener(new MotionAsyncTask.MotionListener() {
 
                                 public void onProcess(Bitmap oldBitmap, Bitmap newBitmap,
                                                       Bitmap rawBitmap,
@@ -292,21 +285,25 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 
                                                 String ts = new Date().getTime() + ".jpg";
 
-                                                File fileImage = new File(fileImageDir, "detected.original." + ts);
-                                                FileOutputStream stream = new FileOutputStream(fileImage);
-                                                rawBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                                                stream.flush();
-                                                stream.close();
-                                                message.getData().putString("path", fileImage.getAbsolutePath());
-                                                if (!doingVideoProcessing && prefs.getVideoMonitoringActive()) {
+												File fileImage = new File(fileImageDir, "detected.original." + ts);
+												FileOutputStream stream = new FileOutputStream(fileImage);
+												if (prefs.getCamera().equalsIgnoreCase(PreferenceManager.BACK)) {
+													Bitmap bmps = ImageCodec.rotate(rawBitmap, 180, false);
+													bmps.compress(Bitmap.CompressFormat.JPEG, 100, stream);} else {
+													rawBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+												}
+												stream.flush();
+												stream.close();
+												message.getData().putString("path", fileImage.getAbsolutePath());
+if (!doingVideoProcessing && prefs.getVideoMonitoringActive()) {
                                                     record(camera, serviceMessenger);
                                                 }
-                                                /**
-                                                 fileImage = new File(fileImageDir, "detected.match." + ts);
-                                                 stream = new FileOutputStream(fileImage);
-                                                 oldBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                                                 stream.flush();
-                                                 stream.close();
+												/**
+												fileImage = new File(fileImageDir, "detected.match." + ts);
+												stream = new FileOutputStream(fileImage);
+												oldBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+												stream.flush();
+												stream.close();
 
                                                  message.getData().putString("path", fileImage.getAbsolutePath());
                                                  **/

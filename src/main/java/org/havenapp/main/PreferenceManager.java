@@ -24,6 +24,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
+import org.havenapp.main.sensors.motion.LuminanceMotionDetector;
+
 
 public class PreferenceManager {
 	
@@ -45,7 +47,7 @@ public class PreferenceManager {
     private static final String ACCELEROMETER_SENSITIVITY="accelerometer_sensibility";
     private static final String CAMERA_ACTIVE="camera_active";
     public static final String CAMERA="camera";
-    private static final String CAMERA_SENSITIVITY="camera_sensitivity";
+    public static final String CAMERA_SENSITIVITY="camera_sensitivity";
     public static final String CONFIG_MOVEMENT ="config_movement";
     private static final String FLASH_ACTIVE="flash_active";
     private static final String MICROPHONE_ACTIVE="microphone_active";
@@ -76,6 +78,9 @@ public class PreferenceManager {
 
     private static final String FIRST_LAUNCH = "first_launch";
 
+    public static final String NOTIFICATION_TIME = "notification_time";
+
+    public static final String DISABLE_BATTERY_OPT = "config_battery_optimizations";
 
     private Context context;
 	
@@ -178,13 +183,13 @@ public class PreferenceManager {
     	return appSharedPrefs.getString(CAMERA, FRONT);
     }
     
-    public void setCameraSensitivity(String sensitivity) {
-    	prefsEditor.putString(CAMERA_SENSITIVITY, sensitivity);
+    public void setCameraSensitivity(int sensitivity) {
+    	prefsEditor.putInt(CAMERA_SENSITIVITY, sensitivity);
     	prefsEditor.commit();
     }
     
-    public String getCameraSensitivity() {
-    	return appSharedPrefs.getString(CAMERA_SENSITIVITY, HIGH);
+    public int getCameraSensitivity() {
+    	return appSharedPrefs.getInt(CAMERA_SENSITIVITY, LuminanceMotionDetector.MOTION_MEDIUM);
     }
     
     public void activateFlash(boolean active) {
@@ -233,55 +238,6 @@ public class PreferenceManager {
     	return appSharedPrefs.getString(SMS_NUMBER, "");
     }
 
-    
-    public void setUnlockCode(String unlockCode) {
-    	prefsEditor.putString(UNLOCK_CODE, unlockCode);
-    	prefsEditor.commit();
-    }
-    
-    public String getUnlockCode() {
-    	return appSharedPrefs.getString(UNLOCK_CODE, "");
-    }
-
-    public void setAccessToken(String accessToken) {
-    	prefsEditor.putString(ACCESS_TOKEN, accessToken);
-    	prefsEditor.commit();
-    }
-    
-    public String getAccessToken() {
-    	return appSharedPrefs.getString(ACCESS_TOKEN, "");
-    }
-    
-    public void unsetAccessToken() {
-    	prefsEditor.remove(ACCESS_TOKEN);
-    }
-    
-    public void setDelegatedAccessToken(String deferredAccessToken) {
-    	prefsEditor.putString(DELEGATED_ACCESS_TOKEN, deferredAccessToken);
-    	prefsEditor.commit();
-    }
-    
-    public String getDelegatedAccessToken() {
-    	return appSharedPrefs.getString(DELEGATED_ACCESS_TOKEN, "");
-    }
-    
-    public void unsetDelegatedAccessToken() {
-    	prefsEditor.remove(DELEGATED_ACCESS_TOKEN);
-    }
-
-    public void setPhoneId(String phoneId) {
-    	prefsEditor.putString(PHONE_ID, phoneId);
-    	prefsEditor.commit();
-    }
-    
-    public void unsetPhoneId() {
-    	prefsEditor.remove(PHONE_ID);
-    }
-    
-    public String getPhoneId() {
-    	return appSharedPrefs.getString(PHONE_ID, "");
-    }
-
     public int getTimerDelay ()
     {
         return appSharedPrefs.getInt(TIMER_DELAY,30);
@@ -324,12 +280,21 @@ public class PreferenceManager {
 
     public String getAudioPath ()
     {
-        return "/phoneypot";
-
+        return "/phoneypot"; //phoneypot is the old code name for Haven
     }
 
     public int getAudioLength ()
     {
         return 15000; //30 seconds
     }
+
+    public int getNotificationTimeMs () {
+        return appSharedPrefs.getInt(NOTIFICATION_TIME,-1); //time in minutes times by seconds
+    }
+
+    public void setNotificationTimeMs (int notificationTimeMs) {
+        prefsEditor.putInt(NOTIFICATION_TIME,notificationTimeMs);
+        prefsEditor.commit();
+    }
+
 }

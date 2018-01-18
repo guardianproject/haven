@@ -1,8 +1,6 @@
 <resources>
-    <string name="menu_start">Запуск</string>
-    <string name="menu_stop">Остановить</string>
+
     <string name="menu_save">Сохранить</string>
-    <string name="menu_remote_access">Удалённый доступ</string>
     <string name="menu_about">Настроить...</string>
 
     <string name="title_activity_start">Haven</string>
@@ -15,24 +13,8 @@
     	Чувствительность к звукам
     </string>
 
-    <string name="camera_sensitivity">
-    	Чувствительность движения камеры
-    </string>
-
     <string name="timer_delay_label">
     	Установка времени задержки
-    </string>
-
-    <string name="microphone_label">
-    	Использовать микрофон для обнаружения звука
-    </string>
-
-    <string name="camera_label">
-    	Выбрать камеру
-    </string>
-
-    <string name="flash_label">
-    	Активировать вспышку
     </string>
 
     <string name="sms_label">
@@ -43,34 +25,11 @@
     	+79125551212
     </string>
 
-    <string name="unlock_code_hint">
-    	Код для остановки приложения
-    </string>
-
-    <string name="start_button">
-    	Запуск
-    </string>
-
     <string name="camera_prompt">
     	Выбрать камеру
     </string>
 
-    <array name="select_sensitivity">
-        <item>Низкая</item>
-        <item>Средняя</item>
-        <item>Высокая</item>
-        <item>Отключить</item>
-    </array>
-
-    <array name="select_camera">
-        <item>Передняя</item>
-        <item>Задняя</item>
-        <item>Отключить</item>
-    </array>
-
     <string name="secure_service_started">Haven включен</string>
-
-    <string name="secure_service_stopped">Haven отключен</string>
 
     <string name="intrusion_detected">Haven заметил срабатывание датчика (Тип: %s)</string>
     <string name="title_activity_event">Активное событие</string>
@@ -78,15 +37,19 @@
     <string name="action_settings">Настройки</string>
 
     <string name="intro1_title">Добро пожаловать в Haven</string>
+    <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the heights to find...\"\n-George Meredith</string>
+
     <string name="intro2_title">Haven предназначен для людей, которые хотят следить за проникновением в свой дом, офис, гостиничный номер или другое личное пространство</string>
     <string name="intro3_desc">Превратите дополнительный телефон в детектор движения, звука, вибрации и света, наблюдая за неожиданными гостями и злоумышленниками</string>
+
     <string name="intro4_desc">Получайте уведомления о проникновениях мгновенно, а также доступ к журналам удаленно или лично позже</string>
+
     <string name="intro5_title">Ваш Haven готов</string>
     <string name="intro5_desc">Активируйте приложение в любое время, используя кнопку действия &gt; на главном экране</string>
+
     <string name="onboarding_action_end">Закончить</string>
 
-    <string name="sensor_setup_info">Расположите камеру для захвата движения или установите телефон в любом месте, чтобы просто слушать звук</string>
-
+    <string name="remote_access">Удалённый доступ</string>
     <string name="remote_access_label">Включить удаленный доступ через службу Tor Onion</string>
     <string name="remote_access_hint">Адрес службы Onion от Orbot</string>
     <string name="remote_access_credential_hint">Установка удаленного пароля</string>
@@ -142,5 +105,22 @@
     <string name="sensor_camera">Движение (камера)</string>
     <string name="sensor_sound">Микрофон</string>
     <string name="sensor_power">Питание USB</string>
+    <string name="sensor_bump">Толчок (акселерометр)</string>
     <string name="sensor_unknown">Неизвестный</string>
-</resources>
+
+    <string name="settings">Настройки</string>
+    <string name="remote_access_onion_error">Для этой функции требуется наличие приложения Orbot: Tor for Android</string>
+
+    <string name="sms_dialog_summary">Номер удалённого телефона для приёма оповещений</string>
+    <string name="sms_dialog_message">Введите номер удалённого телефона, на который будут отсылаться оповещения</string>
+    <string name="signal_dialog_summary">Исходящий телефонный номер в Signal</string>
+    <string name="verification_dialog_summary">Коснитесь для верификации номера в Signal</string>
+    <string name="send_message_dialog">Введите номер, на который будет отослано тестовое сообщение</string>
+    <string name="send_text_message">Протестировать оповещения...</string>
+    <string name="service_address">Адрес службы</string>
+    <string name="signal_number">Номер в Signal (локальный)</string>
+    <string name="phone_number">Номер для оповещений (удалённый)</string>
+    <string name="sensors">Сенсоры</string>
+    <string name="label_notifications">Оповещения</string>
+
+    </resources>
