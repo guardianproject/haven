@@ -15,7 +15,7 @@ Project Team
 
 Haven was developed through a collaboration between Freedom of the
 Press Foundation and Guardian Project. Prototype funding was
-generously provided by FoPF, and donations to support continuing work
+generously provided by FPF, and donations to support continuing work
 can be contributed through their site:
 https://freedom.press/donate-support-haven-open-source-project
 

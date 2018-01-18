@@ -1,4 +1,5 @@
 <resources>
+
     <string name="menu_save">Guardar</string>
     <string name="menu_about">Configurar...</string>
 
@@ -19,6 +20,9 @@
     <string name="sms_label">
         Enviar SMS o mensaje de alerta por Signal
     </string>
+
+    <string name="sms_hint">
++12125551212</string>
 
     <string name="camera_prompt">
         Seleccionar la cámara
@@ -46,6 +50,7 @@
 
     <string name="onboarding_action_end">Terminar</string>
 
+    <string name="remote_access">Acceso remoto</string>
     <string name="remote_access_label">Habilitar acceso remoto via Tor Onion Service</string>
     <string name="remote_access_hint">Dirección del servicio Onion de Orbot</string>
     <string name="remote_access_credential_hint">Contraseña</string>
@@ -58,7 +63,7 @@
     <string name="main_screen_title">Inicio de Sesión Haven</string>
 
     <string name="current_noise_base">Niveles de sonido actuales</string>
-    <string name="current_accel_base">Nivel de movimiento acutal</string>
+    <string name="current_accel_base">Nivel de movimiento actual</string>
 
     <string name="configure_trigger_level">Desliza la barra para cambiar el nivel de detección</string>
     <string name="tune_the_sound_detection">Haz ruido!</string>
@@ -84,7 +89,7 @@
     <string name="data_pressure">Presión</string>
     <string name="data_power">Cargando</string>
     <string name="share_event_action">Compartir evento</string>
-        <string name="signal_test_message">Mensaje de texto de Haven</string>
+    <string name="signal_test_message">Mensaje de texto de Haven</string>
     <string name="send_test_message">Enviar mensaje de texto</string>
     <string name="verify">Verificar</string>
     <string name="register">Registro</string>
@@ -94,6 +99,7 @@
     <string name="cancel">Cancelar</string>
     <string name="register_title">Registrarse con Signal</string>
     <string name="register_signal_desc">Registra un número de teléfono nuevo (+12125551212) con Signal para enviar notificaciones seguras. NO USES TU NÚMERO PRINCIPAL DE SIGNAL.</string>
+    <string name="phone_hint">+12125551212</string>
 
     <string name="menu_licenses">Licencias...</string>
     <string name="sensor_light">Luz ambiental</string>
@@ -101,5 +107,11 @@
     <string name="sensor_camera">Movimiento (Cámara)</string>
     <string name="sensor_sound">Micrófono</string>
     <string name="sensor_power">Alimentación USB</string>
+    <string name="sensor_bump">Bump (Acelerómetro)</string>
     <string name="sensor_unknown">Desconocido</string>
-</resources>
+
+    <string name="settings">Configuraciòn</string>
+    <string name="remote_access_onion_error">Esta función requiere Orbot instalado: La aplicación de Tor para dispositivos Android.</string>
+
+    <string name="sms_dialog_summary">Numero de telefono remoto para enviar mensajes de notificaciones</string>
+    </resources>

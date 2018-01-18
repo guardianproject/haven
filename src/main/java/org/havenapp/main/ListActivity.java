@@ -63,7 +63,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 
-
 public class ListActivity extends AppCompatActivity {
 
 
@@ -134,7 +133,7 @@ public class ListActivity extends AppCompatActivity {
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
 
-            Drawable drawable = ContextCompat.getDrawable(this, R.drawable.ic_play_arrow_white_24dp);
+            Drawable drawable = ContextCompat.getDrawable(this, R.drawable.ic_play_arrow);
             drawable = DrawableCompat.wrap(drawable);
             DrawableCompat.setTint(drawable, Color.WHITE);
             DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_IN);

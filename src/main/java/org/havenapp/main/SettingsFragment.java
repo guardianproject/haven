@@ -6,36 +6,37 @@ package org.havenapp.main;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.PowerManager;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.preference.EditTextPreference;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
-import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.SwitchPreferenceCompat;
-import android.telephony.SmsManager;
 import android.text.TextUtils;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompat;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import org.havenapp.main.service.SignalSender;
 import org.havenapp.main.service.WebServer;
 import org.havenapp.main.ui.AccelConfigureActivity;
+import org.havenapp.main.ui.CameraConfigureActivity;
 import org.havenapp.main.ui.MicrophoneConfigureActivity;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
 
 import info.guardianproject.netcipher.proxy.OrbotHelper;
 
@@ -46,7 +47,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     private Activity mActivity;
 
     @Override
-    public void onCreatePreferences(Bundle bundle, String s) {
+    public void onCreatePreferencesFix(Bundle bundle, String s) {
         addPreferencesFromResource(R.xml.settings);
         mActivity = getActivity();
         preferences = new PreferenceManager(mActivity);
@@ -66,15 +67,12 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             switch (camera) {
                 case PreferenceManager.FRONT:
                     ((ListPreference) findPreference(PreferenceManager.CAMERA)).setValueIndex(0);
-                    findPreference(PreferenceManager.CAMERA).setSummary(PreferenceManager.FRONT);
                     break;
                 case PreferenceManager.BACK:
                     ((ListPreference) findPreference(PreferenceManager.CAMERA)).setValueIndex(1);
-                    findPreference(PreferenceManager.CAMERA).setSummary(PreferenceManager.BACK);
                     break;
                 case PreferenceManager.OFF:
                     ((ListPreference) findPreference(PreferenceManager.CAMERA)).setValueIndex(2);
-                    findPreference(PreferenceManager.CAMERA).setSummary(PreferenceManager.NONE);
                     break;
             }
 
@@ -104,7 +102,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
         if (checkValidString(preferences.getRemoteAccessCredential())) {
             ((EditTextPreference) findPreference(PreferenceManager.REMOTE_ACCESS_CRED)).setText(preferences.getRemoteAccessCredential().trim());
-            findPreference(PreferenceManager.REMOTE_ACCESS_CRED).setSummary(preferences.getRemoteAccessCredential().trim());
+            findPreference(PreferenceManager.REMOTE_ACCESS_CRED).setSummary(R.string.bullets);
         } else {
             findPreference(PreferenceManager.REMOTE_ACCESS_CRED).setSummary(R.string.remote_access_credential_hint);
         }
@@ -115,6 +113,17 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         } else {
             findPreference(PreferenceManager.REGISTER_SIGNAL).setSummary(R.string.register_signal_desc);
         }
+
+        if (preferences.getNotificationTimeMs()>0)
+        {
+            findPreference(PreferenceManager.NOTIFICATION_TIME).setSummary(preferences.getNotificationTimeMs()/60000 + " " + getString(R.string.minutes));
+        }
+
+        Preference prefCameraSensitivity = findPreference(PreferenceManager.CAMERA_SENSITIVITY);
+        prefCameraSensitivity.setOnPreferenceClickListener(preference -> {
+            startActivity(new Intent(mActivity, CameraConfigureActivity.class));
+            return true;
+        });
 
         Preference prefConfigMovement = findPreference(PreferenceManager.CONFIG_MOVEMENT);
         prefConfigMovement.setOnPreferenceClickListener(preference -> {
@@ -131,6 +140,12 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         Preference prefConfigTimeDelay = findPreference(PreferenceManager.CONFIG_TIME_DELAY);
         prefConfigTimeDelay.setOnPreferenceClickListener(preference -> {
             showTimeDelayDialog();
+            return true;
+        });
+
+        Preference prefDisableBatteryOpt = findPreference(PreferenceManager.DISABLE_BATTERY_OPT);
+        prefDisableBatteryOpt.setOnPreferenceClickListener(preference -> {
+            requestChangeBatteryOptimizations();
             return true;
         });
 
@@ -228,75 +243,102 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (PreferenceManager.CAMERA.equals(key)) {
-            switch (Integer.parseInt(((ListPreference) findPreference(PreferenceManager.CAMERA)).getValue())) {
-                case 0:
-                    preferences.setCamera(PreferenceManager.FRONT);
-                    findPreference(PreferenceManager.CAMERA).setSummary(PreferenceManager.FRONT);
-                    break;
-                case 1:
-                    preferences.setCamera(PreferenceManager.BACK);
-                    findPreference(PreferenceManager.CAMERA).setSummary(PreferenceManager.BACK);
-                    break;
-                case 2:
-                    preferences.setCamera(PreferenceManager.NONE);
-                    findPreference(PreferenceManager.CAMERA).setSummary(PreferenceManager.NONE);
-                    break;
+        switch (key) {
+            case PreferenceManager.CAMERA:
+                switch (Integer.parseInt(((ListPreference) findPreference(PreferenceManager.CAMERA)).getValue())) {
+                    case 0:
+                        preferences.setCamera(PreferenceManager.FRONT);
+                        findPreference(PreferenceManager.CAMERA).setSummary(PreferenceManager.FRONT);
+                        break;
+                    case 1:
+                        preferences.setCamera(PreferenceManager.BACK);
+                        findPreference(PreferenceManager.CAMERA).setSummary(PreferenceManager.BACK);
+                        break;
+                    case 2:
+                        preferences.setCamera(PreferenceManager.NONE);
+                        findPreference(PreferenceManager.CAMERA).setSummary(PreferenceManager.NONE);
+                        break;
 
-            }
-        } else if (PreferenceManager.SMS_ACTIVE.equals(key)) {
+                }
+                break;
+            case PreferenceManager.SMS_ACTIVE:
 
-            setPhoneNumber();
-        } else if (PreferenceManager.REMOTE_ACCESS_ACTIVE.equals(key)) {
-            boolean remoteAccessActive = ((SwitchPreferenceCompat) findPreference(PreferenceManager.REMOTE_ACCESS_ACTIVE)).isChecked();
-            if (remoteAccessActive) {
-                checkRemoteAccessOnion();
-                app.startServer();
-            } else {
-                app.stopServer();
-            }
-        } else if (PreferenceManager.REGISTER_SIGNAL.equals(key)) {
-            String signalNum = ((EditTextPreference) findPreference(PreferenceManager.REGISTER_SIGNAL)).getText();
+                setPhoneNumber();
+                break;
+            case PreferenceManager.REMOTE_ACCESS_ACTIVE:
+                boolean remoteAccessActive = ((SwitchPreferenceCompat) findPreference(PreferenceManager.REMOTE_ACCESS_ACTIVE)).isChecked();
+                if (remoteAccessActive) {
+                    checkRemoteAccessOnion();
+                    app.startServer();
+                } else {
+                    app.stopServer();
+                }
+                break;
+            case PreferenceManager.REGISTER_SIGNAL:
+                String signalNum = ((EditTextPreference) findPreference(PreferenceManager.REGISTER_SIGNAL)).getText();
 
-            if (checkValidString(signalNum)) {
-                signalNum = "+" + signalNum.trim().replaceAll("[^0-9]", "");
+                if (checkValidString(signalNum)) {
+                    signalNum = "+" + signalNum.trim().replaceAll("[^0-9]", "");
 
-                preferences.setSignalUsername(signalNum);
-                findPreference(PreferenceManager.REGISTER_SIGNAL).setSummary(signalNum);
+                    preferences.setSignalUsername(signalNum);
+                    findPreference(PreferenceManager.REGISTER_SIGNAL).setSummary(signalNum);
 
-                resetSignal(preferences.getSignalUsername());
-                activateSignal(preferences.getSignalUsername(), null);
-            } else {
-                preferences.setSignalUsername("");
-                findPreference(PreferenceManager.REGISTER_SIGNAL).setSummary(R.string.register_signal_desc);
+                    resetSignal(preferences.getSignalUsername());
+                    activateSignal(preferences.getSignalUsername(), null);
+                } else {
+                    preferences.setSignalUsername("");
+                    findPreference(PreferenceManager.REGISTER_SIGNAL).setSummary(R.string.register_signal_desc);
+                }
+                break;
+            case PreferenceManager.VERIFY_SIGNAL: {
+                String text = ((EditTextPreference) findPreference(PreferenceManager.VERIFY_SIGNAL)).getText();
+                activateSignal(preferences.getSignalUsername(), text);
+                break;
             }
-        } else if (PreferenceManager.VERIFY_SIGNAL.equals(key)) {
-            String text = ((EditTextPreference) findPreference(PreferenceManager.VERIFY_SIGNAL)).getText();
-            activateSignal(preferences.getSignalUsername(), text);
-        } else if (PreferenceManager.SMS_NUMBER.equals(key)) {
-            boolean smsActive = ((SwitchPreferenceCompat) findPreference(PreferenceManager.SMS_ACTIVE)).isChecked();
-            if (smsActive && TextUtils.isEmpty(preferences.getSignalUsername())) {
-                askForPermission(Manifest.permission.SEND_SMS, 6);
-                askForPermission(Manifest.permission.READ_PHONE_STATE, 6);
+            case PreferenceManager.SMS_NUMBER:
+                boolean smsActive = ((SwitchPreferenceCompat) findPreference(PreferenceManager.SMS_ACTIVE)).isChecked();
+                if (smsActive && TextUtils.isEmpty(preferences.getSignalUsername())) {
+                    askForPermission(Manifest.permission.SEND_SMS, 6);
+                    askForPermission(Manifest.permission.READ_PHONE_STATE, 6);
+                }
+                setPhoneNumber();
+                break;
+            case PreferenceManager.NOTIFICATION_TIME:
+                try
+                {
+                    String text = ((EditTextPreference)findPreference(PreferenceManager.NOTIFICATION_TIME)).getText();
+                    int notificationTimeMs = Integer.parseInt(text)*60000;
+                    preferences.setNotificationTimeMs(notificationTimeMs);
+                    findPreference(PreferenceManager.NOTIFICATION_TIME).setSummary(preferences.getNotificationTimeMs()/60000 + " " + getString(R.string.minutes));
+
+                }
+                catch (NumberFormatException ne)
+                {
+                    //error parsing user value
+                }
+
+                break;
+            case PreferenceManager.REMOTE_ACCESS_ONION: {
+                String text = ((EditTextPreference) findPreference(PreferenceManager.REMOTE_ACCESS_ONION)).getText();
+                if (checkValidString(text)) {
+                    preferences.setRemoteAccessOnion(text.trim());
+                    findPreference(PreferenceManager.REMOTE_ACCESS_ONION).setSummary(preferences.getRemoteAccessOnion().trim() + ":" + WebServer.LOCAL_PORT);
+                } else {
+                    preferences.setRemoteAccessOnion(text);
+                    findPreference(PreferenceManager.REMOTE_ACCESS_ONION).setSummary(R.string.remote_access_hint);
+                }
+                break;
             }
-            setPhoneNumber();
-        } else if (PreferenceManager.REMOTE_ACCESS_ONION.equals(key)) {
-            String text = ((EditTextPreference) findPreference(PreferenceManager.REMOTE_ACCESS_ONION)).getText();
-            if (checkValidString(text)) {
-                preferences.setRemoteAccessOnion(text.trim());
-                findPreference(PreferenceManager.REMOTE_ACCESS_ONION).setSummary(preferences.getRemoteAccessOnion().trim() + ":" + WebServer.LOCAL_PORT);
-            } else {
-                preferences.setRemoteAccessOnion(text);
-                findPreference(PreferenceManager.REMOTE_ACCESS_ONION).setSummary(R.string.remote_access_hint);
-            }
-        } else if (PreferenceManager.REMOTE_ACCESS_CRED.equals(key)) {
-            String text = ((EditTextPreference) findPreference(PreferenceManager.REMOTE_ACCESS_CRED)).getText();
-            if (checkValidString(text)) {
-                preferences.setRemoteAccessCredential(text.trim());
-                findPreference(PreferenceManager.REMOTE_ACCESS_CRED).setSummary(preferences.getRemoteAccessCredential().trim());
-            } else {
-                preferences.setRemoteAccessCredential(text);
-                findPreference(PreferenceManager.REMOTE_ACCESS_CRED).setSummary(R.string.remote_access_credential_hint);
+            case PreferenceManager.REMOTE_ACCESS_CRED: {
+                String text = ((EditTextPreference) findPreference(PreferenceManager.REMOTE_ACCESS_CRED)).getText();
+                if (checkValidString(text)) {
+                    preferences.setRemoteAccessCredential(text.trim());
+                    findPreference(PreferenceManager.REMOTE_ACCESS_CRED).setSummary(R.string.bullets);
+                } else {
+                    preferences.setRemoteAccessCredential(text);
+                    findPreference(PreferenceManager.REMOTE_ACCESS_CRED).setSummary(R.string.remote_access_credential_hint);
+                }
+                break;
             }
         }
     }
@@ -399,5 +441,21 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
         int delaySeconds = second + minute * 60 + hourOfDay * 60 * 60;
         preferences.setTimerDelay(delaySeconds);
+    }
+
+    private void requestChangeBatteryOptimizations ()
+    {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Intent intent = new Intent();
+            String packageName = getActivity().getPackageName();
+            PowerManager pm = (PowerManager) getActivity().getSystemService(Context.POWER_SERVICE);
+            if (pm.isIgnoringBatteryOptimizations(packageName))
+                intent.setAction(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
+            else {
+                intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+                intent.setData(Uri.parse("package:" + packageName));
+            }
+            getActivity().startActivity(intent);
+        }
     }
 }

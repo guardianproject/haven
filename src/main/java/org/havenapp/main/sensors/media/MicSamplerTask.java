@@ -10,21 +10,21 @@
 package org.havenapp.main.sensors.media;
 
 
-import java.io.IOException;
-
 import android.os.AsyncTask;
 import android.util.Log;
 
+import java.io.IOException;
+
 public class MicSamplerTask extends AsyncTask<Void,Object,Void> {
-	
+
 	private MicListener listener = null;
 	private AudioCodec volumeMeter = new AudioCodec();
 	private boolean sampling = true;
 	private boolean paused = false;
-	
-	public static interface MicListener {
-		public void onSignalReceived(short[] signal);
-		public void onMicError();
+
+	public  interface MicListener {
+		 void onSignalReceived(short[] signal);
+		 void onMicError();
 	}
 	
 	public void setMicListener(MicListener listener) {

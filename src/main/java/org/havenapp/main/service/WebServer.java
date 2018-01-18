@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 
+import org.havenapp.main.R;
 import org.havenapp.main.model.Event;
 import org.havenapp.main.model.EventTrigger;
 
@@ -40,7 +41,9 @@ public class WebServer extends NanoHTTPD {
     public WebServer(Context context) throws IOException {
         super(LOCAL_HOST, LOCAL_PORT);
         mContext = context;
-        start(NanoHTTPD.SOCKET_READ_TIMEOUT, false);
+
+        if (!TextUtils.isEmpty(mPassword)) //require a password to start the server
+            start(NanoHTTPD.SOCKET_READ_TIMEOUT, false);
     }
 
     public void setPassword (String password)
@@ -58,7 +61,7 @@ public class WebServer extends NanoHTTPD {
         {
             // We have to use session.parseBody() to obtain POST data.
             // See https://github.com/NanoHttpd/nanohttpd/issues/427
-            Map<String, String> content = new HashMap<String, String>();
+            Map<String, String> content = new HashMap<>();
             Method method = session.getMethod();
             if (Method.PUT.equals(method) || Method.POST.equals(method)) try {
                 session.parseBody(content);
@@ -150,7 +153,7 @@ public class WebServer extends NanoHTTPD {
 
         page.append("<form action=\"/\" method=\"post\">" +
                 "  <div class=\"container\">\n" +
-                "    <label><b>Password</b></label>\n" +
+                "    <label><b>" + mContext.getString(R.string.password) + "</b></label>\n" +
                 "    <input type=\"password\" placeholder=\"Enter Password\" name=\"p\" required>\n" +
                 "\n" +
                 "    <button type=\"submit\">Login</button>\n" +

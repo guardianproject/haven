@@ -28,8 +28,6 @@ import org.havenapp.main.sensors.motion.Preview;
 public final class CameraFragment extends Fragment {
 
     private Preview preview;
-
-//    private ImageView oldImage;
     private ImageView newImage;
 
     @Override
@@ -40,6 +38,11 @@ public final class CameraFragment extends Fragment {
 
     }
 
+    public void setMotionSensitivity (int threshold)
+    {
+        preview.setMotionSensitivity(threshold);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +51,7 @@ public final class CameraFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
+        preview.setVisibility(View.GONE);
     }
 
     @Override
@@ -55,6 +59,7 @@ public final class CameraFragment extends Fragment {
         super.onResume();
 
         initCamera ();
+
     }
 
     public void resetCamera ()
@@ -70,7 +75,7 @@ public final class CameraFragment extends Fragment {
 
             PreferenceManager prefs = new PreferenceManager(getActivity());
 
-            if (!prefs.getCameraSensitivity().equals(PreferenceManager.OFF)) {
+            if (prefs.getCameraActivation()) {
                 //Uncomment to see the camera
                 preview = new Preview(getActivity());
 
@@ -97,6 +102,10 @@ public final class CameraFragment extends Fragment {
                     }
                 });
             }
+        }
+        else
+        {
+            preview.setVisibility(View.VISIBLE);
         }
     }
     public void onSensorChanged(SensorEvent event) {

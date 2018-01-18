@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    android:background="@color/colorPrimaryDark"
-    >
+    android:background="@color/colorPrimaryDark">
 
     <TextView
         android:id="@+id/custom_slide_big_text"
@@ -18,12 +18,13 @@
         android:textStyle="bold"
         android:textSize="28sp"/>
 
-    <EditText
+    <android.support.v7.widget.AppCompatEditText
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:textColor="@color/White"
         android:backgroundTint="@color/colorPrimaryLight"
-        android:hint="+12125551212"
+        app:backgroundTint="@color/colorPrimaryLight"
+        android:hint="@string/sms_hint"
         android:gravity="center"
         android:inputType="phone"
         android:id="@+id/editNumber"
@@ -39,7 +40,7 @@
         android:layout_marginRight="40dp"
 
         android:textStyle="bold"
-        android:textSize="16dp"/>
+        android:textSize="16sp"/>
 
     <Button
         android:layout_width="120dp"

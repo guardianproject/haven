@@ -46,12 +46,14 @@
             android:gravity="center_vertical"
             android:orientation="vertical"
             android:visibility="gone"
-            android:paddingLeft="4dp" />
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_margin_half"
+            android:paddingRight="4dp"
             android:paddingLeft="4dp">
 
         <TextView
@@ -70,11 +72,11 @@
                 android:id="@+id/event_action_share"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_share_black_18dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:visibility="gone"
-                />
+                android:tint="@android:color/black"
+                app:srcCompat="@drawable/ic_share" />
         </RelativeLayout>
 
     </LinearLayout>
