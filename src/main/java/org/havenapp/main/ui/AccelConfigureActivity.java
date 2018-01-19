@@ -91,6 +91,8 @@ public class AccelConfigureActivity extends AppCompatActivity implements SensorE
             @Override
             public void onValueChanged(int oldValue, int newValue) {
                 mWaveform.setThreshold(newValue);
+                mPrefManager.setAccelerometerSensitivity(newValue+"");
+
             }
         });
 
@@ -268,23 +270,24 @@ public class AccelConfigureActivity extends AppCompatActivity implements SensorE
 
     }
 
-    private void save ()
-    {
-        //mPrefManager.setMicrophoneSensitivity(mNumberTrigger.getValue()+"");
 
-        mPrefManager.setAccelerometerSensitivity(mNumberTrigger.getValue()+"");
-        finish();
-    }
 
 
     @Override
-    public boolean onOptionsItemSelected (MenuItem item) {
-        switch (item.getItemId()){
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case android.R.id.home:
-                save();
                 finish();
                 break;
         }
         return true;
+    }
+
+    /**
+     * When user closes the activity
+     */
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

@@ -105,20 +105,12 @@ public class CameraConfigureActivity extends AppCompatActivity {
     }
 
 
-    /**
-     * Closes the monitor activity and unset session properties
-     */
-    private void close() {
-
-        finish();
-
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                close();
+                finish();
                 break;
         }
         return true;
@@ -129,7 +121,7 @@ public class CameraConfigureActivity extends AppCompatActivity {
      */
     @Override
     public void onBackPressed() {
-        close();
+        finish();
     }
 
     @Override

@@ -60,6 +60,7 @@ public class MicrophoneConfigureActivity extends AppCompatActivity implements Mi
             @Override
             public void onValueChanged(int oldValue, int newValue) {
                 mWaveform.setThreshold(newValue);
+                mPrefManager.setMicrophoneSensitivity(newValue+"");
             }
         });
 
@@ -193,12 +194,6 @@ public class MicrophoneConfigureActivity extends AppCompatActivity implements Mi
 
     }
 
-    private void save ()
-    {
-        mPrefManager.setMicrophoneSensitivity(mNumberTrigger.getValue()+"");
-        finish();
-    }
-
     @Override
     public void onSignalReceived(short[] signal) {
         /*
@@ -247,14 +242,24 @@ public class MicrophoneConfigureActivity extends AppCompatActivity implements Mi
 
     }
 
+
+
+
     @Override
-    public boolean onOptionsItemSelected (MenuItem item) {
-        switch (item.getItemId()){
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case android.R.id.home:
-                save();
                 finish();
                 break;
         }
         return true;
+    }
+
+    /**
+     * When user closes the activity
+     */
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }
