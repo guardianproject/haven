@@ -270,10 +270,14 @@ public class MonitorService extends Service {
             mLastEvent.save();
             doNotification = true;
         }
-        else
+        else if (mPrefs.getNotificationTimeMs() > 0 && mLastNotification != null)
         {
             //check if time window is within configured notification time window
-            doNotification = !((now.getTime()-mLastNotification.getTime())<mPrefs.getNotificationTimeMs());
+            doNotification = ((now.getTime()-mLastNotification.getTime())>mPrefs.getNotificationTimeMs());
+        }
+        else
+        {
+            doNotification = true;
         }
 
         EventTrigger eventTrigger = new EventTrigger();
