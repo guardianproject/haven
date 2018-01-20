@@ -101,6 +101,14 @@ public final class CameraFragment extends Fragment {
             }
         }
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        preview.stopCamera();
+    }
+
     public void onSensorChanged(SensorEvent event) {
 
     }

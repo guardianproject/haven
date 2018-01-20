@@ -57,6 +57,7 @@ public class MicrophoneConfigureActivity extends AppCompatActivity implements Mi
 
         mNumberTrigger.setMinValue(0);
         mNumberTrigger.setMaxValue(MAX_SLIDER_VALUE);
+
         if (!mPrefManager.getMicrophoneSensitivity().equals(PreferenceManager.MEDIUM))
             mNumberTrigger.setValue(Integer.parseInt(mPrefManager.getMicrophoneSensitivity()));
         else
@@ -66,8 +67,6 @@ public class MicrophoneConfigureActivity extends AppCompatActivity implements Mi
             mWaveform.setThreshold(newValue);
             mPrefManager.setMicrophoneSensitivity(newValue+"");
         });
-
-
 
 
         initWave();
