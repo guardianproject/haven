@@ -51,15 +51,12 @@ public final class CameraFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        preview.setVisibility(View.GONE);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
         initCamera ();
-
     }
 
     public void resetCamera ()
@@ -103,11 +100,15 @@ public final class CameraFragment extends Fragment {
                 });
             }
         }
-        else
-        {
-            preview.setVisibility(View.VISIBLE);
-        }
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        preview.stopCamera();
+    }
+
     public void onSensorChanged(SensorEvent event) {
 
     }

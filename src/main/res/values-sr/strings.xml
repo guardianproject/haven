@@ -1,0 +1,139 @@
+<resources>
+
+    <string name="menu_save">Sačuvaj</string>
+    <string name="menu_about">Podesite...</string>
+
+    <string name="title_activity_start">Haven</string>
+
+    <string name="accelerometer_prompt">
+    	Osetljivost pokreta
+    </string>
+
+    <string name="microphone_sensitivity">
+    	Osetljivost zvuka
+    </string>
+
+    <string name="timer_delay_label">
+    	Vreme odlaganja
+    </string>
+
+    <string name="sms_label">
+    	Pošalji SMS ili Signal upozorenje
+    </string>
+
+    <string name="sms_hint">
+    	+12125551212
+    </string>
+
+    <string name="camera_prompt">
+    	Izaberite kameru
+    </string>
+
+    <string name="secure_service_started">Haven aktiviran</string>
+
+    <string name="intrusion_detected">Haven senzor je pokrenut (Tip: %s)</string>
+    <string name="title_activity_event">EventActivity</string>
+
+    <string name="action_settings">Podešavanja</string>
+
+    <string name="intro1_title">Dobrodošli u Haven</string>
+    <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the height find...\"\n-Džordž Meredit</string>
+
+    <string name="intro2_title">Haven je za ljude koji žele da vode računa o provalama u njihove domove, kancelarije, hotelske sobe ili druge privatne prostore.</string>
+    <string name="intro3_desc">Pretvorite dodatni telefon u detektor pokreta, zvuka, vibracija i svetlosti, posmatrajući neočekivane goste i provalnike.</string>
+
+    <string name="intro4_desc">Primajte obaveštenja o provalama istog momenta i pristupite zapisima sa drugog uređaja ili lično onom koji snima.</string>
+
+    <string name="intro5_title">Vaš Haven je spreman</string>
+    <string name="intro5_desc">Aktivirajte aplikaciju bilo kada koristeći &gt; dugme na glavnom ekranu</string>
+
+    <string name="onboarding_action_end">Kraj</string>
+
+    <string name="remote_access">Udaljeni pristup</string>
+    <string name="remote_access_label">Omogući udaljeni pristup putem Tor Onion Service</string>
+    <string name="remote_access_hint">Onion service adresa iz Orbot-a</string>
+    <string name="remote_access_credential_hint">Postavite udaljenu lozinku</string>
+    <string name="camera_front">Prednja</string>
+    <string name="camera_back">Zadnja</string>
+    <string name="camera_none">Nijedna</string>
+
+    <string name="action_configure">Podesi</string>
+
+    <string name="main_screen_title">Vaši Haven zapisi</string>
+
+    <string name="current_noise_base">Trenutni nivo buke je</string>
+    <string name="current_accel_base">Trenutni nivo pokreta je</string>
+
+    <string name="configure_trigger_level">Prevlačite da biste postavili prag detekcije</string>
+    <string name="tune_the_sound_detection">Napravite buku!</string>
+    <string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">Postavite vaš telefon na sto i pravite buku u sobi da pronađete pravi nivo za detektovanje</string>
+
+    <string name="tune_the_accel_detection">Protresite ga!</string>
+    <string name="tune_the_accel_detection_more">Pomerajte vaš telefon da podesite prag detekcije kretanja</string>
+    <string name="set_a_countdown_time">Promenite odbrojavanje</string>
+    <string name="start_now">Pokreni</string>
+    <string name="start_later">Pregled zapisa</string>
+    <string name="save_number">Sačuvaj broj</string>
+
+    <string name="action_cancel">Deaktiviraj</string>
+    <string name="status_on">AKTIVNA</string>
+    <string name="status_charging">Punjenje:</string>
+    <string name="you_will_receive_a_text_when_the_app_hears_or_sees_something">Dobiće te poruku kada aplikacija čuje ili primeti nešto</string>
+    <string name="know_immediately_when_haven_detects_something">Saznajte istog momenta kada Haven detektuje nešto</string>
+    <string name="phone_saved">Broj telefona sačuvan!</string>
+    <string name="detection_events">događaji detekcije</string>
+    <string name="data_speed">BRZINA</string>
+    <string name="data_light">SVETLOST</string>
+    <string name="data_pressure">PRITISAK</string>
+    <string name="data_power">NAPAJANJE</string>
+    <string name="share_event_action">Podelite...</string>
+    <string name="signal_test_message">Ovo je test poruka od Haven-a</string>
+    <string name="send_test_message">Pošalji test poruku</string>
+    <string name="verify">Potvrdi</string>
+    <string name="register">Registruj</string>
+    <string name="activate_signal">Aktivirajte Signal</string>
+    <string name="verify_signal">Potvrdite Signal</string>
+    <string name="enter_verification">Unesite kod za potvrdu koji ste dobili od Signal-a</string>
+    <string name="cancel">Otkaži</string>
+    <string name="register_title">Registrujte se sa Signal-om</string>
+    <string name="register_signal_desc">Unesite broj telefona da se registrujete na Signal, radi slanja bezbednosnih obaveštenja. Možete koristiti broj ovog uređaja ili postaviti virtuelni broj.\n\nUPOZORENJE: Ako je ovaj broj već iskorišćen prilikom instalacije Signal aplikacije, prestaće sa radom i radiće samo unutar Haven aplikacije.</string>
+    <string name="phone_hint">+12125551212</string>
+
+    <string name="menu_licenses">Licence...</string>
+    <string name="sensor_light">Osvetljenje ambijenta</string>
+    <string name="sensor_accel">Kretanje (Akcelerometar)</string>
+    <string name="sensor_camera">Kretanje (Kamera)</string>
+    <string name="sensor_sound">Mikrofon</string>
+    <string name="sensor_power">USB napajanje</string>
+    <string name="sensor_bump">Skok (Akcelerometar)</string>
+    <string name="sensor_unknown">Nepoznato</string>
+
+    <string name="settings">Postavke</string>
+    <string name="remote_access_onion_error">Ova mogućnost zahteva instaliranu Orbot: Tor for Android aplikaciju.</string>
+
+    <string name="sms_dialog_summary">Broj udaljenog telefona kojem se šalju obaveštenja</string>
+    <string name="sms_dialog_message">Unesite broj udaljenog telefona kojem će se slati obaveštenja</string>
+    <string name="signal_dialog_summary">Broj telefona kojem će se slati Signal aplikacijom</string>
+    <string name="verification_dialog_summary">Pritisnite da verifikujete Signal broj</string>
+    <string name="send_message_dialog">Unesite broj telefona kojem će se poslati test poruka upozorenja</string>
+    <string name="send_text_message">Testiraj obaveštenja...</string>
+    <string name="service_address">Adresa servisa</string>
+    <string name="password">Lozinka (obavezna)</string>
+    <string name="signal_number">Signal broj (lokalni)</string>
+    <string name="phone_number">Broj obaveštenja (udaljeni)</string>
+    <string name="sensors">Senzori</string>
+    <string name="label_notifications">Obaveštenja</string>
+
+    <string name="camera_sensitivity">Osetljivost kamere</string>
+
+    <string name="notification_time">Vremenski interval obaveštenja</string>
+    <string name="notification_time_summary">Šalji obaveštenja samo u podešenom intervalu</string>
+    <string name="notification_time_dialog">Unesite vreme (u minutima) da ograničite obaveštenja. \'0\' da šaljete svak obaveštenja.</string>
+    <string name="minutes">minuti(s)</string>
+    <string name="keep_watch">Nastavite gledati!</string>
+    <string name="camera_sensitivity_tip">Izaberite kameru i koristite slajder da prilagodite osetljivost detektovanja pokreta</string>
+    <string name="disable_battery_opt_title">Onemogući optimizaciju baterije</string>
+    <string name="disable_battery_opt_summary">Dozvolite aplikaciji da radi kada je ekran isključen</string>
+
+
+</resources>

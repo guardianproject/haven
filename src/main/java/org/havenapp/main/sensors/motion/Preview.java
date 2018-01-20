@@ -118,7 +118,15 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 		prefs = new PreferenceManager(context);
 		
 		motionSensitivity = prefs.getCameraSensitivity();
-	}
+
+
+		/*
+		 * We bind to the alert service
+		 */
+        context.bindService(new Intent(context,
+                MonitorService.class), mConnection, Context.BIND_ABOVE_CLIENT);
+
+    }
 
 	public void setMotionSensitivity (int motionSensitivity)
 	{
@@ -137,13 +145,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 	 * in order to minimize CPU usage
 	 */
 	public void surfaceCreated(SurfaceHolder holder) {
-		
-		/*
-		 * We bind to the alert service
-		 */
-		context.bindService(new Intent(context,
-				MonitorService.class), mConnection, Context.BIND_ABOVE_CLIENT);
-		
+
 		/*
 		 *  The Surface has been created, acquire the camera and tell it where
 		 *  to draw.
@@ -336,16 +338,21 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 
 	public void surfaceDestroyed(SurfaceHolder holder) {
 
-		if (camera != null) {
-			// Surface will be destroyed when we return, so stop the preview.
-			// Because the CameraDevice object is not a shared resource, it's very
-			// important to release it when the activity is paused.
-			context.unbindService(mConnection);
-			camera.setPreviewCallback(null);
-			camera.stopPreview();
-			camera.release();
-		}
+
 	}
+
+	public void stopCamera ()
+    {
+        if (camera != null) {
+            // Surface will be destroyed when we return, so stop the preview.
+            // Because the CameraDevice object is not a shared resource, it's very
+            // important to release it when the activity is paused.
+            context.unbindService(mConnection);
+            camera.setPreviewCallback(null);
+            camera.stopPreview();
+            camera.release();
+        }
+    }
 
 	public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
 		if (camera != null) {
