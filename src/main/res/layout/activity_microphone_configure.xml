@@ -45,7 +45,7 @@
             android:id="@+id/simplewaveform"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_margin="10dp"
+            android:layout_margin="0dp"
             android:layout_weight="5" />
 
         <TextView
@@ -61,7 +61,9 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="3dp"
+            android:layout_margin="6dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
             android:layout_weight="1"
             android:background="#FFFFFFFF"
             app:bar_color="@android:color/darker_gray"

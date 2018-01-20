@@ -42,6 +42,7 @@ public class MicrophoneConfigureActivity extends AppCompatActivity implements Mi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_microphone_configure);
+        mPrefManager = new PreferenceManager(this.getApplicationContext());
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -52,19 +53,20 @@ public class MicrophoneConfigureActivity extends AppCompatActivity implements Mi
         mTextLevel = findViewById(R.id.text_display_level);
         mNumberTrigger = findViewById(R.id.number_trigger_level);
         mWaveform = findViewById(R.id.simplewaveform);
-        mWaveform.setMaxVal(MAX_SLIDER_VALUE);
+        mWaveform.setMaxVal(100);
 
         mNumberTrigger.setMinValue(0);
         mNumberTrigger.setMaxValue(MAX_SLIDER_VALUE);
-        mNumberTrigger.setListener(new OnValueChangeListener() {
-            @Override
-            public void onValueChanged(int oldValue, int newValue) {
-                mWaveform.setThreshold(newValue);
-                mPrefManager.setMicrophoneSensitivity(newValue+"");
-            }
+        if (!mPrefManager.getMicrophoneSensitivity().equals(PreferenceManager.MEDIUM))
+            mNumberTrigger.setValue(Integer.parseInt(mPrefManager.getMicrophoneSensitivity()));
+        else
+            mNumberTrigger.setValue(60);
+
+        mNumberTrigger.setListener((oldValue, newValue) -> {
+            mWaveform.setThreshold(newValue);
+            mPrefManager.setMicrophoneSensitivity(newValue+"");
         });
 
-        mPrefManager = new PreferenceManager(this.getApplicationContext());
 
 
 
@@ -94,6 +96,8 @@ public class MicrophoneConfigureActivity extends AppCompatActivity implements Mi
         mWaveform.modeZero = SimpleWaveform.MODE_ZERO_CENTER;
         //if show bars?
         mWaveform.showBar = true;
+
+        mWaveform.setMaxVal(100);
 
         //define how to show peaks outline
         mWaveform.modePeak = SimpleWaveform.MODE_PEAK_ORIGIN;
@@ -225,7 +229,7 @@ public class MicrophoneConfigureActivity extends AppCompatActivity implements Mi
             mNumberTrigger.invalidate();
         }
 
-        int perc = (int)((averageDB/160d)*100d);
+        int perc = (int)((averageDB/120d)*100d)-10;
         mWaveAmpList.addFirst(perc);
 
         if (mWaveAmpList.size() > mWaveform.width / mWaveform.barGap + 2) {

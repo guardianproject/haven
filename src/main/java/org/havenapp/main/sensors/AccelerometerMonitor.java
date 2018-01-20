@@ -13,6 +13,7 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
+import android.util.FloatMath;
 import android.util.Log;
 
 import org.havenapp.main.PreferenceManager;
@@ -57,13 +58,16 @@ public class AccelerometerMonitor implements SensorEventListener {
      */
     private int shakeThreshold = -1;
 
+    private float mAccelCurrent =  SensorManager.GRAVITY_EARTH;
+    private float mAccelLast = SensorManager.GRAVITY_EARTH;
+    private float mAccel = 0.00f;
     /**
      * Text showing accelerometer values
      */
     private int maxAlertPeriod = 30;
     private int remainingAlertPeriod = 0;
     private boolean alert = false;
-    private final static int CHECK_INTERVAL = 1000;
+    private final static int CHECK_INTERVAL = 100;
 
     public AccelerometerMonitor(Context context) {
         prefs = new PreferenceManager(context);
@@ -116,12 +120,19 @@ public class AccelerometerMonitor implements SensorEventListener {
 
                 if (last_accel_values != null) {
 
+                    /**
                     float speed = Math.abs(
                             accel_values[0] + accel_values[1] + accel_values[2] -
                                     last_accel_values[0] + last_accel_values[1] + last_accel_values[2])
                             / diffTime * 1000;
+                    **/
+                    mAccelLast = mAccelCurrent;
+                    mAccelCurrent =(float)Math.sqrt(accel_values[0]* accel_values[0] + accel_values[1]*accel_values[1]
+                            + accel_values[2]*accel_values[2]);
+                    float delta = mAccelCurrent - mAccelLast;
+                    mAccel = mAccel * 0.9f + delta;
 
-                    if (speed > shakeThreshold) {
+                    if (mAccel > shakeThreshold) {
 						/*
 						 * Send Alert
 						 */
@@ -131,7 +142,7 @@ public class AccelerometerMonitor implements SensorEventListener {
 
                         Message message = new Message();
                         message.what = EventTrigger.ACCELEROMETER;
-                        message.getData().putString("path",speed+"");
+                        message.getData().putString("path",mAccel+"");
 
                         try {
                             if (serviceMessenger != null) {

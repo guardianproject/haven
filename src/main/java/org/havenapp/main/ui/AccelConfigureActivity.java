@@ -10,6 +10,8 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.Message;
+import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -21,6 +23,7 @@ import com.maxproj.simplewaveform.SimpleWaveform;
 
 import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.R;
+import org.havenapp.main.model.EventTrigger;
 
 import java.util.LinkedList;
 
@@ -55,10 +58,10 @@ public class AccelConfigureActivity extends AppCompatActivity implements SensorE
     private float last_accel_values[];
 
 
-    /**
-     * Shake threshold
-     */
-    private int shakeThreshold = -1;
+    private float mAccelCurrent =  SensorManager.GRAVITY_EARTH;
+    private float mAccelLast = SensorManager.GRAVITY_EARTH;
+    private float mAccel = 0.00f;
+
 
     /**
      * Text showing accelerometer values
@@ -66,13 +69,14 @@ public class AccelConfigureActivity extends AppCompatActivity implements SensorE
     private int maxAlertPeriod = 30;
     private int remainingAlertPeriod = 0;
     private boolean alert = false;
-    private final static int CHECK_INTERVAL = 1000;
+    private final static int CHECK_INTERVAL = 100;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accel_configure);
+        mPrefManager = new PreferenceManager(this.getApplicationContext());
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -87,16 +91,17 @@ public class AccelConfigureActivity extends AppCompatActivity implements SensorE
 
         mNumberTrigger.setMinValue(0);
         mNumberTrigger.setMaxValue(MAX_SLIDER_VALUE);
-        mNumberTrigger.setListener(new OnValueChangeListener() {
-            @Override
-            public void onValueChanged(int oldValue, int newValue) {
-                mWaveform.setThreshold(newValue);
-                mPrefManager.setAccelerometerSensitivity(newValue+"");
 
-            }
+        if (!mPrefManager.getAccelerometerSensitivity().equals(PreferenceManager.HIGH))
+            mNumberTrigger.setValue(Integer.parseInt(mPrefManager.getAccelerometerSensitivity()));
+        else
+            mNumberTrigger.setValue(50);
+
+        mNumberTrigger.setListener((oldValue, newValue) -> {
+            mWaveform.setThreshold(newValue);
+            mPrefManager.setAccelerometerSensitivity(newValue+"");
         });
 
-        mPrefManager = new PreferenceManager(this.getApplicationContext());
 
 
 
@@ -216,42 +221,31 @@ public class AccelConfigureActivity extends AppCompatActivity implements SensorE
 
                 if (last_accel_values != null) {
 
-                    int speed = (int)(Math.abs(
-                            accel_values[0] + accel_values[1] + accel_values[2] -
-                                    last_accel_values[0] + last_accel_values[1] + last_accel_values[2])
-                            / diffTime * 1000);
+                    mAccelLast = mAccelCurrent;
+                    mAccelCurrent =(float)Math.sqrt(accel_values[0]* accel_values[0] + accel_values[1]*accel_values[1]
+                            + accel_values[2]*accel_values[2]);
+                    float delta = mAccelCurrent - mAccelLast;
+                    mAccel = (mAccel * 0.9f + delta);
 
-                    if (speed > shakeThreshold) {
-						/*
-						 * Send Alert
-						 */
-
-                        alert = true;
-                        remainingAlertPeriod = maxAlertPeriod;
-
-                        double averageDB = 0.0;
-                        if (speed != 0) {
-                            averageDB = 20 * Math.log10(Math.abs(speed));
-                        }
-
-                        if (averageDB > maxAmp) {
-                            maxAmp = averageDB + 5d; //add 5db buffer
-                            mNumberTrigger.setValue((int) maxAmp);
-                            mNumberTrigger.invalidate();
-                        }
-
-                        mWaveAmpList.addFirst(speed);
-
-                        if (mWaveAmpList.size() > mWaveform.width / mWaveform.barGap + 2) {
-                            mWaveAmpList.removeLast();
-                        }
-
-                        mWaveform.refresh();
-                        mTextLevel.setText(getString(R.string.current_accel_base) + ' ' + speed);
-
-
-
+                    double averageDB = 0.0;
+                    if (mAccel != 0) {
+                        averageDB = 20 * Math.log10(Math.abs(mAccel));
                     }
+
+                    if (averageDB > maxAmp) {
+                        maxAmp = averageDB + 5d; //add 5db buffer
+                    }
+
+                    mWaveAmpList.addFirst((int)mAccel);
+
+                    if (mWaveAmpList.size() > mWaveform.width / mWaveform.barGap + 2) {
+                        mWaveAmpList.removeLast();
+                    }
+
+                    mWaveform.refresh();
+                    mTextLevel.setText(getString(R.string.current_accel_base) + " " + (int)mAccel);
+
+
                 }
                 last_accel_values = accel_values.clone();
             }
