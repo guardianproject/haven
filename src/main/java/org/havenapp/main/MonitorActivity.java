@@ -174,16 +174,6 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
 
         mFragmentCamera.stopCamera();
         startActivityForResult(new Intent(this, CameraConfigureActivity.class),REQUEST_CAMERA);
-        /**
-        String camera = preferences.getCamera();
-        if (camera.equals(PreferenceManager.FRONT))
-            preferences.setCamera(PreferenceManager.BACK);
-        else if (camera.equals(PreferenceManager.BACK))
-            preferences.setCamera(PreferenceManager.FRONT);
-
-        ((CameraFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_camera)).resetCamera();
-         **/
-
     }
 
 
