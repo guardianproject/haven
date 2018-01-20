@@ -60,10 +60,7 @@ public class HavenApp extends MultiDexApplication {
         if (mOnionServer == null || (!mOnionServer.isAlive()))
         {
             try {
-                mOnionServer = new WebServer(this);
-
-                if (!TextUtils.isEmpty(mPrefs.getRemoteAccessCredential()))
-                    mOnionServer.setPassword(mPrefs.getRemoteAccessCredential());
+                mOnionServer = new WebServer(this, mPrefs.getRemoteAccessCredential());
             } catch (IOException ioe) {
                 Log.e("OnioNServer", "unable to start onion server", ioe);
             }

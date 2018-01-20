@@ -1,0 +1,38 @@
+Haven je za ljude kojima je potrebno da zaštite svoj privatni prostor
+i lične stvari bez ugrožavanja privatnosti. To je
+Android aplikacija koja koristi senzore uređaja kako bi
+nadgledala i štitila fizičke prostore. Haven pretvara bilo koji Android
+telefon u detektor pokreta, zvuka, vibracija i svetlosti, posmatrajući
+neočekivane goste i provalnike. Dizajnirali smo haven za
+istraživačke novinare, branioce ljudskih prava i ljude sa rizikom
+za prisilno nestajanje radi stvaranja novog imuniteta.
+Kombinovanjem senzora uređaja i uz
+najsigurnije svetske tehnologije za komunikaciju kao što su Signal i Tor,
+Haven sprečava najgoru vrstu ljudi koja ućutkuje građane,
+a koji pri tome ne budu uhvaćeni na delu.
+
+Tim projekta
+
+Haven je razvijen kroz saradnju između Freedom of the
+Press Foundation i Guardian Project. Finansiranje prototipa je
+velikodušno pružio FPF i donirao da podrži nastavak rada
+mogu se uplatiti kroz njihov sajt:
+https://freedom.press/donate-support-haven-open-source-project
+
+Bezbednost putem senzora
+
+Haven čuva samo slike i zvukove kada detektuje pokrete ili buku,
+i skladičti sve lokalno na uređaju. Možete pozicionirati
+kameru uređaja da snima vidljive pokrete ili postaviti vaš telefon negde
+da osluškuje samo zvukove. Primajte obaveštenja o
+provalama istog momenta i pristupite zapisima sa drugog uređaja ili lično onom koji snima.
+kasnije.
+
+Sledeći senzori se nadgledaju za merenje promena i onda se
+snimaju u zapis događaja na uređaju:
+
+* Акцелерометар: pokreti i vibracija telefona
+* Kamera: pokreti u okruženju u vidljivom kadru prednje ili zadnje kamere
+* Mikrofon: zvukovi u okruženju
+* Svetlost: promena svetla senzora ambijentnog svetla
+* Napajanje: detektuje da li se uređaj puni ili ne

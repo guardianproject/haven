@@ -38,17 +38,15 @@ public class WebServer extends NanoHTTPD {
 
     private Context mContext;
 
-    public WebServer(Context context) throws IOException {
+    public WebServer(Context context, String password) throws IOException {
         super(LOCAL_HOST, LOCAL_PORT);
         mContext = context;
+        mPassword = password;
 
         if (!TextUtils.isEmpty(mPassword)) //require a password to start the server
             start(NanoHTTPD.SOCKET_READ_TIMEOUT, false);
-    }
-
-    public void setPassword (String password)
-    {
-        mPassword = password;
+        else
+            throw new IOException ("Web password must not be null");
     }
 
     @Override

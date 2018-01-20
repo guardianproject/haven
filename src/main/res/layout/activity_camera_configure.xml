@@ -57,25 +57,37 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="10dp">
+            android:padding="0dp">
 
             <ImageView
                 android:id="@+id/btnCameraSwitch"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:layout_margin="20dp"
+                android:layout_margin="0dp"
                 android:foreground="?attr/selectableItemBackground"
                 app:srcCompat="@drawable/ic_camera_front_white" />
 
-            <SeekBar
-                android:layout_width="wrap_content"
+            <me.angrybyte.numberpicker.view.ActualNumberPicker
+                android:id="@+id/number_trigger_level"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:layout_weight="1"
-                android:layout_height="36dp"
-                android:layout_marginBottom="24dp"
-                android:id="@+id/seekCameraSensitivity"
-                android:max="100000"
-                android:min="2000"
-                />
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="6dp"
+                android:background="#FFFFFF"
+                app:bar_color="@android:color/darker_gray"
+                app:bar_width="1dp"
+                app:draw_over_controls="true"
+                app:max_value="60000"
+                app:value="10000"
+                app:min_value="0"
+                app:show_bars="true"
+                app:show_controls="false"
+                app:show_fast_controls="false"
+                app:show_text="true"
+                app:text_color="@android:color/darker_gray"
+                app:text_size="16sp" />
+
 
         </LinearLayout>
         </LinearLayout>

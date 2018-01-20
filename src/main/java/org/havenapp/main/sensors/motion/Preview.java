@@ -122,8 +122,12 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 		mHolder.addCallback(this);
 		prefs = new PreferenceManager(context);
 		
-		motionSensitivity =prefs.getCameraSensitivity();
-			}
+		motionSensitivity = prefs.getCameraSensitivity();
+	/*
+		 * We bind to the alert service
+		 */
+        context.bindService(new Intent(context,
+                MonitorService.class), mConnection, Context.BIND_ABOVE_CLIENT);}
 
 				public void setMotionSensitivity (int
 				motionSensitivity )
@@ -137,19 +141,15 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 	}
 	
 
-    /**
-     * Called on the creation of the surface:
-     * setting camera parameters to lower possible resolution
-     * (preferred is 640x480)
-     * in order to minimize CPU usage
-     */
-    public void surfaceCreated(SurfaceHolder holder) {
+	/**
+	 * Called on the creation of the surface:
+	 * setting camera parameters to lower possible resolution
+	 * (preferred is 640x480)
+	 * in order to minimize CPU usage
+	 */
+	public void surfaceCreated(SurfaceHolder holder) {
 		
-		/*
-		 * We bind to the alert service
-		 */
-        context.bindService(new Intent(context,
-                MonitorService.class), mConnection, Context.BIND_ABOVE_CLIENT);
+
 		
 		/*
 		 *  The Surface has been created, acquire the camera and tell it where
@@ -386,6 +386,10 @@ if (!doingVideoProcessing && prefs.getVideoMonitoringActive()) {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void stopCamera ()
+    {
         if (camera != null) {
             // Surface will be destroyed when we return, so stop the preview.
             // Because the CameraDevice object is not a shared resource, it's very
