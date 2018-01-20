@@ -71,27 +71,32 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
      */
     private boolean doingProcessing, doingVideoProcessing = false;
 
-    /**
-     * Handler used to update back the UI after motion detection
-     */
-    private final Handler updateHandler = new Handler();
-
-    /**
-     * Last frame captured
-     */
-    private int imageCount = 0;
-
-    /**
-     * Sensitivity of motion detection
-     */
-    private int motionSensitivity = LuminanceMotionDetector.MOTION_MEDIUM;
-
-    /**
-     * Messenger used to signal motion to the alert service
-     */
-    private Messenger serviceMessenger = null;
-    private MediaRecorder mediaRecorder = null;
-    private ServiceConnection mConnection = new ServiceConnection() {
+	/**
+	 * Handler used to update back the UI after motion detection
+	 */
+	private final Handler updateHandler = new Handler();
+	
+	/**
+	 * Last frame captured
+	 */
+	private int imageCount = 0;
+	
+	/**
+	 * Sensitivity of motion detection
+	 */
+	private int motionSensitivity = LuminanceMotionDetector.MOTION_MEDIUM;
+	
+	/**
+	 * Messenger used to signal motion to the alert service
+	 */
+	private Messenger serviceMessenger = null;
+	private MediaRecorder mediaRecorder = null;
+    private SurfaceHolder mHolder;
+	private Camera camera;
+	private Context context;
+	private MotionAsyncTask task;
+    private String videoFile;
+	private ServiceConnection mConnection = new ServiceConnection() {
 
         public void onServiceConnected(ComponentName className,
                                        IBinder service) {
@@ -105,13 +110,6 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
             serviceMessenger = null;
         }
     };
-
-
-	private SurfaceHolder mHolder;
-	private Camera camera;
-	private Context context;
-	private MotionAsyncTask task;
-    private String videoFile;
 
 	public Preview (Context context) {
 		super(context);
@@ -148,39 +146,40 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 	 * in order to minimize CPU usage
 	 */
 	public void surfaceCreated(SurfaceHolder holder) {
-		
 
-		
+
+	    if (camera != null)
+	        stopCamera();
 		/*
 		 *  The Surface has been created, acquire the camera and tell it where
 		 *  to draw.
 		 *  If the selected camera is the front one we open it
 		 */
-        switch (prefs.getCamera()) {
-            case PreferenceManager.FRONT:
-                Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
-                int cameraCount = Camera.getNumberOfCameras();
-                for (int camIdx = 0; camIdx < cameraCount; camIdx++) {
-                    Camera.getCameraInfo(camIdx, cameraInfo);
-                    if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
-                        try {
-                            camera = Camera.open(camIdx);
-                            cameraFacing = Camera.CameraInfo.CAMERA_FACING_FRONT;
-                        } catch (RuntimeException e) {
-                            Log.e("Preview", "Camera failed to open: " + e.getLocalizedMessage());
-                        }
-                    }
-                }
-                break;
-            case PreferenceManager.BACK:
+		switch (prefs.getCamera()) {
+			case PreferenceManager.FRONT:
+				Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
+				int cameraCount = Camera.getNumberOfCameras();
+				for (int camIdx = 0; camIdx < cameraCount; camIdx++) {
+					Camera.getCameraInfo(camIdx, cameraInfo);
+					if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+						try {
+							camera = Camera.open(camIdx);
+							cameraFacing = Camera.CameraInfo.CAMERA_FACING_FRONT;
+						} catch (RuntimeException e) {
+							Log.e("Preview", "Camera failed to open: " + e.getLocalizedMessage());
+						}
+					}
+				}
+				break;
+			case PreferenceManager.BACK:
 
-                camera = Camera.open();
-                cameraFacing = Camera.CameraInfo.CAMERA_FACING_BACK;
-                break;
-            default:
-                camera = null;
-                break;
-        }
+				camera = Camera.open();
+				cameraFacing = Camera.CameraInfo.CAMERA_FACING_BACK;
+				break;
+			default:
+				camera = null;
+				break;
+		}
 
         if (camera != null) {
 
@@ -394,7 +393,9 @@ if (!doingVideoProcessing && prefs.getVideoMonitoringActive()) {
             // Surface will be destroyed when we return, so stop the preview.
             // Because the CameraDevice object is not a shared resource, it's very
             // important to release it when the activity is paused.
-            context.unbindService(mConnection);
+            if (serviceMessenger != null)
+                context.unbindService(mConnection);
+
             camera.setPreviewCallback(null);
             camera.stopPreview();
             camera.release();

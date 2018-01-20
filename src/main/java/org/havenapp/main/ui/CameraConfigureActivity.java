@@ -82,6 +82,7 @@ public class CameraConfigureActivity extends AppCompatActivity {
             public void onValueChanged(int oldValue, int newValue) {
                 mFragment.setMotionSensitivity(newValue);
                 mPrefManager.setCameraSensitivity(newValue);
+                setResult(RESULT_OK);
             }
         });
         mIsInitializedLayout = true;
@@ -96,7 +97,7 @@ public class CameraConfigureActivity extends AppCompatActivity {
             mPrefManager.setCamera(PreferenceManager.FRONT);
 
         ((CameraFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_camera)).resetCamera();
-
+        setResult(RESULT_OK);
     }
 
 
@@ -105,17 +106,20 @@ public class CameraConfigureActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                mFragment.stopCamera();
                 finish();
                 break;
         }
         return true;
     }
 
+
     /**
      * When user closes the activity
      */
     @Override
     public void onBackPressed() {
+        mFragment.stopCamera();
         finish();
     }
 

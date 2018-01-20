@@ -1,4 +1,10 @@
 
+/** 0.1.0 beta 11 build 111 / 20 January 2018 / 9fed87a50b67fab24bff851364e7a0b269d2cc5c **/
+
+9fed87a build 111
+07f1c5f fix more camera state issues found in Android 4.1
+88432ed camera switch fixes for #238
+
 /** 0.1.0 beta 10 build 110 / 19 January 2017 / 24eb0116cd4d1355f013010d389c807c0fcc96ff **/
 
 24eb011 update to build 110
