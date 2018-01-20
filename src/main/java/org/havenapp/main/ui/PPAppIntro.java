@@ -25,6 +25,8 @@ public class PPAppIntro extends AppIntro {
         super.onCreate(savedInstanceState);
 
         setFadeAnimation();
+        setWizardMode(true);
+        setBackButtonVisibilityWithDone(true);
 
         // Instead of fragments, you can also use our default slide
         // Just set a title, description, background and image. AppIntro will do the rest.
