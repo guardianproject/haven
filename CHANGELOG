@@ -1,4 +1,14 @@
 
+/** 0.1.0 beta 10 build 110 / 19 January 2017 / 24eb0116cd4d1355f013010d389c807c0fcc96ff **/
+
+24eb011 update to build 110
+6b20f29 don't stop camera when surface/fragment is paused - keep it going!
+64587a6 don't hide preview when paused, as it causes camera to stop working when screen turns off
+581ae37 tuning of sensor sensitivity UI and preference setting
+51186eb ensure sensor configurations are properly saved
+8ff99eb set default motion value to a correct amount
+b954746 for #232 ensure setting notificaitons to 0 "max" works
+
 /** 0.1.0 beta 9 build 109 / 19 January 2017 / 5cfe8bc629219a4a3f801edfca9a6e7af3f8fe69 **/
 
 5cfe8bc update to build 109
