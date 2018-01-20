@@ -86,8 +86,13 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 	 * Messenger used to signal motion to the alert service
 	 */
 	private Messenger serviceMessenger = null;
-	
-    private ServiceConnection mConnection = new ServiceConnection() {
+
+	private SurfaceHolder mHolder;
+	private Camera camera;
+	private Context context;
+	private MotionAsyncTask task;
+
+	private ServiceConnection mConnection = new ServiceConnection() {
 
         public void onServiceConnected(ComponentName className,
                 IBinder service) {
@@ -101,12 +106,6 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
             serviceMessenger = null;
         }
     };
-
-
-	private SurfaceHolder mHolder;
-	private Camera camera;
-	private Context context;
-	private MotionAsyncTask task;
 
 	public Preview (Context context) {
 		super(context);
@@ -146,6 +145,8 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 	 */
 	public void surfaceCreated(SurfaceHolder holder) {
 
+	    if (camera != null)
+	        stopCamera();
 		/*
 		 *  The Surface has been created, acquire the camera and tell it where
 		 *  to draw.
@@ -168,7 +169,6 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 				}
 				break;
 			case PreferenceManager.BACK:
-
 				camera = Camera.open();
 				cameraFacing = Camera.CameraInfo.CAMERA_FACING_BACK;
 				break;
@@ -347,7 +347,9 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
             // Surface will be destroyed when we return, so stop the preview.
             // Because the CameraDevice object is not a shared resource, it's very
             // important to release it when the activity is paused.
-            context.unbindService(mConnection);
+            if (serviceMessenger != null)
+                context.unbindService(mConnection);
+
             camera.setPreviewCallback(null);
             camera.stopPreview();
             camera.release();
