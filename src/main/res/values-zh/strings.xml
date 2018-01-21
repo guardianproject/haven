@@ -135,9 +135,9 @@
     <string name="notification_time_dialog">输入时间 (分钟) 以限制通知, 输入 \'0\' 则会发送所有通知.</string>
     <string name="minutes">分钟</string>
     <string name="keep_watch">注意观察!</string>
-    <string name="camera_sensitivity_tip">选择摄像头, 滑动调整运动侦测敏感度</string>
+    <string name="camera_sensitivity_tip">切换摄像头或滑动调整运动侦测敏感度</string>
     <string name="disable_battery_opt_title">关闭电池优化</string>
-    <string name="disable_battery_opt_summary">允许 Haven 熄屏后保持允许</string>
+    <string name="disable_battery_opt_summary">允许 Haven 熄屏后保持运行</string>
 
 
 </resources>
