@@ -35,6 +35,7 @@ import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import org.havenapp.main.service.MonitorService;
 import org.havenapp.main.ui.AccelConfigureActivity;
+import org.havenapp.main.ui.CameraConfigureActivity;
 import org.havenapp.main.ui.CameraFragment;
 import org.havenapp.main.ui.MicrophoneConfigureActivity;
 
@@ -55,6 +56,11 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
     private boolean mIsMonitoring = false;
     private boolean mIsInitializedLayout = false;
     private boolean mOnTimerTicking = false;
+
+    private final static int REQUEST_CAMERA = 999;
+    private final static int REQUEST_TIMER = 1000;
+
+    private CameraFragment mFragmentCamera;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,7 +154,7 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
         findViewById(R.id.btnCameraSwitch).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switchCamera();
+                configCamera();
             }
         });
 
@@ -159,20 +165,18 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
             }
         });
 
+        mFragmentCamera =  ((CameraFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_camera));
+
         mIsInitializedLayout = true;
     }
 
-    private void switchCamera() {
+    private void configCamera() {
 
-        String camera = preferences.getCamera();
-        if (camera.equals(PreferenceManager.FRONT))
-            preferences.setCamera(PreferenceManager.BACK);
-        else if (camera.equals(PreferenceManager.BACK))
-            preferences.setCamera(PreferenceManager.FRONT);
-
-        ((CameraFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_camera)).resetCamera();
-
+        mFragmentCamera.stopCamera();
+        startActivityForResult(new Intent(this, CameraConfigureActivity.class),REQUEST_CAMERA);
     }
+
+
 
     private void updateTimerValue(int val) {
         preferences.setTimerDelay(val);
@@ -212,7 +216,7 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
         if (cTimer != null) {
             cTimer.cancel();
             cTimer = null;
-            startActivityForResult(i, 9999);
+            startActivityForResult(i, REQUEST_TIMER);
 
         } else {
             startActivity(i);
@@ -224,9 +228,22 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 9999) {
+        if (requestCode == REQUEST_TIMER) {
             initTimer();
         }
+        else if (requestCode == REQUEST_CAMERA)
+        {
+            mFragmentCamera.resetCamera();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (!mIsMonitoring)
+        {
+            mFragmentCamera.stopCamera();
+        }
+        super.onDestroy();
     }
 
     private void initTimer() {

@@ -135,7 +135,7 @@
     <string name="notification_time_dialog">Enter time (minutes) to limit notifications. \'0\' to send every notification.</string>
     <string name="minutes">minutes(s)</string>
     <string name="keep_watch">Keep Watch!</string>
-    <string name="camera_sensitivity_tip">Select camera and use the slider to adjust motion detection sensitivity</string>
+    <string name="camera_sensitivity_tip">Switch camera or use the slider to adjust motion detection sensitivity</string>
     <string name="disable_battery_opt_title">Disable Battery Optimizations</string>
     <string name="disable_battery_opt_summary">Allow app to run when screen is off</string>
 

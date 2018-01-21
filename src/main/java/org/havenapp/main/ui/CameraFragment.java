@@ -51,21 +51,26 @@ public final class CameraFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        preview.setVisibility(View.GONE);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
         initCamera ();
+    }
 
+    public void stopCamera ()
+    {
+        if (preview != null) {
+            preview.stopCamera();
+            preview = null;
+        }
     }
 
     public void resetCamera ()
     {
+        stopCamera();
         ((FrameLayout) getActivity().findViewById(R.id.preview)).removeAllViews();
-        preview = null;
         initCamera();
     }
 
@@ -90,6 +95,10 @@ public final class CameraFragment extends Fragment {
                                           boolean motionDetected) {
                         int rotation = 0;
                         boolean reflex = false;
+
+                        if (preview == null)
+                            return;
+
                         if (preview.getCameraFacing() == Camera.CameraInfo.CAMERA_FACING_BACK) {
                             rotation = 90;
                         } else {
@@ -103,11 +112,13 @@ public final class CameraFragment extends Fragment {
                 });
             }
         }
-        else
-        {
-            preview.setVisibility(View.VISIBLE);
-        }
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
     public void onSensorChanged(SensorEvent event) {
 
     }

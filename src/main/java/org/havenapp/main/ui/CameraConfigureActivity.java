@@ -30,15 +30,20 @@ import android.widget.SeekBar;
 import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.R;
 
+import me.angrybyte.numberpicker.listener.OnValueChangeListener;
+import me.angrybyte.numberpicker.view.ActualNumberPicker;
+
 
 public class CameraConfigureActivity extends AppCompatActivity {
 
-    private PreferenceManager preferences = null;
+    private PreferenceManager mPrefManager = null;
 
     private boolean mIsMonitoring = false;
     private boolean mIsInitializedLayout = false;
 
     private CameraFragment mFragment;
+    private ActualNumberPicker mNumberTrigger;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +56,7 @@ public class CameraConfigureActivity extends AppCompatActivity {
     }
 
     private void initLayout() {
-        preferences = new PreferenceManager(getApplicationContext());
+        mPrefManager = new PreferenceManager(getApplicationContext());
         setContentView(R.layout.activity_camera_configure);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -69,67 +74,53 @@ public class CameraConfigureActivity extends AppCompatActivity {
             }
         });
 
-        SeekBar sBar = ((SeekBar) findViewById(R.id.seekCameraSensitivity));
-        sBar.setProgress(preferences.getCameraSensitivity());
-        sBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        mNumberTrigger = findViewById(R.id.number_trigger_level);
+        mNumberTrigger.setValue(mPrefManager.getCameraSensitivity());
+
+        mNumberTrigger.setListener(new OnValueChangeListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                mFragment.setMotionSensitivity(i);
-                preferences.setCameraSensitivity(i);
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
+            public void onValueChanged(int oldValue, int newValue) {
+                mFragment.setMotionSensitivity(newValue);
+                mPrefManager.setCameraSensitivity(newValue);
+                setResult(RESULT_OK);
             }
         });
-
         mIsInitializedLayout = true;
     }
 
     private void switchCamera() {
 
-        String camera = preferences.getCamera();
+        String camera = mPrefManager.getCamera();
         if (camera.equals(PreferenceManager.FRONT))
-            preferences.setCamera(PreferenceManager.BACK);
+            mPrefManager.setCamera(PreferenceManager.BACK);
         else if (camera.equals(PreferenceManager.BACK))
-            preferences.setCamera(PreferenceManager.FRONT);
+            mPrefManager.setCamera(PreferenceManager.FRONT);
 
         ((CameraFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_camera)).resetCamera();
-
+        setResult(RESULT_OK);
     }
 
 
-    /**
-     * Closes the monitor activity and unset session properties
-     */
-    private void close() {
-
-        finish();
-
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                close();
+                mFragment.stopCamera();
+                finish();
                 break;
         }
         return true;
     }
+
 
     /**
      * When user closes the activity
      */
     @Override
     public void onBackPressed() {
-        close();
+        mFragment.stopCamera();
+        finish();
     }
 
     @Override

@@ -24,10 +24,8 @@ public class LuminanceMotionDetector implements IMotionDetector {
 	/**
 	 * Levels of motion detection
 	 */
-	public static final int MOTION_LOW = 0;
-	public static final int MOTION_MEDIUM = 1;
-	public static final int MOTION_HIGH = 2;
-	
+	public static final int MOTION_MEDIUM = 30000;
+
 	/**
 	 * Sets different sensitivity for the algorithm
 	 * @param thresh sensitivity identifier
