@@ -230,6 +230,8 @@ public class MonitorService extends Service {
         mBaroMonitor = new BarometerMonitor(this);
         mLightMonitor = new AmbientLightMonitor(this);
 
+        // && !mPrefs.getVideoMonitoringActive()
+
         if (!mPrefs.getMicrophoneSensitivity().equals(PreferenceManager.OFF))
             mMicMonitor = new MicrophoneMonitor(this);
 
@@ -253,6 +255,8 @@ public class MonitorService extends Service {
         mBaroMonitor.stop(this);
         mLightMonitor.stop(this);
 
+        // && !mPrefs.getVideoMonitoringActive())
+
         if (!mPrefs.getMicrophoneSensitivity().equals(PreferenceManager.OFF))
             mMicMonitor.stop(this);
     }
@@ -268,6 +272,10 @@ public class MonitorService extends Service {
         if (mLastEvent == null) {
             mLastEvent = new Event();
             mLastEvent.save();
+            doNotification = true;
+        }
+        else if (mPrefs.getNotificationTimeMs() == 0)
+        {
             doNotification = true;
         }
         else if (mPrefs.getNotificationTimeMs() > 0 && mLastNotification != null)
@@ -316,6 +324,9 @@ public class MonitorService extends Service {
                 if (eventTrigger.getType() == EventTrigger.CAMERA) {
                     attachment = eventTrigger.getPath();
                 } else if (eventTrigger.getType() == EventTrigger.MICROPHONE) {
+                    attachment = eventTrigger.getPath();
+                }
+                else if (eventTrigger.getType() == EventTrigger.CAMERA_VIDEO) {
                     attachment = eventTrigger.getPath();
                 }
 

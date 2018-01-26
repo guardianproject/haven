@@ -2,13 +2,17 @@ package org.havenapp.main.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import com.github.derlio.waveform.SimpleWaveformView;
 import com.github.derlio.waveform.soundfile.SoundFile;
@@ -67,6 +71,7 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
         String desc = eventTrigger.getTriggerTime().toLocaleString();
 
         holder.image.setVisibility(View.GONE);
+        holder.video.setVisibility(View.GONE);
         holder.extra.setVisibility(View.GONE);
         holder.sound.setVisibility(View.GONE);
 
@@ -74,6 +79,28 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
         if (eventTrigger.getPath() != null)
         {
             switch (eventTrigger.getType()) {
+                case EventTrigger.CAMERA_VIDEO:
+                    holder.video.setVisibility(View.VISIBLE);
+                    BitmapDrawable bitmapD = new BitmapDrawable(context.getResources(), ThumbnailUtils.createVideoThumbnail(eventTrigger.getPath(),
+                            MediaStore.Video.Thumbnails.FULL_SCREEN_KIND));
+                    holder.video.setBackground(bitmapD);
+                    holder.video.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(eventTrigger.getPath()));
+                            intent.setDataAndType(Uri.parse(eventTrigger.getPath()), "video/*");
+                            context.startActivity(intent);
+                        }
+                    });
+
+                    holder.video.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View view) {
+                            shareMedia(eventTrigger);
+                            return false;
+                        }
+                    });
+                    break;
                 case EventTrigger.CAMERA:
                     holder.image.setVisibility(View.VISIBLE);
                     Picasso.with(context).load(new File(eventTrigger.getPath())).into(holder.image);
@@ -193,6 +220,7 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
     class EventTriggerVH extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView title, note;
         ImageView image;
+        VideoView video;
         ViewGroup extra;
         SimpleWaveformView sound;
         public EventTriggerVH(View itemView) {
@@ -201,6 +229,7 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
            title = itemView.findViewById(R.id.event_item_title);
             note = itemView.findViewById(R.id.event_item_desc);
             image = itemView.findViewById(R.id.event_item_image);
+            video = itemView.findViewById(R.id.event_item_video);
             extra = itemView.findViewById(R.id.event_item_extra);
             sound = itemView.findViewById(R.id.event_item_sound);
             itemView.setOnClickListener(this);

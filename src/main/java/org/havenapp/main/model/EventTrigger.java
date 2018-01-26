@@ -54,6 +54,11 @@ public class EventTrigger extends SugarRecord {
      */
     public static final int BUMP = 6;
 
+    /**
+     * Significant motion detected message
+     */
+    public static final int CAMERA_VIDEO = 7;
+
 
     public EventTrigger ()
     {
@@ -112,6 +117,9 @@ public class EventTrigger extends SugarRecord {
             case EventTrigger.BUMP:
                 sType = context.getString(R.string.sensor_bump);
                 break;
+            case EventTrigger.CAMERA_VIDEO:
+                sType = context.getString(R.string.sensor_camera_video);
+                break;
             default:
                 sType = context.getString(R.string.sensor_unknown);
         }
@@ -130,6 +138,9 @@ public class EventTrigger extends SugarRecord {
                 break;
             case EventTrigger.MICROPHONE:
                 sType = "audio/*";
+                break;
+            case EventTrigger.CAMERA_VIDEO:
+                sType = "video/*";
                 break;
             default:
                 sType = null;

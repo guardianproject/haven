@@ -66,6 +66,8 @@ public class PreferenceManager {
 	
     private static final String PHONE_ID="phone_id";
     private static final String TIMER_DELAY="timer_delay";
+    private static final String VIDEO_LENGTH="video_length";
+    public static final String CONFIG_VIDEO_LENGTH ="config_video_length";
     private static final String DIR_PATH = "/secureit";
 
     public static final String REMOTE_ACCESS_ACTIVE = "remote_access_active";
@@ -153,7 +155,16 @@ public class PreferenceManager {
     public String getAccelerometerSensitivity() {
     	return appSharedPrefs.getString(ACCELEROMETER_SENSITIVITY, HIGH);
     }
-    
+
+    public void setActivateVideoMonitoring(boolean active) {
+        prefsEditor.putBoolean(context.getResources().getString(R.string.video_active_preference_key), active);
+        prefsEditor.commit();
+    }
+
+    public boolean getVideoMonitoringActive() {
+        return appSharedPrefs.getBoolean(context.getResources().getString(R.string.video_active_preference_key), false);
+    }
+
     public void activateCamera(boolean active) {
     	prefsEditor.putBoolean(CAMERA_ACTIVE, active);
     	prefsEditor.commit();
@@ -235,6 +246,17 @@ public class PreferenceManager {
     public void setTimerDelay (int delay)
     {
         prefsEditor.putInt(TIMER_DELAY,delay);
+        prefsEditor.commit();
+    }
+
+    public int getMonitoringTime ()
+    {
+        return appSharedPrefs.getInt(VIDEO_LENGTH,30);
+    }
+
+    public void setMonitoringTime (int delay)
+    {
+        prefsEditor.putInt(VIDEO_LENGTH,delay);
         prefsEditor.commit();
     }
 
