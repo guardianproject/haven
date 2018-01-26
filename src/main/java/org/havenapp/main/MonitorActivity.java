@@ -257,6 +257,7 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
 
             public void onFinish() {
 
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
                 txtTimer.setText(R.string.status_on);
                 initMonitor();
                 mOnTimerTicking = false;
