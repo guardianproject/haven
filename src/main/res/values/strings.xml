@@ -108,6 +108,7 @@
     <string name="sensor_sound">Microphone</string>
     <string name="sensor_power">USB Power</string>
     <string name="sensor_bump">Bump (Accelerometer)</string>
+    <string name="sensor_camera_video">Motion (Video)</string>
     <string name="sensor_unknown">Unknown</string>
 
     <string name="settings">Settings</string>
@@ -127,6 +128,10 @@
     <string name="phone_number">Notification Number (Remote)</string>
     <string name="sensors">Sensors</string>
     <string name="label_notifications">Notifications</string>
+    <string name="video_active_preference_key">video_active_preference_key</string>
+    <string name="config_video_length_label">Set Video Monitoring Length</string>
+    <string name="video_monitoring">Video Monitoring</string>
+    <string name="video_settings">Video Settings</string>
 
     <string name="camera_sensitivity">Camera Sensitivity</string>
 

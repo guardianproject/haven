@@ -230,7 +230,7 @@ public class MonitorService extends Service {
         mBaroMonitor = new BarometerMonitor(this);
         mLightMonitor = new AmbientLightMonitor(this);
 
-        if (!mPrefs.getMicrophoneSensitivity().equals(PreferenceManager.OFF))
+        if (!mPrefs.getMicrophoneSensitivity().equals(PreferenceManager.OFF) && !mPrefs.getVideoMonitoringActive())
             mMicMonitor = new MicrophoneMonitor(this);
 
 
@@ -253,7 +253,7 @@ public class MonitorService extends Service {
         mBaroMonitor.stop(this);
         mLightMonitor.stop(this);
 
-        if (!mPrefs.getMicrophoneSensitivity().equals(PreferenceManager.OFF))
+        if (!mPrefs.getMicrophoneSensitivity().equals(PreferenceManager.OFF) && !mPrefs.getVideoMonitoringActive())
             mMicMonitor.stop(this);
     }
 
