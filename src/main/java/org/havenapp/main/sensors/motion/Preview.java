@@ -294,7 +294,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 												stream.flush();
 												stream.close();
 												message.getData().putString("path", fileImage.getAbsolutePath());
-if (!doingVideoProcessing && prefs.getVideoMonitoringActive()) {
+                                                if (!doingVideoProcessing && prefs.getVideoMonitoringActive()) {
                                                     record(camera, serviceMessenger);
                                                 }
 												/**
