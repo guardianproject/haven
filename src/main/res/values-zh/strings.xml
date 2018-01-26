@@ -1,7 +1,5 @@
 <resources>
 
-    <string name="app_name" translatable="false">Haven</string>
-
     <string name="menu_save">保存</string>
     <string name="menu_about">设置中...</string>
 
@@ -77,7 +75,7 @@
     <string name="start_later">查看日志</string>
     <string name="save_number">保存电话</string>
 
-   <string name="action_cancel">停止</string>
+    <string name="action_cancel">停止</string>
     <string name="status_on">已激活</string>
     <string name="status_charging">充电中:</string>
     <string name="you_will_receive_a_text_when_the_app_hears_or_sees_something">当 Haven 侦测到异动的时候, 您将会收到短信提示</string>
@@ -101,7 +99,7 @@
     <string name="register_signal_desc">请使用一个新的手机号注册 Signal 用以发送安全通知. 请不要使用您当前的/主要的 Signal 号码. </string>
     <string name="phone_hint">+8613800138000</string>
 
-     <string name="menu_licenses">许可协议...</string>
+    <string name="menu_licenses">许可协议...</string>
     <string name="sensor_light">环境光</string>
     <string name="sensor_accel">运动 (加速度仪)</string>
     <string name="sensor_camera">运动 (相机)</string>
@@ -113,8 +111,6 @@
     <string name="settings">设置</string>
     <string name="remote_access_onion_error">此功能需要安装 Orbot: Tor for Android.</string>
 
-    <!--Preference Settings -->
-    <string name="hint_number" translatable="false">+8613800138000</string>
     <string name="sms_dialog_summary">用于接受短信通知的号码</string>
     <string name="sms_dialog_message">输入用于接受短信通知的号码</string>
     <string name="signal_dialog_summary">用于接受通知的 Signal 号码</string>

@@ -1,7 +1,5 @@
 <resources>
 
-    <string name="app_name" translatable="false">Haven</string>
-
     <string name="menu_save">Kaydet</string>
     <string name="menu_about">Kurulum...</string>
 
@@ -40,9 +38,7 @@
 
     <string name="intro1_title">Haven'a Hoşgeldiniz</string>
     <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the height find...\"\n-George Meredith</string>
-	<!-- Turkish translation of poem 
-	<string name="intro1_desc">\"Şimdi insan kaderinin gemisi,\nAsi rüzgarda afallamış,\nKalabalık yüküyle sürüklenir,\nGÜVENLİ bir LİMAN arayışında...\"\n-George Meredith</string>
-	-->
+
     <string name="intro2_title">Haven; evine, ofisine, otel odasına veya özel alanına izinsiz girişlere karşı tetikte olmak isteyen insanlar içindir</string>
     <string name="intro3_desc">Yedek telefonunuzu, davetsiz misafirlerden haberdar olabileceğiniz bir hareket, ses, titreşim ve ışık algılayıcıya dönüştürün</string>
 
@@ -110,4 +106,5 @@
     <string name="sensor_power">USB Bağlantısı</string>
     <string name="sensor_bump">Sarsıntı (İvmeölçer)</string>
     <string name="sensor_unknown">Bilinmeyen</string>
-</resources>
+
+    </resources>

@@ -18,7 +18,7 @@
     </string>
 
     <string name="sms_label">
-    	Отправлять SMS или сигналы оповещений
+    	Оповещать по SMS или через Signal
     </string>
 
     <string name="sms_hint">
@@ -78,8 +78,8 @@
     <string name="action_cancel">Отключить</string>
     <string name="status_on">ВКЛЮЧЕНО</string>
     <string name="status_charging">Зарядка:</string>
-    <string name="you_will_receive_a_text_when_the_app_hears_or_sees_something">Вы получите текст, когда приложение что то услышит или увидит</string>
-    <string name="know_immediately_when_haven_detects_something">Узнайте сразу же, как только Haven что то обнаружит</string>
+    <string name="you_will_receive_a_text_when_the_app_hears_or_sees_something">Вы получите сообщение, когда приложение что-то услышит или увидит</string>
+    <string name="know_immediately_when_haven_detects_something">Узнайте сразу же, как только Haven что-то обнаружит</string>
     <string name="phone_saved">Номер телефона сохранен!</string>
     <string name="detection_events">события обнаружены</string>
     <string name="data_speed">СКОРОСТЬ</string>
@@ -91,11 +91,11 @@
     <string name="send_test_message">Отправить тестовое сообщение</string>
     <string name="verify">Подтверждение</string>
     <string name="register">Регистрация</string>
-    <string name="activate_signal">Активировать сигнал</string>
-    <string name="verify_signal">Подтвердить сигнал</string>
-    <string name="enter_verification">Введите проверочный код, который Вы получили при регистрации сигнала</string>
+    <string name="activate_signal">Активировать Signal</string>
+    <string name="verify_signal">Подтвердить Signal</string>
+    <string name="enter_verification">Введите проверочный код, который Вы получили при регистрации Signal</string>
     <string name="cancel">Отмена</string>
-    <string name="register_title">Регистрация с помощью сигнала</string>
+    <string name="register_title">Регистрация с помощью Signal</string>
     <string name="register_signal_desc">Зарегистрировать новый номер телефона (+79125551212) для отправки защищенных уведомлений. НЕ ИСПОЛЬЗУЙТЕ СУЩЕСТВУЮЩИЙ/ПЕРВОНАЧАЛЬНЫЙ НОМЕР.</string>
     <string name="phone_hint">+79125551212</string>
 
@@ -118,9 +118,22 @@
     <string name="send_message_dialog">Введите номер, на который будет отослано тестовое сообщение</string>
     <string name="send_text_message">Протестировать оповещения...</string>
     <string name="service_address">Адрес службы</string>
+    <string name="password">Пароль (обязательно)</string>
     <string name="signal_number">Номер в Signal (локальный)</string>
     <string name="phone_number">Номер для оповещений (удалённый)</string>
     <string name="sensors">Сенсоры</string>
     <string name="label_notifications">Оповещения</string>
 
-    </resources>
+    <string name="camera_sensitivity">Чувствительность камеры</string>
+
+    <string name="notification_time">Интервал между оповещениями</string>
+    <string name="notification_time_summary">Оповещать только по истечении заданного времени</string>
+    <string name="notification_time_dialog">Введите время (в минутах) задержки между оповещениями. \"0\" для отправки каждого оповещения.</string>
+    <string name="minutes">мин.</string>
+    <string name="keep_watch">Будьте начеку!</string>
+    <string name="camera_sensitivity_tip">Выберите другую камеру или настройте чувствительность к движениям с помощью слайдера</string>
+    <string name="disable_battery_opt_title">Отключить энергосбережение</string>
+    <string name="disable_battery_opt_summary">Продолжать работу при выключенном экране</string>
+
+
+</resources>

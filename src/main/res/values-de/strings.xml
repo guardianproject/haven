@@ -1,4 +1,5 @@
 <resources>
+
     <string name="menu_save">Speichern</string>
     <string name="menu_about">Einrichtung...</string>
 
@@ -100,4 +101,5 @@
     <string name="sensor_sound">Mikrofon</string>
     <string name="sensor_power">USB Power</string>
     <string name="sensor_unknown">Unbekannt</string>
-</resources>
+
+    </resources>

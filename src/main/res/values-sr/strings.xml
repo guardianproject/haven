@@ -18,7 +18,7 @@
     </string>
 
     <string name="sms_label">
-    	Pošalji SMS ili Signal upozorenje
+    	Šalji SMS ili Signal upozorenja
     </string>
 
     <string name="sms_hint">
@@ -26,7 +26,7 @@
     </string>
 
     <string name="camera_prompt">
-    	Izaberite kameru
+    	Izaberi kameru
     </string>
 
     <string name="secure_service_started">Haven aktiviran</string>
@@ -51,7 +51,7 @@
 
     <string name="remote_access">Udaljeni pristup</string>
     <string name="remote_access_label">Omogući udaljeni pristup putem Tor Onion Service</string>
-    <string name="remote_access_hint">Onion service adresa iz Orbot-a</string>
+    <string name="remote_access_hint">Adresa Onion servisa iz Orbot-a</string>
     <string name="remote_access_credential_hint">Postavite udaljenu lozinku</string>
     <string name="camera_front">Prednja</string>
     <string name="camera_back">Zadnja</string>
@@ -91,8 +91,8 @@
     <string name="send_test_message">Pošalji test poruku</string>
     <string name="verify">Potvrdi</string>
     <string name="register">Registruj</string>
-    <string name="activate_signal">Aktivirajte Signal</string>
-    <string name="verify_signal">Potvrdite Signal</string>
+    <string name="activate_signal">Aktiviraj Signal</string>
+    <string name="verify_signal">Potvrdi Signal</string>
     <string name="enter_verification">Unesite kod za potvrdu koji ste dobili od Signal-a</string>
     <string name="cancel">Otkaži</string>
     <string name="register_title">Registrujte se sa Signal-om</string>
@@ -114,7 +114,7 @@
     <string name="sms_dialog_summary">Broj udaljenog telefona kojem se šalju obaveštenja</string>
     <string name="sms_dialog_message">Unesite broj udaljenog telefona kojem će se slati obaveštenja</string>
     <string name="signal_dialog_summary">Broj telefona kojem će se slati Signal aplikacijom</string>
-    <string name="verification_dialog_summary">Pritisnite da verifikujete Signal broj</string>
+    <string name="verification_dialog_summary">Pritisnite da potvrdite Signal broj</string>
     <string name="send_message_dialog">Unesite broj telefona kojem će se poslati test poruka upozorenja</string>
     <string name="send_text_message">Testiraj obaveštenja...</string>
     <string name="service_address">Adresa servisa</string>
@@ -127,11 +127,11 @@
     <string name="camera_sensitivity">Osetljivost kamere</string>
 
     <string name="notification_time">Vremenski interval obaveštenja</string>
-    <string name="notification_time_summary">Šalji obaveštenja samo u podešenom intervalu</string>
-    <string name="notification_time_dialog">Unesite vreme (u minutima) da ograničite obaveštenja. \'0\' da šaljete svak obaveštenja.</string>
+    <string name="notification_time_summary">Šaljite obaveštenja samo u podešenom intervalu</string>
+    <string name="notification_time_dialog">Unesite vreme (u minutima) da ograničite obaveštenja. \'0\' da šaljete sva obaveštenja.</string>
     <string name="minutes">minuti(s)</string>
     <string name="keep_watch">Nastavite gledati!</string>
-    <string name="camera_sensitivity_tip">Izaberite kameru i koristite slajder da prilagodite osetljivost detektovanja pokreta</string>
+    <string name="camera_sensitivity_tip">Promenite kameru ili iskoristite slajder da prilagodite osetljivost detektovanja pokreta</string>
     <string name="disable_battery_opt_title">Onemogući optimizaciju baterije</string>
     <string name="disable_battery_opt_summary">Dozvolite aplikaciji da radi kada je ekran isključen</string>
 

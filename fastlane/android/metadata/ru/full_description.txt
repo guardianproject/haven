@@ -14,8 +14,8 @@ Haven позволяет людям говорить открыто и не бо
 Создатели проекта
 
 Приложение Haven было разработано как совместный проект Freedom of the
-Press Foundation (FoPF) и Guardian Project. Финансировая поддержка прототипа
-generously provided by FPF, and donations to support continuing work
+Press Foundation (FPF) и Guardian Project. Финансировая поддержка прототипа
+была предоставлена FPF. Пожертвования в пользу продолжения разработки
 принимаются на сайте фонда:
 https://freedom.press/donate-support-haven-open-source-project
 
