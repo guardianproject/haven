@@ -69,7 +69,7 @@ android {
 
     defaultConfig {
         applicationId "org.havenapp.main"
-        versionCode 111
+        versionCode 112
         versionName getVersionName()
         archivesBaseName = "Haven-$versionName"
         minSdkVersion 16
