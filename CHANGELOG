@@ -1,4 +1,20 @@
 
+/** 0.1.0 beta 12 build 112 / 26 January 2018 / c6d95fe919cc0d2a7d488e2739481b857ff96c47 **/
+
+c6d95fe update to build 112
+1725062 Merge pull request #242 from lukeswitz/233_allow_screen_lock_fix
+b678096 add art header
+fe861da updated strings from transifex
+e94b4cc Merge pull request #240 from PelicanMaster/translations/french
+90c5797 Merge pull request #223 from WangQiru/master
+f8fbade Merge branch 'fat-tire-issue-225'
+36ae52c Merge branch 'issue-225' of https://github.com/fat-tire/haven into fat-tire-issue-225
+1a3397e Merge pull request #236 from fat-tire/issue-227
+7443e75 Merge pull request #234 from fat-tire/issue-224
+5cc8a1a allow screen to lock after countdown
+0c4ac2a Translated and improved previous translations to french.
+d6d0b6b Update Chinese translation with upstream
+ 
 /** 0.1.0 beta 11 build 111 / 20 January 2018 / 9fed87a50b67fab24bff851364e7a0b269d2cc5c **/
 
 9fed87a build 111
