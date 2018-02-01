@@ -193,8 +193,8 @@ public class ListActivity extends AppCompatActivity {
 
         event.delete();
 
-        Snackbar.make(recyclerView, "Event deleted", Snackbar.LENGTH_SHORT)
-                .setAction("UNDO", new View.OnClickListener() {
+        Snackbar.make(recyclerView, getString(R.string.event_deleted), Snackbar.LENGTH_SHORT)
+                .setAction(getString(R.string.undo), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         handler.removeCallbacks(runnableDelete);
@@ -342,8 +342,8 @@ public class ListActivity extends AppCompatActivity {
 
         handler.postDelayed(runnableDelete, 3000);
 
-        Snackbar.make(recyclerView, "Events deleted", Snackbar.LENGTH_SHORT)
-                .setAction("UNDO", new View.OnClickListener() {
+        Snackbar.make(recyclerView, getString(R.string.events_deleted), Snackbar.LENGTH_SHORT)
+                .setAction(getString(R.string.undo), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         handler.removeCallbacks(runnableDelete);
