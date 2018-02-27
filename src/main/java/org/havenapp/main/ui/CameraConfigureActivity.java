@@ -126,6 +126,7 @@ public class CameraConfigureActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        mFragment.stopCamera();
     }
 
     @Override
