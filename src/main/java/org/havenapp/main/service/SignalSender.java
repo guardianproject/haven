@@ -2,12 +2,18 @@ package org.havenapp.main.service;
 
 import android.content.Context;
 
+import android.os.CountDownTimer;
+import android.telephony.SmsManager;
+import android.text.TextUtils;
+import android.util.Log;
 import net.sourceforge.argparse4j.inf.Namespace;
 
 import org.asamk.signal.Main;
+import org.havenapp.main.PreferenceManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.StringTokenizer;
 
 /**
  * Created by n8fr8 on 11/6/17.
@@ -18,6 +24,8 @@ public class SignalSender {
     private Context mContext;
     private static SignalSender mInstance;
     private String mUsername; //aka your signal phone number
+    private CountDownTimer mCountdownTimer;
+    private PreferenceManager preferences;
 
     private SignalSender(Context context, String username)
     {
@@ -79,6 +87,57 @@ public class SignalSender {
                 mainSignal.handleCommands(ns);
             }
         });
+    }
+
+    public void stopHeartbeatTimer ()
+    {
+        mCountdownTimer.cancel();
+        mCountdownTimer = null;
+        Log.d("HEARTBEAT TIMER", "Stopped" );
+
+    }
+
+    public void startHeartbeatTimer (int countMs)
+    {
+        //Set default to 5 minutes, catch dangerous Signal thresholds
+        if (countMs <= 10000)
+            countMs = 300000;
+
+        mCountdownTimer =  new CountDownTimer(countMs,1000) {
+
+            public void onTick(long millisUntilFinished) {
+                Log.d("HEARTBEAT TIMER"," seconds remaining: " + millisUntilFinished / 1000);
+            }
+
+            public void onFinish() {
+                Log.d("HEARTBEAT TIMER"," Done, update message sent!");
+                beatingHeart();
+                start();
+            }
+        }.start();
+    }
+
+    private void beatingHeart ()
+    {
+        preferences = new PreferenceManager(mContext);
+        int unicodeBeat = 0x1F493;
+        String emojiString = new String(Character.toChars(unicodeBeat));
+
+        if (!TextUtils.isEmpty(mUsername)) {
+            SignalSender sender = SignalSender.getInstance(mContext, mUsername.trim());
+            ArrayList<String> recip = new ArrayList<>();
+            recip.add(preferences.getSmsNumber());
+            sender.sendMessage(recip, emojiString,null);
+        }
+        else if (!TextUtils.isEmpty(preferences.getSmsNumber())) {
+
+            SmsManager manager = SmsManager.getDefault();
+
+            StringTokenizer st = new StringTokenizer(preferences.getSmsNumber(),",");
+            while (st.hasMoreTokens())
+                manager.sendTextMessage(st.nextToken(), null, emojiString, null, null);
+
+        }
     }
 
     public void sendMessage (final ArrayList<String> recipients, final String message, final String attachment)
