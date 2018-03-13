@@ -49,10 +49,16 @@ public class EventTrigger extends SugarRecord {
      * Power change detected message
      */
     public static final int POWER = 5;
+
     /**
      * Significant motion detected message
      */
     public static final int BUMP = 6;
+
+    /**
+     * Heartbeat notification message
+     */
+    public static final int HEART = 7;
 
 
     public EventTrigger ()
@@ -111,6 +117,9 @@ public class EventTrigger extends SugarRecord {
                 break;
             case EventTrigger.BUMP:
                 sType = context.getString(R.string.sensor_bump);
+                break;
+            case EventTrigger.HEART:
+                sType = context.getString(R.string.sensor_heartbeat);
                 break;
             default:
                 sType = context.getString(R.string.sensor_unknown);
