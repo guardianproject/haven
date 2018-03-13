@@ -89,6 +89,22 @@
             android:title="@string/notification_time"
             />
 
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/hearbeat_monitor">
+
+        <SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:key="heartbeat_monitor_active"
+            android:title="@string/hearbeat_monitor_enable" />
+
+        <EditTextPreference
+            style="@style/AppPreference.DialogPreferenceSave"
+            android:dialogLayout="@layout/pref_dialog_edit_text"
+            android:dialogMessage="@string/heartbeat_time_dialog"
+            android:inputType="number"
+            android:key="heartbeat_monitor_delay"
+            android:summary="@string/hearbeat_monitor_dialog"
+            android:title="@string/hearbeat_monitor_summary"/>
 
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/remote_access">

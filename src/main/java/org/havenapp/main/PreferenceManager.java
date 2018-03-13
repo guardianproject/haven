@@ -28,10 +28,10 @@ import org.havenapp.main.sensors.motion.LuminanceMotionDetector;
 
 
 public class PreferenceManager {
-	
+
     private SharedPreferences appSharedPrefs;
     private Editor prefsEditor;
-    
+
     public static final String LOW = "Low";
     public static final String MEDIUM = "Medium";
     public static final String HIGH = "High";
@@ -41,7 +41,7 @@ public class PreferenceManager {
     public static final String FRONT = "Front";
     public static final String BACK = "Back";
     public static final String NONE = "None";
-	
+
     private static final String APP_SHARED_PREFS="org.havenapp.main";
     private static final String ACCELEROMETER_ACTIVE="accelerometer_active";
     private static final String ACCELEROMETER_SENSITIVITY="accelerometer_sensibility";
@@ -50,6 +50,8 @@ public class PreferenceManager {
     public static final String CAMERA_SENSITIVITY="camera_sensitivity";
     public static final String CONFIG_MOVEMENT ="config_movement";
     private static final String FLASH_ACTIVE="flash_active";
+    public static final String  HEARTBEAT_MONITOR_ACTIVE="heartbeat_monitor_active";
+    public static final String  HEARTBEAT_MONITOR_DELAY="heartbeat_monitor_delay";
     private static final String MICROPHONE_ACTIVE="microphone_active";
     private static final String MICROPHONE_SENSITIVITY="microphone_sensitivity";
     public static final String CONFIG_SOUND = "config_sound";
@@ -60,10 +62,10 @@ public class PreferenceManager {
     public static final String VERIFY_SIGNAL = "verify_signal";
     public static final String SEND_SMS = "send_sms";
     private static final String UNLOCK_CODE="unlock_code";
-	
+
     private static final String ACCESS_TOKEN="access_token";
     private static final String DELEGATED_ACCESS_TOKEN="deferred_access_token";
-	
+
     private static final String PHONE_ID="phone_id";
     private static final String TIMER_DELAY="timer_delay";
     private static final String VIDEO_LENGTH="video_length";
@@ -83,7 +85,7 @@ public class PreferenceManager {
     public static final String DISABLE_BATTERY_OPT = "config_battery_optimizations";
 
     private Context context;
-	
+
     public PreferenceManager(Context context) {
         this.context = context;
         this.appSharedPrefs = context.getSharedPreferences(APP_SHARED_PREFS, Activity.MODE_PRIVATE);
@@ -139,21 +141,21 @@ public class PreferenceManager {
     }
 
     public void activateAccelerometer(boolean active) {
-    	prefsEditor.putBoolean(ACCELEROMETER_ACTIVE, active);
-    	prefsEditor.commit();
+        prefsEditor.putBoolean(ACCELEROMETER_ACTIVE, active);
+        prefsEditor.commit();
     }
-    
+
     public boolean getAccelerometerActivation() {
-    	return appSharedPrefs.getBoolean(ACCELEROMETER_ACTIVE, true);
+        return appSharedPrefs.getBoolean(ACCELEROMETER_ACTIVE, true);
     }
-    
+
     public void setAccelerometerSensitivity(String sensitivity) {
-    	prefsEditor.putString(ACCELEROMETER_SENSITIVITY, sensitivity);
-    	prefsEditor.commit();
+        prefsEditor.putString(ACCELEROMETER_SENSITIVITY, sensitivity);
+        prefsEditor.commit();
     }
-    
+
     public String getAccelerometerSensitivity() {
-    	return appSharedPrefs.getString(ACCELEROMETER_SENSITIVITY, HIGH);
+        return appSharedPrefs.getString(ACCELEROMETER_SENSITIVITY, HIGH);
     }
 
     public void setActivateVideoMonitoring(boolean active) {
@@ -166,76 +168,94 @@ public class PreferenceManager {
     }
 
     public void activateCamera(boolean active) {
-    	prefsEditor.putBoolean(CAMERA_ACTIVE, active);
-    	prefsEditor.commit();
+        prefsEditor.putBoolean(CAMERA_ACTIVE, active);
+        prefsEditor.commit();
     }
-    
+
     public boolean getCameraActivation() {
-    	return appSharedPrefs.getBoolean(CAMERA_ACTIVE, true);
+        return appSharedPrefs.getBoolean(CAMERA_ACTIVE, true);
     }
-    
+
     public void setCamera(String camera) {
-    	prefsEditor.putString(CAMERA, camera);
-    	prefsEditor.commit();
+        prefsEditor.putString(CAMERA, camera);
+        prefsEditor.commit();
     }
-    
+
     public String getCamera() {
-    	return appSharedPrefs.getString(CAMERA, FRONT);
+        return appSharedPrefs.getString(CAMERA, FRONT);
     }
-    
+
     public void setCameraSensitivity(int sensitivity) {
-    	prefsEditor.putInt(CAMERA_SENSITIVITY, sensitivity);
-    	prefsEditor.commit();
+        prefsEditor.putInt(CAMERA_SENSITIVITY, sensitivity);
+        prefsEditor.commit();
     }
-    
+
     public int getCameraSensitivity() {
-    	return appSharedPrefs.getInt(CAMERA_SENSITIVITY, LuminanceMotionDetector.MOTION_MEDIUM);
+        return appSharedPrefs.getInt(CAMERA_SENSITIVITY, LuminanceMotionDetector.MOTION_MEDIUM);
     }
-    
+
     public void activateFlash(boolean active) {
-    	prefsEditor.putBoolean(FLASH_ACTIVE, active);
-    	prefsEditor.commit();
+        prefsEditor.putBoolean(FLASH_ACTIVE, active);
+        prefsEditor.commit();
     }
-    
+
     public boolean getFlashActivation() {
-    	return appSharedPrefs.getBoolean(FLASH_ACTIVE, false);
+        return appSharedPrefs.getBoolean(FLASH_ACTIVE, false);
     }
-    
+
     public void activateMicrophone(boolean active) {
-    	prefsEditor.putBoolean(MICROPHONE_ACTIVE, active);
-    	prefsEditor.commit();
+        prefsEditor.putBoolean(MICROPHONE_ACTIVE, active);
+        prefsEditor.commit();
     }
-    
+
     public boolean getMicrophoneActivation() {
-    	return appSharedPrefs.getBoolean(MICROPHONE_ACTIVE, true);
+        return appSharedPrefs.getBoolean(MICROPHONE_ACTIVE, true);
     }
-    
+
     public void setMicrophoneSensitivity(String sensitivity) {
-    	prefsEditor.putString(MICROPHONE_SENSITIVITY, sensitivity);
-    	prefsEditor.commit();
+        prefsEditor.putString(MICROPHONE_SENSITIVITY, sensitivity);
+        prefsEditor.commit();
     }
-    
+
     public String getMicrophoneSensitivity() {
-    	return appSharedPrefs.getString(MICROPHONE_SENSITIVITY, MEDIUM);
+        return appSharedPrefs.getString(MICROPHONE_SENSITIVITY, MEDIUM);
     }
-    
+
     public void activateSms(boolean active) {
-    	prefsEditor.putBoolean(SMS_ACTIVE, active);
-    	prefsEditor.commit();
+        prefsEditor.putBoolean(SMS_ACTIVE, active);
+        prefsEditor.commit();
     }
-    
+
     public boolean getSmsActivation() {
-    	return appSharedPrefs.getBoolean(SMS_ACTIVE, false);
+        return appSharedPrefs.getBoolean(SMS_ACTIVE, false);
     }
-    
+
     public void setSmsNumber(String number) {
 
-    	prefsEditor.putString(SMS_NUMBER, number);
-    	prefsEditor.commit();
+        prefsEditor.putString(SMS_NUMBER, number);
+        prefsEditor.commit();
     }
-    
+
     public String getSmsNumber() {
-    	return appSharedPrefs.getString(SMS_NUMBER, "");
+        return appSharedPrefs.getString(SMS_NUMBER, "");
+    }
+
+    public void activateHeartbeat(boolean active) {
+        prefsEditor.putBoolean(HEARTBEAT_MONITOR_ACTIVE, active);
+        prefsEditor.commit();
+    }
+
+    public void setHeartbeatMonitorNotifications (int notificationTimeMs) {
+        prefsEditor.putInt(HEARTBEAT_MONITOR_DELAY,notificationTimeMs);
+        prefsEditor.commit();
+    }
+
+    public boolean getHeartbeatActive() {
+        return appSharedPrefs.getBoolean(HEARTBEAT_MONITOR_ACTIVE, false);
+    }
+
+    public int getHeartbeatNotificationTimeMs () {
+        return appSharedPrefs.getInt(HEARTBEAT_MONITOR_DELAY,300000);
     }
 
     public int getTimerDelay ()
@@ -261,9 +281,9 @@ public class PreferenceManager {
     }
 
     public String getDirPath() {
-    	return DIR_PATH;
+        return DIR_PATH;
     }
-    
+
     public String getSMSText() {
         return context.getString(R.string.intrusion_detected);
     }

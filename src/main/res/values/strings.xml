@@ -78,6 +78,9 @@
     <string name="save_number">Save Number</string>
 
     <string name="action_cancel">Deactivate</string>
+    <string name="power_optim_status_on">Optimization Activated</string>
+    <string name="power_optim_status_off">Optimization Deactivated</string>
+    <string name="power_optim_status_unsupported">Unsupported for this device</string>
     <string name="status_on">ACTIVE</string>
     <string name="status_charging">Charging:</string>
     <string name="you_will_receive_a_text_when_the_app_hears_or_sees_something">You will receive a text when the app hears or sees something</string>
@@ -109,10 +112,12 @@
     <string name="sensor_power">USB Power</string>
     <string name="sensor_bump">Bump (Accelerometer)</string>
     <string name="sensor_camera_video">Motion (Video)</string>
+    <string name="sensor_heartbeat">Heartbeat</string>
     <string name="sensor_unknown">Unknown</string>
 
     <string name="settings">Settings</string>
     <string name="remote_access_onion_error">This feature requires the Orbot: Tor for Android app to be installed.</string>
+    <string name="remote_access_onion_error_pw">This feature requires you to set a remote password.</string>
 
     <!--Preference Settings -->
     <string name="hint_number" translatable="false">+12125551212</string>
@@ -139,10 +144,21 @@
     <string name="notification_time_summary">Only send notifications at configured interval</string>
     <string name="notification_time_dialog">Enter time (minutes) to limit notifications. \'0\' to send every notification.</string>
     <string name="minutes">minutes(s)</string>
+    <string name="seconds">second(s)</string>
     <string name="keep_watch">Keep Watch!</string>
     <string name="camera_sensitivity_tip">Switch camera or use the slider to adjust motion detection sensitivity</string>
     <string name="disable_battery_opt_title">Disable Battery Optimizations</string>
     <string name="disable_battery_opt_summary">Allow app to run when screen is off</string>
 
+    <string name="hearbeat_monitor">Heartbeat Notifications</string>
+    <string name="hearbeat_monitor_enable">Enable Heartbeat Monitor</string>
+    <string name="hearbeat_monitor_summary">Set Monitor Alert Interval</string>
+    <string name="heartbeat_time_dialog">Enter time (minutes) to limit heartbeat notifications. Minimum delay is 5.</string>
+    <string name="hearbeat_monitor_dialog">Send monitor status icon messages</string>
+    <string name="thumbsUp"><node>&#x1f44d;</node></string>
+    <string name="beatingHeart"><node>&#x1F493;</node></string>
+    <string name="brokenHeart"><node>&#x1F494;</node></string>
+    <string name="beatingHeartUnicode">0x1F493</string>
+    <string name="brokenHeartUnicode">0x1F494</string>
 
 </resources>
