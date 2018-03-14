@@ -115,11 +115,6 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             findPreference(PreferenceManager.REGISTER_SIGNAL).setSummary(R.string.register_signal_desc);
         }
 
-        if (preferences.getNotificationTimeMs()>0)
-        {
-            findPreference(PreferenceManager.NOTIFICATION_TIME).setSummary(preferences.getNotificationTimeMs()/60000 + " " + getString(R.string.minutes));
-        }
-
         if (preferences.getHeartbeatActive())
         {
             ((SwitchPreferenceCompat) findPreference(PreferenceManager.HEARTBEAT_MONITOR_ACTIVE)).setChecked(true);
@@ -131,12 +126,13 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             }
             else{
                 findPreference(PreferenceManager.HEARTBEAT_MONITOR_DELAY).setSummary(R.string.heartbeat_time_dialog);
+                preferences.activateHeartbeat(false);
             }
         }
 
-        if (preferences.getHeartbeatNotificationTimeMs()>0 )
+        if (preferences.getHeartbeatNotificationTimeMs()> 300000)
         {
-            findPreference(PreferenceManager.HEARTBEAT_MONITOR_DELAY).setSummary(preferences.getHeartbeatNotificationTimeMs()/60000 + " " + getString(R.string.minutes));
+            findPreference(PreferenceManager.HEARTBEAT_MONITOR_DELAY).setSummary(preferences.getHeartbeatNotificationTimeMs() / 60000 + " " + getString(R.string.minutes));
         }
 
         Preference prefCameraSensitivity = findPreference(PreferenceManager.CAMERA_SENSITIVITY);
@@ -396,6 +392,9 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 try {
                     String text = ((EditTextPreference) findPreference(PreferenceManager.HEARTBEAT_MONITOR_DELAY)).getText();
                     int notificationTimeMs = Integer.parseInt(text) * 60000;
+                    if (notificationTimeMs <= 0)
+                        notificationTimeMs = 300000;
+
                     preferences.setHeartbeatMonitorNotifications(notificationTimeMs);
                     findPreference(PreferenceManager.HEARTBEAT_MONITOR_DELAY).setSummary(preferences.getHeartbeatNotificationTimeMs() / 60000 + " " + getString(R.string.minutes));
 
