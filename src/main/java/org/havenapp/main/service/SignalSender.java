@@ -24,6 +24,7 @@ public class SignalSender {
     private Context mContext;
     private static SignalSender mInstance;
     private String mUsername; //aka your signal phone number
+    private String emojiString;
     private CountDownTimer mCountdownTimer;
     private PreferenceManager preferences;
 
@@ -94,7 +95,6 @@ public class SignalSender {
         mCountdownTimer.cancel();
         mCountdownTimer = null;
         Log.d("HEARTBEAT TIMER", "Stopped" );
-
     }
 
     public void startHeartbeatTimer (int countMs)
@@ -121,7 +121,7 @@ public class SignalSender {
     {
         preferences = new PreferenceManager(mContext);
         int unicodeBeat = 0x1F493;
-        String emojiString = new String(Character.toChars(unicodeBeat));
+        emojiString = new String(Character.toChars(unicodeBeat));
 
         if (!TextUtils.isEmpty(mUsername)) {
             SignalSender sender = SignalSender.getInstance(mContext, mUsername.trim());

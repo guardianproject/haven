@@ -120,13 +120,14 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             ((SwitchPreferenceCompat) findPreference(PreferenceManager.HEARTBEAT_MONITOR_ACTIVE)).setChecked(true);
             boolean heartOn = ((SwitchPreferenceCompat) findPreference(PreferenceManager.HEARTBEAT_MONITOR_ACTIVE)).isChecked();
             boolean isMonitoring = preferences.getHeartbeatActive();
-            if (heartOn || isMonitoring) {
+
+            if (heartOn || isMonitoring) { //Check for stray timers/monitors
                 preferences.activateHeartbeat(true);
                 findPreference(PreferenceManager.HEARTBEAT_MONITOR_DELAY).setSummary(preferences.getHeartbeatNotificationTimeMs() / 60000 + " " + getString(R.string.minutes));
             }
             else{
-                findPreference(PreferenceManager.HEARTBEAT_MONITOR_DELAY).setSummary(R.string.heartbeat_time_dialog);
                 preferences.activateHeartbeat(false);
+                findPreference(PreferenceManager.HEARTBEAT_MONITOR_DELAY).setSummary(R.string.heartbeat_time_dialog);
             }
         }
 
