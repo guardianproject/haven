@@ -148,12 +148,7 @@
     <string name="hearbeat_monitor">Heartbeat Notifications</string>
     <string name="hearbeat_monitor_enable">Enable Heartbeat Monitor</string>
     <string name="hearbeat_monitor_summary">Set Monitor Alert Interval</string>
-    <string name="heartbeat_time_dialog">Enter time (minutes) to send heartbeat notifications. Minimum recommended delay is 5 minutes.</string>
+    <string name="heartbeat_time_dialog">Enter time (minutes) to send heartbeat notifications. Default is 5 minutes, the minimum is 1.</string>
     <string name="hearbeat_monitor_dialog">Send status icon messages</string>
-    <string name="thumbsUp"><node>&#x1f44d;</node></string>
-    <string name="beatingHeart"><node>&#x1F493;</node></string>
-    <string name="brokenHeart"><node>&#x1F494;</node></string>
-    <string name="beatingHeartUnicode">0x1F493</string>
-    <string name="brokenHeartUnicode">0x1F494</string>
-
+    
 </resources>
