@@ -27,6 +27,7 @@
         android:hint="@string/sms_hint"
         android:gravity="center"
         android:inputType="phone"
+        android:imeOptions="actionDone"
         android:id="@+id/editNumber"
         />
 
