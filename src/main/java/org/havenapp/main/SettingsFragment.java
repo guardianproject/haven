@@ -115,6 +115,11 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             findPreference(PreferenceManager.REGISTER_SIGNAL).setSummary(R.string.register_signal_desc);
         }
 
+        if (preferences.getNotificationTimeMs()>0)
+        {
+            findPreference(PreferenceManager.NOTIFICATION_TIME).setSummary(preferences.getNotificationTimeMs()/60000 + " " + getString(R.string.minutes));
+        }
+
         if (preferences.getHeartbeatActive())
         {
             ((SwitchPreferenceCompat) findPreference(PreferenceManager.HEARTBEAT_MONITOR_ACTIVE)).setChecked(true);
@@ -204,11 +209,8 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
         preferences.setActivateVideoMonitoring(videoMonitoringActive);
 
-        boolean heartbeatMonitorActive = ((SwitchPreferenceCompat) findPreference(PreferenceManager.HEARTBEAT_MONITOR_ACTIVE)).isChecked();
-        
-        preferences.activateHeartbeat(heartbeatMonitorActive);
-
         boolean remoteAccessActive = ((SwitchPreferenceCompat) findPreference(PreferenceManager.REMOTE_ACCESS_ACTIVE)).isChecked();
+
         preferences.activateRemoteAccess(remoteAccessActive);
         String password = ((EditTextPreference) findPreference(PreferenceManager.REMOTE_ACCESS_CRED)).getText();
 
@@ -217,6 +219,10 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             app.stopServer();
             app.startServer();
         }
+
+        boolean heartbeatMonitorActive = ((SwitchPreferenceCompat) findPreference(PreferenceManager.HEARTBEAT_MONITOR_ACTIVE)).isChecked();
+
+        preferences.activateHeartbeat(heartbeatMonitorActive);
 
         mActivity.setResult(Activity.RESULT_OK);
         mActivity.finish();

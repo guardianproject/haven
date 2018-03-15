@@ -24,9 +24,7 @@ public class SignalSender {
     private Context mContext;
     private static SignalSender mInstance;
     private String mUsername; //aka your signal phone number
-    private String emojiString;
     private CountDownTimer mCountdownTimer;
-    private PreferenceManager preferences;
 
     private SignalSender(Context context, String username)
     {
@@ -99,8 +97,7 @@ public class SignalSender {
 
     public void startHeartbeatTimer (int countMs)
     {
-        //Set default to 5 minutes, catch dangerous Signal thresholds
-        if (countMs <= 10000)
+        if (countMs <= 10000) //Default if '0' setting
             countMs = 300000;
 
         mCountdownTimer =  new CountDownTimer(countMs,1000) {
@@ -119,15 +116,15 @@ public class SignalSender {
 
     private void beatingHeart ()
     {
-        preferences = new PreferenceManager(mContext);
+        PreferenceManager preferences = new PreferenceManager(mContext);
         int unicodeBeat = 0x1F493;
-        emojiString = new String(Character.toChars(unicodeBeat));
+        String emojiString = new String(Character.toChars(unicodeBeat));
 
         if (!TextUtils.isEmpty(mUsername)) {
-            SignalSender sender = SignalSender.getInstance(mContext, mUsername.trim());
-            ArrayList<String> recip = new ArrayList<>();
-            recip.add(preferences.getSmsNumber());
-            sender.sendMessage(recip, emojiString,null);
+            getInstance(mContext, mUsername.trim());
+            ArrayList<String> recipient = new ArrayList<>();
+            recipient.add(preferences.getSmsNumber());
+            sendMessage(recipient, emojiString,null);
         }
         else if (!TextUtils.isEmpty(preferences.getSmsNumber())) {
 
@@ -136,7 +133,6 @@ public class SignalSender {
             StringTokenizer st = new StringTokenizer(preferences.getSmsNumber(),",");
             while (st.hasMoreTokens())
                 manager.sendTextMessage(st.nextToken(), null, emojiString, null, null);
-
         }
     }
 
