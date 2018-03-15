@@ -1,0 +1,148 @@
+<resources>
+
+    <string name="app_name" translatable="false">Haven</string>
+    <string name="bullets" translatable="false">•••••••</string>
+    <string name="menu_save">Salva</string>
+    <string name="menu_about">Imposta...</string>
+
+    <string name="title_activity_start">Haven</string>
+
+    <string name="accelerometer_prompt">
+    	Sensibilità di movimento
+    </string>
+
+    <string name="microphone_sensitivity">
+    	Sensibilità al rumore
+    </string>
+
+    <string name="timer_delay_label">
+    	Imposta il timer di avvio
+    </string>
+
+    <string name="sms_label">
+    	Invia SMS o messaggi via Signal
+    </string>
+
+    <string name="sms_hint">
+    	+3934912345678
+    </string>
+
+    <string name="camera_prompt">
+    	Seleziona la fotocamera
+    </string>
+
+    <string name="secure_service_started">Haven è attivo</string>
+
+    <string name="intrusion_detected">Un sensore di Haven è scattato (Tipo: %s)</string>
+    <string name="title_activity_event">EventActivity</string>
+
+    <string name="action_settings">Impostazioni</string>
+
+    <string name="intro1_title">Benvenuto in Haven</string>
+    <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the height find...\"\n-George Meredith</string>
+
+    <string name="intro2_title">Haven è pensato per tutti coloro che vogliono sapere cosa accade nelle loro case, nei loro uffici, nelle loro stanze di hotel</string>
+    <string name="intro3_desc">Trasforma un secondo cellulare in un sensore di movimento, luce, vibrazioni e suoni per riconoscere intrusi e visitatori indesiderati</string>
+
+    <string name="intro4_desc">Ricevi notifiche istantanee e visualizza i log da remoto oppure di persona al tuo rientro</string>
+
+    <string name="intro5_title">Il tuo Haven è pronto</string>
+    <string name="intro5_desc">Avvia la app in qualsiasi momento cliccando sul tasto &gt; nella schermata principale</string>
+
+    <string name="onboarding_action_end">Fine</string>
+
+    <string name="remote_access">Accesso remoto</string>
+    <string name="remote_access_label">Attiva l\'accesso tramite Tor Onion Service</string>
+    <string name="remote_access_hint">Indirizzo Onion Service via Orbot</string>
+    <string name="remote_access_credential_hint">Imposta la password per l\'accesso remoto</string>
+    <string name="camera_front">Anteriore</string>
+    <string name="camera_back">Posteriore</string>
+    <string name="camera_none">Nessuna</string>
+
+    <string name="action_configure">Configura</string>
+
+    <string name="main_screen_title">Il tuo log di Haven</string>
+
+    <string name="current_noise_base">Livello di rumore attuale: </string>
+    <string name="current_accel_base">Livello di movimento attuale: </string>
+
+    <string name="configure_trigger_level">Scorri orizzontalmente per modificare il limite di riconoscimento</string>
+    <string name="tune_the_sound_detection">Fai un po\' di rumore!</string>
+    <string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">Appoggia il telefono sul tavolo e fai rumore nella stanza per determinare il giusto livello di riconoscimento</string>
+
+    <string name="tune_the_accel_detection">Scuotimi!</string>
+    <string name="tune_the_accel_detection_more">Muovi il tuo telefono per riconoscere il giusto livello di riconoscimento del movimento</string>
+    <string name="set_a_countdown_time">Clicca per modificare il timer</string>
+    <string name="start_now">Avvia ora</string>
+    <string name="start_later">Visualizza i log</string>
+    <string name="save_number">Salva il numero</string>
+
+    <string name="action_cancel">Disattiva</string>
+    <string name="status_on">ATTIVO</string>
+    <string name="status_charging">Ricarica:</string>
+    <string name="you_will_receive_a_text_when_the_app_hears_or_sees_something">Riceverai una notifica quando l\'applicazione rileverà un rumore o un movimento</string>
+    <string name="know_immediately_when_haven_detects_something">Notifica immediata non appena Haven rileva qualcosa</string>
+    <string name="phone_saved">Numero di telefono salvato!</string>
+    <string name="detection_events">Eventi rilevati</string>
+    <string name="data_speed">VELOCITÀ</string>
+    <string name="data_light">LUMINOSITÀ</string>
+    <string name="data_pressure">PRESSIONE</string>
+    <string name="data_power">RICARICA</string>
+    <string name="share_event_action">Condividi l\'evento...</string>
+    <string name="signal_test_message">Questo è un messaggio di prova inviato da Haven</string>
+    <string name="send_test_message">Invia un messaggio di prova</string>
+    <string name="verify">Verifica</string>
+    <string name="register">Registra</string>
+    <string name="activate_signal">Attiva Signal</string>
+    <string name="verify_signal">Verifica Signal</string>
+    <string name="enter_verification">Inserisci il codice di verifica di Signal per la registrazione</string>
+    <string name="cancel">Annulla</string>
+    <string name="register_title">Registra un numero Signal</string>
+    <string name="register_signal_desc">Inserisci un numero di telefono per registrarti con Signal per inviare notifiche in sicurezza. Puoi inserire il numero di telefono di questo dispositivo o scegliere un numero virtuale.\n\nATTENZIONE! Se questo numero è già in uso in un\'app di Signal questa smetterà di funzionare e il numero funzionerà solo con Haven.</string>
+    <string name="phone_hint">+3934912345678</string>
+
+    <string name="menu_licenses">Licenze...</string>
+    <string name="sensor_light">Luminosità ambientale</string>
+    <string name="sensor_accel">Movimento (Accelerometro)</string>
+    <string name="sensor_camera">Movimento (Fotocamera)</string>
+    <string name="sensor_sound">Microfono</string>
+    <string name="sensor_power">Ricarica via USB</string>
+    <string name="sensor_bump">Colpo (Accelerometro)</string>
+    <string name="sensor_camera_video">Movimento (Video)</string>
+    <string name="sensor_unknown">Sconosciuto</string>
+
+    <string name="settings">Impostazioni</string>
+    <string name="remote_access_onion_error">Questa funzione richiede l\'installazione di Orbot: Proxy with Tor per Android.</string>
+
+    <!--Preference Settings -->
+    <string name="hint_number" translatable="false">+3934987654321</string>
+    <string name="sms_dialog_summary">Numero di telefono remoto al quale inviare le notifiche</string>
+    <string name="sms_dialog_message">Inserisci un numero di telefono al quale inviare le notifiche di allerta</string>
+    <string name="signal_dialog_summary">Numero di telefono da cui inviare messaggi tramite Signal</string>
+    <string name="verification_dialog_summary">Clicca per verificare il tuo numero Signal</string>
+    <string name="send_message_dialog">Inserisci un numero di telefono al quale inviare una messaggio di prova</string>
+    <string name="send_text_message">Messaggi di prova...</string>
+    <string name="service_address">Indirizzo del service</string>
+    <string name="password">Password (Obbligatoria)</string>
+    <string name="signal_number">Numero Signal (Locale)</string>
+    <string name="phone_number">Numero per le notifiche (Remoto)</string>
+    <string name="sensors">Sensori</string>
+    <string name="label_notifications">Notifiche</string>
+    <string name="video_active_preference_key">video_active_preference_key</string>
+    <string name="config_video_length_label">Imposta la durata del video di sorveglianza</string>
+    <string name="video_monitoring">Videosorveglianza</string>
+    <string name="video_settings">Impostazioni video</string>
+
+    <string name="camera_sensitivity">Sensibilità della fotocamera</string>
+
+    <string name="notification_time">Intervallo di notifica</string>
+    <string name="notification_time_summary">Invia le notifiche solo a determinati intervalli</string>
+    <string name="notification_time_dialog">Inserisci il limite (in minuti) di invio delle notifiche. Imposta \'0\' per ricevere tutte le notifiche.</string>
+    <string name="minutes">minuto/i</string>
+    <string name="keep_watch">Occhi aperti!</string>
+    <string name="camera_sensitivity_tip">Cambia fotocamera o scorri orizzontalmente per modificare la sensibilità di rilevazione del movimento</string>
+    <string name="disable_battery_opt_title">Disabilita l\'ottimizzazione della batteria</string>
+    <string name="disable_battery_opt_summary">Consenti alla app di funzionare anche a schermo spento</string>
+
+
+</resources>

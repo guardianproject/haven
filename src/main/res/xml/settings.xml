@@ -11,6 +11,17 @@
         android:title="@string/disable_battery_opt_title"
         android:summary="@string/disable_battery_opt_summary"/>
 
+    <PreferenceCategory android:title="@string/video_settings">
+        <Preference
+            android:key="config_video_length"
+            android:title="@string/config_video_length_label" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="@string/video_active_preference_key"
+            android:title="@string/video_monitoring"/>
+    </PreferenceCategory>
+
     <PreferenceCategory android:title="@string/sensors">
 
         <ListPreference
