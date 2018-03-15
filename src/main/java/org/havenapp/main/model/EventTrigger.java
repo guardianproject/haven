@@ -58,7 +58,7 @@ public class EventTrigger extends SugarRecord {
     /**
      * Heartbeat notification message
      */
-    public static final int HEART = 7;
+    public static final int HEART = 8;
 
 
     public EventTrigger ()
