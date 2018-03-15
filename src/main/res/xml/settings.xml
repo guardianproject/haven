@@ -109,7 +109,7 @@
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/remote_access">
 
-    <SwitchPreferenceCompat
+        <SwitchPreferenceCompat
             android:defaultValue="false"
             android:key="remote_access_active"
             android:summary="@string/remote_access_label"

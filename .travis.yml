@@ -50,6 +50,10 @@ script:
   - adb shell input keyevent 82 &
   - ./gradlew connectedCheck -PdisablePreDex
 
+after_success:
+  - git clone --depth=1 https://gitlab.com/fdroid/fdroidserver
+  - export PATH=`pwd`/fdroidserver:$PATH
+  - fdroid nightly -v
 
 after_failure:
   - find * -name lint-results.xml | xargs cat
