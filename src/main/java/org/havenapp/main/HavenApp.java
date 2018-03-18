@@ -27,6 +27,7 @@ import com.orm.SugarContext;
 
 import java.io.IOException;
 
+import org.havenapp.main.service.SignalSender;
 import org.havenapp.main.service.WebServer;
 
 public class HavenApp extends MultiDexApplication {
@@ -52,6 +53,10 @@ public class HavenApp extends MultiDexApplication {
         if (mPrefs.getRemoteAccessActive())
             startServer();
 
+        if (mPrefs.getHeartbeatActive()) {
+            SignalSender sender = SignalSender.getInstance(this, mPrefs.getSignalUsername());
+            sender.startHeartbeatTimer(mPrefs.getHeartbeatNotificationTimeMs());
+        }
     }
 
 

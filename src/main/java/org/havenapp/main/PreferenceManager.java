@@ -49,6 +49,8 @@ public class PreferenceManager {
     public static final String CAMERA="camera";
     public static final String CAMERA_SENSITIVITY="camera_sensitivity";
     public static final String CONFIG_MOVEMENT ="config_movement";
+    public static final String HEARTBEAT_MONITOR_ACTIVE="heartbeat_monitor_active";
+    public static final String HEARTBEAT_MONITOR_DELAY="heartbeat_monitor_delay";
     private static final String FLASH_ACTIVE="flash_active";
     private static final String MICROPHONE_ACTIVE="microphone_active";
     private static final String MICROPHONE_SENSITIVITY="microphone_sensitivity";
@@ -295,6 +297,24 @@ public class PreferenceManager {
     public void setNotificationTimeMs (int notificationTimeMs) {
         prefsEditor.putInt(NOTIFICATION_TIME,notificationTimeMs);
         prefsEditor.commit();
+    }
+
+    public void activateHeartbeat(boolean active) {
+        prefsEditor.putBoolean(HEARTBEAT_MONITOR_ACTIVE, active);
+        prefsEditor.commit();
+    }
+
+    public void setHeartbeatMonitorNotifications (int notificationTimeMs) {
+        prefsEditor.putInt(HEARTBEAT_MONITOR_DELAY,notificationTimeMs);
+        prefsEditor.commit();
+    }
+
+    public boolean getHeartbeatActive() {
+        return appSharedPrefs.getBoolean(HEARTBEAT_MONITOR_ACTIVE, false);
+    }
+
+    public int getHeartbeatNotificationTimeMs () {
+        return appSharedPrefs.getInt(HEARTBEAT_MONITOR_DELAY,300000);
     }
 
 }
