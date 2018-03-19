@@ -134,6 +134,10 @@
     <string name="camera_sensitivity_tip">Changez de caméra ou glissez pour ajuster la sensibilité de détection de mouvement</string>
     <string name="disable_battery_opt_title">Désactiver les optimisations de batterie</string>
     <string name="disable_battery_opt_summary">Autoriser l\'application à fonctionner quand l\'écran est éteint</string>
+    <string name="remove_all_logs">Effacer tous les enregistrements</string>
+    <string name="event_deleted">Évènement supprimé</string>
+    <string name="undo">Annuler</string>
+    <string name="events_deleted">Évènements supprimés</string>
 
 
 </resources>

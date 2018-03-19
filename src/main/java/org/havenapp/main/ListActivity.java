@@ -46,13 +46,11 @@ import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.LibsBuilder;
 
 import org.havenapp.main.model.Event;
-import org.havenapp.main.model.EventTrigger;
 import org.havenapp.main.service.SignalSender;
 import org.havenapp.main.ui.EventActivity;
 import org.havenapp.main.ui.EventAdapter;
 import org.havenapp.main.ui.PPAppIntro;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -67,8 +65,6 @@ public class ListActivity extends AppCompatActivity {
     private EventAdapter adapter;
     private List<Event> events = new ArrayList<>();
     private PreferenceManager preferences;
-
-    private long initialCount;
 
     private int modifyPos = -1;
 
@@ -145,18 +141,17 @@ public class ListActivity extends AppCompatActivity {
             }
         });
 
-        initialCount = Event.count(Event.class);
-
         if (preferences.isFirstLaunch()) {
             showOnboarding();
         }
 
-        if (initialCount > 0) {
-            findViewById(R.id.empty_view).setVisibility(View.GONE);
-        }
-
         try {
             events = Event.listAll(Event.class, "id DESC");
+
+            if (events.size() > 0) {
+                findViewById(R.id.empty_view).setVisibility(View.GONE);
+            }
+
             adapter = new EventAdapter(ListActivity.this, events);
             recyclerView.setVisibility(View.VISIBLE);
             recyclerView.setAdapter(adapter);
@@ -187,12 +182,7 @@ public class ListActivity extends AppCompatActivity {
         {
             public void run ()
             {
-                for (EventTrigger trigger : event.getEventTriggers())
-                {
-                    new File(trigger.getPath()).delete();
-                    trigger.delete();
-                }
-
+                event.delete();
             }
         };
 
@@ -202,18 +192,15 @@ public class ListActivity extends AppCompatActivity {
         adapter.notifyItemRemoved(position);
 
         event.delete();
-        initialCount -= 1;
 
-        Snackbar.make(recyclerView, "Event deleted", Snackbar.LENGTH_SHORT)
-                .setAction("UNDO", new View.OnClickListener() {
+        Snackbar.make(recyclerView, getString(R.string.event_deleted), Snackbar.LENGTH_SHORT)
+                .setAction(getString(R.string.undo), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         handler.removeCallbacks(runnableDelete);
                         event.save();
                         events.add(position, event);
                         adapter.notifyItemInserted(position);
-                        initialCount += 1;
-
                     }
                 })
                 .show();
@@ -251,8 +238,7 @@ public class ListActivity extends AppCompatActivity {
 
         final long newCount = Event.count(Event.class);
 
-        if (newCount > initialCount) {
-
+        if (newCount > events.size()) {
             events = Event.listAll(Event.class, "id DESC");
             adapter = new EventAdapter(ListActivity.this, events);
             recyclerView.setAdapter(adapter);
@@ -278,9 +264,6 @@ public class ListActivity extends AppCompatActivity {
             
             initialCount = newCount;
             **/
-
-            initialCount = newCount;
-
 
             recyclerView.setVisibility(View.VISIBLE);
             findViewById(R.id.empty_view).setVisibility(View.GONE);
@@ -323,6 +306,9 @@ public class ListActivity extends AppCompatActivity {
             case R.id.action_settings:
                 startActivity(new Intent(this,SettingsActivity.class));
                 break;
+            case R.id.action_remove_all_events:
+                removeAllEvents();
+                break;
             case R.id.action_about:
                 showOnboarding();
                 break;
@@ -334,6 +320,42 @@ public class ListActivity extends AppCompatActivity {
                 break;
         }
         return true;
+    }
+
+    private void removeAllEvents()
+    {
+        final List<Event> removedEvents = new ArrayList<Event>();
+        final Runnable runnableDelete = new Runnable ()
+        {
+            public void run ()
+            {
+                for (Event event : removedEvents) {
+                    event.delete();
+                }
+            }
+        };
+
+        for (int i = 0, size = events.size(); i < size; i++) {
+            removedEvents.add(events.remove(0));
+            adapter.notifyItemRemoved(0);
+        }
+
+        handler.postDelayed(runnableDelete, 3000);
+
+        Snackbar.make(recyclerView, getString(R.string.events_deleted), Snackbar.LENGTH_SHORT)
+                .setAction(getString(R.string.undo), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        handler.removeCallbacks(runnableDelete);
+
+                        for (Event event : removedEvents) {
+                            event.save();
+                            events.add(event);
+                            adapter.notifyItemInserted(events.size() - 1);
+                        }
+                    }
+                })
+                .show();
     }
 
     private void showLicenses ()

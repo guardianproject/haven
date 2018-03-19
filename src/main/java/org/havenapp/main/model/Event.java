@@ -3,6 +3,7 @@ package org.havenapp.main.model;
 import com.orm.SugarRecord;
 import com.orm.dsl.Ignore;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,6 +28,19 @@ public class Event extends SugarRecord {
     public Date getStartTime ()
     {
         return mStartTime;
+    }
+
+    @Override
+    public boolean delete() {
+        for (EventTrigger trigger : this.getEventTriggers()) {
+            File file = new File(trigger.getPath());
+
+            if (!file.delete() || !trigger.delete()) {
+                return false;
+            }
+        }
+
+        return super.delete();
     }
 
     public void addEventTrigger (EventTrigger eventTrigger)
