@@ -18,11 +18,14 @@
 package org.havenapp.main;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,6 +33,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -61,12 +65,14 @@ import java.util.StringTokenizer;
 
 public class ListActivity extends AppCompatActivity {
 
+
     private RecyclerView recyclerView;
-    private FloatingActionButton fab;
+    private FloatingActionButton fab, delete_all_fab;
     private Toolbar toolbar;
     private EventAdapter adapter;
     private List<Event> events = new ArrayList<>();
     private PreferenceManager preferences;
+
 
     private long initialCount;
 
@@ -84,9 +90,11 @@ public class ListActivity extends AppCompatActivity {
         Log.d("Main", "onCreate");
 
         preferences = new PreferenceManager(this.getApplicationContext());
+
         recyclerView = findViewById(R.id.main_list);
         fab = findViewById(R.id.fab);
         toolbar = findViewById(R.id.toolbar);
+        delete_all_fab = findViewById(R.id.delete_all_fab);
         setSupportActionBar(toolbar);
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
@@ -145,6 +153,13 @@ public class ListActivity extends AppCompatActivity {
             }
         });
 
+        delete_all_fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                delete_all_events();
+            }
+        });
+
         initialCount = Event.count(Event.class);
 
         if (preferences.isFirstLaunch()) {
@@ -159,6 +174,7 @@ public class ListActivity extends AppCompatActivity {
             events = Event.listAll(Event.class, "id DESC");
             adapter = new EventAdapter(ListActivity.this, events);
             recyclerView.setVisibility(View.VISIBLE);
+            delete_all_fab.setVisibility(View.VISIBLE);
             recyclerView.setAdapter(adapter);
 
 
@@ -178,6 +194,65 @@ public class ListActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    private void delete_all_events () {
+        AlertDialog.Builder builder =
+                new AlertDialog.Builder(this, R.style.Theme_AppCompat_Light_Dialog_Alert);
+        builder.setTitle("Confirm");
+        builder.setMessage("Do you want delete all events ?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                new ProgressTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                dialog.cancel();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    private class ProgressTask extends AsyncTask<Void,Void,Void> {
+        ProgressDialog pdLoading = new ProgressDialog(ListActivity.this);
+
+        @Override
+        protected void onPreExecute(){
+            pdLoading.setTitle("Deleting...");
+            pdLoading.setMessage("Please wait while deleting events...");
+            pdLoading.setIndeterminate(true);
+            pdLoading.setCancelable(false);
+            pdLoading.show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            for (Event event : events) {
+                for (EventTrigger trigger : event.getEventTriggers()) {
+                    new File(trigger.getPath()).delete();
+                    trigger.delete();
+                }
+                event.delete();
+            }
+            events.clear();
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... result) {
+            super.onProgressUpdate(result);
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            adapter.notifyDataSetChanged();
+            findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
+            delete_all_fab.setVisibility(View.GONE);
+            pdLoading.dismiss();
+        }
     }
 
     private void deleteEvent (final Event event, final int position)
@@ -213,10 +288,20 @@ public class ListActivity extends AppCompatActivity {
                         events.add(position, event);
                         adapter.notifyItemInserted(position);
                         initialCount += 1;
-
+                        if (events.size() == 0) {
+                            findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
+                            delete_all_fab.setVisibility(View.GONE);
+                        } else {
+                            findViewById(R.id.empty_view).setVisibility(View.GONE);
+                            delete_all_fab.setVisibility(View.VISIBLE);
+                        }
                     }
                 })
                 .show();
+        if (events.size() == 0) {
+            findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
+            delete_all_fab.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -283,11 +368,13 @@ public class ListActivity extends AppCompatActivity {
 
 
             recyclerView.setVisibility(View.VISIBLE);
+            delete_all_fab.setVisibility(View.VISIBLE);
             findViewById(R.id.empty_view).setVisibility(View.GONE);
         }
         else if (newCount == 0)
         {
             recyclerView.setVisibility(View.GONE);
+            delete_all_fab.setVisibility(View.GONE);
             findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
         }
 
