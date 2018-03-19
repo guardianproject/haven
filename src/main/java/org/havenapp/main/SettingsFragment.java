@@ -120,6 +120,27 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             findPreference(PreferenceManager.NOTIFICATION_TIME).setSummary(preferences.getNotificationTimeMs()/60000 + " " + getString(R.string.minutes));
         }
 
+        if (preferences.getHeartbeatActive())
+        {
+            ((SwitchPreferenceCompat) findPreference(PreferenceManager.HEARTBEAT_MONITOR_ACTIVE)).setChecked(true);
+            boolean heartOn = ((SwitchPreferenceCompat) findPreference(PreferenceManager.HEARTBEAT_MONITOR_ACTIVE)).isChecked();
+            boolean isMonitoring = preferences.getHeartbeatActive();
+
+            if (heartOn || isMonitoring) { //Check for stray timers/monitors
+                preferences.activateHeartbeat(true);
+                findPreference(PreferenceManager.HEARTBEAT_MONITOR_DELAY).setSummary(preferences.getHeartbeatNotificationTimeMs() / 60000 + " " + getString(R.string.minutes));
+            }
+            else{
+                preferences.activateHeartbeat(false);
+                findPreference(PreferenceManager.HEARTBEAT_MONITOR_DELAY).setSummary(R.string.heartbeat_time_dialog);
+            }
+        }
+
+        if (preferences.getHeartbeatNotificationTimeMs()> 300000)
+        {
+            findPreference(PreferenceManager.HEARTBEAT_MONITOR_DELAY).setSummary(preferences.getHeartbeatNotificationTimeMs() / 60000 + " " + getString(R.string.minutes));
+        }
+
         Preference prefCameraSensitivity = findPreference(PreferenceManager.CAMERA_SENSITIVITY);
         prefCameraSensitivity.setOnPreferenceClickListener(preference -> {
             startActivity(new Intent(mActivity, CameraConfigureActivity.class));
@@ -198,6 +219,10 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             app.stopServer();
             app.startServer();
         }
+
+        boolean heartbeatMonitorActive = ((SwitchPreferenceCompat) findPreference(PreferenceManager.HEARTBEAT_MONITOR_ACTIVE)).isChecked();
+
+        preferences.activateHeartbeat(heartbeatMonitorActive);
 
         mActivity.setResult(Activity.RESULT_OK);
         mActivity.finish();
@@ -348,6 +373,47 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 } else {
                     preferences.setRemoteAccessCredential(text);
                     findPreference(PreferenceManager.REMOTE_ACCESS_CRED).setSummary(R.string.remote_access_credential_hint);
+                }
+                break;
+            }
+            case PreferenceManager.HEARTBEAT_MONITOR_ACTIVE: {
+                boolean heartbeatActive = ((SwitchPreferenceCompat) findPreference(PreferenceManager.HEARTBEAT_MONITOR_ACTIVE)).isChecked();
+                boolean isMonitoring = preferences.getHeartbeatActive();
+                if (heartbeatActive && !isMonitoring)
+                {
+                    preferences.activateHeartbeat(true);
+                    findPreference(PreferenceManager.HEARTBEAT_MONITOR_DELAY).setSummary(preferences.getHeartbeatNotificationTimeMs() / 60000 + " " + getString(R.string.minutes));
+                    SignalSender sender = SignalSender.getInstance(getContext(), preferences.getSignalUsername());
+                    sender.startHeartbeatTimer(preferences.getHeartbeatNotificationTimeMs());
+                }
+                else if (!heartbeatActive && isMonitoring)
+                {
+                    preferences.activateHeartbeat(false);
+                    findPreference(PreferenceManager.HEARTBEAT_MONITOR_DELAY).setSummary(R.string.hearbeat_monitor_dialog);
+                    SignalSender sender = SignalSender.getInstance(getContext(), preferences.getSignalUsername());
+                    sender.stopHeartbeatTimer();
+                }
+                break;
+            }
+            case PreferenceManager.HEARTBEAT_MONITOR_DELAY: {
+                try {
+                    String text = ((EditTextPreference) findPreference(PreferenceManager.HEARTBEAT_MONITOR_DELAY)).getText();
+                    int notificationTimeMs = Integer.parseInt(text) * 60000;
+                    if (notificationTimeMs <= 0)
+                        notificationTimeMs = 300000;
+
+                    preferences.setHeartbeatMonitorNotifications(notificationTimeMs);
+                    findPreference(PreferenceManager.HEARTBEAT_MONITOR_DELAY).setSummary(preferences.getHeartbeatNotificationTimeMs() / 60000 + " " + getString(R.string.minutes));
+
+                    boolean heartbeatActive = ((SwitchPreferenceCompat) findPreference(PreferenceManager.HEARTBEAT_MONITOR_ACTIVE)).isChecked();
+                    if (heartbeatActive) {
+                        SignalSender sender = SignalSender.getInstance(getContext(), preferences.getSignalUsername());
+                        sender.stopHeartbeatTimer();
+                        sender.startHeartbeatTimer(preferences.getHeartbeatNotificationTimeMs());
+                    }
+
+                } catch (NumberFormatException ne) {
+                    //error parsing user value
                 }
                 break;
             }
