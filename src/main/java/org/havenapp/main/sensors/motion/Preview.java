@@ -124,8 +124,9 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 	/*
 		 * We bind to the alert service
 		 */
-        context.bindService(new Intent(context,
-                MonitorService.class), mConnection, Context.BIND_ABOVE_CLIENT);}
+        this.context.bindService(new Intent(context,
+                MonitorService.class), mConnection, Context.BIND_ABOVE_CLIENT);
+	}
 
 				public void setMotionSensitivity (int
 				motionSensitivity )
@@ -398,8 +399,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
             // Surface will be destroyed when we return, so stop the preview.
             // Because the CameraDevice object is not a shared resource, it's very
             // important to release it when the activity is paused.
-            if (serviceMessenger != null)
-                context.unbindService(mConnection);
+            this.context.unbindService(mConnection);
 
             camera.setPreviewCallback(null);
             camera.stopPreview();
