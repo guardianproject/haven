@@ -242,7 +242,12 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 
                     public void onPreviewFrame(byte[] data, Camera cam) {
 
-                        final Camera.Size size = cam.getParameters().getPreviewSize();
+                        Camera.Size size;
+                        try {
+                            size = cam.getParameters().getPreviewSize();
+                        } catch(RuntimeException e) {
+                            return;
+                        }
                         if (size == null) return;
                         long now = System.currentTimeMillis();
                         if (now < Preview.this.lastTimestamp + PREVIEW_INTERVAL)
