@@ -106,6 +106,7 @@
     <string name="sensor_sound">麦克风</string>
     <string name="sensor_power">USB 电源</string>
     <string name="sensor_bump">碰撞 (加速度仪)</string>
+    <string name="sensor_camera_video">运动 (视频)</string> 
     <string name="sensor_unknown">不明</string>
 
     <string name="settings">设置</string>
@@ -123,6 +124,10 @@
     <string name="phone_number"> 通知号码 (远程)</string>
     <string name="sensors">传感器</string>
     <string name="label_notifications">通知</string>
+    <string name="video_active_preference_key">video_active_preference_key</string> <!-- Unknown string -->
+    <string name="config_video_length_label">设置视频监测时长</string> 
+    <string name="video_monitoring">视频监测中</string> 
+    <string name="video_settings">视频设置</string> 
 
     <string name="camera_sensitivity">相机敏感度</string>
 
