@@ -51,6 +51,7 @@ public class PreferenceManager {
     public static final String CONFIG_MOVEMENT ="config_movement";
     public static final String HEARTBEAT_MONITOR_ACTIVE="heartbeat_monitor_active";
     public static final String HEARTBEAT_MONITOR_DELAY="heartbeat_monitor_delay";
+    public static final String MONITOR_SERVICE_ACTIVE="monitor_service_active";
     private static final String FLASH_ACTIVE="flash_active";
     private static final String MICROPHONE_ACTIVE="microphone_active";
     private static final String MICROPHONE_SENSITIVITY="microphone_sensitivity";
@@ -120,6 +121,16 @@ public class PreferenceManager {
     public boolean getRemoteAccessActive ()
     {
         return appSharedPrefs.getBoolean(REMOTE_ACCESS_ACTIVE,false);
+    }
+
+    public void activateMonitorService (boolean active) {
+        prefsEditor.putBoolean(MONITOR_SERVICE_ACTIVE,active);
+        prefsEditor.commit();
+    }
+
+    public boolean getMonitorServiceActive ()
+    {
+        return appSharedPrefs.getBoolean(MONITOR_SERVICE_ACTIVE,false);
     }
 
     public void setRemoteAccessOnion (String onionAddress) {
