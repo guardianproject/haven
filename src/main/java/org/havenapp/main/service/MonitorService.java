@@ -114,7 +114,6 @@ public class MonitorService extends Service {
 	/**
 	 * Called on service creation, sends a notification
 	 */
-    @SuppressLint("InvalidWakeLockTag")
     @Override
     public void onCreate() {
 

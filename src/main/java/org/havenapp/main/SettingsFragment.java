@@ -25,14 +25,12 @@ import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.SwitchPreferenceCompat;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompat;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
-import org.havenapp.main.service.MonitorService;
 import org.havenapp.main.service.SignalSender;
 import org.havenapp.main.service.WebServer;
 import org.havenapp.main.ui.AccelConfigureActivity;
