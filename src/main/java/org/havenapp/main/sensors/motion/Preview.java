@@ -316,7 +316,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 
                                             } catch (Exception e) {
                                                 // Cannot happen
-                                                Log.e("Preview", "error creating imnage", e);
+                                                Log.e("Preview", "error creating image", e);
                                             }
                                         }
                                     }
