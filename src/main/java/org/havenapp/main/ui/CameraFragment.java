@@ -56,7 +56,10 @@ public final class CameraFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        initCamera ();
+        if (preview == null)
+            initCamera();
+        else
+            resetCamera();
     }
 
     public void stopCamera ()
