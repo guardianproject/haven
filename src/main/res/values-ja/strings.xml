@@ -49,8 +49,9 @@
 
     <string name="onboarding_action_end">完了</string>
 
+    <string name="remote_access">リモートアクセス</string>
     <string name="remote_access_label">Tor Onion Service経由のリモートアクセスを有効にする</string>
-    <string name="remote_access_hint">Onion service address from Orbot</string>
+    <string name="remote_access_hint">Orbotからの Onion serviceアドレス</string>
     <string name="remote_access_credential_hint">リモートパスワードを設定</string>
     <string name="camera_front">前面カメラ</string>
     <string name="camera_back">背面カメラ</string>
@@ -90,20 +91,60 @@
     <string name="send_test_message">テストメッセージを送信する</string>
     <string name="verify">ベリファイ</string>
     <string name="register">登録</string>
-    <string name="activate_signal">シグナルを有効にする</string>
-    <string name="verify_signal">シグナルを確認する</string>
-    <string name="enter_verification">シグナル登録手続きから受け取った確認コードを入力してください</string>
+    <string name="activate_signal">Signalを有効にする</string>
+    <string name="verify_signal">Signalを確認する</string>
+    <string name="enter_verification">Signal登録手続きから受け取った確認コードを入力してください</string>
     <string name="cancel">取消</string>
-    <string name="register_title">シグナルを登録</string>
-    <string name="register_signal_desc">新しい電話番号でシグナルに署名してセキュリティ通知を送信します。 あなたの現在またはメインのシグナル番号を使用しないでください。</string>
+    <string name="register_title">Signalを登録</string>
+    <string name="register_signal_desc">新しい電話番号で Signalに署名してセキュリティ通知を送信します。 あなたの現在またはメインの Signal番号を使用しないでください。</string>
     <string name="phone_hint">08012345678</string>
 
     <string name="menu_licenses">ライセンス...</string>
     <string name="sensor_light">環境光</string>
-    <string name="sensor_accel">動き (加速度計)</string>
+    <string name="sensor_accel">動き検出 (加速度計)</string>
     <string name="sensor_camera">モーション (カメラ)</string>
     <string name="sensor_sound">マイク</string>
     <string name="sensor_power">USB電源</string>
+    <string name="sensor_bump">衝突 (加速度計)</string>
+    <string name="sensor_camera_video">動き検出 (動画)</string>
     <string name="sensor_unknown">不明</string>
 
-    </resources>
+    <string name="settings">設定</string>
+    <string name="remote_access_onion_error">この機能は「Orbot: Tor for Android」アプリのインストールが必要です.</string>
+
+    <!--Preference Settings -->
+    <string name="hint_number" translatable="false">+819012345678</string>
+    <string name="sms_dialog_summary">通知を送信するリモートの電話番号</string>
+    <string name="sms_dialog_message">警報通知を送信するリモートの電話番号を入力</string>
+    <string name="signal_dialog_summary">Signalを使用する電話番号</string>
+    <string name="verification_dialog_summary">タップして Signal番号を確認</string>
+    <string name="send_message_dialog">試験用の警報通知を送信する電話番号を入力</string>
+    <string name="send_text_message">試験用の通知...</string>
+    <string name="service_address">サービスアドレス</string>
+    <string name="password">パスワード (必須)</string>
+    <string name="signal_number">Signal番号 (ローカル)</string>
+    <string name="phone_number">通知番号 (リモート)</string>
+    <string name="sensors">センサー</string>
+    <string name="label_notifications">通知</string>
+
+    <string name="config_video_length_label">動画モニターの長さ</string>
+    <string name="video_monitoring">動画モニター中</string>
+    <string name="video_settings">動画設定</string>
+
+    <string name="camera_sensitivity">カメラ感度</string>
+
+    <string name="notification_time">通知時間の間隔</string>
+    <string name="notification_time_summary">設定した時間間隔でだけ通知を送信する</string>
+    <string name="notification_time_dialog">通知の制限を行なう時間 (分単位)を入力. \'0\' を入力すると全ての通知を行なう.</string>
+    <string name="minutes">分間</string>
+    <string name="keep_watch">よく見て！</string>
+    <string name="camera_sensitivity_tip">カメラを切り替えるか、スライダーで動きセンサーの感度を調節</string>
+    <string name="disable_battery_opt_title">バッテリー最適化を無効にする</string>
+    <string name="disable_battery_opt_summary">画面が消えた状態でもアプリの動作を許可</string>
+    <string name="event_deleted">イベントを削除</string>
+    <string name="undo">戻す</string>
+    <string name="remove_all_logs">全てのログを削除</string>
+    <string name="events_deleted">イベントを削除</string>
+
+
+</resources>
