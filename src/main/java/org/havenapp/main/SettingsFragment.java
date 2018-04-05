@@ -123,17 +123,11 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         if (preferences.getHeartbeatActive())
         {
             ((SwitchPreferenceCompat) findPreference(PreferenceManager.HEARTBEAT_MONITOR_ACTIVE)).setChecked(true);
-            boolean heartOn = ((SwitchPreferenceCompat) findPreference(PreferenceManager.HEARTBEAT_MONITOR_ACTIVE)).isChecked();
-            boolean isMonitoring = preferences.getHeartbeatActive();
-
-            if (heartOn || isMonitoring) { //Check for stray timers/monitors
-                preferences.activateHeartbeat(true);
+            if (preferences.getHeartbeatActive()) {
                 findPreference(PreferenceManager.HEARTBEAT_MONITOR_DELAY).setSummary(preferences.getHeartbeatNotificationTimeMs() / 60000 + " " + getString(R.string.minutes));
             }
-            else{
-                preferences.activateHeartbeat(false);
+            else
                 findPreference(PreferenceManager.HEARTBEAT_MONITOR_DELAY).setSummary(R.string.heartbeat_time_dialog);
-            }
         }
 
         if (preferences.getHeartbeatNotificationTimeMs()> 300000)
@@ -377,21 +371,22 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 break;
             }
             case PreferenceManager.HEARTBEAT_MONITOR_ACTIVE: {
-                boolean heartbeatActive = ((SwitchPreferenceCompat) findPreference(PreferenceManager.HEARTBEAT_MONITOR_ACTIVE)).isChecked();
                 boolean isMonitoring = preferences.getHeartbeatActive();
-                if (heartbeatActive && !isMonitoring)
-                {
+                boolean hbSwitchOn = ((SwitchPreferenceCompat) findPreference(PreferenceManager.HEARTBEAT_MONITOR_ACTIVE)).isChecked();
+                if (!isMonitoring && hbSwitchOn) {
                     preferences.activateHeartbeat(true);
                     findPreference(PreferenceManager.HEARTBEAT_MONITOR_DELAY).setSummary(preferences.getHeartbeatNotificationTimeMs() / 60000 + " " + getString(R.string.minutes));
-                    SignalSender sender = SignalSender.getInstance(getContext(), preferences.getSignalUsername());
-                    sender.startHeartbeatTimer(preferences.getHeartbeatNotificationTimeMs());
-                }
-                else if (!heartbeatActive && isMonitoring)
-                {
+                    if (preferences.getMonitorServiceActive()) {
+                        SignalSender sender = SignalSender.getInstance(getContext(), preferences.getSignalUsername());
+                        sender.startHeartbeatTimer(preferences.getHeartbeatNotificationTimeMs());
+                    }
+                } else if (!hbSwitchOn && isMonitoring) {
                     preferences.activateHeartbeat(false);
                     findPreference(PreferenceManager.HEARTBEAT_MONITOR_DELAY).setSummary(R.string.hearbeat_monitor_dialog);
-                    SignalSender sender = SignalSender.getInstance(getContext(), preferences.getSignalUsername());
-                    sender.stopHeartbeatTimer();
+                    if (preferences.getMonitorServiceActive()) {
+                        SignalSender sender = SignalSender.getInstance(getContext(), preferences.getSignalUsername());
+                        sender.stopHeartbeatTimer();
+                    }
                 }
                 break;
             }
@@ -406,12 +401,11 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                     findPreference(PreferenceManager.HEARTBEAT_MONITOR_DELAY).setSummary(preferences.getHeartbeatNotificationTimeMs() / 60000 + " " + getString(R.string.minutes));
 
                     boolean heartbeatActive = ((SwitchPreferenceCompat) findPreference(PreferenceManager.HEARTBEAT_MONITOR_ACTIVE)).isChecked();
-                    if (heartbeatActive) {
+                    if (heartbeatActive && preferences.getMonitorServiceActive()) {
                         SignalSender sender = SignalSender.getInstance(getContext(), preferences.getSignalUsername());
                         sender.stopHeartbeatTimer();
                         sender.startHeartbeatTimer(preferences.getHeartbeatNotificationTimeMs());
                     }
-
                 } catch (NumberFormatException ne) {
                     //error parsing user value
                 }

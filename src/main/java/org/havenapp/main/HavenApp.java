@@ -53,10 +53,6 @@ public class HavenApp extends MultiDexApplication {
         if (mPrefs.getRemoteAccessActive())
             startServer();
 
-        if (mPrefs.getHeartbeatActive()) {
-            SignalSender sender = SignalSender.getInstance(this, mPrefs.getSignalUsername());
-            sender.startHeartbeatTimer(mPrefs.getHeartbeatNotificationTimeMs());
-        }
     }
 
 

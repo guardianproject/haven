@@ -230,6 +230,13 @@ public class MonitorService extends Service {
         mBaroMonitor = new BarometerMonitor(this);
         mLightMonitor = new AmbientLightMonitor(this);
 
+        mPrefs.activateMonitorService(true);
+
+        if (mPrefs.getHeartbeatActive()){
+            SignalSender sender = SignalSender.getInstance(this, mPrefs.getSignalUsername());
+            sender.startHeartbeatTimer(mPrefs.getHeartbeatNotificationTimeMs());
+        }
+
         // && !mPrefs.getVideoMonitoringActive()
 
         if (!mPrefs.getMicrophoneSensitivity().equals(PreferenceManager.OFF))
@@ -259,6 +266,14 @@ public class MonitorService extends Service {
 
         if (!mPrefs.getMicrophoneSensitivity().equals(PreferenceManager.OFF))
             mMicMonitor.stop(this);
+
+        if (mPrefs.getMonitorServiceActive()) {
+            mPrefs.activateMonitorService(false);
+            if (mPrefs.getHeartbeatActive()) {
+                SignalSender sender = SignalSender.getInstance(this, mPrefs.getSignalUsername());
+                sender.stopHeartbeatTimer();
+            }
+        }
     }
 
     /**
