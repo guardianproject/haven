@@ -49,6 +49,7 @@ public class EventTrigger extends SugarRecord {
      * Power change detected message
      */
     public static final int POWER = 5;
+
     /**
      * Significant motion detected message
      */
@@ -58,6 +59,11 @@ public class EventTrigger extends SugarRecord {
      * Significant motion detected message
      */
     public static final int CAMERA_VIDEO = 7;
+    
+    /**
+     * Heartbeat notification message
+     */
+    public static final int HEART = 8;
 
 
     public EventTrigger ()
@@ -119,6 +125,9 @@ public class EventTrigger extends SugarRecord {
                 break;
             case EventTrigger.CAMERA_VIDEO:
                 sType = context.getString(R.string.sensor_camera_video);
+                break;
+            case EventTrigger.HEART:
+                sType = context.getString(R.string.sensor_heartbeat);
                 break;
             default:
                 sType = context.getString(R.string.sensor_unknown);

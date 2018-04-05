@@ -109,6 +109,7 @@
     <string name="sensor_power">USB Power</string>
     <string name="sensor_bump">Bump (Accelerometer)</string>
     <string name="sensor_camera_video">Motion (Video)</string>
+    <string name="sensor_heartbeat">Heartbeat</string>
     <string name="sensor_unknown">Unknown</string>
 
     <string name="settings">Settings</string>
@@ -148,5 +149,10 @@
     <string name="remove_all_logs">Remove all logs</string>
     <string name="events_deleted">Events deleted</string>
 
-
+    <string name="hearbeat_monitor">Heartbeat Monitor</string>
+    <string name="hearbeat_monitor_enable">Enable Heartbeat Notifications</string>
+    <string name="hearbeat_monitor_summary">Monitor Time Interval</string>
+    <string name="heartbeat_time_dialog">Enter interval time (minutes) to receive notifications:\n\nMinimum of 1, default is 5.</string>
+    <string name="hearbeat_monitor_dialog">Set alert delay for the status notifications </string>
+    
 </resources>

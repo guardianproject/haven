@@ -27,6 +27,7 @@ import com.orm.SugarContext;
 
 import java.io.IOException;
 
+import org.havenapp.main.service.SignalSender;
 import org.havenapp.main.service.WebServer;
 
 public class HavenApp extends MultiDexApplication {
