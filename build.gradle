@@ -121,6 +121,7 @@ dependencies {
     implementation 'com.takisoft.fix:preference-v7:27.1.0.0'
     implementation 'com.wdullaer:materialdatetimepicker:3.5.2'
 
+    compile 'com.googlecode.libphonenumber:libphonenumber:8.7.0'
     implementation('com.mikepenz:aboutlibraries:6.0.2@aar') {
         transitive = true
     }
