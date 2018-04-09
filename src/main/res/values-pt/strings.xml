@@ -96,7 +96,7 @@
     <string name="cancel">Cancelar</string>
     <string name="register_title">Registar com Signal</string>
     <string name="register_signal_desc">
-        Registar o novo número de telefone (+351912223344) com a aplicação Signal para proteger as notificaçãos. NÃO USAR O SEU NÚMERO \'SIGNAL' ATUAL/PRINCIPAL.</string>
+        Registar o novo número de telefone (+351912223344) com a aplicação Signal para proteger as notificaçãos. NÃO USAR O SEU NÚMERO \'SIGNAL\' ATUAL/PRINCIPAL.</string>
     <string name="phone_hint">+351912223344</string>
 
     <string name="menu_licenses">Licenças...</string>
