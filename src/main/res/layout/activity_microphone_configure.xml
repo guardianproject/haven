@@ -41,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/@string/set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect"
+            android:text="@string/set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect"
             android:textColor="@color/colorAccent"
             android:textSize="14sp"
             android:textStyle="bold"
