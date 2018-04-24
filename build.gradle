@@ -4,7 +4,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.0-alpha08'
+        classpath 'com.android.tools.build:gradle:3.2.0-alpha12'
 
     }
 
@@ -120,8 +120,7 @@ dependencies {
     implementation 'com.maxproj.simplewaveform:app:1.0.0'
     implementation 'com.takisoft.fix:preference-v7:27.1.0.0'
     implementation 'com.wdullaer:materialdatetimepicker:3.5.2'
-
-    compile 'com.googlecode.libphonenumber:libphonenumber:8.7.0'
+    implementation 'com.googlecode.libphonenumber:libphonenumber:8.7.0'
     implementation('com.mikepenz:aboutlibraries:6.0.2@aar') {
         transitive = true
     }
