@@ -113,7 +113,7 @@
     <string name="sensor_unknown">Unknown</string>
 
     <string name="settings">Settings</string>
-    <string name="remote_access_onion_error">This feature requires the Orbot: Tor for Android app to be installed.</string>
+    <string name="remote_access_onion_error">This feature requires the Orbot:proxy for Android app to be installed, or to forward localhost:8888.</string>
 
     <!--Preference Settings -->
     <string name="hint_number" translatable="false">+12125551212</string>
