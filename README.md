@@ -66,7 +66,7 @@ If you are an Android developer, you can learn more about how you can make use o
 
 ## Why no iPhone Support?
 
-While we hope to support a version of Haven that runs directly on iOS devices in the future, iPhone users can still benefit from Haven today. You can purchase an inexpensive Android phone for less than $100, and use that as your "Haven Device", that you leave behind, while you keep your iPhone with you. If you run Signal on your iPhone, you can configure Haven on Android to send encrypted notifications, with photos and audio, directly to you. If you enable the "Tor Onion Service" feature in Haven (requires either installing "Orbot: proxy for android" app as well, or to manually forward port 8888 with, e.g., ssh in termux), you can remotely access all Haven log data from your iPhone, using the Onion Browser app, or from any [desktop Tor browser](https://www.torproject.org/projects/torbrowser.html).
+While we hope to support a version of Haven that runs directly on iOS devices in the future, iPhone users can still benefit from Haven today. You can purchase an inexpensive Android phone for less than $100, and use that as your "Haven Device", that you leave behind, while you keep your iPhone with you. If you run Signal on your iPhone, you can configure Haven on Android to send encrypted notifications, with photos and audio, directly to you. If you enable the "Tor Onion Service" feature in Haven (requires installing "Orbot" app as well), you can remotely access all Haven log data from your iPhone, using the Onion Browser app.
 
 So, no, iPhone users we didn't forget about you, and hope you'll pick up an Android burner today for a few bucks!
 
