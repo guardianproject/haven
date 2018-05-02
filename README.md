@@ -66,7 +66,7 @@ If you are an Android developer, you can learn more about how you can make use o
 
 ## Why no iPhone Support?
 
-While we hope to support a version of Haven that runs directly on iOS devices in the future, iPhone users can still benefit from Haven today. You can purchase an inexpensive Android phone for less than $100, and use that as your "Haven Device", that you leave behind, while you keep your iPhone with you. If you run Signal on your iPhone, you can configure Haven on Android to send encrypted notifications, with photos and audio, directly to you. If you enable the "Tor Onion Service" feature in Haven (requires installing "Orbot" app as well), you can remotely access all Haven log data from your iPhone, using the Onion Browser app.
+While we hope to support a version of Haven that runs directly on iOS devices in the future, iPhone users can still benefit from Haven today. You can purchase an inexpensive Android phone for less than $100, and use that as your "Haven Device", that you leave behind, while you keep your iPhone with you. If you run Signal on your iPhone, you can configure Haven on Android to send encrypted notifications, with photos and audio, directly to you. If you enable the "Tor Onion Service" feature in Haven (requires either installing "Orbot: proxy for android" app as well, or to manually forward port 8888 with, e.g., ssh in termux), you can remotely access all Haven log data from your iPhone, using the Onion Browser app, or from any [desktop Tor browser](https://www.torproject.org/projects/torbrowser.html).
 
 So, no, iPhone users we didn't forget about you, and hope you'll pick up an Android burner today for a few bucks!
 
@@ -91,7 +91,7 @@ Notifications are sent through a service running in the background that is defin
 
 ### Remote Access
 
-All event logs and captured media can be remotely accessed through a [Tor Onion Service](https://www.torproject.org/docs/onion-services). Haven must be configured as an Onion Service and requires the device to also have [Orbot: Tor for Android](https://guardianproject.info/apps/orbot) installed and running. 
+All event logs and captured media can be remotely accessed. Haven must be configured as an Onion Service. To access logs through a [Tor Onion Service](https://www.torproject.org/docs/onion-services), [Tor: proxy for Android](https://guardianproject.info/apps/orbot) installed and running is required on the device. Access to logs are also available  locally on localhost:8888, you can forward that access with, e.g., ssh from termux.
 
 ## ATTRIBUTIONS
 
