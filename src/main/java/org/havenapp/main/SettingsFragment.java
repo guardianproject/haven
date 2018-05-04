@@ -26,6 +26,8 @@ import android.support.v7.preference.Preference;
 import android.support.v7.preference.SwitchPreferenceCompat;
 import android.text.TextUtils;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
@@ -218,6 +220,8 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
         preferences.setActivateVideoMonitoring(videoMonitoringActive);
 
+        preferences.setSignalUsername(((EditTextPreference) findPreference(PreferenceManager.REGISTER_SIGNAL)).getText());
+
         boolean remoteAccessActive = ((SwitchPreferenceCompat) findPreference(PreferenceManager.REMOTE_ACCESS_ACTIVE)).isChecked();
 
         preferences.activateRemoteAccess(remoteAccessActive);
@@ -228,6 +232,8 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             app.stopServer();
             app.startServer();
         }
+
+        preferences.setVoiceVerification(false);
 
         boolean heartbeatMonitorActive = ((SwitchPreferenceCompat) findPreference(PreferenceManager.HEARTBEAT_MONITOR_ACTIVE)).isChecked();
 
@@ -494,7 +500,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         SignalSender sender = SignalSender.getInstance(mActivity, username);
 
         if (TextUtils.isEmpty(verifyCode)) {
-            sender.register();
+            sender.register(preferences.getVoiceVerificationEnabled());
         } else {
             sender.verify(verifyCode);
         }
@@ -559,6 +565,15 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 intent.setData(Uri.parse("package:" + packageName));
             }
             getActivity().startActivity(intent);
+        }
+    }
+
+    public void checkCallToVerify (View v) {
+        Switch callSwitch = v.findViewById(R.id.signalCallSwitch);
+        if (callSwitch != null && callSwitch.isChecked()) {
+            preferences.setVoiceVerification(true);
+        } else {
+            preferences.setVoiceVerification(false);
         }
     }
 }

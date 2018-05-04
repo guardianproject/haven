@@ -54,7 +54,7 @@ public class SignalSender {
         mInstance = null;
     }
 
-    public void register ()
+    public void register (boolean callEnabled)
     {
         execute (new Runnable() {
             public void run() {
@@ -63,7 +63,10 @@ public class SignalSender {
 
                 map.put("username", mUsername);
                 map.put("command", "register");
-                map.put("voice", false);
+                if (!callEnabled)
+                    map.put("voice", false);
+                else
+                    map.put("voice", true);
 
                 Namespace ns = new Namespace(map);
                 mainSignal.handleCommands(ns);

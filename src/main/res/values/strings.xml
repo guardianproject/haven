@@ -95,6 +95,7 @@
     <string name="register">Register</string>
     <string name="activate_signal">Activate Signal</string>
     <string name="verify_signal">Verify Signal</string>
+    <string name="verify_signal_by_phone">Call me instead</string>
     <string name="enter_verification">Enter the verification code you received from the Signal registration step</string>
     <string name="cancel">Cancel</string>
     <string name="register_title">Register with Signal</string>
