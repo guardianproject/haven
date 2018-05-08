@@ -61,6 +61,7 @@ public class PreferenceManager {
     public static final String SMS_NUMBER = "sms_number";
     public static final String REGISTER_SIGNAL = "register_signal";
     public static final String VERIFY_SIGNAL = "verify_signal";
+    public static final String VOICE_VERIFY_SIGNAL = "voice_verify_signal";
     public static final String SEND_SMS = "send_sms";
     private static final String UNLOCK_CODE="unlock_code";
 	
@@ -271,6 +272,15 @@ public class PreferenceManager {
     {
         prefsEditor.putInt(VIDEO_LENGTH,delay);
         prefsEditor.commit();
+    }
+
+    public void setVoiceVerification(boolean active) {
+        prefsEditor.putBoolean(VOICE_VERIFY_SIGNAL, active);
+        prefsEditor.commit();
+    }
+
+    public boolean getVoiceVerificationEnabled() {
+        return appSharedPrefs.getBoolean(VOICE_VERIFY_SIGNAL, false);
     }
 
     public String getDirPath() {

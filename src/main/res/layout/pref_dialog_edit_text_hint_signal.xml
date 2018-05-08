@@ -1,0 +1,42 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="@dimen/activity_vertical_large_margin"
+    android:layout_marginTop="@dimen/activity_vertical_large_margin"
+    android:overScrollMode="ifContentScrolls">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/alert_def_padding"
+        android:paddingEnd="?dialogPreferredPadding"
+        android:paddingLeft="?dialogPreferredPadding"
+        android:paddingRight="?dialogPreferredPadding"
+        android:paddingStart="?dialogPreferredPadding"
+        android:paddingTop="@dimen/alert_def_padding">
+
+        <TextView
+            android:id="@android:id/message"
+            style="?android:attr/textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/alert_def_padding"
+            android:textColor="?android:attr/textColorSecondary" />
+
+        <Switch
+            android:id="@+id/signalCallSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:onClick="switchClickListener"
+            android:text="@string/verify_signal_by_phone" />
+
+        <EditText
+            android:id="@android:id/edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_number" />
+
+    </LinearLayout>
+</ScrollView>

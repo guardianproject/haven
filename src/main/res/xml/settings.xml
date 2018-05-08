@@ -63,7 +63,7 @@
 
         <EditTextPreference
             style="@style/AppPreference.DialogPreferenceRegister"
-            android:dialogLayout="@layout/pref_dialog_edit_text_hint"
+            android:dialogLayout="@layout/pref_dialog_edit_text_hint_signal"
             android:dialogMessage="@string/register_signal_desc"
             android:inputType="phone"
             android:key="register_signal"
