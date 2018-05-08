@@ -1,7 +1,9 @@
 <resources>
 
+    <!-- <string name="app_name" translatable="false">Haven</string>
+    <string name="bullets" translatable="false">•••••••</string> -->
     <string name="menu_save">保存</string>
-    <string name="menu_about">设置中...</string>
+    <string name="menu_about">设置...</string>
 
     <string name="title_activity_start">Haven</string>
 
@@ -107,11 +109,14 @@
     <string name="sensor_power">USB 电源</string>
     <string name="sensor_bump">碰撞 (加速度仪)</string>
     <string name="sensor_camera_video">运动 (视频)</string> 
+    <string name="sensor_heartbeat">心跳检测</string>
     <string name="sensor_unknown">不明</string>
 
     <string name="settings">设置</string>
     <string name="remote_access_onion_error">此功能需要安装 Orbot: Tor for Android.</string>
 
+    <!--Preference Settings -->
+    <!-- <string name="hint_number" translatable="false">+12125551212</string> -->
     <string name="sms_dialog_summary">用于接受短信通知的号码</string>
     <string name="sms_dialog_message">输入用于接受短信通知的号码</string>
     <string name="signal_dialog_summary">用于接受通知的 Signal 号码</string>
@@ -139,6 +144,15 @@
     <string name="camera_sensitivity_tip">切换摄像头或滑动调整运动侦测敏感度</string>
     <string name="disable_battery_opt_title">关闭电池优化</string>
     <string name="disable_battery_opt_summary">允许 Haven 熄屏后保持运行</string>
+    <string name="event_deleted">事件删除成功</string>
+    <string name="undo">撤销</string>
+    <string name="remove_all_logs">清除所有日记</string>
+    <string name="events_deleted">事件批量删除成功</string>
 
-
+    <string name="hearbeat_monitor">心跳检测机制</string>
+    <string name="hearbeat_monitor_enable">开启心跳检测推送</string>
+    <string name="hearbeat_monitor_summary">检测间隔</string>
+    <string name="heartbeat_time_dialog">输入接受推送的间隔（分钟）:\n\n最低值1, 默认值5.</string>
+    <string name="hearbeat_monitor_dialog">设置状态推送延迟</string>
+    
 </resources>
