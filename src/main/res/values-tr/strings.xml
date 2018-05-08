@@ -36,7 +36,7 @@
 
     <string name="action_settings">Ayarlar</string>
 
-    <string name="intro1_title">Haven'a Hoşgeldiniz</string>
+    <string name="intro1_title">Haven\'a Hoşgeldiniz</string>
     <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the height find...\"\n-George Meredith</string>
 
     <string name="intro2_title">Haven; evine, ofisine, otel odasına veya özel alanına izinsiz girişlere karşı tetikte olmak isteyen insanlar içindir</string>
@@ -90,12 +90,12 @@
     <string name="send_test_message">Deneme mesajı gönder</string>
     <string name="verify">Doğrula</string>
     <string name="register">Kaydol</string>
-    <string name="activate_signal">Signal'ı Etkinleştir</string>
-    <string name="verify_signal">Signal'ı Onayla</string>
-    <string name="enter_verification">Signal'a kayıt sırasında gelen mesajdaki onay kodunu girin</string>
+    <string name="activate_signal">Signal\'ı Etkinleştir</string>
+    <string name="verify_signal">Signal\'ı Onayla</string>
+    <string name="enter_verification">Signal\'a kayıt sırasında gelen mesajdaki onay kodunu girin</string>
     <string name="cancel">İptal</string>
-    <string name="register_title">Signal'a Kaydol</string>
-    <string name="register_signal_desc">Bildirimleri göndereceğiniz yeni bir telefon numarasını (+905321234567) Signal'a kaydedin. SIGNAL UYGULAMASINDA MEVCUT/ÖNCEDEN KAYDEDİLMİŞ BİR NUMARA KULLANMAYIN.</string>
+    <string name="register_title">Signal\'a Kaydol</string>
+    <string name="register_signal_desc">Bildirimleri göndereceğiniz yeni bir telefon numarasını (+905321234567) Signal\'a kaydedin. SIGNAL UYGULAMASINDA MEVCUT/ÖNCEDEN KAYDEDİLMİŞ BİR NUMARA KULLANMAYIN.</string>
     <string name="phone_hint">+905321234567</string>
 
     <string name="menu_licenses">Lisans...</string>
