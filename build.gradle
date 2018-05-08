@@ -124,5 +124,5 @@ dependencies {
     implementation('com.mikepenz:aboutlibraries:6.0.2@aar') {
         transitive = true
     }
-
+    implementation 'com.github.halilozercan:BetterVideoPlayer:1.1.0'
 }

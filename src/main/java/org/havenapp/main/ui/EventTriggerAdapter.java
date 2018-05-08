@@ -87,8 +87,8 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
                     holder.video.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(eventTrigger.getPath()));
-                            intent.setDataAndType(Uri.parse(eventTrigger.getPath()), "video/*");
+                            Intent intent = new Intent(context, VideoPlayerActivity.class);
+                            intent.setData(Uri.parse("file://" + eventTrigger.getPath()));
                             context.startActivity(intent);
                         }
                     });
@@ -103,7 +103,7 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
                     break;
                 case EventTrigger.CAMERA:
                     holder.image.setVisibility(View.VISIBLE);
-                    Picasso.with(context).load(new File(eventTrigger.getPath())).into(holder.image);
+                    Picasso.get().load(new File(eventTrigger.getPath())).into(holder.image);
                     holder.image.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {

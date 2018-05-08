@@ -241,7 +241,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 
                 camera.setPreviewCallback(new PreviewCallback() {
 
-                    public void onPreviewFrame(byte[] data, Camera cam) {
+                    public void onPreviewFrame(byte[] data, final Camera cam) {
 
                         Camera.Size size;
                         try {
@@ -300,19 +300,21 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 												stream.flush();
 												stream.close();
 												message.getData().putString("path", fileImage.getAbsolutePath());
-                                                if (!doingVideoProcessing && prefs.getVideoMonitoringActive()) {
-                                                    record(camera, serviceMessenger);
-                                                }
-												/**
-												fileImage = new File(fileImageDir, "detected.match." + ts);
-												stream = new FileOutputStream(fileImage);
-												oldBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-												stream.flush();
-												stream.close();
 
-                                                 message.getData().putString("path", fileImage.getAbsolutePath());
-                                                 **/
+												//store the still match frame, even if doing video
                                                 serviceMessenger.send(message);
+
+                                                if (prefs.getVideoMonitoringActive() && (!doingVideoProcessing)) {
+                                                    new Thread ()
+                                                    {
+                                                        public void run ()
+                                                        {
+                                                            camera.stopPreview();
+                                                            record(camera, serviceMessenger);
+
+                                                        }
+                                                    }.start();
+                                                }
 
                                             } catch (Exception e) {
                                                 // Cannot happen
@@ -343,21 +345,28 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
             }
         }
     }
-    Handler handler = new Handler();
-    void record(Camera cam, Messenger messenger) {
+
+	private synchronized boolean record(Camera cam, Messenger messenger) {
+
+	    if (mediaRecorder != null && doingVideoProcessing)
+	        return false;
+
         String ts1 = String.valueOf(new Date().getTime());
         videoFile = Environment.getExternalStorageDirectory() + File.separator + prefs.getImagePath() + File.separator + ts1 + ".mp4";
         int seconds = prefs.getMonitoringTime() * 1000;
-        MediaRecorderTask mediaRecorderTask = new MediaRecorderTask(cam, videoFile, seconds);
+        MediaRecorderTask mediaRecorderTask = new MediaRecorderTask(cam, videoFile, seconds, mHolder);
         mediaRecorder = mediaRecorderTask.getPreparedMediaRecorder();
+
+        /**
         AudioManager audioManager = (AudioManager) context.getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
         if (audioManager != null) {
             audioManager.setStreamMute(AudioManager.STREAM_SYSTEM, true);
             audioManager.setStreamMute(AudioManager.STREAM_MUSIC,true);
-        }
-        mediaRecorder.start();
+        }**/
+
         doingVideoProcessing = true;
-        handler.postDelayed(() -> {
+        mediaRecorder.start();
+        updateHandler.postDelayed(() -> {
             if (messenger != null) {
                 Message message = new Message();
                 message.what = EventTrigger.CAMERA_VIDEO;
@@ -367,16 +376,20 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
+                /**
                 if (audioManager != null) {
                     audioManager.setStreamMute(AudioManager.STREAM_SYSTEM, false);
                     audioManager.setStreamMute(AudioManager.STREAM_MUSIC, false);
-                }
+                }**/
+
                 mediaRecorder.stop();
                 mediaRecorder.reset();
                 mediaRecorder.release();
                 doingVideoProcessing = false;
             }
         }, seconds);
+
+        return true;
     }
 
     public void surfaceDestroyed(SurfaceHolder holder) {
