@@ -19,16 +19,15 @@ package org.havenapp.main;
 
 import android.support.multidex.MultiDexApplication;
 import android.support.v7.app.AppCompatDelegate;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.orm.SugarContext;
 
-import java.io.IOException;
-
-import org.havenapp.main.service.SignalSender;
+import org.havenapp.main.database.HavenEventDB;
 import org.havenapp.main.service.WebServer;
+
+import java.io.IOException;
 
 public class HavenApp extends MultiDexApplication {
 
@@ -39,6 +38,8 @@ public class HavenApp extends MultiDexApplication {
     private WebServer mOnionServer = null;
 
     private PreferenceManager mPrefs = null;
+
+    public static HavenEventDB dataBaseInstance = null;
 
     @Override
     public void onCreate() {
@@ -53,6 +54,7 @@ public class HavenApp extends MultiDexApplication {
         if (mPrefs.getRemoteAccessActive())
             startServer();
 
+        dataBaseInstance = HavenEventDB.getDatabase(this);
     }
 
 
