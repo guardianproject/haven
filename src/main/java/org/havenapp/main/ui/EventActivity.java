@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import org.havenapp.main.R;
+import org.havenapp.main.database.HavenEventDB;
 import org.havenapp.main.model.Event;
 import org.havenapp.main.model.EventTrigger;
 
@@ -45,10 +46,10 @@ public class EventActivity extends AppCompatActivity {
 
         if (eventId != -1) {
 
-            mEvent = Event.findById(Event.class, eventId);
+            mEvent = HavenEventDB.getDatabase(this).getEventDAO().findById(eventId);
             mRecyclerView = findViewById(R.id.event_trigger_list);
 
-            setTitle(mEvent.getStartTime().toLocaleString());
+            setTitle(mEvent.getMStartTime().toLocaleString());
 
             mAdapter = new EventTriggerAdapter(this, mEvent.getEventTriggers());
 
@@ -78,7 +79,8 @@ public class EventActivity extends AppCompatActivity {
                     //Remove swiped item from list and notify the RecyclerView
 
                     final int position = viewHolder.getAdapterPosition();
-                    final EventTrigger eventTrigger = mEvent.getEventTriggers().get(viewHolder.getAdapterPosition());
+                    final EventTrigger eventTrigger = mEvent.getEventTriggers()
+                            .get(viewHolder.getAdapterPosition());
 
                     deleteEventTrigger (eventTrigger, position);
 
@@ -115,8 +117,11 @@ public class EventActivity extends AppCompatActivity {
             public void run ()
             {
 
-                new File(eventTrigger.getPath()).delete();
-                eventTrigger.delete();
+                if (eventTrigger.getMPath() != null) {
+                    new File(eventTrigger.getMPath()).delete();
+                }
+                HavenEventDB.getDatabase(EventActivity.this)
+                        .getEventTriggerDAO().delete(eventTrigger);
 
             }
         };
@@ -126,14 +131,16 @@ public class EventActivity extends AppCompatActivity {
         mEvent.getEventTriggers().remove(position);
         mAdapter.notifyItemRemoved(position);
 
-        eventTrigger.delete();
+        HavenEventDB.getDatabase(EventActivity.this)
+                .getEventTriggerDAO().delete(eventTrigger);
 
         Snackbar.make(mRecyclerView, "Event Trigger deleted", Snackbar.LENGTH_SHORT)
                 .setAction("UNDO", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         mHandler.removeCallbacks(runnableDelete);
-                        eventTrigger.save();
+                        HavenEventDB.getDatabase(EventActivity.this)
+                                .getEventTriggerDAO().insert(eventTrigger);
                         mEvent.getEventTriggers().add(position, eventTrigger);
                         mAdapter.notifyItemInserted(position);
                     }
@@ -143,7 +150,7 @@ public class EventActivity extends AppCompatActivity {
 
     private void shareEvent ()
     {
-        String title = "Phoneypot: " + mEvent.getStartTime().toLocaleString();
+        String title = "Phoneypot: " + mEvent.getMStartTime().toLocaleString();
 
         //need to "send multiple" to get more than one attachment
         final Intent emailIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
@@ -156,7 +163,10 @@ public class EventActivity extends AppCompatActivity {
         //convert from paths to Android friendly Parcelable Uri's
         for (EventTrigger trigger : mEvent.getEventTriggers())
         {
-            File fileIn = new File(trigger.getPath());
+            if (trigger.getMPath() == null)
+                continue;
+
+            File fileIn = new File(trigger.getMPath());
             Uri u = Uri.fromFile(fileIn);
             uris.add(u);
         }
@@ -168,11 +178,11 @@ public class EventActivity extends AppCompatActivity {
     private String generateLog () {
         StringBuilder mEventLog = new StringBuilder();
 
-        setTitle("Event @ " + mEvent.getStartTime().toLocaleString());
+        setTitle("Event @ " + mEvent.getMStartTime().toLocaleString());
 
         for (EventTrigger eventTrigger : mEvent.getEventTriggers()) {
 
-            mEventLog.append("Event Triggered @ ").append(eventTrigger.getTriggerTime().toString()).append("\n");
+            mEventLog.append("Event Triggered @ ").append(eventTrigger.getMTime().toString()).append("\n");
 
             String sType = eventTrigger.getStringType(this);
 

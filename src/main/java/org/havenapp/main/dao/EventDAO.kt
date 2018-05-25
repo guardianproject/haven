@@ -1,7 +1,7 @@
 package org.havenapp.main.dao
 
 import android.arch.persistence.room.*
-import org.havenapp.main.model.EventRoom
+import org.havenapp.main.model.Event
 
 /**
  * Created by Arka Prava Basu <arkaprava94@gmail.com> on 23/5/18.
@@ -10,14 +10,20 @@ import org.havenapp.main.model.EventRoom
 interface EventDAO {
 
     @Insert
-    fun insert(eventRoom: EventRoom)
+    fun insert(event: Event)
 
     @Delete
-    fun delete(eventRoom: EventRoom)
+    fun delete(event: Event)
 
     @Update
-    fun update(eventRoom: EventRoom)
+    fun update(event: Event)
 
     @Query("SELECT * FROM event_table WHERE id = :id")
-    fun findById(id: Long) : EventRoom
+    fun findById(id: Long) : Event
+
+    @Query("SELECT * FROM event_table ORDER BY id")
+    fun getAllEvent() : List<Event>
+
+    @Query("SELECT COUNT(*) FROM event_table")
+    fun count() : Int
 }

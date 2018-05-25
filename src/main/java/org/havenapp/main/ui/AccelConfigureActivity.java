@@ -10,12 +10,9 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.os.Message;
-import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -23,11 +20,9 @@ import com.maxproj.simplewaveform.SimpleWaveform;
 
 import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.R;
-import org.havenapp.main.model.EventTrigger;
 
 import java.util.LinkedList;
 
-import me.angrybyte.numberpicker.listener.OnValueChangeListener;
 import me.angrybyte.numberpicker.view.ActualNumberPicker;
 
 public class AccelConfigureActivity extends AppCompatActivity implements SensorEventListener {

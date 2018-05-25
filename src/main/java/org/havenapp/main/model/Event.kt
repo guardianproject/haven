@@ -10,25 +10,26 @@ import java.util.*
  * Created by Arka Prava Basu <arkaprava94@gmail.com> on 20/5/18.
  */
 @Entity(tableName = "event_table")
-class EventRoom {
+class Event {
 
     @PrimaryKey(autoGenerate = true)
-    private var id : Long = 0
+    var id : Long = 0
+        get() = field
 
-    private var mStartTime : Date = Date()
+    var mStartTime : Date = Date()
 
     @Ignore
-    private var mEventTriggers : MutableList<EventTriggerRoom> = mutableListOf()
+    private var mEventTriggers : MutableList<EventTrigger> = mutableListOf()
 
-    fun addEventTrigger(eventTriggerRoom: EventTriggerRoom) {
-        mEventTriggers.add(eventTriggerRoom)
-        eventTriggerRoom.mEventId = id
+    fun addEventTrigger(eventTrigger: EventTrigger) {
+        mEventTriggers.add(eventTrigger)
+        eventTrigger.mEventId = id
     }
 
     /**
      * Get the list of event triggers associated with this event
      */
-    fun getEventTriggers() : MutableList<EventTriggerRoom> {
+    fun getEventTriggers() : MutableList<EventTrigger> {
 
         if (mEventTriggers.size == 0) {
             val eventTriggers = HavenApp.dataBaseInstance.getEventTriggerDAO().getEventTriggerList(id)

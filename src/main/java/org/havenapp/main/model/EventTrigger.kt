@@ -10,65 +10,66 @@ import java.util.*
  * Created by Arka Prava Basu <arkaprava94@gmail.com> on 22/5/18.
  */
 @Entity(tableName = "event_trigger_table")
-class EventTriggerRoom {
+class EventTrigger {
     companion object {
         /**
          * Acceleration detected message
          */
-        val ACCELEROMETER = 0
+        const val ACCELEROMETER = 0
 
         /**
          * Camera motion detected message
          */
-        val CAMERA = 1
+        const val CAMERA = 1
 
         /**
          * Mic noise detected message
          */
-        val MICROPHONE = 2
+        const val MICROPHONE = 2
 
         /**
          * Pressure change detected message
          */
-        val PRESSURE = 3
+        const val PRESSURE = 3
 
         /**
          * Light change detected message
          */
-        val LIGHT = 4
+        const val LIGHT = 4
 
         /**
          * Power change detected message
          */
-        val POWER = 5
+        const val POWER = 5
 
         /**
          * Significant motion detected message
          */
-        val BUMP = 6
+        const val BUMP = 6
 
         /**
          * Significant motion detected message
          */
-        val CAMERA_VIDEO = 7
+        const val CAMERA_VIDEO = 7
 
         /**
          * Heartbeat notification message
          */
-        val HEART = 8
+        const val HEART = 8
     }
 
     @PrimaryKey(autoGenerate = true)
-    private var id : Long = 0
+    var id : Long = 0
+        get() = field
 
-    private var mType: Int = 0
+    var mType: Int = 0
 
     // Trigger time
-    private val mTime: Date = Date()
+    var mTime: Date = Date()
 
     var mEventId: Long = 0
 
-    private var mPath: String? = null
+    var mPath: String? = null
 
     fun getStringType(context: Context): String {
         var sType = ""

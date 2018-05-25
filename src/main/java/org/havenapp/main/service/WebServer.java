@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import org.havenapp.main.R;
+import org.havenapp.main.database.HavenEventDB;
 import org.havenapp.main.model.Event;
 import org.havenapp.main.model.EventTrigger;
 
@@ -91,10 +92,11 @@ public class WebServer extends NanoHTTPD {
             //long eventId = Long.parseLong(pathSegs.get(1));
 
             long eventTriggerId = Long.parseLong(pathSegs.get(3));
-            EventTrigger eventTrigger = EventTrigger.findById(EventTrigger.class, eventTriggerId);
+            EventTrigger eventTrigger = HavenEventDB.getDatabase(mContext).getEventTriggerDAO()
+                    .findById(eventTriggerId);
 
             try {
-                File fileMedia = new File(eventTrigger.getPath());
+                File fileMedia = new File(eventTrigger.getMPath());
                 FileInputStream fis = new FileInputStream(fileMedia);
                 return newChunkedResponse(Response.Status.OK, getMimeType(eventTrigger), fis);
 
@@ -121,7 +123,8 @@ public class WebServer extends NanoHTTPD {
                 try {
                     if (pathSegs.size() == 2 && pathSegs.get(0).equals("event")) {
                         long eventId = Long.parseLong(pathSegs.get(1));
-                        Event event = Event.findById(Event.class, eventId);
+                        Event event = HavenEventDB.getDatabase(mContext)
+                                .getEventDAO().findById(eventId);
                         showEvent(event, page);
 
                     }
@@ -164,12 +167,12 @@ public class WebServer extends NanoHTTPD {
 
         List<EventTrigger> triggers = event.getEventTriggers();
 
-        page.append("<h1>Event: ").append(event.getStartTime().toLocaleString()).append("</h1><hr/>\n");
+        page.append("<h1>Event: ").append(event.getMStartTime().toLocaleString()).append("</h1><hr/>\n");
 
         for (EventTrigger eventTrigger: triggers)
         {
             String title = eventTrigger.getStringType(mContext);
-            String desc = eventTrigger.getTriggerTime().toString();
+            String desc = eventTrigger.getMTime().toString();
 
             page.append("<b>");
             page.append(title).append("</b><br/>");
@@ -177,13 +180,13 @@ public class WebServer extends NanoHTTPD {
 
             String mediaPath = "/event/" + event.getId() + "/trigger/" + eventTrigger.getId();
 
-            if (eventTrigger.getType() == EventTrigger.CAMERA)
+            if (eventTrigger.getMType() == EventTrigger.CAMERA)
             {
                 page.append("<img src=\"").append(mediaPath).append("\" width=\"100%\"/>");
                 page.append("<a href=\"").append(mediaPath).append("\">Download Media").append("</a>");
 
             }
-            else if (eventTrigger.getType() == EventTrigger.MICROPHONE)
+            else if (eventTrigger.getMType() == EventTrigger.MICROPHONE)
             {
                 page.append("<audio src=\"").append(mediaPath).append("\"></audio>");
                 page.append("<a href=\"").append(mediaPath).append("\">Download Media").append("</a>");
@@ -202,11 +205,11 @@ public class WebServer extends NanoHTTPD {
     {
         page.append("<h1>Events</h1><hr/>\n");
 
-        List<Event> events = Event.listAll(Event.class);
+        List<Event> events = HavenEventDB.getDatabase(mContext).getEventDAO().getAllEvent();
 
         for (Event event: events)
         {
-            String title = event.getStartTime().toLocaleString();
+            String title = event.getMStartTime().toLocaleString();
             String desc = event.getEventTriggers().size() + " triggered events";
 
             page.append("<b>").append("<a href=\"/event/").append(event.getId()).append("\">");
@@ -221,7 +224,7 @@ public class WebServer extends NanoHTTPD {
     {
         String sType = "";
 
-        switch (eventTrigger.getType()) {
+        switch (eventTrigger.getMType()) {
             case EventTrigger.CAMERA:
                 sType = "image/jpeg";
                 break;

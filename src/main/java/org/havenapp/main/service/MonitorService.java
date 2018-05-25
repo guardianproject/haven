@@ -31,6 +31,7 @@ import org.havenapp.main.HavenApp;
 import org.havenapp.main.MonitorActivity;
 import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.R;
+import org.havenapp.main.database.HavenEventDB;
 import org.havenapp.main.model.Event;
 import org.havenapp.main.model.EventTrigger;
 import org.havenapp.main.sensors.AccelerometerMonitor;
@@ -286,7 +287,7 @@ public class MonitorService extends Service {
 
         if (mLastEvent == null) {
             mLastEvent = new Event();
-            mLastEvent.save();
+            HavenEventDB.getDatabase(getApplicationContext()).getEventDAO().insert(mLastEvent);
             doNotification = true;
         }
         else if (mPrefs.getNotificationTimeMs() == 0)
@@ -304,13 +305,13 @@ public class MonitorService extends Service {
         }
 
         EventTrigger eventTrigger = new EventTrigger();
-        eventTrigger.setType(alertType);
-        eventTrigger.setPath(path);
+        eventTrigger.setMType(alertType);
+        eventTrigger.setMPath(path);
 
         mLastEvent.addEventTrigger(eventTrigger);
 
         //we don't need to resave the event, only the trigger
-        eventTrigger.save();
+        HavenEventDB.getDatabase(getApplicationContext()).getEventTriggerDAO().insert(eventTrigger);
 
         if (doNotification) {
 
@@ -336,13 +337,13 @@ public class MonitorService extends Service {
                     recips.add(st.nextToken());
 
                 String attachment = null;
-                if (eventTrigger.getType() == EventTrigger.CAMERA) {
-                    attachment = eventTrigger.getPath();
-                } else if (eventTrigger.getType() == EventTrigger.MICROPHONE) {
-                    attachment = eventTrigger.getPath();
+                if (eventTrigger.getMType() == EventTrigger.CAMERA) {
+                    attachment = eventTrigger.getMPath();
+                } else if (eventTrigger.getMType() == EventTrigger.MICROPHONE) {
+                    attachment = eventTrigger.getMPath();
                 }
-                else if (eventTrigger.getType() == EventTrigger.CAMERA_VIDEO) {
-                    attachment = eventTrigger.getPath();
+                else if (eventTrigger.getMType() == EventTrigger.CAMERA_VIDEO) {
+                    attachment = eventTrigger.getMPath();
                 }
 
                 sender.sendMessage(recips, alertMessage.toString(), attachment);

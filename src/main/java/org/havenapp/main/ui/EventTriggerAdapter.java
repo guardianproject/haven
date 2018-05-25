@@ -47,9 +47,9 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
         this.eventTriggerImagePaths = new ArrayList<>();
         for (EventTrigger trigger : eventTriggers)
         {
-            if (trigger.getType() == EventTrigger.CAMERA)
+            if (trigger.getMType() == EventTrigger.CAMERA)
             {
-                eventTriggerImagePaths.add("file:///" + trigger.getPath());
+                eventTriggerImagePaths.add("file:///" + trigger.getMPath());
             }
         }
     }
@@ -68,7 +68,7 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
         final EventTrigger eventTrigger = eventTriggers.get(position);
 
         String title = eventTrigger.getStringType(context);
-        String desc = eventTrigger.getTriggerTime().toLocaleString();
+        String desc = eventTrigger.getMTime().toLocaleString();
 
         holder.image.setVisibility(View.GONE);
         holder.video.setVisibility(View.GONE);
@@ -76,19 +76,21 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
         holder.sound.setVisibility(View.GONE);
 
 
-        if (eventTrigger.getPath() != null)
+        if (eventTrigger.getMPath() != null)
         {
-            switch (eventTrigger.getType()) {
+            switch (eventTrigger.getMType()) {
                 case EventTrigger.CAMERA_VIDEO:
                     holder.video.setVisibility(View.VISIBLE);
-                    BitmapDrawable bitmapD = new BitmapDrawable(context.getResources(), ThumbnailUtils.createVideoThumbnail(eventTrigger.getPath(),
+                    BitmapDrawable bitmapD = new BitmapDrawable(context.getResources(),
+                            ThumbnailUtils.createVideoThumbnail(eventTrigger.getMPath(),
                             MediaStore.Video.Thumbnails.FULL_SCREEN_KIND));
                     holder.video.setBackground(bitmapD);
                     holder.video.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(eventTrigger.getPath()));
-                            intent.setDataAndType(Uri.parse(eventTrigger.getPath()), "video/*");
+                            Intent intent = new Intent(Intent.ACTION_VIEW,
+                                    Uri.parse(eventTrigger.getMPath()));
+                            intent.setDataAndType(Uri.parse(eventTrigger.getMPath()), "video/*");
                             context.startActivity(intent);
                         }
                     });
@@ -103,14 +105,14 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
                     break;
                 case EventTrigger.CAMERA:
                     holder.image.setVisibility(View.VISIBLE);
-                    Picasso.with(context).load(new File(eventTrigger.getPath())).into(holder.image);
+                    Picasso.with(context).load(new File(eventTrigger.getMPath())).into(holder.image);
                     holder.image.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
 
                             int startPosition = 0;
                             for (int i = 0; i < eventTriggerImagePaths.size(); i++) {
-                                if (eventTriggerImagePaths.get(i).contains(eventTrigger.getPath())) {
+                                if (eventTriggerImagePaths.get(i).contains(eventTrigger.getMPath())) {
                                     startPosition = i;
                                     break;
                                 }
@@ -140,7 +142,7 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
                     LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
                     holder.sound.setVisibility(View.VISIBLE);
-                    final File fileSound = new File(eventTrigger.getPath());
+                    final File fileSound = new File(eventTrigger.getMPath());
                     try {
                         final SoundFile soundFile = SoundFile.create(fileSound.getPath(), new SoundFile.ProgressListener() {
                             int lastProgress = 0;
@@ -171,18 +173,18 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
 
                     break;
                 case EventTrigger.ACCELEROMETER:
-                    desc += "\n" + context.getString(R.string.data_speed) + ": " + eventTrigger.getPath();
+                    desc += "\n" + context.getString(R.string.data_speed) + ": " + eventTrigger.getMPath();
 
                     break;
                 case EventTrigger.LIGHT:
-                    desc += "\n" + context.getString(R.string.data_light) + ": " + eventTrigger.getPath();
+                    desc += "\n" + context.getString(R.string.data_light) + ": " + eventTrigger.getMPath();
 
                     break;
                 case EventTrigger.PRESSURE:
-                    desc += "\n" + context.getString(R.string.data_pressure) + ": " + eventTrigger.getPath();
+                    desc += "\n" + context.getString(R.string.data_pressure) + ": " + eventTrigger.getMPath();
                     break;
                 case EventTrigger.POWER:
-                    desc += "\n" + context.getString(R.string.data_power) + ": " + eventTrigger.getPath();
+                    desc += "\n" + context.getString(R.string.data_power) + ": " + eventTrigger.getMPath();
                     break;
             }
 
@@ -206,7 +208,7 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
 
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
-        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(eventTrigger.getPath())));
+        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(eventTrigger.getMPath())));
         shareIntent.setType(eventTrigger.getMimeType());
 
         context.startActivity(shareIntent);

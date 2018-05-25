@@ -45,6 +45,7 @@ import android.view.View;
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.LibsBuilder;
 
+import org.havenapp.main.database.HavenEventDB;
 import org.havenapp.main.model.Event;
 import org.havenapp.main.service.SignalSender;
 import org.havenapp.main.ui.EventActivity;
@@ -146,7 +147,7 @@ public class ListActivity extends AppCompatActivity {
         }
 
         try {
-            events = Event.listAll(Event.class, "id DESC");
+            events = HavenEventDB.getDatabase(this).getEventDAO().getAllEvent();
 
             if (events.size() > 0) {
                 findViewById(R.id.empty_view).setVisibility(View.GONE);
@@ -182,7 +183,7 @@ public class ListActivity extends AppCompatActivity {
         {
             public void run ()
             {
-                event.delete();
+                HavenEventDB.getDatabase(ListActivity.this).getEventDAO().delete(event);
             }
         };
 
@@ -191,14 +192,14 @@ public class ListActivity extends AppCompatActivity {
         events.remove(position);
         adapter.notifyItemRemoved(position);
 
-        event.delete();
+        HavenEventDB.getDatabase(ListActivity.this).getEventDAO().delete(event);
 
         Snackbar.make(recyclerView, getString(R.string.event_deleted), Snackbar.LENGTH_SHORT)
                 .setAction(getString(R.string.undo), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         handler.removeCallbacks(runnableDelete);
-                        event.save();
+                        HavenEventDB.getDatabase(ListActivity.this).getEventDAO().insert(event);
                         events.add(position, event);
                         adapter.notifyItemInserted(position);
                     }
@@ -236,10 +237,10 @@ public class ListActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        final long newCount = Event.count(Event.class);
+        final long newCount = HavenEventDB.getDatabase(this).getEventDAO().count();
 
         if (newCount > events.size()) {
-            events = Event.listAll(Event.class, "id DESC");
+            events = HavenEventDB.getDatabase(this).getEventDAO().getAllEvent();
             adapter = new EventAdapter(ListActivity.this, events);
             recyclerView.setAdapter(adapter);
 
@@ -330,7 +331,7 @@ public class ListActivity extends AppCompatActivity {
             public void run ()
             {
                 for (Event event : removedEvents) {
-                    event.delete();
+                    HavenEventDB.getDatabase(ListActivity.this).getEventDAO().delete(event);
                 }
             }
         };
@@ -349,7 +350,7 @@ public class ListActivity extends AppCompatActivity {
                         handler.removeCallbacks(runnableDelete);
 
                         for (Event event : removedEvents) {
-                            event.save();
+                            HavenEventDB.getDatabase(ListActivity.this).getEventDAO().insert(event);
                             events.add(event);
                             adapter.notifyItemInserted(events.size() - 1);
                         }

@@ -1,7 +1,7 @@
 package org.havenapp.main.dao
 
 import android.arch.persistence.room.*
-import org.havenapp.main.model.EventTriggerRoom
+import org.havenapp.main.model.EventTrigger
 
 /**
  * Created by Arka Prava Basu <arkaprava94@gmail.com> on 23/5/18.
@@ -10,17 +10,17 @@ import org.havenapp.main.model.EventTriggerRoom
 interface EventTriggerDAO {
 
     @Insert
-    fun insert(eventTriggerRoom: EventTriggerRoom)
+    fun insert(eventTrigger: EventTrigger)
 
     @Delete
-    fun delete(eventTriggerRoom: EventTriggerRoom)
+    fun delete(eventTrigger: EventTrigger)
 
     @Update
-    fun update(eventTriggerRoom: EventTriggerRoom)
+    fun update(eventTrigger: EventTrigger)
 
     @Query("SELECT * FROM event_trigger_table WHERE id = :id")
-    fun findById(id : Long) : EventTriggerRoom
+    fun findById(id : Long) : EventTrigger
 
     @Query("SELECT * FROM event_trigger_table WHERE mEventId = :eventId")
-    fun getEventTriggerList(eventId: Long) : MutableList<EventTriggerRoom>
+    fun getEventTriggerList(eventId: Long) : MutableList<EventTrigger>
 }

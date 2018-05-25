@@ -13,7 +13,6 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
-import android.util.FloatMath;
 import android.util.Log;
 
 import org.havenapp.main.PreferenceManager;
