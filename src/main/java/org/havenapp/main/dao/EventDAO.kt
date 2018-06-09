@@ -24,6 +24,9 @@ interface EventDAO {
     @Query("SELECT * FROM event_table ORDER BY id")
     fun getAllEvent() : List<Event>
 
+    @Query("SELECT * FROM event_table ORDER BY id DESC")
+    fun getAllEventDesc() : List<Event>
+
     @Query("SELECT COUNT(*) FROM event_table")
     fun count() : Int
 }

@@ -147,7 +147,7 @@ public class ListActivity extends AppCompatActivity {
         }
 
         try {
-            events = HavenEventDB.getDatabase(this).getEventDAO().getAllEvent();
+            events = HavenEventDB.getDatabase(this).getEventDAO().getAllEventDesc();
 
             if (events.size() > 0) {
                 findViewById(R.id.empty_view).setVisibility(View.GONE);
@@ -240,7 +240,7 @@ public class ListActivity extends AppCompatActivity {
         final long newCount = HavenEventDB.getDatabase(this).getEventDAO().count();
 
         if (newCount > events.size()) {
-            events = HavenEventDB.getDatabase(this).getEventDAO().getAllEvent();
+            events = HavenEventDB.getDatabase(this).getEventDAO().getAllEventDesc();
             adapter = new EventAdapter(ListActivity.this, events);
             recyclerView.setAdapter(adapter);
 
