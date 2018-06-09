@@ -10,7 +10,7 @@ import org.havenapp.main.model.EventTrigger
 interface EventTriggerDAO {
 
     @Insert
-    fun insert(eventTrigger: EventTrigger)
+    fun insert(eventTrigger: EventTrigger) : Long
 
     @Delete
     fun delete(eventTrigger: EventTrigger)
@@ -23,4 +23,7 @@ interface EventTriggerDAO {
 
     @Query("SELECT * FROM event_trigger_table WHERE mEventId = :eventId")
     fun getEventTriggerList(eventId: Long) : MutableList<EventTrigger>
+
+    @Query("SELECT * FROM event_trigger_table")
+    fun getAllEventTriggers() : MutableList<EventTrigger>
 }

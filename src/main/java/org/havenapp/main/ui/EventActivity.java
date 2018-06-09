@@ -139,8 +139,9 @@ public class EventActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         mHandler.removeCallbacks(runnableDelete);
-                        HavenEventDB.getDatabase(EventActivity.this)
+                        long eventTriggerId = HavenEventDB.getDatabase(EventActivity.this)
                                 .getEventTriggerDAO().insert(eventTrigger);
+                        eventTrigger.setId(eventTriggerId);
                         mEvent.getEventTriggers().add(position, eventTrigger);
                         mAdapter.notifyItemInserted(position);
                     }

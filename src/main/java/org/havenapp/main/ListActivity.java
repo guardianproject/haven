@@ -199,7 +199,9 @@ public class ListActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         handler.removeCallbacks(runnableDelete);
-                        HavenEventDB.getDatabase(ListActivity.this).getEventDAO().insert(event);
+                        long eventId = HavenEventDB.getDatabase(ListActivity.this)
+                                .getEventDAO().insert(event);
+                        event.setId(eventId);
                         events.add(position, event);
                         adapter.notifyItemInserted(position);
                     }
@@ -350,7 +352,9 @@ public class ListActivity extends AppCompatActivity {
                         handler.removeCallbacks(runnableDelete);
 
                         for (Event event : removedEvents) {
-                            HavenEventDB.getDatabase(ListActivity.this).getEventDAO().insert(event);
+                            long eventId = HavenEventDB.getDatabase(ListActivity.this)
+                                    .getEventDAO().insert(event);
+                            event.setId(eventId);
                             events.add(event);
                             adapter.notifyItemInserted(events.size() - 1);
                         }

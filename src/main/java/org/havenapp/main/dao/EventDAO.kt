@@ -10,7 +10,7 @@ import org.havenapp.main.model.Event
 interface EventDAO {
 
     @Insert
-    fun insert(event: Event)
+    fun insert(event: Event): Long
 
     @Delete
     fun delete(event: Event)

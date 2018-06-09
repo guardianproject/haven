@@ -287,7 +287,9 @@ public class MonitorService extends Service {
 
         if (mLastEvent == null) {
             mLastEvent = new Event();
-            HavenEventDB.getDatabase(getApplicationContext()).getEventDAO().insert(mLastEvent);
+            long eventId = HavenEventDB.getDatabase(getApplicationContext())
+                    .getEventDAO().insert(mLastEvent);
+            mLastEvent.setId(eventId);
             doNotification = true;
         }
         else if (mPrefs.getNotificationTimeMs() == 0)
@@ -311,7 +313,9 @@ public class MonitorService extends Service {
         mLastEvent.addEventTrigger(eventTrigger);
 
         //we don't need to resave the event, only the trigger
-        HavenEventDB.getDatabase(getApplicationContext()).getEventTriggerDAO().insert(eventTrigger);
+        long eventTriggerId = HavenEventDB.getDatabase(getApplicationContext())
+                .getEventTriggerDAO().insert(eventTrigger);
+        eventTrigger.setId(eventTriggerId);
 
         if (doNotification) {
 
