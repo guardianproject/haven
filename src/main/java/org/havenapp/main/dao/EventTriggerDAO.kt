@@ -18,12 +18,12 @@ interface EventTriggerDAO {
     @Update
     fun update(eventTrigger: EventTrigger)
 
-    @Query("SELECT * FROM event_trigger_table WHERE id = :id")
-    fun findById(id : Long) : EventTrigger
+    @Query("SELECT * FROM EVENT_TRIGGER WHERE ID = :id")
+    fun findById(id : Long?) : EventTrigger
 
-    @Query("SELECT * FROM event_trigger_table WHERE mEventId = :eventId")
-    fun getEventTriggerList(eventId: Long) : MutableList<EventTrigger>
+    @Query("SELECT * FROM EVENT_TRIGGER WHERE M_EVENT_ID = :eventId")
+    fun getEventTriggerList(eventId: Long?) : MutableList<EventTrigger>
 
-    @Query("SELECT * FROM event_trigger_table")
+    @Query("SELECT * FROM EVENT_TRIGGER")
     fun getAllEventTriggers() : MutableList<EventTrigger>
 }

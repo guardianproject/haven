@@ -18,15 +18,15 @@ interface EventDAO {
     @Update
     fun update(event: Event)
 
-    @Query("SELECT * FROM event_table WHERE id = :id")
-    fun findById(id: Long) : Event
+    @Query("SELECT * FROM EVENT WHERE ID = :id")
+    fun findById(id: Long?) : Event
 
-    @Query("SELECT * FROM event_table ORDER BY id")
+    @Query("SELECT * FROM EVENT ORDER BY ID")
     fun getAllEvent() : List<Event>
 
-    @Query("SELECT * FROM event_table ORDER BY id DESC")
+    @Query("SELECT * FROM EVENT ORDER BY ID DESC")
     fun getAllEventDesc() : List<Event>
 
-    @Query("SELECT COUNT(*) FROM event_table")
+    @Query("SELECT COUNT(*) FROM EVENT")
     fun count() : Int
 }

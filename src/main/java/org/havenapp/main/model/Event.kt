@@ -1,5 +1,6 @@
 package org.havenapp.main.model
 
+import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.Ignore
 import android.arch.persistence.room.PrimaryKey
@@ -9,14 +10,16 @@ import java.util.*
 /**
  * Created by Arka Prava Basu <arkaprava94@gmail.com> on 20/5/18.
  */
-@Entity(tableName = "event_table")
+@Entity(tableName = "EVENT")
 class Event {
 
     @PrimaryKey(autoGenerate = true)
-    var id : Long = 0
+    @ColumnInfo(name = "ID")
+    var id : Long? = null
         get() = field
 
-    var mStartTime : Date = Date()
+    @ColumnInfo(name = "M_START_TIME")
+    var mStartTime : Date? = Date()
 
     @Ignore
     private var mEventTriggers : MutableList<EventTrigger> = mutableListOf()

@@ -1,5 +1,6 @@
 package org.havenapp.main.model
 
+import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 import android.content.Context
@@ -9,7 +10,7 @@ import java.util.*
 /**
  * Created by Arka Prava Basu <arkaprava94@gmail.com> on 22/5/18.
  */
-@Entity(tableName = "event_trigger_table")
+@Entity(tableName = "EVENT_TRIGGER")
 class EventTrigger {
     companion object {
         /**
@@ -59,16 +60,21 @@ class EventTrigger {
     }
 
     @PrimaryKey(autoGenerate = true)
-    var id : Long = 0
+    @ColumnInfo(name = "ID")
+    var id : Long? = null
         get() = field
 
-    var mType: Int = 0
+    @ColumnInfo(name = "M_TYPE")
+    var mType: Int? = 0
 
     // Trigger time
-    var mTime: Date = Date()
+    @ColumnInfo(name  = "M_TIME")
+    var mTime: Date? = Date()
 
-    var mEventId: Long = 0
+    @ColumnInfo(name = "M_EVENT_ID")
+    var mEventId: Long? = 0
 
+    @ColumnInfo(name = "M_PATH")
     var mPath: String? = null
 
     fun getStringType(context: Context): String {

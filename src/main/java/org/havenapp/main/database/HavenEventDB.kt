@@ -14,7 +14,7 @@ import org.havenapp.main.model.EventTrigger
 /**
  * Created by Arka Prava Basu <arkaprava94@gmail.com> on 23/5/18.
  */
-@Database(entities = [(Event::class), (EventTrigger::class)], version = 1)
+@Database(entities = [(Event::class), (EventTrigger::class)], version = 3)
 @TypeConverters(HavenEventDBConverters::class)
 abstract class HavenEventDB: RoomDatabase() {
 
@@ -32,9 +32,8 @@ abstract class HavenEventDB: RoomDatabase() {
                 synchronized(HavenEventDB::class) {
                     if (INSTANCE == null) {
                         INSTANCE = Room.databaseBuilder(context.applicationContext,
-                                HavenEventDB::class.java, "haven_database")
+                                HavenEventDB::class.java, "haven.db")
                                 .allowMainThreadQueries() // todo remove this
-                                .fallbackToDestructiveMigration()
                                 .build()
                     }
                 }
