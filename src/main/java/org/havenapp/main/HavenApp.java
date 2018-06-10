@@ -22,7 +22,6 @@ import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.orm.SugarContext;
 
 import org.havenapp.main.database.HavenEventDB;
 import org.havenapp.main.service.WebServer;
@@ -48,7 +47,6 @@ public class HavenApp extends MultiDexApplication {
         mPrefs = new PreferenceManager(this);
 
         Fresco.initialize(this);
-        SugarContext.init(this);
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
         if (mPrefs.getRemoteAccessActive())
