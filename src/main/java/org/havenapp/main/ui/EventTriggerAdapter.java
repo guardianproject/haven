@@ -103,7 +103,7 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
                     break;
                 case EventTrigger.CAMERA:
                     holder.image.setVisibility(View.VISIBLE);
-                    Picasso.with(context).load(new File(eventTrigger.getPath())).into(holder.image);
+                    Picasso.get().load(new File(eventTrigger.getPath())).into(holder.image);
                     holder.image.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
