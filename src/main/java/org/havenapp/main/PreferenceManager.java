@@ -26,6 +26,8 @@ import android.content.SharedPreferences.Editor;
 
 import org.havenapp.main.sensors.motion.LuminanceMotionDetector;
 
+import java.io.File;
+
 
 public class PreferenceManager {
 	
@@ -85,6 +87,8 @@ public class PreferenceManager {
     public static final String NOTIFICATION_TIME = "notification_time";
 
     public static final String DISABLE_BATTERY_OPT = "config_battery_optimizations";
+
+    private static final String CURRENT_SESSION = "current_session";
 
     private Context context;
 	
@@ -293,7 +297,7 @@ public class PreferenceManager {
 
     public String getImagePath ()
     {
-        return "/phoneypot";
+        return getDefaultMediaStoragePath();
     }
 
     public int getMaxImages ()
@@ -303,7 +307,11 @@ public class PreferenceManager {
 
     public String getAudioPath ()
     {
-        return "/phoneypot"; //phoneypot is the old code name for Haven
+        return getDefaultMediaStoragePath();
+    }
+
+    private String getDefaultMediaStoragePath() {
+        return "/phoneypot" + File.separator + getCurrentSession(); //phoneypot is the old code name for Haven
     }
 
     public int getAudioLength ()
@@ -338,4 +346,16 @@ public class PreferenceManager {
         return appSharedPrefs.getInt(HEARTBEAT_MONITOR_DELAY,300000);
     }
 
+    /**
+     * Sets a string with the format {@link Utils#DATE_TIME_PATTERN}
+     * representing current date and time for the key {@link #CURRENT_SESSION}
+     */
+    public void setCurrentSession() {
+        prefsEditor.putString(CURRENT_SESSION, Utils.getDateTime(System.currentTimeMillis()));
+        prefsEditor.commit();
+    }
+
+    private String getCurrentSession() {
+        return appSharedPrefs.getString(CURRENT_SESSION, "unknown_session");
+    }
 }

@@ -219,6 +219,8 @@ public class MonitorService extends Service {
     {
         mIsRunning = true;
 
+        mPrefs.setCurrentSession();
+
         if (!mPrefs.getAccelerometerSensitivity().equals(PreferenceManager.OFF)) {
             mAccelManager = new AccelerometerMonitor(this);
             if(Build.VERSION.SDK_INT>=18) {

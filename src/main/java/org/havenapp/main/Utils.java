@@ -1,5 +1,7 @@
 package org.havenapp.main;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
@@ -10,6 +12,9 @@ import java.util.concurrent.TimeUnit;
  */
 
 class Utils {
+
+    private static final String DATE_TIME_PATTERN = "yyyy-MM-dd_HH:mm:ss";
+
     static String getTimerText(long milliseconds) {
         String timerText;
         if (TimeUnit.MILLISECONDS.toHours(milliseconds) % 24 == 0) {
@@ -29,5 +34,17 @@ class Utils {
         }
 
         return timerText;
+    }
+
+    /**
+     * Get a user friendly date and time representation from UNIX epoch.
+     * The default {@link Locale} is used.
+     *
+     * @param timeMillis value representing UNIX epoch
+     * @return a string of the format "yyyy-MM-dd_HH:mm:ss" for the corresponding epoch
+     */
+    public static String getDateTime(long timeMillis) {
+        Date date = new Date(timeMillis);
+        return new SimpleDateFormat(DATE_TIME_PATTERN, Locale.getDefault()).format(date);
     }
 }
