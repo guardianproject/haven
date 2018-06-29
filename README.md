@@ -91,7 +91,7 @@ Notifications are sent through a service running in the background that is defin
 
 ### Remote Access
 
-All event logs and captured media can be remotely accessed through a [Tor Onion Service](https://www.torproject.org/docs/onion-services). Haven must be configured as an Onion Service and requires the device to also have [Orbot: Tor for Android](https://guardianproject.info/apps/orbot) installed and running. 
+All event logs and captured media can be remotely accessed. Haven must be configured as an Onion Service. To access logs through a [Tor Onion Service](https://www.torproject.org/docs/onion-services), [Tor: proxy for Android](https://guardianproject.info/apps/orbot) installed and running is required on the device. Access to logs are also available  locally on localhost:8888, you can forward that access with, e.g., ssh from termux.
 
 ## ATTRIBUTIONS
 
