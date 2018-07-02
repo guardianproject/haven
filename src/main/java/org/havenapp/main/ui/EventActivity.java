@@ -164,7 +164,8 @@ public class EventActivity extends AppCompatActivity {
         //convert from paths to Android friendly Parcelable Uri's
         for (EventTrigger trigger : mEvent.getEventTriggers())
         {
-            if (trigger.getMPath() == null)
+            // ignore triggers for which we do not have valid file/file-paths
+            if (trigger.getMimeType() == null || trigger.getMPath() == null)
                 continue;
 
             File fileIn = new File(trigger.getMPath());
