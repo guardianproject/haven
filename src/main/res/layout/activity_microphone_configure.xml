@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimaryDark"
         android:theme="@style/AppTheme.AppBarOverlay"
@@ -22,13 +21,14 @@
 
         <TextView
             android:id="@+id/userShouldDo"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
             android:gravity="center"
             android:text="@string/tune_the_sound_detection"
             android:textColor="@color/colorAccent"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:layout_margin="3dp"
             app:layout_constraintBottom_toTopOf="@+id/userShouldDoHint"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -38,13 +38,14 @@
 
         <TextView
             android:id="@+id/userShouldDoHint"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect"
             android:textColor="@color/colorAccent"
             android:textSize="14sp"
             android:textStyle="bold"
+            android:layout_margin="6dp"
             app:layout_constraintBottom_toTopOf="@+id/simplewaveform"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -53,7 +54,7 @@
 
         <org.havenapp.main.ui.SimpleWaveformExtended
             android:id="@+id/simplewaveform"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@+id/trigger_level_hint"
             app:layout_constraintEnd_toEndOf="parent"
@@ -64,7 +65,7 @@
 
         <TextView
             android:id="@+id/trigger_level_hint"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:gravity="center"
             android:text="@string/configure_trigger_level"
@@ -78,7 +79,7 @@
 
         <me.angrybyte.numberpicker.view.ActualNumberPicker
             android:id="@+id/number_trigger_level"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_gravity="center_horizontal"
             android:background="#FFFFFFFF"
@@ -102,7 +103,7 @@
 
         <TextView
             android:id="@+id/text_display_level"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:gravity="center"
             android:text="@string/current_noise_base"
