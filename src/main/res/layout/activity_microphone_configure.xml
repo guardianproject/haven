@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
-    android:orientation="vertical">
+    android:background="@color/colorPrimaryDark">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -12,63 +12,85 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimaryDark"
         android:theme="@style/AppTheme.AppBarOverlay"
+        app:layout_constraintBottom_toTopOf="@+id/userShouldDo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread"
         app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:orientation="vertical"
-        android:weightSum="10">
-
         <TextView
+            android:id="@+id/userShouldDo"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
             android:gravity="center"
             android:text="@string/tune_the_sound_detection"
             android:textColor="@color/colorAccent"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/userShouldDoHint"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintVertical_weight="1" />
 
         <TextView
+            android:id="@+id/userShouldDoHint"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect"
             android:textColor="@color/colorAccent"
             android:textSize="14sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/simplewaveform"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userShouldDo" />
 
         <org.havenapp.main.ui.SimpleWaveformExtended
             android:id="@+id/simplewaveform"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_margin="0dp"
-            android:layout_weight="5" />
+            app:layout_constraintBottom_toTopOf="@+id/trigger_level_hint"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userShouldDoHint"
+            app:layout_constraintVertical_weight="5" />
 
         <TextView
+            android:id="@+id/trigger_level_hint"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
             android:gravity="center"
             android:text="@string/configure_trigger_level"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@color/colorAccent"
+            app:layout_constraintBottom_toTopOf="@+id/number_trigger_level"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/simplewaveform"
+            app:layout_constraintVertical_weight="1" />
 
         <me.angrybyte.numberpicker.view.ActualNumberPicker
             android:id="@+id/number_trigger_level"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="6dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:layout_weight="1"
             android:background="#FFFFFFFF"
             app:bar_color="@android:color/darker_gray"
             app:bar_width="1dp"
             app:draw_over_controls="true"
+            app:layout_constraintBottom_toTopOf="@+id/text_display_level"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/trigger_level_hint"
+            app:layout_constraintVertical_weight="1"
             app:max_value="100"
             app:min_value="0"
             app:show_bars="true"
@@ -82,12 +104,15 @@
             android:id="@+id/text_display_level"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_margin="15dp"
-            android:layout_weight="1"
             android:gravity="center"
             android:text="@string/current_noise_base"
             android:textColor="@color/colorAccent"
             android:textSize="20sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-</LinearLayout>
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/number_trigger_level"
+            app:layout_constraintVertical_weight="1" />
+</android.support.constraint.ConstraintLayout>
