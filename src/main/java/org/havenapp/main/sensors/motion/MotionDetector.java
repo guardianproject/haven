@@ -157,6 +157,10 @@ public class MotionDetector {
 
                 });
 			}
+			else
+            {
+
+            }
 
 		}
 
