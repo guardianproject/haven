@@ -16,8 +16,8 @@
             app:cameraAspectRatio="4:3"
             app:facing="front"
             app:flash="off"
-            app:maximumWidth="1280"
-            app:maximumPreviewWidth="1280"
+            app:maximumWidth="1080"
+            app:maximumPreviewWidth="1080"
             app:useHighResPicture="false"/>
 
     <ImageView
