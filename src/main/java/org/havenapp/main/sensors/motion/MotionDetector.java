@@ -4,7 +4,7 @@
  */
 
 
-package org.havenapp.main.sensors.media;
+package org.havenapp.main.sensors.motion;
 
 
 import android.graphics.Bitmap;
@@ -18,6 +18,7 @@ import android.os.Handler;
 import android.support.v8.renderscript.RenderScript;
 import android.util.Log;
 
+import org.havenapp.main.sensors.media.ImageCodec;
 import org.havenapp.main.sensors.motion.IMotionDetector;
 import org.havenapp.main.sensors.motion.LuminanceMotionDetector;
 

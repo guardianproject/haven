@@ -15,22 +15,18 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.Bitmap;
 import android.hardware.Camera;
-import android.media.MediaRecorder;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
-import android.os.RemoteException;
 import android.support.v8.renderscript.RenderScript;
 import android.util.Log;
-import android.view.SurfaceHolder;
 
 import com.google.android.cameraview.CameraView;
 
 import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.model.EventTrigger;
-import org.havenapp.main.sensors.media.MotionDetector;
 import org.havenapp.main.service.MonitorService;
 
 import java.io.File;
