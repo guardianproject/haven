@@ -72,6 +72,7 @@
             android:layout_height="match_parent"
             android:gravity="center_horizontal|bottom"
             android:orientation="horizontal"
+            android:id="@+id/buttonBar"
             android:padding="10dp">
 
             <ImageView

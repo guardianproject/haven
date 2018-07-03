@@ -19,6 +19,8 @@ package org.havenapp.main;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
@@ -209,6 +211,18 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
 
     }
 
+    @Override
+    public void onPictureInPictureModeChanged (boolean isInPictureInPictureMode, Configuration newConfig) {
+        if (isInPictureInPictureMode) {
+            // Hide the full-screen UI (controls, etc.) while in picture-in-picture mode.
+            findViewById(R.id.buttonBar).setVisibility(View.GONE);
+        } else {
+            // Restore the full-screen UI.
+            findViewById(R.id.buttonBar).setVisibility(View.VISIBLE);
+
+        }
+    }
+
     private void showSettings() {
 
         Intent i = new Intent(this, SettingsActivity.class);
@@ -288,21 +302,36 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
 
     }
 
-    /**
-     * Closes the monitor activity and unset session properties
-     */
-    private void close() {
 
-        finish();
-
+    @Override
+    public void onUserLeaveHint () {
+        if (mIsMonitoring) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                enterPictureInPictureMode();
+            }
+        }
     }
-
     /**
      * When user closes the activity
      */
     @Override
     public void onBackPressed() {
-        close();
+
+        if (mIsMonitoring) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                enterPictureInPictureMode();
+            }
+            else
+            {
+                finish();
+            }
+        }
+        else
+        {
+            finish();
+        }
+
+
     }
 
     private void showTimeDelayDialog() {
