@@ -20,6 +20,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
+import android.os.RemoteException;
 import android.support.v8.renderscript.RenderScript;
 import android.util.Log;
 
@@ -28,9 +29,16 @@ import com.google.android.cameraview.CameraView;
 import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.model.EventTrigger;
 import org.havenapp.main.service.MonitorService;
+import org.jcodec.api.SequenceEncoder;
+import org.jcodec.api.android.AndroidSequenceEncoder;
+import org.jcodec.codecs.vpx.IVFMuxer;
+import org.jcodec.codecs.vpx.VP8Encoder;
+import org.jcodec.common.io.SeekableByteChannel;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -39,6 +47,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import io.github.silvaren.easyrs.tools.Nv21Image;
+
 public class Preview {
 
     /**
@@ -46,7 +56,7 @@ public class Preview {
      */
     private PreferenceManager prefs;
 
-    private final static int PREVIEW_INTERVAL = 500;
+    private final static int PREVIEW_INTERVAL = 200;
 
     private List<MotionDetector.MotionListener> listeners = new ArrayList<>();
 
@@ -86,6 +96,8 @@ public class Preview {
 	//private Camera camera;
 	private Context context;
 	private MotionDetector task;
+
+    AndroidSequenceEncoder encoder;
     private String videoFile;
 
     //for managing bitmap processing
@@ -160,17 +172,24 @@ public class Preview {
 
         cameraView.start();
 
-
         cameraView.setOnFrameListener((data, width, height, rotationDegrees) -> {
-         //   processNewFrame(data, width, height);
+
             long now = System.currentTimeMillis();
             if (now < Preview.this.lastTimestamp + PREVIEW_INTERVAL)
                 return;
 
-            Log.i("Preview", "Processing new image");
             Preview.this.lastTimestamp = now;
 
-            mDecodeThreadPool.execute(() -> processNewFrame(data, width, height, rotationDegrees));
+            if (!doingVideoProcessing) {
+
+                Log.i("Preview", "Processing new image");
+
+                mDecodeThreadPool.execute(() -> processNewFrame(data, width, height, rotationDegrees));
+            }
+            else
+            {
+                mEncodeVideoThreadPool.execute(() -> recordNewFrame(data, width,height,rotationDegrees));
+            }
         });
 
     }
@@ -186,6 +205,49 @@ public class Preview {
             TimeUnit.SECONDS,
             mDecodeWorkQueue);
 
+    // A queue of Runnables
+    private final BlockingQueue<Runnable> mEncodeVideoWorkQueue = new LinkedBlockingQueue<Runnable>();
+
+    // Creates a thread pool manager
+    ThreadPoolExecutor mEncodeVideoThreadPool = new ThreadPoolExecutor(
+            1,       // Initial pool size
+            1,       // Max pool size
+            10,
+            TimeUnit.SECONDS,
+            mDecodeWorkQueue);
+
+
+    private void recordNewFrame (byte[] data, int width, int height, int rotationDegrees)
+    {
+
+        Bitmap bitmap = Nv21Image.nv21ToBitmap(renderScript, data, width, height);
+        try {
+            encoder.encodeImage(bitmap);
+            bitmap.recycle();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (mEncodeVideoWorkQueue.isEmpty() && (!doingVideoProcessing)) {
+            try {
+                encoder.finish();
+
+                if (serviceMessenger != null) {
+                    Message message = new Message();
+                    message.what = EventTrigger.CAMERA_VIDEO;
+                    message.getData().putString("path", videoFile);
+                    try {
+                        serviceMessenger.send(message);
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     private void processNewFrame (byte[] data, int width, int height, int rotationDegrees)
     {
@@ -236,15 +298,8 @@ public class Preview {
                         serviceMessenger.send(message);
 
                         if (prefs.getVideoMonitoringActive() && (!doingVideoProcessing)) {
-                            new Thread ()
-                            {
-                                public void run ()
-                                {
-                                    //   camera.stopPreview();
-                                    //  record(camera, serviceMessenger);
+                            recordVideo();
 
-                                }
-                            }.start();
                         }
 
                     } catch (Exception e) {
@@ -263,41 +318,29 @@ public class Preview {
 
     }
 
-    /**
-	private synchronized boolean record(Camera cam, Messenger messenger) {
 
-	    if (mediaRecorder != null && doingVideoProcessing)
+	private synchronized boolean recordVideo() {
+
+	    if (doingVideoProcessing)
 	        return false;
 
         String ts1 = String.valueOf(new Date().getTime());
         videoFile = Environment.getExternalStorageDirectory() + File.separator + prefs.getImagePath() + File.separator + ts1 + ".mp4";
+        try {
+            encoder = AndroidSequenceEncoder.createSequenceEncoder(new File(videoFile),5);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         int seconds = prefs.getMonitoringTime() * 1000;
-        MediaRecorderTask mediaRecorderTask = new MediaRecorderTask(cam, videoFile, seconds, mHolder);
-        mediaRecorder = mediaRecorderTask.getPreparedMediaRecorder();
-
-
         doingVideoProcessing = true;
-        mediaRecorder.start();
         updateHandler.postDelayed(() -> {
-            if (messenger != null) {
-                Message message = new Message();
-                message.what = EventTrigger.CAMERA_VIDEO;
-                message.getData().putString("path", videoFile);
-                try {
-                    messenger.send(message);
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                }
-
-                mediaRecorder.stop();
-                mediaRecorder.reset();
-                mediaRecorder.release();
-                doingVideoProcessing = false;
-            }
+           doingVideoProcessing = false;
         }, seconds);
 
         return true;
-    }**/
+    }
 
 
     public void stopCamera ()

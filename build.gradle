@@ -107,7 +107,6 @@ android {
 }
 
 dependencies {
-    //noinspection GradleCompatible
     implementation 'com.android.support:support-v4:27.1.1'
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:design:27.1.1'
@@ -135,4 +134,6 @@ dependencies {
     implementation 'com.asksira.android:cameraviewplus:0.9.4'
     implementation 'com.github.halilozercan:BetterVideoPlayer:1.1.0'
     implementation 'io.github.silvaren:easyrs:0.5.3'
+    implementation 'org.jcodec:jcodec:0.2.3'
+    implementation 'org.jcodec:jcodec-android:0.2.3'
 }
