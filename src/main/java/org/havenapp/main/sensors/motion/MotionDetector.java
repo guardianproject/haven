@@ -18,6 +18,8 @@ import android.os.Handler;
 import android.support.v8.renderscript.RenderScript;
 import android.util.Log;
 
+import com.google.android.cameraview.CameraView;
+
 import org.havenapp.main.sensors.media.ImageCodec;
 import org.havenapp.main.sensors.motion.IMotionDetector;
 import org.havenapp.main.sensors.motion.LuminanceMotionDetector;
@@ -46,7 +48,8 @@ public class MotionDetector {
 	private int height;
 	private Handler handler;
 	private int motionSensitivity;
-	
+	private int rotationDegrees;
+	private int cameraFacing;
 	// Output data
 
 	private boolean hasChanged;
@@ -73,6 +76,8 @@ public class MotionDetector {
 			byte[] rawNewPic, 
 			int width, 
 			int height,
+			int rotationDegrees,
+			int cameraFacing,
 			Handler updateHandler,
 			int motionSensitivity) {
 	    this.renderScript = renderScript;
@@ -80,6 +85,8 @@ public class MotionDetector {
 		this.rawNewPic = rawNewPic;
 		this.width = width;
 		this.height = height;
+		this.rotationDegrees = rotationDegrees;
+		this.cameraFacing = cameraFacing;
 		this.handler = updateHandler;
 		this.motionSensitivity = motionSensitivity;
         detector = new LuminanceMotionDetector();
@@ -124,15 +131,20 @@ public class MotionDetector {
 
 
                 Matrix mtx = new Matrix();
-                mtx.postRotate(-90);
-                mtx.postScale(-1, 1, width/2,height/2);
+
+                if (cameraFacing == CameraView.FACING_FRONT) {
+                    mtx.postRotate(-90);
+                    mtx.postScale(-1, 1, width / 2, height / 2);
+                }
+                else
+                    mtx.postRotate(90);
+
 
                 Bitmap newBitmap
                         = Bitmap.createBitmap(Bitmap.createBitmap(newPic, width, height, Bitmap.Config.ARGB_4444), 0, 0, width, height, mtx, true);
 
                 Bitmap rawBitmap = Bitmap.createBitmap(Nv21Image.nv21ToBitmap(renderScript, rawNewPic, width, height),0,0,width,height,mtx,true);
 
-                Log.i("MotionDetector", "Finished processing, sending results");
                 handler.post(() -> {
                     for (MotionListener listener : listeners) {
                         Log.i("MotionDetector", "Updating back view");

@@ -86,30 +86,9 @@ public final class CameraFragment extends Fragment {
             CameraView cameraView = getActivity().findViewById(R.id.camera_view);
             cameraViewHolder = new Preview(getActivity(),cameraView);
 
-          //  ((FrameLayout) getActivity().findViewById(R.id.cameraViewHolder)).addView(cameraViewHolder);
-
-            // oldImage = (ImageView) getActivity().findViewById(R.id.old_image);
             newImage = getActivity().findViewById(R.id.new_image);
 
             cameraViewHolder.addListener((oldBitmap, newBitmap, rawBitmap, motionDetected) -> {
-
-                /**
-                int rotation = 0;
-                boolean reflex = false;
-
-                if (cameraViewHolder == null)
-                    return;
-
-                if (cameraViewHolder.getCameraFacing() == Camera.CameraInfo.CAMERA_FACING_BACK) {
-                    rotation = 90;
-                } else {
-                    rotation = 270;
-                    reflex = true;
-                }
-
-                // oldImage.setImageBitmap(ImageCodec.rotate(oldBitmap, rotation, reflex));
-                newImage.setImageBitmap(ImageCodec.rotate(newBitmap, rotation, reflex));
-                 **/
                 if (motionDetected)
                     newImage.setImageBitmap(newBitmap);
             });

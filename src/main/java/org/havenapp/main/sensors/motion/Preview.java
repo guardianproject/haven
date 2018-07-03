@@ -45,7 +45,6 @@ public class Preview {
      * Object to retrieve and set shared preferences
      */
     private PreferenceManager prefs;
-    private int cameraFacing = 0;
 
     private final static int PREVIEW_INTERVAL = 500;
 
@@ -118,6 +117,7 @@ public class Preview {
 		motionSensitivity = prefs.getCameraSensitivity();
 
 		initCamera();
+
 	/*
 		 * We bind to the alert service
 		 */
@@ -146,44 +146,19 @@ public class Preview {
 	public void initCamera() {
 
 
-	    //if (cameraView != null)
-	      //  stopCamera();
-
-        cameraView.start();
-
-		/*
-		 *  The Surface has been created, acquire the camera and tell it where
-		 *  to draw.
-		 *  If the selected camera is the front one we open it
-		 */
 		switch (prefs.getCamera()) {
 			case PreferenceManager.FRONT:
-				Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
-				int cameraCount = Camera.getNumberOfCameras();
-				for (int camIdx = 0; camIdx < cameraCount; camIdx++) {
-					Camera.getCameraInfo(camIdx, cameraInfo);
-					if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
-						try {
-							//camera = Camera.open(camIdx);
-							cameraFacing = Camera.CameraInfo.CAMERA_FACING_FRONT;
-                            cameraView.setFacing(CameraView.FACING_FRONT);
-
-                        } catch (RuntimeException e) {
-							Log.e("Preview", "Camera failed to open: " + e.getLocalizedMessage());
-						}
-					}
-				}
-				break;
+                cameraView.setFacing(CameraView.FACING_FRONT);
+                break;
 			case PreferenceManager.BACK:
-
-				//camera = Camera.open();
                 cameraView.setFacing(CameraView.FACING_BACK);
-				cameraFacing = Camera.CameraInfo.CAMERA_FACING_BACK;
 				break;
 			default:
 			//	camera = null;
 				break;
 		}
+
+        cameraView.start();
 
 
         cameraView.setOnFrameListener((data, width, height, rotationDegrees) -> {
@@ -195,7 +170,7 @@ public class Preview {
             Log.i("Preview", "Processing new image");
             Preview.this.lastTimestamp = now;
 
-            mDecodeThreadPool.execute(() -> processNewFrame(data, width, height));
+            mDecodeThreadPool.execute(() -> processNewFrame(data, width, height, rotationDegrees));
         });
 
     }
@@ -212,7 +187,7 @@ public class Preview {
             mDecodeWorkQueue);
 
 
-    private void processNewFrame (byte[] data, int width, int height)
+    private void processNewFrame (byte[] data, int width, int height, int rotationDegrees)
     {
 
 
@@ -222,6 +197,8 @@ public class Preview {
                 data,
                 width,
                 height,
+                rotationDegrees,
+                cameraView.getFacing(),
                 updateHandler,
                 motionSensitivity);
 
