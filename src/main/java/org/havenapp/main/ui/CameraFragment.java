@@ -84,7 +84,8 @@ public final class CameraFragment extends Fragment {
             //Uncomment to see the camera
 
             CameraView cameraView = getActivity().findViewById(R.id.camera_view);
-            cameraViewHolder = new Preview(getActivity(),cameraView);
+
+            cameraViewHolder = new Preview(getContext().getApplicationContext(),cameraView);
 
             newImage = getActivity().findViewById(R.id.new_image);
 
@@ -99,6 +100,7 @@ public final class CameraFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+
     }
 
     public void onSensorChanged(SensorEvent event) {
