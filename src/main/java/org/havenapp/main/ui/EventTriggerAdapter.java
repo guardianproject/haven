@@ -113,7 +113,12 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
                     break;
                 case EventTrigger.CAMERA:
                     holder.image.setVisibility(View.VISIBLE);
-                    Picasso.get().load(eventTriggerImagePaths.get(position)).into(holder.image);
+
+                    Uri fileUri = FileProvider.getUriForFile(
+                            context,
+                            AUTHORITY,
+                            new File(eventTrigger.getPath()));
+                    Picasso.get().load(fileUri).into(holder.image);
                     holder.image.setOnClickListener(view -> {
 
                         int startPosition = 0;
