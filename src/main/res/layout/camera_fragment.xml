@@ -2,16 +2,30 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:foreground="@color/translucentOverlay25">
 
-    <FrameLayout
-        android:id="@+id/preview"
-        android:layout_width="1dp"
-        android:layout_height="1dp"
-        android:layout_gravity="center_horizontal" />
+        <com.google.android.cameraview.CameraView
+            android:id="@+id/camera_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:keepScreenOn="true"
+            android:adjustViewBounds="true"
+            app:autoFocus="true"
+            app:cameraAspectRatio="4:3"
+            app:facing="front"
+            app:flash="off"
+            app:maximumWidth="1280"
+            app:maximumPreviewWidth="1280"
+            app:useHighResPicture="false"/>
 
     <ImageView
         android:id="@+id/new_image"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/transparent"
+        android:scaleType="fitXY"
+        />
 </FrameLayout>

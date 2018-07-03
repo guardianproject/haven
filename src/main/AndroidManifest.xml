@@ -66,6 +66,7 @@
             android:name=".MonitorActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:launchMode="singleTop" />
         <activity
             android:name=".ui.VideoPlayerActivity"
@@ -111,6 +112,17 @@
                 <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
             </intent-filter>
         </receiver>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="org.havenapp.main.fileprovider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider_paths" />
+        </provider>
+
     </application>
 
 </manifest>

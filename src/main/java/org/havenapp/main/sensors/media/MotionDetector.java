@@ -15,6 +15,7 @@ import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.graphics.YuvImage;
 import android.os.Handler;
+import android.support.v8.renderscript.RenderScript;
 import android.util.Log;
 
 import org.havenapp.main.sensors.motion.IMotionDetector;
@@ -24,6 +25,8 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.github.silvaren.easyrs.tools.Nv21Image;
+
 /**
  * Task doing all image processing in backgrounds, 
  * has a collection of listeners to notify in after having processed
@@ -31,7 +34,7 @@ import java.util.List;
  * @author marco
  *
  */
-public class MotionAsyncTask extends Thread {
+public class MotionDetector {
 	
 	// Input data
 	
@@ -44,14 +47,14 @@ public class MotionAsyncTask extends Thread {
 	private int motionSensitivity;
 	
 	// Output data
-	
-	private Bitmap lastBitmap;
-	private Bitmap newBitmap;
-	private Bitmap rawBitmap;
+
 	private boolean hasChanged;
 
 	private IMotionDetector detector;
-	
+
+	private RenderScript renderScript;
+
+
 	public interface MotionListener {
 		public void onProcess(Bitmap oldBitmap,
 				Bitmap newBitmap,
@@ -63,21 +66,24 @@ public class MotionAsyncTask extends Thread {
 		listeners.add(listener);
 	}
 	
-	public MotionAsyncTask(
+	public MotionDetector(
+            RenderScript renderScript,
 			byte[] rawOldPic, 
 			byte[] rawNewPic, 
 			int width, 
 			int height,
 			Handler updateHandler,
 			int motionSensitivity) {
+	    this.renderScript = renderScript;
 		this.rawOldPic = rawOldPic;
 		this.rawNewPic = rawNewPic;
 		this.width = width;
 		this.height = height;
 		this.handler = updateHandler;
 		this.motionSensitivity = motionSensitivity;
-		
-	}
+        detector = new LuminanceMotionDetector();
+
+    }
 
 	public void setMotionSensitivity (int motionSensitivity)
 	{
@@ -85,67 +91,63 @@ public class MotionAsyncTask extends Thread {
 		detector.setThreshold(motionSensitivity);
 	}
 
-	@Override
-	public void run() {
+	public void detect() {
 		int[] newPicLuma = ImageCodec.N21toLuma(rawNewPic, width, height);
-		if (rawOldPic == null) {
-			newBitmap = ImageCodec.lumaToBitmapGreyscale(newPicLuma, width, height);
-			lastBitmap = newBitmap;
-		} else {
+		if (rawOldPic != null) {
+
 		    int[] oldPicLuma = ImageCodec.N21toLuma(rawOldPic, width, height);
-			detector = new LuminanceMotionDetector();
 			detector.setThreshold(motionSensitivity);
-			List<Integer> changedPixels = 
+			List<Integer> changedPixels =
 					detector.detectMotion(oldPicLuma, newPicLuma, width, height);
 			hasChanged = false;
-	
+
 			int[] newPic = ImageCodec.lumaToGreyscale(newPicLuma, width, height);
+
 			if (changedPixels != null) {
 				hasChanged = true;
-				for (int changedPixel : changedPixels) {
-					newPic[changedPixel] = Color.YELLOW;
-				}
-			}
 
-			lastBitmap = ImageCodec.lumaToBitmapGreyscale(oldPicLuma, width, height);
-			newBitmap = Bitmap.createBitmap(newPic, width, height, Bitmap.Config.RGB_565);
+            }
+
 
 			if (hasChanged) {
-				YuvImage image = new YuvImage(rawNewPic, ImageFormat.NV21, width, height, null);
-				ByteArrayOutputStream baos = new ByteArrayOutputStream();
-				image.compressToJpeg(
-						new Rect(0, 0, image.getWidth(), image.getHeight()), 90,
-						baos);
 
-				byte[] imageBytes = baos.toByteArray();
-				rawBitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-				// Setting post rotate to 90
-				Matrix mtx = new Matrix();
-				mtx.postRotate(-90);
-				// Rotating Bitmap
-				rawBitmap = Bitmap.createBitmap(rawBitmap, 0, 0, width, height, mtx, true);
+
+                Bitmap lastBitmap = ImageCodec.lumaToBitmapGreyscale(oldPicLuma, width, height);
+
+                for (int i = 0; i < newPic.length; i++)
+                    newPic[i] = Color.TRANSPARENT;
+
+                for (int changedPixel : changedPixels) {
+                    newPic[changedPixel] = Color.YELLOW;
+                }
+
+
+                Matrix mtx = new Matrix();
+                mtx.postRotate(-90);
+                mtx.postScale(-1, 1, width/2,height/2);
+
+                Bitmap newBitmap
+                        = Bitmap.createBitmap(Bitmap.createBitmap(newPic, width, height, Bitmap.Config.ARGB_4444), 0, 0, width, height, mtx, true);
+
+                Bitmap rawBitmap = Bitmap.createBitmap(Nv21Image.nv21ToBitmap(renderScript, rawNewPic, width, height),0,0,width,height,mtx,true);
+
+                Log.i("MotionDetector", "Finished processing, sending results");
+                handler.post(() -> {
+                    for (MotionListener listener : listeners) {
+                        Log.i("MotionDetector", "Updating back view");
+                        listener.onProcess(
+                                lastBitmap,
+                                newBitmap,
+                                rawBitmap,
+                                hasChanged);
+                    }
+
+                });
 			}
-			else
-			{
-				rawBitmap = null;
-			}
+
 		}
-		
-		Log.i("MotionAsyncTask", "Finished processing, sending results");
-		handler.post(new Runnable() {
-			
-			public void run() {
-				for (MotionListener listener : listeners) {
-					Log.i("MotionAsyncTask", "Updating back view");
-					listener.onProcess(
-							lastBitmap,
-							newBitmap,
-							rawBitmap,
-							hasChanged);
-				}
-				
-			}
-		});
+
+
 	}
 
 

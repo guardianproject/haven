@@ -92,7 +92,8 @@ public class MonitorService extends Service {
     private class MessageHandler extends Handler {
 		@Override
 		public void handleMessage(Message msg) {
-			alert(msg.what,msg.getData().getString("path"));
+
+		    alert(msg.what,msg.getData().getString("path"));
 		}
 	}
 		
