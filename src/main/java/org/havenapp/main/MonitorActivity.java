@@ -188,10 +188,13 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
 
     private void doCancel() {
 
+        boolean wasTimer = false;
+
         if (cTimer != null) {
             cTimer.cancel();
             cTimer = null;
             mOnTimerTicking = false;
+            wasTimer = true;
         }
 
         if (mIsMonitoring) {
@@ -207,6 +210,9 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
 
             int timeM = preferences.getTimerDelay() * 1000;
             txtTimer.setText(getTimerText(timeM));
+
+            if (!wasTimer)
+                finish();
         }
 
     }
