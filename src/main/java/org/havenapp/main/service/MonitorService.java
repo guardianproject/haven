@@ -15,10 +15,8 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
@@ -28,12 +26,6 @@ import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
 import android.telephony.SmsManager;
 import android.text.TextUtils;
-import android.view.Gravity;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
-import android.view.WindowManager;
-
-import com.google.android.cameraview.CameraView;
 
 import org.havenapp.main.HavenApp;
 import org.havenapp.main.MonitorActivity;
@@ -82,7 +74,7 @@ public class MonitorService extends Service {
     private BarometerMonitor mBaroMonitor = null;
     private AmbientLightMonitor mLightMonitor = null;
 
-    private boolean mIsRunning = false;
+    private boolean mIsMonitoringActive = false;
 
     /**
      * Last Event instances
@@ -101,9 +93,13 @@ public class MonitorService extends Service {
 		@Override
 		public void handleMessage(Message msg) {
 
-		    alert(msg.what,msg.getData().getString("path"));
+		    //only accept alert if monitor is running
+		    if (mIsMonitoringActive)
+		        alert(msg.what,msg.getData().getString(KEY_PATH));
 		}
 	}
+
+	public final static String KEY_PATH = "path";
 		
 	/**
 	 * Messenger interface used by clients to interact
@@ -222,13 +218,13 @@ public class MonitorService extends Service {
 
     public boolean isRunning ()
     {
-        return mIsRunning;
+        return mIsMonitoringActive;
 
     }
 
     private void startSensors ()
     {
-        mIsRunning = true;
+        mIsMonitoringActive = true;
 
         if (!mPrefs.getAccelerometerSensitivity().equals(PreferenceManager.OFF)) {
             mAccelManager = new AccelerometerMonitor(this);
@@ -258,7 +254,7 @@ public class MonitorService extends Service {
 
     private void stopSensors ()
     {
-        mIsRunning = false;
+        mIsMonitoringActive = false;
         //this will never be false:
         // -you can't use ==, != for string comparisons, use equals() instead
         // -Value is never set to OFF in the first place

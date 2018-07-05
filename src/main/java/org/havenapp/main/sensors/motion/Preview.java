@@ -236,7 +236,7 @@ public class Preview {
                 if (serviceMessenger != null) {
                     Message message = new Message();
                     message.what = EventTrigger.CAMERA_VIDEO;
-                    message.getData().putString("path", videoFile);
+                    message.getData().putString(MonitorService.KEY_PATH, videoFile);
                     try {
                         serviceMessenger.send(message);
                     } catch (RemoteException e) {
