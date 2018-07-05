@@ -10,7 +10,6 @@ package org.havenapp.main.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.hardware.Camera;
 import android.hardware.SensorEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,12 +20,11 @@ import com.google.android.cameraview.CameraView;
 
 import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.R;
-import org.havenapp.main.sensors.media.ImageCodec;
-import org.havenapp.main.sensors.motion.Preview;
+import org.havenapp.main.sensors.motion.CameraViewHolder;
 
 public final class CameraFragment extends Fragment {
 
-    private Preview cameraViewHolder;
+    private CameraViewHolder cameraViewHolder;
     private ImageView newImage;
 
     @Override
@@ -85,7 +83,7 @@ public final class CameraFragment extends Fragment {
 
             CameraView cameraView = getActivity().findViewById(R.id.camera_view);
 
-            cameraViewHolder = new Preview(getContext().getApplicationContext(),cameraView);
+            cameraViewHolder = new CameraViewHolder(getContext().getApplicationContext(),cameraView);
 
             newImage = getActivity().findViewById(R.id.new_image);
 
@@ -100,6 +98,7 @@ public final class CameraFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        cameraViewHolder.destroy();
 
     }
 

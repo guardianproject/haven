@@ -14,7 +14,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.Bitmap;
-import android.hardware.Camera;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
@@ -29,16 +28,11 @@ import com.google.android.cameraview.CameraView;
 import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.model.EventTrigger;
 import org.havenapp.main.service.MonitorService;
-import org.jcodec.api.SequenceEncoder;
 import org.jcodec.api.android.AndroidSequenceEncoder;
-import org.jcodec.codecs.vpx.IVFMuxer;
-import org.jcodec.codecs.vpx.VP8Encoder;
-import org.jcodec.common.io.SeekableByteChannel;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -49,7 +43,7 @@ import java.util.concurrent.TimeUnit;
 
 import io.github.silvaren.easyrs.tools.Nv21Image;
 
-public class Preview {
+public class CameraViewHolder {
 
     /**
      * Object to retrieve and set shared preferences
@@ -118,7 +112,7 @@ public class Preview {
         }
     };
 
-	public Preview (Context context, CameraView cameraView) {
+	public CameraViewHolder(Context context, CameraView cameraView) {
 		//super(context);
 		this.context = context;
 		this.cameraView = cameraView;
@@ -175,14 +169,14 @@ public class Preview {
         cameraView.setOnFrameListener((data, width, height, rotationDegrees) -> {
 
             long now = System.currentTimeMillis();
-            if (now < Preview.this.lastTimestamp + PREVIEW_INTERVAL)
+            if (now < CameraViewHolder.this.lastTimestamp + PREVIEW_INTERVAL)
                 return;
 
-            Preview.this.lastTimestamp = now;
+            CameraViewHolder.this.lastTimestamp = now;
 
             if (!doingVideoProcessing) {
 
-                Log.i("Preview", "Processing new image");
+                Log.i("CameraViewHolder", "Processing new image");
 
                 mDecodeThreadPool.execute(() -> processNewFrame(data, width, height, rotationDegrees));
             }
@@ -304,7 +298,7 @@ public class Preview {
 
                     } catch (Exception e) {
                         // Cannot happen
-                        Log.e("Preview", "error creating image", e);
+                        Log.e("CameraViewHolder", "error creating image", e);
                     }
                 }
             }
@@ -343,19 +337,23 @@ public class Preview {
     }
 
 
-    public void stopCamera ()
+    public synchronized void stopCamera ()
     {
         if (cameraView != null) {
-            // Surface will be destroyed when we return, so stop the preview.
-            // Because the CameraDevice object is not a shared resource, it's very
-            // important to release it when the activity is paused.
-            this.context.unbindService(mConnection);
-
            cameraView.stop();
         }
     }
 
     public int getCameraFacing() {
         return cameraView.getFacing();
+    }
+
+    public void destroy ()
+    {
+        if (mConnection != null) {
+            this.context.unbindService(mConnection);
+            mConnection = null;
+        }
+        stopCamera();
     }
 }
