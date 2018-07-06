@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.cameraview.CameraView;
 
@@ -28,12 +29,18 @@ public final class CameraFragment extends Fragment {
     private CameraViewHolder cameraViewHolder;
     private ImageView newImage;
     private PreferenceManager prefs;
+    private TextView txtCameraStatus;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.camera_fragment, container, false);
+        View view = inflater.inflate(R.layout.camera_fragment, container, false);
+
+        newImage = view.findViewById(R.id.new_image);
+        txtCameraStatus = view.findViewById(R.id.camera_status_display);
+
+        return view;
 
     }
 
@@ -80,7 +87,6 @@ public final class CameraFragment extends Fragment {
     private void initCamera ()
     {
 
-        newImage = getActivity().findViewById(R.id.new_image);
 
         PreferenceManager prefs = new PreferenceManager(getActivity());
 
@@ -97,6 +103,15 @@ public final class CameraFragment extends Fragment {
                         newImage.setImageBitmap(newBitmap);
                     else
                         newImage.setImageResource(R.drawable.blankimage);
+
+                    if (txtCameraStatus != null) {
+                        if (cameraViewHolder.doingVideoProcessing()) {
+                            txtCameraStatus.setText("Recording...");
+                        } else {
+                            txtCameraStatus.setText("");
+                        }
+                    }
+
                 });
             }
 

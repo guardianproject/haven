@@ -15,6 +15,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.hardware.Camera;
 import android.os.Environment;
 import android.os.Handler;
@@ -260,36 +261,48 @@ public class CameraViewHolder {
             mEncodeVideoWorkQueue);
 
 
+    private Matrix mtxVideoRotate;
+
     private void recordNewFrame (byte[] data, int width, int height, int rotationDegrees)
     {
 
         Bitmap bitmap = Nv21Image.nv21ToBitmap(renderScript, data, width, height);
+
+        bitmap = Bitmap.createBitmap(bitmap,0,0,width,height,mtxVideoRotate,true);
+
         try {
-            encoder.encodeImage(bitmap);
+            if (encoder != null)
+             encoder.encodeImage(bitmap);
+
             bitmap.recycle();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        if (mEncodeVideoWorkQueue.isEmpty() && (!doingVideoProcessing)) {
-            try {
-                encoder.finish();
 
-                if (serviceMessenger != null) {
-                    Message message = new Message();
-                    message.what = EventTrigger.CAMERA_VIDEO;
-                    message.getData().putString(MonitorService.KEY_PATH, videoFile);
-                    try {
-                        serviceMessenger.send(message);
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                    }
+
+    }
+
+    private void finishVideoEncoding ()
+    {
+        try {
+            encoder.finish();
+
+            if (serviceMessenger != null) {
+                Message message = new Message();
+                message.what = EventTrigger.CAMERA_VIDEO;
+                message.getData().putString(MonitorService.KEY_PATH, videoFile);
+                try {
+                    serviceMessenger.send(message);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
     }
 
     private synchronized void processNewFrame (byte[] data, int width, int height, int rotationDegrees)
@@ -311,7 +324,6 @@ public class CameraViewHolder {
 
 	    if (doingVideoProcessing)
 	        return false;
-
         String ts1 = String.valueOf(new Date().getTime());
         videoFile = Environment.getExternalStorageDirectory() + File.separator + prefs.getImagePath() + File.separator + ts1 + ".mp4";
         try {
@@ -321,11 +333,25 @@ public class CameraViewHolder {
             e.printStackTrace();
         }
 
-        int seconds = prefs.getMonitoringTime() * 1000;
+        mtxVideoRotate = new Matrix();
+
+        if (cameraView.getFacing() == CameraView.FACING_FRONT) {
+            mtxVideoRotate.postRotate(-cameraView.getDefaultOrientation());
+            mtxVideoRotate.postScale(-1, 1, cameraView.getWidth() / 2, cameraView.getHeight() / 2);
+        }
+        else
+            mtxVideoRotate.postRotate(cameraView.getDefaultOrientation());
+
         doingVideoProcessing = true;
+
+        int seconds = prefs.getMonitoringTime() * 1000;
         updateHandler.postDelayed(() -> {
            doingVideoProcessing = false;
+            finishVideoEncoding();
         }, seconds);
+
+        for (MotionDetector.MotionListener listener : listeners)
+            listener.onProcess(null, null, null, false);
 
         return true;
     }
@@ -384,6 +410,11 @@ public class CameraViewHolder {
         }
 
         return result;
+    }
+
+    public boolean doingVideoProcessing ()
+    {
+        return doingVideoProcessing;
     }
 
 }
