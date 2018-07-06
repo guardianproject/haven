@@ -9,11 +9,13 @@
 
 package org.havenapp.main.sensors.motion;
 
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.Bitmap;
+import android.hardware.Camera;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
@@ -22,6 +24,7 @@ import android.os.Messenger;
 import android.os.RemoteException;
 import android.support.v8.renderscript.RenderScript;
 import android.util.Log;
+import android.view.Surface;
 
 import com.google.android.cameraview.CameraView;
 
@@ -88,7 +91,7 @@ public class CameraViewHolder {
 	private CameraView cameraView = null;
 	private Messenger serviceMessenger = null;
 	//private Camera camera;
-	private Context context;
+	private Activity context;
 	private MotionDetector task;
 
     AndroidSequenceEncoder encoder;
@@ -112,7 +115,7 @@ public class CameraViewHolder {
         }
     };
 
-	public CameraViewHolder(Context context, CameraView cameraView) {
+	public CameraViewHolder(Activity context, CameraView cameraView) {
 		//super(context);
 		this.context = context;
 		this.cameraView = cameraView;
@@ -122,8 +125,60 @@ public class CameraViewHolder {
 		
 		motionSensitivity = prefs.getCameraSensitivity();
 
-		initCamera();
 
+        task = new MotionDetector(
+                renderScript,
+                updateHandler,
+                motionSensitivity);
+
+        task.addListener((sourceImage, detectedImage, rawBitmap, motionDetected) -> {
+
+            if (motionDetected) {
+                Log.i("MotionListener", "Motion detected");
+
+                for (MotionDetector.MotionListener listener : listeners)
+                    listener.onProcess(sourceImage,detectedImage,rawBitmap,motionDetected);
+
+                if (serviceMessenger != null) {
+                    Message message = new Message();
+                    message.what = EventTrigger.CAMERA;
+
+                    try {
+
+                        File fileImageDir = new File(Environment.getExternalStorageDirectory(), prefs.getImagePath());
+                        fileImageDir.mkdirs();
+
+                        String ts = new Date().getTime() + ".jpg";
+
+                        File fileImage = new File(fileImageDir, "detected.original." + ts);
+                        FileOutputStream stream = new FileOutputStream(fileImage);
+                        rawBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+
+                        stream.flush();
+                        stream.close();
+                        message.getData().putString("path", fileImage.getAbsolutePath());
+
+                        //   sourceImage.recycle();
+                        //  detectedImage.recycle();
+
+                        //store the still match frame, even if doing video
+                        serviceMessenger.send(message);
+
+                        if (prefs.getVideoMonitoringActive() && (!doingVideoProcessing)) {
+                            recordVideo();
+
+                        }
+
+                    } catch (Exception e) {
+                        // Cannot happen
+                        Log.e("CameraViewHolder", "error creating image", e);
+                    }
+                }
+            }
+
+            Log.i("MotionListener", "Allowing further processing");
+
+        });
 	/*
 		 * We bind to the alert service
 		 */
@@ -149,7 +204,7 @@ public class CameraViewHolder {
 	 * (preferred is 640x480)
 	 * in order to minimize CPU usage
 	 */
-	public void initCamera() {
+	public void startCamera() {
 
 
 		switch (prefs.getCamera()) {
@@ -192,7 +247,7 @@ public class CameraViewHolder {
     private final BlockingQueue<Runnable> mDecodeWorkQueue = new LinkedBlockingQueue<Runnable>();
 
     // Creates a thread pool manager
-    ThreadPoolExecutor mDecodeThreadPool = new ThreadPoolExecutor(
+    private ThreadPoolExecutor mDecodeThreadPool = new ThreadPoolExecutor(
             1,       // Initial pool size
             1,       // Max pool size
             10,
@@ -203,12 +258,12 @@ public class CameraViewHolder {
     private final BlockingQueue<Runnable> mEncodeVideoWorkQueue = new LinkedBlockingQueue<Runnable>();
 
     // Creates a thread pool manager
-    ThreadPoolExecutor mEncodeVideoThreadPool = new ThreadPoolExecutor(
+    private ThreadPoolExecutor mEncodeVideoThreadPool = new ThreadPoolExecutor(
             1,       // Initial pool size
             1,       // Max pool size
             10,
             TimeUnit.SECONDS,
-            mDecodeWorkQueue);
+            mEncodeVideoWorkQueue);
 
 
     private void recordNewFrame (byte[] data, int width, int height, int rotationDegrees)
@@ -243,71 +298,16 @@ public class CameraViewHolder {
         }
     }
 
-    private void processNewFrame (byte[] data, int width, int height, int rotationDegrees)
+    private synchronized void processNewFrame (byte[] data, int width, int height, int rotationDegrees)
     {
-
-
-        task = new MotionDetector(
-                renderScript,
+        task.detect(
                 lastPic,
                 data,
                 width,
                 height,
-                rotationDegrees,
-                cameraView.getFacing(),
-                updateHandler,
-                motionSensitivity);
+                cameraView.getDefaultOrientation(),
+                cameraView.getFacing());
 
-        task.addListener((sourceImage, detectedImage, rawBitmap, motionDetected) -> {
-
-            if (motionDetected) {
-                Log.i("MotionListener", "Motion detected");
-
-                for (MotionDetector.MotionListener listener : listeners)
-                    listener.onProcess(sourceImage,detectedImage,rawBitmap,motionDetected);
-
-                if (serviceMessenger != null) {
-                    Message message = new Message();
-                    message.what = EventTrigger.CAMERA;
-
-                    try {
-
-                        File fileImageDir = new File(Environment.getExternalStorageDirectory(), prefs.getImagePath());
-                        fileImageDir.mkdirs();
-
-                        String ts = new Date().getTime() + ".jpg";
-
-                        File fileImage = new File(fileImageDir, "detected.original." + ts);
-                        FileOutputStream stream = new FileOutputStream(fileImage);
-                        rawBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-
-                        stream.flush();
-                        stream.close();
-                        message.getData().putString("path", fileImage.getAbsolutePath());
-
-                     //   sourceImage.recycle();
-                      //  detectedImage.recycle();
-
-                        //store the still match frame, even if doing video
-                        serviceMessenger.send(message);
-
-                        if (prefs.getVideoMonitoringActive() && (!doingVideoProcessing)) {
-                            recordVideo();
-
-                        }
-
-                    } catch (Exception e) {
-                        // Cannot happen
-                        Log.e("CameraViewHolder", "error creating image", e);
-                    }
-                }
-            }
-
-            Log.i("MotionListener", "Allowing further processing");
-
-        });
-
-        task.detect();
         lastPic = data;
 
     }
@@ -356,4 +356,40 @@ public class CameraViewHolder {
         }
         stopCamera();
     }
+
+    public int getCorrectCameraOrientation(int facing, int orientation) {
+
+        int rotation = context.getWindowManager().getDefaultDisplay().getRotation();
+        int degrees = 0;
+
+        switch(rotation){
+            case Surface.ROTATION_0:
+                degrees = 0;
+                break;
+
+            case Surface.ROTATION_90:
+                degrees = 90;
+                break;
+
+            case Surface.ROTATION_180:
+                degrees = 180;
+                break;
+
+            case Surface.ROTATION_270:
+                degrees = 270;
+                break;
+
+        }
+
+        int result;
+        if(facing == CameraView.FACING_FRONT){
+            result = (orientation + degrees) % 360;
+            result = (360 - result) % 360;
+        }else{
+            result = (orientation - degrees + 360) % 360;
+        }
+
+        return result;
+    }
+
 }

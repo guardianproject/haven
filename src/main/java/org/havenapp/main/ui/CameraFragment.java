@@ -63,7 +63,6 @@ public final class CameraFragment extends Fragment {
     {
         if (cameraViewHolder != null) {
             cameraViewHolder.stopCamera();
-            cameraViewHolder = null;
         }
     }
 
@@ -76,6 +75,8 @@ public final class CameraFragment extends Fragment {
     private void initCamera ()
     {
 
+        newImage = getActivity().findViewById(R.id.new_image);
+
         PreferenceManager prefs = new PreferenceManager(getActivity());
 
         if (prefs.getCameraActivation()) {
@@ -83,14 +84,16 @@ public final class CameraFragment extends Fragment {
 
             CameraView cameraView = getActivity().findViewById(R.id.camera_view);
 
-            cameraViewHolder = new CameraViewHolder(getContext().getApplicationContext(),cameraView);
+            if (cameraViewHolder == null) {
+                cameraViewHolder = new CameraViewHolder(getActivity(), cameraView);
 
-            newImage = getActivity().findViewById(R.id.new_image);
+                cameraViewHolder.addListener((oldBitmap, newBitmap, rawBitmap, motionDetected) -> {
+                    if (motionDetected)
+                        newImage.setImageBitmap(newBitmap);
+                });
+            }
 
-            cameraViewHolder.addListener((oldBitmap, newBitmap, rawBitmap, motionDetected) -> {
-                if (motionDetected)
-                    newImage.setImageBitmap(newBitmap);
-            });
+            cameraViewHolder.startCamera();
         }
 
     }
@@ -98,7 +101,9 @@ public final class CameraFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        cameraViewHolder.destroy();
+
+        if (cameraViewHolder != null)
+            cameraViewHolder.destroy();
 
     }
 

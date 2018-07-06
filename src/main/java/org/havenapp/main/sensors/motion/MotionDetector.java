@@ -42,14 +42,8 @@ public class MotionDetector {
 	// Input data
 	
 	private List<MotionListener> listeners = new ArrayList<>();
-	private byte[] rawOldPic;
-	private byte[] rawNewPic;
-	private int width;
-	private int height;
 	private Handler handler;
 	private int motionSensitivity;
-	private int rotationDegrees;
-	private int cameraFacing;
 	// Output data
 
 	private boolean hasChanged;
@@ -58,6 +52,7 @@ public class MotionDetector {
 
 	private RenderScript renderScript;
 
+	private int detectColor = Color.YELLOW;
 
 	public interface MotionListener {
 		public void onProcess(Bitmap oldBitmap,
@@ -72,25 +67,18 @@ public class MotionDetector {
 	
 	public MotionDetector(
             RenderScript renderScript,
-			byte[] rawOldPic, 
-			byte[] rawNewPic, 
-			int width, 
-			int height,
-			int rotationDegrees,
-			int cameraFacing,
 			Handler updateHandler,
 			int motionSensitivity) {
 	    this.renderScript = renderScript;
-		this.rawOldPic = rawOldPic;
-		this.rawNewPic = rawNewPic;
-		this.width = width;
-		this.height = height;
-		this.rotationDegrees = rotationDegrees;
-		this.cameraFacing = cameraFacing;
 		this.handler = updateHandler;
 		this.motionSensitivity = motionSensitivity;
         detector = new LuminanceMotionDetector();
 
+    }
+
+    public void setDetectColor (int detectColor)
+    {
+        this.detectColor = detectColor;
     }
 
 	public void setMotionSensitivity (int motionSensitivity)
@@ -99,7 +87,13 @@ public class MotionDetector {
 		detector.setThreshold(motionSensitivity);
 	}
 
-	public void detect() {
+	public void detect(byte[] rawOldPic,
+                       byte[] rawNewPic,
+                       int width,
+                       int height,
+                       int rotationDegrees,
+                       int cameraFacing) {
+
 		int[] newPicLuma = ImageCodec.N21toLuma(rawNewPic, width, height);
 		if (rawOldPic != null) {
 
@@ -126,18 +120,18 @@ public class MotionDetector {
                     newPic[i] = Color.TRANSPARENT;
 
                 for (int changedPixel : changedPixels) {
-                    newPic[changedPixel] = Color.YELLOW;
+                    newPic[changedPixel] = detectColor;
                 }
 
 
                 Matrix mtx = new Matrix();
 
                 if (cameraFacing == CameraView.FACING_FRONT) {
-                    mtx.postRotate(-90);
+                    mtx.postRotate(-rotationDegrees);
                     mtx.postScale(-1, 1, width / 2, height / 2);
-                }
-                else
-                    mtx.postRotate(90);
+               }
+               else
+                  mtx.postRotate(rotationDegrees);
 
 
                 Bitmap newBitmap
