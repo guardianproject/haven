@@ -50,10 +50,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:background="@drawable/round_drawable_accent"
+                android:background="@drawable/fill_drawable_accent"
                 android:padding="6dp"
                 android:text="@string/start_now"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="25sp"
                 android:textStyle="bold" />
 
