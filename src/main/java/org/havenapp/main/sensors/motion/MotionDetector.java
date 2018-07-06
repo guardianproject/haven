@@ -141,7 +141,6 @@ public class MotionDetector {
 
                 handler.post(() -> {
                     for (MotionListener listener : listeners) {
-                        Log.i("MotionDetector", "Updating back view");
                         listener.onProcess(
                                 lastBitmap,
                                 newBitmap,
@@ -153,7 +152,17 @@ public class MotionDetector {
 			}
 			else
             {
+                //nothing changed
+                handler.post(() -> {
+                    for (MotionListener listener : listeners) {
+                        listener.onProcess(
+                                null,
+                                null,
+                                null,
+                                hasChanged);
+                    }
 
+                });
             }
 
 		}

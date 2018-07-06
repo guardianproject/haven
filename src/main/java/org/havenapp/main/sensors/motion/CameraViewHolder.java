@@ -79,7 +79,7 @@ public class CameraViewHolder {
 	 * Last frame captured
 	 */
 	private int imageCount = 0;
-	
+
 	/**
 	 * Sensitivity of motion detection
 	 */
@@ -122,9 +122,6 @@ public class CameraViewHolder {
         this.renderScript = RenderScript.create(context); // where context can be your activity, application, etc.
 
 		prefs = new PreferenceManager(context);
-		
-		motionSensitivity = prefs.getCameraSensitivity();
-
 
         task = new MotionDetector(
                 renderScript,
@@ -133,11 +130,11 @@ public class CameraViewHolder {
 
         task.addListener((sourceImage, detectedImage, rawBitmap, motionDetected) -> {
 
+            for (MotionDetector.MotionListener listener : listeners)
+                listener.onProcess(sourceImage,detectedImage,rawBitmap,motionDetected);
+
             if (motionDetected) {
                 Log.i("MotionListener", "Motion detected");
-
-                for (MotionDetector.MotionListener listener : listeners)
-                    listener.onProcess(sourceImage,detectedImage,rawBitmap,motionDetected);
 
                 if (serviceMessenger != null) {
                     Message message = new Message();
@@ -158,9 +155,6 @@ public class CameraViewHolder {
                         stream.close();
                         message.getData().putString("path", fileImage.getAbsolutePath());
 
-                        //   sourceImage.recycle();
-                        //  detectedImage.recycle();
-
                         //store the still match frame, even if doing video
                         serviceMessenger.send(message);
 
@@ -176,7 +170,6 @@ public class CameraViewHolder {
                 }
             }
 
-            Log.i("MotionListener", "Allowing further processing");
 
         });
 	/*
@@ -191,6 +184,7 @@ public class CameraViewHolder {
 				{
 				this.
 				motionSensitivity = motionSensitivity;
+				task.setMotionSensitivity(motionSensitivity);
 	}
 	
 	public void addListener(MotionDetector.MotionListener listener) {

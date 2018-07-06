@@ -11,6 +11,7 @@ package org.havenapp.main.ui;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.hardware.SensorEvent;
+import android.support.v7.preference.PreferenceFragmentCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ public final class CameraFragment extends Fragment {
 
     private CameraViewHolder cameraViewHolder;
     private ImageView newImage;
+    private PreferenceManager prefs;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,6 +45,7 @@ public final class CameraFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        prefs = new PreferenceManager(getContext());
     }
 
     @Override
@@ -57,6 +60,8 @@ public final class CameraFragment extends Fragment {
             initCamera();
         else
             resetCamera();
+
+        cameraViewHolder.setMotionSensitivity(prefs.getCameraSensitivity());
     }
 
     public void stopCamera ()
@@ -90,6 +95,8 @@ public final class CameraFragment extends Fragment {
                 cameraViewHolder.addListener((oldBitmap, newBitmap, rawBitmap, motionDetected) -> {
                     if (motionDetected)
                         newImage.setImageBitmap(newBitmap);
+                    else
+                        newImage.setImageResource(R.drawable.blankimage);
                 });
             }
 
