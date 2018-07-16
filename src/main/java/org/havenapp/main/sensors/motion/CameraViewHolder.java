@@ -69,27 +69,27 @@ public class CameraViewHolder {
     /**
      * True IFF there's an async task processing images
      */
-    private boolean doingProcessing, doingVideoProcessing = false;
+    private boolean doingVideoProcessing = false;
 
 	/**
 	 * Handler used to update back the UI after motion detection
 	 */
 	private final Handler updateHandler = new Handler();
-	
-	/**
-	 * Last frame captured
-	 */
-	private int imageCount = 0;
 
 	/**
 	 * Sensitivity of motion detection
 	 */
 	private int motionSensitivity = LuminanceMotionDetector.MOTION_MEDIUM;
-	
+
+    /**
+     * holder of the CameraView and state of running
+     */
+    private CameraView cameraView = null;
+    private boolean isCameraStarted = false;
+
 	/**
 	 * Messenger used to signal motion to the alert service
 	 */
-	private CameraView cameraView = null;
 	private Messenger serviceMessenger = null;
 	//private Camera camera;
 	private Activity context;
@@ -135,7 +135,6 @@ public class CameraViewHolder {
                 listener.onProcess(sourceImage,detectedImage,rawBitmap,motionDetected);
 
             if (motionDetected) {
-                Log.i("MotionListener", "Motion detected");
 
                 if (serviceMessenger != null) {
                     Message message = new Message();
@@ -199,20 +198,10 @@ public class CameraViewHolder {
 	 * (preferred is 640x480)
 	 * in order to minimize CPU usage
 	 */
-	public void startCamera() {
+	public synchronized void startCamera() {
 
 
-		switch (prefs.getCamera()) {
-			case PreferenceManager.FRONT:
-                cameraView.setFacing(CameraView.FACING_FRONT);
-                break;
-			case PreferenceManager.BACK:
-                cameraView.setFacing(CameraView.FACING_BACK);
-				break;
-			default:
-			//	camera = null;
-				break;
-		}
+        updateCamera();
 
         cameraView.start();
 
@@ -229,13 +218,29 @@ public class CameraViewHolder {
                 Log.i("CameraViewHolder", "Processing new image");
 
                 mDecodeThreadPool.execute(() -> processNewFrame(data, width, height, rotationDegrees));
-            }
-            else
-            {
-                mEncodeVideoThreadPool.execute(() -> recordNewFrame(data, width,height,rotationDegrees));
+            } else {
+                mEncodeVideoThreadPool.execute(() -> recordNewFrame(data, width, height, rotationDegrees));
             }
         });
 
+
+    }
+
+    public void updateCamera ()
+    {
+        switch (prefs.getCamera()) {
+            case PreferenceManager.FRONT:
+                if (cameraView.getFacing() != CameraView.FACING_FRONT)
+                    cameraView.setFacing(CameraView.FACING_FRONT);
+                break;
+            case PreferenceManager.BACK:
+                if (cameraView.getFacing() != CameraView.FACING_BACK)
+                    cameraView.setFacing(CameraView.FACING_BACK);
+                break;
+            default:
+                //	camera = null;
+                break;
+        }
     }
 
     // A queue of Runnables

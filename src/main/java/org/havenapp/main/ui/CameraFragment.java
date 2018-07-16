@@ -63,12 +63,18 @@ public final class CameraFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (cameraViewHolder == null)
+       // if (cameraViewHolder == null)
             initCamera();
-        else
-            resetCamera();
+
 
         cameraViewHolder.setMotionSensitivity(prefs.getCameraSensitivity());
+    }
+
+    public void updateCamera ()
+    {
+        if (cameraViewHolder != null) {
+            cameraViewHolder.updateCamera();
+        }
     }
 
     public void stopCamera ()
@@ -78,13 +84,14 @@ public final class CameraFragment extends Fragment {
         }
     }
 
+    /**
     public void resetCamera ()
     {
         stopCamera();
         initCamera();
-    }
+    }**/
 
-    private void initCamera ()
+    public void initCamera ()
     {
 
 
@@ -115,8 +122,10 @@ public final class CameraFragment extends Fragment {
                 });
             }
 
-            cameraViewHolder.startCamera();
         }
+
+
+        cameraViewHolder.startCamera();
 
     }
 
