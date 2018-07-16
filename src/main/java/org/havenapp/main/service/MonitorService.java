@@ -305,9 +305,10 @@ public class MonitorService extends Service {
             //check if time window is within configured notification time window
             doNotification = ((now.getTime()-mLastNotification.getTime())>mPrefs.getNotificationTimeMs());
         }
-        else
+
+        if (doNotification)
         {
-            doNotification = true;
+            doNotification = !(mPrefs.getVideoMonitoringActive() && alertType == EventTrigger.CAMERA);
         }
 
         EventTrigger eventTrigger = new EventTrigger();
