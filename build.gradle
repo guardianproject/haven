@@ -112,7 +112,7 @@ dependencies {
     implementation 'com.android.support:design:27.1.1'
     implementation 'com.android.support:cardview-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-    implementation 'com.github.guardianproject:signal-cli-android:-SNAPSHOT'
+    implementation 'com.github.guardianproject:signal-cli-android:v0.6.0-android-beta-1'
     implementation 'com.github.satyan:sugar:1.5'
     implementation 'net.the4thdimension:audio-wife:1.0.3'
     implementation 'com.github.apl-devs:appintro:v4.2.3'
