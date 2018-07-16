@@ -18,7 +18,6 @@ import android.widget.VideoView;
 
 import com.github.derlio.waveform.SimpleWaveformView;
 import com.github.derlio.waveform.soundfile.SoundFile;
-import com.squareup.picasso.Picasso;
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
 import org.havenapp.main.R;
@@ -118,7 +117,9 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
                             context,
                             AUTHORITY,
                             new File(eventTrigger.getPath()));
-                    Picasso.get().load(fileUri).into(holder.image);
+                    //Picasso.get().load(fileUri).into(holder.image);
+                    holder.image.setImageURI(fileUri);
+
                     holder.image.setOnClickListener(view -> {
 
                         int startPosition = 0;
