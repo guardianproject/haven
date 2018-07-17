@@ -19,6 +19,8 @@ package org.havenapp.main;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
@@ -186,10 +188,13 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
 
     private void doCancel() {
 
+        boolean wasTimer = false;
+
         if (cTimer != null) {
             cTimer.cancel();
             cTimer = null;
             mOnTimerTicking = false;
+            wasTimer = true;
         }
 
         if (mIsMonitoring) {
@@ -205,8 +210,23 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
 
             int timeM = preferences.getTimerDelay() * 1000;
             txtTimer.setText(getTimerText(timeM));
+
+            if (!wasTimer)
+                finish();
         }
 
+    }
+
+    @Override
+    public void onPictureInPictureModeChanged (boolean isInPictureInPictureMode, Configuration newConfig) {
+        if (isInPictureInPictureMode) {
+            // Hide the full-screen UI (controls, etc.) while in picture-in-picture mode.
+            findViewById(R.id.buttonBar).setVisibility(View.GONE);
+        } else {
+            // Restore the full-screen UI.
+            findViewById(R.id.buttonBar).setVisibility(View.VISIBLE);
+
+        }
     }
 
     private void showSettings() {
@@ -233,7 +253,7 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
         }
         else if (requestCode == REQUEST_CAMERA)
         {
-            mFragmentCamera.resetCamera();
+            mFragmentCamera.initCamera();
         }
     }
 
@@ -288,21 +308,36 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
 
     }
 
-    /**
-     * Closes the monitor activity and unset session properties
-     */
-    private void close() {
 
-        finish();
-
+    @Override
+    public void onUserLeaveHint () {
+        if (mIsMonitoring) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                enterPictureInPictureMode();
+            }
+        }
     }
-
     /**
      * When user closes the activity
      */
     @Override
     public void onBackPressed() {
-        close();
+
+        if (mIsMonitoring) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                enterPictureInPictureMode();
+            }
+            else
+            {
+                finish();
+            }
+        }
+        else
+        {
+            finish();
+        }
+
+
     }
 
     private void showTimeDelayDialog() {
