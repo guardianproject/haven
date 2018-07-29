@@ -37,14 +37,13 @@ class Utils {
     }
 
     /**
-     * Get a user friendly date and time representation from UNIX epoch.
+     * Get a user friendly date and time representation from a given {@link Date}.
      * The default {@link Locale} is used.
      *
-     * @param timeMillis value representing UNIX epoch
-     * @return a string of the format "yyyy-MM-dd_HH:mm:ss" for the corresponding epoch
+     * @param date concerned {@link Date} instance
+     * @return a string of the format "yyyy-MM-dd_HH:mm:ss" for the corresponding date
      */
-    public static String getDateTime(long timeMillis) {
-        Date date = new Date(timeMillis);
+    public static String getDateTime(Date date) {
         return new SimpleDateFormat(DATE_TIME_PATTERN, Locale.getDefault()).format(date);
     }
 }
