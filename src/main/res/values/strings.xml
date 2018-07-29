@@ -155,5 +155,6 @@
     <string name="hearbeat_monitor_summary">Monitor Time Interval</string>
     <string name="heartbeat_time_dialog">Enter interval time (minutes) to receive notifications:\n\nMinimum of 1, default is 5.</string>
     <string name="hearbeat_monitor_dialog">Set alert delay for the status notifications </string>
-    
+    <string name="title_activity_video_player">VideoPlayerActivity</string>
+
 </resources>

@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             tools:text="Title" />
 
-        <ImageView
+        <com.facebook.drawee.view.SimpleDraweeView
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:id="@+id/event_item_image"
