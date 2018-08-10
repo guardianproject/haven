@@ -45,7 +45,7 @@ The following sensors are monitored for a measurable change, and then recorded t
 
 ## Building
 
-The application can be built using Android Studio and Gradle. It relies on a number of third-party dependencies, all which are free, open-source and listed at the end of this document.
+The application can be built using Android Studio and Gradle. It relies on a number of third-party dependencies, all of which are free, open-source, and listed at the end of this document.
 
 ## Install
 
@@ -68,15 +68,15 @@ If you are an Android developer, you can learn more about how you can make use o
 
 While we hope to support a version of Haven that runs directly on iOS devices in the future, iPhone users can still benefit from Haven today. You can purchase an inexpensive Android phone for less than $100, and use that as your "Haven Device", that you leave behind, while you keep your iPhone with you. If you run Signal on your iPhone, you can configure Haven on Android to send encrypted notifications, with photos and audio, directly to you. If you enable the "Tor Onion Service" feature in Haven (requires installing "Orbot" app as well), you can remotely access all Haven log data from your iPhone, using the Onion Browser app.
 
-So, no, iPhone users we didn't forget about you, and hope you'll pick up an Android burner today for a few bucks!
+So, no, iPhone users, we didn't forget about you, and we hope you'll pick up an inexpensive Android burner today!
 
 ## Usage
 
-Haven is meant to provide an easy onboarding experience, that walks users through configuring the sensors on their device to best detect intrusions into their environment. The current implementation has some of this implemented, but we are looking to improve this user experience dramatically.
+Haven is meant to provide an easy onboarding experience, that walks users through configuring the sensors on their device to best detect intrusions into their environment.  (The current implementation has some of this implemented, but we are looking to improve this user experience dramatically.)
 
 ### Main view
 
-Application's main view allows the user to set which sensors to use and the corresponding level of sensitivity. A security code must be provided, needed to disable monitoring. A phone number can be set, if any of the sensors is triggered a message is sent to the specified number.
+Application's main view allows the user to select which sensors to use along with their corresponding levels of sensitivity. A security code must be provided, which will be needed later to disable monitoring. A phone number can be set, to which a message will be sent if any of the sensors is triggered.
 
 ### Notifications
 
@@ -85,7 +85,7 @@ When one of the sensors is triggered (reaches the configured sensitivity thresho
 - SMS: a message is sent to the number specified when monitoring started
 - Signal: if configured, can send end-to-end encryption notifications via Signal
 
-Note that it's not necessary to install the Signal app on the device that runs Haven. Doing so may invalidate the app's previous Signal registration and safety numbers. Haven uses APIs to communicate via Signal.
+Note that it's not necessary to install the Signal app on the device that runs Haven. Doing so may invalidate the app's previous Signal registration and safety numbers. Haven uses normal APIs to communicate via Signal.
 
 Notifications are sent through a service running in the background that is defined in class `MonitorService`.
 
@@ -112,5 +112,3 @@ This project contains source code or library dependencies from the following pro
 * Audio Waveform Viewer: https://github.com/derlio/audio-waveform (Apache 2)
 * FireZenk's AudioWaves: https://github.com/FireZenk/AudioWaves (MIT)
 * MaxYou's SimpleWaveform: https://github.com/maxyou/SimpleWaveform (MIT)
-
-
