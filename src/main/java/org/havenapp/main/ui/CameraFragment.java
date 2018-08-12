@@ -58,6 +58,7 @@ public final class CameraFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
+        onDestroy();
     }
 
     @Override
