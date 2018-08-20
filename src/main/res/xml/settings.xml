@@ -5,6 +5,14 @@
         android:key="config_delay_time"
         android:title="@string/timer_delay_label" />
 
+    <EditTextPreference
+        android:dialogLayout="@layout/pref_dialog_edit_text"
+        android:dialogMessage="@string/remote_access_hint"
+        android:key="config_base_storage"
+        android:summary="@string/config_storage_page_hint"
+        android:title="@string/config_storage_path"
+        android:defaultValue="/phoneypot"
+        />
 
     <Preference
         android:key="config_battery_optimizations"

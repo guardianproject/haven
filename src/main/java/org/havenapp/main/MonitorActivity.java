@@ -297,7 +297,7 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
         //ensure folder exists and will not be scanned by the gallery app
 
         try {
-            File fileImageDir = new File(Environment.getExternalStorageDirectory(), preferences.getImagePath());
+            File fileImageDir = new File(Environment.getExternalStorageDirectory(), preferences.getDefaultMediaStoragePath());
             fileImageDir.mkdirs();
             new FileOutputStream(new File(fileImageDir, ".nomedia")).write(0);
         } catch (IOException e) {

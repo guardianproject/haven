@@ -67,7 +67,7 @@ public class AudioRecorderTask extends Thread {
 		this.prefs = new PreferenceManager(context);
 		Log.i("AudioRecorderTask", "Created recorder");
 
-        File fileFolder = new File(Environment.getExternalStorageDirectory().getPath(),prefs.getAudioPath());
+        File fileFolder = new File(Environment.getExternalStorageDirectory().getPath(),prefs.getDefaultMediaStoragePath());
         fileFolder.mkdirs();
         audioPath = new File(fileFolder,new java.util.Date().getTime() + ".m4a");
 

@@ -142,7 +142,7 @@ public class CameraViewHolder {
 
                     try {
 
-                        File fileImageDir = new File(Environment.getExternalStorageDirectory(), prefs.getImagePath());
+                        File fileImageDir = new File(Environment.getExternalStorageDirectory(), prefs.getDefaultMediaStoragePath());
                         fileImageDir.mkdirs();
 
                         String ts = new Date().getTime() + ".jpg";
@@ -330,7 +330,7 @@ public class CameraViewHolder {
 	    if (doingVideoProcessing)
 	        return false;
         String ts1 = String.valueOf(new Date().getTime());
-        videoFile = Environment.getExternalStorageDirectory() + File.separator + prefs.getImagePath() + File.separator + ts1 + ".mp4";
+        videoFile = Environment.getExternalStorageDirectory() + File.separator + prefs.getDefaultMediaStoragePath() + File.separator + ts1 + ".mp4";
         try {
             encoder = AndroidSequenceEncoder.createSequenceEncoder(new File(videoFile),5);
 
