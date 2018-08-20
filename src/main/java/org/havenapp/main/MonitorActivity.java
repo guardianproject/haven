@@ -17,6 +17,7 @@
 package org.havenapp.main;
 
 import android.Manifest;
+import android.app.PictureInPictureParams;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -312,8 +313,8 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
     @Override
     public void onUserLeaveHint () {
         if (mIsMonitoring) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                enterPictureInPictureMode();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                enterPictureInPictureMode(new PictureInPictureParams.Builder().build());
             }
         }
     }
@@ -324,8 +325,8 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
     public void onBackPressed() {
 
         if (mIsMonitoring) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                enterPictureInPictureMode();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                enterPictureInPictureMode(new PictureInPictureParams.Builder().build());
             }
             else
             {
