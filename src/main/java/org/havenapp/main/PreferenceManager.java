@@ -91,7 +91,7 @@ public class PreferenceManager {
 
     private static final String CURRENT_EVENT_START_TIME = "current_event_start_time";
 
-    private static final String CONFIG_BASE_STORAGE = "config_base_storage";
+    public static final String CONFIG_BASE_STORAGE = "config_base_storage";
     private static final String CONFIG_BASE_STORAGE_DEFAULT = "/phoneypot";
 
     private Context context;
@@ -306,6 +306,12 @@ public class PreferenceManager {
 
     public String getDefaultMediaStoragePath() {
         return appSharedPrefs.getString(CONFIG_BASE_STORAGE,CONFIG_BASE_STORAGE_DEFAULT) + File.separator + getCurrentSession(); //phoneypot is the old code name for Haven
+    }
+
+    public void setDefaultMediaStoragePath (String path)
+    {
+        prefsEditor.putString(CONFIG_BASE_STORAGE,path);
+        prefsEditor.commit();
     }
 
     public int getAudioLength ()

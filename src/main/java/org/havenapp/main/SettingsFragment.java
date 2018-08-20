@@ -432,12 +432,21 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 }
                 break;
             }
+            case PreferenceManager.CONFIG_BASE_STORAGE: {
+                setDefaultStoragePath();
+                break;
+            }
         }
     }
 
     String getCountryCode() {
         PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
         return "+" + String.valueOf(phoneUtil.getCountryCodeForRegion(Locale.getDefault().getCountry()));
+    }
+
+    private void setDefaultStoragePath () {
+        String defaultStoragePath = ((EditTextPreference) findPreference(PreferenceManager.CONFIG_BASE_STORAGE)).getText();
+        preferences.setDefaultMediaStoragePath(defaultStoragePath);
     }
 
     private void setPhoneNumber() {

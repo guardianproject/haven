@@ -96,7 +96,7 @@ public class CameraViewHolder {
 	private MotionDetector task;
 
     AndroidSequenceEncoder encoder;
-    private String videoFile;
+    private File videoFile;
 
     //for managing bitmap processing
     private RenderScript renderScript;
@@ -297,7 +297,7 @@ public class CameraViewHolder {
             if (serviceMessenger != null) {
                 Message message = new Message();
                 message.what = EventTrigger.CAMERA_VIDEO;
-                message.getData().putString(MonitorService.KEY_PATH, videoFile);
+                message.getData().putString(MonitorService.KEY_PATH, videoFile.getAbsolutePath());
                 try {
                     serviceMessenger.send(message);
                 } catch (RemoteException e) {
@@ -330,9 +330,13 @@ public class CameraViewHolder {
 	    if (doingVideoProcessing)
 	        return false;
         String ts1 = String.valueOf(new Date().getTime());
-        videoFile = Environment.getExternalStorageDirectory() + File.separator + prefs.getDefaultMediaStoragePath() + File.separator + ts1 + ".mp4";
+        File fileStoragePath = new File(Environment.getExternalStorageDirectory(),prefs.getDefaultMediaStoragePath());
+        fileStoragePath.mkdirs();
+
+        videoFile =  new File(fileStoragePath, ts1 + ".mp4");
+
         try {
-            encoder = AndroidSequenceEncoder.createSequenceEncoder(new File(videoFile),5);
+            encoder = AndroidSequenceEncoder.createSequenceEncoder(videoFile,5);
 
         } catch (IOException e) {
             e.printStackTrace();
