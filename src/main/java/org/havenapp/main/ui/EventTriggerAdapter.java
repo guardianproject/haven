@@ -22,7 +22,6 @@ import com.stfalcon.frescoimageviewer.ImageViewer;
 
 import org.havenapp.main.R;
 import org.havenapp.main.model.EventTrigger;
-import org.w3c.dom.Text;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -117,7 +116,6 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
                             context,
                             AUTHORITY,
                             new File(eventTrigger.getPath()));
-                    //Picasso.get().load(fileUri).into(holder.image);
                     holder.image.setImageURI(fileUri);
 
                     holder.image.setOnClickListener(view -> {
