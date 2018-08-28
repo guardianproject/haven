@@ -8,13 +8,14 @@ import android.content.Context
 import org.havenapp.main.dao.EventDAO
 import org.havenapp.main.dao.EventTriggerDAO
 import org.havenapp.main.database.converter.HavenEventDBConverters
+import org.havenapp.main.database.migration.RoomMigration
 import org.havenapp.main.model.Event
 import org.havenapp.main.model.EventTrigger
 
 /**
  * Created by Arka Prava Basu <arkaprava94@gmail.com> on 23/5/18.
  */
-@Database(entities = [(Event::class), (EventTrigger::class)], version = 3)
+@Database(entities = [(Event::class), (EventTrigger::class)], version = 4)
 @TypeConverters(HavenEventDBConverters::class)
 abstract class HavenEventDB: RoomDatabase() {
 
@@ -34,6 +35,7 @@ abstract class HavenEventDB: RoomDatabase() {
                         INSTANCE = Room.databaseBuilder(context.applicationContext,
                                 HavenEventDB::class.java, "haven.db")
                                 .allowMainThreadQueries() // todo remove this
+                                .addMigrations(RoomMigration())
                                 .build()
                     }
                 }

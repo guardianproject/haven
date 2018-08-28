@@ -299,7 +299,7 @@ public class MonitorService extends Service {
             mLastEvent.setId(eventId);
             doNotification = true;
             // set current event start date in prefs
-            mPrefs.setCurrentSession(mLastEvent.getStartTime());
+            mPrefs.setCurrentSession(mLastEvent.getMStartTime());
         }
         else if (mPrefs.getNotificationTimeMs() == 0)
         {
