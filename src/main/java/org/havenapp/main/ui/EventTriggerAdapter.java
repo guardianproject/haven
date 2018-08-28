@@ -6,7 +6,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +18,6 @@ import android.widget.VideoView;
 
 import com.github.derlio.waveform.SimpleWaveformView;
 import com.github.derlio.waveform.soundfile.SoundFile;
-import com.squareup.picasso.Picasso;
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
 import org.havenapp.main.R;
@@ -36,9 +37,11 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
 
     private Context context;
     private List<EventTrigger> eventTriggers;
-    private ArrayList<String> eventTriggerImagePaths;
+    private ArrayList<Uri> eventTriggerImagePaths;
 
     private OnItemClickListener clickListener;
+
+    private final static String AUTHORITY = "org.havenapp.main.fileprovider";
 
     public EventTriggerAdapter(Context context, List<EventTrigger> eventTriggers) {
         this.context = context;
@@ -47,9 +50,15 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
         this.eventTriggerImagePaths = new ArrayList<>();
         for (EventTrigger trigger : eventTriggers)
         {
-            if (trigger.getMType() == EventTrigger.CAMERA)
+            if (trigger.getMType() == EventTrigger.CAMERA
+                    && (!TextUtils.isEmpty(trigger.getMPath())))
             {
-                eventTriggerImagePaths.add("file:///" + trigger.getMPath());
+                Uri fileUri = FileProvider.getUriForFile(
+                        context,
+                        AUTHORITY,
+                        new File(trigger.getMPath()));
+
+                eventTriggerImagePaths.add(fileUri);
             }
         }
     }
@@ -88,9 +97,8 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
                     holder.video.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Intent intent = new Intent(Intent.ACTION_VIEW,
-                                    Uri.parse(eventTrigger.getMPath()));
-                            intent.setDataAndType(Uri.parse(eventTrigger.getMPath()), "video/*");
+                            Intent intent = new Intent(context, VideoPlayerActivity.class);
+                            intent.setData(Uri.parse("file://" + eventTrigger.getMPath()));
                             context.startActivity(intent);
                         }
                     });
@@ -105,37 +113,39 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
                     break;
                 case EventTrigger.CAMERA:
                     holder.image.setVisibility(View.VISIBLE);
-                    Picasso.with(context).load(new File(eventTrigger.getMPath())).into(holder.image);
-                    holder.image.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
 
-                            int startPosition = 0;
-                            for (int i = 0; i < eventTriggerImagePaths.size(); i++) {
-                                if (eventTriggerImagePaths.get(i).contains(eventTrigger.getMPath())) {
-                                    startPosition = i;
-                                    break;
-                                }
+                    Uri fileUri = FileProvider.getUriForFile(
+                            context,
+                            AUTHORITY,
+                            new File(eventTrigger.getMPath()));
+                    //Picasso.get().load(fileUri).into(holder.image);
+                    holder.image.setImageURI(fileUri);
+
+                    holder.image.setOnClickListener(view -> {
+
+                        int startPosition = 0;
+
+                        /**
+                        for (int i = 0; i < eventTriggerImagePaths.size(); i++) {
+                            if (eventTriggerImagePaths.get(i).contains(eventTrigger.getPath())) {
+                                startPosition = i;
+                                break;
                             }
+                        }**/
+
+                        ShareOverlayView overlayView = new ShareOverlayView(context);
+                        ImageViewer viewer = new ImageViewer.Builder(context, eventTriggerImagePaths)
+                                .setStartPosition(startPosition)
+                                .setOverlayView(overlayView)
+                                .show();
+                        overlayView.setImageViewer(viewer);
 
 
-                            ShareOverlayView overlayView = new ShareOverlayView(context);
-                            ImageViewer viewer = new ImageViewer.Builder(context, eventTriggerImagePaths)
-                                    .setStartPosition(startPosition)
-                                    .setOverlayView(overlayView)
-                                    .show();
-                            overlayView.setImageViewer(viewer);
-
-
-                        }
                     });
 
-                    holder.image.setOnLongClickListener(new View.OnLongClickListener() {
-                        @Override
-                        public boolean onLongClick(View view) {
-                            shareMedia(eventTrigger);
-                            return false;
-                        }
+                    holder.image.setOnLongClickListener(view -> {
+                        shareMedia(eventTrigger);
+                        return false;
                     });
                     break;
                 case EventTrigger.MICROPHONE:

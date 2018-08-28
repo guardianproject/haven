@@ -96,7 +96,7 @@ public class CameraConfigureActivity extends AppCompatActivity {
         else if (camera.equals(PreferenceManager.BACK))
             mPrefManager.setCamera(PreferenceManager.FRONT);
 
-        ((CameraFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_camera)).resetCamera();
+        ((CameraFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_camera)).updateCamera();
         setResult(RESULT_OK);
     }
 

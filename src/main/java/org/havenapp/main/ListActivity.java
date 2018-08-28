@@ -187,8 +187,7 @@ public class ListActivity extends AppCompatActivity {
             }
         };
 
-        handler.postDelayed(runnableDelete,3000);
-
+        handler.postDelayed(runnableDelete,5000);
         events.remove(position);
         adapter.notifyItemRemoved(position);
 
@@ -346,10 +345,8 @@ public class ListActivity extends AppCompatActivity {
         handler.postDelayed(runnableDelete, 3000);
 
         Snackbar.make(recyclerView, getString(R.string.events_deleted), Snackbar.LENGTH_SHORT)
-                .setAction(getString(R.string.undo), new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        handler.removeCallbacks(runnableDelete);
+                .setAction(getString(R.string.undo), v -> {
+                    handler.removeCallbacks(runnableDelete);
 
                         for (Event event : removedEvents) {
                             long eventId = HavenEventDB.getDatabase(ListActivity.this)
@@ -359,7 +356,7 @@ public class ListActivity extends AppCompatActivity {
                             adapter.notifyItemInserted(events.size() - 1);
                         }
                     }
-                })
+                )
                 .show();
     }
 

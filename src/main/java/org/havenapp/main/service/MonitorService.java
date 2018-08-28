@@ -75,7 +75,7 @@ public class MonitorService extends Service {
     private BarometerMonitor mBaroMonitor = null;
     private AmbientLightMonitor mLightMonitor = null;
 
-    private boolean mIsRunning = false;
+    private boolean mIsMonitoringActive = false;
 
     /**
      * Last Event instances
@@ -93,9 +93,14 @@ public class MonitorService extends Service {
     private class MessageHandler extends Handler {
 		@Override
 		public void handleMessage(Message msg) {
-			alert(msg.what,msg.getData().getString("path"));
+
+		    //only accept alert if monitor is running
+		    if (mIsMonitoringActive)
+		        alert(msg.what,msg.getData().getString(KEY_PATH));
 		}
 	}
+
+	public final static String KEY_PATH = "path";
 		
 	/**
 	 * Messenger interface used by clients to interact
@@ -138,8 +143,10 @@ public class MonitorService extends Service {
 
         showNotification();
 
+      //  startCamera();
+
         PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
-        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
+        wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK,
                 "MyWakelockTag");
         wakeLock.acquire();
     }
@@ -212,13 +219,13 @@ public class MonitorService extends Service {
 
     public boolean isRunning ()
     {
-        return mIsRunning;
+        return mIsMonitoringActive;
 
     }
 
     private void startSensors ()
     {
-        mIsRunning = true;
+        mIsMonitoringActive = true;
 
         if (!mPrefs.getAccelerometerSensitivity().equals(PreferenceManager.OFF)) {
             mAccelManager = new AccelerometerMonitor(this);
@@ -248,7 +255,7 @@ public class MonitorService extends Service {
 
     private void stopSensors ()
     {
-        mIsRunning = false;
+        mIsMonitoringActive = false;
         //this will never be false:
         // -you can't use ==, != for string comparisons, use equals() instead
         // -Value is never set to OFF in the first place
@@ -291,6 +298,8 @@ public class MonitorService extends Service {
                     .getEventDAO().insert(mLastEvent);
             mLastEvent.setId(eventId);
             doNotification = true;
+            // set current event start date in prefs
+            mPrefs.setCurrentSession(mLastEvent.getStartTime());
         }
         else if (mPrefs.getNotificationTimeMs() == 0)
         {
@@ -301,9 +310,10 @@ public class MonitorService extends Service {
             //check if time window is within configured notification time window
             doNotification = ((now.getTime()-mLastNotification.getTime())>mPrefs.getNotificationTimeMs());
         }
-        else
+
+        if (doNotification)
         {
-            doNotification = true;
+            doNotification = !(mPrefs.getVideoMonitoringActive() && alertType == EventTrigger.CAMERA);
         }
 
         EventTrigger eventTrigger = new EventTrigger();
@@ -362,6 +372,8 @@ public class MonitorService extends Service {
         }
 
     }
+
+
 
 
 }

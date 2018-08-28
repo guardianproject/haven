@@ -26,6 +26,9 @@ import android.content.SharedPreferences.Editor;
 
 import org.havenapp.main.sensors.motion.LuminanceMotionDetector;
 
+import java.io.File;
+import java.util.Date;
+
 
 public class PreferenceManager {
 	
@@ -85,6 +88,11 @@ public class PreferenceManager {
     public static final String NOTIFICATION_TIME = "notification_time";
 
     public static final String DISABLE_BATTERY_OPT = "config_battery_optimizations";
+
+    private static final String CURRENT_EVENT_START_TIME = "current_event_start_time";
+
+    public static final String CONFIG_BASE_STORAGE = "config_base_storage";
+    private static final String CONFIG_BASE_STORAGE_DEFAULT = "/phoneypot";
 
     private Context context;
 	
@@ -291,19 +299,19 @@ public class PreferenceManager {
         return context.getString(R.string.intrusion_detected);
     }
 
-    public String getImagePath ()
-    {
-        return "/phoneypot";
-    }
-
     public int getMaxImages ()
     {
         return 10;
     }
 
-    public String getAudioPath ()
+    public String getDefaultMediaStoragePath() {
+        return appSharedPrefs.getString(CONFIG_BASE_STORAGE,CONFIG_BASE_STORAGE_DEFAULT) + File.separator + getCurrentSession(); //phoneypot is the old code name for Haven
+    }
+
+    public void setDefaultMediaStoragePath (String path)
     {
-        return "/phoneypot"; //phoneypot is the old code name for Haven
+        prefsEditor.putString(CONFIG_BASE_STORAGE,path);
+        prefsEditor.commit();
     }
 
     public int getAudioLength ()
@@ -338,4 +346,26 @@ public class PreferenceManager {
         return appSharedPrefs.getInt(HEARTBEAT_MONITOR_DELAY,300000);
     }
 
+    /**
+     * Set the {@link org.havenapp.main.model.Event#mStartTime} for the ongoing event.
+     * Sets a string with the format {@link Utils#DATE_TIME_PATTERN}
+     * representing current date and time for the key {@link #CURRENT_EVENT_START_TIME}.
+     *
+     * @param startTime the {@link org.havenapp.main.model.Event#mStartTime} for an
+     * {@link org.havenapp.main.model.Event}
+     */
+    public void setCurrentSession(Date startTime) {
+        prefsEditor.putString(CURRENT_EVENT_START_TIME, Utils.getDateTime(startTime));
+        prefsEditor.commit();
+    }
+
+    /**
+     * Get the {@link org.havenapp.main.model.Event#mStartTime} for the ongoing event.
+     *
+     * @return the string corresponding to pref key {@link #CURRENT_EVENT_START_TIME}.
+     * Default value is unknown_session.
+     */
+    private String getCurrentSession() {
+        return appSharedPrefs.getString(CURRENT_EVENT_START_TIME, "unknown_session");
+    }
 }

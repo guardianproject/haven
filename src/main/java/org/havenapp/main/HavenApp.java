@@ -22,6 +22,8 @@ import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.imagepipeline.core.ImagePipelineConfig;
+import com.facebook.imagepipeline.decoder.SimpleProgressiveJpegConfig;
 
 import org.havenapp.main.database.HavenEventDB;
 import org.havenapp.main.service.WebServer;
@@ -46,6 +48,16 @@ public class HavenApp extends MultiDexApplication {
 
         mPrefs = new PreferenceManager(this);
 
+        ImagePipelineConfig config = ImagePipelineConfig.newBuilder(this)
+                .setProgressiveJpegConfig(new SimpleProgressiveJpegConfig())
+                .setResizeAndRotateEnabledForNetwork(true)
+                .setDownsampleEnabled(true)
+                .build();
+
+        Fresco.initialize(this,config);
+
+        mPrefs = new PreferenceManager(this);
+
         Fresco.initialize(this);
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
@@ -60,10 +72,12 @@ public class HavenApp extends MultiDexApplication {
     {
         if (mOnionServer == null || (!mOnionServer.isAlive()))
         {
-            try {
-                mOnionServer = new WebServer(this, mPrefs.getRemoteAccessCredential());
-            } catch (IOException ioe) {
-                Log.e("OnioNServer", "unable to start onion server", ioe);
+            if ( mPrefs.getRemoteAccessCredential() != null) {
+                try {
+                    mOnionServer = new WebServer(this, mPrefs.getRemoteAccessCredential());
+                } catch (IOException ioe) {
+                    Log.e("OnioNServer", "unable to start onion server", ioe);
+                }
             }
         }
     }
