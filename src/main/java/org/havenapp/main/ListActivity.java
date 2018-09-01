@@ -47,6 +47,8 @@ import com.mikepenz.aboutlibraries.LibsBuilder;
 
 import org.havenapp.main.database.HavenEventDB;
 import org.havenapp.main.model.Event;
+import org.havenapp.main.resources.IResourceManager;
+import org.havenapp.main.resources.ResourceManager;
 import org.havenapp.main.service.SignalSender;
 import org.havenapp.main.ui.EventActivity;
 import org.havenapp.main.ui.EventAdapter;
@@ -66,6 +68,7 @@ public class ListActivity extends AppCompatActivity {
     private EventAdapter adapter;
     private List<Event> events = new ArrayList<>();
     private PreferenceManager preferences;
+    private IResourceManager resourceManager;
 
     private int modifyPos = -1;
 
@@ -80,6 +83,7 @@ public class ListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list);
         Log.d("Main", "onCreate");
 
+        resourceManager = new ResourceManager(this);
         preferences = new PreferenceManager(this.getApplicationContext());
         recyclerView = findViewById(R.id.main_list);
         fab = findViewById(R.id.fab);
@@ -153,7 +157,7 @@ public class ListActivity extends AppCompatActivity {
                 findViewById(R.id.empty_view).setVisibility(View.GONE);
             }
 
-            adapter = new EventAdapter(ListActivity.this, events);
+            adapter = new EventAdapter(events, resourceManager);
             recyclerView.setVisibility(View.VISIBLE);
             recyclerView.setAdapter(adapter);
 
@@ -193,8 +197,8 @@ public class ListActivity extends AppCompatActivity {
 
         HavenEventDB.getDatabase(ListActivity.this).getEventDAO().delete(event);
 
-        Snackbar.make(recyclerView, getString(R.string.event_deleted), Snackbar.LENGTH_SHORT)
-                .setAction(getString(R.string.undo), new View.OnClickListener() {
+        Snackbar.make(recyclerView, resourceManager.getString(R.string.event_deleted), Snackbar.LENGTH_SHORT)
+                .setAction(resourceManager.getString(R.string.undo), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         handler.removeCallbacks(runnableDelete);
@@ -238,11 +242,12 @@ public class ListActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        resourceManager = new ResourceManager(this);
         final long newCount = HavenEventDB.getDatabase(this).getEventDAO().count();
 
         if (newCount > events.size()) {
             events = HavenEventDB.getDatabase(this).getEventDAO().getAllEventDesc();
-            adapter = new EventAdapter(ListActivity.this, events);
+            adapter = new EventAdapter(events, resourceManager);
             recyclerView.setAdapter(adapter);
 
             adapter.SetOnItemClickListener(new EventAdapter.OnItemClickListener() {
@@ -263,7 +268,7 @@ public class ListActivity extends AppCompatActivity {
             events.add(0,event);
             adapter.notifyItemInserted(0);
             adapter.notifyDataSetChanged();
-            
+
             initialCount = newCount;
             **/
 
@@ -344,8 +349,8 @@ public class ListActivity extends AppCompatActivity {
 
         handler.postDelayed(runnableDelete, 3000);
 
-        Snackbar.make(recyclerView, getString(R.string.events_deleted), Snackbar.LENGTH_SHORT)
-                .setAction(getString(R.string.undo), v -> {
+        Snackbar.make(recyclerView, resourceManager.getString(R.string.events_deleted), Snackbar.LENGTH_SHORT)
+                .setAction(resourceManager.getString(R.string.undo), v -> {
                     handler.removeCallbacks(runnableDelete);
 
                         for (Event event : removedEvents) {
@@ -367,7 +372,7 @@ public class ListActivity extends AppCompatActivity {
                 .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
                 .withAboutIconShown(true)
                 .withAboutVersionShown(true)
-                .withAboutAppName(getString(R.string.app_name))
+                .withAboutAppName(resourceManager.getString(R.string.app_name))
                                 //start the activity
                 .start(this);
     }
@@ -379,7 +384,7 @@ public class ListActivity extends AppCompatActivity {
             SignalSender sender = SignalSender.getInstance(this, preferences.getSignalUsername().trim());
             ArrayList<String> recip = new ArrayList<>();
             recip.add(preferences.getSmsNumber());
-            sender.sendMessage(recip, getString(R.string.signal_test_message), null);
+            sender.sendMessage(recip, resourceManager.getString(R.string.signal_test_message), null);
         }
         else if (!TextUtils.isEmpty(preferences.getSmsNumber())) {
 
@@ -387,7 +392,7 @@ public class ListActivity extends AppCompatActivity {
 
             StringTokenizer st = new StringTokenizer(preferences.getSmsNumber(),",");
             while (st.hasMoreTokens())
-                manager.sendTextMessage(st.nextToken(), null, getString(R.string.signal_test_message), null, null);
+                manager.sendTextMessage(st.nextToken(), null, resourceManager.getString(R.string.signal_test_message), null, null);
 
         }
     }

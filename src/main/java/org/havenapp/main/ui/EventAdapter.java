@@ -1,6 +1,6 @@
 package org.havenapp.main.ui;
 
-import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import org.havenapp.main.R;
 import org.havenapp.main.model.Event;
+import org.havenapp.main.resources.IResourceManager;
 
 import java.util.List;
 
@@ -18,31 +19,31 @@ import java.util.List;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventVH> {
 
-    private Context context;
     private List<Event> events;
+    private IResourceManager resourceManager;
 
     private OnItemClickListener clickListener;
 
-    public EventAdapter(Context context, List<Event> events) {
-        this.context = context;
+    public EventAdapter(List<Event> events, @NonNull IResourceManager resourceManager) {
         this.events = events;
-
+        this.resourceManager = resourceManager;
     }
 
 
     @Override
-    public EventVH onCreateViewHolder(ViewGroup parent, int viewType) {
+    public EventVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_event, parent, false);
         return new EventVH(view);
     }
 
     @Override
-    public void onBindViewHolder(EventVH holder, int position) {
+    public void onBindViewHolder(@NonNull EventVH holder, int position) {
 
         Event event = events.get(position);
 
         String title = event.getMStartTime().toLocaleString();
-        String desc = event.getEventTriggers().size() + " " + context.getString(R.string.detection_events);
+        String desc = event.getEventTriggers().size() + " " +
+                resourceManager.getString(R.string.detection_events);
 
         holder.title.setText(title);
         holder.note.setText(desc);
@@ -80,4 +81,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventVH> {
         this.clickListener = itemClickListener;
     }
 
+    public void setEvents(List<Event> events) {
+        this.events = events;
+    }
 }

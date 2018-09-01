@@ -18,6 +18,7 @@ import java.security.MessageDigest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 import fi.iki.elonen.NanoHTTPD;
@@ -96,7 +97,7 @@ public class WebServer extends NanoHTTPD {
                     .findById(eventTriggerId);
 
             try {
-                File fileMedia = new File(eventTrigger.getMPath());
+                File fileMedia = new File(Objects.requireNonNull(eventTrigger.getMPath()));
                 FileInputStream fis = new FileInputStream(fileMedia);
                 return newChunkedResponse(Response.Status.OK, getMimeType(eventTrigger), fis);
 
@@ -104,6 +105,8 @@ public class WebServer extends NanoHTTPD {
             catch (IOException ioe)
             {
                 Log.e(TAG,"unable to return media file",ioe);
+            } catch (NullPointerException npe) {
+                Log.e(TAG,"unable to return media file", npe);
             }
         }
         else if (uri.getPath().startsWith("/feed"))
