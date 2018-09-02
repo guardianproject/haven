@@ -34,6 +34,7 @@ import org.havenapp.main.R;
 import org.havenapp.main.database.HavenEventDB;
 import org.havenapp.main.model.Event;
 import org.havenapp.main.model.EventTrigger;
+import org.havenapp.main.resources.ResourceManager;
 import org.havenapp.main.sensors.AccelerometerMonitor;
 import org.havenapp.main.sensors.AmbientLightMonitor;
 import org.havenapp.main.sensors.BarometerMonitor;
@@ -335,7 +336,8 @@ public class MonitorService extends Service {
              * number
              */
             StringBuilder alertMessage = new StringBuilder();
-            alertMessage.append(getString(R.string.intrusion_detected, eventTrigger.getStringType(this)));
+            alertMessage.append(getString(R.string.intrusion_detected,
+                    eventTrigger.getStringType(new ResourceManager(this))));
 
             if (mPrefs.getSignalUsername() != null) {
                 //since this is a secure channel, we can add the Onion address

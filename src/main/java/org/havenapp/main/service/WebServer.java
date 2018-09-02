@@ -9,6 +9,7 @@ import org.havenapp.main.R;
 import org.havenapp.main.database.HavenEventDB;
 import org.havenapp.main.model.Event;
 import org.havenapp.main.model.EventTrigger;
+import org.havenapp.main.resources.ResourceManager;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -174,7 +175,7 @@ public class WebServer extends NanoHTTPD {
 
         for (EventTrigger eventTrigger: triggers)
         {
-            String title = eventTrigger.getStringType(mContext);
+            String title = eventTrigger.getStringType(new ResourceManager(mContext));
             String desc = eventTrigger.getMTime().toString();
 
             page.append("<b>");

@@ -7,29 +7,40 @@ import android.os.Handler;
 import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.stfalcon.frescoimageviewer.ImageViewer;
 
 import org.havenapp.main.R;
 import org.havenapp.main.database.HavenEventDB;
 import org.havenapp.main.model.Event;
 import org.havenapp.main.model.EventTrigger;
+import org.havenapp.main.resources.IResourceManager;
+import org.havenapp.main.resources.ResourceManager;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
-public class EventActivity extends AppCompatActivity {
+public class EventActivity extends AppCompatActivity implements EventTriggerAdapter.EventTriggerClickListener {
 
-
+    private IResourceManager resourceManager;
     private RecyclerView mRecyclerView;
     private Event mEvent;
+    private List<EventTrigger> eventTriggerList = new ArrayList<>();
     private Handler mHandler = new Handler();
     private EventTriggerAdapter mAdapter;
+
+    private ArrayList<Uri> eventTriggerImagePaths;
+    private final static String AUTHORITY = "org.havenapp.main.fileprovider";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,16 +53,22 @@ public class EventActivity extends AppCompatActivity {
 
         StrictMode.setVmPolicy(StrictMode.VmPolicy.LAX);
 
+        resourceManager = new ResourceManager(this);
+
         long eventId = getIntent().getLongExtra("eventid",-1);
 
         if (eventId != -1) {
 
             mEvent = HavenEventDB.getDatabase(this).getEventDAO().findById(eventId);
+            eventTriggerList = mEvent.getEventTriggers();
             mRecyclerView = findViewById(R.id.event_trigger_list);
 
             setTitle(mEvent.getMStartTime().toLocaleString());
 
-            mAdapter = new EventTriggerAdapter(this, mEvent.getEventTriggers());
+            mAdapter = new EventTriggerAdapter(this, eventTriggerList,
+                    resourceManager, this);
+
+            setEventTriggerImagePaths(eventTriggerList);
 
             LinearLayoutManager llm = new LinearLayoutManager(this);
             mRecyclerView.setLayoutManager(llm);
@@ -79,7 +96,7 @@ public class EventActivity extends AppCompatActivity {
                     //Remove swiped item from list and notify the RecyclerView
 
                     final int position = viewHolder.getAdapterPosition();
-                    final EventTrigger eventTrigger = mEvent.getEventTriggers()
+                    final EventTrigger eventTrigger = eventTriggerList
                             .get(viewHolder.getAdapterPosition());
 
                     deleteEventTrigger (eventTrigger, position);
@@ -128,7 +145,7 @@ public class EventActivity extends AppCompatActivity {
 
         mHandler.postDelayed(runnableDelete,3000);
 
-        mEvent.getEventTriggers().remove(position);
+        eventTriggerList.remove(position);
         mAdapter.notifyItemRemoved(position);
 
         HavenEventDB.getDatabase(EventActivity.this)
@@ -142,7 +159,7 @@ public class EventActivity extends AppCompatActivity {
                         long eventTriggerId = HavenEventDB.getDatabase(EventActivity.this)
                                 .getEventTriggerDAO().insert(eventTrigger);
                         eventTrigger.setId(eventTriggerId);
-                        mEvent.getEventTriggers().add(position, eventTrigger);
+                        eventTriggerList.add(position, eventTrigger);
                         mAdapter.notifyItemInserted(position);
                     }
                 })
@@ -162,7 +179,7 @@ public class EventActivity extends AppCompatActivity {
         //has to be an ArrayList
         ArrayList<Uri> uris = new ArrayList<>();
         //convert from paths to Android friendly Parcelable Uri's
-        for (EventTrigger trigger : mEvent.getEventTriggers())
+        for (EventTrigger trigger : eventTriggerList)
         {
             // ignore triggers for which we do not have valid file/file-paths
             if (trigger.getMimeType() == null || trigger.getMPath() == null)
@@ -182,11 +199,11 @@ public class EventActivity extends AppCompatActivity {
 
         setTitle("Event @ " + mEvent.getMStartTime().toLocaleString());
 
-        for (EventTrigger eventTrigger : mEvent.getEventTriggers()) {
+        for (EventTrigger eventTrigger : eventTriggerList) {
 
             mEventLog.append("Event Triggered @ ").append(eventTrigger.getMTime().toString()).append("\n");
 
-            String sType = eventTrigger.getStringType(this);
+            String sType = eventTrigger.getStringType(resourceManager);
 
             mEventLog.append("Event Type: ").append(sType);
             mEventLog.append("\n==========================\n");
@@ -195,4 +212,63 @@ public class EventActivity extends AppCompatActivity {
         return mEventLog.toString();
     }
 
+    @Override
+    public void onVideoClick(EventTrigger eventTrigger) {
+        Intent intent = new Intent(this, VideoPlayerActivity.class);
+        intent.setData(Uri.parse("file://" + eventTrigger.getMPath()));
+        startActivity(intent);
+    }
+
+    @Override
+    public void onVideoLongClick(EventTrigger eventTrigger) {
+        shareMedia(eventTrigger);
+    }
+
+    @Override
+    public void onImageClick(EventTrigger eventTrigger) {
+        int startPosition = 0;
+
+        /**
+         for (int i = 0; i < eventTriggerImagePaths.size(); i++) {
+         if (eventTriggerImagePaths.get(i).contains(eventTrigger.getPath())) {
+         startPosition = i;
+         break;
+         }
+         }**/
+
+        ShareOverlayView overlayView = new ShareOverlayView(this);
+        ImageViewer viewer = new ImageViewer.Builder<>(this, eventTriggerImagePaths)
+                .setStartPosition(startPosition)
+                .setOverlayView(overlayView)
+                .show();
+        overlayView.setImageViewer(viewer);
+    }
+
+    @Override
+    public void onImageLongClick(EventTrigger eventTrigger) {
+        shareMedia(eventTrigger);
+    }
+
+    private void shareMedia (EventTrigger eventTrigger) {
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(eventTrigger.getMPath())));
+        shareIntent.setType(eventTrigger.getMimeType());
+        startActivity(shareIntent);
+    }
+
+    private void setEventTriggerImagePaths(List<EventTrigger> eventTriggerList) {
+        this.eventTriggerImagePaths = new ArrayList<>();
+        for (EventTrigger trigger : eventTriggerList)
+        {
+            if (trigger.getMType() == EventTrigger.CAMERA
+                    && (!TextUtils.isEmpty(trigger.getMPath())))
+            {
+                Uri fileUri = FileProvider.getUriForFile(this, AUTHORITY,
+                        new File(trigger.getMPath()));
+
+                eventTriggerImagePaths.add(fileUri);
+            }
+        }
+    }
 }

@@ -3,8 +3,8 @@ package org.havenapp.main.model
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
-import android.content.Context
 import org.havenapp.main.R
+import org.havenapp.main.resources.IResourceManager
 import java.util.*
 
 /**
@@ -77,19 +77,19 @@ class EventTrigger {
     @ColumnInfo(name = "M_PATH")
     var mPath: String? = null
 
-    fun getStringType(context: Context): String {
+    fun getStringType(resourceManager: IResourceManager): String {
         var sType = ""
 
         sType = when (mType) {
-            ACCELEROMETER -> context.getString(R.string.sensor_accel)
-            LIGHT -> context.getString(R.string.sensor_light)
-            CAMERA -> context.getString(R.string.sensor_camera)
-            MICROPHONE -> context.getString(R.string.sensor_sound)
-            POWER -> context.getString(R.string.sensor_power)
-            BUMP -> context.getString(R.string.sensor_bump)
-            CAMERA_VIDEO -> context.getString(R.string.sensor_camera_video)
-            HEART -> context.getString(R.string.sensor_heartbeat)
-            else -> context.getString(R.string.sensor_unknown)
+            ACCELEROMETER -> resourceManager.getString(R.string.sensor_accel)
+            LIGHT -> resourceManager.getString(R.string.sensor_light)
+            CAMERA -> resourceManager.getString(R.string.sensor_camera)
+            MICROPHONE -> resourceManager.getString(R.string.sensor_sound)
+            POWER -> resourceManager.getString(R.string.sensor_power)
+            BUMP -> resourceManager.getString(R.string.sensor_bump)
+            CAMERA_VIDEO -> resourceManager.getString(R.string.sensor_camera_video)
+            HEART -> resourceManager.getString(R.string.sensor_heartbeat)
+            else -> resourceManager.getString(R.string.sensor_unknown)
         }
 
         return sType

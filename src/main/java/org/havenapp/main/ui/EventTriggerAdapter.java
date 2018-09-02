@@ -1,14 +1,13 @@
 package org.havenapp.main.ui;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,13 +17,12 @@ import android.widget.VideoView;
 
 import com.github.derlio.waveform.SimpleWaveformView;
 import com.github.derlio.waveform.soundfile.SoundFile;
-import com.stfalcon.frescoimageviewer.ImageViewer;
 
 import org.havenapp.main.R;
 import org.havenapp.main.model.EventTrigger;
+import org.havenapp.main.resources.IResourceManager;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import nl.changer.audiowife.AudioWife;
@@ -36,47 +34,35 @@ import nl.changer.audiowife.AudioWife;
 public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapter.EventTriggerVH> {
 
     private Context context;
+    private IResourceManager resourceManager;
     private List<EventTrigger> eventTriggers;
-    private ArrayList<Uri> eventTriggerImagePaths;
 
-    private OnItemClickListener clickListener;
+    private EventTriggerClickListener eventTriggerClickListener;
 
     private final static String AUTHORITY = "org.havenapp.main.fileprovider";
 
-    public EventTriggerAdapter(Context context, List<EventTrigger> eventTriggers) {
+    public EventTriggerAdapter(Context context, List<EventTrigger> eventTriggers,
+                               IResourceManager resourceManager, EventTriggerClickListener eventTriggerClickListener) {
         this.context = context;
+        this.resourceManager = resourceManager;
         this.eventTriggers = eventTriggers;
-
-        this.eventTriggerImagePaths = new ArrayList<>();
-        for (EventTrigger trigger : eventTriggers)
-        {
-            if (trigger.getMType() == EventTrigger.CAMERA
-                    && (!TextUtils.isEmpty(trigger.getMPath())))
-            {
-                Uri fileUri = FileProvider.getUriForFile(
-                        context,
-                        AUTHORITY,
-                        new File(trigger.getMPath()));
-
-                eventTriggerImagePaths.add(fileUri);
-            }
-        }
+        this.eventTriggerClickListener = eventTriggerClickListener;
     }
 
 
     @Override
-    public EventTriggerVH onCreateViewHolder(ViewGroup parent, int viewType) {
+    public EventTriggerVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_event, parent, false);
 
         return new EventTriggerVH(view);
     }
 
     @Override
-    public void onBindViewHolder(EventTriggerVH holder, int position) {
+    public void onBindViewHolder(@NonNull EventTriggerVH holder, int position) {
 
         final EventTrigger eventTrigger = eventTriggers.get(position);
 
-        String title = eventTrigger.getStringType(context);
+        String title = eventTrigger.getStringType(resourceManager);
         String desc = eventTrigger.getMTime().toLocaleString();
 
         holder.image.setVisibility(View.GONE);
@@ -94,21 +80,17 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
                             ThumbnailUtils.createVideoThumbnail(eventTrigger.getMPath(),
                             MediaStore.Video.Thumbnails.FULL_SCREEN_KIND));
                     holder.video.setBackground(bitmapD);
-                    holder.video.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Intent intent = new Intent(context, VideoPlayerActivity.class);
-                            intent.setData(Uri.parse("file://" + eventTrigger.getMPath()));
-                            context.startActivity(intent);
+                    holder.video.setOnClickListener(view -> {
+                        if (eventTriggerClickListener != null) {
+                            eventTriggerClickListener.onVideoClick(eventTrigger);
                         }
                     });
 
-                    holder.video.setOnLongClickListener(new View.OnLongClickListener() {
-                        @Override
-                        public boolean onLongClick(View view) {
-                            shareMedia(eventTrigger);
-                            return false;
+                    holder.video.setOnLongClickListener(view -> {
+                        if (eventTriggerClickListener != null) {
+                            eventTriggerClickListener.onVideoLongClick(eventTrigger);
                         }
+                        return false;
                     });
                     break;
                 case EventTrigger.CAMERA:
@@ -118,33 +100,16 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
                             context,
                             AUTHORITY,
                             new File(eventTrigger.getMPath()));
-                    //Picasso.get().load(fileUri).into(holder.image);
                     holder.image.setImageURI(fileUri);
 
                     holder.image.setOnClickListener(view -> {
-
-                        int startPosition = 0;
-
-                        /**
-                        for (int i = 0; i < eventTriggerImagePaths.size(); i++) {
-                            if (eventTriggerImagePaths.get(i).contains(eventTrigger.getPath())) {
-                                startPosition = i;
-                                break;
-                            }
-                        }**/
-
-                        ShareOverlayView overlayView = new ShareOverlayView(context);
-                        ImageViewer viewer = new ImageViewer.Builder(context, eventTriggerImagePaths)
-                                .setStartPosition(startPosition)
-                                .setOverlayView(overlayView)
-                                .show();
-                        overlayView.setImageViewer(viewer);
-
-
+                        if (eventTriggerClickListener != null)
+                            eventTriggerClickListener.onImageClick(eventTrigger);
                     });
 
                     holder.image.setOnLongClickListener(view -> {
-                        shareMedia(eventTrigger);
+                        if (eventTriggerClickListener != null)
+                            eventTriggerClickListener.onImageLongClick(eventTrigger);
                         return false;
                     });
                     break;
@@ -183,18 +148,18 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
 
                     break;
                 case EventTrigger.ACCELEROMETER:
-                    desc += "\n" + context.getString(R.string.data_speed) + ": " + eventTrigger.getMPath();
+                    desc += "\n" + resourceManager.getString(R.string.data_speed) + ": " + eventTrigger.getMPath();
 
                     break;
                 case EventTrigger.LIGHT:
-                    desc += "\n" + context.getString(R.string.data_light) + ": " + eventTrigger.getMPath();
+                    desc += "\n" + resourceManager.getString(R.string.data_light) + ": " + eventTrigger.getMPath();
 
                     break;
                 case EventTrigger.PRESSURE:
-                    desc += "\n" + context.getString(R.string.data_pressure) + ": " + eventTrigger.getMPath();
+                    desc += "\n" + resourceManager.getString(R.string.data_pressure) + ": " + eventTrigger.getMPath();
                     break;
                 case EventTrigger.POWER:
-                    desc += "\n" + context.getString(R.string.data_power) + ": " + eventTrigger.getMPath();
+                    desc += "\n" + resourceManager.getString(R.string.data_power) + ": " + eventTrigger.getMPath();
                     break;
             }
 
@@ -207,21 +172,10 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
     }
 
     @Override
-    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
+    public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onDetachedFromRecyclerView(recyclerView);
 
         AudioWife.getInstance().release();
-    }
-
-    private void shareMedia (EventTrigger eventTrigger)
-    {
-
-        Intent shareIntent = new Intent();
-        shareIntent.setAction(Intent.ACTION_SEND);
-        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(eventTrigger.getMPath())));
-        shareIntent.setType(eventTrigger.getMimeType());
-
-        context.startActivity(shareIntent);
     }
 
     @Override
@@ -229,7 +183,7 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
         return eventTriggers.size();
     }
 
-    class EventTriggerVH extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class EventTriggerVH extends RecyclerView.ViewHolder {
         TextView title, note;
         ImageView image;
         VideoView video;
@@ -244,25 +198,17 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
             video = itemView.findViewById(R.id.event_item_video);
             extra = itemView.findViewById(R.id.event_item_extra);
             sound = itemView.findViewById(R.id.event_item_sound);
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View v) {
-
-            if (clickListener != null)
-                clickListener.onItemClick(v, getAdapterPosition());
         }
     }
 
-    public interface OnItemClickListener {
-        public void onItemClick(View view, int position);
+    public interface EventTriggerClickListener {
+        void onVideoClick(EventTrigger eventTrigger);
+
+        void onVideoLongClick(EventTrigger eventTrigger);
+
+        void onImageClick(EventTrigger eventTrigger);
+
+        void onImageLongClick(EventTrigger eventTrigger);
     }
-
-    public void SetOnItemClickListener(final OnItemClickListener itemClickListener) {
-        this.clickListener = itemClickListener;
-    }
-
-
 
 }

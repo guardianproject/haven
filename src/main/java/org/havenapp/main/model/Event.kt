@@ -41,4 +41,12 @@ class Event {
 
         return mEventTriggers
     }
+
+    fun getEventTriggerCount(): Int {
+        if (mEventTriggers.size == 0) {
+            return getEventTriggers().size
+        }
+
+        return mEventTriggers.size
+    }
 }
