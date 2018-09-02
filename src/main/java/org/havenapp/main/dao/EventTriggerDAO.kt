@@ -1,5 +1,6 @@
 package org.havenapp.main.dao
 
+import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*
 import org.havenapp.main.model.EventTrigger
 
@@ -23,6 +24,9 @@ interface EventTriggerDAO {
 
     @Query("SELECT * FROM EVENT_TRIGGER WHERE M_EVENT_ID = :eventId")
     fun getEventTriggerList(eventId: Long?) : MutableList<EventTrigger>
+
+    @Query("SELECT * FROM EVENT_TRIGGER WHERE M_EVENT_ID = :eventId")
+    fun getEventTriggerListAsync(eventId: Long?) : LiveData<MutableList<EventTrigger>>
 
     @Query("SELECT * FROM EVENT_TRIGGER")
     fun getAllEventTriggers() : MutableList<EventTrigger> // todo remove this for now

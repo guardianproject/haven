@@ -1,10 +1,12 @@
 package org.havenapp.main.ui;
 
+import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.FileProvider;
@@ -42,6 +44,18 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
     private ArrayList<Uri> eventTriggerImagePaths;
     private final static String AUTHORITY = "org.havenapp.main.fileprovider";
 
+    private Observer<Event> eventObserver = event -> {
+        if (event != null) {
+            onEventFetched(event);
+        }
+    };
+
+    private Observer<List<EventTrigger>> eventTriggerListObserver = eventTriggerList -> {
+        if (eventTriggerList != null) {
+            onEventTriggerListFetched(eventTriggerList);
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -59,56 +73,13 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
 
         if (eventId != -1) {
 
-            mEvent = HavenEventDB.getDatabase(this).getEventDAO().findById(eventId);
-            eventTriggerList = mEvent.getEventTriggers();
-            mRecyclerView = findViewById(R.id.event_trigger_list);
+            setUpRecyclerView();
 
-            setTitle(mEvent.getMStartTime().toLocaleString());
-
-            mAdapter = new EventTriggerAdapter(this, eventTriggerList,
-                    resourceManager, this);
-
-            setEventTriggerImagePaths(eventTriggerList);
-
-            LinearLayoutManager llm = new LinearLayoutManager(this);
-            mRecyclerView.setLayoutManager(llm);
-            mRecyclerView.setAdapter(mAdapter);
+            HavenEventDB.getDatabase(this).getEventDAO().findByIdAsync(eventId)
+                    .observe(this, eventObserver);
 
             FloatingActionButton fab = findViewById(R.id.fab);
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    shareEvent();
-                }
-            });
-
-            // Handling swipe to delete
-            ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-
-                @Override
-                public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                    return false;
-                }
-
-                @Override
-                public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                    //Remove swiped item from list and notify the RecyclerView
-
-                    final int position = viewHolder.getAdapterPosition();
-                    final EventTrigger eventTrigger = eventTriggerList
-                            .get(viewHolder.getAdapterPosition());
-
-                    deleteEventTrigger (eventTrigger, position);
-
-
-                }
-
-            };
-
-
-            ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
-            itemTouchHelper.attachToRecyclerView(mRecyclerView);
+            fab.setOnClickListener(view -> shareEvent());
 
         }
         else
@@ -124,6 +95,65 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    /**
+     * On event fetched update {@link #mEvent} and fetch corresponding event triggers,
+     * set Activity title
+     */
+    private void onEventFetched(@NonNull Event event) {
+        mEvent = event;
+        mEvent.getEventTriggersAsync().observe(this, eventTriggerListObserver);
+        setTitle(mEvent.getMStartTime().toLocaleString());
+    }
+
+    /**
+     * On event trigger list fetched for {@link #mEvent} update {@link #eventTriggerList},
+     * {@link #eventTriggerImagePaths} and {@link #mAdapter} data set
+     */
+    private void onEventTriggerListFetched(@NonNull List<EventTrigger> eventTriggerList) {
+        this.eventTriggerList = eventTriggerList;
+        setEventTriggerImagePaths(eventTriggerList);
+        mAdapter.setEventTriggers(eventTriggerList);
+    }
+
+    private void setUpRecyclerView() {
+        mRecyclerView = findViewById(R.id.event_trigger_list);
+
+        mAdapter = new EventTriggerAdapter(this, eventTriggerList,
+                resourceManager, this);
+
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(llm);
+        mRecyclerView.setAdapter(mAdapter);
+
+        // Handling swipe to delete
+        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0,
+                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
+                                  RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                //Remove swiped item from list and notify the RecyclerView
+
+                final int position = viewHolder.getAdapterPosition();
+                final EventTrigger eventTrigger = eventTriggerList
+                        .get(viewHolder.getAdapterPosition());
+
+                deleteEventTrigger (eventTrigger, position);
+
+
+            }
+
+        };
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
 
     private void deleteEventTrigger (final EventTrigger eventTrigger, final int position)

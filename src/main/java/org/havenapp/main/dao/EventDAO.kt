@@ -22,6 +22,9 @@ interface EventDAO {
     @Query("SELECT * FROM EVENT WHERE ID = :id")
     fun findById(id: Long?) : Event
 
+    @Query("SELECT * FROM EVENT WHERE ID = :id")
+    fun findByIdAsync(id: Long?) : LiveData<Event>
+
     @Query("SELECT * FROM EVENT ORDER BY ID")
     fun getAllEvent() : List<Event>
 

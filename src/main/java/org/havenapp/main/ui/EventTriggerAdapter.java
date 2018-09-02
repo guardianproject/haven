@@ -41,15 +41,20 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
 
     private final static String AUTHORITY = "org.havenapp.main.fileprovider";
 
-    public EventTriggerAdapter(Context context, List<EventTrigger> eventTriggers,
-                               IResourceManager resourceManager, EventTriggerClickListener eventTriggerClickListener) {
+    EventTriggerAdapter(Context context, @NonNull List<EventTrigger> eventTriggers,
+                        IResourceManager resourceManager, EventTriggerClickListener eventTriggerClickListener) {
         this.context = context;
         this.resourceManager = resourceManager;
         this.eventTriggers = eventTriggers;
         this.eventTriggerClickListener = eventTriggerClickListener;
     }
 
+    void setEventTriggers(@NonNull List<EventTrigger> eventTriggers) {
+        this.eventTriggers = eventTriggers;
+        notifyDataSetChanged();
+    }
 
+    @NonNull
     @Override
     public EventTriggerVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_event, parent, false);
