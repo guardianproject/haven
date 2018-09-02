@@ -25,5 +25,5 @@ interface EventTriggerDAO {
     fun getEventTriggerList(eventId: Long?) : MutableList<EventTrigger>
 
     @Query("SELECT * FROM EVENT_TRIGGER")
-    fun getAllEventTriggers() : MutableList<EventTrigger>
+    fun getAllEventTriggers() : MutableList<EventTrigger> // todo remove this for now
 }

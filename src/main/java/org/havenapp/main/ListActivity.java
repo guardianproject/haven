@@ -18,6 +18,7 @@
 package org.havenapp.main;
 
 import android.annotation.SuppressLint;
+import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Color;
@@ -26,6 +27,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -76,6 +78,21 @@ public class ListActivity extends AppCompatActivity {
 
 
     private Handler handler = new Handler();
+
+    private Observer<List<Event>> eventListObserver = events -> {
+        if (events != null) {
+            setEventListToRecyclerView(events);
+        }
+    };
+
+    private Observer<Integer> eventCountObserver = count -> {
+        if (count != null && count > events.size()) {
+            fetchEventList();
+            showNonEmptyState();
+        } else if (count != null && count == 0) {
+            showEmptyState();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,34 +167,53 @@ public class ListActivity extends AppCompatActivity {
             showOnboarding();
         }
 
+        initializeRecyclerViewComponents();
+
+        fetchEventList();
+    }
+
+    private void initializeRecyclerViewComponents() {
+        adapter = new EventAdapter(events, resourceManager);
+        recyclerView.setVisibility(View.VISIBLE);
+        recyclerView.setAdapter(adapter);
+
+        adapter.SetOnItemClickListener((view, position) -> {
+
+            Intent i = new Intent(ListActivity.this, EventActivity.class);
+            i.putExtra("eventid", events.get(position).getId());
+            modifyPos = position;
+
+            startActivity(i);
+        });
+    }
+
+    private void setEventListToRecyclerView(@NonNull List<Event> events) {
+        this.events = events;
+
+        if (events.size() > 0) {
+            findViewById(R.id.empty_view).setVisibility(View.GONE);
+        }
+
+        adapter.setEvents(events);
+    }
+
+    private void fetchEventList() {
         try {
-            events = HavenEventDB.getDatabase(this).getEventDAO().getAllEventDesc();
-
-            if (events.size() > 0) {
-                findViewById(R.id.empty_view).setVisibility(View.GONE);
-            }
-
-            adapter = new EventAdapter(events, resourceManager);
-            recyclerView.setVisibility(View.VISIBLE);
-            recyclerView.setAdapter(adapter);
-
-
-            adapter.SetOnItemClickListener(new EventAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, int position) {
-
-                    Intent i = new Intent(ListActivity.this, EventActivity.class);
-                    i.putExtra("eventid", events.get(position).getId());
-                    modifyPos = position;
-
-                    startActivity(i);
-                }
-            });
+            HavenEventDB.getDatabase(this).getEventDAO().getAllEventDesc()
+                    .observe(this, eventListObserver);
         } catch (SQLiteException sqe) {
             Log.d(getClass().getName(), "database not yet initiatied", sqe);
         }
+    }
 
+    private void showEmptyState() {
+        recyclerView.setVisibility(View.GONE);
+        findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
+    }
 
+    private void showNonEmptyState() {
+        recyclerView.setVisibility(View.VISIBLE);
+        findViewById(R.id.empty_view).setVisibility(View.GONE);
     }
 
     private void deleteEvent (final Event event, final int position)
@@ -243,50 +279,12 @@ public class ListActivity extends AppCompatActivity {
         super.onResume();
 
         resourceManager = new ResourceManager(this);
-        final long newCount = HavenEventDB.getDatabase(this).getEventDAO().count();
-
-        if (newCount > events.size()) {
-            events = HavenEventDB.getDatabase(this).getEventDAO().getAllEventDesc();
-            adapter = new EventAdapter(events, resourceManager);
-            recyclerView.setAdapter(adapter);
-
-            adapter.SetOnItemClickListener(new EventAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, int position) {
-
-                    Intent i = new Intent(ListActivity.this, EventActivity.class);
-                    i.putExtra("eventid", events.get(position).getId());
-                    modifyPos = position;
-
-                    startActivity(i);
-                }
-            });
-            /**
-            // Just load the last added note (new)
-            Event event = Event.last(Event.class);
-
-            events.add(0,event);
-            adapter.notifyItemInserted(0);
-            adapter.notifyDataSetChanged();
-
-            initialCount = newCount;
-            **/
-
-            recyclerView.setVisibility(View.VISIBLE);
-            findViewById(R.id.empty_view).setVisibility(View.GONE);
-        }
-        else if (newCount == 0)
-        {
-            recyclerView.setVisibility(View.GONE);
-            findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
-        }
+        HavenEventDB.getDatabase(this).getEventDAO().count().observe(this, eventCountObserver);
 
         if (modifyPos != -1) {
             //Event.set(modifyPos, Event.listAll(Event.class).get(modifyPos));
             adapter.notifyItemChanged(modifyPos);
         }
-
-
     }
 
     @SuppressLint("SimpleDateFormat")

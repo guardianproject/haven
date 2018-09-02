@@ -1,5 +1,6 @@
 package org.havenapp.main.dao
 
+import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*
 import org.havenapp.main.model.Event
 
@@ -25,8 +26,8 @@ interface EventDAO {
     fun getAllEvent() : List<Event>
 
     @Query("SELECT * FROM EVENT ORDER BY ID DESC")
-    fun getAllEventDesc() : List<Event>
+    fun getAllEventDesc() : LiveData<List<Event>>
 
     @Query("SELECT COUNT(*) FROM EVENT")
-    fun count() : Int
+    fun count() : LiveData<Int>
 }

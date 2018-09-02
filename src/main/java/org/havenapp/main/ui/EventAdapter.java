@@ -24,7 +24,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventVH> {
 
     private OnItemClickListener clickListener;
 
-    public EventAdapter(List<Event> events, @NonNull IResourceManager resourceManager) {
+    public EventAdapter(@NonNull List<Event> events, @NonNull IResourceManager resourceManager) {
         this.events = events;
         this.resourceManager = resourceManager;
     }
@@ -83,5 +83,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventVH> {
 
     public void setEvents(List<Event> events) {
         this.events = events;
+        notifyDataSetChanged();
     }
 }
