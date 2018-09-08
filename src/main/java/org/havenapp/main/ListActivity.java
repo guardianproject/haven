@@ -18,6 +18,7 @@
 package org.havenapp.main;
 
 import android.annotation.SuppressLint;
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.database.sqlite.SQLiteException;
@@ -26,7 +27,6 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -48,6 +48,10 @@ import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.LibsBuilder;
 
 import org.havenapp.main.database.HavenEventDB;
+import org.havenapp.main.database.async.EventDeleteAllAsync;
+import org.havenapp.main.database.async.EventDeleteAsync;
+import org.havenapp.main.database.async.EventInsertAllAsync;
+import org.havenapp.main.database.async.EventInsertAsync;
 import org.havenapp.main.model.Event;
 import org.havenapp.main.resources.IResourceManager;
 import org.havenapp.main.resources.ResourceManager;
@@ -76,8 +80,7 @@ public class ListActivity extends AppCompatActivity {
 
     private int REQUEST_CODE_INTRO = 1001;
 
-
-    private Handler handler = new Handler();
+    private LiveData<List<Event>> eventListLD;
 
     private Observer<List<Event>> eventListObserver = events -> {
         if (events != null) {
@@ -153,14 +156,9 @@ public class ListActivity extends AppCompatActivity {
         }
 
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent i = new Intent(ListActivity.this, MonitorActivity.class);
-                startActivity(i);
-
-            }
+        fab.setOnClickListener(v -> {
+            Intent i = new Intent(ListActivity.this, MonitorActivity.class);
+            startActivity(i);
         });
 
         if (preferences.isFirstLaunch()) {
@@ -199,8 +197,8 @@ public class ListActivity extends AppCompatActivity {
 
     private void fetchEventList() {
         try {
-            HavenEventDB.getDatabase(this).getEventDAO().getAllEventDesc()
-                    .observe(this, eventListObserver);
+            eventListLD = HavenEventDB.getDatabase(this).getEventDAO().getAllEventDesc();
+            eventListLD.observe(this, eventListObserver);
         } catch (SQLiteException sqe) {
             Log.d(getClass().getName(), "database not yet initiatied", sqe);
         }
@@ -218,33 +216,17 @@ public class ListActivity extends AppCompatActivity {
 
     private void deleteEvent (final Event event, final int position)
     {
-
-        final Runnable runnableDelete = new Runnable ()
-        {
-            public void run ()
-            {
-                HavenEventDB.getDatabase(ListActivity.this).getEventDAO().delete(event);
-            }
-        };
-
-        handler.postDelayed(runnableDelete,5000);
+        new EventDeleteAsync(() -> onEventDeleted(event, position)).execute(event);
         events.remove(position);
         adapter.notifyItemRemoved(position);
+    }
 
-        HavenEventDB.getDatabase(ListActivity.this).getEventDAO().delete(event);
-
+    private void onEventDeleted(Event event, int position) {
         Snackbar.make(recyclerView, resourceManager.getString(R.string.event_deleted), Snackbar.LENGTH_SHORT)
-                .setAction(resourceManager.getString(R.string.undo), new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        handler.removeCallbacks(runnableDelete);
-                        long eventId = HavenEventDB.getDatabase(ListActivity.this)
-                                .getEventDAO().insert(event);
-                        event.setId(eventId);
-                        events.add(position, event);
-                        adapter.notifyItemInserted(position);
-                    }
-                })
+                .setAction(resourceManager.getString(R.string.undo),
+                        v -> new EventInsertAsync(eventId -> {
+                    event.setId(eventId);
+                }).execute(event))
                 .show();
     }
 
@@ -329,36 +311,21 @@ public class ListActivity extends AppCompatActivity {
 
     private void removeAllEvents()
     {
-        final List<Event> removedEvents = new ArrayList<Event>();
-        final Runnable runnableDelete = new Runnable ()
-        {
-            public void run ()
-            {
-                for (Event event : removedEvents) {
-                    HavenEventDB.getDatabase(ListActivity.this).getEventDAO().delete(event);
-                }
-            }
-        };
+        final List<Event> removedEvents = new ArrayList<Event>(events);
+        events.clear();
+        adapter.notifyDataSetChanged();
+        new EventDeleteAllAsync(() -> onAllEventsRemoved(removedEvents)).execute(removedEvents);
+    }
 
-        for (int i = 0, size = events.size(); i < size; i++) {
-            removedEvents.add(events.remove(0));
-            adapter.notifyItemRemoved(0);
-        }
-
-        handler.postDelayed(runnableDelete, 3000);
-
+    private void onAllEventsRemoved(List<Event> removedEvents) {
         Snackbar.make(recyclerView, resourceManager.getString(R.string.events_deleted), Snackbar.LENGTH_SHORT)
-                .setAction(resourceManager.getString(R.string.undo), v -> {
-                    handler.removeCallbacks(runnableDelete);
-
-                        for (Event event : removedEvents) {
-                            long eventId = HavenEventDB.getDatabase(ListActivity.this)
-                                    .getEventDAO().insert(event);
-                            event.setId(eventId);
-                            events.add(event);
-                            adapter.notifyItemInserted(events.size() - 1);
-                        }
+                .setAction(resourceManager.getString(R.string.undo),
+                        v -> new EventInsertAllAsync(eventIdList -> {
+                    for (int i = 0; i < removedEvents.size(); i++) {
+                        Event event = removedEvents.get(i);
+                        event.setId(eventIdList.get(i));
                     }
+                }).execute(removedEvents)
                 )
                 .show();
     }

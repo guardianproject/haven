@@ -13,8 +13,14 @@ interface EventDAO {
     @Insert
     fun insert(event: Event): Long
 
+    @Insert
+    fun insertAll(eventList: List<Event>): List<Long>
+
     @Delete
     fun delete(event: Event)
+
+    @Delete
+    fun deleteAll(eventList: List<Event>)
 
     @Update
     fun update(event: Event)
