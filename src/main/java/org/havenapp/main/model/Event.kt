@@ -1,7 +1,5 @@
 package org.havenapp.main.model
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.Transformations
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.Ignore
@@ -44,18 +42,6 @@ class Event {
         }
 
         return mEventTriggers
-    }
-
-    /**
-     * Perform a db lookup for event triggers corresponding to this event.
-     * Unlike [getEventTriggers] this method performs a non blocking db lookup and
-     * returns a lifecycle aware data holder for list of [EventTrigger]s
-     */
-    fun getEventTriggersAsync(): LiveData<MutableList<EventTrigger>> {
-        return Transformations.map(HavenApp.dataBaseInstance.getEventTriggerDAO().getEventTriggerListAsync(id)) {
-            mEventTriggers = it
-            it
-        }
     }
 
     fun getEventTriggerCount(): Int {

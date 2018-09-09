@@ -4,7 +4,6 @@ import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -17,12 +16,13 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.TextUtils;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
 import org.havenapp.main.R;
 import org.havenapp.main.database.HavenEventDB;
+import org.havenapp.main.database.async.EventTriggerDeleteAsync;
+import org.havenapp.main.database.async.EventTriggerInsertAsync;
 import org.havenapp.main.model.Event;
 import org.havenapp.main.model.EventTrigger;
 import org.havenapp.main.resources.IResourceManager;
@@ -38,7 +38,6 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
     private RecyclerView mRecyclerView;
     private Event mEvent;
     private List<EventTrigger> eventTriggerList = new ArrayList<>();
-    private Handler mHandler = new Handler();
     private EventTriggerAdapter mAdapter;
 
     private ArrayList<Uri> eventTriggerImagePaths;
@@ -78,6 +77,9 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
             HavenEventDB.getDatabase(this).getEventDAO().findByIdAsync(eventId)
                     .observe(this, eventObserver);
 
+            HavenEventDB.getDatabase(this).getEventTriggerDAO().getEventTriggerListAsync(eventId)
+                    .observe(this, eventTriggerListObserver);
+
             FloatingActionButton fab = findViewById(R.id.fab);
             fab.setOnClickListener(view -> shareEvent());
 
@@ -98,12 +100,10 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
     }
 
     /**
-     * On event fetched update {@link #mEvent} and fetch corresponding event triggers,
-     * set Activity title
+     * On event fetched update {@link #mEvent} and set Activity title
      */
     private void onEventFetched(@NonNull Event event) {
         mEvent = event;
-        mEvent.getEventTriggersAsync().observe(this, eventTriggerListObserver);
         setTitle(mEvent.getMStartTime().toLocaleString());
     }
 
@@ -158,41 +158,13 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
 
     private void deleteEventTrigger (final EventTrigger eventTrigger, final int position)
     {
+        new EventTriggerDeleteAsync(() -> onEventDeleted(eventTrigger)).execute(eventTrigger);
+    }
 
-        final Runnable runnableDelete = new Runnable ()
-        {
-            public void run ()
-            {
-
-                if (eventTrigger.getMPath() != null) {
-                    new File(eventTrigger.getMPath()).delete();
-                }
-                HavenEventDB.getDatabase(EventActivity.this)
-                        .getEventTriggerDAO().delete(eventTrigger);
-
-            }
-        };
-
-        mHandler.postDelayed(runnableDelete,3000);
-
-        eventTriggerList.remove(position);
-        mAdapter.notifyItemRemoved(position);
-
-        HavenEventDB.getDatabase(EventActivity.this)
-                .getEventTriggerDAO().delete(eventTrigger);
-
-        Snackbar.make(mRecyclerView, "Event Trigger deleted", Snackbar.LENGTH_SHORT)
-                .setAction("UNDO", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mHandler.removeCallbacks(runnableDelete);
-                        long eventTriggerId = HavenEventDB.getDatabase(EventActivity.this)
-                                .getEventTriggerDAO().insert(eventTrigger);
-                        eventTrigger.setId(eventTriggerId);
-                        eventTriggerList.add(position, eventTrigger);
-                        mAdapter.notifyItemInserted(position);
-                    }
-                })
+    private void onEventDeleted(EventTrigger eventTrigger) {
+        Snackbar.make(mRecyclerView, R.string.event_trigger_deleted, Snackbar.LENGTH_SHORT)
+                .setAction(R.string.undo, v -> new EventTriggerInsertAsync(eventTrigger::setId)
+                        .execute(eventTrigger))
                 .show();
     }
 

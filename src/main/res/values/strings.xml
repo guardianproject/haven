@@ -158,5 +158,6 @@
     <string name="title_activity_video_player">VideoPlayerActivity</string>
     <string name="config_storage_path">Storage Folder Path</string>
     <string name="config_storage_page_hint">Where captured media is stored</string>
+    <string name="event_trigger_deleted">Event Trigger deleted</string>
 
 </resources>
