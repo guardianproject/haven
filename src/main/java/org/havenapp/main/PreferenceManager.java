@@ -92,7 +92,7 @@ public class PreferenceManager {
     private static final String CURRENT_EVENT_START_TIME = "current_event_start_time";
 
     public static final String CONFIG_BASE_STORAGE = "config_base_storage";
-    private static final String CONFIG_BASE_STORAGE_DEFAULT = "/phoneypot";
+    private static final String CONFIG_BASE_STORAGE_DEFAULT = "/haven";
 
     private Context context;
 	
