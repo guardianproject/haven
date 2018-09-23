@@ -152,9 +152,16 @@
 
     <string name="hearbeat_monitor">Heartbeat Monitor</string>
     <string name="hearbeat_monitor_enable">Enable Heartbeat Notifications</string>
-    <string name="hearbeat_monitor_summary">Send alerts when monitoring</string>
-    <string name="heartbeat_time_dialog">Enter delay (minutes). A single-character heart emoji will be sent to your configured remote number:\n\nMinimum of 1, default is 5.</string>
-    <string name="hearbeat_monitor_dialog">Periodically ensure the monitor is healthy</string>
+    <string name="hearbeat_monitor_summary">Notification Interval</string>
+    <string name="heartbeat_time_dialog">Enter a time in minutes (default of 5 and a minimum 1). A single-character heart emoji will be sent to your remote number.</string>
+    <string name="hearbeat_monitor_dialog">Configure delay between alerts</string>
+    <string name="hearbeat_message_dialog">Customize message sent for heartbeat notifications. Leave blank to use default heart emoji</string>
+    <string name="hearbeat_message_title">Message Content</string>
+    <string name="hearbeat_message_summary">Receive customized messages</string>
+    <string name="hearbeat_message_summary_on">Custom alerts enabled</string>
+    <string name="hearbeat_monitor_initial_message_1">Heartbeat activated: You will receive a notification every</string>
+    <string name="hearbeat_monitor_initial_message_2">minutes while Haven is active &amp; monitoring.</string>
+
     <string name="title_activity_video_player">VideoPlayerActivity</string>
     <string name="config_storage_path">Storage Folder Path</string>
     <string name="config_storage_page_hint">Where captured media is stored</string>

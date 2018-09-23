@@ -114,6 +114,14 @@
             android:summary="@string/hearbeat_monitor_dialog"
             android:title="@string/hearbeat_monitor_summary"/>
 
+        <EditTextPreference
+            android:dialogLayout="@layout/pref_dialog_edit_text"
+            android:dialogMessage="@string/hearbeat_message_dialog"
+            android:inputType="text"
+            android:key="heartbeat_monitor_message"
+            android:title="@string/hearbeat_message_title"
+            android:summary="@string/hearbeat_message_summary" />
+
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/remote_access">
 
