@@ -17,9 +17,6 @@
 
 package org.havenapp.main;
 
-import android.support.multidex.MultiDexApplication;
-import android.support.v7.app.AppCompatDelegate;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -29,10 +26,12 @@ import com.orm.SchemaGenerator;
 import com.orm.SugarContext;
 import com.orm.SugarDb;
 
+import org.havenapp.main.service.WebServer;
+
 import java.io.IOException;
 
-import org.havenapp.main.service.SignalSender;
-import org.havenapp.main.service.WebServer;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.multidex.MultiDexApplication;
 
 public class HavenApp extends MultiDexApplication {
 

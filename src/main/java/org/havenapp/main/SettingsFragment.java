@@ -16,14 +16,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.PowerManager;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.v14.preference.SwitchPreference;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.preference.EditTextPreference;
-import android.support.v7.preference.ListPreference;
-import android.support.v7.preference.Preference;
-import android.support.v7.preference.SwitchPreferenceCompat;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,7 +23,6 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
-import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompat;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import org.havenapp.main.service.SignalSender;
@@ -43,7 +34,18 @@ import org.havenapp.main.ui.MicrophoneConfigureActivity;
 import java.io.File;
 import java.util.Locale;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.preference.EditTextPreference;
+import androidx.preference.ListPreference;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.SwitchPreference;
+import androidx.preference.SwitchPreferenceCompat;
 import info.guardianproject.netcipher.proxy.OrbotHelper;
+
 
 public class SettingsFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener, TimePickerDialog.OnTimeSetListener {
 
@@ -52,9 +54,9 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     private AppCompatActivity mActivity;
 
     @Override
-    public void onCreatePreferencesFix(Bundle bundle, String s) {
+    public void onCreatePreferences(Bundle bundle, String s) {
         addPreferencesFromResource(R.xml.settings);
-        mActivity = getActivity();
+        mActivity = (AppCompatActivity) getActivity();
         preferences = new PreferenceManager(mActivity);
         setHasOptionsMenu(true);
         app = (HavenApp) mActivity.getApplication();
@@ -239,7 +241,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
         preferences.activateHeartbeat(heartbeatMonitorActive);
 
-        mActivity.setResult(Activity.RESULT_OK);
+        mActivity.setResult(AppCompatActivity.RESULT_OK);
         mActivity.finish();
     }
 

@@ -8,7 +8,6 @@ import android.media.MediaCodecList;
 import android.media.MediaFormat;
 import android.media.MediaMuxer;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.util.Log;
 
 import java.io.File;
@@ -16,6 +15,9 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import androidx.annotation.RequiresApi;
+
 
 /**
  * Generates a series of video frames, encodes them, decodes them, and tests for
