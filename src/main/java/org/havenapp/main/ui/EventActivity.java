@@ -114,9 +114,10 @@ public class EventActivity extends AppCompatActivity {
         {
             public void run ()
             {
-
-                new File(eventTrigger.getPath()).delete();
-                eventTrigger.delete();
+                if (eventTrigger != null) {
+                    new File(eventTrigger.getPath()).delete();
+                    eventTrigger.delete();
+                }
 
             }
         };
