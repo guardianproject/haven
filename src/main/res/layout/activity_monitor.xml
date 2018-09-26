@@ -32,7 +32,7 @@
                 android:gravity="center"
                 android:text="@string/set_a_countdown_time"
                 android:textColor="@color/White"
-                android:textSize="28dp"
+                android:textSize="28sp"
                 android:textStyle="bold" />
 
             <TextView

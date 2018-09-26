@@ -43,7 +43,7 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
 
     private final static String AUTHORITY = "org.havenapp.main.fileprovider";
 
-    public EventTriggerAdapter(Context context, List<EventTrigger> eventTriggers) {
+    EventTriggerAdapter(Context context, List<EventTrigger> eventTriggers) {
         this.context = context;
         this.eventTriggers = eventTriggers;
 

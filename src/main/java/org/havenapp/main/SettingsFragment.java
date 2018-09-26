@@ -49,7 +49,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
     private PreferenceManager preferences;
     private HavenApp app;
-    private Activity mActivity;
+    private AppCompatActivity mActivity;
 
     @Override
     public void onCreatePreferencesFix(Bundle bundle, String s) {
@@ -398,14 +398,14 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                     preferences.activateHeartbeat(true);
                     findPreference(PreferenceManager.HEARTBEAT_MONITOR_DELAY).setSummary(preferences.getHeartbeatNotificationTimeMs() / 60000 + " " + getString(R.string.minutes));
                     if (preferences.getMonitorServiceActive()) {
-                        SignalSender sender = SignalSender.getInstance(getContext(), preferences.getSignalUsername());
+                        SignalSender sender = SignalSender.getInstance(getActivity(), preferences.getSignalUsername());
                         sender.startHeartbeatTimer(preferences.getHeartbeatNotificationTimeMs());
                     }
                 } else if (!hbSwitchOn && isMonitoring) {
                     preferences.activateHeartbeat(false);
                     findPreference(PreferenceManager.HEARTBEAT_MONITOR_DELAY).setSummary(R.string.hearbeat_monitor_dialog);
                     if (preferences.getMonitorServiceActive()) {
-                        SignalSender sender = SignalSender.getInstance(getContext(), preferences.getSignalUsername());
+                        SignalSender sender = SignalSender.getInstance(getActivity(), preferences.getSignalUsername());
                         sender.stopHeartbeatTimer();
                     }
                 }
@@ -423,7 +423,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
                     boolean heartbeatActive = ((SwitchPreferenceCompat) findPreference(PreferenceManager.HEARTBEAT_MONITOR_ACTIVE)).isChecked();
                     if (heartbeatActive && preferences.getMonitorServiceActive()) {
-                        SignalSender sender = SignalSender.getInstance(getContext(), preferences.getSignalUsername());
+                        SignalSender sender = SignalSender.getInstance(getActivity(), preferences.getSignalUsername());
                         sender.stopHeartbeatTimer();
                         sender.startHeartbeatTimer(preferences.getHeartbeatNotificationTimeMs());
                     }

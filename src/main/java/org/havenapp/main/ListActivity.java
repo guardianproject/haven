@@ -60,18 +60,16 @@ import java.util.StringTokenizer;
 public class ListActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private FloatingActionButton fab;
-    private Toolbar toolbar;
     private EventAdapter adapter;
     private List<Event> events = new ArrayList<>();
     private PreferenceManager preferences;
 
     private int modifyPos = -1;
 
-    private int REQUEST_CODE_INTRO = 1001;
+    private final static int REQUEST_CODE_INTRO = 1001;
 
 
-    private Handler handler = new Handler();
+    final private Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,8 +79,8 @@ public class ListActivity extends AppCompatActivity {
 
         preferences = new PreferenceManager(this.getApplicationContext());
         recyclerView = findViewById(R.id.main_list);
-        fab = findViewById(R.id.fab);
-        toolbar = findViewById(R.id.toolbar);
+        FloatingActionButton fab = findViewById(R.id.fab);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
@@ -313,7 +311,7 @@ public class ListActivity extends AppCompatActivity {
 
     private void removeAllEvents()
     {
-        final List<Event> removedEvents = new ArrayList<Event>();
+        final List<Event> removedEvents = new ArrayList<>();
         final Runnable runnableDelete = new Runnable ()
         {
             public void run ()

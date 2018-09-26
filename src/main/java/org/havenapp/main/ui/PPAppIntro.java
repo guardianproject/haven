@@ -33,12 +33,6 @@ public class PPAppIntro extends AppIntro {
         addSlide(AppIntroFragment.newInstance(getString(R.string.intro1_title), getString(R.string.intro1_desc),
                 R.drawable.web_hi_res_512, getResources().getColor(R.color.colorPrimaryDark)));
 
-        /**
-        SliderPage sliderPage = new SliderPage();
-        sliderPage.setTitle(getString(R.string.intro2_title));
-     //   sliderPage.setDescription("This is a demo of the AppIntro library.");
-        sliderPage.setBgColor(getResources().getColor(R.color.colorPrimaryDark));
-        addSlide(AppIntroFragment.newInstance(sliderPage));**/
         CustomSlideBigText cs1 = CustomSlideBigText.newInstance(R.layout.custom_slide_big_text);
         cs1.setTitle(getString(R.string.intro2_title));
         addSlide(cs1);
