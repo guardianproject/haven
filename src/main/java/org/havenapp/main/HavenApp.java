@@ -25,7 +25,9 @@ import android.util.Log;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.facebook.imagepipeline.decoder.SimpleProgressiveJpegConfig;
+import com.orm.SchemaGenerator;
 import com.orm.SugarContext;
+import com.orm.SugarDb;
 
 import java.io.IOException;
 
@@ -46,7 +48,10 @@ public class HavenApp extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
 
-        SugarContext.init(this);
+        SugarContext.init(getApplicationContext());
+
+        SchemaGenerator schemaGenerator = new SchemaGenerator(this);
+        schemaGenerator.createDatabase(new SugarDb(this).getDB());
 
         mPrefs = new PreferenceManager(this);
 
