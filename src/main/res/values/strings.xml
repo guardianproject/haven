@@ -159,4 +159,8 @@
     <string name="config_storage_path">Storage Folder Path</string>
     <string name="config_storage_page_hint">Where captured media is stored</string>
 
+    <!-- accepted digits for directory name -- may vary for locale/platform/etc.
+         Skipping periods, spaces, and other special characters to keep it simple -->
+    <string name="path_chars">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_/</string>
+
 </resources>

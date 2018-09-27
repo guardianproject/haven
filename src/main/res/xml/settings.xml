@@ -12,6 +12,7 @@
         android:summary="@string/config_storage_page_hint"
         android:title="@string/config_storage_path"
         android:defaultValue="/phoneypot"
+        android:digits="@string/path_chars"
         />
 
     <Preference
