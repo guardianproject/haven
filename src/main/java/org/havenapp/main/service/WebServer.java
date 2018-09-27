@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import org.havenapp.main.R;
+import org.havenapp.main.Utils;
 import org.havenapp.main.model.Event;
 import org.havenapp.main.model.EventTrigger;
 
@@ -14,8 +15,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
@@ -169,7 +172,8 @@ public class WebServer extends NanoHTTPD {
         for (EventTrigger eventTrigger: triggers)
         {
             String title = eventTrigger.getStringType(mContext);
-            String desc = eventTrigger.getTriggerTime().toString();
+            String desc = new SimpleDateFormat(Utils.DATE_TIME_PATTERN,
+                    Locale.getDefault()).format(eventTrigger.getTriggerTime());
 
             page.append("<b>");
             page.append(title).append("</b><br/>");

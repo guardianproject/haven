@@ -16,11 +16,14 @@ import android.view.MenuItem;
 import android.view.View;
 
 import org.havenapp.main.R;
+import org.havenapp.main.Utils;
 import org.havenapp.main.model.Event;
 import org.havenapp.main.model.EventTrigger;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class EventActivity extends AppCompatActivity {
 
@@ -176,7 +179,9 @@ public class EventActivity extends AppCompatActivity {
 
         for (EventTrigger eventTrigger : mEvent.getEventTriggers()) {
 
-            mEventLog.append("Event Triggered @ ").append(eventTrigger.getTriggerTime().toString()).append("\n");
+            mEventLog.append("Event Triggered @ ").append(
+                     new SimpleDateFormat(Utils.DATE_TIME_PATTERN,
+                            Locale.getDefault()).format(eventTrigger.getTriggerTime())).append("\n");
 
             String sType = eventTrigger.getStringType(this);
 
