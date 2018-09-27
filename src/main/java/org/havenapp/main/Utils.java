@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 class Utils {
 
-    private static final String DATE_TIME_PATTERN = "yyyy-MM-dd_HH:mm:ss";
+    private static final String DATE_TIME_PATTERN = "yyyy-MM-dd_HH-mm-ss";
 
     static String getTimerText(long milliseconds) {
         String timerText;
