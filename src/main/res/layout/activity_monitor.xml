@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_content"
     android:layout_width="match_parent"
@@ -32,7 +32,7 @@
                 android:gravity="center"
                 android:text="@string/set_a_countdown_time"
                 android:textColor="@color/White"
-                android:textSize="28dp"
+                android:textSize="28sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -45,11 +45,11 @@
                 android:textSize="78sp"
                 android:textStyle="bold" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnStartNow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_margin="16dp"
                 android:background="@drawable/fill_drawable_accent"
                 android:padding="6dp"
                 android:text="@string/start_now"
@@ -57,7 +57,7 @@
                 android:textSize="25sp"
                 android:textStyle="bold" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnStartLater"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -108,4 +108,4 @@
                 app:srcCompat="@drawable/ic_settings" />
         </LinearLayout>
     </FrameLayout>
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

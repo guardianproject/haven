@@ -33,9 +33,13 @@ public class Event extends SugarRecord {
     @Override
     public boolean delete() {
         for (EventTrigger trigger : this.getEventTriggers()) {
-            File file = new File(trigger.getPath());
+            try {
+                File file = new File(trigger.getPath());
 
-            if (!file.delete() || !trigger.delete()) {
+                if (!file.delete() || !trigger.delete()) {
+                    return false;
+                }
+            } catch (NullPointerException e) {
                 return false;
             }
         }

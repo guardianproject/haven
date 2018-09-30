@@ -1,6 +1,5 @@
 package org.havenapp.main.sensors;
 
-import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -13,12 +12,13 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
-import android.util.FloatMath;
 import android.util.Log;
 
 import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.model.EventTrigger;
 import org.havenapp.main.service.MonitorService;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * Created by n8fr8 on 3/10/17.
@@ -86,7 +86,7 @@ public class AccelerometerMonitor implements SensorEventListener {
         context.bindService(new Intent(context,
                 MonitorService.class), mConnection, Context.BIND_ABOVE_CLIENT);
 
-        sensorMgr = (SensorManager) context.getSystemService(Activity.SENSOR_SERVICE);
+        sensorMgr = (SensorManager) context.getSystemService(AppCompatActivity.SENSOR_SERVICE);
         accelerometer = sensorMgr.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
         if (accelerometer == null) {

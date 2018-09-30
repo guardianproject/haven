@@ -8,10 +8,8 @@
  */
 package org.havenapp.main.ui;
 
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.hardware.SensorEvent;
-import android.support.v7.preference.PreferenceFragmentCompat;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +21,8 @@ import com.google.android.cameraview.CameraView;
 import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.R;
 import org.havenapp.main.sensors.motion.CameraViewHolder;
+
+import androidx.fragment.app.Fragment;
 
 public final class CameraFragment extends Fragment {
 

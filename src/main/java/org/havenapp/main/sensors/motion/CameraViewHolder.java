@@ -16,14 +16,12 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
-import android.hardware.Camera;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
-import android.support.v8.renderscript.RenderScript;
 import android.util.Log;
 import android.view.Surface;
 
@@ -44,6 +42,8 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+
+import androidx.renderscript.RenderScript;
 
 import io.github.silvaren.easyrs.tools.Nv21Image;
 
