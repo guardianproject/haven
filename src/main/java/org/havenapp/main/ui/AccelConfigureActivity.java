@@ -1,6 +1,5 @@
 package org.havenapp.main.ui;
 
-import android.app.Activity;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -10,12 +9,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.os.Message;
-import android.os.RemoteException;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -23,11 +17,11 @@ import com.maxproj.simplewaveform.SimpleWaveform;
 
 import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.R;
-import org.havenapp.main.model.EventTrigger;
 
 import java.util.LinkedList;
 
-import me.angrybyte.numberpicker.listener.OnValueChangeListener;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import me.angrybyte.numberpicker.view.ActualNumberPicker;
 
 public class AccelConfigureActivity extends AppCompatActivity implements SensorEventListener {
@@ -185,7 +179,7 @@ public class AccelConfigureActivity extends AppCompatActivity implements SensorE
 
             try {
 
-                SensorManager sensorMgr = (SensorManager) getSystemService(Activity.SENSOR_SERVICE);
+                SensorManager sensorMgr = (SensorManager) getSystemService(AppCompatActivity.SENSOR_SERVICE);
                 Sensor sensor = sensorMgr.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
                 if (sensor == null) {

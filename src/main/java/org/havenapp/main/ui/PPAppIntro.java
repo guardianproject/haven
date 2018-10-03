@@ -1,18 +1,18 @@
 package org.havenapp.main.ui;
 
-import com.github.paolorotolo.appintro.AppIntro;
-import com.github.paolorotolo.appintro.AppIntroFragment;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.Toast;
 
+import com.github.paolorotolo.appintro.AppIntro;
+import com.github.paolorotolo.appintro.AppIntroFragment;
 
 import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.R;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 /**
  * Created by n8fr8 on 5/8/17.
@@ -33,12 +33,6 @@ public class PPAppIntro extends AppIntro {
         addSlide(AppIntroFragment.newInstance(getString(R.string.intro1_title), getString(R.string.intro1_desc),
                 R.drawable.web_hi_res_512, getResources().getColor(R.color.colorPrimaryDark)));
 
-        /**
-        SliderPage sliderPage = new SliderPage();
-        sliderPage.setTitle(getString(R.string.intro2_title));
-     //   sliderPage.setDescription("This is a demo of the AppIntro library.");
-        sliderPage.setBgColor(getResources().getColor(R.color.colorPrimaryDark));
-        addSlide(AppIntroFragment.newInstance(sliderPage));**/
         CustomSlideBigText cs1 = CustomSlideBigText.newInstance(R.layout.custom_slide_big_text);
         cs1.setTitle(getString(R.string.intro2_title));
         addSlide(cs1);

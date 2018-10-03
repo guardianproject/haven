@@ -17,20 +17,21 @@
 
 package org.havenapp.main;
 
-import android.support.multidex.MultiDexApplication;
-import android.support.v7.app.AppCompatDelegate;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.facebook.imagepipeline.decoder.SimpleProgressiveJpegConfig;
+import com.orm.SchemaGenerator;
 import com.orm.SugarContext;
+import com.orm.SugarDb;
+
+import org.havenapp.main.service.WebServer;
 
 import java.io.IOException;
 
-import org.havenapp.main.service.SignalSender;
-import org.havenapp.main.service.WebServer;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.multidex.MultiDexApplication;
 
 public class HavenApp extends MultiDexApplication {
 
@@ -46,7 +47,10 @@ public class HavenApp extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
 
-        SugarContext.init(this);
+        SugarContext.init(getApplicationContext());
+
+        SchemaGenerator schemaGenerator = new SchemaGenerator(this);
+        schemaGenerator.createDatabase(new SugarDb(this).getDB());
 
         mPrefs = new PreferenceManager(this);
 

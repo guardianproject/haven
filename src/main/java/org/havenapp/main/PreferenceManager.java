@@ -19,7 +19,6 @@
 package org.havenapp.main;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -28,6 +27,8 @@ import org.havenapp.main.sensors.motion.LuminanceMotionDetector;
 
 import java.io.File;
 import java.util.Date;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 
 public class PreferenceManager {
@@ -98,7 +99,7 @@ public class PreferenceManager {
 	
     public PreferenceManager(Context context) {
         this.context = context;
-        this.appSharedPrefs = context.getSharedPreferences(APP_SHARED_PREFS, Activity.MODE_PRIVATE);
+        this.appSharedPrefs = context.getSharedPreferences(APP_SHARED_PREFS, AppCompatActivity.MODE_PRIVATE);
         this.prefsEditor = appSharedPrefs.edit();
     }
 

@@ -6,8 +6,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +25,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.core.content.FileProvider;
+import androidx.recyclerview.widget.RecyclerView;
 import nl.changer.audiowife.AudioWife;
 
 /**
@@ -43,7 +44,7 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
 
     private final static String AUTHORITY = "org.havenapp.main.fileprovider";
 
-    public EventTriggerAdapter(Context context, List<EventTrigger> eventTriggers) {
+    EventTriggerAdapter(Context context, List<EventTrigger> eventTriggers) {
         this.context = context;
         this.eventTriggers = eventTriggers;
 
@@ -63,7 +64,7 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
         }
     }
 
-
+    @NonNull
     @Override
     public EventTriggerVH onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_event, parent, false);
@@ -72,7 +73,7 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
     }
 
     @Override
-    public void onBindViewHolder(EventTriggerVH holder, int position) {
+    public void onBindViewHolder(@NonNull EventTriggerVH holder, int position) {
 
         final EventTrigger eventTrigger = eventTriggers.get(position);
 
@@ -121,14 +122,6 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
                     holder.image.setOnClickListener(view -> {
 
                         int startPosition = 0;
-
-                        /**
-                        for (int i = 0; i < eventTriggerImagePaths.size(); i++) {
-                            if (eventTriggerImagePaths.get(i).contains(eventTrigger.getPath())) {
-                                startPosition = i;
-                                break;
-                            }
-                        }**/
 
                         ShareOverlayView overlayView = new ShareOverlayView(context);
                         ImageViewer viewer = new ImageViewer.Builder(context, eventTriggerImagePaths)
@@ -204,7 +197,7 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
     }
 
     @Override
-    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
+    public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onDetachedFromRecyclerView(recyclerView);
 
         AudioWife.getInstance().release();

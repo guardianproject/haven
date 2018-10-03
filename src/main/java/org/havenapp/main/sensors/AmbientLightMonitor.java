@@ -1,6 +1,5 @@
 package org.havenapp.main.sensors;
 
-import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +17,8 @@ import android.util.Log;
 import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.model.EventTrigger;
 import org.havenapp.main.service.MonitorService;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * Created by n8fr8 on 3/10/17.
@@ -65,7 +66,7 @@ public class AmbientLightMonitor implements SensorEventListener {
         context.bindService(new Intent(context,
                 MonitorService.class), mConnection, Context.BIND_ABOVE_CLIENT);
 
-        sensorMgr = (SensorManager) context.getSystemService(Activity.SENSOR_SERVICE);
+        sensorMgr = (SensorManager) context.getSystemService(AppCompatActivity.SENSOR_SERVICE);
         //noinspection RedundantCast
         sensor = (Sensor) sensorMgr.getDefaultSensor(Sensor.TYPE_LIGHT);
 

@@ -18,7 +18,7 @@
         android:textStyle="bold"
         android:textSize="28sp"/>
 
-    <android.support.v7.widget.AppCompatEditText
+    <androidx.appcompat.widget.AppCompatEditText
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:textColor="@color/White"
@@ -43,11 +43,11 @@
         android:textStyle="bold"
         android:textSize="16sp"/>
 
-    <Button
-        android:layout_width="120dp"
-        android:layout_height="40dp"
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="140dp"
+        android:layout_height="60dp"
+        android:layout_margin="16dp"
         android:text="@string/save_number"
-        android:layout_margin="10dp"
         android:id="@+id/btnSaveNumber"
         android:background="@drawable/round_drawable"
         android:textColor="@color/White"

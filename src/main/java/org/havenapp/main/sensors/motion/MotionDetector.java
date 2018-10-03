@@ -8,26 +8,18 @@ package org.havenapp.main.sensors.motion;
 
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.ImageFormat;
 import android.graphics.Matrix;
-import android.graphics.Rect;
-import android.graphics.YuvImage;
 import android.os.Handler;
-import android.support.v8.renderscript.RenderScript;
-import android.util.Log;
 
 import com.google.android.cameraview.CameraView;
 
 import org.havenapp.main.sensors.media.ImageCodec;
-import org.havenapp.main.sensors.motion.IMotionDetector;
-import org.havenapp.main.sensors.motion.LuminanceMotionDetector;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.renderscript.RenderScript;
 import io.github.silvaren.easyrs.tools.Nv21Image;
 
 /**
