@@ -18,7 +18,6 @@ import com.github.derlio.waveform.SimpleWaveformView;
 import com.github.derlio.waveform.soundfile.SoundFile;
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
-import org.havenapp.main.R;
 import org.havenapp.main.model.EventTrigger;
 
 import java.io.File;
@@ -26,9 +25,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.RecyclerView;
 import nl.changer.audiowife.AudioWife;
+
+import org.havenapp.main.R;
 
 /**
  * Created by n8fr8 on 4/16/17.
@@ -42,8 +42,6 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
 
     private OnItemClickListener clickListener;
 
-    private final static String AUTHORITY = "org.havenapp.main.fileprovider";
-
     EventTriggerAdapter(Context context, List<EventTrigger> eventTriggers) {
         this.context = context;
         this.eventTriggers = eventTriggers;
@@ -54,12 +52,7 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
             if (trigger.getType() == EventTrigger.CAMERA
                     && (!TextUtils.isEmpty(trigger.getPath())))
             {
-                Uri fileUri = FileProvider.getUriForFile(
-                        context,
-                        AUTHORITY,
-                        new File(trigger.getPath()));
-
-                eventTriggerImagePaths.add(fileUri);
+                eventTriggerImagePaths.add(Uri.fromFile( new File(trigger.getPath())));
             }
         }
     }
@@ -113,10 +106,7 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
                 case EventTrigger.CAMERA:
                     holder.image.setVisibility(View.VISIBLE);
 
-                    Uri fileUri = FileProvider.getUriForFile(
-                            context,
-                            AUTHORITY,
-                            new File(eventTrigger.getPath()));
+                    Uri fileUri = Uri.fromFile(new File(eventTrigger.getPath()));
                     holder.image.setImageURI(fileUri);
 
                     holder.image.setOnClickListener(view -> {
@@ -169,7 +159,6 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
                     AudioWife audioWife = new AudioWife();
                     audioWife.init(context, Uri.fromFile(fileSound))
                             .useDefaultUi(holder.extra, inflater);
-
 
                     break;
                 case EventTrigger.ACCELEROMETER:
