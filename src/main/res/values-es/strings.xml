@@ -66,8 +66,8 @@
     <string name="current_accel_base">Nivel de movimiento actual</string>
 
     <string name="configure_trigger_level">Desliza la barra para cambiar el nivel de detección</string>
-    <string name="tune_the_sound_detection">Haz ruido!</string>
-    <string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">Coloca tu teléfono en una mesa y haz ruido en la habitacion 
+    <string name="tune_the_sound_detection">¡Haz ruido!</string>
+    <string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">Coloca tu teléfono en una mesa y haz ruido en la habitación
         para determinar el nivel exacto de detección</string>
 
     <string name="tune_the_accel_detection">¡Mueve el teléfono!</string>
@@ -81,8 +81,8 @@
     <string name="status_on">Activo</string>
     <string name="status_charging">Cargando:</string>
     <string name="you_will_receive_a_text_when_the_app_hears_or_sees_something">Recibirás un mensaje de texto cuando la aplicación escuche o vea algo</string>
-    <string name="know_immediately_when_haven_detects_something">Recibe una notificación inmediatamente si la aplicacion detecta algo</string>
-    <string name="phone_saved">Número de teléfono guardado!</string>
+    <string name="know_immediately_when_haven_detects_something">Recibe una notificación inmediatamente si la aplicación detecta algo</string>
+    <string name="phone_saved">¡Número de teléfono guardado!</string>
     <string name="detection_events">Eventos Detectados</string>
     <string name="data_speed">Velocidad</string>
     <string name="data_light">Luz</string>
@@ -103,15 +103,15 @@
 
     <string name="menu_licenses">Licencias...</string>
     <string name="sensor_light">Luz ambiental</string>
-    <string name="sensor_accel">Movimiento (Accelerómetro)</string>
+    <string name="sensor_accel">Movimiento (Acelerómetro)</string>
     <string name="sensor_camera">Movimiento (Cámara)</string>
     <string name="sensor_sound">Micrófono</string>
     <string name="sensor_power">Alimentación USB</string>
     <string name="sensor_bump">Bump (Acelerómetro)</string>
     <string name="sensor_unknown">Desconocido</string>
 
-    <string name="settings">Configuraciòn</string>
+    <string name="settings">Configuración</string>
     <string name="remote_access_onion_error">Esta función requiere Orbot instalado: La aplicación de Tor para dispositivos Android.</string>
 
-    <string name="sms_dialog_summary">Numero de telefono remoto para enviar mensajes de notificaciones</string>
+    <string name="sms_dialog_summary">Número de teléfono remoto para enviar mensajes de notificaciones</string>
     </resources>
