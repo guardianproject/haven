@@ -55,10 +55,7 @@ public class HavenApp extends MultiDexApplication {
                 .build();
 
         Fresco.initialize(this,config);
-
-        mPrefs = new PreferenceManager(this);
-
-        Fresco.initialize(this);
+        
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
         if (mPrefs.getRemoteAccessActive())
