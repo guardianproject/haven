@@ -113,6 +113,8 @@ public class ListActivity extends AppCompatActivity {
                 progressDialog = new ProgressDialog(ListActivity.this);
                 progressDialog.setTitle(getString(R.string.please_wait));
                 progressDialog.setMessage(getString(R.string.migrating_data));
+                progressDialog.setCancelable(false);
+                progressDialog.setCanceledOnTouchOutside(false);
                 progressDialog.show();
             } else if (intent.getIntExtra(DB_INIT_STATUS, 0) == DB_INIT_END) {
                 if (progressDialog != null)
