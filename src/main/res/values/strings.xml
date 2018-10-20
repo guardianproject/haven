@@ -159,5 +159,7 @@
     <string name="config_storage_path">Storage Folder Path</string>
     <string name="config_storage_page_hint">Where captured media is stored</string>
     <string name="event_trigger_deleted">Event Trigger deleted</string>
+    <string name="please_wait">Please wait</string>
+    <string name="migrating_data">Looking for your old data</string>
 
 </resources>

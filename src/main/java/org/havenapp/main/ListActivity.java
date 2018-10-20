@@ -18,9 +18,13 @@
 package org.havenapp.main;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -31,6 +35,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -66,6 +71,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import static org.havenapp.main.database.DbConstantsKt.DB_INIT_END;
+import static org.havenapp.main.database.DbConstantsKt.DB_INIT_START;
+import static org.havenapp.main.database.DbConstantsKt.DB_INIT_STATUS;
+
 public class ListActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
@@ -97,6 +106,23 @@ public class ListActivity extends AppCompatActivity {
         }
     };
 
+    private BroadcastReceiver dbBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getIntExtra(DB_INIT_STATUS, 0) == DB_INIT_START) {
+                progressDialog = new ProgressDialog(ListActivity.this);
+                progressDialog.setTitle(getString(R.string.please_wait));
+                progressDialog.setMessage(getString(R.string.migrating_data));
+                progressDialog.show();
+            } else if (intent.getIntExtra(DB_INIT_STATUS, 0) == DB_INIT_END) {
+                if (progressDialog != null)
+                    progressDialog.dismiss();
+            }
+        }
+    };
+
+    private ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,6 +135,8 @@ public class ListActivity extends AppCompatActivity {
         fab = findViewById(R.id.fab);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        LocalBroadcastManager.getInstance(this).registerReceiver(dbBroadcastReceiver,
+                new IntentFilter(DB_INIT_STATUS));
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(llm);
@@ -307,6 +335,12 @@ public class ListActivity extends AppCompatActivity {
                 break;
         }
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(dbBroadcastReceiver);
     }
 
     private void removeAllEvents()
