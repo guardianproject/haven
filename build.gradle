@@ -6,7 +6,7 @@ buildscript {
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.android.tools.build:gradle:3.3.0-alpha07'
+        classpath 'com.android.tools.build:gradle:3.4.0-alpha01'
 
     }
 
@@ -57,7 +57,7 @@ allprojects {
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+    buildToolsVersion '28.0.3'
 
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'
@@ -97,6 +97,12 @@ android {
 
         testInstrumentationRunner "android.test.InstrumentationTestRunner"
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
     }
 
 
@@ -114,6 +120,10 @@ android {
     lintOptions {
         checkReleaseBuilds false
         abortOnError false
+    }
+
+    sourceSets {
+        androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
     }
 }
 
@@ -157,4 +167,5 @@ dependencies {
     testImplementation "junit:junit:4.12"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:3.0.2"
     androidTestImplementation "com.android.support.test.espresso:espresso-intents:3.0.2"
+    androidTestImplementation "android.arch.persistence.room:testing:1.1.1"
 }
