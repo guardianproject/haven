@@ -111,8 +111,8 @@ public class ListActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             if (intent.getIntExtra(DB_INIT_STATUS, 0) == DB_INIT_START) {
                 progressDialog = new ProgressDialog(ListActivity.this);
-                progressDialog.setTitle(getString(R.string.please_wait));
-                progressDialog.setMessage(getString(R.string.migrating_data));
+                progressDialog.setTitle(resourceManager.getString(R.string.please_wait));
+                progressDialog.setMessage(resourceManager.getString(R.string.migrating_data));
                 progressDialog.setCancelable(false);
                 progressDialog.setCanceledOnTouchOutside(false);
                 progressDialog.show();
