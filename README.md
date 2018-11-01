@@ -12,7 +12,7 @@ View our full [Haven App Overview](https://guardianproject.github.io/haven/docs/
 
 ## Announcement and Public Beta
 
-We are announcing Haven today, as an open-source project, along with a public beta release of the app. We are looking for contributors who understand that physical security is as important as digital, and who have an understanding and compassion for the kind of threats faced by the users and communities we want to support. We also think it is really cool, cutting edge, and making use of encrypted messaging and onion routing in whole new ways. We believe Haven points the way to a more sophisticated approach to securing communication within networks of things and home automation system.
+We are announcing Haven today, as an open-source project, along with a public beta release of the app. We are looking for contributors who understand that physical security is as important as digital, and who have an understanding and compassion for the kind of threats faced by the users and communities we want to support. We also think it is cool, cutting-edge and making use of encrypted messaging and onion routing in whole new ways. We believe Haven points the way to a more sophisticated approach to securing communication within networks of things and home automation system.
 
 Learn more about the story of this project at the links below:
 
