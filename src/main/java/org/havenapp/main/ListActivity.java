@@ -49,6 +49,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.firebase.jobdispatcher.Constraint;
+import com.firebase.jobdispatcher.FirebaseJobDispatcher;
+import com.firebase.jobdispatcher.GooglePlayDriver;
+import com.firebase.jobdispatcher.Job;
+import com.firebase.jobdispatcher.Lifetime;
+import com.firebase.jobdispatcher.RetryStrategy;
+import com.firebase.jobdispatcher.Trigger;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.LibsBuilder;
 
@@ -60,6 +68,7 @@ import org.havenapp.main.database.async.EventInsertAsync;
 import org.havenapp.main.model.Event;
 import org.havenapp.main.resources.IResourceManager;
 import org.havenapp.main.resources.ResourceManager;
+import org.havenapp.main.service.RemoveDeletedFilesService;
 import org.havenapp.main.service.SignalSender;
 import org.havenapp.main.ui.EventActivity;
 import org.havenapp.main.ui.EventAdapter;
@@ -74,6 +83,7 @@ import java.util.StringTokenizer;
 import static org.havenapp.main.database.DbConstantsKt.DB_INIT_END;
 import static org.havenapp.main.database.DbConstantsKt.DB_INIT_START;
 import static org.havenapp.main.database.DbConstantsKt.DB_INIT_STATUS;
+import static org.havenapp.main.service.RemoveDeletedFilesServiceKt.SERVICE_TAG;
 
 public class ListActivity extends AppCompatActivity {
 
@@ -198,6 +208,8 @@ public class ListActivity extends AppCompatActivity {
         initializeRecyclerViewComponents();
 
         fetchEventList();
+
+        scheduleCleanupJob(this);
     }
 
     private void initializeRecyclerViewComponents() {
@@ -232,6 +244,29 @@ public class ListActivity extends AppCompatActivity {
         } catch (SQLiteException sqe) {
             Log.d(getClass().getName(), "database not yet initiatied", sqe);
         }
+    }
+
+    private static void scheduleCleanupJob(Context context) {
+        if (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(context) == 0) {
+            return;
+        }
+
+        FirebaseJobDispatcher dispatcher = new
+                FirebaseJobDispatcher(new GooglePlayDriver(context));
+        dispatcher.mustSchedule(createJob(dispatcher));
+    }
+
+    private static Job createJob(FirebaseJobDispatcher dispatcher) {
+        return dispatcher.newJobBuilder()
+                .setLifetime(Lifetime.FOREVER)
+                .setService(RemoveDeletedFilesService.class)
+                .setTag(SERVICE_TAG)
+                .setReplaceCurrent(true)
+                .setRecurring(true)
+                .setTrigger(Trigger.executionWindow(0, 24 * 60 * 60))
+                .setRetryStrategy(RetryStrategy.DEFAULT_LINEAR)
+                .setConstraints(Constraint.ON_ANY_NETWORK, Constraint.DEVICE_CHARGING)
+                .build();
     }
 
     private void showEmptyState() {

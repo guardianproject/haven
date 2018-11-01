@@ -82,6 +82,9 @@
             android:name=".service.MonitorService"
             android:exported="false" />
 
+        <service android:name=".service.RemoveDeletedFilesService"
+            android:exported="false" />
+
         <meta-data
             android:name="DATABASE"
             android:value="haven.db" />
