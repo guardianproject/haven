@@ -1,5 +1,6 @@
 package org.havenapp.main.service
 
+import android.os.Environment
 import android.util.Log
 import com.firebase.jobdispatcher.JobParameters
 import com.firebase.jobdispatcher.JobService
@@ -29,7 +30,7 @@ class RemoveDeletedFilesService: JobService() {
             removeDeletedLogsFromDisk()
             jobFinished(job, true)
             Log.d(SERVICE_TAG, "Stopping Cleanup service")
-        }
+        }.start()
 
         return true
     }
@@ -40,25 +41,81 @@ class RemoveDeletedFilesService: JobService() {
         val eventList = database.getEventDAO().getAllEvent()
         val eventTriggerList = database.getEventTriggerDAO().getAllEventTriggers()
 
-        // keep a list of all invalid event triggers
+        // delete all invalid event triggers
         val inValidEventTriggerList = mutableListOf<EventTrigger>()
         eventTriggerList.filter { it.mEventId !in eventList.map { it.id } }.mapTo(inValidEventTriggerList) { it }
-
-        val currentFileList = mutableListOf<File>()
-        val storageDir = File(PreferenceManager(this).defaultMediaStoragePath)
-        currentFileList.addAll(storageDir.listFiles())
+        database.getEventTriggerDAO().deleteAll(inValidEventTriggerList)
 
         val targetFileList = mutableListOf<File>()
-        currentFileList.filter { it.absolutePath in inValidEventTriggerList.map { it.mPath } }.mapTo(targetFileList) { it }
+        getAllFilesToBeDeleted(targetFileList)
+
+        Log.d(SERVICE_TAG, targetFileList.toString())
 
         // delete these files from disk
-        for (file in targetFileList) {
-            file.delete()
+        targetFileList.filter { !it.isDirectory }.forEach { it.delete() }
+
+        // delete empty directories remaining in our storage directory
+        deleteEmptyDirs()
+    }
+
+    private fun getAllFilesToBeDeleted(targetFileList: MutableList<File>) {
+        val storageDir = File(Environment.getExternalStorageDirectory(),
+                PreferenceManager(this).baseStoragePath)
+
+        if (!storageDir.exists())
+            return
+
+        val allFilePaths = getAllFilePathInStorage(storageDir)
+        val eventTriggerPaths = getAllEventTriggerPath()
+
+        allFilePaths.filter { it !in eventTriggerPaths }.mapTo(targetFileList) { File(it) }
+    }
+
+    private fun deleteEmptyDirs() {
+        val storageDir = File(Environment.getExternalStorageDirectory(),
+                PreferenceManager(this).baseStoragePath)
+
+        if (!storageDir.exists())
+            return
+
+        val subDir = storageDir.list { dir, name -> File(dir, name).isDirectory }
+        subDir.filter { it != null }.forEach {
+            val dir = File(storageDir, it)
+            if (dir.exists() && dir.isDirectory && dir.list().isEmpty())
+                dir.delete()
+        }
+    }
+
+    private fun getAllFilePathInStorage(storageDir: File): List<String> {
+        val filePaths = mutableListOf<String>()
+
+        val currentFileList = mutableListOf<File>()
+
+        getAllFileInStorageDir(storageDir, currentFileList)
+        currentFileList.addAll(storageDir.listFiles())
+
+        currentFileList.mapTo(filePaths) {
+            it.absolutePath
         }
 
-        // remove entry of all invalid event triggers from database
-        for (inValidEventTrigger in inValidEventTriggerList) {
-            database.getEventTriggerDAO().delete(inValidEventTrigger)
-        }
+        return filePaths
+    }
+
+    private fun getAllFileInStorageDir(storageDir: File, currentFileList: MutableList<File>) {
+        if (!storageDir.exists() || !storageDir.isDirectory)
+            return
+
+        currentFileList.addAll(storageDir.listFiles())
+
+        val subDir = storageDir.list { dir, name -> File(dir, name).isDirectory }
+        subDir.filter { it != null }.forEach { getAllFileInStorageDir(File(storageDir, it), currentFileList) }
+    }
+
+    private fun getAllEventTriggerPath(): List<String> {
+        val database = HavenEventDB.getDatabase(this)
+        val eventTriggerPathList = mutableListOf<String>()
+        database.getEventTriggerDAO().getAllEventTriggers().filter { it.mPath != null }
+                .mapTo(eventTriggerPathList) { it.mPath!! }
+        return eventTriggerPathList
     }
 }

@@ -16,6 +16,9 @@ interface EventTriggerDAO {
     @Delete
     fun delete(eventTrigger: EventTrigger)
 
+    @Delete
+    fun deleteAll(eventTriggerList: List<EventTrigger>)
+
     @Update
     fun update(eventTrigger: EventTrigger)
 

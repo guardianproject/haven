@@ -304,6 +304,10 @@ public class PreferenceManager {
         return 10;
     }
 
+    public String getBaseStoragePath() {
+        return appSharedPrefs.getString(CONFIG_BASE_STORAGE,CONFIG_BASE_STORAGE_DEFAULT);
+    }
+
     public String getDefaultMediaStoragePath() {
         return appSharedPrefs.getString(CONFIG_BASE_STORAGE,CONFIG_BASE_STORAGE_DEFAULT) + File.separator + getCurrentSession(); //phoneypot is the old code name for Haven
     }

@@ -56,6 +56,7 @@ import com.firebase.jobdispatcher.Job;
 import com.firebase.jobdispatcher.Lifetime;
 import com.firebase.jobdispatcher.RetryStrategy;
 import com.firebase.jobdispatcher.Trigger;
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.LibsBuilder;
@@ -247,7 +248,7 @@ public class ListActivity extends AppCompatActivity {
     }
 
     private static void scheduleCleanupJob(Context context) {
-        if (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(context) == 0) {
+        if (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(context) != ConnectionResult.SUCCESS) {
             return;
         }
 
@@ -265,7 +266,7 @@ public class ListActivity extends AppCompatActivity {
                 .setRecurring(true)
                 .setTrigger(Trigger.executionWindow(0, 24 * 60 * 60))
                 .setRetryStrategy(RetryStrategy.DEFAULT_LINEAR)
-                .setConstraints(Constraint.ON_ANY_NETWORK, Constraint.DEVICE_CHARGING)
+                .setConstraints(Constraint.DEVICE_CHARGING)
                 .build();
     }
 
