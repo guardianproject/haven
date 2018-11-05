@@ -10,7 +10,7 @@ import org.havenapp.main.model.Event
 class EventDeleteAllAsync(private val listener: EventDeleteAllListener)
     : AsyncTask<List<Event>, Unit, Unit>() {
     override fun doInBackground(vararg params: List<Event>) {
-        HavenApp.dataBaseInstance.getEventDAO().deleteAll(params.get(0))
+        HavenApp.getDataBaseInstance().getEventDAO().deleteAll(params.get(0))
     }
 
     override fun onPostExecute(result: Unit?) {

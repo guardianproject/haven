@@ -82,7 +82,7 @@
             android:name=".service.MonitorService"
             android:exported="false" />
 
-        <service android:name=".service.RemoveDeletedFilesService"
+        <service android:name=".service.RemoveDeletedFilesJob"
             android:exported="false" />
 
         <meta-data

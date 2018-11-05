@@ -17,15 +17,18 @@
 
 package org.havenapp.main;
 
+import android.support.annotation.NonNull;
 import android.support.multidex.MultiDexApplication;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 
+import com.evernote.android.job.JobManager;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.facebook.imagepipeline.decoder.SimpleProgressiveJpegConfig;
 
 import org.havenapp.main.database.HavenEventDB;
+import org.havenapp.main.service.HavenJobCreator;
 import org.havenapp.main.service.WebServer;
 
 import java.io.IOException;
@@ -40,7 +43,9 @@ public class HavenApp extends MultiDexApplication {
 
     private PreferenceManager mPrefs = null;
 
-    public static HavenEventDB dataBaseInstance = null;
+    private static HavenEventDB dataBaseInstance = null;
+
+    private static HavenApp havenApp;
 
     @Override
     public void onCreate() {
@@ -61,7 +66,10 @@ public class HavenApp extends MultiDexApplication {
         if (mPrefs.getRemoteAccessActive())
             startServer();
 
+        havenApp = this;
         dataBaseInstance = HavenEventDB.getDatabase(this);
+
+        JobManager.create(this).addJobCreator(new HavenJobCreator());
     }
 
 
@@ -85,5 +93,15 @@ public class HavenApp extends MultiDexApplication {
         {
             mOnionServer.stop();
         }
+    }
+
+    @NonNull
+    public static HavenApp getInstance() {
+        return havenApp;
+    }
+
+    @NonNull
+    public static HavenEventDB getDataBaseInstance() {
+        return dataBaseInstance;
     }
 }

@@ -10,7 +10,7 @@ import org.havenapp.main.model.EventTrigger
 class EventTriggerInsertAsync(private val callback: InsertCallback)
     : AsyncTask<EventTrigger, Unit, Long>() {
     override fun doInBackground(vararg params: EventTrigger): Long {
-        return HavenApp.dataBaseInstance.getEventTriggerDAO().insert(params.get(0))
+        return HavenApp.getDataBaseInstance().getEventTriggerDAO().insert(params.get(0))
     }
 
     override fun onPostExecute(result: Long) {

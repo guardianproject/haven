@@ -10,7 +10,7 @@ import org.havenapp.main.model.EventTrigger
 class EventTriggerDeleteAsync(private val callback: DeleteCallback)
     : AsyncTask<EventTrigger, Unit, Unit>() {
     override fun doInBackground(vararg params: EventTrigger) {
-        HavenApp.dataBaseInstance.getEventTriggerDAO().delete(params.get(0))
+        HavenApp.getDataBaseInstance().getEventTriggerDAO().delete(params.get(0))
         // todo delete file here?
     }
 

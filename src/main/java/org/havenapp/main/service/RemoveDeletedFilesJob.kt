@@ -2,41 +2,46 @@ package org.havenapp.main.service
 
 import android.os.Environment
 import android.util.Log
-import com.firebase.jobdispatcher.JobParameters
-import com.firebase.jobdispatcher.JobService
+import com.evernote.android.job.Job
+import com.evernote.android.job.JobRequest
+import org.havenapp.main.HavenApp
 import org.havenapp.main.PreferenceManager
-import org.havenapp.main.database.HavenEventDB
 import org.havenapp.main.model.EventTrigger
 import java.io.File
 
 /**
- * A [JobService] to delete files related to deleted logs.
+ * A [Job] to delete files related to deleted logs.
  * <p>
  * Created by Arka Prava Basu <arka.basu@zomato.com> on 28/10/18.
  */
 
-const val SERVICE_TAG = "HavenCleanupService"
+const val SERVICE_TAG = "HavenCleanupJob"
 
-class RemoveDeletedFilesService: JobService() {
-    override fun onStopJob(job: JobParameters?): Boolean {
-        Log.d(SERVICE_TAG, "Cleanup Service interrupted")
-        return false
+class RemoveDeletedFilesJob: Job() {
+
+    companion object {
+        fun schedule(): Int {
+            return JobRequest.Builder(SERVICE_TAG)
+                    .setPeriodic(24 * 60 * 60 * 1000L) // run once every 24 hrs
+                    .setRequiresCharging(true)
+                    .setUpdateCurrent(true)
+                    .build()
+                    .schedule()
+        }
     }
 
-    override fun onStartJob(job: JobParameters): Boolean {
-        Log.d(SERVICE_TAG, "Starting Cleanup Service")
-        Thread {
-            // remove all deleted logs from disk and reschedule this task
-            removeDeletedLogsFromDisk()
-            jobFinished(job, true)
-            Log.d(SERVICE_TAG, "Stopping Cleanup service")
-        }.start()
+    override fun onRunJob(params: Params): Result {
+        Log.d(SERVICE_TAG, "Starting Cleanup. Job Id: ${params.id}")
 
-        return true
+        // remove all deleted logs from disk and reschedule this task
+        removeDeletedLogsFromDisk()
+
+        Log.d(SERVICE_TAG, "Stopping Cleanup. Job Id: ${params.id}")
+        return Result.SUCCESS
     }
 
     private fun removeDeletedLogsFromDisk() {
-        val database = HavenEventDB.getDatabase(this)
+        val database = HavenApp.getDataBaseInstance()
 
         val eventList = database.getEventDAO().getAllEvent()
         val eventTriggerList = database.getEventTriggerDAO().getAllEventTriggers()
@@ -60,7 +65,7 @@ class RemoveDeletedFilesService: JobService() {
 
     private fun getAllFilesToBeDeleted(targetFileList: MutableList<File>) {
         val storageDir = File(Environment.getExternalStorageDirectory(),
-                PreferenceManager(this).baseStoragePath)
+                PreferenceManager(HavenApp.getInstance()).baseStoragePath)
 
         if (!storageDir.exists())
             return
@@ -73,7 +78,7 @@ class RemoveDeletedFilesService: JobService() {
 
     private fun deleteEmptyDirs() {
         val storageDir = File(Environment.getExternalStorageDirectory(),
-                PreferenceManager(this).baseStoragePath)
+                PreferenceManager(HavenApp.getInstance()).baseStoragePath)
 
         if (!storageDir.exists())
             return
@@ -112,7 +117,7 @@ class RemoveDeletedFilesService: JobService() {
     }
 
     private fun getAllEventTriggerPath(): List<String> {
-        val database = HavenEventDB.getDatabase(this)
+        val database = HavenApp.getDataBaseInstance()
         val eventTriggerPathList = mutableListOf<String>()
         database.getEventTriggerDAO().getAllEventTriggers().filter { it.mPath != null }
                 .mapTo(eventTriggerPathList) { it.mPath!! }

@@ -169,7 +169,6 @@ dependencies {
     androidTestImplementation "com.android.support.test.espresso:espresso-intents:3.0.2"
     androidTestImplementation "android.arch.persistence.room:testing:1.1.1"
 
-    // firebase job dispatcher
-    implementation 'com.firebase:firebase-jobdispatcher:0.8.3'
-    implementation 'com.google.android.gms:play-services-base:16.0.1'
+    // android-job
+    implementation 'com.evernote:android-job:1.2.6'
 }

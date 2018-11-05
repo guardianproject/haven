@@ -37,7 +37,7 @@ class Event {
     fun getEventTriggers() : MutableList<EventTrigger> {
 
         if (mEventTriggers.size == 0) {
-            val eventTriggers = HavenApp.dataBaseInstance.getEventTriggerDAO().getEventTriggerList(id)
+            val eventTriggers = HavenApp.getDataBaseInstance().getEventTriggerDAO().getEventTriggerList(id)
             mEventTriggers.addAll(eventTriggers)
         }
 
