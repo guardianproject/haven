@@ -30,6 +30,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventVH> {
     }
 
 
+    @NonNull
     @Override
     public EventVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_event, parent, false);
@@ -41,7 +42,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventVH> {
 
         Event event = events.get(position);
 
-        String title = event.getMStartTime().toLocaleString();
+        String title = event.getStartTime().toLocaleString();
         String desc = event.getEventTriggerCount() + " " +
                 resourceManager.getString(R.string.detection_events);
 
@@ -58,7 +59,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventVH> {
     class EventVH extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView title, note;
 
-        public EventVH(View itemView) {
+        EventVH(View itemView) {
             super(itemView);
 
            title = itemView.findViewById(R.id.event_item_title);
@@ -74,7 +75,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventVH> {
     }
 
     public interface OnItemClickListener {
-        public void onItemClick(View view, int position);
+        void onItemClick(View view, int position);
     }
 
     public void SetOnItemClickListener(final OnItemClickListener itemClickListener) {

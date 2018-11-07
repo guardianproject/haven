@@ -104,7 +104,7 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
      */
     private void onEventFetched(@NonNull Event event) {
         mEvent = event;
-        setTitle(mEvent.getMStartTime().toLocaleString());
+        setTitle(mEvent.getStartTime().toLocaleString());
     }
 
     /**
@@ -170,7 +170,7 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
 
     private void shareEvent ()
     {
-        String title = "Phoneypot: " + mEvent.getMStartTime().toLocaleString();
+        String title = "Phoneypot: " + mEvent.getStartTime().toLocaleString();
 
         //need to "send multiple" to get more than one attachment
         final Intent emailIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
@@ -184,10 +184,10 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
         for (EventTrigger trigger : eventTriggerList)
         {
             // ignore triggers for which we do not have valid file/file-paths
-            if (trigger.getMimeType() == null || trigger.getMPath() == null)
+            if (trigger.getMimeType() == null || trigger.getPath() == null)
                 continue;
 
-            File fileIn = new File(trigger.getMPath());
+            File fileIn = new File(trigger.getPath());
             Uri u = Uri.fromFile(fileIn);
             uris.add(u);
         }
@@ -199,11 +199,11 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
     private String generateLog () {
         StringBuilder mEventLog = new StringBuilder();
 
-        setTitle("Event @ " + mEvent.getMStartTime().toLocaleString());
+        setTitle("Event @ " + mEvent.getStartTime().toLocaleString());
 
         for (EventTrigger eventTrigger : eventTriggerList) {
 
-            mEventLog.append("Event Triggered @ ").append(eventTrigger.getMTime().toString()).append("\n");
+            mEventLog.append("Event Triggered @ ").append(eventTrigger.getTime().toString()).append("\n");
 
             String sType = eventTrigger.getStringType(resourceManager);
 
@@ -217,7 +217,7 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
     @Override
     public void onVideoClick(EventTrigger eventTrigger) {
         Intent intent = new Intent(this, VideoPlayerActivity.class);
-        intent.setData(Uri.parse("file://" + eventTrigger.getMPath()));
+        intent.setData(Uri.parse("file://" + eventTrigger.getPath()));
         startActivity(intent);
     }
 
@@ -254,7 +254,7 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
     private void shareMedia (EventTrigger eventTrigger) {
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
-        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(eventTrigger.getMPath())));
+        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(eventTrigger.getPath())));
         shareIntent.setType(eventTrigger.getMimeType());
         startActivity(shareIntent);
     }
@@ -263,11 +263,11 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
         this.eventTriggerImagePaths = new ArrayList<>();
         for (EventTrigger trigger : eventTriggerList)
         {
-            if (trigger.getMType() == EventTrigger.CAMERA
-                    && (!TextUtils.isEmpty(trigger.getMPath())))
+            if (trigger.getType() == EventTrigger.CAMERA
+                    && (!TextUtils.isEmpty(trigger.getPath())))
             {
                 Uri fileUri = FileProvider.getUriForFile(this, AUTHORITY,
-                        new File(trigger.getMPath()));
+                        new File(trigger.getPath()));
 
                 eventTriggerImagePaths.add(fileUri);
             }

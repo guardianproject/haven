@@ -48,7 +48,7 @@ class RemoveDeletedFilesJob: Job() {
 
         // delete all invalid event triggers
         val inValidEventTriggerList = mutableListOf<EventTrigger>()
-        eventTriggerList.filter { it.mEventId !in eventList.map { it.id } }.mapTo(inValidEventTriggerList) { it }
+        eventTriggerList.filter { it.eventId !in eventList.map { it.id } }.mapTo(inValidEventTriggerList) { it }
         database.getEventTriggerDAO().deleteAll(inValidEventTriggerList)
 
         val targetFileList = mutableListOf<File>()
@@ -119,8 +119,8 @@ class RemoveDeletedFilesJob: Job() {
     private fun getAllEventTriggerPath(): List<String> {
         val database = HavenApp.getDataBaseInstance()
         val eventTriggerPathList = mutableListOf<String>()
-        database.getEventTriggerDAO().getAllEventTriggers().filter { it.mPath != null }
-                .mapTo(eventTriggerPathList) { it.mPath!! }
+        database.getEventTriggerDAO().getAllEventTriggers().filter { it.path != null }
+                .mapTo(eventTriggerPathList) { it.path!! }
         return eventTriggerPathList
     }
 }

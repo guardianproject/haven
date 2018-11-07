@@ -17,7 +17,6 @@
 
 package org.havenapp.main;
 
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
@@ -66,11 +65,11 @@ import org.havenapp.main.ui.EventActivity;
 import org.havenapp.main.ui.EventAdapter;
 import org.havenapp.main.ui.PPAppIntro;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
+
+import kotlin.Pair;
 
 import static org.havenapp.main.database.DbConstantsKt.DB_INIT_END;
 import static org.havenapp.main.database.DbConstantsKt.DB_INIT_START;
@@ -86,8 +85,6 @@ public class ListActivity extends AppCompatActivity {
     private PreferenceManager preferences;
     private IResourceManager resourceManager;
 
-    private int modifyPos = -1;
-
     private int REQUEST_CODE_INTRO = 1001;
 
     private LiveData<List<Event>> eventListLD;
@@ -95,15 +92,30 @@ public class ListActivity extends AppCompatActivity {
     private Observer<List<Event>> eventListObserver = events -> {
         if (events != null) {
             setEventListToRecyclerView(events);
+            observeEvents(events);
         }
     };
 
     private Observer<Integer> eventCountObserver = count -> {
         if (count != null && count > events.size()) {
-            fetchEventList();
             showNonEmptyState();
         } else if (count != null && count == 0) {
             showEmptyState();
+        }
+    };
+
+    private Observer<Pair<Long, Integer>> eventTriggerCountObserver = pair -> {
+        if (pair != null && adapter != null && events != null) {
+            int pos = -1;
+            for (int  i = 0; i < events.size(); i++) {
+                if (events.get(i).getId().equals(pair.getFirst())) {
+                    pos = i;
+                    break;
+                }
+            }
+            if (pos != -1) {
+                adapter.notifyItemChanged(pos);
+            }
         }
     };
 
@@ -144,9 +156,6 @@ public class ListActivity extends AppCompatActivity {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(llm);
 
-        if (savedInstanceState != null)
-            modifyPos = savedInstanceState.getInt("modify");
-
 
         // Handling swipe to delete
         ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -160,12 +169,8 @@ public class ListActivity extends AppCompatActivity {
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 //Remove swiped item from list and notify the RecyclerView
 
-                final int position = viewHolder.getAdapterPosition();
                 final Event event = events.get(viewHolder.getAdapterPosition());
-
-                deleteEvent(event, position);
-
-
+                deleteEvent(event);
             }
 
         };
@@ -212,7 +217,6 @@ public class ListActivity extends AppCompatActivity {
 
             Intent i = new Intent(ListActivity.this, EventActivity.class);
             i.putExtra("eventid", events.get(position).getId());
-            modifyPos = position;
 
             startActivity(i);
         });
@@ -226,6 +230,14 @@ public class ListActivity extends AppCompatActivity {
         }
 
         adapter.setEvents(events);
+    }
+
+    private void observeEvents(@NonNull List<Event> events) {
+        for (Event event: events) {
+            if (event.getEventTriggersCountLD() == null)
+                continue;
+            event.getEventTriggersCountLD().observe(this, eventTriggerCountObserver);
+        }
     }
 
     private void fetchEventList() {
@@ -247,14 +259,12 @@ public class ListActivity extends AppCompatActivity {
         findViewById(R.id.empty_view).setVisibility(View.GONE);
     }
 
-    private void deleteEvent (final Event event, final int position)
+    private void deleteEvent(final Event event)
     {
-        new EventDeleteAsync(() -> onEventDeleted(event, position)).execute(event);
-        events.remove(position);
-        adapter.notifyItemRemoved(position);
+        new EventDeleteAsync(() -> onEventDeleted(event)).execute(event);
     }
 
-    private void onEventDeleted(Event event, int position) {
+    private void onEventDeleted(Event event) {
         Snackbar.make(recyclerView, resourceManager.getString(R.string.event_deleted), Snackbar.LENGTH_SHORT)
                 .setAction(resourceManager.getString(R.string.undo),
                         v -> new EventInsertAsync(eventId -> {
@@ -276,35 +286,10 @@ public class ListActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        outState.putInt("modify", modifyPos);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-
-        modifyPos = savedInstanceState.getInt("modify");
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
-
         resourceManager = new ResourceManager(this);
         HavenEventDB.getDatabase(this).getEventDAO().count().observe(this, eventCountObserver);
-
-        if (modifyPos != -1) {
-            //Event.set(modifyPos, Event.listAll(Event.class).get(modifyPos));
-            adapter.notifyItemChanged(modifyPos);
-        }
-    }
-
-    @SuppressLint("SimpleDateFormat")
-    public static String getDateFormat(long date) {
-        return new SimpleDateFormat("dd MMM yyyy").format(new Date(date));
     }
 
     private void showOnboarding()
@@ -350,9 +335,7 @@ public class ListActivity extends AppCompatActivity {
 
     private void removeAllEvents()
     {
-        final List<Event> removedEvents = new ArrayList<Event>(events);
-        events.clear();
-        adapter.notifyDataSetChanged();
+        final List<Event> removedEvents = new ArrayList<>(events);
         new EventDeleteAllAsync(() -> onAllEventsRemoved(removedEvents)).execute(removedEvents);
     }
 

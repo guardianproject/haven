@@ -98,7 +98,7 @@ public class WebServer extends NanoHTTPD {
                     .findById(eventTriggerId);
 
             try {
-                File fileMedia = new File(Objects.requireNonNull(eventTrigger.getMPath()));
+                File fileMedia = new File(Objects.requireNonNull(eventTrigger.getPath()));
                 FileInputStream fis = new FileInputStream(fileMedia);
                 return newChunkedResponse(Response.Status.OK, getMimeType(eventTrigger), fis);
 
@@ -171,12 +171,12 @@ public class WebServer extends NanoHTTPD {
 
         List<EventTrigger> triggers = event.getEventTriggers();
 
-        page.append("<h1>Event: ").append(event.getMStartTime().toLocaleString()).append("</h1><hr/>\n");
+        page.append("<h1>Event: ").append(event.getStartTime().toLocaleString()).append("</h1><hr/>\n");
 
         for (EventTrigger eventTrigger: triggers)
         {
             String title = eventTrigger.getStringType(new ResourceManager(mContext));
-            String desc = eventTrigger.getMTime().toString();
+            String desc = eventTrigger.getTime().toString();
 
             page.append("<b>");
             page.append(title).append("</b><br/>");
@@ -184,13 +184,13 @@ public class WebServer extends NanoHTTPD {
 
             String mediaPath = "/event/" + event.getId() + "/trigger/" + eventTrigger.getId();
 
-            if (eventTrigger.getMType() == EventTrigger.CAMERA)
+            if (eventTrigger.getType() == EventTrigger.CAMERA)
             {
                 page.append("<img src=\"").append(mediaPath).append("\" width=\"100%\"/>");
                 page.append("<a href=\"").append(mediaPath).append("\">Download Media").append("</a>");
 
             }
-            else if (eventTrigger.getMType() == EventTrigger.MICROPHONE)
+            else if (eventTrigger.getType() == EventTrigger.MICROPHONE)
             {
                 page.append("<audio src=\"").append(mediaPath).append("\"></audio>");
                 page.append("<a href=\"").append(mediaPath).append("\">Download Media").append("</a>");
@@ -213,7 +213,7 @@ public class WebServer extends NanoHTTPD {
 
         for (Event event: events)
         {
-            String title = event.getMStartTime().toLocaleString();
+            String title = event.getStartTime().toLocaleString();
             String desc = event.getEventTriggers().size() + " triggered events";
 
             page.append("<b>").append("<a href=\"/event/").append(event.getId()).append("\">");
@@ -228,7 +228,7 @@ public class WebServer extends NanoHTTPD {
     {
         String sType = "";
 
-        switch (eventTrigger.getMType()) {
+        switch (eventTrigger.getType()) {
             case EventTrigger.CAMERA:
                 sType = "image/jpeg";
                 break;

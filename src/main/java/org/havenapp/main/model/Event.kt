@@ -1,5 +1,7 @@
 package org.havenapp.main.model
 
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.Transformations
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.Ignore
@@ -16,39 +18,49 @@ class Event {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "ID")
     var id : Long? = null
-        get() = field
+        set(value) {
+            if (value == null) return
+            field = value
+            eventTriggerCountLD = Transformations.map(HavenApp.getDataBaseInstance().getEventTriggerDAO()
+                    .getEventTriggerListCountAsync(field)) {
+                Pair(field!!, it)
+            }
+        }
 
     @ColumnInfo(name = "M_START_TIME")
-    var mStartTime : Date? = Date()
+    var startTime : Date? = Date()
 
     @Ignore
-    private var mEventTriggers : MutableList<EventTrigger> = mutableListOf()
+    private var eventTriggers : MutableList<EventTrigger> = mutableListOf()
+
+    @Ignore
+    private var eventTriggerCountLD: LiveData<Pair<Long, Int>>? = null
 
     fun addEventTrigger(eventTrigger: EventTrigger) {
-        mEventTriggers.add(eventTrigger)
-        eventTrigger.mEventId = id
+        eventTriggers.add(eventTrigger)
+        eventTrigger.eventId = id
     }
 
     /**
      * Get the list of event triggers associated with this event.
      * <p>
-     * When [mEventTriggers] is empty this method performs a blocking db lookup.
+     * When [eventTriggers] is empty this method performs a blocking db lookup.
      */
     fun getEventTriggers() : MutableList<EventTrigger> {
 
-        if (mEventTriggers.size == 0) {
+        if (eventTriggers.size == 0) {
             val eventTriggers = HavenApp.getDataBaseInstance().getEventTriggerDAO().getEventTriggerList(id)
-            mEventTriggers.addAll(eventTriggers)
+            this.eventTriggers.addAll(eventTriggers)
         }
 
-        return mEventTriggers
+        return eventTriggers
+    }
+
+    fun getEventTriggersCountLD(): LiveData<Pair<Long, Int>>? {
+        return eventTriggerCountLD
     }
 
     fun getEventTriggerCount(): Int {
-        if (mEventTriggers.size == 0) {
-            return getEventTriggers().size
-        }
-
-        return mEventTriggers.size
+        return eventTriggerCountLD?.value?.second ?: 0
     }
 }

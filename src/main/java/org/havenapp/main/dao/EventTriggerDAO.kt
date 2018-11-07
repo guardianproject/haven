@@ -32,5 +32,8 @@ interface EventTriggerDAO {
     fun getEventTriggerListAsync(eventId: Long?) : LiveData<MutableList<EventTrigger>>
 
     @Query("SELECT * FROM EVENT_TRIGGER")
-    fun getAllEventTriggers() : MutableList<EventTrigger> // todo remove this for now
+    fun getAllEventTriggers() : MutableList<EventTrigger>
+
+    @Query("SELECT COUNT(*) FROM EVENT_TRIGGER WHERE M_EVENT_ID = :eventId")
+    fun getEventTriggerListCountAsync(eventId: Long?) : LiveData<Int>
 }

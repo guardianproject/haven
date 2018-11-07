@@ -68,7 +68,7 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
         final EventTrigger eventTrigger = eventTriggers.get(position);
 
         String title = eventTrigger.getStringType(resourceManager);
-        String desc = eventTrigger.getMTime().toLocaleString();
+        String desc = eventTrigger.getTime().toLocaleString();
 
         holder.image.setVisibility(View.GONE);
         holder.video.setVisibility(View.GONE);
@@ -76,13 +76,13 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
         holder.sound.setVisibility(View.GONE);
 
 
-        if (eventTrigger.getMPath() != null)
+        if (eventTrigger.getPath() != null)
         {
-            switch (eventTrigger.getMType()) {
+            switch (eventTrigger.getType()) {
                 case EventTrigger.CAMERA_VIDEO:
                     holder.video.setVisibility(View.VISIBLE);
                     BitmapDrawable bitmapD = new BitmapDrawable(context.getResources(),
-                            ThumbnailUtils.createVideoThumbnail(eventTrigger.getMPath(),
+                            ThumbnailUtils.createVideoThumbnail(eventTrigger.getPath(),
                             MediaStore.Video.Thumbnails.FULL_SCREEN_KIND));
                     holder.video.setBackground(bitmapD);
                     holder.video.setOnClickListener(view -> {
@@ -104,7 +104,7 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
                     Uri fileUri = FileProvider.getUriForFile(
                             context,
                             AUTHORITY,
-                            new File(eventTrigger.getMPath()));
+                            new File(eventTrigger.getPath()));
                     holder.image.setImageURI(fileUri);
 
                     holder.image.setOnClickListener(view -> {
@@ -122,7 +122,7 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
                     LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
                     holder.sound.setVisibility(View.VISIBLE);
-                    final File fileSound = new File(eventTrigger.getMPath());
+                    final File fileSound = new File(eventTrigger.getPath());
                     try {
                         final SoundFile soundFile = SoundFile.create(fileSound.getPath(), new SoundFile.ProgressListener() {
                             int lastProgress = 0;
@@ -153,18 +153,18 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
 
                     break;
                 case EventTrigger.ACCELEROMETER:
-                    desc += "\n" + resourceManager.getString(R.string.data_speed) + ": " + eventTrigger.getMPath();
+                    desc += "\n" + resourceManager.getString(R.string.data_speed) + ": " + eventTrigger.getPath();
 
                     break;
                 case EventTrigger.LIGHT:
-                    desc += "\n" + resourceManager.getString(R.string.data_light) + ": " + eventTrigger.getMPath();
+                    desc += "\n" + resourceManager.getString(R.string.data_light) + ": " + eventTrigger.getPath();
 
                     break;
                 case EventTrigger.PRESSURE:
-                    desc += "\n" + resourceManager.getString(R.string.data_pressure) + ": " + eventTrigger.getMPath();
+                    desc += "\n" + resourceManager.getString(R.string.data_pressure) + ": " + eventTrigger.getPath();
                     break;
                 case EventTrigger.POWER:
-                    desc += "\n" + resourceManager.getString(R.string.data_power) + ": " + eventTrigger.getMPath();
+                    desc += "\n" + resourceManager.getString(R.string.data_power) + ": " + eventTrigger.getPath();
                     break;
             }
 

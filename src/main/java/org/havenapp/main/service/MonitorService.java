@@ -300,7 +300,7 @@ public class MonitorService extends Service {
             mLastEvent.setId(eventId);
             doNotification = true;
             // set current event start date in prefs
-            mPrefs.setCurrentSession(mLastEvent.getMStartTime());
+            mPrefs.setCurrentSession(mLastEvent.getStartTime());
         }
         else if (mPrefs.getNotificationTimeMs() == 0)
         {
@@ -318,8 +318,8 @@ public class MonitorService extends Service {
         }
 
         EventTrigger eventTrigger = new EventTrigger();
-        eventTrigger.setMType(alertType);
-        eventTrigger.setMPath(path);
+        eventTrigger.setType(alertType);
+        eventTrigger.setPath(path);
 
         mLastEvent.addEventTrigger(eventTrigger);
 
@@ -353,13 +353,13 @@ public class MonitorService extends Service {
                     recips.add(st.nextToken());
 
                 String attachment = null;
-                if (eventTrigger.getMType() == EventTrigger.CAMERA) {
-                    attachment = eventTrigger.getMPath();
-                } else if (eventTrigger.getMType() == EventTrigger.MICROPHONE) {
-                    attachment = eventTrigger.getMPath();
+                if (eventTrigger.getType() == EventTrigger.CAMERA) {
+                    attachment = eventTrigger.getPath();
+                } else if (eventTrigger.getType() == EventTrigger.MICROPHONE) {
+                    attachment = eventTrigger.getPath();
                 }
-                else if (eventTrigger.getMType() == EventTrigger.CAMERA_VIDEO) {
-                    attachment = eventTrigger.getMPath();
+                else if (eventTrigger.getType() == EventTrigger.CAMERA_VIDEO) {
+                    attachment = eventTrigger.getPath();
                 }
 
                 sender.sendMessage(recips, alertMessage.toString(), attachment);

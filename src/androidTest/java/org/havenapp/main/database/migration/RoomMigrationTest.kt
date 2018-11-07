@@ -44,11 +44,11 @@ class RoomMigrationTest {
         val event = migratedDb.getEventDAO().getAllEvent()[0]
         val eventTrigger = migratedDb.getEventTriggerDAO().getAllEventTriggers()[0]
 
-        assertEquals(dateToTimestamp(event.mStartTime)?.toInt(), 123)
+        assertEquals(dateToTimestamp(event.startTime)?.toInt(), 123)
 
-        assertEquals(dateToTimestamp(eventTrigger.mTime)?.toInt(), 124)
-        assertEquals(eventTrigger.mPath, "abcabd")
-        assertEquals(eventTrigger.mType, 1)
+        assertEquals(dateToTimestamp(eventTrigger.time)?.toInt(), 124)
+        assertEquals(eventTrigger.path, "abcabd")
+        assertEquals(eventTrigger.type, 1)
     }
 
     @After

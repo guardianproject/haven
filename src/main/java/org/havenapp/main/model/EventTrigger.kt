@@ -62,25 +62,24 @@ class EventTrigger {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "ID")
     var id : Long? = null
-        get() = field
 
     @ColumnInfo(name = "M_TYPE")
-    var mType: Int? = 0
+    var type: Int? = 0
 
     // Trigger time
     @ColumnInfo(name  = "M_TIME")
-    var mTime: Date? = Date()
+    var time: Date? = Date()
 
     @ColumnInfo(name = "M_EVENT_ID")
-    var mEventId: Long? = 0
+    var eventId: Long? = 0
 
     @ColumnInfo(name = "M_PATH")
-    var mPath: String? = null
+    var path: String? = null
 
     fun getStringType(resourceManager: IResourceManager): String {
         var sType = ""
 
-        sType = when (mType) {
+        sType = when (type) {
             ACCELEROMETER -> resourceManager.getString(R.string.sensor_accel)
             LIGHT -> resourceManager.getString(R.string.sensor_light)
             CAMERA -> resourceManager.getString(R.string.sensor_camera)
@@ -98,7 +97,7 @@ class EventTrigger {
     fun getMimeType(): String? {
         var mimeType: String? = ""
 
-        mimeType = when (mType) {
+        mimeType = when (type) {
             CAMERA -> "image/*"
             MICROPHONE -> "audio/*"
             CAMERA_VIDEO -> "video/*"
