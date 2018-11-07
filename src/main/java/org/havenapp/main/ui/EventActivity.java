@@ -141,11 +141,9 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 //Remove swiped item from list and notify the RecyclerView
 
-                final int position = viewHolder.getAdapterPosition();
-                final EventTrigger eventTrigger = eventTriggerList
-                        .get(viewHolder.getAdapterPosition());
+                final EventTrigger eventTrigger = eventTriggerList.get(viewHolder.getAdapterPosition());
 
-                deleteEventTrigger (eventTrigger, position);
+                deleteEventTrigger (eventTrigger);
 
 
             }
@@ -156,7 +154,7 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
         itemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
 
-    private void deleteEventTrigger (final EventTrigger eventTrigger, final int position)
+    private void deleteEventTrigger(final EventTrigger eventTrigger)
     {
         new EventTriggerDeleteAsync(() -> onEventDeleted(eventTrigger)).execute(eventTrigger);
     }

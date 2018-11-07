@@ -194,7 +194,7 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
         VideoView video;
         ViewGroup extra;
         SimpleWaveformView sound;
-        public EventTriggerVH(View itemView) {
+        EventTriggerVH(View itemView) {
             super(itemView);
 
            title = itemView.findViewById(R.id.event_item_title);
