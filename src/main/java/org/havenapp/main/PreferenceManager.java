@@ -19,7 +19,6 @@
 package org.havenapp.main;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -28,6 +27,8 @@ import org.havenapp.main.sensors.motion.LuminanceMotionDetector;
 
 import java.io.File;
 import java.util.Date;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 
 public class PreferenceManager {
@@ -92,13 +93,13 @@ public class PreferenceManager {
     private static final String CURRENT_EVENT_START_TIME = "current_event_start_time";
 
     public static final String CONFIG_BASE_STORAGE = "config_base_storage";
-    private static final String CONFIG_BASE_STORAGE_DEFAULT = "/phoneypot";
+    private static final String CONFIG_BASE_STORAGE_DEFAULT = "/haven";
 
     private Context context;
 	
     public PreferenceManager(Context context) {
         this.context = context;
-        this.appSharedPrefs = context.getSharedPreferences(APP_SHARED_PREFS, Activity.MODE_PRIVATE);
+        this.appSharedPrefs = context.getSharedPreferences(APP_SHARED_PREFS, AppCompatActivity.MODE_PRIVATE);
         this.prefsEditor = appSharedPrefs.edit();
     }
 

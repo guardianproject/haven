@@ -23,7 +23,6 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.PowerManager;
-import android.support.v4.app.NotificationCompat;
 import android.telephony.SmsManager;
 import android.text.TextUtils;
 
@@ -44,6 +43,8 @@ import org.havenapp.main.sensors.MicrophoneMonitor;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.StringTokenizer;
+
+import androidx.core.app.NotificationCompat;
 
 @SuppressLint("HandlerLeak")
 public class MonitorService extends Service {
@@ -148,7 +149,7 @@ public class MonitorService extends Service {
 
         PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
         wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK,
-                "MyWakelockTag");
+                "haven:MyWakelockTag");
         wakeLock.acquire();
     }
 

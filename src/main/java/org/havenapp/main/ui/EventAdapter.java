@@ -1,7 +1,5 @@
 package org.havenapp.main.ui;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +10,9 @@ import org.havenapp.main.model.Event;
 import org.havenapp.main.resources.IResourceManager;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by n8fr8 on 4/16/17.

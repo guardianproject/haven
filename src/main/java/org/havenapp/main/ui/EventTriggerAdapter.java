@@ -5,9 +5,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.v4.content.FileProvider;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +22,9 @@ import org.havenapp.main.resources.IResourceManager;
 import java.io.File;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.core.content.FileProvider;
+import androidx.recyclerview.widget.RecyclerView;
 import nl.changer.audiowife.AudioWife;
 
 /**
@@ -149,7 +149,6 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
                     AudioWife audioWife = new AudioWife();
                     audioWife.init(context, Uri.fromFile(fileSound))
                             .useDefaultUi(holder.extra, inflater);
-
 
                     break;
                 case EventTrigger.ACCELEROMETER:

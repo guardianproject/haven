@@ -1,7 +1,7 @@
 package org.havenapp.main.database.migration
 
-import android.arch.persistence.db.SupportSQLiteDatabase
-import android.arch.persistence.room.migration.Migration
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 
 /**
  * [Migration] for the transition from Sugar ORM (database version = 3)

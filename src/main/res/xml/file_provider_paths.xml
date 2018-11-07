@@ -1,4 +1,7 @@
-<paths xmlns:android="http://schemas.android.com/apk/res/android">
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
     <files-path name="shared" path="shared/"/>
-    <external-path path="phoneypot/" name="phoneypot" />
+    <external-path path="haven/" name="haven" />
+    <external-path path="Android/data/" name="files_root" />
+    <external-path path="." name="external_storage_root" />
 </paths>

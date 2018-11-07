@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -42,7 +43,9 @@
         android:largeHeap="true"
         android:theme="@style/AppTheme"
         android:fullBackupContent="@xml/backup_config"
-        tools:replace="android:allowBackup">
+        android:supportsRtl="false"
+        tools:replace="android:allowBackup,android:supportsRtl"
+        tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".ListActivity"
             android:configChanges="orientation|screenSize"
@@ -123,13 +126,14 @@
         </receiver>
 
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="androidx.core.content.FileProvider"
             android:authorities="org.havenapp.main.fileprovider"
             android:grantUriPermissions="true"
             android:exported="false">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_provider_paths" />
+                android:resource="@xml/file_provider_paths"
+                />
         </provider>
 
     </application>

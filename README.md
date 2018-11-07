@@ -101,7 +101,6 @@ This project contains source code or library dependencies from the following pro
 * libsignal-service-java from Open Whisper Systems: https://github.com/WhisperSystems/libsignal-service-java (GPLv3)
 * signal-cli from AsamK: https://github.com/AsamK/signal-cli (GPLv3)
 * Sugar ORM from chennaione: https://github.com/chennaione/sugar/ (MIT)
-* Square's Picasso: https://github.com/square/picasso (Apache 2)
 * JayDeep's AudioWife: https://github.com/jaydeepw/audio-wife (MIT)
 * AppIntro: https://github.com/apl-devs/AppIntro (Apache 2)
 * Guardian Project's NetCipher: https://guardianproject.info/code/netcipher/ (Apache 2)

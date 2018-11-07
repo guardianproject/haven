@@ -18,8 +18,6 @@
 package org.havenapp.main;
 
 import android.app.ProgressDialog;
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.Observer;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -30,17 +28,6 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.telephony.SmsManager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -48,9 +35,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.LibsBuilder;
 
+import org.havenapp.main.R;
 import org.havenapp.main.database.HavenEventDB;
 import org.havenapp.main.database.async.EventDeleteAllAsync;
 import org.havenapp.main.database.async.EventDeleteAsync;
@@ -69,6 +59,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import kotlin.Pair;
 
 import static org.havenapp.main.database.DbConstantsKt.DB_INIT_END;
@@ -78,14 +79,12 @@ import static org.havenapp.main.database.DbConstantsKt.DB_INIT_STATUS;
 public class ListActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private FloatingActionButton fab;
-    private Toolbar toolbar;
     private EventAdapter adapter;
     private List<Event> events = new ArrayList<>();
     private PreferenceManager preferences;
     private IResourceManager resourceManager;
 
-    private int REQUEST_CODE_INTRO = 1001;
+    private final static int REQUEST_CODE_INTRO = 1001;
 
     private LiveData<List<Event>> eventListLD;
 
@@ -147,8 +146,8 @@ public class ListActivity extends AppCompatActivity {
         resourceManager = new ResourceManager(this);
         preferences = new PreferenceManager(this.getApplicationContext());
         recyclerView = findViewById(R.id.main_list);
-        fab = findViewById(R.id.fab);
-        toolbar = findViewById(R.id.toolbar);
+        FloatingActionButton fab = findViewById(R.id.fab);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         LocalBroadcastManager.getInstance(this).registerReceiver(dbBroadcastReceiver,
                 new IntentFilter(DB_INIT_STATUS));
@@ -161,7 +160,7 @@ public class ListActivity extends AppCompatActivity {
         ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
 
             @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
             }
 
@@ -183,12 +182,12 @@ public class ListActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
 
             Drawable drawable = ContextCompat.getDrawable(this, R.drawable.ic_play_arrow);
-            drawable = DrawableCompat.wrap(drawable);
-            DrawableCompat.setTint(drawable, Color.WHITE);
-            DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_IN);
-
-            fab.setImageDrawable(drawable);
-
+            if (drawable != null) {
+                drawable = DrawableCompat.wrap(drawable);
+                DrawableCompat.setTint(drawable, Color.WHITE);
+                DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_IN);
+                fab.setImageDrawable(drawable);
+            }
         }
 
 

@@ -162,4 +162,8 @@
     <string name="please_wait">Please wait</string>
     <string name="migrating_data">Looking for your old data</string>
 
+    <!-- accepted digits for directory name - may vary for locale/platform/etc.
+         Skipping periods, spaces, and other special characters to keep it simple -->
+    <string name="path_chars">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_/</string>
+
 </resources>

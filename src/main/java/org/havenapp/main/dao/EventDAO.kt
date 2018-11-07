@@ -1,7 +1,7 @@
 package org.havenapp.main.dao
 
-import android.arch.lifecycle.LiveData
-import android.arch.persistence.room.*
+import androidx.lifecycle.LiveData
+import androidx.room.*
 import org.havenapp.main.model.Event
 
 /**

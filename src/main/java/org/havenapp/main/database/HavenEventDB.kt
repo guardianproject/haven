@@ -1,12 +1,12 @@
 package org.havenapp.main.database
 
-import android.arch.persistence.room.Database
-import android.arch.persistence.room.Room
-import android.arch.persistence.room.RoomDatabase
-import android.arch.persistence.room.TypeConverters
 import android.content.Context
 import android.content.Intent
-import android.support.v4.content.LocalBroadcastManager
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import org.havenapp.main.dao.EventDAO
 import org.havenapp.main.dao.EventTriggerDAO
 import org.havenapp.main.database.converter.HavenEventDBConverters

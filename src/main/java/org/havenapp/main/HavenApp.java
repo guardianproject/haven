@@ -17,9 +17,6 @@
 
 package org.havenapp.main;
 
-import android.support.annotation.NonNull;
-import android.support.multidex.MultiDexApplication;
-import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 
 import com.evernote.android.job.JobManager;
@@ -32,6 +29,10 @@ import org.havenapp.main.service.HavenJobCreator;
 import org.havenapp.main.service.WebServer;
 
 import java.io.IOException;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.multidex.MultiDexApplication;
 
 public class HavenApp extends MultiDexApplication {
 

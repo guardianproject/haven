@@ -1,25 +1,18 @@
 package org.havenapp.main.ui;
 
-import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.content.FileProvider;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.TextUtils;
 import android.view.MenuItem;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
 import org.havenapp.main.R;
+import org.havenapp.main.Utils;
 import org.havenapp.main.database.HavenEventDB;
 import org.havenapp.main.database.async.EventTriggerDeleteAsync;
 import org.havenapp.main.database.async.EventTriggerInsertAsync;
@@ -29,8 +22,19 @@ import org.havenapp.main.resources.IResourceManager;
 import org.havenapp.main.resources.ResourceManager;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.FileProvider;
+import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class EventActivity extends AppCompatActivity implements EventTriggerAdapter.EventTriggerClickListener {
 
@@ -201,7 +205,9 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
 
         for (EventTrigger eventTrigger : eventTriggerList) {
 
-            mEventLog.append("Event Triggered @ ").append(eventTrigger.getTime().toString()).append("\n");
+            mEventLog.append("Event Triggered @ ").append(
+                     new SimpleDateFormat(Utils.DATE_TIME_PATTERN,
+                            Locale.getDefault()).format(eventTrigger.getTime().toString())).append("\n");
 
             String sType = eventTrigger.getStringType(resourceManager);
 

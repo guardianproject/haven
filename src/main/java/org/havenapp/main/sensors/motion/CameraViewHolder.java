@@ -16,20 +16,19 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
-import android.hardware.Camera;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
-import android.support.v8.renderscript.RenderScript;
 import android.util.Log;
 import android.view.Surface;
 
 import com.google.android.cameraview.CameraView;
 
 import org.havenapp.main.PreferenceManager;
+import org.havenapp.main.Utils;
 import org.havenapp.main.model.EventTrigger;
 import org.havenapp.main.service.MonitorService;
 import org.jcodec.api.android.AndroidSequenceEncoder;
@@ -37,13 +36,17 @@ import org.jcodec.api.android.AndroidSequenceEncoder;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+
+import androidx.renderscript.RenderScript;
 
 import io.github.silvaren.easyrs.tools.Nv21Image;
 
@@ -145,9 +148,10 @@ public class CameraViewHolder {
                         File fileImageDir = new File(Environment.getExternalStorageDirectory(), prefs.getDefaultMediaStoragePath());
                         fileImageDir.mkdirs();
 
-                        String ts = new Date().getTime() + ".jpg";
+                        String ts = new SimpleDateFormat(Utils.DATE_TIME_PATTERN,
+                                Locale.getDefault()).format(new Date());
 
-                        File fileImage = new File(fileImageDir, "detected.original." + ts);
+                        File fileImage = new File(fileImageDir, ts.concat(".detected.original.jpg"));
                         FileOutputStream stream = new FileOutputStream(fileImage);
                         rawBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
 
@@ -329,7 +333,8 @@ public class CameraViewHolder {
 
 	    if (doingVideoProcessing)
 	        return false;
-        String ts1 = String.valueOf(new Date().getTime());
+        String ts1 = new SimpleDateFormat(Utils.DATE_TIME_PATTERN,
+                Locale.getDefault()).format(new Date());
         File fileStoragePath = new File(Environment.getExternalStorageDirectory(),prefs.getDefaultMediaStoragePath());
         fileStoragePath.mkdirs();
 

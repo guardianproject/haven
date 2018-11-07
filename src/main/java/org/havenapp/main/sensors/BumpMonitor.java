@@ -1,7 +1,6 @@
 package org.havenapp.main.sensors;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +17,8 @@ import android.util.Log;
 
 import org.havenapp.main.model.EventTrigger;
 import org.havenapp.main.service.MonitorService;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * Use the Significant Motion trigger sensor on API 18+
@@ -49,7 +50,7 @@ public class BumpMonitor {
         context.bindService(new Intent(context,
                 MonitorService.class), mConnection, Context.BIND_ABOVE_CLIENT);
 
-        sensorMgr = (SensorManager) context.getSystemService(Activity.SENSOR_SERVICE);
+        sensorMgr = (SensorManager) context.getSystemService(AppCompatActivity.SENSOR_SERVICE);
         bumpSensor = sensorMgr.getDefaultSensor(Sensor.TYPE_SIGNIFICANT_MOTION);
 
         if (bumpSensor == null) {

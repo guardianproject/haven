@@ -11,9 +11,9 @@ import java.util.concurrent.TimeUnit;
  * Class containing util functions which will be used multiple times throughout the app.
  */
 
-class Utils {
+public class Utils {
 
-    private static final String DATE_TIME_PATTERN = "yyyy-MM-dd_HH:mm:ss";
+    public static final String DATE_TIME_PATTERN = "yyyy-MM-dd_HH-mm-ss.SSS";
 
     static String getTimerText(long milliseconds) {
         String timerText;
@@ -41,7 +41,7 @@ class Utils {
      * The default {@link Locale} is used.
      *
      * @param date concerned {@link Date} instance
-     * @return a string of the format "yyyy-MM-dd_HH:mm:ss" for the corresponding date
+     * @return a string of the format "yyyy-MM-dd_HH-mm-ss.SSS" for the corresponding date
      */
     public static String getDateTime(Date date) {
         return new SimpleDateFormat(DATE_TIME_PATTERN, Locale.getDefault()).format(date);
