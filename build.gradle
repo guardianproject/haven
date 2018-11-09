@@ -99,8 +99,10 @@ android {
             abiFilters "armeabi", "armeabi-v7a", "x86"
         }
 
-        testInstrumentationRunner "android.test.InstrumentationTestRunner"
-        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // clear app state completely between tests
+        testInstrumentationRunnerArguments clearPackageData: 'true'
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -170,8 +172,11 @@ dependencies {
     implementation "android.arch.lifecycle:extensions:1.1.1"
 
     testImplementation "junit:junit:4.12"
-    androidTestImplementation "com.android.support.test.espresso:espresso-core:3.0.2"
-    androidTestImplementation "com.android.support.test.espresso:espresso-intents:3.0.2"
+    androidTestImplementation 'androidx.test:runner:1.1.0'
+    androidTestImplementation 'androidx.test:core:1.0.0'
+    androidTestImplementation 'androidx.test:rules:1.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.1.0'
     androidTestImplementation "android.arch.persistence.room:testing:1.1.1"
 
     // android-job

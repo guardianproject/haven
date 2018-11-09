@@ -1,10 +1,12 @@
 package org.havenapp.main.database.migration
 
-import android.arch.persistence.db.framework.FrameworkSQLiteOpenHelperFactory
-import android.arch.persistence.room.Room
-import android.arch.persistence.room.testing.MigrationTestHelper
-import android.support.test.InstrumentationRegistry
+import androidx.test.core.app.ApplicationProvider
+import androidx.room.Room
+import androidx.room.testing.MigrationTestHelper
+import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory
+import androidx.test.platform.app.InstrumentationRegistry
 import junit.framework.Assert.assertEquals
+import org.havenapp.main.database.HavenEventDB
 import org.havenapp.main.database.converter.HavenEventDBConverters.Companion.dateToTimestamp
 import org.junit.After
 import org.junit.Before
@@ -17,7 +19,7 @@ import org.junit.Test
 class RoomMigrationTest {
     @get:Rule
     val migrationTestHelper = MigrationTestHelper(InstrumentationRegistry.getInstrumentation(),
-            org.havenapp.main.database.HavenEventDB::class.java.canonicalName,
+            HavenEventDB::class.java.canonicalName,
             FrameworkSQLiteOpenHelperFactory())
 
     private var sugarDbOpenHelper: SugarDbOpenHelper? = null
@@ -27,7 +29,7 @@ class RoomMigrationTest {
     @Before
     fun setUpDb() {
         sugarDbOpenHelper =
-                SugarDbOpenHelper(InstrumentationRegistry.getTargetContext(), TEST_DB_NAME)
+                SugarDbOpenHelper(ApplicationProvider.getApplicationContext(), TEST_DB_NAME)
         SugarDbTestHelper.createTables(sugarDbOpenHelper!!)
     }
 
@@ -57,7 +59,7 @@ class RoomMigrationTest {
     }
 
     private fun getMigratedRoomDb(): org.havenapp.main.database.HavenEventDB {
-        val db = Room.databaseBuilder(InstrumentationRegistry.getTargetContext(),
+        val db = Room.databaseBuilder(ApplicationProvider.getApplicationContext(),
                 org.havenapp.main.database.HavenEventDB::class.java, TEST_DB_NAME)
                 .addMigrations(RoomMigration())
                 .build()
