@@ -110,7 +110,7 @@ class RemoveDeletedFilesJob: Job() {
         if (!storageDir.exists() || !storageDir.isDirectory)
             return
 
-        currentFileList.addAll(storageDir.listFiles())
+        storageDir.listFiles() ?: currentFileList.addAll(storageDir.listFiles())
 
         val subDir = storageDir.list { dir, name -> File(dir, name).isDirectory }
         subDir.filter { it != null }.forEach { getAllFileInStorageDir(File(storageDir, it), currentFileList) }
