@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/guardianproject/haven.svg)](https://travis-ci.org/guardianproject/haven)
 
-[![Known Vulnerabilities](https://snyk.io/test/github/lukeswitz/haven/badge.svg?targetFile=build.gradle)](https://snyk.io/test/github/lukeswitz/haven?targetFile=build.gradle)
+[![Known Vulnerabilities](https://snyk.io/test/github/guardianproject/haven/badge.svg?targetFile=build.gradle)](https://snyk.io/test/github/guardianproject/haven?targetFile=build.gradle)
 
 # About Haven
 
