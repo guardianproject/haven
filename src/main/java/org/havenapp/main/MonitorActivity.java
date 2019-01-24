@@ -351,7 +351,7 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
 
         TimePickerDialog mTimePickerDialog = TimePickerDialog.newInstance(this, hours, minutes, seconds, true);
         mTimePickerDialog.enableSeconds(true);
-        mTimePickerDialog.show(getFragmentManager(), "TimePickerDialog");
+        mTimePickerDialog.show(getSupportFragmentManager(), "TimePickerDialog");
     }
 
     @Override

@@ -484,9 +484,9 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         TimePickerDialog mTimePickerDialog = TimePickerDialog.newInstance(this, hours, minutes, seconds, true);
         mTimePickerDialog.enableSeconds(true);
         if (configVideoLength.equalsIgnoreCase(PreferenceManager.CONFIG_TIME_DELAY)) {
-            mTimePickerDialog.show(mActivity.getFragmentManager(), "TimeDelayPickerDialog");
+            mTimePickerDialog.show(getFragmentManager(), "TimeDelayPickerDialog");
         } else {
-            mTimePickerDialog.show(mActivity.getFragmentManager(), "VideoLengthPickerDialog");
+            mTimePickerDialog.show(getFragmentManager(), "VideoLengthPickerDialog");
         }
     }
 
