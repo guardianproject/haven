@@ -26,6 +26,8 @@ import android.os.PowerManager;
 import android.telephony.SmsManager;
 import android.text.TextUtils;
 
+import androidx.core.app.NotificationCompat;
+
 import org.havenapp.main.HavenApp;
 import org.havenapp.main.MonitorActivity;
 import org.havenapp.main.PreferenceManager;
@@ -41,8 +43,6 @@ import org.havenapp.main.sensors.MicrophoneMonitor;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.StringTokenizer;
-
-import androidx.core.app.NotificationCompat;
 
 @SuppressLint("HandlerLeak")
 public class MonitorService extends Service {
