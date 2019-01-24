@@ -181,8 +181,7 @@ public class MonitorService extends Service {
     /**
      * Show a notification while this service is running.
      */
-    @SuppressWarnings("deprecation")
-	private void showNotification() {
+    private void showNotification() {
 
     	Intent toLaunch = new Intent(getApplicationContext(),
     	                                          MonitorActivity.class);
