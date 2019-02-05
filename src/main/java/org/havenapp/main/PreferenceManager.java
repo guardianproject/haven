@@ -305,6 +305,10 @@ public class PreferenceManager {
         return 10;
     }
 
+    public String getBaseStoragePath() {
+        return appSharedPrefs.getString(CONFIG_BASE_STORAGE,CONFIG_BASE_STORAGE_DEFAULT);
+    }
+
     public String getDefaultMediaStoragePath() {
         return appSharedPrefs.getString(CONFIG_BASE_STORAGE,CONFIG_BASE_STORAGE_DEFAULT) + File.separator + getCurrentSession(); //phoneypot is the old code name for Haven
     }
@@ -348,11 +352,11 @@ public class PreferenceManager {
     }
 
     /**
-     * Set the {@link org.havenapp.main.model.Event#mStartTime} for the ongoing event.
+     * Set the {@link org.havenapp.main.model.Event#startTime} for the ongoing event.
      * Sets a string with the format {@link Utils#DATE_TIME_PATTERN}
      * representing current date and time for the key {@link #CURRENT_EVENT_START_TIME}.
      *
-     * @param startTime the {@link org.havenapp.main.model.Event#mStartTime} for an
+     * @param startTime the {@link org.havenapp.main.model.Event#startTime} for an
      * {@link org.havenapp.main.model.Event}
      */
     public void setCurrentSession(Date startTime) {
@@ -361,7 +365,7 @@ public class PreferenceManager {
     }
 
     /**
-     * Get the {@link org.havenapp.main.model.Event#mStartTime} for the ongoing event.
+     * Get the {@link org.havenapp.main.model.Event#startTime} for the ongoing event.
      *
      * @return the string corresponding to pref key {@link #CURRENT_EVENT_START_TIME}.
      * Default value is unknown_session.

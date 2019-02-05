@@ -42,6 +42,7 @@
         android:label="@string/app_name"
         android:largeHeap="true"
         android:theme="@style/AppTheme"
+        android:fullBackupContent="@xml/backup_config"
         android:supportsRtl="false"
         tools:replace="android:allowBackup,android:supportsRtl"
         tools:ignore="GoogleAppIndexingWarning">
@@ -83,6 +84,9 @@
 
         <service
             android:name=".service.MonitorService"
+            android:exported="false" />
+
+        <service android:name=".service.RemoveDeletedFilesJob"
             android:exported="false" />
 
         <meta-data
