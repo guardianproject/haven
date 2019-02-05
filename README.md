@@ -2,7 +2,7 @@
 
 # About Haven
 
-Haven is for people who need a way to protect their personal spaces and possessions without compromising their own privacy. It is an Android application that leverages on-device sensors to provide monitoring and protection of physical spaces. Haven turns any Android phone into a motion, sound, vibration and light detector, watching for unexpected guests and unwanted intruders. We designed Haven for investigative journalists, human rights defenders, and people at risk of forced disappearance to create a new kind of herd immunity. By combining the array of sensors found in any smartphone, with the world's most secure communications technologies, like Signal and Tor, Haven prevents the worst kind of people from silencing citizens without getting caught in the act.
+Haven is for people who need a way to protect their personal areas and possessions without compromising their privacy. It is an Android application that leverages on-device sensors to provide monitoring and protection of physical areas. Haven turns any Android phone into a motion, sound, vibration and light detector, watching for unexpected guests and unwanted intruders. We designed Haven for investigative journalists, human rights defenders and people at risk of forced disappearance to create a new kind of herd immunity. By combining the array of sensors found in any smartphone, with the world's most secure communications technologies, like Signal and Tor, Haven prevents the worst kind of people from silencing citizens without getting caught in the act.
 
 <img src="https://raw.githubusercontent.com/guardianproject/haven/master/fastlane/android/metadata/en-US/images/phoneScreenshots/havenob1.png" width="25%"> 
 <img src="https://raw.githubusercontent.com/guardianproject/haven/master/fastlane/android/metadata/en-US/images/phoneScreenshots/havenob2.png" width="25%"> 
@@ -12,7 +12,7 @@ View our full [Haven App Overview](https://guardianproject.github.io/haven/docs/
 
 ## Announcement and Public Beta
 
-We are announcing Haven today, as an open-source project, along with a public beta release of the app. We are looking for contributors who understand that physical security is as important as digital, and who have an understanding and compassion for the kind of threats faced by the users and communities we want to support. We also think it is really cool, cutting edge, and making use of encrypted messaging and onion routing in whole new ways. We believe Haven points the way to a more sophisticated approach to securing communication within networks of things and home automation system.
+We are announcing Haven today, as an open-source project, along with a public beta release of the app. We are looking for contributors who understand that physical security is as important as digital, and who have an understanding and compassion for the kind of threats faced by the users and communities we want to support. We also think it is cool, cutting-edge and making use of encrypted messaging and onion routing in whole new ways. We believe Haven points the way to a more sophisticated approach to securing communication within networks of things and home automation system.
 
 Learn more about the story of this project at the links below:
 
@@ -28,8 +28,7 @@ Haven was developed through a collaboration between [Freedom of the Press Founda
 ![Guardian Project](https://raw.githubusercontent.com/guardianproject/haven/master/art/logos/gplogo.png)
 
 ## Safety through Sensors
-
-Haven only saves images and sound when triggered by motion or volume, and stores everything locally on the device. You can position the device's camera to capture visible motion, or set your phone somewhere discreet to just listen for noises. Get secure notifications of intrusion events instantly and access the logs remotely or anytime later.
+Haven only records when triggered by sound and motion and stores everything locally on the device. You can position the device's camera to capture visible motion or place your phone somewhere discreet to listen for noises. Receive secure notifications of intrusion events instantly or access logs remotely later.
 
 <img src="https://raw.githubusercontent.com/guardianproject/haven/master/fastlane/android/metadata/en-US/images/phoneScreenshots/haven-sound-config.png" width="25%"> 
 <img src="https://raw.githubusercontent.com/guardianproject/haven/master/fastlane/android/metadata/en-US/images/phoneScreenshots/haven-event-media.png" width="25%"> 
@@ -66,17 +65,17 @@ If you are an Android developer, you can learn more about how you can make use o
 
 ## Why no iPhone Support?
 
-While we hope to support a version of Haven that runs directly on iOS devices in the future, iPhone users can still benefit from Haven today. You can purchase an inexpensive Android phone for less than $100, and use that as your "Haven Device", that you leave behind, while you keep your iPhone with you. If you run Signal on your iPhone, you can configure Haven on Android to send encrypted notifications, with photos and audio, directly to you. If you enable the "Tor Onion Service" feature in Haven (requires installing "Orbot" app as well), you can remotely access all Haven log data from your iPhone, using the Onion Browser app.
+While we hope to support a version of Haven that runs directly on iOS devices in the future, iPhone users can still benefit from Haven today. You can purchase an inexpensive Android phone for less than $100 and use it as your "Haven Device"; leaving it behind whilst you keep your iPhone on you. If you run Signal on your iPhone you can configure Haven on Android to send encrypted notifications, with photos and audio, directly to you. If you enable the "Tor Onion Service" feature in Haven (requires installation of "Orbot" app as well) you can remotely access all Haven log data from your iPhone using the Onion Browser app.
 
-So, no, iPhone users, we didn't forget about you, and we hope you'll pick up an inexpensive Android burner today!
+So, no, iPhone users we didn't forget about you and we hope you will pick up an inexpensive Android burner today!
 
 ## Usage
 
-Haven is meant to provide an easy onboarding experience, that walks users through configuring the sensors on their device to best detect intrusions into their environment.  (The current implementation has some of this implemented, but we are looking to improve this user experience dramatically.)
+Haven is meant to provide a smooth onboarding experience that walks users through configuring the sensors on their device to best detect intrusions into their environment. The current implementation has some of this implemented, but we are looking to improve this user experience dramatically.
 
 ### Main view
 
-Application's main view allows the user to select which sensors to use along with their corresponding levels of sensitivity. A security code must be provided, which will be needed later to disable monitoring. A phone number can be set, to which a message will be sent if any of the sensors is triggered.
+The application's main view allows the user to select which sensors to use along with their corresponding levels of sensitivity. A security code is required to disable monitoring, which must be provided by the user. A phone number can be set, to which a message will be sent if any of the sensors are triggered.
 
 ### Notifications
 
@@ -85,7 +84,7 @@ When one of the sensors is triggered (reaches the configured sensitivity thresho
 - SMS: a message is sent to the number specified when monitoring started
 - Signal: if configured, can send end-to-end encryption notifications via Signal
 
-Note that it's not necessary to install the Signal app on the device that runs Haven. Doing so may invalidate the app's previous Signal registration and safety numbers. Haven uses normal APIs to communicate via Signal.
+Note that it is not necessary to install the Signal app on the device that runs Haven. Doing so may invalidate the app's previous Signal registration and safety numbers. Haven uses normal APIs to communicate via Signal.
 
 Notifications are sent through a service running in the background that is defined in class `MonitorService`.
 
