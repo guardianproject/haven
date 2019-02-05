@@ -56,7 +56,7 @@
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/label_notifications">
 
-        <SwitchPreferenceCompat
+        <SwitchPreference
             android:defaultValue="true"
             android:key="sms_active"
             android:title="@string/sms_label" />
@@ -101,7 +101,7 @@
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/hearbeat_monitor">
 
-        <SwitchPreferenceCompat
+        <SwitchPreference
             android:defaultValue="false"
             android:key="heartbeat_monitor_active"
             android:title="@string/hearbeat_monitor_enable" />
@@ -118,7 +118,7 @@
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/remote_access">
 
-        <SwitchPreferenceCompat
+        <SwitchPreference
             android:defaultValue="false"
             android:key="remote_access_active"
             android:summary="@string/remote_access_label"

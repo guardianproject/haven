@@ -22,6 +22,16 @@ import android.view.View;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.preference.EditTextPreference;
+import androidx.preference.ListPreference;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.SwitchPreference;
+
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
@@ -34,16 +44,6 @@ import org.havenapp.main.ui.MicrophoneConfigureActivity;
 import java.io.File;
 import java.util.Locale;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.preference.EditTextPreference;
-import androidx.preference.ListPreference;
-import androidx.preference.Preference;
-import androidx.preference.PreferenceFragmentCompat;
-import androidx.preference.SwitchPreference;
-import androidx.preference.SwitchPreferenceCompat;
 import info.guardianproject.netcipher.proxy.OrbotHelper;
 
 
@@ -86,7 +86,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         }
 
         if (preferences.getSmsActivation()) {
-            ((SwitchPreferenceCompat) findPreference(PreferenceManager.SMS_ACTIVE)).setChecked(true);
+            ((SwitchPreference) findPreference(PreferenceManager.SMS_ACTIVE)).setChecked(true);
         }
 
         findPreference(PreferenceManager.SMS_NUMBER).setOnPreferenceClickListener(preference -> {
@@ -110,7 +110,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         }
 
         if (preferences.getRemoteAccessActive()) {
-            ((SwitchPreferenceCompat) findPreference(PreferenceManager.REMOTE_ACCESS_ACTIVE)).setChecked(true);
+            ((SwitchPreference) findPreference(PreferenceManager.REMOTE_ACCESS_ACTIVE)).setChecked(true);
         }
 
         if (checkValidString(preferences.getRemoteAccessOnion())) {
@@ -141,7 +141,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
         if (preferences.getHeartbeatActive())
         {
-            ((SwitchPreferenceCompat) findPreference(PreferenceManager.HEARTBEAT_MONITOR_ACTIVE)).setChecked(true);
+            ((SwitchPreference) findPreference(PreferenceManager.HEARTBEAT_MONITOR_ACTIVE)).setChecked(true);
             if (preferences.getHeartbeatActive()) {
                 findPreference(PreferenceManager.HEARTBEAT_MONITOR_DELAY).setSummary(preferences.getHeartbeatNotificationTimeMs() / 60000 + " " + getString(R.string.minutes));
             }
@@ -224,7 +224,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
         preferences.setSignalUsername(((EditTextPreference) findPreference(PreferenceManager.REGISTER_SIGNAL)).getText());
 
-        boolean remoteAccessActive = ((SwitchPreferenceCompat) findPreference(PreferenceManager.REMOTE_ACCESS_ACTIVE)).isChecked();
+        boolean remoteAccessActive = ((SwitchPreference) findPreference(PreferenceManager.REMOTE_ACCESS_ACTIVE)).isChecked();
 
         preferences.activateRemoteAccess(remoteAccessActive);
         String password = ((EditTextPreference) findPreference(PreferenceManager.REMOTE_ACCESS_CRED)).getText();
@@ -237,7 +237,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
         preferences.setVoiceVerification(false);
 
-        boolean heartbeatMonitorActive = ((SwitchPreferenceCompat) findPreference(PreferenceManager.HEARTBEAT_MONITOR_ACTIVE)).isChecked();
+        boolean heartbeatMonitorActive = ((SwitchPreference) findPreference(PreferenceManager.HEARTBEAT_MONITOR_ACTIVE)).isChecked();
 
         preferences.activateHeartbeat(heartbeatMonitorActive);
 
@@ -319,7 +319,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 setPhoneNumber();
                 break;
             case PreferenceManager.REMOTE_ACCESS_ACTIVE:
-                boolean remoteAccessActive = ((SwitchPreferenceCompat) findPreference(PreferenceManager.REMOTE_ACCESS_ACTIVE)).isChecked();
+                boolean remoteAccessActive = ((SwitchPreference) findPreference(PreferenceManager.REMOTE_ACCESS_ACTIVE)).isChecked();
                 if (remoteAccessActive) {
                     checkRemoteAccessOnion();
                     app.startServer();
@@ -349,7 +349,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 break;
             }
             case PreferenceManager.SMS_NUMBER:
-                boolean smsActive = ((SwitchPreferenceCompat) findPreference(PreferenceManager.SMS_ACTIVE)).isChecked();
+                boolean smsActive = ((SwitchPreference) findPreference(PreferenceManager.SMS_ACTIVE)).isChecked();
                 if (smsActive && TextUtils.isEmpty(preferences.getSignalUsername())) {
                     askForPermission(Manifest.permission.SEND_SMS, 6);
                     askForPermission(Manifest.permission.READ_PHONE_STATE, 6);
@@ -395,7 +395,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             }
             case PreferenceManager.HEARTBEAT_MONITOR_ACTIVE: {
                 boolean isMonitoring = preferences.getHeartbeatActive();
-                boolean hbSwitchOn = ((SwitchPreferenceCompat) findPreference(PreferenceManager.HEARTBEAT_MONITOR_ACTIVE)).isChecked();
+                boolean hbSwitchOn = ((SwitchPreference) findPreference(PreferenceManager.HEARTBEAT_MONITOR_ACTIVE)).isChecked();
                 if (!isMonitoring && hbSwitchOn) {
                     preferences.activateHeartbeat(true);
                     findPreference(PreferenceManager.HEARTBEAT_MONITOR_DELAY).setSummary(preferences.getHeartbeatNotificationTimeMs() / 60000 + " " + getString(R.string.minutes));
@@ -423,7 +423,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                     preferences.setHeartbeatMonitorNotifications(notificationTimeMs);
                     findPreference(PreferenceManager.HEARTBEAT_MONITOR_DELAY).setSummary(preferences.getHeartbeatNotificationTimeMs() / 60000 + " " + getString(R.string.minutes));
 
-                    boolean heartbeatActive = ((SwitchPreferenceCompat) findPreference(PreferenceManager.HEARTBEAT_MONITOR_ACTIVE)).isChecked();
+                    boolean heartbeatActive = ((SwitchPreference) findPreference(PreferenceManager.HEARTBEAT_MONITOR_ACTIVE)).isChecked();
                     if (heartbeatActive && preferences.getMonitorServiceActive()) {
                         SignalSender sender = SignalSender.getInstance(getActivity(), preferences.getSignalUsername());
                         sender.stopHeartbeatTimer();
@@ -452,7 +452,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     }
 
     private void setPhoneNumber() {
-        boolean smsActive = ((SwitchPreferenceCompat) findPreference(PreferenceManager.SMS_ACTIVE)).isChecked();
+        boolean smsActive = ((SwitchPreference) findPreference(PreferenceManager.SMS_ACTIVE)).isChecked();
         String phoneNumber = ((EditTextPreference) findPreference(PreferenceManager.SMS_NUMBER)).getText();
         if (smsActive && checkValidString(phoneNumber)) {
             preferences.activateSms(true);
@@ -484,9 +484,9 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         TimePickerDialog mTimePickerDialog = TimePickerDialog.newInstance(this, hours, minutes, seconds, true);
         mTimePickerDialog.enableSeconds(true);
         if (configVideoLength.equalsIgnoreCase(PreferenceManager.CONFIG_TIME_DELAY)) {
-            mTimePickerDialog.show(mActivity.getFragmentManager(), "TimeDelayPickerDialog");
+            mTimePickerDialog.show(getFragmentManager(), "TimeDelayPickerDialog");
         } else {
-            mTimePickerDialog.show(mActivity.getFragmentManager(), "VideoLengthPickerDialog");
+            mTimePickerDialog.show(getFragmentManager(), "VideoLengthPickerDialog");
         }
     }
 
