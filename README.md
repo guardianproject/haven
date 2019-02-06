@@ -98,8 +98,7 @@ This project contains source code or library dependencies from the following pro
 
 * SecureIt project available at: https://github.com/mziccard/secureit Copyright (c) 2014 Marco Ziccardi (Modified BSD)
 * libsignal-service-java from Open Whisper Systems: https://github.com/WhisperSystems/libsignal-service-java (GPLv3)
-* signal-cli from AsamK: https://github.com/AsamK/signal-cli (GPLv3)
-* Sugar ORM from chennaione: https://github.com/chennaione/sugar/ (MIT)
+* Guardian Project fork of signal-cli from AsamK: https://github.com/AsamK/signal-cli , https://github.com/guardianproject/signal-cli-android (GPLv3)
 * JayDeep's AudioWife: https://github.com/jaydeepw/audio-wife (MIT)
 * AppIntro: https://github.com/apl-devs/AppIntro (Apache 2)
 * Guardian Project's NetCipher: https://guardianproject.info/code/netcipher/ (Apache 2)
@@ -110,3 +109,8 @@ This project contains source code or library dependencies from the following pro
 * Audio Waveform Viewer: https://github.com/derlio/audio-waveform (Apache 2)
 * FireZenk's AudioWaves: https://github.com/FireZenk/AudioWaves (MIT)
 * MaxYou's SimpleWaveform: https://github.com/maxyou/SimpleWaveform (MIT)
+* Siralam's fork of CameraViewPlus: https://github.com/siralam/CameraViewPlus (Apache License 2.0)
+* Halil Ozercan's BetterVideoPlayer: https://github.com/halilozercan/BetterVideoPlayer
+* Reneto Silva's easyrs: https://github.com/silvaren/easyrs (MIT)
+* Google's libphonenumber: https://github.com/googlei18n/libphonenumber (Apache License 2.0)
+* Mike Penz's AboutLibraries: https://github.com/mikepenz/AboutLibraries (Apache License 2.0)
