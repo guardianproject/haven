@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.cameraview.CameraView;
+import com.otaliastudios.cameraview.CameraView;
 
 import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.R;
@@ -83,13 +83,6 @@ public final class CameraFragment extends Fragment {
             cameraViewHolder.stopCamera();
         }
     }
-
-    /**
-    public void resetCamera ()
-    {
-        stopCamera();
-        initCamera();
-    }**/
 
     public void initCamera ()
     {

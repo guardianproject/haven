@@ -12,7 +12,6 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.os.Handler;
 
-import com.google.android.cameraview.CameraView;
 
 import org.havenapp.main.sensors.media.ImageCodec;
 
@@ -84,7 +83,7 @@ public class MotionDetector {
                        int width,
                        int height,
                        int rotationDegrees,
-                       int cameraFacing) {
+                       boolean facingFront) {
 
 		int[] newPicLuma = ImageCodec.N21toLuma(rawNewPic, width, height);
 		if (rawOldPic != null) {
@@ -118,7 +117,7 @@ public class MotionDetector {
 
                 Matrix mtx = new Matrix();
 
-                if (cameraFacing == CameraView.FACING_FRONT) {
+                if (facingFront) {
                     mtx.postRotate(-rotationDegrees);
                     mtx.postScale(-1, 1, width / 2, height / 2);
                }

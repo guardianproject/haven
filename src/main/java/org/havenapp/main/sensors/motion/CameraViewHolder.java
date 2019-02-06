@@ -25,7 +25,11 @@ import android.os.RemoteException;
 import android.util.Log;
 import android.view.Surface;
 
-import com.google.android.cameraview.CameraView;
+import com.otaliastudios.cameraview.CameraView;
+import com.otaliastudios.cameraview.Facing;
+import com.otaliastudios.cameraview.Frame;
+import com.otaliastudios.cameraview.FrameProcessor;
+import com.otaliastudios.cameraview.Size;
 
 import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.Utils;
@@ -46,6 +50,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import androidx.annotation.NonNull;
 import androidx.renderscript.RenderScript;
 
 import io.github.silvaren.easyrs.tools.Nv21Image;
@@ -202,28 +207,37 @@ public class CameraViewHolder {
 	 * (preferred is 640x480)
 	 * in order to minimize CPU usage
 	 */
-	public synchronized void startCamera() {
+	public void startCamera() {
 
 
         updateCamera();
 
-        cameraView.start();
+        cameraView.open();
 
-        cameraView.setOnFrameListener((data, width, height, rotationDegrees) -> {
+        cameraView.addFrameProcessor(new FrameProcessor() {
+            @Override
+            public void process(@NonNull Frame frame) {
 
-            long now = System.currentTimeMillis();
-            if (now < CameraViewHolder.this.lastTimestamp + PREVIEW_INTERVAL)
-                return;
+                long now = System.currentTimeMillis();
+                if (now < CameraViewHolder.this.lastTimestamp + PREVIEW_INTERVAL)
+                    return;
 
-            CameraViewHolder.this.lastTimestamp = now;
+                CameraViewHolder.this.lastTimestamp = now;
 
-            if (!doingVideoProcessing) {
+                if (frame.getData() != null && frame.getSize() != null) {
 
-                Log.i("CameraViewHolder", "Processing new image");
+                    byte[] data = frame.getData();
+                    Size size = frame.getSize();
+                    int width = size.getWidth();
+                    int height = size.getHeight();
+                    int rot = getCorrectCameraOrientation(cameraView.getFacing(),frame.getRotation());
 
-                mDecodeThreadPool.execute(() -> processNewFrame(data, width, height, rotationDegrees));
-            } else {
-                mEncodeVideoThreadPool.execute(() -> recordNewFrame(data, width, height, rotationDegrees));
+                    if (!doingVideoProcessing) {
+                        mDecodeThreadPool.execute(() -> processNewFrame(data, width, height, rot));
+                    } else {
+                        mEncodeVideoThreadPool.execute(() -> recordNewFrame(data, width, height, rot));
+                    }
+                }
             }
         });
 
@@ -234,12 +248,10 @@ public class CameraViewHolder {
     {
         switch (prefs.getCamera()) {
             case PreferenceManager.FRONT:
-                if (cameraView.getFacing() != CameraView.FACING_FRONT)
-                    cameraView.setFacing(CameraView.FACING_FRONT);
+                    cameraView.setFacing(Facing.FRONT);
                 break;
             case PreferenceManager.BACK:
-                if (cameraView.getFacing() != CameraView.FACING_BACK)
-                    cameraView.setFacing(CameraView.FACING_BACK);
+                    cameraView.setFacing(Facing.BACK);
                 break;
             default:
                 //	camera = null;
@@ -321,8 +333,8 @@ public class CameraViewHolder {
                 data,
                 width,
                 height,
-                cameraView.getDefaultOrientation(),
-                cameraView.getFacing());
+                rotationDegrees,
+                cameraView.getFacing()==Facing.FRONT);
 
         lastPic = data;
 
@@ -349,12 +361,12 @@ public class CameraViewHolder {
 
         mtxVideoRotate = new Matrix();
 
-        if (cameraView.getFacing() == CameraView.FACING_FRONT) {
-            mtxVideoRotate.postRotate(-cameraView.getDefaultOrientation());
+        if (cameraView.getFacing() == Facing.FRONT) {
+            mtxVideoRotate.postRotate(-cameraView.getRotation());
             mtxVideoRotate.postScale(-1, 1, cameraView.getWidth() / 2, cameraView.getHeight() / 2);
         }
         else
-            mtxVideoRotate.postRotate(cameraView.getDefaultOrientation());
+           mtxVideoRotate.postRotate(cameraView.getRotation());
 
         doingVideoProcessing = true;
 
@@ -374,13 +386,10 @@ public class CameraViewHolder {
     public synchronized void stopCamera ()
     {
         if (cameraView != null) {
-           cameraView.stop();
+           cameraView.close();
         }
     }
 
-    public int getCameraFacing() {
-        return cameraView.getFacing();
-    }
 
     public void destroy ()
     {
@@ -391,7 +400,7 @@ public class CameraViewHolder {
         stopCamera();
     }
 
-    public int getCorrectCameraOrientation(int facing, int orientation) {
+    public int getCorrectCameraOrientation(Facing facing, int orientation) {
 
         int rotation = context.getWindowManager().getDefaultDisplay().getRotation();
         int degrees = 0;
@@ -416,7 +425,7 @@ public class CameraViewHolder {
         }
 
         int result;
-        if(facing == CameraView.FACING_FRONT){
+        if(facing == Facing.FRONT){
             result = (orientation + degrees) % 360;
             result = (360 - result) % 360;
         }else{
