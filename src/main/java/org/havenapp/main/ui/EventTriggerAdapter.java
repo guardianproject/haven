@@ -101,11 +101,17 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<EventTriggerAdapte
                 case EventTrigger.CAMERA:
                     holder.image.setVisibility(View.VISIBLE);
 
+                    /**
                     Uri fileUri = FileProvider.getUriForFile(
                             context,
                             AUTHORITY,
                             new File(eventTrigger.getPath()));
                     holder.image.setImageURI(fileUri);
+                    **/
+
+                    Uri fileUri = Uri.parse("file://" + eventTrigger.getPath());
+                    holder.image.setImageURI(fileUri);
+
 
                     holder.image.setOnClickListener(view -> {
                         if (eventTriggerClickListener != null)
