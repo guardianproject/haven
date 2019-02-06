@@ -1,11 +1,11 @@
 buildscript {
-    ext.kotlin_version = '1.2.60'
+    ext.kotlin_version = '1.3.0'
     repositories {
         google()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.0-alpha01'
+        classpath 'com.android.tools.build:gradle:3.3.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 
@@ -133,11 +133,7 @@ android {
 }
 
 dependencies {
-<<<<<<< HEAD
     implementation 'androidx.appcompat:appcompat:1.0.2'
-=======
-    implementation 'androidx.appcompat:appcompat:1.0.1'
->>>>>>> 68cf160e0173ec91057984f81c802ab3566a3eca
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.preference:preference:1.0.0'
