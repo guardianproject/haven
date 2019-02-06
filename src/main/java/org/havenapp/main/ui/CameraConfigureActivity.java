@@ -19,17 +19,16 @@ package org.havenapp.main.ui;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.SeekBar;
 
 import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.R;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import me.angrybyte.numberpicker.listener.OnValueChangeListener;
 import me.angrybyte.numberpicker.view.ActualNumberPicker;
 

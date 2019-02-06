@@ -19,17 +19,18 @@ package org.havenapp.main;
 
 import android.util.Log;
 
+import com.evernote.android.job.JobManager;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.facebook.imagepipeline.decoder.SimpleProgressiveJpegConfig;
-import com.orm.SchemaGenerator;
-import com.orm.SugarContext;
-import com.orm.SugarDb;
 
+import org.havenapp.main.database.HavenEventDB;
+import org.havenapp.main.service.HavenJobCreator;
 import org.havenapp.main.service.WebServer;
 
 import java.io.IOException;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.multidex.MultiDexApplication;
 
@@ -43,14 +44,13 @@ public class HavenApp extends MultiDexApplication {
 
     private PreferenceManager mPrefs = null;
 
+    private static HavenEventDB dataBaseInstance = null;
+
+    private static HavenApp havenApp;
+
     @Override
     public void onCreate() {
         super.onCreate();
-
-        SugarContext.init(getApplicationContext());
-
-        SchemaGenerator schemaGenerator = new SchemaGenerator(this);
-        schemaGenerator.createDatabase(new SugarDb(this).getDB());
 
         mPrefs = new PreferenceManager(this);
 
@@ -61,11 +61,16 @@ public class HavenApp extends MultiDexApplication {
                 .build();
 
         Fresco.initialize(this,config);
-
+        
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
         if (mPrefs.getRemoteAccessActive())
             startServer();
+
+        havenApp = this;
+        dataBaseInstance = HavenEventDB.getDatabase(this);
+
+        JobManager.create(this).addJobCreator(new HavenJobCreator());
     }
 
 
@@ -89,5 +94,15 @@ public class HavenApp extends MultiDexApplication {
         {
             mOnionServer.stop();
         }
+    }
+
+    @NonNull
+    public static HavenApp getInstance() {
+        return havenApp;
+    }
+
+    @NonNull
+    public static HavenEventDB getDataBaseInstance() {
+        return dataBaseInstance;
     }
 }

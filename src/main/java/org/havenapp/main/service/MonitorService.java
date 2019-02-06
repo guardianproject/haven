@@ -32,8 +32,10 @@ import org.havenapp.main.HavenApp;
 import org.havenapp.main.MonitorActivity;
 import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.R;
+import org.havenapp.main.database.HavenEventDB;
 import org.havenapp.main.model.Event;
 import org.havenapp.main.model.EventTrigger;
+import org.havenapp.main.resources.ResourceManager;
 import org.havenapp.main.sensors.AccelerometerMonitor;
 import org.havenapp.main.sensors.AmbientLightMonitor;
 import org.havenapp.main.sensors.BarometerMonitor;
@@ -293,7 +295,9 @@ public class MonitorService extends Service {
 
         if (mLastEvent == null) {
             mLastEvent = new Event();
-            mLastEvent.save();
+            long eventId = HavenEventDB.getDatabase(getApplicationContext())
+                    .getEventDAO().insert(mLastEvent);
+            mLastEvent.setId(eventId);
             doNotification = true;
             // set current event start date in prefs
             mPrefs.setCurrentSession(mLastEvent.getStartTime());
@@ -320,7 +324,9 @@ public class MonitorService extends Service {
         mLastEvent.addEventTrigger(eventTrigger);
 
         //we don't need to resave the event, only the trigger
-        eventTrigger.save();
+        long eventTriggerId = HavenEventDB.getDatabase(getApplicationContext())
+                .getEventTriggerDAO().insert(eventTrigger);
+        eventTrigger.setId(eventTriggerId);
 
         if (doNotification) {
 
@@ -330,7 +336,8 @@ public class MonitorService extends Service {
              * number
              */
             StringBuilder alertMessage = new StringBuilder();
-            alertMessage.append(getString(R.string.intrusion_detected, eventTrigger.getStringType(this)));
+            alertMessage.append(getString(R.string.intrusion_detected,
+                    eventTrigger.getStringType(new ResourceManager(this))));
 
             if (mPrefs.getSignalUsername() != null) {
                 //since this is a secure channel, we can add the Onion address
