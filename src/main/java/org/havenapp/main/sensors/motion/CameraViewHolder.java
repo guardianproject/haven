@@ -51,7 +51,6 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
-import androidx.renderscript.RenderScript;
 
 import io.github.silvaren.easyrs.tools.Nv21Image;
 
@@ -107,7 +106,7 @@ public class CameraViewHolder {
     private File videoFile;
 
     //for managing bitmap processing
-    private RenderScript renderScript;
+    //private RenderScript renderScript;
 
 	private ServiceConnection mConnection = new ServiceConnection() {
 
@@ -128,12 +127,11 @@ public class CameraViewHolder {
 		//super(context);
 		this.context = context;
 		this.cameraView = cameraView;
-        this.renderScript = RenderScript.create(context); // where context can be your activity, application, etc.
+        //this.renderScript = RenderScript.create(context); // where context can be your activity, application, etc.
 
 		prefs = new PreferenceManager(context);
 
         task = new MotionDetector(
-                renderScript,
                 updateHandler,
                 motionSensitivity);
 
@@ -287,7 +285,8 @@ public class CameraViewHolder {
     private void recordNewFrame (byte[] data, int width, int height, int rotationDegrees)
     {
 
-        Bitmap bitmap = Nv21Image.nv21ToBitmap(renderScript, data, width, height);
+        Bitmap bitmap = MotionDetector.convertImage(data, width, height);
+                //Nv21Image.nv21ToBitmap(renderScript, data, width, height);
 
         bitmap = Bitmap.createBitmap(bitmap,0,0,width,height,mtxVideoRotate,true);
 
