@@ -16,7 +16,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.otaliastudios.cameraview.Audio;
 import com.otaliastudios.cameraview.CameraView;
+import com.otaliastudios.cameraview.SizeSelector;
 
 import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.R;
@@ -63,9 +65,7 @@ public final class CameraFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-       // if (cameraViewHolder == null)
-            initCamera();
-
+        initCamera();
 
         cameraViewHolder.setMotionSensitivity(prefs.getCameraSensitivity());
     }
@@ -94,6 +94,7 @@ public final class CameraFragment extends Fragment {
             //Uncomment to see the camera
 
             CameraView cameraView = getActivity().findViewById(R.id.camera_view);
+            cameraView.setAudio(Audio.OFF);
 
             if (cameraViewHolder == null) {
                 cameraViewHolder = new CameraViewHolder(getActivity(), cameraView);
