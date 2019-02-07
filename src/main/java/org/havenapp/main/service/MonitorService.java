@@ -11,8 +11,6 @@ package org.havenapp.main.service;
 
 
 import android.annotation.SuppressLint;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
@@ -26,6 +24,7 @@ import android.os.PowerManager;
 import android.telephony.SmsManager;
 import android.text.TextUtils;
 
+import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
 import org.havenapp.main.HavenApp;
@@ -57,8 +56,6 @@ public class MonitorService extends Service {
     /**
      * To show a notification on service start
      */
-    private NotificationManager manager;
-    private NotificationChannel mChannel;
     private final static String channelId = "monitor_id";
     private final static CharSequence channelName = "Haven notifications";
     private final static String channelDescription= "Important messages from Haven";
@@ -129,16 +126,10 @@ public class MonitorService extends Service {
 
         mApp = (HavenApp)getApplication();
 
-        manager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         mPrefs = new PreferenceManager(this);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            mChannel = new NotificationChannel(channelId, channelName,
-                    NotificationManager.IMPORTANCE_HIGH);
-            mChannel.setDescription(channelDescription);
-            mChannel.setLightColor(Color.RED);
-            mChannel.setImportance(NotificationManager.IMPORTANCE_MIN);
-            manager.createNotificationChannel(mChannel);
+            setupNotificationChannel();
         }
 
         startSensors();
@@ -151,6 +142,19 @@ public class MonitorService extends Service {
         wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK,
                 "haven:MyWakelockTag");
         wakeLock.acquire();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void setupNotificationChannel ()
+    {
+        android.app.NotificationManager manager = (android.app.NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+        android.app.NotificationChannel channel;
+        channel = new android.app.NotificationChannel(channelId, channelName,
+                android.app.NotificationManager.IMPORTANCE_HIGH);
+        channel.setDescription(channelDescription);
+        channel.setLightColor(Color.RED);
+        channel.setImportance(android.app.NotificationManager.IMPORTANCE_MIN);
+        manager.createNotificationChannel(channel);
     }
 
     public static MonitorService getInstance ()
