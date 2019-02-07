@@ -18,11 +18,9 @@ import android.widget.TextView;
 
 import com.otaliastudios.cameraview.Audio;
 import com.otaliastudios.cameraview.CameraView;
-import com.otaliastudios.cameraview.SizeSelector;
 
 import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.R;
-import org.havenapp.main.sensors.motion.CameraViewHolder;
 
 import androidx.fragment.app.Fragment;
 
@@ -99,7 +97,7 @@ public final class CameraFragment extends Fragment {
             if (cameraViewHolder == null) {
                 cameraViewHolder = new CameraViewHolder(getActivity(), cameraView);
 
-                cameraViewHolder.addListener((oldBitmap, newBitmap, rawBitmap, motionDetected) -> {
+                cameraViewHolder.addListener((newBitmap, rawBitmap, motionDetected) -> {
                     if (motionDetected)
                         newImage.setImageBitmap(newBitmap);
                     else

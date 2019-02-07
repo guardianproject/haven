@@ -7,7 +7,7 @@
  * Licensed under the MIT license.
  */
 
-package org.havenapp.main.sensors.motion;
+package org.havenapp.main.ui;
 
 import android.app.Activity;
 import android.content.ComponentName;
@@ -30,10 +30,13 @@ import com.otaliastudios.cameraview.Facing;
 import com.otaliastudios.cameraview.Frame;
 import com.otaliastudios.cameraview.FrameProcessor;
 import com.otaliastudios.cameraview.Size;
+import com.otaliastudios.cameraview.SizeSelector;
 
 import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.Utils;
 import org.havenapp.main.model.EventTrigger;
+import org.havenapp.main.sensors.motion.LuminanceMotionDetector;
+import org.havenapp.main.sensors.motion.MotionDetector;
 import org.havenapp.main.service.MonitorService;
 import org.jcodec.api.android.AndroidSequenceEncoder;
 
@@ -52,8 +55,6 @@ import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
 
-import io.github.silvaren.easyrs.tools.Nv21Image;
-
 public class CameraViewHolder {
 
     /**
@@ -61,7 +62,8 @@ public class CameraViewHolder {
      */
     private PreferenceManager prefs;
 
-    private final static int PREVIEW_INTERVAL = 200;
+    private final static int DETECTION_INTERVAL_MS = 300;
+    private final static int MAX_CAMERA_WIDTH = 800;
 
     private List<MotionDetector.MotionListener> listeners = new ArrayList<>();
 
@@ -135,10 +137,10 @@ public class CameraViewHolder {
                 updateHandler,
                 motionSensitivity);
 
-        task.addListener((sourceImage, detectedImage, rawBitmap, motionDetected) -> {
+        task.addListener((detectedImage, rawBitmap, motionDetected) -> {
 
             for (MotionDetector.MotionListener listener : listeners)
-                listener.onProcess(sourceImage,detectedImage,rawBitmap,motionDetected);
+                listener.onProcess(detectedImage,rawBitmap,motionDetected);
 
             if (motionDetected) {
 
@@ -210,6 +212,22 @@ public class CameraViewHolder {
 
         updateCamera();
 
+        cameraView.setPlaySounds(false);
+        cameraView.setPreviewSize(new SizeSelector() {
+            @NonNull
+            @Override
+            public List<Size> select(@NonNull List<Size> source) {
+                ArrayList<Size> result = new ArrayList<>();
+
+                for (Size size : source)
+                {
+                    if (size.getWidth()<MAX_CAMERA_WIDTH)
+                        result.add(size);
+                }
+
+                return result;
+            }
+        });
         cameraView.open();
 
         cameraView.addFrameProcessor(new FrameProcessor() {
@@ -217,7 +235,7 @@ public class CameraViewHolder {
             public void process(@NonNull Frame frame) {
 
                 long now = System.currentTimeMillis();
-                if (now < CameraViewHolder.this.lastTimestamp + PREVIEW_INTERVAL)
+                if (now < CameraViewHolder.this.lastTimestamp + DETECTION_INTERVAL_MS)
                     return;
 
                 CameraViewHolder.this.lastTimestamp = now;
@@ -376,7 +394,7 @@ public class CameraViewHolder {
         }, seconds);
 
         for (MotionDetector.MotionListener listener : listeners)
-            listener.onProcess(null, null, null, false);
+            listener.onProcess(null, null, false);
 
         return true;
     }
