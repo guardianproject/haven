@@ -55,6 +55,7 @@ public class PreferenceManager {
     public static final String CONFIG_MOVEMENT ="config_movement";
     public static final String HEARTBEAT_MONITOR_ACTIVE="heartbeat_monitor_active";
     public static final String HEARTBEAT_MONITOR_DELAY="heartbeat_monitor_delay";
+    public static final String HEARTBEAT_MONITOR_MESSAGE="heartbeat_monitor_message";
     public static final String MONITOR_SERVICE_ACTIVE="monitor_service_active";
     private static final String FLASH_ACTIVE="flash_active";
     private static final String MICROPHONE_ACTIVE="microphone_active";
@@ -350,6 +351,26 @@ public class PreferenceManager {
     public int getHeartbeatNotificationTimeMs () {
         return appSharedPrefs.getInt(HEARTBEAT_MONITOR_DELAY,300000);
     }
+
+    public String getHeartbeatMonitorMessage ()
+    {
+        return appSharedPrefs.getString(HEARTBEAT_MONITOR_MESSAGE,null);
+    }
+
+    public void setHeartbeatMonitorMessage (String hearbeatMessage)
+    {
+        prefsEditor.putString(HEARTBEAT_MONITOR_MESSAGE, hearbeatMessage);
+        prefsEditor.commit();
+    }
+
+    public String getHearbeatPrefix() {
+        return context.getString(R.string.hearbeat_monitor_initial_message_1);
+    }
+
+    public String getHeartbeatSuffix() {
+        return context.getString(R.string.hearbeat_monitor_initial_message_2);
+    }
+
 
     /**
      * Set the {@link org.havenapp.main.model.Event#startTime} for the ongoing event.
