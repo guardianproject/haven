@@ -1,9 +1,9 @@
 package org.havenapp.main.database.migration
 
-import androidx.test.core.app.ApplicationProvider
 import androidx.room.Room
 import androidx.room.testing.MigrationTestHelper
 import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.platform.app.InstrumentationRegistry
 import junit.framework.Assert.assertEquals
 import org.havenapp.main.database.HavenEventDB

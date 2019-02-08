@@ -18,7 +18,6 @@ import android.widget.TextView;
 
 import com.otaliastudios.cameraview.Audio;
 import com.otaliastudios.cameraview.CameraView;
-import com.otaliastudios.cameraview.SizeSelector;
 
 import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.R;

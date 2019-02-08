@@ -52,8 +52,6 @@ import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
 
-import io.github.silvaren.easyrs.tools.Nv21Image;
-
 public class CameraViewHolder {
 
     /**

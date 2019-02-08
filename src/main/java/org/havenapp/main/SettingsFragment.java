@@ -22,16 +22,6 @@ import android.view.View;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.preference.EditTextPreference;
-import androidx.preference.ListPreference;
-import androidx.preference.Preference;
-import androidx.preference.PreferenceFragmentCompat;
-import androidx.preference.SwitchPreference;
-
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
@@ -44,6 +34,15 @@ import org.havenapp.main.ui.MicrophoneConfigureActivity;
 import java.io.File;
 import java.util.Locale;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.preference.EditTextPreference;
+import androidx.preference.ListPreference;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.SwitchPreference;
 import info.guardianproject.netcipher.proxy.OrbotHelper;
 
 
