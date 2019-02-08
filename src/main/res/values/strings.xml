@@ -165,5 +165,6 @@
     <!-- accepted digits for directory name - may vary for locale/platform/etc.
          Skipping periods, spaces, and other special characters to keep it simple -->
     <string name="path_chars">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_/</string>
+    <string name="motion_detected">MOTION DETECTED</string>
 
 </resources>

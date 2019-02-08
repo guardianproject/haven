@@ -36,7 +36,6 @@ public class MotionDetector {
 	// Input data
 	
 	private List<MotionListener> listeners = new ArrayList<>();
-	private Handler handler;
 	private int motionSensitivity;
 	// Output data
 
@@ -58,13 +57,12 @@ public class MotionDetector {
 	}
 	
 	public MotionDetector(
-
-			Handler updateHandler,
 			int motionSensitivity) {
 	   // this.renderScript = renderScript;
-		this.handler = updateHandler;
 		this.motionSensitivity = motionSensitivity;
         detector = new LuminanceMotionDetector();
+
+
 
     }
 
@@ -87,8 +85,8 @@ public class MotionDetector {
                        boolean facingFront) {
 
 		int[] newPicLuma = ImageCodec.N21toLuma(rawNewPic, width, height);
-		if (rawOldPic != null) {
 
+		if (rawOldPic != null) {
 
 			detector.setThreshold(motionSensitivity);
 			List<Integer> changedPixels =
@@ -96,9 +94,9 @@ public class MotionDetector {
 
 			if (changedPixels != null) {
 
+			    /*
 				int[] newPic = ImageCodec.lumaToGreyscale(newPicLuma, width, height);
 				newPicLuma = null;
-
 
                 System.gc();
 
@@ -108,8 +106,6 @@ public class MotionDetector {
                 for (int changedPixel : changedPixels) {
                     newPic[changedPixel] = detectColor;
                 }
-
-
 
                 Matrix mtx = new Matrix();
 
@@ -124,31 +120,26 @@ public class MotionDetector {
                         = Bitmap.createBitmap(Bitmap.createBitmap(newPic, width, height, Bitmap.Config.ARGB_4444), 0, 0, width, height, mtx, true);
 
                 newPic = null;
+                */
 
                 Bitmap rawBitmap = convertImage(rawNewPic,width,height);
 
-                handler.post(() -> {
-                    for (MotionListener listener : listeners) {
-                        listener.onProcess(
-                                newBitmap,
-                                rawBitmap,
-                                true);
-                    }
-
-                });
+                for (MotionListener listener : listeners) {
+                    listener.onProcess(
+                            null,
+                            rawBitmap,
+                            true);
+                }
 			}
 			else
             {
-                //nothing changed
-                handler.post(() -> {
-                    for (MotionListener listener : listeners) {
-                        listener.onProcess(
-                                null,
-                                null,
-                                false);
-                    }
+                for (MotionListener listener : listeners) {
+                    listener.onProcess(
+                            null,
+                            null,
+                            false);
+                }
 
-                });
             }
 
 		}

@@ -8,8 +8,11 @@
  */
 package org.havenapp.main.ui;
 
+import android.graphics.Bitmap;
 import android.hardware.SensorEvent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +33,41 @@ public final class CameraFragment extends Fragment {
     private ImageView newImage;
     private PreferenceManager prefs;
     private TextView txtCameraStatus;
+    private Bitmap lastBitmap;
+
+    /**
+     * Handler used to update back the UI after motion detection
+     */
+    private final Handler handler = new Handler()
+    {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+            if (!isDetached()) {
+                if (txtCameraStatus != null) {
+
+                    if (msg.what == 0) {
+                        //                newImage.setImageResource(R.drawable.blankimage);
+                        txtCameraStatus.setText("");
+
+                    } else if (msg.what == 1) {
+                        //               newImage.setImageBitmap(lastBitmap);
+                        txtCameraStatus.setText(getString(R.string.motion_detected));
+
+                    }
+
+
+                    /**
+                    if (cameraViewHolder.doingVideoProcessing()) {
+                        txtCameraStatus.setText("Recording...");
+                    } else {
+                        txtCameraStatus.setText("");
+                    }**/
+                }
+            }
+        }
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -98,18 +136,11 @@ public final class CameraFragment extends Fragment {
                 cameraViewHolder = new CameraViewHolder(getActivity(), cameraView);
 
                 cameraViewHolder.addListener((newBitmap, rawBitmap, motionDetected) -> {
-                    if (motionDetected)
-                        newImage.setImageBitmap(newBitmap);
-                    else
-                        newImage.setImageResource(R.drawable.blankimage);
 
-                    if (txtCameraStatus != null) {
-                        if (cameraViewHolder.doingVideoProcessing()) {
-                            txtCameraStatus.setText("Recording...");
-                        } else {
-                            txtCameraStatus.setText("");
-                        }
-                    }
+                  lastBitmap = rawBitmap;
+
+                  handler.sendEmptyMessage(motionDetected?1:0);
+
 
                 });
             }
