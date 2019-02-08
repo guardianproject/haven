@@ -154,6 +154,13 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             findPreference(PreferenceManager.HEARTBEAT_MONITOR_DELAY).setSummary(preferences.getHeartbeatNotificationTimeMs() / 60000 + " " + getString(R.string.minutes));
         }
 
+        if (preferences.getHeartbeatMonitorMessage() == null)
+        {
+            findPreference(PreferenceManager.HEARTBEAT_MONITOR_MESSAGE).setSummary(R.string.hearbeat_message_summary);
+        } else {
+            findPreference(PreferenceManager.HEARTBEAT_MONITOR_MESSAGE).setSummary(R.string.hearbeat_message_summary_on);
+        }
+
         Preference prefCameraSensitivity = findPreference(PreferenceManager.CAMERA_SENSITIVITY);
         prefCameraSensitivity.setOnPreferenceClickListener(preference -> {
             startActivity(new Intent(mActivity, CameraConfigureActivity.class));
@@ -431,6 +438,19 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                     }
                 } catch (NumberFormatException ne) {
                     //error parsing user value
+                }
+                break;
+            }
+            case PreferenceManager.HEARTBEAT_MONITOR_MESSAGE: {
+                String text = ((EditTextPreference) findPreference(PreferenceManager.HEARTBEAT_MONITOR_MESSAGE)).getText();
+
+                if (checkValidString(text)) {
+                    preferences.setHeartbeatMonitorMessage(text);
+                    findPreference(PreferenceManager.HEARTBEAT_MONITOR_MESSAGE).setSummary(R.string.hearbeat_message_summary_on);
+                }
+                else {
+                    preferences.setHeartbeatMonitorMessage(null);
+                    findPreference(PreferenceManager.HEARTBEAT_MONITOR_MESSAGE).setSummary(R.string.hearbeat_message_summary);
                 }
                 break;
             }

@@ -140,7 +140,7 @@
     <string name="notification_time">Notification Time Interval</string>
     <string name="notification_time_summary">Only send notifications at configured interval</string>
     <string name="notification_time_dialog">Enter time (minutes) to limit notifications. \'0\' to send every notification.</string>
-    <string name="minutes">minutes(s)</string>
+    <string name="minutes">minute(s)</string>
     <string name="keep_watch">Keep Watch!</string>
     <string name="camera_sensitivity_tip">Switch camera or use the slider to adjust motion detection sensitivity</string>
     <string name="disable_battery_opt_title">Disable Battery Optimizations</string>
@@ -150,11 +150,19 @@
     <string name="remove_all_logs">Remove all logs</string>
     <string name="events_deleted">Events deleted</string>
 
-    <string name="hearbeat_monitor">Heartbeat Monitor</string>
-    <string name="hearbeat_monitor_enable">Enable Heartbeat Notifications</string>
-    <string name="hearbeat_monitor_summary">Monitor Time Interval</string>
-    <string name="heartbeat_time_dialog">Enter interval time (minutes) to receive notifications:\n\nMinimum of 1, default is 5.</string>
-    <string name="hearbeat_monitor_dialog">Set alert delay for the status notifications </string>
+    <string name="hearbeat_monitor">Haven Heartbeat Monitor</string>
+    <string name="hearbeat_monitor_enable">Enable Heartbeat Alert</string>
+    <string name="hearbeat_monitor_summary">Checkup Interval</string>
+    <string name="heartbeat_time_dialog">Enter time (minutes) for battery % and a single-character, heart emoji to be sent. Alerts cease if monitoring is deactivated for any reason</string>
+    <string name="hearbeat_monitor_dialog">Configure delay between alerts</string>
+    <string name="hearbeat_message_dialog">Customize message sent for heartbeat notifications. Leave blank to use default heart emoji</string>
+    <string name="hearbeat_message_title">Alert Message</string>
+    <string name="hearbeat_message_summary">Receive customized messages</string>
+    <string name="hearbeat_message_summary_on">Custom alerts enabled</string>
+    <string name="hearbeat_monitor_initial_message_1">Heartbeat monitor activate: You will receive a notification every</string>
+    <string name="hearbeat_monitor_initial_message_2">minute(s) Haven is active &amp; monitoring.</string>
+    <string name="battery_level_msg_text">Battery Level</string>
+
     <string name="title_activity_video_player">VideoPlayerActivity</string>
     <string name="config_storage_path">Storage Folder Path</string>
     <string name="config_storage_page_hint">Where captured media is stored</string>
