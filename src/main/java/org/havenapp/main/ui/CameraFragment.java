@@ -8,6 +8,10 @@
  */
 package org.havenapp.main.ui;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.hardware.SensorEvent;
 import android.os.Bundle;
@@ -24,8 +28,10 @@ import com.otaliastudios.cameraview.CameraView;
 
 import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.R;
+import org.havenapp.main.model.EventTrigger;
 
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 public final class CameraFragment extends Fragment {
 
@@ -33,7 +39,6 @@ public final class CameraFragment extends Fragment {
     private ImageView newImage;
     private PreferenceManager prefs;
     private TextView txtCameraStatus;
-    private Bitmap lastBitmap;
 
     /**
      * Handler used to update back the UI after motion detection
@@ -47,25 +52,42 @@ public final class CameraFragment extends Fragment {
             if (!isDetached()) {
                 if (txtCameraStatus != null) {
 
-                    if (msg.what == 0) {
-                        //                newImage.setImageResource(R.drawable.blankimage);
-                        txtCameraStatus.setText("");
-
-                    } else if (msg.what == 1) {
-                        //               newImage.setImageBitmap(lastBitmap);
-                        txtCameraStatus.setText(getString(R.string.motion_detected));
-
+                    if (msg.what == EventTrigger.CAMERA) {
+                         if (cameraViewHolder.doingVideoProcessing()) {
+                             txtCameraStatus.setText(getString(R.string.motion_detected)
+                                     + "\n" + getString(R.string.status_recording_video));
+                         } else {
+                             txtCameraStatus.setText(getString(R.string.motion_detected));
+                         }
+                    }
+                    else if (msg.what == EventTrigger.POWER) {
+                        txtCameraStatus.setText(getString(R.string.power_detected));
+                    }
+                    else if (msg.what == EventTrigger.MICROPHONE) {
+                        txtCameraStatus.setText(getString(R.string.sound_detected));
+                    }
+                    else if (msg.what == EventTrigger.ACCELEROMETER || msg.what == EventTrigger.BUMP) {
+                        txtCameraStatus.setText(getString(R.string.device_move_detected));
+                    }
+                    else if (msg.what == EventTrigger.LIGHT) {
+                        txtCameraStatus.setText(getString(R.string.status_light));
                     }
 
 
-                    /**
-                    if (cameraViewHolder.doingVideoProcessing()) {
-                        txtCameraStatus.setText("Recording...");
-                    } else {
-                        txtCameraStatus.setText("");
-                    }**/
                 }
             }
+        }
+    };
+
+    BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            int eventType = intent.getIntExtra("type",-1);
+
+            //String path = intent.getData().getPath();
+
+            handler.sendEmptyMessage(eventType);
         }
     };
 
@@ -96,6 +118,7 @@ public final class CameraFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
+        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(receiver);
     }
 
     @Override
@@ -104,6 +127,10 @@ public final class CameraFragment extends Fragment {
         initCamera();
 
         cameraViewHolder.setMotionSensitivity(prefs.getCameraSensitivity());
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("event");
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver,filter );
     }
 
     public void updateCamera ()
@@ -137,9 +164,7 @@ public final class CameraFragment extends Fragment {
 
                 cameraViewHolder.addListener((newBitmap, rawBitmap, motionDetected) -> {
 
-                  lastBitmap = rawBitmap;
-
-                  handler.sendEmptyMessage(motionDetected?1:0);
+                    handler.sendEmptyMessage(motionDetected?EventTrigger.CAMERA:-1);
 
 
                 });

@@ -83,6 +83,7 @@ public class BumpMonitor {
                      */
                     Message message = new Message();
                     message.what = EventTrigger.BUMP;
+                    message.getData().putString("path","BUMPED!");
 
                     try {
                         if (serviceMessenger != null) {
