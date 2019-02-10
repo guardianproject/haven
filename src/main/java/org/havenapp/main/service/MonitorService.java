@@ -15,6 +15,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
@@ -26,6 +27,7 @@ import android.text.TextUtils;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import org.havenapp.main.HavenApp;
 import org.havenapp.main.MonitorActivity;
@@ -44,6 +46,9 @@ import org.havenapp.main.sensors.MicrophoneMonitor;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.StringTokenizer;
+
+import androidx.annotation.RequiresApi;
+import androidx.core.app.NotificationCompat;
 
 @SuppressLint("HandlerLeak")
 public class MonitorService extends Service {
@@ -292,10 +297,18 @@ public class MonitorService extends Service {
     /**
     * Sends an alert according to type of connectivity
     */
-    public synchronized void alert(int alertType, String path) {
+    public void alert(int alertType, String value) {
 
         Date now = new Date();
         boolean doNotification = false;
+
+        //for the UI visual
+        Intent iEvent = new Intent("event");
+        iEvent.putExtra("type",alertType);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(iEvent);
+
+        if (TextUtils.isEmpty(value))
+            return;
 
         if (mLastEvent == null) {
             mLastEvent = new Event();
@@ -323,7 +336,7 @@ public class MonitorService extends Service {
 
         EventTrigger eventTrigger = new EventTrigger();
         eventTrigger.setType(alertType);
-        eventTrigger.setPath(path);
+        eventTrigger.setPath(value);
 
         mLastEvent.addEventTrigger(eventTrigger);
 

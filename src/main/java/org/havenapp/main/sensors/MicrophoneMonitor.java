@@ -134,6 +134,15 @@ public final class MicrophoneMonitor implements MicSamplerTask.MicListener {
         if (averageDB > mNoiseThreshold) {
 
             if (!MicrophoneTaskFactory.isRecording()) {
+                Message message = new Message();
+                message.what = EventTrigger.MICROPHONE;
+                try {
+                    if (serviceMessenger != null)
+                        serviceMessenger.send(message);
+                } catch (RemoteException e) {
+                    // Cannot happen
+                }
+
                 try {
                     AudioRecorderTask audioRecorderTask = MicrophoneTaskFactory.makeRecorder(context);
                     audioRecorderTask.setAudioRecorderListener(new AudioRecorderTask.AudioRecorderListener() {

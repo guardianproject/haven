@@ -8,8 +8,15 @@
  */
 package org.havenapp.main.ui;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.Bitmap;
 import android.hardware.SensorEvent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,13 +25,13 @@ import android.widget.TextView;
 
 import com.otaliastudios.cameraview.Audio;
 import com.otaliastudios.cameraview.CameraView;
-import com.otaliastudios.cameraview.SizeSelector;
 
 import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.R;
-import org.havenapp.main.sensors.motion.CameraViewHolder;
+import org.havenapp.main.model.EventTrigger;
 
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 public final class CameraFragment extends Fragment {
 
@@ -32,6 +39,75 @@ public final class CameraFragment extends Fragment {
     private ImageView newImage;
     private PreferenceManager prefs;
     private TextView txtCameraStatus;
+
+    private boolean isAttached = false;
+
+    /**
+     * Handler used to update back the UI after motion detection
+     */
+    private final Handler handler = new Handler()
+    {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+            if (isAttached) {
+                if (txtCameraStatus != null) {
+
+                    if (msg.what == EventTrigger.CAMERA) {
+                         if (cameraViewHolder.doingVideoProcessing()) {
+                             txtCameraStatus.setText(getString(R.string.motion_detected)
+                                     + "\n" + getString(R.string.status_recording_video));
+                         } else {
+                             txtCameraStatus.setText(getString(R.string.motion_detected));
+                         }
+                    }
+                    else if (msg.what == EventTrigger.POWER) {
+                        txtCameraStatus.setText(getString(R.string.power_detected));
+                    }
+                    else if (msg.what == EventTrigger.MICROPHONE) {
+                        txtCameraStatus.setText(getString(R.string.sound_detected));
+                    }
+                    else if (msg.what == EventTrigger.ACCELEROMETER || msg.what == EventTrigger.BUMP) {
+                        txtCameraStatus.setText(getString(R.string.device_move_detected));
+                    }
+                    else if (msg.what == EventTrigger.LIGHT) {
+                        txtCameraStatus.setText(getString(R.string.status_light));
+                    }
+
+
+                }
+            }
+        }
+    };
+
+    BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            int eventType = intent.getIntExtra("type",-1);
+
+            //String path = intent.getData().getPath();
+
+            handler.sendEmptyMessage(eventType);
+        }
+    };
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        isAttached = false;
+        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(receiver);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        isAttached = true;
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("event");
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver,filter );
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,6 +144,8 @@ public final class CameraFragment extends Fragment {
         initCamera();
 
         cameraViewHolder.setMotionSensitivity(prefs.getCameraSensitivity());
+
+
     }
 
     public void updateCamera ()
@@ -99,19 +177,10 @@ public final class CameraFragment extends Fragment {
             if (cameraViewHolder == null) {
                 cameraViewHolder = new CameraViewHolder(getActivity(), cameraView);
 
-                cameraViewHolder.addListener((oldBitmap, newBitmap, rawBitmap, motionDetected) -> {
-                    if (motionDetected)
-                        newImage.setImageBitmap(newBitmap);
-                    else
-                        newImage.setImageResource(R.drawable.blankimage);
+                cameraViewHolder.addListener((newBitmap, rawBitmap, motionDetected) -> {
 
-                    if (txtCameraStatus != null) {
-                        if (cameraViewHolder.doingVideoProcessing()) {
-                            txtCameraStatus.setText("Recording...");
-                        } else {
-                            txtCameraStatus.setText("");
-                        }
-                    }
+                    handler.sendEmptyMessage(motionDetected?EventTrigger.CAMERA:-1);
+
 
                 });
             }

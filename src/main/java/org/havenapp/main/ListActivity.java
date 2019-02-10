@@ -40,7 +40,6 @@ import com.google.android.material.snackbar.Snackbar;
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.LibsBuilder;
 
-import org.havenapp.main.R;
 import org.havenapp.main.database.HavenEventDB;
 import org.havenapp.main.database.async.EventDeleteAllAsync;
 import org.havenapp.main.database.async.EventDeleteAsync;
