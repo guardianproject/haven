@@ -166,4 +166,12 @@
          Skipping periods, spaces, and other special characters to keep it simple -->
     <string name="path_chars">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_/</string>
 
+    <string name="motion_detected">MOTION DETECTED</string>
+    <string name="sound_detected">SOUND DETECTED</string>
+    <string name="device_move_detected">DEVICE MOVEMENT DETECTED</string>
+    <string name="power_detected">POWER CHANGE DETECTED</string>
+
+    <string name="status_recording_video">Recording...</string>
+    <string name="status_light">LIGHT DETECTED</string>
+
 </resources>
