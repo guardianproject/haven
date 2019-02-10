@@ -3,7 +3,6 @@ package org.havenapp.main.sensors.media;
 import android.hardware.Camera;
 import android.media.MediaRecorder;
 import android.util.Log;
-import android.view.Surface;
 import android.view.SurfaceHolder;
 
 import java.io.IOException;

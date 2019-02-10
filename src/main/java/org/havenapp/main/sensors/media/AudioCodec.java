@@ -5,12 +5,13 @@
 
 package org.havenapp.main.sensors.media;
 
-import java.io.IOException;
-import java.util.Arrays;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
 import android.util.Log;
+
+import java.io.IOException;
+import java.util.Arrays;
 
 public class AudioCodec {
 	
