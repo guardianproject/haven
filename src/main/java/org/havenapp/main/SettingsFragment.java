@@ -85,9 +85,9 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
         }
 
-        findPreference(PreferenceManager.SMS_NUMBER).setOnPreferenceClickListener(preference -> {
-            if (preferences.getSmsNumber().isEmpty()) {
-                ((EditTextPreference) findPreference(PreferenceManager.SMS_NUMBER)).setText(getCountryCode());
+        findPreference(PreferenceManager.REMOTE_PHONE_NUMBER).setOnPreferenceClickListener(preference -> {
+            if (preferences.getRemotePhoneNumber().isEmpty()) {
+                ((EditTextPreference) findPreference(PreferenceManager.REMOTE_PHONE_NUMBER)).setText(getCountryCode());
             }
             return false;
         });
@@ -98,11 +98,12 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             return false;
         });
 
-        if (checkValidString(preferences.getSmsNumber())) {
-            ((EditTextPreference) findPreference(PreferenceManager.SMS_NUMBER)).setText(preferences.getSmsNumber().trim());
-            findPreference(PreferenceManager.SMS_NUMBER).setSummary(preferences.getSmsNumber().trim());
+        if (checkValidString(preferences.getRemotePhoneNumber())) {
+            ((EditTextPreference) findPreference(PreferenceManager.REMOTE_PHONE_NUMBER))
+                    .setText(preferences.getRemotePhoneNumber());
+            findPreference(PreferenceManager.REMOTE_PHONE_NUMBER).setSummary(preferences.getRemotePhoneNumber());
         } else {
-            findPreference(PreferenceManager.SMS_NUMBER).setSummary(R.string.sms_dialog_summary);
+            findPreference(PreferenceManager.REMOTE_PHONE_NUMBER).setSummary(R.string.sms_dialog_summary);
         }
 
         if (preferences.getRemoteAccessActive()) {
@@ -310,10 +311,6 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
                 }
                 break;
-            case PreferenceManager.SMS_ACTIVE:
-
-                setPhoneNumber();
-                break;
             case PreferenceManager.REMOTE_ACCESS_ACTIVE:
                 boolean remoteAccessActive = ((SwitchPreference) findPreference(PreferenceManager.REMOTE_ACCESS_ACTIVE)).isChecked();
                 if (remoteAccessActive) {
@@ -344,12 +341,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 activateSignal(preferences.getSignalUsername(), text);
                 break;
             }
-            case PreferenceManager.SMS_NUMBER:
-                boolean smsActive = ((SwitchPreference) findPreference(PreferenceManager.SMS_ACTIVE)).isChecked();
-                if (smsActive && TextUtils.isEmpty(preferences.getSignalUsername())) {
-                    askForPermission(Manifest.permission.SEND_SMS, 6);
-                    askForPermission(Manifest.permission.READ_PHONE_STATE, 6);
-                }
+            case PreferenceManager.REMOTE_PHONE_NUMBER:
                 setPhoneNumber();
                 break;
             case PreferenceManager.NOTIFICATION_TIME:
@@ -448,20 +440,14 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     }
 
     private void setPhoneNumber() {
-        boolean smsActive = ((SwitchPreference) findPreference(PreferenceManager.SMS_ACTIVE)).isChecked();
-        String phoneNumber = ((EditTextPreference) findPreference(PreferenceManager.SMS_NUMBER)).getText();
-        if (smsActive && checkValidString(phoneNumber)) {
-            preferences.activateSms(true);
-        } else {
-            preferences.activateSms(false);
-        }
+        String phoneNumber = ((EditTextPreference) findPreference(PreferenceManager.REMOTE_PHONE_NUMBER)).getText();
 
         if (checkValidString(phoneNumber) && !getCountryCode().equalsIgnoreCase(phoneNumber)) {
-            preferences.setSmsNumber(phoneNumber.trim());
-            findPreference(PreferenceManager.SMS_NUMBER).setSummary(phoneNumber.trim());
+            preferences.setRemotePhoneNumber(phoneNumber.trim());
+            findPreference(PreferenceManager.REMOTE_PHONE_NUMBER).setSummary(phoneNumber.trim());
         } else if (!getCountryCode().equalsIgnoreCase(phoneNumber)){
-            preferences.setSmsNumber("");
-            findPreference(PreferenceManager.SMS_NUMBER).setSummary(R.string.sms_dialog_message);
+            preferences.setRemotePhoneNumber("");
+            findPreference(PreferenceManager.REMOTE_PHONE_NUMBER).setSummary(R.string.sms_dialog_message);
         }
     }
 

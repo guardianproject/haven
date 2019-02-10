@@ -22,12 +22,17 @@ package org.havenapp.main;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.text.TextUtils;
 
 import org.havenapp.main.sensors.motion.LuminanceMotionDetector;
 
 import java.io.File;
 import java.util.Date;
+import java.util.Objects;
 
+import javax.annotation.Nullable;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 
@@ -61,8 +66,6 @@ public class PreferenceManager {
     private static final String MICROPHONE_SENSITIVITY="microphone_sensitivity";
     public static final String CONFIG_SOUND = "config_sound";
     public static final String CONFIG_TIME_DELAY = "config_delay_time";
-    public static final String SMS_ACTIVE = "sms_active";
-    public static final String SMS_NUMBER = "sms_number";
     public static final String REGISTER_SIGNAL = "register_signal";
     public static final String VERIFY_SIGNAL = "verify_signal";
     public static final String VOICE_VERIFY_SIGNAL = "voice_verify_signal";
@@ -94,6 +97,8 @@ public class PreferenceManager {
 
     public static final String CONFIG_BASE_STORAGE = "config_base_storage";
     private static final String CONFIG_BASE_STORAGE_DEFAULT = "/haven";
+
+    static final String REMOTE_PHONE_NUMBER = "remote_phone_number";
 
     private Context context;
 	
@@ -241,20 +246,15 @@ public class PreferenceManager {
     public String getMicrophoneSensitivity() {
     	return appSharedPrefs.getString(MICROPHONE_SENSITIVITY, MEDIUM);
     }
-    
-    public void activateSms(boolean active) {
-    	prefsEditor.putBoolean(SMS_ACTIVE, active);
-    	prefsEditor.commit();
-    }
-    
-    public void setSmsNumber(String number) {
 
-    	prefsEditor.putString(SMS_NUMBER, number);
-    	prefsEditor.commit();
+    public void setRemotePhoneNumber(@NonNull String remotePhoneNumber) {
+        prefsEditor.putString(REMOTE_PHONE_NUMBER, remotePhoneNumber.trim());
+        prefsEditor.apply();
     }
-    
-    public String getSmsNumber() {
-    	return appSharedPrefs.getString(SMS_NUMBER, "");
+
+    @NonNull
+    public String getRemotePhoneNumber() {
+        return Objects.requireNonNull(appSharedPrefs.getString(REMOTE_PHONE_NUMBER, ""));
     }
 
     public int getTimerDelay ()

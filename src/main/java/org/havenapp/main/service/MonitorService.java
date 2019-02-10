@@ -352,7 +352,7 @@ public class MonitorService extends Service {
 
                 SignalSender sender = SignalSender.getInstance(this, mPrefs.getSignalUsername());
                 ArrayList<String> recips = new ArrayList<>();
-                StringTokenizer st = new StringTokenizer(mPrefs.getSmsNumber(), ",");
+                StringTokenizer st = new StringTokenizer(mPrefs.getRemotePhoneNumber(), ",");
                 while (st.hasMoreTokens())
                     recips.add(st.nextToken());
 

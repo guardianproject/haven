@@ -5,19 +5,17 @@ package org.havenapp.main.ui;
  */
 
 
-import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.R;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -62,15 +60,10 @@ public class CustomSlideNotify extends Fragment {
         mEditNumber = view.findViewById(R.id.editNumber);
         mEditNumber.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                askForPermission(Manifest.permission.SEND_SMS,6);
-                askForPermission(Manifest.permission.READ_PHONE_STATE,6);
-
-            }
+            public void onClick(View v) { }
         });
-        PreferenceManager pm = new PreferenceManager(getActivity());
-        if (!TextUtils.isEmpty(pm.getSmsNumber()))
-            mEditNumber.setText(pm.getSmsNumber());
+
+        // todo describe why we are asking this maybe
 
         Button button = view.findViewById(R.id.btnSaveNumber);
         button.setOnClickListener(mListener);
@@ -78,9 +71,10 @@ public class CustomSlideNotify extends Fragment {
 
     }
 
+    @NonNull
     public String getPhoneNumber ()
     {
-        return mEditNumber.getText().toString();
+        return mEditNumber.getText() != null ? mEditNumber.getText().toString() : "";
     }
 
     private void askForPermission(String permission, Integer requestCode) {

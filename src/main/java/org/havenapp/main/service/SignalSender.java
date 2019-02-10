@@ -126,16 +126,8 @@ public class SignalSender {
         if (!TextUtils.isEmpty(mUsername)) {
             getInstance(mContext, mUsername.trim());
             ArrayList<String> recipient = new ArrayList<>();
-            recipient.add(preferences.getSmsNumber());
+            recipient.add(preferences.getRemotePhoneNumber());
             sendMessage(recipient, emojiString,null);
-        }
-        else if (!TextUtils.isEmpty(preferences.getSmsNumber())) {
-
-            SmsManager manager = SmsManager.getDefault();
-
-            StringTokenizer st = new StringTokenizer(preferences.getSmsNumber(),",");
-            while (st.hasMoreTokens())
-                manager.sendTextMessage(st.nextToken(), null, emojiString, null, null);
         }
     }
 
