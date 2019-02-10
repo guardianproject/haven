@@ -6,8 +6,8 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import org.havenapp.main.R;
-import org.havenapp.main.database.HavenEventDB;
 import org.havenapp.main.Utils;
+import org.havenapp.main.database.HavenEventDB;
 import org.havenapp.main.model.Event;
 import org.havenapp.main.model.EventTrigger;
 import org.havenapp.main.resources.ResourceManager;

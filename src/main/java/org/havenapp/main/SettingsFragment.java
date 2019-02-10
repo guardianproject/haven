@@ -22,16 +22,6 @@ import android.view.View;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.preference.EditTextPreference;
-import androidx.preference.ListPreference;
-import androidx.preference.Preference;
-import androidx.preference.PreferenceFragmentCompat;
-import androidx.preference.SwitchPreference;
-
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
@@ -44,6 +34,15 @@ import org.havenapp.main.ui.MicrophoneConfigureActivity;
 import java.io.File;
 import java.util.Locale;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.preference.EditTextPreference;
+import androidx.preference.ListPreference;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.SwitchPreference;
 import info.guardianproject.netcipher.proxy.OrbotHelper;
 
 
@@ -152,6 +151,13 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         if (preferences.getHeartbeatNotificationTimeMs()> 300000)
         {
             findPreference(PreferenceManager.HEARTBEAT_MONITOR_DELAY).setSummary(preferences.getHeartbeatNotificationTimeMs() / 60000 + " " + getString(R.string.minutes));
+        }
+
+        if (preferences.getHeartbeatMonitorMessage() == null)
+        {
+            findPreference(PreferenceManager.HEARTBEAT_MONITOR_MESSAGE).setSummary(R.string.hearbeat_message_summary);
+        } else {
+            findPreference(PreferenceManager.HEARTBEAT_MONITOR_MESSAGE).setSummary(R.string.hearbeat_message_summary_on);
         }
 
         Preference prefCameraSensitivity = findPreference(PreferenceManager.CAMERA_SENSITIVITY);
@@ -431,6 +437,19 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                     }
                 } catch (NumberFormatException ne) {
                     //error parsing user value
+                }
+                break;
+            }
+            case PreferenceManager.HEARTBEAT_MONITOR_MESSAGE: {
+                String text = ((EditTextPreference) findPreference(PreferenceManager.HEARTBEAT_MONITOR_MESSAGE)).getText();
+
+                if (checkValidString(text)) {
+                    preferences.setHeartbeatMonitorMessage(text);
+                    findPreference(PreferenceManager.HEARTBEAT_MONITOR_MESSAGE).setSummary(R.string.hearbeat_message_summary_on);
+                }
+                else {
+                    preferences.setHeartbeatMonitorMessage(null);
+                    findPreference(PreferenceManager.HEARTBEAT_MONITOR_MESSAGE).setSummary(R.string.hearbeat_message_summary);
                 }
                 break;
             }

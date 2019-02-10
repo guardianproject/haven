@@ -6,10 +6,10 @@
 
 package org.havenapp.main.sensors.media;
 
-import java.io.ByteArrayOutputStream;
-
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
+
+import java.io.ByteArrayOutputStream;
 
 public class ImageCodec {
 	

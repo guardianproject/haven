@@ -16,7 +16,6 @@ import android.graphics.Rect;
 import android.graphics.YuvImage;
 import android.os.Handler;
 
-
 import org.havenapp.main.sensors.media.ImageCodec;
 
 import java.io.ByteArrayOutputStream;
