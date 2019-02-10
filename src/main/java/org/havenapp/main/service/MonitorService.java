@@ -367,13 +367,6 @@ public class MonitorService extends Service {
                 }
 
                 sender.sendMessage(recips, alertMessage.toString(), attachment);
-            } else if (mPrefs.getSmsActivation()) {
-                SmsManager manager = SmsManager.getDefault();
-
-                StringTokenizer st = new StringTokenizer(mPrefs.getSmsNumber(), ",");
-                while (st.hasMoreTokens())
-                    manager.sendTextMessage(st.nextToken(), null, alertMessage.toString(), null, null);
-
             }
         }
 

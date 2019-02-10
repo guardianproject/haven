@@ -247,10 +247,6 @@ public class PreferenceManager {
     	prefsEditor.commit();
     }
     
-    public boolean getSmsActivation() {
-    	return appSharedPrefs.getBoolean(SMS_ACTIVE, false);
-    }
-    
     public void setSmsNumber(String number) {
 
     	prefsEditor.putString(SMS_NUMBER, number);

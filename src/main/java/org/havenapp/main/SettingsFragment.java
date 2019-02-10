@@ -85,10 +85,6 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
         }
 
-        if (preferences.getSmsActivation()) {
-            ((SwitchPreference) findPreference(PreferenceManager.SMS_ACTIVE)).setChecked(true);
-        }
-
         findPreference(PreferenceManager.SMS_NUMBER).setOnPreferenceClickListener(preference -> {
             if (preferences.getSmsNumber().isEmpty()) {
                 ((EditTextPreference) findPreference(PreferenceManager.SMS_NUMBER)).setText(getCountryCode());
