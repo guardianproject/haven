@@ -41,12 +41,8 @@ public class MotionDetector {
 
 	private IMotionDetector detector;
 
-	//private RenderScript renderScript;
-
-	private int detectColor = Color.YELLOW;
-
 	public interface MotionListener {
-		public void onProcess(
+		 void onProcess(
 				Bitmap newBitmap,
 							  Bitmap rawBitmap,
 				boolean motionDetected);
@@ -58,17 +54,11 @@ public class MotionDetector {
 	
 	public MotionDetector(
 			int motionSensitivity) {
-	   // this.renderScript = renderScript;
 		this.motionSensitivity = motionSensitivity;
         detector = new LuminanceMotionDetector();
+		detector.setThreshold(motionSensitivity);
 
 
-
-    }
-
-    public void setDetectColor (int detectColor)
-    {
-        this.detectColor = detectColor;
     }
 
 	public void setMotionSensitivity (int motionSensitivity)
@@ -80,15 +70,12 @@ public class MotionDetector {
 	public void detect(byte[] rawOldPic,
                        byte[] rawNewPic,
                        int width,
-                       int height,
-                       int rotationDegrees,
-                       boolean facingFront) {
+                       int height) {
 
 		int[] newPicLuma = ImageCodec.N21toLuma(rawNewPic, width, height);
 
 		if (rawOldPic != null) {
 
-			detector.setThreshold(motionSensitivity);
 			List<Integer> changedPixels =
 					detector.detectMotion(ImageCodec.N21toLuma(rawOldPic, width, height), newPicLuma, width, height);
 

@@ -62,7 +62,7 @@ public class CameraViewHolder {
      */
     private PreferenceManager prefs;
 
-    private final static int DETECTION_INTERVAL_MS = 300;
+    private final static int DETECTION_INTERVAL_MS = 200;
     private final static int MAX_CAMERA_WIDTH = 800;
 
     private List<MotionDetector.MotionListener> listeners = new ArrayList<>();
@@ -102,7 +102,7 @@ public class CameraViewHolder {
 	private Messenger serviceMessenger = null;
 	//private Camera camera;
 	private Activity context;
-	private MotionDetector task;
+	private MotionDetector motionDetector;
 
     AndroidSequenceEncoder encoder;
     private File videoFile;
@@ -133,10 +133,10 @@ public class CameraViewHolder {
 
 		prefs = new PreferenceManager(context);
 
-        task = new MotionDetector(
+        motionDetector = new MotionDetector(
                 motionSensitivity);
 
-        task.addListener((detectedImage, rawBitmap, motionDetected) -> {
+        motionDetector.addListener((detectedImage, rawBitmap, motionDetected) -> {
 
             for (MotionDetector.MotionListener listener : listeners)
                 listener.onProcess(detectedImage,rawBitmap,motionDetected);
@@ -194,7 +194,7 @@ public class CameraViewHolder {
 				{
 				this.
 				motionSensitivity = motionSensitivity;
-				task.setMotionSensitivity(motionSensitivity);
+                    motionDetector.setMotionSensitivity(motionSensitivity);
 	}
 	
 	public void addListener(MotionDetector.MotionListener listener) {
@@ -304,10 +304,7 @@ public class CameraViewHolder {
         if (data != null && size != null) {
             int width = size.getWidth();
             int height = size.getHeight();
-            int rotationDegrees = getCorrectCameraOrientation(cameraView.getFacing(), frame.getRotation());
-
             Bitmap bitmap = MotionDetector.convertImage(data, width, height);
-
             bitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, mtxVideoRotate, true);
 
             try {
@@ -354,15 +351,12 @@ public class CameraViewHolder {
         if (data != null && size != null) {
             int width = size.getWidth();
             int height = size.getHeight();
-            int rotationDegrees = getCorrectCameraOrientation(cameraView.getFacing(), frame.getRotation());
 
-            task.detect(
+            motionDetector.detect(
                     lastPic,
                     data,
                     width,
-                    height,
-                    rotationDegrees,
-                    cameraView.getFacing() == Facing.FRONT);
+                    height);
 
             lastPic = data;
         }
