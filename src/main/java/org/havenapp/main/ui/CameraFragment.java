@@ -40,6 +40,8 @@ public final class CameraFragment extends Fragment {
     private PreferenceManager prefs;
     private TextView txtCameraStatus;
 
+    private boolean isAttached = false;
+
     /**
      * Handler used to update back the UI after motion detection
      */
@@ -49,7 +51,7 @@ public final class CameraFragment extends Fragment {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
 
-            if (!isDetached()) {
+            if (isAttached) {
                 if (txtCameraStatus != null) {
 
                     if (msg.what == EventTrigger.CAMERA) {
@@ -92,6 +94,22 @@ public final class CameraFragment extends Fragment {
     };
 
     @Override
+    public void onDetach() {
+        super.onDetach();
+        isAttached = false;
+        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(receiver);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        isAttached = true;
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("event");
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver,filter );
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -118,7 +136,6 @@ public final class CameraFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(receiver);
     }
 
     @Override
@@ -128,9 +145,7 @@ public final class CameraFragment extends Fragment {
 
         cameraViewHolder.setMotionSensitivity(prefs.getCameraSensitivity());
 
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("event");
-        LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver,filter );
+
     }
 
     public void updateCamera ()
