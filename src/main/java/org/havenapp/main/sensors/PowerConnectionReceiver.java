@@ -3,6 +3,8 @@ package org.havenapp.main.sensors;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.BatteryManager;
 
 import org.havenapp.main.R;
 import org.havenapp.main.model.EventTrigger;
@@ -26,7 +28,14 @@ public class PowerConnectionReceiver extends BroadcastReceiver {
 
         // explicitly check the intent action
         // avoids lint issue UnsafeProtectedBroadcastReceiver
-        boolean isCharging;
+        int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+        boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
+                status == BatteryManager.BATTERY_STATUS_FULL;
+
+        int chargePlug = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
+        boolean usbCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_USB;
+        boolean acCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_AC;
+
         if(intent.getAction() == null) return;
         switch(intent.getAction()){
             case Intent.ACTION_POWER_CONNECTED:
@@ -43,5 +52,17 @@ public class PowerConnectionReceiver extends BroadcastReceiver {
                 && MonitorService.getInstance().isRunning()) {
             MonitorService.getInstance().alert(EventTrigger.POWER, context.getString(R.string.status_charging) + isCharging );
         }
+    }
+
+    //Ref: https://developer.android.com/training/monitoring-device-state/battery-monitoring.html
+
+    private void getBatteryStatus(Context context) {
+        IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        Intent batteryStatus = context.registerReceiver(null, ifilter);
+
+        // How are we charging?
+        int chargePlug = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
+        boolean usbCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_USB;
+        boolean acCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_AC;
     }
 }
