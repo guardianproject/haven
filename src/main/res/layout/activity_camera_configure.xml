@@ -46,11 +46,24 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center_horizontal|bottom"
+            android:gravity="center_horizontal|center_vertical"
             android:text="@string/camera_sensitivity_tip"
             android:textColor="@color/colorAccent"
-            android:textSize="14sp"
+            android:textSize="24sp"
             android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/status"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal|bottom"
+                android:text=""
+                android:textColor="@color/colorAccent"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp"
+                />
 
 
         <LinearLayout

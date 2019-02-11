@@ -398,9 +398,6 @@ public class CameraViewHolder {
             finishVideoEncoding();
         }, seconds);
 
-        for (MotionDetector.MotionListener listener : listeners)
-            listener.onProcess(null, null, false);
-
         return true;
     }
 

@@ -42,7 +42,7 @@ public class MotionDetector {
 
 	public interface MotionListener {
 		 void onProcess(
-				Bitmap newBitmap,
+				int pixelsChanged,
 							  Bitmap rawBitmap,
 				boolean motionDetected);
 	}
@@ -110,9 +110,11 @@ public class MotionDetector {
 
                 Bitmap rawBitmap = convertImage(rawNewPic,width,height);
 
+                int percChanged = (int)((((float)changedPixels.size()) / ((float)newPicLuma.length))*100);
+
                 for (MotionListener listener : listeners) {
                     listener.onProcess(
-                            null,
+							percChanged,
                             rawBitmap,
                             true);
                 }
@@ -121,7 +123,7 @@ public class MotionDetector {
             {
                 for (MotionListener listener : listeners) {
                     listener.onProcess(
-                            null,
+                            0,
                             null,
                             false);
                 }

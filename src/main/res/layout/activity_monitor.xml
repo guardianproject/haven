@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal|bottom"
                 android:text=""
-                android:textColor="?colorPrimaryDark"
+                android:textColor="?colorPrimary"
                 android:id="@+id/txtStatus"
                 />
         </LinearLayout>

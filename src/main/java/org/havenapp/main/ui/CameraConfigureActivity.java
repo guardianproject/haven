@@ -25,6 +25,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.havenapp.main.PreferenceManager;
@@ -49,7 +50,7 @@ public class CameraConfigureActivity extends AppCompatActivity {
 
     private CameraFragment mFragment;
     private ActualNumberPicker mNumberTrigger;
-
+    private TextView mTxtStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +73,7 @@ public class CameraConfigureActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mFragment = (CameraFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_camera);
+        mTxtStatus = findViewById(R.id.status);
 
         findViewById(R.id.btnCameraSwitch).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,13 +85,10 @@ public class CameraConfigureActivity extends AppCompatActivity {
         mNumberTrigger = findViewById(R.id.number_trigger_level);
         mNumberTrigger.setValue(mPrefManager.getCameraSensitivity());
 
-        mNumberTrigger.setListener(new OnValueChangeListener() {
-            @Override
-            public void onValueChanged(int oldValue, int newValue) {
-                mFragment.setMotionSensitivity(newValue);
-                mPrefManager.setCameraSensitivity(newValue);
-                setResult(RESULT_OK);
-            }
+        mNumberTrigger.setListener((oldValue, newValue) -> {
+            mFragment.setMotionSensitivity(newValue);
+            mPrefManager.setCameraSensitivity(newValue);
+            setResult(RESULT_OK);
         });
         mIsInitializedLayout = true;
     }
@@ -188,10 +187,12 @@ public class CameraConfigureActivity extends AppCompatActivity {
 
             int eventType = intent.getIntExtra("type",-1);
             boolean detected = intent.getBooleanExtra("detected",true);
+            int percChanged = intent.getIntExtra("changed",-1);
 
-            if (detected)
-                Toast.makeText(CameraConfigureActivity.this,R.string.motion_detected,Toast.LENGTH_SHORT).show();
-
+            if (percChanged != -1)
+            {
+                mTxtStatus.setText(percChanged + "% motion detected");
+            }
         }
     };
 

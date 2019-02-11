@@ -38,16 +38,13 @@ public final class CameraFragment extends Fragment {
     private CameraViewHolder cameraViewHolder;
     private ImageView newImage;
     private PreferenceManager prefs;
-    private TextView txtCameraStatus;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.camera_fragment, container, false);
-
         newImage = view.findViewById(R.id.new_image);
-        txtCameraStatus = view.findViewById(R.id.camera_status_display);
 
         return view;
 
@@ -108,12 +105,14 @@ public final class CameraFragment extends Fragment {
             if (cameraViewHolder == null) {
                 cameraViewHolder = new CameraViewHolder(getActivity(), cameraView);
 
-                cameraViewHolder.addListener((newBitmap, rawBitmap, motionDetected) -> {
+                cameraViewHolder.addListener((percChanged, rawBitmap, motionDetected) -> {
 
                     if (!isDetached()) {
                         Intent iEvent = new Intent("event");
                         iEvent.putExtra("type", EventTrigger.CAMERA);
                         iEvent.putExtra("detected",motionDetected);
+                        iEvent.putExtra("changed",percChanged);
+
                         LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(iEvent);
                     }
 
