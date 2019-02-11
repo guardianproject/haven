@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.TextUtils;
 import android.view.MenuItem;
+import android.widget.TextView;
 
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.stfalcon.frescoimageviewer.ImageViewer;
@@ -44,6 +46,7 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
     private Event mEvent;
     private List<EventTrigger> eventTriggerList = new ArrayList<>();
     private EventTriggerAdapter mAdapter;
+    private Toolbar toolbar;
 
     private ArrayList<Uri> eventTriggerImagePaths;
     //private final static String AUTHORITY = "org.havenapp.main.fileprovider";
@@ -65,7 +68,7 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -109,7 +112,12 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
      */
     private void onEventFetched(@NonNull Event event) {
         mEvent = event;
-        setTitle(mEvent.getStartTime().toLocaleString());
+        String title = mEvent.getStartTime().toLocaleString();
+        setTitle(title);
+        CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.toolbar_layout);
+        collapsingToolbarLayout.setTitle(title);
+
+        //((TextView)findViewById(R.id.toolbar_title)).setText(mEvent.getStartTime().toLocaleString());
     }
 
     /**
@@ -202,7 +210,7 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
     private String generateLog () {
         StringBuilder mEventLog = new StringBuilder();
 
-        setTitle("Event @ " + mEvent.getStartTime().toLocaleString());
+//        setTitle("Event @ " + mEvent.getStartTime().toLocaleString());
 
         for (EventTrigger eventTrigger : eventTriggerList) {
 
