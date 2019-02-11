@@ -11,6 +11,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
+import org.apache.http.client.utils.URIBuilder;
 import org.havenapp.main.R;
 import org.havenapp.main.Utils;
 import org.havenapp.main.database.HavenEventDB;
@@ -45,7 +46,7 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
     private EventTriggerAdapter mAdapter;
 
     private ArrayList<Uri> eventTriggerImagePaths;
-    private final static String AUTHORITY = "org.havenapp.main.fileprovider";
+    //private final static String AUTHORITY = "org.havenapp.main.fileprovider";
 
     private Observer<Event> eventObserver = event -> {
         if (event != null) {
@@ -221,7 +222,7 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
     @Override
     public void onVideoClick(EventTrigger eventTrigger) {
         Intent intent = new Intent(this, VideoPlayerActivity.class);
-        intent.setData(Uri.parse("file://" + eventTrigger.getPath()));
+        intent.setData(Uri.fromFile(new File(eventTrigger.getPath())));
         startActivity(intent);
     }
 
@@ -233,14 +234,6 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
     @Override
     public void onImageClick(EventTrigger eventTrigger) {
         int startPosition = 0;
-
-        /**
-         for (int i = 0; i < eventTriggerImagePaths.size(); i++) {
-         if (eventTriggerImagePaths.get(i).contains(eventTrigger.getPath())) {
-         startPosition = i;
-         break;
-         }
-         }**/
 
         ShareOverlayView overlayView = new ShareOverlayView(this);
         ImageViewer viewer = new ImageViewer.Builder<>(this, eventTriggerImagePaths)
@@ -270,10 +263,7 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
             if (trigger.getType() == EventTrigger.CAMERA
                     && (!TextUtils.isEmpty(trigger.getPath())))
             {
-                Uri fileUri = FileProvider.getUriForFile(this, AUTHORITY,
-                        new File(trigger.getPath()));
-
-                eventTriggerImagePaths.add(fileUri);
+               eventTriggerImagePaths.add(Uri.fromFile(new File(trigger.getPath())));
             }
         }
     }
