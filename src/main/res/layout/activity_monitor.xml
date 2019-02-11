@@ -72,6 +72,22 @@
             android:layout_height="match_parent"
             android:gravity="center_horizontal|bottom"
             android:orientation="horizontal"
+            android:id="@+id/statusBar"
+            android:layout_marginBottom="80dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal|bottom"
+                android:text=""
+                android:textColor="?colorPrimaryDark"
+                android:id="@+id/txtStatus"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal|bottom"
+            android:orientation="horizontal"
             android:id="@+id/buttonBar"
             android:padding="10dp">
 

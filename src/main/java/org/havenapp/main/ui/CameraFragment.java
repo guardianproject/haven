@@ -40,75 +40,6 @@ public final class CameraFragment extends Fragment {
     private PreferenceManager prefs;
     private TextView txtCameraStatus;
 
-    private boolean isAttached = false;
-
-    /**
-     * Handler used to update back the UI after motion detection
-     */
-    private final Handler handler = new Handler()
-    {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-
-            if (isAttached) {
-                if (txtCameraStatus != null) {
-
-                    if (msg.what == EventTrigger.CAMERA) {
-                         if (cameraViewHolder.doingVideoProcessing()) {
-                             txtCameraStatus.setText(getString(R.string.motion_detected)
-                                     + "\n" + getString(R.string.status_recording_video));
-                         } else {
-                             txtCameraStatus.setText(getString(R.string.motion_detected));
-                         }
-                    }
-                    else if (msg.what == EventTrigger.POWER) {
-                        txtCameraStatus.setText(getString(R.string.power_detected));
-                    }
-                    else if (msg.what == EventTrigger.MICROPHONE) {
-                        txtCameraStatus.setText(getString(R.string.sound_detected));
-                    }
-                    else if (msg.what == EventTrigger.ACCELEROMETER || msg.what == EventTrigger.BUMP) {
-                        txtCameraStatus.setText(getString(R.string.device_move_detected));
-                    }
-                    else if (msg.what == EventTrigger.LIGHT) {
-                        txtCameraStatus.setText(getString(R.string.status_light));
-                    }
-
-
-                }
-            }
-        }
-    };
-
-    BroadcastReceiver receiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-            int eventType = intent.getIntExtra("type",-1);
-
-            //String path = intent.getData().getPath();
-
-            handler.sendEmptyMessage(eventType);
-        }
-    };
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        isAttached = false;
-        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(receiver);
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        isAttached = true;
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("event");
-        LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver,filter );
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -179,14 +110,17 @@ public final class CameraFragment extends Fragment {
 
                 cameraViewHolder.addListener((newBitmap, rawBitmap, motionDetected) -> {
 
-                    handler.sendEmptyMessage(motionDetected?EventTrigger.CAMERA:-1);
-
+                    if (!isDetached()) {
+                        Intent iEvent = new Intent("event");
+                        iEvent.putExtra("type", EventTrigger.CAMERA);
+                        iEvent.putExtra("detected",motionDetected);
+                        LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(iEvent);
+                    }
 
                 });
             }
 
         }
-
 
         cameraViewHolder.startCamera();
 

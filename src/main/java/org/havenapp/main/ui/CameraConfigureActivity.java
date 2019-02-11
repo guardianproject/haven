@@ -17,10 +17,15 @@
 package org.havenapp.main.ui;
 
 import android.Manifest;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.R;
@@ -29,8 +34,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import me.angrybyte.numberpicker.listener.OnValueChangeListener;
 import me.angrybyte.numberpicker.view.ActualNumberPicker;
+
 
 
 public class CameraConfigureActivity extends AppCompatActivity {
@@ -125,6 +132,10 @@ public class CameraConfigureActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("event");
+        LocalBroadcastManager.getInstance(this).registerReceiver(receiver,filter );
+
     }
 
     @Override
@@ -162,5 +173,26 @@ public class CameraConfigureActivity extends AppCompatActivity {
             return false;
         }
     }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
+
+    }
+
+    BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            int eventType = intent.getIntExtra("type",-1);
+            boolean detected = intent.getBooleanExtra("detected",true);
+
+            if (detected)
+                Toast.makeText(CameraConfigureActivity.this,R.string.motion_detected,Toast.LENGTH_SHORT).show();
+
+        }
+    };
 
 }

@@ -6,11 +6,14 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.TextUtils;
 import android.view.MenuItem;
+import android.widget.TextView;
 
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
+import org.apache.http.client.utils.URIBuilder;
 import org.havenapp.main.R;
 import org.havenapp.main.Utils;
 import org.havenapp.main.database.HavenEventDB;
@@ -43,9 +46,10 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
     private Event mEvent;
     private List<EventTrigger> eventTriggerList = new ArrayList<>();
     private EventTriggerAdapter mAdapter;
+    private Toolbar toolbar;
 
     private ArrayList<Uri> eventTriggerImagePaths;
-    private final static String AUTHORITY = "org.havenapp.main.fileprovider";
+    //private final static String AUTHORITY = "org.havenapp.main.fileprovider";
 
     private Observer<Event> eventObserver = event -> {
         if (event != null) {
@@ -64,7 +68,7 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -108,7 +112,12 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
      */
     private void onEventFetched(@NonNull Event event) {
         mEvent = event;
-        setTitle(mEvent.getStartTime().toLocaleString());
+        String title = mEvent.getStartTime().toLocaleString();
+        setTitle(title);
+        CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.toolbar_layout);
+        collapsingToolbarLayout.setTitle(title);
+
+        //((TextView)findViewById(R.id.toolbar_title)).setText(mEvent.getStartTime().toLocaleString());
     }
 
     /**
@@ -201,7 +210,7 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
     private String generateLog () {
         StringBuilder mEventLog = new StringBuilder();
 
-        setTitle("Event @ " + mEvent.getStartTime().toLocaleString());
+//        setTitle("Event @ " + mEvent.getStartTime().toLocaleString());
 
         for (EventTrigger eventTrigger : eventTriggerList) {
 
@@ -221,7 +230,7 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
     @Override
     public void onVideoClick(EventTrigger eventTrigger) {
         Intent intent = new Intent(this, VideoPlayerActivity.class);
-        intent.setData(Uri.parse("file://" + eventTrigger.getPath()));
+        intent.setData(Uri.fromFile(new File(eventTrigger.getPath())));
         startActivity(intent);
     }
 
@@ -233,14 +242,6 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
     @Override
     public void onImageClick(EventTrigger eventTrigger) {
         int startPosition = 0;
-
-        /**
-         for (int i = 0; i < eventTriggerImagePaths.size(); i++) {
-         if (eventTriggerImagePaths.get(i).contains(eventTrigger.getPath())) {
-         startPosition = i;
-         break;
-         }
-         }**/
 
         ShareOverlayView overlayView = new ShareOverlayView(this);
         ImageViewer viewer = new ImageViewer.Builder<>(this, eventTriggerImagePaths)
@@ -270,10 +271,7 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
             if (trigger.getType() == EventTrigger.CAMERA
                     && (!TextUtils.isEmpty(trigger.getPath())))
             {
-                Uri fileUri = FileProvider.getUriForFile(this, AUTHORITY,
-                        new File(trigger.getPath()));
-
-                eventTriggerImagePaths.add(fileUri);
+               eventTriggerImagePaths.add(Uri.fromFile(new File(trigger.getPath())));
             }
         }
     }
