@@ -17,22 +17,34 @@
 package org.havenapp.main;
 
 import android.Manifest;
+import android.animation.ValueAnimator;
 import android.app.PictureInPictureParams;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
+import org.havenapp.main.model.EventTrigger;
 import org.havenapp.main.service.MonitorService;
 import org.havenapp.main.ui.AccelConfigureActivity;
 import org.havenapp.main.ui.CameraConfigureActivity;
@@ -46,6 +58,7 @@ import java.io.IOException;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import static org.havenapp.main.Utils.getTimerText;
 
@@ -65,6 +78,67 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
     private final static int REQUEST_TIMER = 1000;
 
     private CameraFragment mFragmentCamera;
+
+    private View mBtnCamera, mBtnMic, mBtnAccel;
+    private Animation mAnimShake;
+    private TextView txtStatus;
+
+    private int lastEventType = -1;
+
+    /**
+     * Handler used to update back the UI after motion detection
+     */
+    private final Handler handler = new Handler()
+    {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+            if (mIsMonitoring) {
+
+                String message = null;
+
+                if (msg.what == EventTrigger.CAMERA) {
+                    mBtnCamera.startAnimation(mAnimShake);
+                    message = getString(R.string.motion_detected);
+
+                } else if (msg.what == EventTrigger.POWER) {
+                    message = getString(R.string.power_detected);
+
+                } else if (msg.what == EventTrigger.MICROPHONE) {
+                    mBtnMic.startAnimation(mAnimShake);
+                    message = getString(R.string.sound_detected);
+
+
+                } else if (msg.what == EventTrigger.ACCELEROMETER || msg.what == EventTrigger.BUMP) {
+                    mBtnAccel.startAnimation(mAnimShake);
+                    message = getString(R.string.device_move_detected);
+
+                } else if (msg.what == EventTrigger.LIGHT) {
+                    message = getString(R.string.status_light);
+
+                }
+
+                if (lastEventType != msg.what) {
+                    if (!TextUtils.isEmpty(message))
+                        txtStatus.setText(message);
+                }
+
+                lastEventType = msg.what;
+            }
+        }
+    };
+
+    BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            int eventType = intent.getIntExtra("type",-1);
+            boolean detected = intent.getBooleanExtra("detected",true);
+            if (detected)
+                handler.sendEmptyMessage(eventType);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,69 +181,51 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
         int timeM = preferences.getTimerDelay() * 1000;
 
         txtTimer.setText(getTimerText(timeM));
-        txtTimer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (cTimer == null)
-                    showTimeDelayDialog();
+        txtTimer.setOnClickListener(v -> {
+            if (cTimer == null)
+                showTimeDelayDialog();
 
-            }
         });
-        findViewById(R.id.timer_text_title).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (cTimer == null)
-                    showTimeDelayDialog();
+        findViewById(R.id.timer_text_title).setOnClickListener(v -> {
+            if (cTimer == null)
+                showTimeDelayDialog();
 
-            }
         });
 
-        findViewById(R.id.btnStartLater).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                doCancel();
-            }
+        findViewById(R.id.btnStartLater).setOnClickListener(v -> doCancel());
+
+        findViewById(R.id.btnStartNow).setOnClickListener(v -> {
+            ((Button) findViewById(R.id.btnStartLater)).setText(R.string.action_cancel);
+            findViewById(R.id.btnStartNow).setVisibility(View.INVISIBLE);
+            findViewById(R.id.timer_text_title).setVisibility(View.INVISIBLE);
+            initTimer();
         });
 
-        findViewById(R.id.btnStartNow).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((Button) findViewById(R.id.btnStartLater)).setText(R.string.action_cancel);
-                findViewById(R.id.btnStartNow).setVisibility(View.INVISIBLE);
-                findViewById(R.id.timer_text_title).setVisibility(View.INVISIBLE);
-                initTimer();
-            }
-        });
-
-        findViewById(R.id.btnAccelSettings).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        mBtnAccel = findViewById(R.id.btnAccelSettings);
+        mBtnAccel.setOnClickListener(v -> {
+            if (!mIsMonitoring)
                 startActivity(new Intent(MonitorActivity.this, AccelConfigureActivity.class));
-            }
         });
 
-        findViewById(R.id.btnMicSettings).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        mBtnMic = findViewById(R.id.btnMicSettings);
+        mBtnMic.setOnClickListener(v -> {
+            if (!mIsMonitoring)
                 startActivity(new Intent(MonitorActivity.this, MicrophoneConfigureActivity.class));
-            }
         });
 
-        findViewById(R.id.btnCameraSwitch).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        mBtnCamera = findViewById(R.id.btnCameraSwitch);
+        mBtnCamera.setOnClickListener(v -> {
+            if (!mIsMonitoring)
                 configCamera();
-            }
         });
 
-        findViewById(R.id.btnSettings).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showSettings();
-            }
-        });
+        findViewById(R.id.btnSettings).setOnClickListener(v -> showSettings());
 
         mFragmentCamera =  ((CameraFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_camera));
+
+        txtStatus = findViewById(R.id.txtStatus);
+
+        mAnimShake = AnimationUtils.loadAnimation(this, R.anim.shake);
 
         mIsInitializedLayout = true;
     }
@@ -361,6 +417,18 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
             int totalMilliseconds = preferences.getTimerDelay() * 1000;
             txtTimer.setText(getTimerText(totalMilliseconds));
         }
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("event");
+        LocalBroadcastManager.getInstance(this).registerReceiver(receiver,filter );
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
+
     }
 
     @Override
@@ -404,4 +472,5 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
         int delaySeconds = second + minute * 60 + hourOfDay * 60 * 60;
         updateTimerValue(delaySeconds);
     }
+
 }
