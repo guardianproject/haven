@@ -104,6 +104,7 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
 
                 } else if (msg.what == EventTrigger.POWER) {
                     message = getString(R.string.power_detected);
+                    mBtnAccel.startAnimation(mAnimShake);
 
                 } else if (msg.what == EventTrigger.MICROPHONE) {
                     mBtnMic.startAnimation(mAnimShake);
@@ -116,6 +117,7 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
 
                 } else if (msg.what == EventTrigger.LIGHT) {
                     message = getString(R.string.status_light);
+                    mBtnCamera.startAnimation(mAnimShake);
 
                 }
 
