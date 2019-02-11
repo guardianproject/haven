@@ -70,7 +70,6 @@ public class PreferenceManager {
     public static final String REGISTER_SIGNAL = "register_signal";
     public static final String VERIFY_SIGNAL = "verify_signal";
     public static final String VOICE_VERIFY_SIGNAL = "voice_verify_signal";
-    public static final String SEND_SMS = "send_sms";
     private static final String UNLOCK_CODE="unlock_code";
 	
     private static final String ACCESS_TOKEN="access_token";
@@ -99,7 +98,8 @@ public class PreferenceManager {
     public static final String CONFIG_BASE_STORAGE = "config_base_storage";
     private static final String CONFIG_BASE_STORAGE_DEFAULT = "/haven";
 
-    static final String REMOTE_PHONE_NUMBER = "remote_phone_number";
+    // keeping the key value same for data migration.
+    static final String REMOTE_PHONE_NUMBER = "sms_number";
 
     private Context context;
 	

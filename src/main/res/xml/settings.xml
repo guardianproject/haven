@@ -66,7 +66,7 @@
             android:dialogLayout="@layout/pref_dialog_edit_text_hint"
             android:dialogMessage="@string/sms_dialog_message"
             android:inputType="phone"
-            android:key="remote_phone_number"
+            android:key="sms_number"
             android:summary="@string/sms_dialog_summary"
             android:title="@string/phone_number" />
 
