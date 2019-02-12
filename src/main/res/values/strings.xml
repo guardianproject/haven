@@ -80,11 +80,9 @@
     <string name="action_cancel">Deactivate</string>
     <string name="status_on">ACTIVE</string>
     <string name="power_source_status_usb">USB Charging</string>
-    <string name="power_source_status_wireless">Wireless</string>
+    <string name="power_source_status_wireless">Wireless Charging</string>
     <string name="power_source_status_ac">AC Charging</string>
     <string name="power_source_status">STATE:</string>
-    <string name="status_charging">Charging</string>
-    <string name="power_connected">Connected</string>
     <string name="power_disconnected">Disconnected</string>
     <string name="you_will_receive_a_text_when_the_app_hears_or_sees_something">You will receive a text when the app hears or sees something</string>
     <string name="know_immediately_when_haven_detects_something">Know immediately when Haven detects something</string>
