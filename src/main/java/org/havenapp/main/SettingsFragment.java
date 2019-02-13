@@ -5,6 +5,7 @@ package org.havenapp.main;
  */
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -83,6 +84,26 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             }
 
         }
+
+        SwitchPreference switchPreference =
+                (SwitchPreference) findPreference(PreferenceManager.REMOTE_NOTIFICATION_ACTIVE);
+
+        switchPreference.setChecked(preferences.isRemoteNotificationActive());
+
+        switchPreference.setOnPreferenceChangeListener((preference, newValue) -> {
+                    // user wants to enable/disable remote notification
+
+                    boolean enabled = (Boolean) newValue;
+
+                    if (enabled && !canSendRemoteNotification()) {
+                        collectDataForRemoteNotification();
+                    }
+
+                    preferences.setRemoteNotificationActive(enabled && canSendRemoteNotification());
+                    switchPreference.setChecked(enabled && canSendRemoteNotification());
+
+                    return false;
+                });
 
         findPreference(PreferenceManager.REMOTE_PHONE_NUMBER).setOnPreferenceClickListener(preference -> {
             if (preferences.getRemotePhoneNumber().isEmpty()) {
@@ -199,6 +220,31 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
     }
 
+    private boolean canSendRemoteNotification() {
+        String remotePhoneNumber = preferences.getRemotePhoneNumber();
+        String signalUsername = preferences.getSignalUsername();
+        return !remotePhoneNumber.isEmpty() && !getCountryCode().equalsIgnoreCase(remotePhoneNumber) &&
+                !TextUtils.isEmpty(signalUsername);
+    }
+
+    /**
+     * Collect data required for Remote notification with Signal.
+     * We need a remote phone number and a verified signal Username.
+     */
+    @SuppressLint("RestrictedApi")
+    private void collectDataForRemoteNotification() {
+        String remotePhoneNumber = preferences.getRemotePhoneNumber();
+        if (remotePhoneNumber.isEmpty() || getCountryCode().equalsIgnoreCase(remotePhoneNumber)) {
+            findPreference(PreferenceManager.REMOTE_PHONE_NUMBER).performClick();
+        }
+        String signalUsername = preferences.getSignalUsername();
+        if (TextUtils.isEmpty(signalUsername)) {
+            findPreference(PreferenceManager.REGISTER_SIGNAL).performClick();
+        } else {
+            activateSignal(signalUsername, null);
+        }
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -226,6 +272,10 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         preferences.setActivateVideoMonitoring(videoMonitoringActive);
 
         preferences.setSignalUsername(((EditTextPreference) findPreference(PreferenceManager.REGISTER_SIGNAL)).getText());
+
+        boolean remoteNotificationActive =
+                ((SwitchPreference) findPreference(PreferenceManager.REMOTE_NOTIFICATION_ACTIVE)).isChecked();
+        preferences.setRemoteNotificationActive(remoteNotificationActive);
 
         boolean remoteAccessActive = ((SwitchPreference) findPreference(PreferenceManager.REMOTE_ACCESS_ACTIVE)).isChecked();
 
@@ -347,6 +397,9 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 activateSignal(preferences.getSignalUsername(), text);
                 break;
             }
+            case PreferenceManager.REMOTE_NOTIFICATION_ACTIVE:
+                // todo not - needed: Test this out.
+                break;
             case PreferenceManager.REMOTE_PHONE_NUMBER:
                 setPhoneNumber();
                 break;

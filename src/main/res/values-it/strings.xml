@@ -19,7 +19,7 @@
     	Imposta il timer di avvio
     </string>
 
-    <string name="sms_label">
+    <string name="remote_notification_label">
     	Invia SMS o messaggi via Signal
     </string>
 

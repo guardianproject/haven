@@ -100,6 +100,7 @@ public class PreferenceManager {
 
     // keeping the key value same for data migration.
     static final String REMOTE_PHONE_NUMBER = "sms_number";
+    static final String REMOTE_NOTIFICATION_ACTIVE = "remote_notification_active";
 
     private Context context;
 	
@@ -246,6 +247,15 @@ public class PreferenceManager {
     
     public String getMicrophoneSensitivity() {
     	return appSharedPrefs.getString(MICROPHONE_SENSITIVITY, MEDIUM);
+    }
+
+    public void setRemoteNotificationActive(boolean isRemoteNotificationActive) {
+        prefsEditor.putBoolean(REMOTE_NOTIFICATION_ACTIVE, isRemoteNotificationActive);
+        prefsEditor.apply();
+    }
+
+    public boolean isRemoteNotificationActive() {
+        return appSharedPrefs.getBoolean(REMOTE_NOTIFICATION_ACTIVE, false);
     }
 
     public void setRemotePhoneNumber(@NonNull String remotePhoneNumber) {

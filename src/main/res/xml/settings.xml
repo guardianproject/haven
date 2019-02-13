@@ -57,9 +57,9 @@
     <PreferenceCategory android:title="@string/label_notifications">
 
         <SwitchPreference
-            android:defaultValue="true"
-            android:key="sms_active"
-            android:title="@string/sms_label" />
+            android:defaultValue="false"
+            android:key="remote_notification_active"
+            android:title="@string/remote_notification_label" />
 
         <EditTextPreference
             style="@style/AppPreference.DialogPreferenceSave"
