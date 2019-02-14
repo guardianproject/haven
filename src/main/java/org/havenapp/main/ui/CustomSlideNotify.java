@@ -7,12 +7,14 @@ package org.havenapp.main.ui;
 
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.R;
 
 import androidx.annotation.NonNull;
@@ -62,6 +64,9 @@ public class CustomSlideNotify extends Fragment {
             @Override
             public void onClick(View v) { }
         });
+        PreferenceManager pm = new PreferenceManager(getActivity());
+        if (!TextUtils.isEmpty(pm.getRemotePhoneNumber()))
+            mEditNumber.setText(pm.getRemotePhoneNumber());
 
         // todo describe why we are asking this maybe
 
