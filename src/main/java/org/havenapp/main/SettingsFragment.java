@@ -224,7 +224,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         String remotePhoneNumber = preferences.getRemotePhoneNumber();
         String signalUsername = preferences.getSignalUsername();
         return !remotePhoneNumber.isEmpty() && !getCountryCode().equalsIgnoreCase(remotePhoneNumber) &&
-                !TextUtils.isEmpty(signalUsername);
+                !TextUtils.isEmpty(signalUsername) && !getCountryCode().equalsIgnoreCase(signalUsername);
     }
 
     /**
@@ -243,6 +243,16 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         } else {
             activateSignal(signalUsername, null);
         }
+    }
+
+    private void onRemoteNotificationParameterChange() {
+        SwitchPreference switchPreference =
+                (SwitchPreference) findPreference(PreferenceManager.REMOTE_NOTIFICATION_ACTIVE);
+
+        boolean remoteNotificationActive = canSendRemoteNotification();
+        preferences.setRemoteNotificationActive(remoteNotificationActive);
+
+        switchPreference.setChecked(remoteNotificationActive);
     }
 
     @Override
@@ -391,17 +401,17 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                     preferences.setSignalUsername("");
                     findPreference(PreferenceManager.REGISTER_SIGNAL).setSummary(R.string.register_signal_desc);
                 }
+                onRemoteNotificationParameterChange();
                 break;
             case PreferenceManager.VERIFY_SIGNAL: {
                 String text = ((EditTextPreference) findPreference(PreferenceManager.VERIFY_SIGNAL)).getText();
                 activateSignal(preferences.getSignalUsername(), text);
+                onRemoteNotificationParameterChange();
                 break;
             }
-            case PreferenceManager.REMOTE_NOTIFICATION_ACTIVE:
-                // todo not - needed: Test this out.
-                break;
             case PreferenceManager.REMOTE_PHONE_NUMBER:
                 setPhoneNumber();
+                onRemoteNotificationParameterChange();
                 break;
             case PreferenceManager.NOTIFICATION_TIME:
                 try
