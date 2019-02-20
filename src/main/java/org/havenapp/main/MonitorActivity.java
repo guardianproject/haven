@@ -291,6 +291,10 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
 
     private void showSettings() {
 
+        if (!mIsMonitoring) {
+            mFragmentCamera.stopCamera();
+        }
+
         Intent i = new Intent(this, SettingsActivity.class);
 
         if (cTimer != null) {
