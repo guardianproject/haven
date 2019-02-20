@@ -127,7 +127,7 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
      */
     private void onEventTriggerListFetched(@NonNull List<EventTrigger> eventTriggerList) {
         this.eventTriggerList = eventTriggerList;
-        setEventTriggerImagePaths(eventTriggerList);
+        setEventTriggerImagePaths();
         mAdapter.setEventTriggers(eventTriggerList);
     }
 
@@ -241,8 +241,8 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
     }
 
     @Override
-    public void onImageClick(@NotNull EventTrigger eventTrigger) {
-        int startPosition = 0;
+    public void onImageClick(@NotNull EventTrigger eventTrigger, int position) {
+        int startPosition = getPositionOfImagePath(position);
 
         ShareOverlayView overlayView = new ShareOverlayView(this);
         ImageViewer viewer = new ImageViewer.Builder<>(this, eventTriggerImagePaths)
@@ -265,7 +265,7 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
         startActivity(shareIntent);
     }
 
-    private void setEventTriggerImagePaths(List<EventTrigger> eventTriggerList) {
+    private void setEventTriggerImagePaths() {
         this.eventTriggerImagePaths = new ArrayList<>();
         for (EventTrigger trigger : eventTriggerList)
         {
@@ -275,5 +275,16 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
                eventTriggerImagePaths.add(Uri.fromFile(new File(trigger.getPath())));
             }
         }
+    }
+
+    private int getPositionOfImagePath(int position) {
+        int pos = -1;
+        for (int i = 0; i <= position; i++) {
+            if (eventTriggerList.get(i).getType() == EventTrigger.CAMERA &&
+                    (!TextUtils.isEmpty(eventTriggerList.get(i).getPath()))) {
+                pos++;
+            }
+        }
+        return pos;
     }
 }

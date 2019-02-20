@@ -75,7 +75,7 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     ((VideoVH) holder).bind(eventTrigger);
                     break;
                 case EventTrigger.CAMERA:
-                    ((ImageVH) holder).bind(eventTrigger);
+                    ((ImageVH) holder).bind(eventTrigger, position);
                     break;
                 case EventTrigger.MICROPHONE:
                     ((AudioVH) holder).bind(eventTrigger, context);

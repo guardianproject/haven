@@ -22,7 +22,7 @@ class ImageVH(private val resourceManager: IResourceManager,
     private val imageDesc = itemView.findViewById<TextView>(R.id.item_camera_desc)
     private val imageView = itemView.findViewById<SimpleDraweeView>(R.id.item_camera_image)
 
-    fun bind(eventTrigger: EventTrigger) {
+    fun bind(eventTrigger: EventTrigger, position: Int) {
         imageTitle.text = eventTrigger.getStringType(resourceManager)
         imageDesc.text = eventTrigger.time?.toLocaleString() ?: ""
 
@@ -39,7 +39,7 @@ class ImageVH(private val resourceManager: IResourceManager,
 
 
         imageView.setOnClickListener {
-            listener.onImageClick(eventTrigger)
+            listener.onImageClick(eventTrigger, position)
         }
 
         imageView.setOnLongClickListener {
@@ -49,7 +49,7 @@ class ImageVH(private val resourceManager: IResourceManager,
     }
 
     interface ImageClickListener {
-        fun onImageClick(eventTrigger: EventTrigger)
+        fun onImageClick(eventTrigger: EventTrigger, position: Int)
 
         fun onImageLongClick(eventTrigger: EventTrigger)
     }
