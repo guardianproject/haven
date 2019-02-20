@@ -181,5 +181,6 @@
 
     <string name="status_recording_video">Recording...</string>
     <string name="status_light">LIGHT DETECTED</string>
+    <string name="run_disk_cleanup">Clean deleted logs from disk</string>
 
 </resources>

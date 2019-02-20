@@ -28,6 +28,13 @@ class RemoveDeletedFilesJob: Job() {
                     .build()
                     .schedule()
         }
+
+        fun runNow(): Int {
+            return JobRequest.Builder(SERVICE_TAG)
+                    .startNow()
+                    .build()
+                    .schedule()
+        }
     }
 
     override fun onRunJob(params: Params): Result {
