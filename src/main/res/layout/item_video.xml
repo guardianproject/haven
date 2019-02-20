@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/note_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="@dimen/activity_margin_half"
+    android:background="?attr/selectableItemBackground"
     android:orientation="vertical">
 
     <LinearLayout
@@ -16,21 +15,21 @@
         android:padding="@dimen/activity_margin_half">
 
         <TextView
-            android:id="@+id/event_item_title"
+            android:id="@+id/item_video_title"
             style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="Title" />
 
-        <RelativeLayout
+        <VideoView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_margin_half"
-            android:paddingRight="4dp"
-            android:paddingLeft="4dp">
+            android:layout_height="200dp"
+            android:id="@+id/item_video_view"
+            android:scaleType="centerCrop"
+            />
 
         <TextView
-            android:id="@+id/event_item_desc"
+            android:id="@+id/item_video_desc"
             style="@style/TextAppearance.AppCompat.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -40,17 +39,6 @@
             android:paddingBottom="@dimen/activity_margin_half"
             android:textColor="@android:color/black"
             tools:text="Description" />
-
-            <ImageView
-                android:id="@+id/event_action_share"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:visibility="gone"
-                android:tint="@android:color/black"
-                app:srcCompat="@drawable/ic_share" />
-        </RelativeLayout>
 
     </LinearLayout>
 
