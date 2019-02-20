@@ -23,6 +23,7 @@ import org.havenapp.main.model.Event;
 import org.havenapp.main.model.EventTrigger;
 import org.havenapp.main.resources.IResourceManager;
 import org.havenapp.main.resources.ResourceManager;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -228,19 +229,19 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
     }
 
     @Override
-    public void onVideoClick(EventTrigger eventTrigger) {
+    public void onVideoClick(@NotNull EventTrigger eventTrigger) {
         Intent intent = new Intent(this, VideoPlayerActivity.class);
         intent.setData(Uri.fromFile(new File(eventTrigger.getPath())));
         startActivity(intent);
     }
 
     @Override
-    public void onVideoLongClick(EventTrigger eventTrigger) {
+    public void onVideoLongClick(@NotNull EventTrigger eventTrigger) {
         shareMedia(eventTrigger);
     }
 
     @Override
-    public void onImageClick(EventTrigger eventTrigger) {
+    public void onImageClick(@NotNull EventTrigger eventTrigger) {
         int startPosition = 0;
 
         ShareOverlayView overlayView = new ShareOverlayView(this);
@@ -252,7 +253,7 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
     }
 
     @Override
-    public void onImageLongClick(EventTrigger eventTrigger) {
+    public void onImageLongClick(@NotNull EventTrigger eventTrigger) {
         shareMedia(eventTrigger);
     }
 
