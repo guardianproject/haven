@@ -22,6 +22,7 @@ class EventTriggerVH(private val resourceManager: IResourceManager, viewGroup: V
     fun bind(eventTrigger: EventTrigger, string: String, position: Int) {
         indexNumber.text = "#${position + 1}"
         triggerTitle.text = eventTrigger.getStringType(resourceManager)
-        triggerDesc.text = """${eventTrigger.time?.toLocaleString() ?: ""}\n$string: ${eventTrigger.path}"""
+        triggerDesc.text = """${eventTrigger.time?.toLocaleString() ?: ""}
+            |$string: ${eventTrigger.path}""".trimMargin()
     }
 }

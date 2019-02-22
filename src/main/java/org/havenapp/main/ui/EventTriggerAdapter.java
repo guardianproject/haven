@@ -58,6 +58,7 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             case EventTrigger.LIGHT:
             case EventTrigger.PRESSURE:
             case EventTrigger.POWER:
+            case EventTrigger.BUMP:
                 return new EventTriggerVH(resourceManager, parent);
         }
         return new RecyclerView.ViewHolder(new View(context)) {};
@@ -81,6 +82,7 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     ((AudioVH) holder).bind(eventTrigger, context, position);
                     break;
                 case EventTrigger.ACCELEROMETER:
+                case EventTrigger.BUMP:
                     ((EventTriggerVH) holder)
                             .bind(eventTrigger, resourceManager.getString(R.string.data_speed), position);
                     break;
