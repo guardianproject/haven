@@ -21,11 +21,13 @@ class VideoVH(private val clickListener: VideoClickListener, private val context
     : RecyclerView.ViewHolder(LayoutInflater.from(viewGroup.context)
         .inflate(R.layout.item_video, viewGroup, false)) {
 
+    private val indexNumber = itemView.findViewById<TextView>(R.id.index_number)
     private val title = itemView.findViewById<TextView>(R.id.item_video_title)
     private val desc = itemView.findViewById<TextView>(R.id.item_video_desc)
     private val videoView = itemView.findViewById<VideoView>(R.id.item_video_view)
 
-    fun bind(eventTrigger: EventTrigger) {
+    fun bind(eventTrigger: EventTrigger, position: Int) {
+        indexNumber.text = "#${position + 1}"
         title.text = eventTrigger.getStringType(resourceManager)
         desc.text = eventTrigger.time?.toLocaleString() ?: ""
 

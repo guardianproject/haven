@@ -15,10 +15,12 @@ class EventTriggerVH(private val resourceManager: IResourceManager, viewGroup: V
     : RecyclerView.ViewHolder(LayoutInflater.from(viewGroup.context)
         .inflate(R.layout.item_event_trigger, viewGroup, false)) {
 
+    private val indexNumber = itemView.findViewById<TextView>(R.id.index_number)
     private val triggerTitle = itemView.findViewById<TextView>(R.id.item_trigger_title)
     private val triggerDesc = itemView.findViewById<TextView>(R.id.item_trigger_desc)
 
-    fun bind(eventTrigger: EventTrigger, string: String) {
+    fun bind(eventTrigger: EventTrigger, string: String, position: Int) {
+        indexNumber.text = "#${position + 1}"
         triggerTitle.text = eventTrigger.getStringType(resourceManager)
         triggerDesc.text = """${eventTrigger.time?.toLocaleString() ?: ""}\n$string: ${eventTrigger.path}"""
     }

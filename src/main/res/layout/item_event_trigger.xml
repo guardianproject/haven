@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="@dimen/activity_margin_half"
     android:background="?attr/selectableItemBackground"
     android:orientation="vertical">
@@ -13,6 +13,13 @@
         android:background="?attr/selectableItemBackground"
         android:orientation="vertical"
         android:padding="@dimen/activity_margin_half">
+
+        <TextView
+            android:id="@+id/index_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#808080"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/item_trigger_title"

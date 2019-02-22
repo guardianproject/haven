@@ -18,11 +18,13 @@ class ImageVH(private val resourceManager: IResourceManager,
     : RecyclerView.ViewHolder(LayoutInflater.from(viewGroup.context)
         .inflate(R.layout.item_photo, viewGroup, false)) {
 
+    private val indexNumber = itemView.findViewById<TextView>(R.id.index_number)
     private val imageTitle = itemView.findViewById<TextView>(R.id.item_camera_title)
     private val imageDesc = itemView.findViewById<TextView>(R.id.item_camera_desc)
     private val imageView = itemView.findViewById<SimpleDraweeView>(R.id.item_camera_image)
 
     fun bind(eventTrigger: EventTrigger, position: Int) {
+        indexNumber.text = "#${position + 1}"
         imageTitle.text = eventTrigger.getStringType(resourceManager)
         imageDesc.text = eventTrigger.time?.toLocaleString() ?: ""
 

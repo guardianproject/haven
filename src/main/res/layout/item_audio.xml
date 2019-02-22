@@ -16,6 +16,13 @@
         android:padding="@dimen/activity_margin_half">
 
         <TextView
+            android:id="@+id/index_number"
+            android:textColor="#808080"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
             android:id="@+id/item_audio_title"
             style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="match_parent"

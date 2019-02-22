@@ -47,6 +47,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventVH> {
         String desc = event.getEventTriggerCount() + " " +
                 resourceManager.getString(R.string.detection_events);
 
+        holder.index.setText("#" + (position + 1));
         holder.title.setText(title);
         holder.note.setText(desc);
 
@@ -58,11 +59,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventVH> {
     }
 
     class EventVH extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView title, note;
+        TextView index, title, note;
 
         EventVH(View itemView) {
             super(itemView);
 
+            index = itemView.findViewById(R.id.index_number);
            title = itemView.findViewById(R.id.event_item_title);
             note = itemView.findViewById(R.id.event_item_desc);
 

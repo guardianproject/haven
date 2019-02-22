@@ -16,6 +16,13 @@
         android:padding="@dimen/activity_margin_half">
 
         <TextView
+            android:id="@+id/index_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#808080"
+            android:textSize="12sp" />
+
+        <TextView
             android:id="@+id/event_item_title"
             style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="match_parent"
@@ -26,20 +33,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_margin_half"
-            android:paddingRight="4dp"
-            android:paddingLeft="4dp">
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp">
 
-        <TextView
-            android:id="@+id/event_item_desc"
-            style="@style/TextAppearance.AppCompat.Body1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:alpha="0.54"
-            android:ellipsize="end"
-            android:maxLines="6"
-            android:paddingBottom="@dimen/activity_margin_half"
-            android:textColor="@android:color/black"
-            tools:text="Description" />
+            <TextView
+                android:id="@+id/event_item_desc"
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.54"
+                android:ellipsize="end"
+                android:maxLines="6"
+                android:paddingBottom="@dimen/activity_margin_half"
+                android:textColor="@android:color/black"
+                tools:text="Description" />
 
             <ImageView
                 android:id="@+id/event_action_share"
@@ -47,8 +54,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:visibility="gone"
                 android:tint="@android:color/black"
+                android:visibility="gone"
                 app:srcCompat="@drawable/ic_share" />
         </RelativeLayout>
 

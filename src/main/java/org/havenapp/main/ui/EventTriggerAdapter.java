@@ -72,29 +72,29 @@ public class EventTriggerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         {
             switch (eventTrigger.getType()) {
                 case EventTrigger.CAMERA_VIDEO:
-                    ((VideoVH) holder).bind(eventTrigger);
+                    ((VideoVH) holder).bind(eventTrigger, position);
                     break;
                 case EventTrigger.CAMERA:
                     ((ImageVH) holder).bind(eventTrigger, position);
                     break;
                 case EventTrigger.MICROPHONE:
-                    ((AudioVH) holder).bind(eventTrigger, context);
+                    ((AudioVH) holder).bind(eventTrigger, context, position);
                     break;
                 case EventTrigger.ACCELEROMETER:
                     ((EventTriggerVH) holder)
-                            .bind(eventTrigger, resourceManager.getString(R.string.data_speed));
+                            .bind(eventTrigger, resourceManager.getString(R.string.data_speed), position);
                     break;
                 case EventTrigger.LIGHT:
                     ((EventTriggerVH) holder)
-                            .bind(eventTrigger, resourceManager.getString(R.string.data_light));
+                            .bind(eventTrigger, resourceManager.getString(R.string.data_light), position);
                     break;
                 case EventTrigger.PRESSURE:
                     ((EventTriggerVH) holder)
-                            .bind(eventTrigger, resourceManager.getString(R.string.data_pressure));
+                            .bind(eventTrigger, resourceManager.getString(R.string.data_pressure), position);
                     break;
                 case EventTrigger.POWER:
                     ((EventTriggerVH) holder)
-                            .bind(eventTrigger, resourceManager.getString(R.string.data_power));
+                            .bind(eventTrigger, resourceManager.getString(R.string.data_power), position);
                     break;
             }
         }
