@@ -5,39 +5,29 @@
 
     <string name="title_activity_start">Haven</string>
 
-    <string name="accelerometer_prompt">
-		Sensibilité du mouvement
-	</string>
+    <string name="accelerometer_prompt">Sensibilité du mouvement</string>
 
-    <string name="microphone_sensitivity">
-		Sensibilité du son
-	</string>
+    <string name="microphone_sensitivity">Sensibilité du son</string>
 
-    <string name="timer_delay_label">
-		Déterminer un délai
-	</string>
+    <string name="timer_delay_label">Déterminer un délai</string>
 
-    <string name="sms_label">
-		Envoyer SMS ou des alertes par message Signal
-	</string>
+    <string name="sms_label">Envoyer SMS ou des alertes par message Signal</string>
 
     <string name="sms_hint">+33612345678</string>
 
-    <string name="camera_prompt">
-		Sélectionner la caméra
-	</string>
+    <string name="camera_prompt">Sélectionner la caméra</string>
 
     <string name="secure_service_started">Haven activé</string>
 
     <string name="intrusion_detected">Un intrus a été détecté (type: %s)
 		Enregistrement audio et image en cours.
-	</string>
+</string>
     <string name="title_activity_event">EventActivity</string>
 
     <string name="action_settings">Configuration</string>
 
     <string name="intro1_title">Bienvenu(e) sur Haven</string>
-    <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the height find...\"\n-George Meredith</string>
+    <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the height find…\"\n-George Meredith</string>
 
     <string name="intro2_title">Haven est fait pour les persones qui veulent détecter des violations de domicile, du lieu de travail, d\'une chambre d\'hotel ou n\'importe quel espace privé</string>
     <string name="intro3_desc">Transformez un téléphone supplémentaire en un détecteur de sons, de mouvements, de vibrations et de lumière pour détecter des visiteurs inattendus et des intrus non désirés</string>
@@ -86,7 +76,7 @@
     <string name="data_light">LUMIÈRE</string>
     <string name="data_pressure">PRESSION</string>
     <string name="data_power">ALIMENTATION</string>
-    <string name="share_event_action">Partager l\'événement...</string>
+    <string name="share_event_action">Partager l\'événement…</string>
     <string name="signal_test_message">Ceci est un message de test de Haven</string>
     <string name="send_test_message">Envoyer un message de test</string>
     <string name="verify">Vérifier</string>
@@ -99,7 +89,7 @@
     <string name="register_signal_desc">Entrez un nouveau numéro de téléphone avec Signal pour envoyer des notifications sécurisées. Vous pouvez utiliser le numéro de cet appareil ou créer un numéro virtuel.\n\nATTENTION : Si ce numéro est déjà configuré sur une installation de Signal existante il cessera de fonctionner sur cette installation et ne fonctionnera plus que sur Haven.</string>
     <string name="phone_hint">+33612345678</string>
 
-    <string name="menu_licenses">Licences...</string>
+    <string name="menu_licenses">Licences…</string>
     <string name="sensor_light">Lumière ambiante</string>
     <string name="sensor_accel">Mouvement (Accéléromètre)</string>
     <string name="sensor_camera">Mouvement (caméra)</string>
@@ -116,7 +106,7 @@
     <string name="signal_dialog_summary">Un numéro de téléphone depuis lequel envoyer les notifications avec Signal</string>
     <string name="verification_dialog_summary">Appuyez pour vérifier votre numéro Signal</string>
     <string name="send_message_dialog">Entrez un numéro de téléphone où envoyer une notification d\'alerte test</string>
-    <string name="send_text_message">Tester les notifications...</string>
+    <string name="send_text_message">Tester les notifications…</string>
     <string name="service_address">Adresse du service</string>
     <string name="password">Mot de passe (Requis)</string>
     <string name="signal_number">Numéro Signal de ce téléphone</string>
@@ -138,6 +128,5 @@
     <string name="event_deleted">Évènement supprimé</string>
     <string name="undo">Annuler</string>
     <string name="events_deleted">Évènements supprimés</string>
-
 
 </resources>

@@ -1,33 +1,21 @@
 <resources>
 
     <string name="menu_save">Sačuvaj</string>
-    <string name="menu_about">Podesite...</string>
+    <string name="menu_about">Podesite…</string>
 
     <string name="title_activity_start">Haven</string>
 
-    <string name="accelerometer_prompt">
-    	Osetljivost pokreta
-    </string>
+    <string name="accelerometer_prompt">Osetljivost pokreta</string>
 
-    <string name="microphone_sensitivity">
-    	Osetljivost zvuka
-    </string>
+    <string name="microphone_sensitivity">Osetljivost zvuka</string>
 
-    <string name="timer_delay_label">
-    	Vreme odlaganja
-    </string>
+    <string name="timer_delay_label">Vreme odlaganja</string>
 
-    <string name="sms_label">
-    	Šalji SMS ili Signal upozorenja
-    </string>
+    <string name="sms_label">Šalji SMS ili Signal upozorenja</string>
 
-    <string name="sms_hint">
-    	+12125551212
-    </string>
+    <string name="sms_hint">+12125551212</string>
 
-    <string name="camera_prompt">
-    	Izaberi kameru
-    </string>
+    <string name="camera_prompt">Izaberi kameru</string>
 
     <string name="secure_service_started">Haven aktiviran</string>
 
@@ -37,7 +25,7 @@
     <string name="action_settings">Podešavanja</string>
 
     <string name="intro1_title">Dobrodošli u Haven</string>
-    <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the height find...\"\n-Džordž Meredit</string>
+    <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the height find…\"\n-Džordž Meredit</string>
 
     <string name="intro2_title">Haven je za ljude koji žele da vode računa o provalama u njihove domove, kancelarije, hotelske sobe ili druge privatne prostore.</string>
     <string name="intro3_desc">Pretvorite dodatni telefon u detektor pokreta, zvuka, vibracija i svetlosti, posmatrajući neočekivane goste i provalnike.</string>
@@ -86,7 +74,7 @@
     <string name="data_light">SVETLOST</string>
     <string name="data_pressure">PRITISAK</string>
     <string name="data_power">NAPAJANJE</string>
-    <string name="share_event_action">Podelite...</string>
+    <string name="share_event_action">Podelite…</string>
     <string name="signal_test_message">Ovo je test poruka od Haven-a</string>
     <string name="send_test_message">Pošalji test poruku</string>
     <string name="verify">Potvrdi</string>
@@ -99,7 +87,7 @@
     <string name="register_signal_desc">Unesite broj telefona da se registrujete na Signal, radi slanja bezbednosnih obaveštenja. Možete koristiti broj ovog uređaja ili postaviti virtuelni broj.\n\nUPOZORENJE: Ako je ovaj broj već iskorišćen prilikom instalacije Signal aplikacije, prestaće sa radom i radiće samo unutar Haven aplikacije.</string>
     <string name="phone_hint">+12125551212</string>
 
-    <string name="menu_licenses">Licence...</string>
+    <string name="menu_licenses">Licence…</string>
     <string name="sensor_light">Osvetljenje ambijenta</string>
     <string name="sensor_accel">Kretanje (Akcelerometar)</string>
     <string name="sensor_camera">Kretanje (Kamera)</string>
@@ -116,7 +104,7 @@
     <string name="signal_dialog_summary">Broj telefona kojem će se slati Signal aplikacijom</string>
     <string name="verification_dialog_summary">Pritisnite da potvrdite Signal broj</string>
     <string name="send_message_dialog">Unesite broj telefona kojem će se poslati test poruka upozorenja</string>
-    <string name="send_text_message">Testiraj obaveštenja...</string>
+    <string name="send_text_message">Testiraj obaveštenja…</string>
     <string name="service_address">Adresa servisa</string>
     <string name="password">Lozinka (obavezna)</string>
     <string name="signal_number">Signal broj (lokalni)</string>
@@ -134,6 +122,5 @@
     <string name="camera_sensitivity_tip">Promenite kameru ili iskoristite slajder da prilagodite osetljivost detektovanja pokreta</string>
     <string name="disable_battery_opt_title">Onemogući optimizaciju baterije</string>
     <string name="disable_battery_opt_summary">Dozvolite aplikaciji da radi kada je ekran isključen</string>
-
 
 </resources>

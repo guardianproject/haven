@@ -1,33 +1,21 @@
 <resources>
 
     <string name="menu_save">Сохранить</string>
-    <string name="menu_about">Настроить...</string>
+    <string name="menu_about">Настроить…</string>
 
     <string name="title_activity_start">Haven</string>
 
-    <string name="accelerometer_prompt">
-    	Чувствительность движения
-    </string>
+    <string name="accelerometer_prompt">Чувствительность движения</string>
 
-    <string name="microphone_sensitivity">
-    	Чувствительность к звукам
-    </string>
+    <string name="microphone_sensitivity">Чувствительность к звукам</string>
 
-    <string name="timer_delay_label">
-    	Установка времени задержки
-    </string>
+    <string name="timer_delay_label">Установка времени задержки</string>
 
-    <string name="sms_label">
-    	Оповещать по SMS или через Signal
-    </string>
+    <string name="sms_label">Оповещать по SMS или через Signal</string>
 
-    <string name="sms_hint">
-    	+79125551212
-    </string>
+    <string name="sms_hint">+79125551212</string>
 
-    <string name="camera_prompt">
-    	Выбрать камеру
-    </string>
+    <string name="camera_prompt">Выбрать камеру</string>
 
     <string name="secure_service_started">Haven включен</string>
 
@@ -37,7 +25,7 @@
     <string name="action_settings">Настройки</string>
 
     <string name="intro1_title">Добро пожаловать в Haven</string>
-    <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the heights to find...\"\n-George Meredith</string>
+    <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the heights to find…\"\n-George Meredith</string>
 
     <string name="intro2_title">Haven предназначен для людей, которые хотят следить за проникновением в свой дом, офис, гостиничный номер или другое личное пространство</string>
     <string name="intro3_desc">Превратите дополнительный телефон в детектор движения, звука, вибрации и света, наблюдая за неожиданными гостями и злоумышленниками</string>
@@ -86,7 +74,7 @@
     <string name="data_light">СВЕТ</string>
     <string name="data_pressure">НАЖАТИЕ</string>
     <string name="data_power">ПИТАНИЕ</string>
-    <string name="share_event_action">Поделиться событием...</string>
+    <string name="share_event_action">Поделиться событием…</string>
     <string name="signal_test_message">Это тестовое сообщение от Haven</string>
     <string name="send_test_message">Отправить тестовое сообщение</string>
     <string name="verify">Подтверждение</string>
@@ -99,7 +87,7 @@
     <string name="register_signal_desc">Зарегистрировать новый номер телефона (+79125551212) для отправки защищенных уведомлений. НЕ ИСПОЛЬЗУЙТЕ СУЩЕСТВУЮЩИЙ/ПЕРВОНАЧАЛЬНЫЙ НОМЕР.</string>
     <string name="phone_hint">+79125551212</string>
 
-    <string name="menu_licenses">Лицензии...</string>
+    <string name="menu_licenses">Лицензии…</string>
     <string name="sensor_light">Окружающий свет</string>
     <string name="sensor_accel">Движение (акселерометр)</string>
     <string name="sensor_camera">Движение (камера)</string>
@@ -116,7 +104,7 @@
     <string name="signal_dialog_summary">Исходящий телефонный номер в Signal</string>
     <string name="verification_dialog_summary">Коснитесь для верификации номера в Signal</string>
     <string name="send_message_dialog">Введите номер, на который будет отослано тестовое сообщение</string>
-    <string name="send_text_message">Протестировать оповещения...</string>
+    <string name="send_text_message">Протестировать оповещения…</string>
     <string name="service_address">Адрес службы</string>
     <string name="password">Пароль (обязательно)</string>
     <string name="signal_number">Номер в Signal (локальный)</string>
@@ -134,6 +122,5 @@
     <string name="camera_sensitivity_tip">Выберите другую камеру или настройте чувствительность к движениям с помощью слайдера</string>
     <string name="disable_battery_opt_title">Отключить энергосбережение</string>
     <string name="disable_battery_opt_summary">Продолжать работу при выключенном экране</string>
-
 
 </resources>
