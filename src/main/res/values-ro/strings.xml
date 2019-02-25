@@ -1,0 +1,38 @@
+<resources>
+
+    <string name="menu_save">Salvează</string>
+    <string name="menu_about">Configurare…</string>
+
+    <string name="title_activity_start">Haven</string>
+
+    <string name="sms_hint">+12125551212</string>
+
+    <string name="camera_prompt">Selectați camera</string>
+
+    <string name="secure_service_started">Haven activat</string>
+
+    <string name="action_settings">Setări</string>
+
+    <string name="intro1_title">Bine ați venit la Haven</string>
+    <string name="onboarding_action_end">Încheie</string>
+
+    <string name="remote_access">Acces la distanță</string>
+    <string name="remote_access_label">Activează acces la distanță prin serviciul Tor Onion</string>
+    <string name="remote_access_hint">Adresa serviciului Onion din Orbot</string>
+    <string name="remote_access_credential_hint">Setează parolă acces de la distanță</string>
+    <string name="camera_front">Față</string>
+    <string name="camera_back">Spate</string>
+    <string name="camera_none">Nici una</string>
+
+    <string name="action_configure">Configurează</string>
+
+    <string name="main_screen_title">Jurnalul dumneavoastră Haven</string>
+
+    <string name="current_noise_base">Nivelul de zgomot curent este</string>
+    <string name="current_accel_base">Nivelul de mișcare curent este</string>
+
+    <string name="configure_trigger_level">Glisați pentru a seta limita de detectare</string>
+    <string name="tune_the_sound_detection">Faceți zgomot!</string>
+    <string name="phone_hint">+12125551212</string>
+
+</resources>
