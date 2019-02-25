@@ -7,25 +7,3 @@ file_filter = src/main/res/values-<lang>/strings.xml
 host = https://www.transifex.com
 source_file = src/main/res/values/strings.xml
 source_lang = en
-
-[haven.fulldescriptiontxt]
-file_filter=fastlane/android/metadata/<lang>/full_description.txt
-host = https://www.transifex.com
-source_file = fastlane/android/metadata/en-US/full_description.txt
-source_lang = en
-type = TXT
-
-[haven.shortdescriptiontxt]
-file_filter=fastlane/android/metadata/<lang>/short_description.txt
-host = https://www.transifex.com
-source_file = fastlane/android/metadata/en-US/short_description.txt
-source_lang = en
-type = TXT
-
-[haven.titletxt]
-file_filter=fastlane/android/metadata/<lang>/title.txt
-host = https://www.transifex.com
-source_file = fastlane/android/metadata/en-US/title.txt
-source_lang = en
-type = TXT
-
