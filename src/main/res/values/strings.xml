@@ -181,5 +181,6 @@
 
     <string name="status_recording_video">Recording...</string>
     <string name="status_light">LIGHT DETECTED</string>
+    <string name="pecent_motion_detected">% motion detected</string>
 
 </resources>

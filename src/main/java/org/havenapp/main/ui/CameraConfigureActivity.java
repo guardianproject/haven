@@ -38,7 +38,9 @@ import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import me.angrybyte.numberpicker.listener.OnValueChangeListener;
 import me.angrybyte.numberpicker.view.ActualNumberPicker;
+import org.jetbrains.annotations.NotNull;
 
+import java.text.MessageFormat;
 
 
 public class CameraConfigureActivity extends AppCompatActivity {
@@ -138,7 +140,7 @@ public class CameraConfigureActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NotNull String[] permissions, @NotNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         switch (requestCode) {
@@ -191,7 +193,7 @@ public class CameraConfigureActivity extends AppCompatActivity {
 
             if (percChanged != -1)
             {
-                mTxtStatus.setText(percChanged + "% motion detected");
+                mTxtStatus.setText(MessageFormat.format("{0}{1}", percChanged, getString(R.string.pecent_motion_detected)));
             }
         }
     };
