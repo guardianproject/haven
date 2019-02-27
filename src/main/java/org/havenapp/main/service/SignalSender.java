@@ -40,7 +40,7 @@ public class SignalSender {
         mUsername = username;
         mAlertCount = 0;
         preferences = new PreferenceManager(mContext);
-        prefix = preferences.getHearbeatPrefix();
+        prefix = preferences.getHeartbeatPrefix();
         suffix = preferences.getHeartbeatSuffix();
         messageString = preferences.getHeartbeatMonitorMessage();
         interval = preferences.getHeartbeatNotificationTimeMs() / 60000;
