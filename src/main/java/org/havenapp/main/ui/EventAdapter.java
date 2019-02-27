@@ -65,7 +65,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventVH> {
             super(itemView);
 
             index = itemView.findViewById(R.id.index_number);
-           title = itemView.findViewById(R.id.event_item_title);
+           title = itemView.findViewById(R.id.title);
             note = itemView.findViewById(R.id.event_item_desc);
 
             itemView.setOnClickListener(this);

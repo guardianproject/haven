@@ -23,7 +23,7 @@ class AudioVH(private val resourceManager: IResourceManager, viewGroup: ViewGrou
         .inflate(R.layout.item_audio, viewGroup, false)) {
 
     private val indexNumber = itemView.findViewById<TextView>(R.id.index_number)
-    private val audioTitle = itemView.findViewById<TextView>(R.id.item_audio_title)
+    private val audioTitle = itemView.findViewById<TextView>(R.id.title)
     private val audioDesc = itemView.findViewById<TextView>(R.id.item_audio_desc)
     private val waveFormView = itemView.findViewById<SimpleWaveformView>(R.id.item_sound)
     private val playerContainer = itemView.findViewById<LinearLayout>(R.id.item_player_container)

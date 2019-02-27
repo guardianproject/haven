@@ -22,7 +22,7 @@ class VideoVH(private val clickListener: VideoClickListener, private val context
         .inflate(R.layout.item_video, viewGroup, false)) {
 
     private val indexNumber = itemView.findViewById<TextView>(R.id.index_number)
-    private val title = itemView.findViewById<TextView>(R.id.item_video_title)
+    private val title = itemView.findViewById<TextView>(R.id.title)
     private val desc = itemView.findViewById<TextView>(R.id.item_video_desc)
     private val videoView = itemView.findViewById<VideoView>(R.id.item_video_view)
 

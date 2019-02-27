@@ -16,7 +16,7 @@ class EventTriggerVH(private val resourceManager: IResourceManager, viewGroup: V
         .inflate(R.layout.item_event_trigger, viewGroup, false)) {
 
     private val indexNumber = itemView.findViewById<TextView>(R.id.index_number)
-    private val triggerTitle = itemView.findViewById<TextView>(R.id.item_trigger_title)
+    private val triggerTitle = itemView.findViewById<TextView>(R.id.title)
     private val triggerDesc = itemView.findViewById<TextView>(R.id.item_trigger_desc)
 
     fun bind(eventTrigger: EventTrigger, string: String, position: Int) {

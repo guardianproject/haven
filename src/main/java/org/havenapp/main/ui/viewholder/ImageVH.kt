@@ -19,7 +19,7 @@ class ImageVH(private val resourceManager: IResourceManager,
         .inflate(R.layout.item_photo, viewGroup, false)) {
 
     private val indexNumber = itemView.findViewById<TextView>(R.id.index_number)
-    private val imageTitle = itemView.findViewById<TextView>(R.id.item_camera_title)
+    private val imageTitle = itemView.findViewById<TextView>(R.id.title)
     private val imageDesc = itemView.findViewById<TextView>(R.id.item_camera_desc)
     private val imageView = itemView.findViewById<SimpleDraweeView>(R.id.item_camera_image)
 
