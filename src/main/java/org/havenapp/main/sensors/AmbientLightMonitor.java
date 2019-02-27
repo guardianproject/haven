@@ -121,7 +121,7 @@ public class AmbientLightMonitor implements SensorEventListener {
 
                         Message message = new Message();
                         message.what = EventTrigger.LIGHT;
-                        message.getData().putString("path",lightChangedValue+"");
+                        message.getData().putString(MonitorService.KEY_PATH, lightChangedValue+"");
 
                         try {
                             if (serviceMessenger != null) {

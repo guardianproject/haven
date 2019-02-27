@@ -142,7 +142,7 @@ public class AccelerometerMonitor implements SensorEventListener {
 
                         Message message = new Message();
                         message.what = EventTrigger.ACCELEROMETER;
-                        message.getData().putString("path",mAccel+"");
+                        message.getData().putString(MonitorService.KEY_PATH, mAccel+"");
 
                         try {
                             if (serviceMessenger != null) {
