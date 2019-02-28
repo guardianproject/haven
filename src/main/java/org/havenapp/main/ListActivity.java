@@ -368,17 +368,8 @@ public class ListActivity extends AppCompatActivity {
         if (!TextUtils.isEmpty(preferences.getSignalUsername())) {
             SignalSender sender = SignalSender.getInstance(this, preferences.getSignalUsername().trim());
             ArrayList<String> recip = new ArrayList<>();
-            recip.add(preferences.getSmsNumber());
+            recip.add(preferences.getRemotePhoneNumber());
             sender.sendMessage(recip, resourceManager.getString(R.string.signal_test_message), null);
-        }
-        else if (!TextUtils.isEmpty(preferences.getSmsNumber())) {
-
-            SmsManager manager = SmsManager.getDefault();
-
-            StringTokenizer st = new StringTokenizer(preferences.getSmsNumber(),",");
-            while (st.hasMoreTokens())
-                manager.sendTextMessage(st.nextToken(), null, resourceManager.getString(R.string.signal_test_message), null, null);
-
         }
     }
 }

@@ -59,8 +59,7 @@ public class PPAppIntro extends AppIntro {
             @Override
             public void onClick(View v) {
                 PreferenceManager pm = new PreferenceManager(PPAppIntro.this);
-                pm.activateSms(true);
-                pm.setSmsNumber(cs4.getPhoneNumber());
+                pm.setRemotePhoneNumber(cs4.getPhoneNumber());
                 Toast.makeText(PPAppIntro.this, R.string.phone_saved,Toast.LENGTH_SHORT).show();
                 getPager().setCurrentItem(getPager().getCurrentItem()+1);
             }

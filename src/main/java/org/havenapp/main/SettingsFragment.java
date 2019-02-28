@@ -5,6 +5,7 @@ package org.havenapp.main;
  */
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -84,13 +85,29 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
         }
 
-        if (preferences.getSmsActivation()) {
-            ((SwitchPreference) findPreference(PreferenceManager.SMS_ACTIVE)).setChecked(true);
-        }
+        SwitchPreference switchPreference =
+                (SwitchPreference) findPreference(PreferenceManager.REMOTE_NOTIFICATION_ACTIVE);
 
-        findPreference(PreferenceManager.SMS_NUMBER).setOnPreferenceClickListener(preference -> {
-            if (preferences.getSmsNumber().isEmpty()) {
-                ((EditTextPreference) findPreference(PreferenceManager.SMS_NUMBER)).setText(getCountryCode());
+        switchPreference.setChecked(preferences.isRemoteNotificationActive());
+
+        switchPreference.setOnPreferenceChangeListener((preference, newValue) -> {
+                    // user wants to enable/disable remote notification
+
+                    boolean enabled = (Boolean) newValue;
+
+                    if (enabled && !canSendRemoteNotification()) {
+                        collectDataForRemoteNotification();
+                    }
+
+                    preferences.setRemoteNotificationActive(enabled && canSendRemoteNotification());
+                    switchPreference.setChecked(enabled && canSendRemoteNotification());
+
+                    return false;
+                });
+
+        findPreference(PreferenceManager.REMOTE_PHONE_NUMBER).setOnPreferenceClickListener(preference -> {
+            if (preferences.getRemotePhoneNumber().isEmpty()) {
+                ((EditTextPreference) findPreference(PreferenceManager.REMOTE_PHONE_NUMBER)).setText(getCountryCode());
             }
             return false;
         });
@@ -101,11 +118,12 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             return false;
         });
 
-        if (checkValidString(preferences.getSmsNumber())) {
-            ((EditTextPreference) findPreference(PreferenceManager.SMS_NUMBER)).setText(preferences.getSmsNumber().trim());
-            findPreference(PreferenceManager.SMS_NUMBER).setSummary(preferences.getSmsNumber().trim());
+        if (checkValidString(preferences.getRemotePhoneNumber())) {
+            ((EditTextPreference) findPreference(PreferenceManager.REMOTE_PHONE_NUMBER))
+                    .setText(preferences.getRemotePhoneNumber());
+            findPreference(PreferenceManager.REMOTE_PHONE_NUMBER).setSummary(preferences.getRemotePhoneNumber());
         } else {
-            findPreference(PreferenceManager.SMS_NUMBER).setSummary(R.string.sms_dialog_summary);
+            findPreference(PreferenceManager.REMOTE_PHONE_NUMBER).setSummary(R.string.sms_dialog_summary);
         }
 
         if (preferences.getRemoteAccessActive()) {
@@ -202,6 +220,41 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
     }
 
+    private boolean canSendRemoteNotification() {
+        String remotePhoneNumber = preferences.getRemotePhoneNumber();
+        String signalUsername = preferences.getSignalUsername();
+        return !remotePhoneNumber.isEmpty() && !getCountryCode().equalsIgnoreCase(remotePhoneNumber) &&
+                !TextUtils.isEmpty(signalUsername) && !getCountryCode().equalsIgnoreCase(signalUsername);
+    }
+
+    /**
+     * Collect data required for Remote notification with Signal.
+     * We need a remote phone number and a verified signal Username.
+     */
+    @SuppressLint("RestrictedApi")
+    private void collectDataForRemoteNotification() {
+        String remotePhoneNumber = preferences.getRemotePhoneNumber();
+        if (remotePhoneNumber.isEmpty() || getCountryCode().equalsIgnoreCase(remotePhoneNumber)) {
+            findPreference(PreferenceManager.REMOTE_PHONE_NUMBER).performClick();
+        }
+        String signalUsername = preferences.getSignalUsername();
+        if (TextUtils.isEmpty(signalUsername)) {
+            findPreference(PreferenceManager.REGISTER_SIGNAL).performClick();
+        } else {
+            activateSignal(signalUsername, null);
+        }
+    }
+
+    private void onRemoteNotificationParameterChange() {
+        SwitchPreference switchPreference =
+                (SwitchPreference) findPreference(PreferenceManager.REMOTE_NOTIFICATION_ACTIVE);
+
+        boolean remoteNotificationActive = canSendRemoteNotification();
+        preferences.setRemoteNotificationActive(remoteNotificationActive);
+
+        switchPreference.setChecked(remoteNotificationActive);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -229,6 +282,10 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         preferences.setActivateVideoMonitoring(videoMonitoringActive);
 
         preferences.setSignalUsername(((EditTextPreference) findPreference(PreferenceManager.REGISTER_SIGNAL)).getText());
+
+        boolean remoteNotificationActive =
+                ((SwitchPreference) findPreference(PreferenceManager.REMOTE_NOTIFICATION_ACTIVE)).isChecked();
+        preferences.setRemoteNotificationActive(remoteNotificationActive);
 
         boolean remoteAccessActive = ((SwitchPreference) findPreference(PreferenceManager.REMOTE_ACCESS_ACTIVE)).isChecked();
 
@@ -320,10 +377,6 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
                 }
                 break;
-            case PreferenceManager.SMS_ACTIVE:
-
-                setPhoneNumber();
-                break;
             case PreferenceManager.REMOTE_ACCESS_ACTIVE:
                 boolean remoteAccessActive = ((SwitchPreference) findPreference(PreferenceManager.REMOTE_ACCESS_ACTIVE)).isChecked();
                 if (remoteAccessActive) {
@@ -348,19 +401,17 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                     preferences.setSignalUsername("");
                     findPreference(PreferenceManager.REGISTER_SIGNAL).setSummary(R.string.register_signal_desc);
                 }
+                onRemoteNotificationParameterChange();
                 break;
             case PreferenceManager.VERIFY_SIGNAL: {
                 String text = ((EditTextPreference) findPreference(PreferenceManager.VERIFY_SIGNAL)).getText();
                 activateSignal(preferences.getSignalUsername(), text);
+                onRemoteNotificationParameterChange();
                 break;
             }
-            case PreferenceManager.SMS_NUMBER:
-                boolean smsActive = ((SwitchPreference) findPreference(PreferenceManager.SMS_ACTIVE)).isChecked();
-                if (smsActive && TextUtils.isEmpty(preferences.getSignalUsername())) {
-                    askForPermission(Manifest.permission.SEND_SMS, 6);
-                    askForPermission(Manifest.permission.READ_PHONE_STATE, 6);
-                }
+            case PreferenceManager.REMOTE_PHONE_NUMBER:
                 setPhoneNumber();
+                onRemoteNotificationParameterChange();
                 break;
             case PreferenceManager.NOTIFICATION_TIME:
                 try
@@ -471,20 +522,14 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     }
 
     private void setPhoneNumber() {
-        boolean smsActive = ((SwitchPreference) findPreference(PreferenceManager.SMS_ACTIVE)).isChecked();
-        String phoneNumber = ((EditTextPreference) findPreference(PreferenceManager.SMS_NUMBER)).getText();
-        if (smsActive && checkValidString(phoneNumber)) {
-            preferences.activateSms(true);
-        } else {
-            preferences.activateSms(false);
-        }
+        String phoneNumber = ((EditTextPreference) findPreference(PreferenceManager.REMOTE_PHONE_NUMBER)).getText();
 
         if (checkValidString(phoneNumber) && !getCountryCode().equalsIgnoreCase(phoneNumber)) {
-            preferences.setSmsNumber(phoneNumber.trim());
-            findPreference(PreferenceManager.SMS_NUMBER).setSummary(phoneNumber.trim());
+            preferences.setRemotePhoneNumber(phoneNumber.trim());
+            findPreference(PreferenceManager.REMOTE_PHONE_NUMBER).setSummary(phoneNumber.trim());
         } else if (!getCountryCode().equalsIgnoreCase(phoneNumber)){
-            preferences.setSmsNumber("");
-            findPreference(PreferenceManager.SMS_NUMBER).setSummary(R.string.sms_dialog_message);
+            preferences.setRemotePhoneNumber("");
+            findPreference(PreferenceManager.REMOTE_PHONE_NUMBER).setSummary(R.string.sms_dialog_message);
         }
     }
 

@@ -17,7 +17,7 @@
 		Déterminer un délai
 	</string>
 
-    <string name="sms_label">
+    <string name="remote_notification_label">
 		Envoyer SMS ou des alertes par message Signal
 	</string>
 

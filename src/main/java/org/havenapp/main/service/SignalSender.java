@@ -165,13 +165,8 @@ public class SignalSender {
         if (!TextUtils.isEmpty(mUsername)) {
             getInstance(mContext, mUsername.trim());
             ArrayList<String> recipient = new ArrayList<>();
-            recipient.add(preferences.getSmsNumber());
+            recipient.add(preferences.getRemotePhoneNumber());
             sendMessage(recipient, message,null);
-        } else if (!TextUtils.isEmpty(preferences.getSmsNumber())) {
-            SmsManager manager = SmsManager.getDefault();
-            StringTokenizer st = new StringTokenizer(preferences.getSmsNumber(),",");
-            while (st.hasMoreTokens())
-                manager.sendTextMessage(st.nextToken(), null, message, null, null);
         }
 
         mAlertCount ++; //moved outside of the send functions for now

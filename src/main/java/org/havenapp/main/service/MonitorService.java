@@ -365,7 +365,7 @@ public class MonitorService extends Service {
 
                 SignalSender sender = SignalSender.getInstance(this, mPrefs.getSignalUsername());
                 ArrayList<String> recips = new ArrayList<>();
-                StringTokenizer st = new StringTokenizer(mPrefs.getSmsNumber(), ",");
+                StringTokenizer st = new StringTokenizer(mPrefs.getRemotePhoneNumber(), ",");
                 while (st.hasMoreTokens())
                     recips.add(st.nextToken());
 
@@ -380,13 +380,6 @@ public class MonitorService extends Service {
                 }
 
                 sender.sendMessage(recips, alertMessage.toString(), attachment);
-            } else if (mPrefs.getSmsActivation()) {
-                SmsManager manager = SmsManager.getDefault();
-
-                StringTokenizer st = new StringTokenizer(mPrefs.getSmsNumber(), ",");
-                while (st.hasMoreTokens())
-                    manager.sendTextMessage(st.nextToken(), null, alertMessage.toString(), null, null);
-
             }
         }
 

@@ -17,7 +17,7 @@
     	Verzögerungszeit setzen
     </string>
 
-    <string name="sms_label">"Bei Alarm SMS oder Signal Nachricht senden "</string>
+    <string name="remote_notification_label">"Bei Alarm SMS oder Signal Nachricht senden "</string>
 
     <string name="sms_hint">+4917712345678</string>
 

@@ -17,7 +17,7 @@
     	Bekleme Süresi
     </string>
 
-    <string name="sms_label">
+    <string name="remote_notification_label">
     	SMS veya Signal ile uyarı mesajı gönder
     </string>
 

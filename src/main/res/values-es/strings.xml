@@ -17,7 +17,7 @@
         Temporizador
     </string>
 
-    <string name="sms_label">
+    <string name="remote_notification_label">
         Enviar SMS o mensaje de alerta por Signal
     </string>
 

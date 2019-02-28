@@ -17,7 +17,7 @@
     	Definir tempo de atraso
     </string>
 
-    <string name="sms_label">
+    <string name="remote_notification_label">
     	Enviar mensagens de alerta de SMS ou Signal
     </string>
 
