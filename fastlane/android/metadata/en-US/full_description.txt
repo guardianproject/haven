@@ -25,15 +25,14 @@ Haven only saves images and sound when triggered by motion or volume,
 and stores everything locally on the device. You can position the
 device’s camera to capture visible motion, or set your phone somewhere
 discreet to just listen for noises. Get secure notifications of
-intrusion events instantly and access the logs remotely or anytime
+intrusion events instantly, and access logs remotely or anytime
 later.
 
-The follow sensors are monitored for a measurable change, and then
+The following sensors are monitored for measurable change, and then
 recorded to an event log on the device:
 
-* Accelerometer: phone’s motion and vibration
-* Camera: motion in the phone’s visible surroundings from front or back camera
-* Microphone: noises in the environment
-* Light: change in light from ambient light sensor
-* Power: detect device being unplugged or power loss
-
+* Accelerometer: Motion and vibration of phone
+* Camera: Motion in the phone’s visible surroundings from front or back camera
+* Microphone: Noises in the environment
+* Light: Change in light from ambient light sensor
+* Power: Detect device being unplugged or power loss/shutdown

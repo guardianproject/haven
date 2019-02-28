@@ -1,29 +1,21 @@
 <resources>
 
     <string name="menu_save">Speichern</string>
-    <string name="menu_about">Einrichtung...</string>
+    <string name="menu_about">Einrichtung…</string>
 
     <string name="title_activity_start">Haven</string>
 
-    <string name="accelerometer_prompt">
-    	Empfindlichkeit Bewegung
-    </string>
+    <string name="accelerometer_prompt">Empfindlichkeit Bewegung</string>
 
-    <string name="microphone_sensitivity">
-    	Empfindlichkeit Geräusche
-    </string>
+    <string name="microphone_sensitivity">Empfindlichkeit Geräusche</string>
 
-    <string name="timer_delay_label">
-    	Verzögerungszeit setzen
-    </string>
+    <string name="timer_delay_label">Verzögerungszeit setzen</string>
 
     <string name="remote_notification_label">"Bei Alarm SMS oder Signal Nachricht senden "</string>
 
     <string name="sms_hint">+4917712345678</string>
 
-    <string name="camera_prompt">
-    	Kamera wählen
-    </string>
+    <string name="camera_prompt">Kamera wählen</string>
 
     <string name="secure_service_started">Haven aktiviert</string>
 
@@ -33,9 +25,9 @@
     <string name="action_settings">Einstellungen</string>
 
     <string name="intro1_title">Willkommen bei Haven</string>
-    <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the height find...\"\n-George Meredith</string>
+    <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the height find…\"\n-George Meredith</string>
 
-    <string name="intro2_title">Haven ist für Personen die gerne wissen was in Ihrem Haus, Büro, Hotelraum, ... vorgeht.</string>
+    <string name="intro2_title">Haven ist für Personen die gerne wissen was in Ihrem Haus, Büro, Hotelraum, … vorgeht.</string>
     <string name="intro3_desc">Verwandle ein zweites Telefon in einen Geräusch, Vibrations, Licht und Bewegungssensor um ungewünschte Besucher direkt zu erkennen.</string>
 
     <string name="intro4_desc">Werde direkt benachrichtigt wenn Haven etwas erkennt und schaue per Fenzugriff in die Logs oder schaue nach den Logs direkt am Telefon</string>
@@ -81,7 +73,7 @@
     <string name="data_light">LICHT</string>
     <string name="data_pressure">DRUCK</string>
     <string name="data_power">POWER</string>
-    <string name="share_event_action">Event teilen...</string>
+    <string name="share_event_action">Event teilen…</string>
     <string name="signal_test_message">Dies ist eine Testnachricht von Haven</string>
     <string name="send_test_message">Testnachricht senden</string>
     <string name="verify">Prüfen</string>
@@ -94,12 +86,11 @@
     <string name="register_signal_desc">Registriere eine neue Telefonnummer (+4917712345678) mit Signal um sichere Benachrichtigungen zu senden. NICHT IHRE PRIMÄRE SIGNAL NUMMER NUTZEN.</string>
     <string name="phone_hint">+4917712345678</string>
 
-    <string name="menu_licenses">Lizenzen...</string>
+    <string name="menu_licenses">Lizenzen…</string>
     <string name="sensor_light">Umgebungslicht</string>
     <string name="sensor_accel">Bewegung (Beschleunigungssensor)</string>
     <string name="sensor_camera">Bewegung (Kamera)</string>
     <string name="sensor_sound">Mikrofon</string>
     <string name="sensor_power">USB Power</string>
     <string name="sensor_unknown">Unbekannt</string>
-
-    </resources>
+</resources>

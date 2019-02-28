@@ -1,33 +1,19 @@
 <resources>
 
     <string name="menu_save">保存</string>
-    <string name="menu_about">設定...</string>
+    <string name="menu_about">設定…</string>
 
     <string name="title_activity_start">Haven</string>
 
-    <string name="accelerometer_prompt">
-    	動きの感度
-    </string>
+    <string name="accelerometer_prompt">動きの感度</string>
 
-    <string name="microphone_sensitivity">
-    	音の感度
-    </string>
+    <string name="microphone_sensitivity">音の感度</string>
 
-    <string name="timer_delay_label">
-    	開始遅延時間
-    </string>
+    <string name="timer_delay_label">開始遅延時間</string>
 
-    <string name="remote_notification_label">
-    	ショートメールで警告を送信
-    </string>
+    <string name="sms_hint">08012345678</string>
 
-    <string name="sms_hint">
-    	08012345678
-    </string>
-
-    <string name="camera_prompt">
-    	カメラ選択
-    </string>
+    <string name="camera_prompt">カメラ選択</string>
 
     <string name="secure_service_started">Haven 起動</string>
 
@@ -37,7 +23,7 @@
     <string name="action_settings">設定</string>
 
     <string name="intro1_title">ようこそ Havenへ</string>
-    <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the height find...\"\n- ジョージ・メレディス</string>
+    <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the height find…\"\n- ジョージ・メレディス</string>
 
     <string name="intro2_title">Havenは自宅や会社、ホテルルーム、その他プライベート空間への進入を見張りたい人の為のものです。</string>
     <string name="intro3_desc">余っている携帯電話を、動き、音、振動、光センサーに変えて、招かれざる客や望まない侵入者を監視します</string>
@@ -86,7 +72,7 @@
     <string name="data_light">明かり</string>
     <string name="data_pressure">圧力</string>
     <string name="data_power">電力</string>
-    <string name="share_event_action">イベントを共有する...</string>
+    <string name="share_event_action">イベントを共有する…</string>
     <string name="signal_test_message">これは Havenのテストメッセージです</string>
     <string name="send_test_message">テストメッセージを送信する</string>
     <string name="verify">ベリファイ</string>
@@ -99,7 +85,7 @@
     <string name="register_signal_desc">新しい電話番号で Signalに署名してセキュリティ通知を送信します。 あなたの現在またはメインの Signal番号を使用しないでください。</string>
     <string name="phone_hint">08012345678</string>
 
-    <string name="menu_licenses">ライセンス...</string>
+    <string name="menu_licenses">ライセンス…</string>
     <string name="sensor_light">環境光</string>
     <string name="sensor_accel">動き検出 (加速度計)</string>
     <string name="sensor_camera">モーション (カメラ)</string>
@@ -119,7 +105,7 @@
     <string name="signal_dialog_summary">Signalを使用する電話番号</string>
     <string name="verification_dialog_summary">タップして Signal番号を確認</string>
     <string name="send_message_dialog">試験用の警報通知を送信する電話番号を入力</string>
-    <string name="send_text_message">試験用の通知...</string>
+    <string name="send_text_message">試験用の通知…</string>
     <string name="service_address">サービスアドレス</string>
     <string name="password">パスワード (必須)</string>
     <string name="signal_number">Signal番号 (ローカル)</string>
@@ -145,6 +131,5 @@
     <string name="undo">戻す</string>
     <string name="remove_all_logs">全てのログを削除</string>
     <string name="events_deleted">イベントを削除</string>
-
 
 </resources>

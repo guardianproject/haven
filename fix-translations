@@ -1,0 +1,25 @@
+#!/bin/bash -e
+
+# Fix TypographyEllipsis programmatically
+sed -i 's/\.\.\./…/g' src/main/res/values*/strings.xml
+
+# Replace "--" with an "em dash" character
+sed -i 's,\(\>[^\<]*\)--\([^\>]\),\1—\2,g' src/main/res/values*/strings.xml
+
+# indent <string> lines like Android Studio does
+sed -i "s,^\s*<string,    <string," src/main/res/values*/strings.xml
+
+# no indent on <resources>
+sed -i 's,\s*<resources>,<resources>,' src/main/res/values*/strings.xml
+sed -i 's,\s*</resources>,</resources>,' src/main/res/values*/strings.xml
+
+# strip leading whitespace
+sed -Ei 's,(<string[^>]+>)\s*,\1,' src/main/res/values*/strings.xml
+
+# strip trailing whitespace
+sed -i 's,\s*</string>,</string>,' src/main/res/values*/strings.xml
+
+if ! git diff --exit-code > /dev/null; then
+    echo "Run fix-translations and include the needed differences!"
+    exit 1
+fi
