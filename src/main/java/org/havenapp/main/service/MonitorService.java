@@ -14,6 +14,7 @@ import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -42,6 +43,7 @@ import org.havenapp.main.sensors.AmbientLightMonitor;
 import org.havenapp.main.sensors.BarometerMonitor;
 import org.havenapp.main.sensors.BumpMonitor;
 import org.havenapp.main.sensors.MicrophoneMonitor;
+import org.havenapp.main.sensors.PowerConnectionReceiver;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -78,6 +80,8 @@ public class MonitorService extends Service {
     private MicrophoneMonitor mMicMonitor = null;
     private BarometerMonitor mBaroMonitor = null;
     private AmbientLightMonitor mLightMonitor = null;
+
+    private PowerConnectionReceiver mPowerReceiver = null;
 
     private boolean mIsMonitoringActive = false;
 
@@ -260,7 +264,13 @@ public class MonitorService extends Service {
         if (!mPrefs.getMicrophoneSensitivity().equals(PreferenceManager.OFF))
             mMicMonitor = new MicrophoneMonitor(this);
 
+        mPowerReceiver = new PowerConnectionReceiver();
+        // register our power status receivers
+        IntentFilter powerConnectedFilter = new IntentFilter(Intent.ACTION_POWER_CONNECTED);
+        registerReceiver(mPowerReceiver, powerConnectedFilter);
 
+        IntentFilter powerDisconnectedFilter = new IntentFilter(Intent.ACTION_POWER_DISCONNECTED);
+        registerReceiver(mPowerReceiver, powerDisconnectedFilter);
     }
 
     private void stopSensors ()
@@ -292,6 +302,8 @@ public class MonitorService extends Service {
                 sender.stopHeartbeatTimer();
             }
         }
+        
+        unregisterReceiver(mPowerReceiver);
     }
 
     /**
