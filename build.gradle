@@ -163,6 +163,7 @@ dependencies {
     }
 
     implementation 'com.github.halilozercan:BetterVideoPlayer:1.1.0'
+    implementation 'com.github.ybq:Android-SpinKit:1.1.0'
     implementation 'io.github.silvaren:easyrs:0.5.3'
     implementation 'org.jcodec:jcodec:0.2.3'
     implementation 'org.jcodec:jcodec-android:0.2.3'
