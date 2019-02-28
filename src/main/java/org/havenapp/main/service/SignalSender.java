@@ -40,7 +40,7 @@ public class SignalSender {
         mUsername = username;
         mAlertCount = 0;
         preferences = new PreferenceManager(mContext);
-        prefix = preferences.getHearbeatPrefix();
+        prefix = preferences.getHeartbeatPrefix();
         suffix = preferences.getHeartbeatSuffix();
         messageString = preferences.getHeartbeatMonitorMessage();
         interval = preferences.getHeartbeatNotificationTimeMs() / 60000;
@@ -128,27 +128,17 @@ public class SignalSender {
                 // Log.d("HEARTBEAT MONITOR," seconds remaining: " + millisUntilFinished / 1000);
             }
             public void onFinish() {
-                try {
-                    beatingHeart();
-                } catch(Throwable e) {
-                    e.printStackTrace();
-                }
+                beatingHeart();
                 start();
             }
         }.start();
     }
 
     private void beatingHeart () {
+
         int unicodeBeat = 0x1F493;
         String emojiString = new String(Character.toChars(unicodeBeat));
         messageString = preferences.getHeartbeatMonitorMessage();
-
-        /**
-         * Use compiler for optimized concatenation.
-         * Send an explanatory message first, then the unicode symbol.
-         * Ensure above message sent before updating count.
-         * Check for a custom message, send that instead.
-         **/
 
         if (mAlertCount < 1 )
             messageString = prefix + " " + interval + " " + suffix + "\n" + mContext.getString(R.string.battery_level_msg_text) + ": " + Utils.getBatteryPercentage(mContext) + "%";
@@ -163,14 +153,12 @@ public class SignalSender {
     private void initHbMessage (String message)
     {
         if (!TextUtils.isEmpty(mUsername)) {
+            mAlertCount ++;
             getInstance(mContext, mUsername.trim());
             ArrayList<String> recipient = new ArrayList<>();
             recipient.add(preferences.getRemotePhoneNumber());
             sendMessage(recipient, message,null);
         }
-
-        mAlertCount ++; //moved outside of the send functions for now
-        Log.d("HEARTBEAT MONITOR", "Sent: " + message);
     }
 
     public void sendMessage (final ArrayList<String> recipients, final String message, final String attachment)

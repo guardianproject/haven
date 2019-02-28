@@ -369,7 +369,7 @@ public class PreferenceManager {
         prefsEditor.commit();
     }
 
-    public String getHearbeatPrefix() {
+    public String getHeartbeatPrefix() {
         return context.getString(R.string.hearbeat_monitor_initial_message_1);
     }
 
