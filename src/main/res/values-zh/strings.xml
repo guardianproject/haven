@@ -19,7 +19,7 @@
     	设置延时
     </string>
 
-    <string name="sms_label">
+    <string name="remote_notification_label">
     	使用发送短信或 Signal 发送警告
     </string>
 

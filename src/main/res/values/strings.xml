@@ -19,8 +19,8 @@
     	Set Delay Time
     </string>
 
-    <string name="sms_label">
-    	Send SMS or Signal message alerts
+    <string name="remote_notification_label">
+    	Send Signal message alerts
     </string>
 
     <string name="sms_hint">

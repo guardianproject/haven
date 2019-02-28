@@ -17,7 +17,7 @@
     	Установка времени задержки
     </string>
 
-    <string name="sms_label">
+    <string name="remote_notification_label">
     	Оповещать по SMS или через Signal
     </string>
 
