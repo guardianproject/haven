@@ -302,7 +302,6 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
             mFragmentCamera.stopCamera();
             startActivityForResult(i, REQUEST_CAMERA);
         }
-
     }
 
     @Override
