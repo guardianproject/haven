@@ -24,6 +24,13 @@
         android:orderInCategory="100"
         android:title="@string/menu_licenses"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_run_cleanup_job"
+        android:title="@string/run_disk_cleanup"
+        android:orderInCategory="2"
+        app:showAsAction="never"/>
+
     <item
         android:id="@+id/action_remove_all_events"
         android:title="@string/remove_all_logs"

@@ -321,6 +321,9 @@ public class ListActivity extends AppCompatActivity {
             case R.id.action_test_notification:
                 testNotifications();
                 break;
+            case R.id.action_run_cleanup_job:
+                runCleanUpJob();
+                break;
         }
         return true;
     }
@@ -335,6 +338,10 @@ public class ListActivity extends AppCompatActivity {
     {
         final List<Event> removedEvents = new ArrayList<>(events);
         new EventDeleteAllAsync(() -> onAllEventsRemoved(removedEvents)).execute(removedEvents);
+    }
+
+    private void runCleanUpJob() {
+        RemoveDeletedFilesJob.Companion.runNow();
     }
 
     private void onAllEventsRemoved(List<Event> removedEvents) {
