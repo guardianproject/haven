@@ -187,5 +187,5 @@ dependencies {
     implementation 'com.evernote:android-job:1.2.6'
 
     // new camera view: https://github.com/natario1/CameraView
-    implementation 'com.otaliastudios:cameraview:2.0.0-beta02'
+    implementation 'com.otaliastudios:cameraview:2.0.0-beta04'
 }
