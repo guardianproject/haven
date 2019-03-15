@@ -40,6 +40,8 @@ public class SettingsActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.settings_fragment, mFragment)
                     .commit();
+        } else {
+            mFragment = (SettingsFragment) getSupportFragmentManager().findFragmentById(R.id.settings_fragment);
         }
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

@@ -321,6 +321,9 @@ public class ListActivity extends AppCompatActivity {
             case R.id.action_test_notification:
                 testNotifications();
                 break;
+            case R.id.action_run_cleanup_job:
+                runCleanUpJob();
+                break;
         }
         return true;
     }
@@ -335,6 +338,10 @@ public class ListActivity extends AppCompatActivity {
     {
         final List<Event> removedEvents = new ArrayList<>(events);
         new EventDeleteAllAsync(() -> onAllEventsRemoved(removedEvents)).execute(removedEvents);
+    }
+
+    private void runCleanUpJob() {
+        RemoveDeletedFilesJob.Companion.runNow();
     }
 
     private void onAllEventsRemoved(List<Event> removedEvents) {
@@ -368,17 +375,8 @@ public class ListActivity extends AppCompatActivity {
         if (!TextUtils.isEmpty(preferences.getSignalUsername())) {
             SignalSender sender = SignalSender.getInstance(this, preferences.getSignalUsername().trim());
             ArrayList<String> recip = new ArrayList<>();
-            recip.add(preferences.getSmsNumber());
+            recip.add(preferences.getRemotePhoneNumber());
             sender.sendMessage(recip, resourceManager.getString(R.string.signal_test_message), null);
-        }
-        else if (!TextUtils.isEmpty(preferences.getSmsNumber())) {
-
-            SmsManager manager = SmsManager.getDefault();
-
-            StringTokenizer st = new StringTokenizer(preferences.getSmsNumber(),",");
-            while (st.hasMoreTokens())
-                manager.sendTextMessage(st.nextToken(), null, resourceManager.getString(R.string.signal_test_message), null, null);
-
         }
     }
 }

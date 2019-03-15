@@ -52,14 +52,13 @@ public class MicSamplerTask extends AsyncTask<Void,Object,Void> {
 		while (true) {
 
 			if (listener != null) {
-				Log.i("MicSamplerTask", "Requesting amplitude");
+				Log.d("MicSamplerTask", "Requesting amplitude");
 				publishProgress(volumeMeter.getAmplitude());
 			}
 			try {
 				Thread.sleep(250);
 			} catch (InterruptedException e) { 
-				//Nothing to do we exit next line 
-				
+				//Nothing to do we exit next line
 			}
 			
 			boolean restartVolumeMeter = false;
@@ -72,22 +71,19 @@ public class MicSamplerTask extends AsyncTask<Void,Object,Void> {
 				try {
 					Thread.sleep(500);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					//Nothing to do we exit next line
 				}
 			}
 			if (restartVolumeMeter) {
 				try {
-					Log.i("MicSamplerTask", "Task restarted");
+					Log.d("MicSamplerTask", "Task restarted");
 					volumeMeter = new AudioCodec();
 					volumeMeter.start();
 					sampling = true;
 				} catch (IllegalStateException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					Log.d("MicSamplerTask","Failed to start",e);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					Log.d("MicSamplerTask","Failed to start",e);
 				}
 			}
 			if (isCancelled()) { volumeMeter.stop(); sampling = false; return null; }

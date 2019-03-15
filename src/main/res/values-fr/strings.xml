@@ -1,8 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="menu_save">Sauvegarder</string>
     <string name="menu_about">Configuration</string>
-
     <string name="title_activity_start">Haven</string>
 
     <string name="accelerometer_prompt">
@@ -17,38 +16,24 @@
 		Déterminer un délai
 	</string>
 
-    <string name="sms_label">
-		Envoyer SMS ou des alertes par message Signal
+    <string name="remote_notification_label">
+		Envoyer des alertes par message Signal
 	</string>
 
     <string name="sms_hint">+33612345678</string>
-
-    <string name="camera_prompt">
-		Sélectionner la caméra
-	</string>
-
+    <string name="camera_prompt">Sélectionner la caméra</string>
     <string name="secure_service_started">Haven activé</string>
-
-    <string name="intrusion_detected">Un intrus a été détecté (type: %s)
-		Enregistrement audio et image en cours.
-	</string>
+    <string name="intrusion_detected">Un intrus a été détecté (type: %s) Enregistrement audio et image en cours.</string>
     <string name="title_activity_event">EventActivity</string>
-
     <string name="action_settings">Configuration</string>
-
     <string name="intro1_title">Bienvenu(e) sur Haven</string>
-    <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the height find...\"\n-George Meredith</string>
-
+    <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the height find…\"\n-George Meredith</string>
     <string name="intro2_title">Haven est fait pour les persones qui veulent détecter des violations de domicile, du lieu de travail, d\'une chambre d\'hotel ou n\'importe quel espace privé</string>
     <string name="intro3_desc">Transformez un téléphone supplémentaire en un détecteur de sons, de mouvements, de vibrations et de lumière pour détecter des visiteurs inattendus et des intrus non désirés</string>
-
     <string name="intro4_desc">Soyez notifié des intrusions immédiatement et accédez au journal d\'évènements à distance ou en personne</string>
-
     <string name="intro5_title">Haven est prêt</string>
-    <string name="intro5_desc">Activez l\'application quand vous le voulez en utilisant le bouton > sur l\'écran principal</string>
-
+    <string name="intro5_desc">Activez l\'application quand vous le voulez en utilisant le bouton &gt; sur l\'écran principal</string>
     <string name="onboarding_action_end">Terminer</string>
-
     <string name="remote_access">Accès à distance</string>
     <string name="remote_access_label">Activer l\'accès à distance via le réseau Tor</string>
     <string name="remote_access_hint">Adresse Onion de Orbot</string>
@@ -56,25 +41,19 @@
     <string name="camera_front">Frontale</string>
     <string name="camera_back">Arrière</string>
     <string name="camera_none">Aucune</string>
-
     <string name="action_configure">Configurer</string>
-
     <string name="main_screen_title">Vos enregistrements Haven</string>
-
     <string name="current_noise_base">Niveau de son actuel</string>
     <string name="current_accel_base">Niveau de mouvements actuel</string>
-
     <string name="configure_trigger_level">Glisser pour changer le niveau de détection</string>
     <string name="tune_the_sound_detection">Faites du bruit !</string>
     <string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">Placez le téléphone sur une table et faites du bruit pour déterminer le niveau correct de détection</string>
-
     <string name="tune_the_accel_detection">Secouez le téléphone !</string>
     <string name="tune_the_accel_detection_more">Bougez votre téléphone pour determiner le niveau correct de détection</string>
     <string name="set_a_countdown_time">Touchez pour changer le compte à rebours</string>
     <string name="start_now">Lancer maintenant</string>
     <string name="start_later">Voir les enregistrements</string>
     <string name="save_number">Enregistrer le numéro</string>
-
     <string name="action_cancel">Désactiver</string>
     <string name="status_on">ACTIF</string>
     <string name="status_charging">Chargement en cours :</string>
@@ -86,7 +65,7 @@
     <string name="data_light">LUMIÈRE</string>
     <string name="data_pressure">PRESSION</string>
     <string name="data_power">ALIMENTATION</string>
-    <string name="share_event_action">Partager l\'événement...</string>
+    <string name="share_event_action">Partager l\'événement…</string>
     <string name="signal_test_message">Ceci est un message de test de Haven</string>
     <string name="send_test_message">Envoyer un message de test</string>
     <string name="verify">Vérifier</string>
@@ -98,8 +77,7 @@
     <string name="register_title">S\'inscrire avec Signal</string>
     <string name="register_signal_desc">Entrez un nouveau numéro de téléphone avec Signal pour envoyer des notifications sécurisées. Vous pouvez utiliser le numéro de cet appareil ou créer un numéro virtuel.\n\nATTENTION : Si ce numéro est déjà configuré sur une installation de Signal existante il cessera de fonctionner sur cette installation et ne fonctionnera plus que sur Haven.</string>
     <string name="phone_hint">+33612345678</string>
-
-    <string name="menu_licenses">Licences...</string>
+    <string name="menu_licenses">Licences…</string>
     <string name="sensor_light">Lumière ambiante</string>
     <string name="sensor_accel">Mouvement (Accéléromètre)</string>
     <string name="sensor_camera">Mouvement (caméra)</string>
@@ -107,25 +85,21 @@
     <string name="sensor_power">Alimentation USB</string>
     <string name="sensor_bump">Choc (Accéléromètre)</string>
     <string name="sensor_unknown">Inconnu</string>
-
     <string name="settings">Paramètres</string>
     <string name="remote_access_onion_error">Cette fonctionnalité a besoin que l\'application \"Orbot Proxy par Tor\" soit installée.</string>
-
     <string name="sms_dialog_summary">Numéro de téléphone où envoyer les notifications</string>
     <string name="sms_dialog_message">Entrez un numéro de téléphone où envoyer les notifications d\'alerte</string>
     <string name="signal_dialog_summary">Un numéro de téléphone depuis lequel envoyer les notifications avec Signal</string>
     <string name="verification_dialog_summary">Appuyez pour vérifier votre numéro Signal</string>
     <string name="send_message_dialog">Entrez un numéro de téléphone où envoyer une notification d\'alerte test</string>
-    <string name="send_text_message">Tester les notifications...</string>
+    <string name="send_text_message">Tester les notifications…</string>
     <string name="service_address">Adresse du service</string>
     <string name="password">Mot de passe (Requis)</string>
     <string name="signal_number">Numéro Signal de ce téléphone</string>
     <string name="phone_number">Numéro de téléphone (Distant)</string>
     <string name="sensors">Capteurs</string>
     <string name="label_notifications">Notifications</string>
-
     <string name="camera_sensitivity">Sensibilité de la caméra</string>
-
     <string name="notification_time">Intervalle de temps entre les notifications</string>
     <string name="notification_time_summary">N\'envoyer les notifications qu\'à l\'intervalle configuré</string>
     <string name="notification_time_dialog">Entrez un nombre de minutes pour limiter les notifications. Entrez \"0\" pour envoyer toutes les notifications.</string>
@@ -139,5 +113,12 @@
     <string name="undo">Annuler</string>
     <string name="events_deleted">Évènements supprimés</string>
 
-
+    <string name="verify_signal_by_phone">Appelez-moi à la place</string>
+    <string name="sensor_camera_video">Mouvement (Vidéo)</string>
+    <string name="video_settings">Paramètres vidéo</string>
+    <string name="hearbeat_monitor_summary">Intervalle de vérification</string>
+    <string name="hearbeat_monitor_dialog">Configurer le délai entre les alertes</string>
+    <string name="hearbeat_message_title">Message d’alerte</string>
+    <string name="hearbeat_message_summary">Définir un texte de message personnalisé</string>
+    <string name="hearbeat_message_summary_on">Alertes personnalisées activées</string>
 </resources>

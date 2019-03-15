@@ -3,33 +3,23 @@
     <string name="app_name" translatable="false">Haven</string>
     <string name="bullets" translatable="false">•••••••</string>
     <string name="menu_save">Salva</string>
-    <string name="menu_about">Imposta...</string>
+    <string name="menu_about">Imposta…</string>
 
     <string name="title_activity_start">Haven</string>
 
-    <string name="accelerometer_prompt">
-    	Sensibilità di movimento
+    <string name="accelerometer_prompt">Sensibilità di movimento</string>
+
+    <string name="microphone_sensitivity">Sensibilità al rumore</string>
+
+    <string name="timer_delay_label">Imposta il timer di avvio</string>
+
+    <string name="remote_notification_label">
+    	Invia messaggi via Signal
     </string>
 
-    <string name="microphone_sensitivity">
-    	Sensibilità al rumore
-    </string>
+    <string name="sms_hint">+3934912345678</string>
 
-    <string name="timer_delay_label">
-    	Imposta il timer di avvio
-    </string>
-
-    <string name="sms_label">
-    	Invia SMS o messaggi via Signal
-    </string>
-
-    <string name="sms_hint">
-    	+3934912345678
-    </string>
-
-    <string name="camera_prompt">
-    	Seleziona la fotocamera
-    </string>
+    <string name="camera_prompt">Seleziona la fotocamera</string>
 
     <string name="secure_service_started">Haven è attivo</string>
 
@@ -39,7 +29,7 @@
     <string name="action_settings">Impostazioni</string>
 
     <string name="intro1_title">Benvenuto in Haven</string>
-    <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the height find...\"\n-George Meredith</string>
+    <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the height find…\"\n-George Meredith</string>
 
     <string name="intro2_title">Haven è pensato per tutti coloro che vogliono sapere cosa accade nelle loro case, nei loro uffici, nelle loro stanze di hotel</string>
     <string name="intro3_desc">Trasforma un secondo cellulare in un sensore di movimento, luce, vibrazioni e suoni per riconoscere intrusi e visitatori indesiderati</string>
@@ -63,8 +53,8 @@
 
     <string name="main_screen_title">Il tuo log di Haven</string>
 
-    <string name="current_noise_base">Livello di rumore attuale: </string>
-    <string name="current_accel_base">Livello di movimento attuale: </string>
+    <string name="current_noise_base">Livello di rumore attuale:</string>
+    <string name="current_accel_base">Livello di movimento attuale:</string>
 
     <string name="configure_trigger_level">Scorri orizzontalmente per modificare il limite di riconoscimento</string>
     <string name="tune_the_sound_detection">Fai un po\' di rumore!</string>
@@ -88,7 +78,7 @@
     <string name="data_light">LUMINOSITÀ</string>
     <string name="data_pressure">PRESSIONE</string>
     <string name="data_power">RICARICA</string>
-    <string name="share_event_action">Condividi l\'evento...</string>
+    <string name="share_event_action">Condividi l\'evento…</string>
     <string name="signal_test_message">Questo è un messaggio di prova inviato da Haven</string>
     <string name="send_test_message">Invia un messaggio di prova</string>
     <string name="verify">Verifica</string>
@@ -101,7 +91,7 @@
     <string name="register_signal_desc">Inserisci un numero di telefono per registrarti con Signal per inviare notifiche in sicurezza. Puoi inserire il numero di telefono di questo dispositivo o scegliere un numero virtuale.\n\nATTENZIONE! Se questo numero è già in uso in un\'app di Signal questa smetterà di funzionare e il numero funzionerà solo con Haven.</string>
     <string name="phone_hint">+3934912345678</string>
 
-    <string name="menu_licenses">Licenze...</string>
+    <string name="menu_licenses">Licenze…</string>
     <string name="sensor_light">Luminosità ambientale</string>
     <string name="sensor_accel">Movimento (Accelerometro)</string>
     <string name="sensor_camera">Movimento (Fotocamera)</string>
@@ -121,7 +111,7 @@
     <string name="signal_dialog_summary">Numero di telefono da cui inviare messaggi tramite Signal</string>
     <string name="verification_dialog_summary">Clicca per verificare il tuo numero Signal</string>
     <string name="send_message_dialog">Inserisci un numero di telefono al quale inviare una messaggio di prova</string>
-    <string name="send_text_message">Messaggi di prova...</string>
+    <string name="send_text_message">Messaggi di prova…</string>
     <string name="service_address">Indirizzo del service</string>
     <string name="password">Password (Obbligatoria)</string>
     <string name="signal_number">Numero Signal (Locale)</string>
@@ -143,6 +133,5 @@
     <string name="camera_sensitivity_tip">Cambia fotocamera o scorri orizzontalmente per modificare la sensibilità di rilevazione del movimento</string>
     <string name="disable_battery_opt_title">Disabilita l\'ottimizzazione della batteria</string>
     <string name="disable_battery_opt_summary">Consenti alla app di funzionare anche a schermo spento</string>
-
 
 </resources>

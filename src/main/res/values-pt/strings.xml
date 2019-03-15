@@ -1,33 +1,23 @@
 <resources>
 
     <string name="menu_save">Gravar</string>
-    <string name="menu_about">Configurações...</string>
+    <string name="menu_about">Configurações…</string>
 
     <string name="title_activity_start">Haven</string>
 
-    <string name="accelerometer_prompt">
-    	Sensibilidade do Movimento
+    <string name="accelerometer_prompt">Sensibilidade do Movimento</string>
+
+    <string name="microphone_sensitivity">Sensibilidade do Som</string>
+
+    <string name="timer_delay_label">Definir tempo de atraso</string>
+
+    <string name="remote_notification_label">
+    	Enviar mensagens de alerta de Signal
     </string>
 
-    <string name="microphone_sensitivity">
-    	Sensibilidade do Som
-    </string>
+    <string name="sms_hint">+351912223344</string>
 
-    <string name="timer_delay_label">
-    	Definir tempo de atraso
-    </string>
-
-    <string name="sms_label">
-    	Enviar mensagens de alerta de SMS ou Signal
-    </string>
-
-    <string name="sms_hint">
-    	+351912223344
-    </string>
-
-    <string name="camera_prompt">
-    	Escolher a Câmera
-    </string>
+    <string name="camera_prompt">Escolher a Câmera</string>
 
     <string name="secure_service_started">Haven Activado</string>
 
@@ -37,7 +27,7 @@
     <string name="action_settings">Configurações</string>
 
     <string name="intro1_title">Bem-vindo ao Haven</string>
-    <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the height find...\"\n-George Meredith</string>
+    <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the height find…\"\n-George Meredith</string>
 
     <string name="intro2_title">Haven é para as pessoas que querem manter um olho a possíveis intruso em sua casa, no seu escritório, no seu quarto de hotel ou outro espaço privado</string>
     <string name="intro3_desc">Torne um telefone que tenha em casa a mais num detector de movimento, som, vibração e luz, para detecter convidados inesperados ou intrusos</string>
@@ -85,7 +75,7 @@
     <string name="data_light">LUZ</string>
     <string name="data_pressure">PRESSÃO</string>
     <string name="data_power">PODER</string>
-    <string name="share_event_action">Partilhar evento...</string>
+    <string name="share_event_action">Partilhar evento…</string>
     <string name="signal_test_message">Esta é uma mensagem de teste do Haven</string>
     <string name="send_test_message">Enviar Mensagem de Teste</string>
     <string name="verify">Verificar</string>
@@ -99,7 +89,7 @@
         Registar o novo número de telefone (+351912223344) com a aplicação Signal para proteger as notificaçãos. NÃO USAR O SEU NÚMERO \'SIGNAL\' ATUAL/PRINCIPAL.</string>
     <string name="phone_hint">+351912223344</string>
 
-    <string name="menu_licenses">Licenças...</string>
+    <string name="menu_licenses">Licenças…</string>
     <string name="sensor_light">Luz Ambiente</string>
     <string name="sensor_accel">Movimento (Acelerômetro)</string>
     <string name="sensor_camera">Movimento (Câmera)</string>
@@ -107,4 +97,4 @@
     <string name="sensor_power">Energia USB</string>
     <string name="sensor_unknown">Desconhecido</string>
 
-    </resources>
+</resources>

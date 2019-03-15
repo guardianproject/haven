@@ -1,33 +1,23 @@
 <resources>
 
     <string name="menu_save">Kaydet</string>
-    <string name="menu_about">Kurulum...</string>
+    <string name="menu_about">Kurulum…</string>
 
     <string name="title_activity_start">Haven</string>
 
-    <string name="accelerometer_prompt">
-    	Hareket Hassasiyeti
+    <string name="accelerometer_prompt">Hareket Hassasiyeti</string>
+
+    <string name="microphone_sensitivity">Ses Hassasiyeti</string>
+
+    <string name="timer_delay_label">Bekleme Süresi</string>
+
+    <string name="remote_notification_label">
+    	 Signal ile uyarı mesajı gönder
     </string>
 
-    <string name="microphone_sensitivity">
-    	Ses Hassasiyeti
-    </string>
+    <string name="sms_hint">+905321234567</string>
 
-    <string name="timer_delay_label">
-    	Bekleme Süresi
-    </string>
-
-    <string name="sms_label">
-    	SMS veya Signal ile uyarı mesajı gönder
-    </string>
-
-    <string name="sms_hint">
-    	+905321234567
-    </string>
-
-    <string name="camera_prompt">
-    	Kamerayı seç
-    </string>
+    <string name="camera_prompt">Kamerayı seç</string>
 
     <string name="secure_service_started">Haven Etkinleştirildi</string>
 
@@ -37,7 +27,7 @@
     <string name="action_settings">Ayarlar</string>
 
     <string name="intro1_title">Haven\'a Hoşgeldiniz</string>
-    <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the height find...\"\n-George Meredith</string>
+    <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the height find…\"\n-George Meredith</string>
 
     <string name="intro2_title">Haven; evine, ofisine, otel odasına veya özel alanına izinsiz girişlere karşı tetikte olmak isteyen insanlar içindir</string>
     <string name="intro3_desc">Yedek telefonunuzu, davetsiz misafirlerden haberdar olabileceğiniz bir hareket, ses, titreşim ve ışık algılayıcıya dönüştürün</string>
@@ -85,7 +75,7 @@
     <string name="data_light">IŞIK</string>
     <string name="data_pressure">BASINÇ</string>
     <string name="data_power">GÜÇ</string>
-    <string name="share_event_action">Olayı paylaş...</string>
+    <string name="share_event_action">Olayı paylaş…</string>
     <string name="signal_test_message">Bu Haven tarafından gönderilen bir deneme mesajıdır</string>
     <string name="send_test_message">Deneme mesajı gönder</string>
     <string name="verify">Doğrula</string>
@@ -98,7 +88,7 @@
     <string name="register_signal_desc">Bildirimleri göndereceğiniz yeni bir telefon numarasını (+905321234567) Signal\'a kaydedin. SIGNAL UYGULAMASINDA MEVCUT/ÖNCEDEN KAYDEDİLMİŞ BİR NUMARA KULLANMAYIN.</string>
     <string name="phone_hint">+905321234567</string>
 
-    <string name="menu_licenses">Lisans...</string>
+    <string name="menu_licenses">Lisans…</string>
     <string name="sensor_light">Ortam Işığı</string>
     <string name="sensor_accel">Hareket (İvmeölçer)</string>
     <string name="sensor_camera">Hareket (Kamera)</string>
@@ -107,4 +97,4 @@
     <string name="sensor_bump">Sarsıntı (İvmeölçer)</string>
     <string name="sensor_unknown">Bilinmeyen</string>
 
-    </resources>
+</resources>

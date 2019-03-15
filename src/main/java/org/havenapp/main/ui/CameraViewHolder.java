@@ -214,7 +214,7 @@ public class CameraViewHolder {
         updateCamera();
 
         cameraView.setPlaySounds(false);
-        cameraView.setPreviewSize(new SizeSelector() {
+        cameraView.setPreviewStreamSize(new SizeSelector() {
             @NonNull
             @Override
             public List<Size> select(@NonNull List<Size> source) {

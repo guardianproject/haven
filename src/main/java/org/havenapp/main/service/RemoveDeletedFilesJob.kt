@@ -28,6 +28,13 @@ class RemoveDeletedFilesJob: Job() {
                     .build()
                     .schedule()
         }
+
+        fun runNow(): Int {
+            return JobRequest.Builder(SERVICE_TAG)
+                    .startNow()
+                    .build()
+                    .schedule()
+        }
     }
 
     override fun onRunJob(params: Params): Result {
@@ -110,7 +117,9 @@ class RemoveDeletedFilesJob: Job() {
         if (!storageDir.exists() || !storageDir.isDirectory)
             return
 
-        storageDir.listFiles() ?: currentFileList.addAll(storageDir.listFiles())
+        storageDir.listFiles()?.let {
+            currentFileList.addAll(it)
+        }
 
         val subDir = storageDir.list { dir, name -> File(dir, name).isDirectory }
         subDir.filter { it != null }.forEach { getAllFileInStorageDir(File(storageDir, it), currentFileList) }

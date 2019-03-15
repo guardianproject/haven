@@ -1,51 +1,42 @@
 <resources>
 
     <string name="menu_save">Guardar</string>
-    <string name="menu_about">Configurar...</string>
+    <string name="menu_about">Configurar…</string>
 
     <string name="title_activity_start">Haven</string>
 
-    <string name="accelerometer_prompt">
-        Sensibilidad de movimiento
+    <string name="accelerometer_prompt">Sensibilidad de movimiento</string>
+
+    <string name="microphone_sensitivity">Sensibilidad de sonido</string>
+
+    <string name="timer_delay_label">Temporizador</string>
+
+    <string name="remote_notification_label">
+        Enviar mensaje de alerta por Signal
     </string>
 
-    <string name="microphone_sensitivity">
-        Sensibilidad de sonido
-    </string>
+    <string name="sms_hint">+12125551212</string>
 
-    <string name="timer_delay_label">
-        Temporizador
-    </string>
-
-    <string name="sms_label">
-        Enviar SMS o mensaje de alerta por Signal
-    </string>
-
-    <string name="sms_hint">
-+12125551212</string>
-
-    <string name="camera_prompt">
-        Seleccionar la cámara
-    </string>
+    <string name="camera_prompt">Seleccionar la cámara</string>
 
     <string name="secure_service_started">Haven Activado</string>
 
     <string name="intrusion_detected">Se ha detectado un intruso (Type: %s)
         Grabando prueba de audio e imagen.
-    </string>
+</string>
     <string name="title_activity_event">EventActivity</string>
 
     <string name="action_settings">Configuración</string>
 
     <string name="intro1_title">Bienvenido a Haven</string>
-    <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the height find...\"\n-George Meredith</string>
+    <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the height find…\"\n-George Meredith</string>
 
     <string name="intro2_title">Haven es para las personas que quieren detectar invasiones a su hogar, oficina, cuarto de hotel o cualquier otro espacio privado.</string>
-    <string name="intro3_desc">Convierte un teléfono extra en un detector de sonido, movimiento, vibración y luz, vigilando visitantes inesperados e intrusos indeseados. </string>
+    <string name="intro3_desc">Convierte un teléfono extra en un detector de sonido, movimiento, vibración y luz, vigilando visitantes inesperados e intrusos indeseados.</string>
 
     <string name="intro4_desc">Recibe notificaciones de intrusos inmediatamente y accede a las detecciones de manera remota o en persona posteriormente.</string>
 
-    <string name="intro5_title">Haven está listo. </string>
+    <string name="intro5_title">Haven está listo.</string>
     <string name="intro5_desc">Activa la Aplicación en cualquier momento usando el botón &gt; en la pantalla principal.</string>
 
     <string name="onboarding_action_end">Terminar</string>
@@ -101,7 +92,7 @@
     <string name="register_signal_desc">Registra un número de teléfono nuevo (+12125551212) con Signal para enviar notificaciones seguras. NO USES TU NÚMERO PRINCIPAL DE SIGNAL.</string>
     <string name="phone_hint">+12125551212</string>
 
-    <string name="menu_licenses">Licencias...</string>
+    <string name="menu_licenses">Licencias…</string>
     <string name="sensor_light">Luz ambiental</string>
     <string name="sensor_accel">Movimiento (Acelerómetro)</string>
     <string name="sensor_camera">Movimiento (Cámara)</string>
@@ -114,4 +105,4 @@
     <string name="remote_access_onion_error">Esta función requiere Orbot instalado: La aplicación de Tor para dispositivos Android.</string>
 
     <string name="sms_dialog_summary">Número de teléfono remoto para enviar mensajes de notificaciones</string>
-    </resources>
+</resources>

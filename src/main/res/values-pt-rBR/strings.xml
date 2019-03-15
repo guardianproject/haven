@@ -1,0 +1,97 @@
+<resources>
+
+    <string name="menu_save">Salvar</string>
+    <string name="menu_about">Configurar…</string>
+
+    <string name="title_activity_start">Haven</string>
+
+    <string name="accelerometer_prompt">Sensibilidade de movimento</string>
+
+    <string name="microphone_sensitivity">Sensibilidade a sons</string>
+
+    <string name="timer_delay_label">Definir atraso</string>
+
+    <string name="sms_label">Enviar SMS ou Sinal de alerta</string>
+
+    <string name="sms_hint">+12125551212</string>
+
+    <string name="camera_prompt">Selecionar a câmera</string>
+
+    <string name="secure_service_started">Haven Ativado</string>
+
+    <string name="intrusion_detected">Um sensor do Haven foi acionaro (Digite: %s)</string>
+    <string name="title_activity_event">EventoAtividade</string>
+
+    <string name="action_settings">Ajustes</string>
+
+    <string name="intro1_title">Bem vindo ao Havem</string>
+    <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the height find…\"\n-George Meredith</string>
+
+    <string name="intro2_title">Haven é para pessoas que querem se manter seguros de acessos indesejados em suas casas, escritórios, hotéis e demais espaços privados.</string>
+    <string name="intro3_desc">Transformar o telefone em um detector de movimentos, sons, vibrações e variações de luzes. E e saber quem são aqueles, que sem sua permissão, tentam saber o que vocês faz.</string>
+
+    <string name="intro4_desc">Receber as notificações de intrusão imediatamente e acessar os logs local ou remotamente em um momento posterior</string>
+
+    <string name="intro5_title">Seu Haven está pronto</string>
+    <string name="intro5_desc">Ative o app a qualquer momento utilizando o botão &gt; na tela principal</string>
+
+    <string name="onboarding_action_end">Concluir</string>
+
+    <string name="remote_access_label">Ativar acesso remoto via Tor Onion Service</string>
+    <string name="remote_access_hint">Endereço do Orbot</string>
+    <string name="remote_access_credential_hint">Definir senha remota</string>
+    <string name="camera_front">Frente</string>
+    <string name="camera_back">Verso</string>
+    <string name="camera_none">Nenhum</string>
+
+    <string name="action_configure">Configurar</string>
+
+    <string name="main_screen_title">Seus logs Haven</string>
+
+    <string name="current_noise_base">O nível de ruído atual é</string>
+    <string name="current_accel_base">O nível de movimentação atual é</string>
+
+    <string name="configure_trigger_level">Deslize para definir o limite de detecção</string>
+    <string name="tune_the_sound_detection">Faça algum barulho!</string>
+    <string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">Coloque seu telefone em uma mesa, e faça barulho pelo ambiente para definir com precisão o nível de detecção de ruídos</string>
+
+    <string name="tune_the_accel_detection">Balance seu celular!</string>
+    <string name="tune_the_accel_detection_more">Mova seu telefone para melhor ajustar os limites de detecção de movimentos</string>
+    <string name="set_a_countdown_time">Toque para definir a contagem regressiva</string>
+    <string name="start_now">Começar agora</string>
+    <string name="start_later">Ver logs</string>
+    <string name="save_number">Salvar número</string>
+
+    <string name="action_cancel">Desativar</string>
+    <string name="status_on">ATIVAR</string>
+    <string name="status_charging">Carregando:</string>
+    <string name="you_will_receive_a_text_when_the_app_hears_or_sees_something">Você receberá uma mensagem quando o app escutar ou vir algo</string>
+    <string name="know_immediately_when_haven_detects_something">Informar imediatamente quando o Haven detectar algo</string>
+    <string name="phone_saved">Número de telefone salvo!</string>
+    <string name="detection_events">eventos detectados</string>
+    <string name="data_speed">VELOCIDADE</string>
+    <string name="data_light">LUZ</string>
+    <string name="data_pressure">PRESSÃO</string>
+    <string name="data_power">ENERGIA</string>
+    <string name="share_event_action">Compartilhar evento…</string>
+    <string name="signal_test_message">Essa é uma mensagem de teste do Haven</string>
+    <string name="send_test_message">Enviar mensagem de teste</string>
+    <string name="verify">Verificar</string>
+    <string name="register">Registrar</string>
+    <string name="activate_signal">Ativar sinal</string>
+    <string name="verify_signal">Verificar sinal</string>
+    <string name="enter_verification">Informe o código de verificação recebido na etapa de registro de sinal</string>
+    <string name="cancel">Cancelar</string>
+    <string name="register_title">Registrar com sinal</string>
+    <string name="phone_hint">+12125551212</string>
+
+    <string name="menu_licenses">Licenças…</string>
+    <string name="sensor_light">Iluminação do ambiente</string>
+    <string name="sensor_accel">Movimento (Acelerômetro)</string>
+    <string name="sensor_camera">Movimento (Câmera)</string>
+    <string name="sensor_sound">Microfone</string>
+    <string name="sensor_power">Carregamento USB</string>
+    <string name="sensor_bump">Mexer (Acelerômetro)</string>
+    <string name="sensor_unknown">Desconhecido</string>
+
+</resources>

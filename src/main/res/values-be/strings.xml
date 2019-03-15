@@ -1,0 +1,35 @@
+<resources>
+
+    <string name="menu_save">Захаваць</string>
+    <string name="menu_about">Наладзiць…</string>
+
+    <string name="title_activity_start">Haven</string>
+
+    <string name="accelerometer_prompt">Адчувальнасць Руху</string>
+
+    <string name="microphone_sensitivity">Адчувальнасць Гуку</string>
+
+    <string name="timer_delay_label">Час Затрымкi</string>
+
+    <string name="sms_label">Апавяшчаць праз СМС або праз дадатак Signal</string>
+
+    <string name="sms_hint">+12125551212</string>
+
+    <string name="camera_prompt">Выбар Камеры</string>
+
+    <string name="secure_service_started">Haven Работае</string>
+
+    <string name="intrusion_detected">Спрацаваў Сэнсар Haven (Тып: %s)</string>
+    <string name="title_activity_event">Падзеi</string>
+
+    <string name="action_settings">Налады</string>
+
+    <string name="intro1_title">Вiтаем у Haven</string>
+    <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the height find…\"\n-George Meredith</string>
+
+    <string name="intro2_title">Haven прызначаны для людзей, што жадаюць сачыць за ўварваннямi ў iх дамы, офiсы, гастiнiчныя нумары або iншыя прыватныя месцы</string>
+    <string name="intro3_desc">Ператварыце дадатковы тэлефон у дэтэктар руху, гуку, вiбрацыi i свету, каб назiраць за нечаканымi гасцямi i нежаданымi зламыснiкамi.</string>
+
+    <string name="intro4_desc">Атрымоўвайце апавяшчэннi аб уварваннях iмгненна. Назiрайце за журналам падзей аддалена альбо асабiста.</string>
+
+</resources>

@@ -3,33 +3,23 @@
     <string name="app_name" translatable="false">Haven</string>
     <string name="bullets" translatable="false">•••••••</string>
     <string name="menu_save">Save</string>
-    <string name="menu_about">Setup...</string>
+    <string name="menu_about">Setup…</string>
 
     <string name="title_activity_start">Haven</string>
 
-    <string name="accelerometer_prompt">
-    	Movement Sensitivity
+    <string name="accelerometer_prompt">Movement Sensitivity</string>
+
+    <string name="microphone_sensitivity">Sound Sensitivity</string>
+
+    <string name="timer_delay_label">Set Delay Time</string>
+
+    <string name="remote_notification_label">
+    	Send Signal message alerts
     </string>
 
-    <string name="microphone_sensitivity">
-    	Sound Sensitivity
-    </string>
+    <string name="sms_hint">+12125551212</string>
 
-    <string name="timer_delay_label">
-    	Set Delay Time
-    </string>
-
-    <string name="sms_label">
-    	Send SMS or Signal message alerts
-    </string>
-
-    <string name="sms_hint">
-    	+12125551212
-    </string>
-
-    <string name="camera_prompt">
-    	Select the camera
-    </string>
+    <string name="camera_prompt">Select the camera</string>
 
     <string name="secure_service_started">Haven Activated</string>
 
@@ -79,8 +69,13 @@
 
     <string name="action_cancel">Deactivate</string>
     <string name="status_on">ACTIVE</string>
-    <string name="status_charging">Charging:</string>
-    <string name="you_will_receive_a_text_when_the_app_hears_or_sees_something">You will receive a text when the app hears or sees something</string>
+    <string name="power_source_status_usb">USB Charging</string>
+    <string name="power_source_status_wireless">Wireless Charging</string>
+    <string name="power_source_status_ac">AC Charging</string>
+    <string name="power_source_status">STATE:</string>
+    <string name="power_disconnected">Disconnected</string>
+    <string name="you_will_receive_a_text_when_the_app_hears_or_sees_something">You will receive a message when the app
+        hears or sees something</string>
     <string name="know_immediately_when_haven_detects_something">Know immediately when Haven detects something</string>
     <string name="phone_saved">Phone number saved!</string>
     <string name="detection_events">detection events</string>
@@ -88,6 +83,7 @@
     <string name="data_light">LIGHT</string>
     <string name="data_pressure">PRESSURE</string>
     <string name="data_power">POWER</string>
+    <string name="data_battery">BATTERY</string>
     <string name="share_event_action">Share event...</string>
     <string name="signal_test_message">This is a test message from Haven</string>
     <string name="send_test_message">Send Test Message</string>
@@ -102,12 +98,12 @@
     <string name="register_signal_desc">Enter a phone number to register with Signal, to use to send secure notifications. You can use this device\'s phone number or setup a virtual number.\n\nWARNING: If this number is already configured with a Signal app install, it will stop working there, and only work within Haven.</string>
     <string name="phone_hint">+12125551212</string>
 
-    <string name="menu_licenses">Licenses...</string>
+    <string name="menu_licenses">Licenses…</string>
     <string name="sensor_light">Ambient Light</string>
     <string name="sensor_accel">Motion (Accelerometer)</string>
     <string name="sensor_camera">Motion (Camera)</string>
     <string name="sensor_sound">Microphone</string>
-    <string name="sensor_power">USB Power</string>
+    <string name="sensor_power">Power</string>
     <string name="sensor_bump">Bump (Accelerometer)</string>
     <string name="sensor_camera_video">Motion (Video)</string>
     <string name="sensor_heartbeat">Heartbeat</string>
@@ -123,7 +119,7 @@
     <string name="signal_dialog_summary">A phone number to send from using Signal</string>
     <string name="verification_dialog_summary">Tap to verify your Signal number</string>
     <string name="send_message_dialog">Enter a phone number to send a test alert notification message to</string>
-    <string name="send_text_message">Test notifications...</string>
+    <string name="send_text_message">Test notifications…</string>
     <string name="service_address">Service Address</string>
     <string name="password">Password (Required)</string>
     <string name="signal_number">Signal Number (Local)</string>
@@ -179,8 +175,8 @@
     <string name="device_move_detected">DEVICE MOVEMENT DETECTED</string>
     <string name="power_detected">POWER CHANGE DETECTED</string>
 
-    <string name="status_recording_video">Recording...</string>
+    <string name="status_recording_video">Recording…</string>
     <string name="status_light">LIGHT DETECTED</string>
-    <string name="pecent_motion_detected">% motion detected</string>
+    <string name="run_disk_cleanup">Clean deleted logs from disk</string>
 
 </resources>

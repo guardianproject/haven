@@ -14,6 +14,7 @@ import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -42,6 +43,7 @@ import org.havenapp.main.sensors.AmbientLightMonitor;
 import org.havenapp.main.sensors.BarometerMonitor;
 import org.havenapp.main.sensors.BumpMonitor;
 import org.havenapp.main.sensors.MicrophoneMonitor;
+import org.havenapp.main.sensors.PowerConnectionReceiver;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -78,6 +80,8 @@ public class MonitorService extends Service {
     private MicrophoneMonitor mMicMonitor = null;
     private BarometerMonitor mBaroMonitor = null;
     private AmbientLightMonitor mLightMonitor = null;
+
+    private PowerConnectionReceiver mPowerReceiver = null;
 
     private boolean mIsMonitoringActive = false;
 
@@ -260,7 +264,13 @@ public class MonitorService extends Service {
         if (!mPrefs.getMicrophoneSensitivity().equals(PreferenceManager.OFF))
             mMicMonitor = new MicrophoneMonitor(this);
 
+        mPowerReceiver = new PowerConnectionReceiver();
+        // register our power status receivers
+        IntentFilter powerConnectedFilter = new IntentFilter(Intent.ACTION_POWER_CONNECTED);
+        registerReceiver(mPowerReceiver, powerConnectedFilter);
 
+        IntentFilter powerDisconnectedFilter = new IntentFilter(Intent.ACTION_POWER_DISCONNECTED);
+        registerReceiver(mPowerReceiver, powerDisconnectedFilter);
     }
 
     private void stopSensors ()
@@ -292,6 +302,8 @@ public class MonitorService extends Service {
                 sender.stopHeartbeatTimer();
             }
         }
+        
+        unregisterReceiver(mPowerReceiver);
     }
 
     /**
@@ -356,7 +368,8 @@ public class MonitorService extends Service {
             alertMessage.append(getString(R.string.intrusion_detected,
                     eventTrigger.getStringType(new ResourceManager(this))));
 
-            if (mPrefs.getSignalUsername() != null) {
+            if (mPrefs.isRemoteNotificationActive() &&
+                    mPrefs.getSignalUsername() != null) {
                 //since this is a secure channel, we can add the Onion address
                 if (mPrefs.getRemoteAccessActive() && (!TextUtils.isEmpty(mPrefs.getRemoteAccessOnion()))) {
                     alertMessage.append(" http://").append(mPrefs.getRemoteAccessOnion())
@@ -365,7 +378,7 @@ public class MonitorService extends Service {
 
                 SignalSender sender = SignalSender.getInstance(this, mPrefs.getSignalUsername());
                 ArrayList<String> recips = new ArrayList<>();
-                StringTokenizer st = new StringTokenizer(mPrefs.getSmsNumber(), ",");
+                StringTokenizer st = new StringTokenizer(mPrefs.getRemotePhoneNumber(), ",");
                 while (st.hasMoreTokens())
                     recips.add(st.nextToken());
 
@@ -380,13 +393,6 @@ public class MonitorService extends Service {
                 }
 
                 sender.sendMessage(recips, alertMessage.toString(), attachment);
-            } else if (mPrefs.getSmsActivation()) {
-                SmsManager manager = SmsManager.getDefault();
-
-                StringTokenizer st = new StringTokenizer(mPrefs.getSmsNumber(), ",");
-                while (st.hasMoreTokens())
-                    manager.sendTextMessage(st.nextToken(), null, alertMessage.toString(), null, null);
-
             }
         }
 

@@ -3,33 +3,23 @@
     <!-- <string name="app_name" translatable="false">Haven</string>
     <string name="bullets" translatable="false">•••••••</string> -->
     <string name="menu_save">保存</string>
-    <string name="menu_about">设置...</string>
+    <string name="menu_about">设置…</string>
 
     <string name="title_activity_start">Haven</string>
 
-    <string name="accelerometer_prompt">
-    	运动敏感度
-    </string>
+    <string name="accelerometer_prompt">运动敏感度</string>
 
-    <string name="microphone_sensitivity">
-    	声音敏感度
-    </string>
+    <string name="microphone_sensitivity">声音敏感度</string>
 
-    <string name="timer_delay_label">
-    	设置延时
-    </string>
+    <string name="timer_delay_label">设置延时</string>
 
-    <string name="sms_label">
+    <string name="remote_notification_label">
     	使用发送短信或 Signal 发送警告
     </string>
 
-    <string name="sms_hint">
-    	+8613800138000
-    </string>
+    <string name="sms_hint">+8613800138000</string>
 
-    <string name="camera_prompt">
-    	选择摄像头
-    </string>
+    <string name="camera_prompt">选择摄像头</string>
 
     <string name="secure_service_started">Haven 已激活</string>
 
@@ -38,13 +28,13 @@
 
     <string name="action_settings">设置</string>
 
-    <string name="intro1_title"> 欢迎使用 Haven</string>
-    <string name="intro1_desc">\"现在当人类命运的方舟, \n长久以来被风向阻挡, \n正以其人流而漂流, \n在高处发现安全的避难所...\"\n- 乔治·梅瑞迪斯</string>
+    <string name="intro1_title">欢迎使用 Haven</string>
+    <string name="intro1_desc">\"现在当人类命运的方舟, \n长久以来被风向阻挡, \n正以其人流而漂流, \n在高处发现安全的避难所…\"\n- 乔治·梅瑞迪斯</string>
 
-    <string name="intro2_title">Haven 旨在帮助用户监测他们的家、办公室、酒店房间以及其他私人空间, 当不速之客来临之时发出警示. </string>
-    <string name="intro3_desc">利用闲置手机作为运动、声音、振动和光线探测器, 侦测不速之客和入侵者. </string>
+    <string name="intro2_title">Haven 旨在帮助用户监测他们的家、办公室、酒店房间以及其他私人空间, 当不速之客来临之时发出警示.</string>
+    <string name="intro3_desc">利用闲置手机作为运动、声音、振动和光线探测器, 侦测不速之客和入侵者.</string>
 
-    <string name="intro4_desc">获取实时入侵事件通知, 并提供日志以供远程或在场访问. </string>
+    <string name="intro4_desc">获取实时入侵事件通知, 并提供日志以供远程或在场访问.</string>
 
     <string name="intro5_title">你的 Haven 已经就绪</string>
     <string name="intro5_desc">任何时间你可以通过主屏幕上的 &gt; 按钮来激活 Haven</string>
@@ -88,7 +78,7 @@
     <string name="data_light">亮度</string>
     <string name="data_pressure">压力</string>
     <string name="data_power">电量</string>
-    <string name="share_event_action">分享事件...</string>
+    <string name="share_event_action">分享事件…</string>
     <string name="signal_test_message">这是来自 Haven 的测试消息</string>
     <string name="send_test_message">发送测试信息</string>
     <string name="verify">验证</string>
@@ -98,10 +88,10 @@
     <string name="enter_verification">输入您从 Signal 收到的注册验证码</string>
     <string name="cancel">取消</string>
     <string name="register_title">注册 Signal</string>
-    <string name="register_signal_desc">请使用一个新的手机号注册 Signal 用以发送安全通知. 请不要使用您当前的/主要的 Signal 号码. </string>
+    <string name="register_signal_desc">请使用一个新的手机号注册 Signal 用以发送安全通知. 请不要使用您当前的/主要的 Signal 号码.</string>
     <string name="phone_hint">+8613800138000</string>
 
-    <string name="menu_licenses">许可协议...</string>
+    <string name="menu_licenses">许可协议…</string>
     <string name="sensor_light">环境光</string>
     <string name="sensor_accel">运动 (加速度仪)</string>
     <string name="sensor_camera">运动 (相机)</string>
@@ -122,11 +112,11 @@
     <string name="signal_dialog_summary">用于接受通知的 Signal 号码</string>
     <string name="verification_dialog_summary">点击验证您的 Signal 号码</string>
     <string name="send_message_dialog">输入用于接受测试通知的号码</string>
-    <string name="send_text_message">发送测试通知...</string>
+    <string name="send_text_message">发送测试通知…</string>
     <string name="service_address">服务地址</string>
     <string name="password">密码 (必填)</string>
     <string name="signal_number">Signal 号码 (本地)</string>
-    <string name="phone_number"> 通知号码 (远程)</string>
+    <string name="phone_number">通知号码 (远程)</string>
     <string name="sensors">传感器</string>
     <string name="label_notifications">通知</string>
     <string name="video_active_preference_key">video_active_preference_key</string> <!-- Unknown string -->
