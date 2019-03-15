@@ -18,6 +18,7 @@ import com.maxproj.simplewaveform.SimpleWaveform;
 import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.R;
 
+import java.text.MessageFormat;
 import java.util.LinkedList;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -237,7 +238,7 @@ public class AccelConfigureActivity extends AppCompatActivity implements SensorE
                     }
 
                     mWaveform.refresh();
-                    mTextLevel.setText(getString(R.string.current_accel_base) + " " + (int)mAccel);
+                    mTextLevel.setText(MessageFormat.format("{0} {1}", getString(R.string.current_accel_base), (int) mAccel));
 
 
                 }
