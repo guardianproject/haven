@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
+import org.havenapp.main.service.SignalExecutorTask;
 import org.havenapp.main.service.SignalSender;
 import org.havenapp.main.service.WebServer;
 import org.havenapp.main.ui.AccelConfigureActivity;
@@ -575,9 +576,30 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         SignalSender sender = SignalSender.getInstance(mActivity, username);
 
         if (TextUtils.isEmpty(verifyCode)) {
-            sender.register(preferences.getVoiceVerificationEnabled());
+            sender.register(preferences.getVoiceVerificationEnabled(),
+                    new SignalExecutorTask.TaskResult() {
+                @Override
+                public void onSuccess(@NonNull String msg) {
+                    Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onFailure(@NonNull String msg) {
+                    Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+                }
+            });
         } else {
-            sender.verify(verifyCode);
+            sender.verify(verifyCode, new SignalExecutorTask.TaskResult() {
+                @Override
+                public void onSuccess(@NonNull String msg) {
+                    Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onFailure(@NonNull String msg) {
+                    Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 

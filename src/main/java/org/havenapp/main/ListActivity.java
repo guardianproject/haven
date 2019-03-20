@@ -48,6 +48,7 @@ import org.havenapp.main.database.async.EventInsertAsync;
 import org.havenapp.main.model.Event;
 import org.havenapp.main.resources.IResourceManager;
 import org.havenapp.main.resources.ResourceManager;
+import org.havenapp.main.service.LoggingTaskListener;
 import org.havenapp.main.service.RemoveDeletedFilesJob;
 import org.havenapp.main.service.SignalSender;
 import org.havenapp.main.ui.EventActivity;
@@ -135,6 +136,8 @@ public class ListActivity extends AppCompatActivity {
     };
 
     private ProgressDialog progressDialog;
+
+    private LoggingTaskListener loggingTaskListener = new LoggingTaskListener();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -376,7 +379,8 @@ public class ListActivity extends AppCompatActivity {
             SignalSender sender = SignalSender.getInstance(this, preferences.getSignalUsername().trim());
             ArrayList<String> recip = new ArrayList<>();
             recip.add(preferences.getRemotePhoneNumber());
-            sender.sendMessage(recip, resourceManager.getString(R.string.signal_test_message), null);
+            sender.sendMessage(recip, resourceManager.getString(R.string.signal_test_message),
+                    null, loggingTaskListener);
         }
     }
 }

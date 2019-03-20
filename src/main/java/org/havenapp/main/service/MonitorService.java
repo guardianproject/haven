@@ -125,6 +125,8 @@ public class MonitorService extends Service {
      */
     private HavenApp mApp = null;
 
+    private LoggingTaskListener loggingTaskListener = new LoggingTaskListener();
+
 	/**
 	 * Called on service creation, sends a notification
 	 */
@@ -392,7 +394,7 @@ public class MonitorService extends Service {
                     attachment = eventTrigger.getPath();
                 }
 
-                sender.sendMessage(recips, alertMessage.toString(), attachment);
+                sender.sendMessage(recips, alertMessage.toString(), attachment, loggingTaskListener);
             }
         }
 

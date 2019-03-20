@@ -1,6 +1,7 @@
 package org.havenapp.main.service;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.CountDownTimer;
 import android.telephony.SmsManager;
 import android.text.TextUtils;
@@ -16,6 +17,9 @@ import org.havenapp.main.Utils;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.StringTokenizer;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * Created by n8fr8 on 11/6/17.
@@ -33,6 +37,7 @@ public class SignalSender {
     private String suffix;
     private int interval;
     private int mAlertCount;
+    private Main mainSignal;
 
     private SignalSender(Context context, String username)
     {
@@ -40,6 +45,7 @@ public class SignalSender {
         mUsername = username;
         mAlertCount = 0;
         preferences = new PreferenceManager(mContext);
+        mainSignal = new Main(context);
         prefix = preferences.getHeartbeatPrefix();
         suffix = preferences.getHeartbeatSuffix();
         messageString = preferences.getHeartbeatMonitorMessage();
@@ -63,46 +69,29 @@ public class SignalSender {
 
     public void reset ()
     {
-        Main mainSignal = new Main(mContext);
         mainSignal.resetUser();
         mInstance = null;
     }
 
-    public void register (boolean callEnabled)
-    {
-        execute (new Runnable() {
-            public void run() {
-                Main mainSignal = new Main(mContext);
-                HashMap<String, Object> map = new HashMap<>();
+    public void register (boolean callEnabled, @Nullable SignalExecutorTask.TaskResult taskResult) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("username", mUsername);
+        map.put("command", "register");
+        if (!callEnabled)
+            map.put("voice", false);
+        else
+            map.put("voice", true);
 
-                map.put("username", mUsername);
-                map.put("command", "register");
-                if (!callEnabled)
-                    map.put("voice", false);
-                else
-                    map.put("voice", true);
-
-                Namespace ns = new Namespace(map);
-                mainSignal.handleCommands(ns);
-            }
-        });
+        execute(map, taskResult);
     }
 
-    public void verify (final String verificationCode)
-    {
-        execute (new Runnable() {
-            public void run() {
-                Main mainSignal = new Main(mContext);
-                HashMap<String, Object> map = new HashMap<>();
+    public void verify (final String verificationCode, @Nullable SignalExecutorTask.TaskResult taskResult) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("username", mUsername);
+        map.put("command", "verify");
+        map.put("verificationCode", verificationCode);
 
-                map.put("username", mUsername);
-                map.put("command", "verify");
-                map.put("verificationCode", verificationCode);
-
-                Namespace ns = new Namespace(map);
-                mainSignal.handleCommands(ns);
-            }
-        });
+        execute(map, taskResult);
     }
 
     public void stopHeartbeatTimer ()
@@ -157,38 +146,32 @@ public class SignalSender {
             getInstance(mContext, mUsername.trim());
             ArrayList<String> recipient = new ArrayList<>();
             recipient.add(preferences.getRemotePhoneNumber());
-            sendMessage(recipient, message,null);
+            sendMessage(recipient, message,null, null);
         }
     }
 
-    public void sendMessage (final ArrayList<String> recipients, final String message, final String attachment)
-    {
-        execute (new Runnable() {
-            public void run() {
-                Main mainSignal = new Main(mContext);
-                HashMap<String, Object> map = new HashMap<>();
+    public void sendMessage (final ArrayList<String> recipients, final String message,
+                             final String attachment, @Nullable SignalExecutorTask.TaskResult listener) {
 
-                map.put("username", mUsername);
-                map.put("endsession",false);
-                map.put("recipient", recipients);
-                map.put("command", "send");
-                map.put("message", message);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("username", mUsername);
+        map.put("endsession",false);
+        map.put("recipient", recipients);
+        map.put("command", "send");
+        map.put("message", message);
 
-                if (attachment != null)
-                {
-                    ArrayList<String> attachments = new ArrayList<>();
-                    attachments.add(attachment);
-                    map.put("attachment",attachments);
-                }
+        if (attachment != null) {
+            ArrayList<String> attachments = new ArrayList<>();
+            attachments.add(attachment);
+            map.put("attachment",attachments);
+        }
 
-                Namespace ns = new Namespace(map);
-                mainSignal.handleCommands(ns);
-            }
-        });
+        execute(map, listener);
     }
 
-    private void execute (Runnable runnable)
-    {
-        new Thread (runnable).start();
+    private void execute (HashMap<String, Object> map,
+                          @Nullable SignalExecutorTask.TaskResult taskResult) {
+        new SignalExecutorTask(map, mainSignal, taskResult)
+                .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 }
