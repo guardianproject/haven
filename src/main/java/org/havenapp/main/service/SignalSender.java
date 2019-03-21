@@ -37,7 +37,6 @@ public class SignalSender {
     private String suffix;
     private int interval;
     private int mAlertCount;
-    private Main mainSignal;
 
     private SignalSender(Context context, String username)
     {
@@ -45,7 +44,6 @@ public class SignalSender {
         mUsername = username;
         mAlertCount = 0;
         preferences = new PreferenceManager(mContext);
-        mainSignal = new Main(context);
         prefix = preferences.getHeartbeatPrefix();
         suffix = preferences.getHeartbeatSuffix();
         messageString = preferences.getHeartbeatMonitorMessage();
@@ -69,7 +67,8 @@ public class SignalSender {
 
     public void reset ()
     {
-        mainSignal.resetUser();
+        Main main = new Main(mContext);
+        main.resetUser();
         mInstance = null;
     }
 
@@ -171,7 +170,8 @@ public class SignalSender {
 
     private void execute (HashMap<String, Object> map,
                           @Nullable SignalExecutorTask.TaskResult taskResult) {
-        new SignalExecutorTask(map, mainSignal, taskResult)
+        Main main = new Main(mContext);
+        new SignalExecutorTask(map, main, taskResult)
                 .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 }
