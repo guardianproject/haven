@@ -28,7 +28,6 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.telephony.SmsManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -48,7 +47,6 @@ import org.havenapp.main.database.async.EventInsertAsync;
 import org.havenapp.main.model.Event;
 import org.havenapp.main.resources.IResourceManager;
 import org.havenapp.main.resources.ResourceManager;
-import org.havenapp.main.service.LoggingTaskListener;
 import org.havenapp.main.service.RemoveDeletedFilesJob;
 import org.havenapp.main.service.SignalSender;
 import org.havenapp.main.ui.EventActivity;
@@ -57,7 +55,6 @@ import org.havenapp.main.ui.PPAppIntro;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -136,8 +133,6 @@ public class ListActivity extends AppCompatActivity {
     };
 
     private ProgressDialog progressDialog;
-
-    private LoggingTaskListener loggingTaskListener = new LoggingTaskListener();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -380,7 +375,7 @@ public class ListActivity extends AppCompatActivity {
             ArrayList<String> recip = new ArrayList<>();
             recip.add(preferences.getRemotePhoneNumber());
             sender.sendMessage(recip, resourceManager.getString(R.string.signal_test_message),
-                    null, loggingTaskListener);
+                    null, null);
         }
     }
 }
