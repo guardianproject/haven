@@ -7,6 +7,7 @@ package org.havenapp.main;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -242,6 +243,9 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         if (TextUtils.isEmpty(signalUsername)) {
             findPreference(PreferenceManager.REGISTER_SIGNAL).performClick();
         } else {
+            if (getActivity() != null) {
+                Utils.hideKeyboard(getActivity());
+            }
             activateSignal(signalUsername, null);
         }
     }
@@ -397,6 +401,9 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                     findPreference(PreferenceManager.REGISTER_SIGNAL).setSummary(signalNum);
 
                     resetSignal(preferences.getSignalUsername());
+                    if (getActivity() != null) {
+                        Utils.hideKeyboard(getActivity());
+                    }
                     activateSignal(preferences.getSignalUsername(), null);
                 } else if (!getCountryCode().equalsIgnoreCase(signalNum)) {
                     preferences.setSignalUsername("");
@@ -406,6 +413,9 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 break;
             case PreferenceManager.VERIFY_SIGNAL: {
                 String text = ((EditTextPreference) findPreference(PreferenceManager.VERIFY_SIGNAL)).getText();
+                if (getActivity() != null) {
+                    Utils.hideKeyboard(getActivity());
+                }
                 activateSignal(preferences.getSignalUsername(), text);
                 onRemoteNotificationParameterChange();
                 break;
@@ -413,6 +423,9 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             case PreferenceManager.REMOTE_PHONE_NUMBER:
                 setPhoneNumber();
                 onRemoteNotificationParameterChange();
+                if (getActivity() != null) {
+                    Utils.hideKeyboard(getActivity());
+                }
                 break;
             case PreferenceManager.NOTIFICATION_TIME:
                 try
@@ -576,27 +589,43 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         SignalSender sender = SignalSender.getInstance(mActivity, username);
 
         if (TextUtils.isEmpty(verifyCode)) {
+            ProgressDialog progressDialog = ProgressDialog.show(getContext(), "Registering to Signal",
+                    "Please wait while we register you to Signal services");
             sender.register(preferences.getVoiceVerificationEnabled(),
                     new SignalExecutorTask.TaskResult() {
                 @Override
                 public void onSuccess(@NonNull String msg) {
+                    if (isAdded() && getActivity() != null) {
+                        progressDialog.dismiss();
+                    }
                     Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void onFailure(@NonNull String msg) {
+                    if (isAdded() && getActivity() != null) {
+                        progressDialog.dismiss();
+                    }
                     Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
                 }
             });
         } else {
+            ProgressDialog progressDialog = ProgressDialog.show(getContext(), "Verifying",
+                    "Please wait while we verify your registration to Signal services");
             sender.verify(verifyCode, new SignalExecutorTask.TaskResult() {
                 @Override
                 public void onSuccess(@NonNull String msg) {
+                    if (isAdded() && getActivity() != null) {
+                        progressDialog.dismiss();
+                    }
                     Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void onFailure(@NonNull String msg) {
+                    if (isAdded() && getActivity() != null) {
+                        progressDialog.dismiss();
+                    }
                     Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
                 }
             });
