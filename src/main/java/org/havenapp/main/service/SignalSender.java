@@ -21,7 +21,7 @@ import java.util.StringTokenizer;
  * Created by n8fr8 on 11/6/17.
  */
 
-public class SignalSender {
+public class SignalSender implements AlertSender {
 
     private Context mContext;
     private static SignalSender mInstance;

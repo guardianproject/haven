@@ -131,6 +131,13 @@ android {
     sourceSets {
         androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
     }
+
+    repositories {
+        flatDir {
+            dir 'libs'
+        }
+    }
+
 }
 
 configurations {
@@ -141,9 +148,9 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'androidx.preference:preference:1.1.0-alpha03'
+    implementation 'androidx.preference:preference:1.1.0-alpha04'
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation 'androidx.annotation:annotation:1.0.1'
+    implementation 'androidx.annotation:annotation:1.0.2'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'com.wdullaer:materialdatetimepicker:4.1.1'
     implementation 'com.github.guardianproject:signal-cli-android:v0.6.0-android-beta-1'
@@ -188,4 +195,14 @@ dependencies {
 
     // new camera view: https://github.com/natario1/CameraView
     implementation 'com.otaliastudios:cameraview:2.0.0-beta04'
+
+    /************* Matrix SDK management **************/
+    // use the matrix SDK as external lib
+    implementation(name: 'matrix-sdk', ext: 'aar')
+    implementation(name: 'olm-sdk', ext: 'aar')
+
+    /*********** KeanuApp components **********/
+    implementation(name: 'keanucore-0.0.1.18', ext: 'aar')
+    implementation(name: 'keanumatrix-0.0.1.18', ext: 'aar')
+
 }
