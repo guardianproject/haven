@@ -217,6 +217,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         });
 
         checkSignalUsername();
+        checkSignalUsernameVerification();
         ((EditTextPreference) findPreference(PreferenceManager.VERIFY_SIGNAL)).setText("");
         askForPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, 1);
 
@@ -410,6 +411,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                     findPreference(PreferenceManager.REGISTER_SIGNAL).setSummary(R.string.register_signal_desc);
                 }
                 onRemoteNotificationParameterChange();
+                checkSignalUsernameVerification();
                 break;
             case PreferenceManager.VERIFY_SIGNAL: {
                 String text = ((EditTextPreference) findPreference(PreferenceManager.VERIFY_SIGNAL)).getText();
@@ -418,6 +420,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 }
                 activateSignal(preferences.getSignalUsername(), text);
                 onRemoteNotificationParameterChange();
+                checkSignalUsernameVerification();
                 break;
             }
             case PreferenceManager.REMOTE_PHONE_NUMBER:
@@ -585,12 +588,26 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         }
     }
 
+    private void checkSignalUsernameVerification() {
+        String signalUsername = preferences.getSignalUsername();
+
+        // this will fail for all users currently has signal verified
+        if (checkValidString(signalUsername) &&
+                signalUsername.equals(preferences.getVerifiedSignalUsername())) {
+            findPreference(PreferenceManager.VERIFY_SIGNAL)
+                    .setSummary(R.string.verification_dialog_summary_verified);
+        } else {
+            findPreference(PreferenceManager.VERIFY_SIGNAL)
+                    .setSummary(R.string.verification_dialog_summary);
+        }
+    }
+
     private void activateSignal(String username, String verifyCode) {
         SignalSender sender = SignalSender.getInstance(mActivity, username);
 
         if (TextUtils.isEmpty(verifyCode)) {
-            ProgressDialog progressDialog = ProgressDialog.show(getContext(), "Registering to Signal",
-                    "Please wait while we register you to Signal services");
+            ProgressDialog progressDialog = ProgressDialog.show(getContext(), getString(R.string.registering_to_signal),
+                    getString(R.string.signal_registration_desc));
             sender.register(preferences.getVoiceVerificationEnabled(),
                     new SignalExecutorTask.TaskResult() {
                 @Override
@@ -610,14 +627,16 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 }
             });
         } else {
-            ProgressDialog progressDialog = ProgressDialog.show(getContext(), "Verifying",
-                    "Please wait while we verify your registration to Signal services");
+            ProgressDialog progressDialog = ProgressDialog.show(getContext(), getString(R.string.verifying_signal),
+                    getString(R.string.verifying_signal_desc));
             sender.verify(verifyCode, new SignalExecutorTask.TaskResult() {
                 @Override
                 public void onSuccess(@NonNull String msg) {
                     if (isAdded() && getActivity() != null) {
                         progressDialog.dismiss();
                     }
+                    // mark that the current registered signal username is verified
+                    preferences.setVerifiedSignalUsername(preferences.getSignalUsername());
                     Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
                 }
 

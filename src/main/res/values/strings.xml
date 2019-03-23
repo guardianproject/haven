@@ -117,6 +117,7 @@
     <string name="sms_dialog_message">Enter a remote phone number to send alert notifications to</string>
     <string name="signal_dialog_summary">A phone number to send from using Signal</string>
     <string name="verification_dialog_summary">Tap to verify your Signal number</string>
+    <string name="verification_dialog_summary_verified">Signal number is verified</string>
     <string name="send_message_dialog">Enter a phone number to send a test alert notification message to</string>
     <string name="send_text_message">Test notifications…</string>
     <string name="service_address">Service Address</string>
@@ -177,5 +178,9 @@
     <string name="status_recording_video">Recording…</string>
     <string name="status_light">LIGHT DETECTED</string>
     <string name="run_disk_cleanup">Clean deleted logs from disk</string>
+    <string name="registering_to_signal">Registering to Signal</string>
+    <string name="signal_registration_desc">Please wait while we register you to Signal services</string>
+    <string name="verifying_signal">Verifying</string>
+    <string name="verifying_signal_desc">Please wait while we verify your registration to Signal services</string>
 
 </resources>
