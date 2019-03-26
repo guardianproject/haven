@@ -9,6 +9,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -38,6 +39,7 @@ import java.io.File;
 import java.util.Locale;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -420,7 +422,6 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 }
                 activateSignal(preferences.getSignalUsername(), text);
                 onRemoteNotificationParameterChange();
-                checkSignalUsernameVerification();
                 break;
             }
             case PreferenceManager.REMOTE_PHONE_NUMBER:
@@ -615,7 +616,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                     if (isAdded() && getActivity() != null) {
                         progressDialog.dismiss();
                     }
-                    Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+                    showRegistrationSuccessDialog();
                 }
 
                 @Override
@@ -637,7 +638,8 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                     }
                     // mark that the current registered signal username is verified
                     preferences.setVerifiedSignalUsername(preferences.getSignalUsername());
-                    Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+                    checkSignalUsernameVerification();
+                    showVerificationSuccessDialog();
                 }
 
                 @Override
@@ -649,6 +651,34 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 }
             });
         }
+    }
+
+    private void showRegistrationSuccessDialog() {
+        if (!isAdded() || getActivity() == null) {
+            return;
+        }
+
+        new AlertDialog.Builder(getActivity())
+                .setTitle(R.string.registration_successful)
+                .setMessage(getString(R.string.signal_reg_success_desc, preferences.getSignalUsername()))
+                .setPositiveButton(R.string.verify, (dialog, which) -> {
+                    dialog.dismiss();
+                    findPreference(PreferenceManager.VERIFY_SIGNAL).performClick();
+                })
+                .setNegativeButton(R.string.ok, (dialog, which) -> dialog.dismiss())
+                .show();
+    }
+
+    private void showVerificationSuccessDialog() {
+        if (!isAdded() || getActivity() == null) {
+            return;
+        }
+
+        new AlertDialog.Builder(getActivity())
+                .setTitle(R.string.verification_successful)
+                .setMessage(R.string.signal_verification_success_desc)
+                .setPositiveButton(R.string.ok, (dialog, which) -> dialog.dismiss())
+                .show();
     }
 
     private void resetSignal(String username) {

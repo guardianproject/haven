@@ -182,5 +182,10 @@
     <string name="signal_registration_desc">Please wait while we register you to Signal services</string>
     <string name="verifying_signal">Verifying</string>
     <string name="verifying_signal_desc">Please wait while we verify your registration to Signal services</string>
+    <string name="ok">Ok</string>
+    <string name="registration_successful">Registration Successful</string>
+    <string name="signal_reg_success_desc">You have successfully registered to Signal services. Next Step is to verify the registration for %s</string>
+    <string name="verification_successful">Verification Successful</string>
+    <string name="signal_verification_success_desc">All set to send Haven alerts from Signal!</string>
 
 </resources>
