@@ -33,6 +33,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -370,12 +371,14 @@ public class ListActivity extends AppCompatActivity {
     private void testNotifications ()
     {
 
-        if (!TextUtils.isEmpty(preferences.getSignalUsername())) {
+        if (preferences.isSignalVerified()) {
             SignalSender sender = SignalSender.getInstance(this, preferences.getSignalUsername().trim());
             ArrayList<String> recip = new ArrayList<>();
             recip.add(preferences.getRemotePhoneNumber());
             sender.sendMessage(recip, resourceManager.getString(R.string.signal_test_message),
                     null, null);
+        } else {
+            Toast.makeText(this, getString(R.string.setup_signal_toast), Toast.LENGTH_SHORT).show();
         }
     }
 }

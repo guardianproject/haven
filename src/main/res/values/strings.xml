@@ -187,5 +187,6 @@
     <string name="signal_reg_success_desc">You have successfully registered to Signal services. Next Step is to verify the registration for %s</string>
     <string name="verification_successful">Verification Successful</string>
     <string name="signal_verification_success_desc">All set to send Haven alerts from Signal!</string>
+    <string name="setup_signal_toast">Please set up Signal notifications from settings</string>
 
 </resources>

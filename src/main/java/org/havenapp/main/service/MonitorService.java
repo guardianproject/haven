@@ -368,8 +368,7 @@ public class MonitorService extends Service {
             alertMessage.append(getString(R.string.intrusion_detected,
                     eventTrigger.getStringType(new ResourceManager(this))));
 
-            if (mPrefs.isRemoteNotificationActive() &&
-                    mPrefs.getSignalUsername() != null) {
+            if (mPrefs.isRemoteNotificationActive() && mPrefs.isSignalVerified()) {
                 //since this is a secure channel, we can add the Onion address
                 if (mPrefs.getRemoteAccessActive() && (!TextUtils.isEmpty(mPrefs.getRemoteAccessOnion()))) {
                     alertMessage.append(" http://").append(mPrefs.getRemoteAccessOnion())
