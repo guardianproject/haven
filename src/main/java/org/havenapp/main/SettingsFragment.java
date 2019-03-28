@@ -160,6 +160,11 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             findPreference(PreferenceManager.NOTIFICATION_TIME).setSummary(preferences.getNotificationTimeMs()/60000 + " " + getString(R.string.minutes));
         }
 
+        findPreference(PreferenceManager.RESET_SIGNAL_CONFIG).setOnPreferenceClickListener(preference -> {
+            showResetSignalDialog();
+            return true;
+        });
+
         if (preferences.getHeartbeatActive())
         {
             ((SwitchPreference) findPreference(PreferenceManager.HEARTBEAT_MONITOR_ACTIVE)).setChecked(true);
@@ -223,6 +228,21 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         ((EditTextPreference) findPreference(PreferenceManager.VERIFY_SIGNAL)).setText("");
         askForPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, 1);
 
+    }
+
+    private void showResetSignalDialog() {
+        new AlertDialog.Builder(getActivity())
+                .setTitle(R.string.reset_configuration_question)
+                .setMessage(R.string.reset_configuration_desc)
+                .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+                    dialog.dismiss();
+                    resetSignalAndClearPrefs();
+                    findPreference(PreferenceManager.REGISTER_SIGNAL).setSummary(R.string.signal_dialog_summary);
+                    findPreference(PreferenceManager.NOTIFICATION_TIME).setSummary(R.string.notification_time_summary);
+                    checkSignalUsernameVerification();
+                })
+                .setNegativeButton(android.R.string.no, (dialog, which) -> dialog.dismiss())
+                .show();
     }
 
     private boolean canSendRemoteNotification() {
@@ -407,7 +427,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                     }
                     activateSignal(preferences.getSignalUsername(), null);
                 } else if (!getCountryCode().equalsIgnoreCase(signalNum)) {
-                    preferences.setSignalUsername("");
+                    preferences.setSignalUsername(null);
                     findPreference(PreferenceManager.REGISTER_SIGNAL).setSummary(R.string.register_signal_desc);
                 }
                 onRemoteNotificationParameterChange();
@@ -677,6 +697,13 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 .setMessage(R.string.signal_verification_success_desc)
                 .setPositiveButton(R.string.ok, (dialog, which) -> dialog.dismiss())
                 .show();
+    }
+
+    private void resetSignalAndClearPrefs() {
+        resetSignal(preferences.getSignalUsername());
+        preferences.setSignalUsername(null);
+        preferences.setVerifiedSignalUsername(null);
+        preferences.setNotificationTimeMs(-1);
     }
 
     private void resetSignal(String username) {

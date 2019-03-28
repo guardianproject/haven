@@ -70,6 +70,7 @@ public class PreferenceManager {
     public static final String REGISTER_SIGNAL = "register_signal";
     public static final String VERIFY_SIGNAL = "verify_signal";
     public static final String VOICE_VERIFY_SIGNAL = "voice_verify_signal";
+    public static final String RESET_SIGNAL_CONFIG = "reset_signal_config";
     private static final String UNLOCK_CODE="unlock_code";
 	
     private static final String ACCESS_TOKEN="access_token";
