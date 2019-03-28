@@ -289,8 +289,6 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
         preferences.setActivateVideoMonitoring(videoMonitoringActive);
 
-        preferences.setSignalUsername(((EditTextPreference) findPreference(PreferenceManager.REGISTER_SIGNAL)).getText());
-
         boolean remoteNotificationActive =
                 ((SwitchPreference) findPreference(PreferenceManager.REMOTE_NOTIFICATION_ACTIVE)).isChecked();
         preferences.setRemoteNotificationActive(remoteNotificationActive);
