@@ -151,7 +151,7 @@ public final class MicrophoneMonitor implements MicSamplerTask.MicListener {
 
                             Message message = new Message();
                             message.what = EventTrigger.MICROPHONE;
-                            message.getData().putString("path",path);
+                            message.getData().putString(MonitorService.KEY_PATH, path);
                             try {
                                 if (serviceMessenger != null)
                                     serviceMessenger.send(message);

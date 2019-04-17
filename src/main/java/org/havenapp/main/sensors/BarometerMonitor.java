@@ -122,7 +122,7 @@ public class BarometerMonitor implements SensorEventListener {
 
                         Message message = new Message();
                         message.what = EventTrigger.PRESSURE;
-                        message.getData().putString("path",diffValue+"");
+                        message.getData().putString(MonitorService.KEY_PATH, diffValue+"");
 
                         try {
                             if (serviceMessenger != null) {
