@@ -1,46 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="menu_save">Guardar</string>
     <string name="menu_about">Configurar…</string>
-
     <string name="title_activity_start">Haven</string>
-
     <string name="accelerometer_prompt">Sensibilidad de movimiento</string>
-
     <string name="microphone_sensitivity">Sensibilidad de sonido</string>
-
     <string name="timer_delay_label">Temporizador</string>
-
     <string name="remote_notification_label">
         Enviar mensaje de alerta por Signal
     </string>
-
     <string name="sms_hint">+12125551212</string>
-
     <string name="camera_prompt">Seleccionar la cámara</string>
-
     <string name="secure_service_started">Haven Activado</string>
-
     <string name="intrusion_detected">Se ha detectado un intruso (Type: %s)
         Grabando prueba de audio e imagen.
 </string>
     <string name="title_activity_event">EventActivity</string>
-
     <string name="action_settings">Configuración</string>
-
     <string name="intro1_title">Bienvenido a Haven</string>
     <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the height find…\"\n-George Meredith</string>
-
     <string name="intro2_title">Haven es para las personas que quieren detectar invasiones a su hogar, oficina, cuarto de hotel o cualquier otro espacio privado.</string>
     <string name="intro3_desc">Convierte un teléfono extra en un detector de sonido, movimiento, vibración y luz, vigilando visitantes inesperados e intrusos indeseados.</string>
-
     <string name="intro4_desc">Recibe notificaciones de intrusos inmediatamente y accede a las detecciones de manera remota o en persona posteriormente.</string>
-
     <string name="intro5_title">Haven está listo.</string>
     <string name="intro5_desc">Activa la Aplicación en cualquier momento usando el botón &gt; en la pantalla principal.</string>
-
     <string name="onboarding_action_end">Terminar</string>
-
     <string name="remote_access">Acceso remoto</string>
     <string name="remote_access_label">Habilitar acceso remoto via Tor Onion Service</string>
     <string name="remote_access_hint">Dirección del servicio Onion de Orbot</string>
@@ -48,29 +32,22 @@
     <string name="camera_front">Frente</string>
     <string name="camera_back">Atrás</string>
     <string name="camera_none">Apagada</string>
-
     <string name="action_configure">Configurar</string>
-
     <string name="main_screen_title">Inicio de Sesión Haven</string>
-
     <string name="current_noise_base">Niveles de sonido actuales</string>
     <string name="current_accel_base">Nivel de movimiento actual</string>
-
     <string name="configure_trigger_level">Desliza la barra para cambiar el nivel de detección</string>
     <string name="tune_the_sound_detection">¡Haz ruido!</string>
     <string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">Coloca tu teléfono en una mesa y haz ruido en la habitación
         para determinar el nivel exacto de detección</string>
-
     <string name="tune_the_accel_detection">¡Mueve el teléfono!</string>
     <string name="tune_the_accel_detection_more">Mueve el teléfono para ajustar el umbral de detección de movimiento</string>
     <string name="set_a_countdown_time">Toca para cambiar el temporizador</string>
     <string name="start_now">Iniciar ahora</string>
     <string name="start_later">Iniciar después</string>
     <string name="save_number">Guardar el número</string>
-
     <string name="action_cancel">Desactivar</string>
     <string name="status_on">Activo</string>
-    <string name="status_charging">Cargando:</string>
     <string name="you_will_receive_a_text_when_the_app_hears_or_sees_something">Recibirás un mensaje de texto cuando la aplicación escuche o vea algo</string>
     <string name="know_immediately_when_haven_detects_something">Recibe una notificación inmediatamente si la aplicación detecta algo</string>
     <string name="phone_saved">¡Número de teléfono guardado!</string>
@@ -91,7 +68,6 @@
     <string name="register_title">Registrarse con Signal</string>
     <string name="register_signal_desc">Registra un número de teléfono nuevo (+12125551212) con Signal para enviar notificaciones seguras. NO USES TU NÚMERO PRINCIPAL DE SIGNAL.</string>
     <string name="phone_hint">+12125551212</string>
-
     <string name="menu_licenses">Licencias…</string>
     <string name="sensor_light">Luz ambiental</string>
     <string name="sensor_accel">Movimiento (Acelerómetro)</string>
@@ -100,9 +76,7 @@
     <string name="sensor_power">Alimentación USB</string>
     <string name="sensor_bump">Bump (Acelerómetro)</string>
     <string name="sensor_unknown">Desconocido</string>
-
     <string name="settings">Configuración</string>
     <string name="remote_access_onion_error">Esta función requiere Orbot instalado: La aplicación de Tor para dispositivos Android.</string>
-
     <string name="sms_dialog_summary">Número de teléfono remoto para enviar mensajes de notificaciones</string>
 </resources>

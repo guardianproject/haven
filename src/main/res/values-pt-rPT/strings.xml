@@ -1,28 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="menu_save">Guardar</string>
     <string name="menu_about">Configurar…</string>
-
     <string name="title_activity_start">Haven</string>
-
     <string name="accelerometer_prompt">Sensibilidade ao Movimento</string>
-
     <string name="microphone_sensitivity">Sensibilidade ao Som
 </string>
-
     <string name="timer_delay_label">Definir Atraso</string>
-
-    <string name="sms_label">Enviar alertas através de SMS ou Signal</string>
-
     <string name="sms_hint">+12125551212</string>
-
     <string name="camera_prompt">Selecione a câmara</string>
-
     <string name="secure_service_started">Haven Activado</string>
-
     <string name="intrusion_detected">Um sensor Haven foi activado (Tipo: %s)</string>
     <string name="title_activity_event">EventActivity</string>
-
-    <string name="action_settings">Definições</string>
-
+    <string name="action_settings">Configurações</string>
 </resources>

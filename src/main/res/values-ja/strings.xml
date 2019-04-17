@@ -1,40 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="menu_save">保存</string>
     <string name="menu_about">設定…</string>
-
     <string name="title_activity_start">Haven</string>
-
     <string name="accelerometer_prompt">動きの感度</string>
-
     <string name="microphone_sensitivity">音の感度</string>
-
     <string name="timer_delay_label">開始遅延時間</string>
-
     <string name="sms_hint">08012345678</string>
-
     <string name="camera_prompt">カメラ選択</string>
-
     <string name="secure_service_started">Haven 起動</string>
-
     <string name="intrusion_detected">(Type: %s) センサーがトリガされた</string>
     <string name="title_activity_event">イベントアクティビティ</string>
-
     <string name="action_settings">設定</string>
-
     <string name="intro1_title">ようこそ Havenへ</string>
     <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the height find…\"\n- ジョージ・メレディス</string>
-
     <string name="intro2_title">Havenは自宅や会社、ホテルルーム、その他プライベート空間への進入を見張りたい人の為のものです。</string>
     <string name="intro3_desc">余っている携帯電話を、動き、音、振動、光センサーに変えて、招かれざる客や望まない侵入者を監視します</string>
-
     <string name="intro4_desc">直ちに侵入の通知を受け、そして、後からログをリモートや直接に確認します</string>
-
     <string name="intro5_title">Havenは準備完了</string>
     <string name="intro5_desc">メインスクリーンの &gt; を押す事で何時でもアプリを有効にします</string>
-
     <string name="onboarding_action_end">完了</string>
-
     <string name="remote_access">リモートアクセス</string>
     <string name="remote_access_label">Tor Onion Service経由のリモートアクセスを有効にする</string>
     <string name="remote_access_hint">Orbotからの Onion serviceアドレス</string>
@@ -42,28 +27,21 @@
     <string name="camera_front">前面カメラ</string>
     <string name="camera_back">背面カメラ</string>
     <string name="camera_none">無し</string>
-
     <string name="action_configure">設定へ</string>
-
     <string name="main_screen_title">Havenのログ</string>
-
     <string name="current_noise_base">現在のノイズレベル</string>
     <string name="current_accel_base">現在のモーションレベル</string>
-
     <string name="configure_trigger_level">ホイールをスワイプして検出の閾値を変更します</string>
     <string name="tune_the_sound_detection">何かノイズを出して！</string>
     <string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">携帯を机の上に置き、部屋で何らかの騒音を出す事で、適切な騒音レベルを見つける事が出来ます</string>
-
     <string name="tune_the_accel_detection">シェイクしてください！</string>
     <string name="tune_the_accel_detection_more">携帯を動かして動き検出の閾値を調整する</string>
     <string name="set_a_countdown_time">タップしてカウントダウンを変更する</string>
     <string name="start_now">今すぐ始めましょう</string>
     <string name="start_later">ログを確認する</string>
     <string name="save_number">電話番号を保存する</string>
-
     <string name="action_cancel">取り消し</string>
     <string name="status_on">アクティブ</string>
-    <string name="status_charging">充電中:</string>
     <string name="you_will_receive_a_text_when_the_app_hears_or_sees_something">このアプリが何かを聞いたり見たりすると、ショートメールが届きます</string>
     <string name="know_immediately_when_haven_detects_something">Havenが何か検知した時にすぐに知る</string>
     <string name="phone_saved">電話番号が保存されました！</string>
@@ -84,7 +62,6 @@
     <string name="register_title">Signalを登録</string>
     <string name="register_signal_desc">新しい電話番号で Signalに署名してセキュリティ通知を送信します。 あなたの現在またはメインの Signal番号を使用しないでください。</string>
     <string name="phone_hint">08012345678</string>
-
     <string name="menu_licenses">ライセンス…</string>
     <string name="sensor_light">環境光</string>
     <string name="sensor_accel">動き検出 (加速度計)</string>
@@ -94,10 +71,8 @@
     <string name="sensor_bump">衝突 (加速度計)</string>
     <string name="sensor_camera_video">動き検出 (動画)</string>
     <string name="sensor_unknown">不明</string>
-
     <string name="settings">設定</string>
     <string name="remote_access_onion_error">この機能は「Orbot: Tor for Android」アプリのインストールが必要です.</string>
-
     <!--Preference Settings -->
     <string name="hint_number" translatable="false">+819012345678</string>
     <string name="sms_dialog_summary">通知を送信するリモートの電話番号</string>
@@ -112,13 +87,10 @@
     <string name="phone_number">通知番号 (リモート)</string>
     <string name="sensors">センサー</string>
     <string name="label_notifications">通知</string>
-
     <string name="config_video_length_label">動画モニターの長さ</string>
     <string name="video_monitoring">動画モニター中</string>
     <string name="video_settings">動画設定</string>
-
     <string name="camera_sensitivity">カメラ感度</string>
-
     <string name="notification_time">通知時間の間隔</string>
     <string name="notification_time_summary">設定した時間間隔でだけ通知を送信する</string>
     <string name="notification_time_dialog">通知の制限を行なう時間 (分単位)を入力. \'0\' を入力すると全ての通知を行なう.</string>
@@ -131,5 +103,4 @@
     <string name="undo">戻す</string>
     <string name="remove_all_logs">全てのログを削除</string>
     <string name="events_deleted">イベントを削除</string>
-
 </resources>
