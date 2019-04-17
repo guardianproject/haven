@@ -1,14 +1,18 @@
 package org.havenapp.main;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.BatteryManager;
+import android.view.inputmethod.InputMethodManager;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created by Anupam Das (opticod) on 28/12/17.
@@ -69,5 +73,14 @@ public class Utils {
         float batteryPct = level / (float) scale;
 
         return (int) (batteryPct * 100);
+    }
+
+    public static void hideKeyboard(@NonNull Activity activity) {
+        if (activity.getCurrentFocus() != null) {
+            InputMethodManager inputMethodManager =
+                    (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(),
+                    0);
+        }
     }
 }

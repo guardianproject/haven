@@ -7,7 +7,9 @@ package org.havenapp.main;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -26,6 +28,7 @@ import android.widget.Toast;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
+import org.havenapp.main.service.SignalExecutorTask;
 import org.havenapp.main.service.SignalSender;
 import org.havenapp.main.service.WebServer;
 import org.havenapp.main.ui.AccelConfigureActivity;
@@ -36,6 +39,7 @@ import java.io.File;
 import java.util.Locale;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -156,6 +160,11 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             findPreference(PreferenceManager.NOTIFICATION_TIME).setSummary(preferences.getNotificationTimeMs()/60000 + " " + getString(R.string.minutes));
         }
 
+        findPreference(PreferenceManager.RESET_SIGNAL_CONFIG).setOnPreferenceClickListener(preference -> {
+            showResetSignalDialog();
+            return true;
+        });
+
         if (preferences.getHeartbeatActive())
         {
             ((SwitchPreference) findPreference(PreferenceManager.HEARTBEAT_MONITOR_ACTIVE)).setChecked(true);
@@ -215,9 +224,25 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         });
 
         checkSignalUsername();
+        checkSignalUsernameVerification();
         ((EditTextPreference) findPreference(PreferenceManager.VERIFY_SIGNAL)).setText("");
         askForPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, 1);
 
+    }
+
+    private void showResetSignalDialog() {
+        new AlertDialog.Builder(getActivity())
+                .setTitle(R.string.reset_configuration_question)
+                .setMessage(R.string.reset_configuration_desc)
+                .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+                    dialog.dismiss();
+                    resetSignalAndClearPrefs();
+                    findPreference(PreferenceManager.REGISTER_SIGNAL).setSummary(R.string.signal_dialog_summary);
+                    findPreference(PreferenceManager.NOTIFICATION_TIME).setSummary(R.string.notification_time_summary);
+                    checkSignalUsernameVerification();
+                })
+                .setNegativeButton(android.R.string.no, (dialog, which) -> dialog.dismiss())
+                .show();
     }
 
     private boolean canSendRemoteNotification() {
@@ -241,6 +266,9 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         if (TextUtils.isEmpty(signalUsername)) {
             findPreference(PreferenceManager.REGISTER_SIGNAL).performClick();
         } else {
+            if (getActivity() != null) {
+                Utils.hideKeyboard(getActivity());
+            }
             activateSignal(signalUsername, null);
         }
     }
@@ -280,8 +308,6 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         boolean videoMonitoringActive = ((SwitchPreference) findPreference(mActivity.getResources().getString(R.string.video_active_preference_key))).isChecked();
 
         preferences.setActivateVideoMonitoring(videoMonitoringActive);
-
-        preferences.setSignalUsername(((EditTextPreference) findPreference(PreferenceManager.REGISTER_SIGNAL)).getText());
 
         boolean remoteNotificationActive =
                 ((SwitchPreference) findPreference(PreferenceManager.REMOTE_NOTIFICATION_ACTIVE)).isChecked();
@@ -396,15 +422,22 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                     findPreference(PreferenceManager.REGISTER_SIGNAL).setSummary(signalNum);
 
                     resetSignal(preferences.getSignalUsername());
+                    if (getActivity() != null) {
+                        Utils.hideKeyboard(getActivity());
+                    }
                     activateSignal(preferences.getSignalUsername(), null);
                 } else if (!getCountryCode().equalsIgnoreCase(signalNum)) {
-                    preferences.setSignalUsername("");
+                    preferences.setSignalUsername(null);
                     findPreference(PreferenceManager.REGISTER_SIGNAL).setSummary(R.string.register_signal_desc);
                 }
                 onRemoteNotificationParameterChange();
+                checkSignalUsernameVerification();
                 break;
             case PreferenceManager.VERIFY_SIGNAL: {
                 String text = ((EditTextPreference) findPreference(PreferenceManager.VERIFY_SIGNAL)).getText();
+                if (getActivity() != null) {
+                    Utils.hideKeyboard(getActivity());
+                }
                 activateSignal(preferences.getSignalUsername(), text);
                 onRemoteNotificationParameterChange();
                 break;
@@ -412,6 +445,9 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             case PreferenceManager.REMOTE_PHONE_NUMBER:
                 setPhoneNumber();
                 onRemoteNotificationParameterChange();
+                if (getActivity() != null) {
+                    Utils.hideKeyboard(getActivity());
+                }
                 break;
             case PreferenceManager.NOTIFICATION_TIME:
                 try
@@ -571,14 +607,103 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         }
     }
 
+    private void checkSignalUsernameVerification() {
+        String signalUsername = preferences.getSignalUsername();
+
+        // this will fail for all users currently has signal verified
+        if (checkValidString(signalUsername) &&
+                signalUsername.equals(preferences.getVerifiedSignalUsername())) {
+            findPreference(PreferenceManager.VERIFY_SIGNAL)
+                    .setSummary(R.string.verification_dialog_summary_verified);
+        } else {
+            findPreference(PreferenceManager.VERIFY_SIGNAL)
+                    .setSummary(R.string.verification_dialog_summary);
+        }
+    }
+
     private void activateSignal(String username, String verifyCode) {
         SignalSender sender = SignalSender.getInstance(mActivity, username);
 
         if (TextUtils.isEmpty(verifyCode)) {
-            sender.register(preferences.getVoiceVerificationEnabled());
+            ProgressDialog progressDialog = ProgressDialog.show(getContext(), getString(R.string.registering_to_signal),
+                    getString(R.string.signal_registration_desc));
+            sender.register(preferences.getVoiceVerificationEnabled(),
+                    new SignalExecutorTask.TaskResult() {
+                @Override
+                public void onSuccess(@NonNull String msg) {
+                    if (isAdded() && getActivity() != null) {
+                        progressDialog.dismiss();
+                    }
+                    showRegistrationSuccessDialog();
+                }
+
+                @Override
+                public void onFailure(@NonNull String msg) {
+                    if (isAdded() && getActivity() != null) {
+                        progressDialog.dismiss();
+                    }
+                    Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+                }
+            });
         } else {
-            sender.verify(verifyCode);
+            ProgressDialog progressDialog = ProgressDialog.show(getContext(), getString(R.string.verifying_signal),
+                    getString(R.string.verifying_signal_desc));
+            sender.verify(verifyCode, new SignalExecutorTask.TaskResult() {
+                @Override
+                public void onSuccess(@NonNull String msg) {
+                    if (isAdded() && getActivity() != null) {
+                        progressDialog.dismiss();
+                    }
+                    // mark that the current registered signal username is verified
+                    preferences.setVerifiedSignalUsername(preferences.getSignalUsername());
+                    checkSignalUsernameVerification();
+                    showVerificationSuccessDialog();
+                }
+
+                @Override
+                public void onFailure(@NonNull String msg) {
+                    if (isAdded() && getActivity() != null) {
+                        progressDialog.dismiss();
+                    }
+                    Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+                }
+            });
         }
+    }
+
+    private void showRegistrationSuccessDialog() {
+        if (!isAdded() || getActivity() == null) {
+            return;
+        }
+
+        new AlertDialog.Builder(getActivity())
+                .setTitle(R.string.registration_successful)
+                .setMessage(getString(R.string.signal_reg_success_desc, preferences.getSignalUsername()))
+                .setPositiveButton(R.string.verify, (dialog, which) -> {
+                    dialog.dismiss();
+                    findPreference(PreferenceManager.VERIFY_SIGNAL).performClick();
+                })
+                .setNegativeButton(R.string.ok, (dialog, which) -> dialog.dismiss())
+                .show();
+    }
+
+    private void showVerificationSuccessDialog() {
+        if (!isAdded() || getActivity() == null) {
+            return;
+        }
+
+        new AlertDialog.Builder(getActivity())
+                .setTitle(R.string.verification_successful)
+                .setMessage(R.string.signal_verification_success_desc)
+                .setPositiveButton(R.string.ok, (dialog, which) -> dialog.dismiss())
+                .show();
+    }
+
+    private void resetSignalAndClearPrefs() {
+        resetSignal(preferences.getSignalUsername());
+        preferences.setSignalUsername(null);
+        preferences.setVerifiedSignalUsername(null);
+        preferences.setNotificationTimeMs(-1);
     }
 
     private void resetSignal(String username) {

@@ -117,6 +117,7 @@
     <string name="sms_dialog_message">Enter a remote phone number to send alert notifications to</string>
     <string name="signal_dialog_summary">A phone number to send from using Signal</string>
     <string name="verification_dialog_summary">Tap to verify your Signal number</string>
+    <string name="verification_dialog_summary_verified">Signal number is verified</string>
     <string name="send_message_dialog">Enter a phone number to send a test alert notification message to</string>
     <string name="send_text_message">Test notifications…</string>
     <string name="service_address">Service Address</string>
@@ -177,5 +178,18 @@
     <string name="status_recording_video">Recording…</string>
     <string name="status_light">LIGHT DETECTED</string>
     <string name="run_disk_cleanup">Clean deleted logs from disk</string>
+    <string name="registering_to_signal">Registering to Signal</string>
+    <string name="signal_registration_desc">Please wait while we register you to Signal services</string>
+    <string name="verifying_signal">Verifying</string>
+    <string name="verifying_signal_desc">Please wait while we verify your registration to Signal services</string>
+    <string name="ok">Ok</string>
+    <string name="registration_successful">Registration Successful</string>
+    <string name="signal_reg_success_desc">You have successfully registered to Signal services. Next Step is to verify the registration for %s</string>
+    <string name="verification_successful">Verification Successful</string>
+    <string name="signal_verification_success_desc">All set to send Haven alerts from Signal!</string>
+    <string name="setup_signal_toast">Please set up Signal notifications from settings</string>
+    <string name="reset_signal_configuration">Reset Signal Configuration</string>
+    <string name="reset_configuration_question">Reset Signal Configuration?</string>
+    <string name="reset_configuration_desc">This will clear out all Signal configurations. You will have to register and verify again to use Signal services in the future. Are you sure?</string>
 
 </resources>
