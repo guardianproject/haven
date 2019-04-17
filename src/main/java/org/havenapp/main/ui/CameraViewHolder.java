@@ -172,7 +172,7 @@ public class CameraViewHolder {
 
                 stream.flush();
                 stream.close();
-                message.getData().putString("path", fileImage.getAbsolutePath());
+                message.getData().putString(MonitorService.KEY_PATH, fileImage.getAbsolutePath());
 
                 //store the still match frame, even if doing video
                 serviceMessenger.send(message);

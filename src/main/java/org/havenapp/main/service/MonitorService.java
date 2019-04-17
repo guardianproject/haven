@@ -241,6 +241,9 @@ public class MonitorService extends Service {
     {
         mIsMonitoringActive = true;
 
+        // set current event start date in prefs
+        mPrefs.setCurrentSession(new Date(System.currentTimeMillis()));
+
         if (!mPrefs.getAccelerometerSensitivity().equals(PreferenceManager.OFF)) {
             mAccelManager = new AccelerometerMonitor(this);
             if(Build.VERSION.SDK_INT>=18) {
@@ -328,8 +331,6 @@ public class MonitorService extends Service {
                     .getEventDAO().insert(mLastEvent);
             mLastEvent.setId(eventId);
             doNotification = true;
-            // set current event start date in prefs
-            mPrefs.setCurrentSession(mLastEvent.getStartTime());
         }
         else if (mPrefs.getNotificationTimeMs() == 0)
         {
