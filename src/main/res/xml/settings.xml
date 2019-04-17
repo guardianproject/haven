@@ -114,6 +114,11 @@
             android:summary="@string/notification_time_summary"
             android:title="@string/notification_time" />
 
+        <Preference
+            app:iconSpaceReserved="false"
+            android:key="reset_signal_config"
+            android:title="@string/reset_signal_configuration" />
+
     </PreferenceCategory>
     <PreferenceCategory
         app:iconSpaceReserved="false"

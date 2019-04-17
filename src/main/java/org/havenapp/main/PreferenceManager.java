@@ -70,6 +70,7 @@ public class PreferenceManager {
     public static final String REGISTER_SIGNAL = "register_signal";
     public static final String VERIFY_SIGNAL = "verify_signal";
     public static final String VOICE_VERIFY_SIGNAL = "voice_verify_signal";
+    public static final String RESET_SIGNAL_CONFIG = "reset_signal_config";
     private static final String UNLOCK_CODE="unlock_code";
 	
     private static final String ACCESS_TOKEN="access_token";
@@ -86,6 +87,7 @@ public class PreferenceManager {
     public static final String REMOTE_ACCESS_CRED = "remote_access_credential";
 
     private static final String SIGNAL_USERNAME = "signal_username";
+    private static final String SIGNAL_VERIFIED_USERNAME = "signal_verified_username";
 
     private static final String FIRST_LAUNCH = "first_launch";
 
@@ -119,6 +121,16 @@ public class PreferenceManager {
         prefsEditor.commit();
     }
 
+    /**
+     * Returns the Signal username registered. This may not be a good way to check for
+     * Signal set up since this may not be verified.
+     *
+     * Usages should be checked with {@link #isSignalVerified()}
+     *
+     * @see #isSignalVerified()
+     *
+     * @return the Signal username; null when nothing is set up
+     */
     public String getSignalUsername ()
     {
         return appSharedPrefs.getString(SIGNAL_USERNAME,null);
@@ -128,6 +140,37 @@ public class PreferenceManager {
     {
         prefsEditor.putString(SIGNAL_USERNAME,signalUsername);
         prefsEditor.commit();
+    }
+
+    /**
+     * Returns the Signal username verified. This may not be a good way to check for
+     * Signal set up since this may invalidated by a call to register with a different username.
+     *
+     * Usages should be checked with {@link #isSignalVerified()}
+     *
+     * @see #isSignalVerified()
+     *
+     * @return the verified Signal username; null when no Signal username is verified even though registered.
+     */
+    @Nullable
+    public String getVerifiedSignalUsername() {
+        return appSharedPrefs.getString(SIGNAL_VERIFIED_USERNAME, null);
+    }
+
+    public void setVerifiedSignalUsername(String verifiedSignalUsername) {
+        prefsEditor.putString(SIGNAL_VERIFIED_USERNAME, verifiedSignalUsername);
+        prefsEditor.commit();
+    }
+
+    /**
+     * Checks if Signal is registered and verified for the Signal username returned by
+     * {@link #getSignalUsername()}
+     *
+     * @return true iff registered Signal username is same as that of the verified one.
+     */
+    public boolean isSignalVerified() {
+        return !TextUtils.isEmpty(getSignalUsername()) &&
+                getSignalUsername().equals(getVerifiedSignalUsername());
     }
 
     public void activateRemoteAccess (boolean active) {
