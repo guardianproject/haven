@@ -15,66 +15,27 @@
         android:orientation="vertical"
         android:padding="@dimen/activity_margin_half">
 
-        <TextView
-            android:id="@+id/event_item_title"
-            style="@style/TextAppearance.AppCompat.Title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="Title" />
-
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:id="@+id/event_item_image"
-            android:visibility="gone"
-            android:scaleType="centerCrop"
-            />
-
-        <VideoView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:id="@+id/event_item_video"
-            android:visibility="gone"
-            android:scaleType="centerCrop"
-            />
-
-        <com.github.derlio.waveform.SimpleWaveformView
-            android:id="@+id/event_item_sound"
-            android:layout_width="match_parent"
-            android:layout_height="144dp"
-            app:waveformColor="@color/colorAccent"
-            app:indicatorColor="@color/colorPrimaryDark"
-            android:visibility="gone"
-            />
-
-        <LinearLayout
-            android:id="@+id/event_item_extra"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:gravity="center_vertical"
-            android:orientation="vertical"
-            android:visibility="gone"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp" />
+        <include
+            layout="@layout/item_header" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_margin_half"
-            android:paddingRight="4dp"
-            android:paddingLeft="4dp">
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp">
 
-        <TextView
-            android:id="@+id/event_item_desc"
-            style="@style/TextAppearance.AppCompat.Body1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:alpha="0.54"
-            android:ellipsize="end"
-            android:maxLines="6"
-            android:paddingBottom="@dimen/activity_margin_half"
-            android:textColor="@android:color/black"
-            tools:text="Description" />
+            <TextView
+                android:id="@+id/event_item_desc"
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.54"
+                android:ellipsize="end"
+                android:maxLines="6"
+                android:paddingBottom="@dimen/activity_margin_half"
+                android:textColor="@android:color/black"
+                tools:text="Description" />
 
             <ImageView
                 android:id="@+id/event_action_share"
@@ -82,8 +43,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:visibility="gone"
                 android:tint="@android:color/black"
+                android:visibility="gone"
                 app:srcCompat="@drawable/ic_share" />
         </RelativeLayout>
 

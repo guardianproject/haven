@@ -23,6 +23,7 @@ import org.havenapp.main.model.Event;
 import org.havenapp.main.model.EventTrigger;
 import org.havenapp.main.resources.IResourceManager;
 import org.havenapp.main.resources.ResourceManager;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -126,7 +127,7 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
      */
     private void onEventTriggerListFetched(@NonNull List<EventTrigger> eventTriggerList) {
         this.eventTriggerList = eventTriggerList;
-        setEventTriggerImagePaths(eventTriggerList);
+        setEventTriggerImagePaths();
         mAdapter.setEventTriggers(eventTriggerList);
     }
 
@@ -228,20 +229,20 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
     }
 
     @Override
-    public void onVideoClick(EventTrigger eventTrigger) {
+    public void onVideoClick(@NotNull EventTrigger eventTrigger) {
         Intent intent = new Intent(this, VideoPlayerActivity.class);
         intent.setData(Uri.fromFile(new File(eventTrigger.getPath())));
         startActivity(intent);
     }
 
     @Override
-    public void onVideoLongClick(EventTrigger eventTrigger) {
+    public void onVideoLongClick(@NotNull EventTrigger eventTrigger) {
         shareMedia(eventTrigger);
     }
 
     @Override
-    public void onImageClick(EventTrigger eventTrigger) {
-        int startPosition = 0;
+    public void onImageClick(@NotNull EventTrigger eventTrigger, int position) {
+        int startPosition = getPositionOfImagePath(position);
 
         ShareOverlayView overlayView = new ShareOverlayView(this);
         ImageViewer viewer = new ImageViewer.Builder<>(this, eventTriggerImagePaths)
@@ -252,7 +253,7 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
     }
 
     @Override
-    public void onImageLongClick(EventTrigger eventTrigger) {
+    public void onImageLongClick(@NotNull EventTrigger eventTrigger) {
         shareMedia(eventTrigger);
     }
 
@@ -264,7 +265,7 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
         startActivity(shareIntent);
     }
 
-    private void setEventTriggerImagePaths(List<EventTrigger> eventTriggerList) {
+    private void setEventTriggerImagePaths() {
         this.eventTriggerImagePaths = new ArrayList<>();
         for (EventTrigger trigger : eventTriggerList)
         {
@@ -274,5 +275,16 @@ public class EventActivity extends AppCompatActivity implements EventTriggerAdap
                eventTriggerImagePaths.add(Uri.fromFile(new File(trigger.getPath())));
             }
         }
+    }
+
+    private int getPositionOfImagePath(int position) {
+        int pos = -1;
+        for (int i = 0; i <= position; i++) {
+            if (eventTriggerList.get(i).getType() == EventTrigger.CAMERA &&
+                    (!TextUtils.isEmpty(eventTriggerList.get(i).getPath()))) {
+                pos++;
+            }
+        }
+        return pos;
     }
 }

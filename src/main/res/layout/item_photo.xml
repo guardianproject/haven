@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/activity_margin_half"
+    android:background="?attr/selectableItemBackground"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:orientation="vertical"
+        android:padding="@dimen/activity_margin_half">
+
+        <include
+            layout="@layout/item_header" />
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/item_camera_image"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/item_camera_desc"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.54"
+            android:ellipsize="end"
+            android:maxLines="6"
+            android:paddingBottom="@dimen/activity_margin_half"
+            android:textColor="@android:color/black"
+            tools:text="Description" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
