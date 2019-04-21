@@ -416,7 +416,9 @@ public class CameraViewHolder {
             this.context.unbindService(mConnection);
             mConnection = null;
         }
-        stopCamera();
+        if (cameraView != null) {
+            cameraView.destroy();
+        }
     }
 
     public int getCorrectCameraOrientation(Facing facing, int orientation) {
