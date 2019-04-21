@@ -83,12 +83,11 @@ public final class CameraFragment extends Fragment {
         }
     }
 
-    public void stopCamera ()
-    {
-        if (cameraViewHolder != null) {
-            cameraViewHolder.stopCamera();
-        }
-    }
+    /**
+     * Not required.
+     */
+    @Deprecated
+    public void stopCamera () { }
 
     public void initCamera ()
     {
@@ -101,6 +100,7 @@ public final class CameraFragment extends Fragment {
 
             CameraView cameraView = getActivity().findViewById(R.id.camera_view);
             cameraView.setAudio(Audio.OFF);
+            cameraView.setLifecycleOwner(this);
 
             if (cameraViewHolder == null) {
                 cameraViewHolder = new CameraViewHolder(getActivity(), cameraView);
