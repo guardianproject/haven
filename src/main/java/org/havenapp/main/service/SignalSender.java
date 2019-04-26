@@ -40,7 +40,7 @@ public class SignalSender {
 
     private SignalSender(Context context, String username)
     {
-        mContext = context;
+        mContext = context.getApplicationContext();
         mUsername = username;
         mAlertCount = 0;
         preferences = new PreferenceManager(mContext);
