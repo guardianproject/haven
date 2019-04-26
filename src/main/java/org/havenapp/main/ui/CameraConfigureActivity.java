@@ -26,17 +26,16 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import org.havenapp.main.PreferenceManager;
-import org.havenapp.main.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import me.angrybyte.numberpicker.listener.OnValueChangeListener;
+
+import org.havenapp.main.PreferenceManager;
+import org.havenapp.main.R;
+
 import me.angrybyte.numberpicker.view.ActualNumberPicker;
 
 
@@ -111,7 +110,6 @@ public class CameraConfigureActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                mFragment.stopCamera();
                 finish();
                 break;
         }
@@ -124,7 +122,6 @@ public class CameraConfigureActivity extends AppCompatActivity {
      */
     @Override
     public void onBackPressed() {
-        mFragment.stopCamera();
         finish();
     }
 
