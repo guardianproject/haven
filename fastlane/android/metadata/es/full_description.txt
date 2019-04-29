@@ -31,8 +31,8 @@ despues.
 Los siguientes ensores son monitoreados por cualquier cambio y despues
 grabados en el registro de eventos en el dispositivo.
 
-*Acelerómetro: Vibracion y movimiento en el telefono
-*Camara: movimiento en los alrededores visibles porla camara frontal o trasera del telefono
-*Microfono: Sonidos en el ambiente
-*Luz: Cambios de iluminacion en el sensor de luz
-*Carga: Detecta si el dispositivo no esta siendo cargado o ha sido desconectado.
+* Acelerómetro: Vibracion y movimiento en el telefono
+* Camara: movimiento en los alrededores visibles porla camara frontal o trasera del telefono
+* Microfono: Sonidos en el ambiente
+* Luz: Cambios de iluminacion en el sensor de luz
+* Carga: Detecta si el dispositivo no esta siendo cargado o ha sido desconectado.
