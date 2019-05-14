@@ -23,7 +23,6 @@ import com.evernote.android.job.JobManager;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.facebook.imagepipeline.decoder.SimpleProgressiveJpegConfig;
-import com.squareup.leakcanary.LeakCanary;
 
 import org.havenapp.main.database.HavenEventDB;
 import org.havenapp.main.service.HavenJobCreator;
@@ -52,12 +51,6 @@ public class HavenApp extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            // This process is dedicated to LeakCanary for heap analysis.
-            // You should not init your app in this process.
-            return;
-        }
-        LeakCanary.install(this);
 
         mPrefs = new PreferenceManager(this);
 
