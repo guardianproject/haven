@@ -18,7 +18,7 @@
     <string name="title_activity_event">EventActivity</string>
     <string name="action_settings">Settings</string>
     <string name="intro1_title">Welcome to Haven</string>
-    <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the height find...\"\n-George Meredith</string>
+    <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the height find…\"\n-George Meredith</string>
     <string name="intro2_title">Haven is for people who want to keep an eye out for intrusions into their home, office, hotel room or other private space</string>
     <string name="intro3_desc">Turn an extra phone into a motion, sound, vibration and light detector, watching for unexpected guests and unwanted intruders</string>
     <string name="intro4_desc">Get notified of intrusion events instantly and access the logs remotely or in-person later</string>
