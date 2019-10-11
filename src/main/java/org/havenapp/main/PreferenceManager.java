@@ -30,8 +30,6 @@ import java.io.File;
 import java.util.Date;
 import java.util.Objects;
 
-import javax.annotation.Nullable;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -152,7 +150,6 @@ public class PreferenceManager {
      *
      * @return the verified Signal username; null when no Signal username is verified even though registered.
      */
-    @Nullable
     public String getVerifiedSignalUsername() {
         return appSharedPrefs.getString(SIGNAL_VERIFIED_USERNAME, null);
     }

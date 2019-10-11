@@ -34,7 +34,7 @@
                 android:ellipsize="end"
                 android:maxLines="6"
                 android:paddingBottom="@dimen/activity_margin_half"
-                android:textColor="@android:color/black"
+                android:textColor="@color/secondary_text"
                 tools:text="Description" />
 
             <ImageView
