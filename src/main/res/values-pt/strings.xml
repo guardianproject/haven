@@ -60,9 +60,9 @@
     <string name="enter_verification">Introduza o código de verificação que recebeu na aplicação Signal na etapa de registar</string>
     <string name="cancel">Cancelar</string>
     <string name="register_title">Registar com o Signal</string>
-    <string name="register_signal_desc">Introduza um número de telefone para registar com o Signal, para usar para enviar notificações seguras. Pode usar o número de telefone deste dispositivo para configurar um número virtual.
-\n
-\nAVISO: se este número já estiver configurado com uma instalação da app Signal, irá parar de funcionar aí e irá funcionar apenas com o Haven.</string>
+    <string name="register_signal_desc">Introduza um número de telefone para registar com o Signal, para usar para enviar notificações seguras. Pode usar o número de telefone deste dispositivo para configurar um número virtual. 
+\n 
+\nAVISO: se este número já estiver associado a uma instalação da aplicação Signal, irá parar de funcionar aí e irá funcionar apenas com o Haven.</string>
     <string name="phone_hint">+351912223344</string>
     <string name="menu_licenses">Licenças…</string>
     <string name="sensor_light">Luz ambiente</string>
@@ -102,7 +102,7 @@
     <string name="camera_sensitivity">Sensibilidade da câmara</string>
     <string name="notification_time">Intervalo de tempo da notificação</string>
     <string name="notification_time_summary">Apenas enviar as notificações no intervalo configurado</string>
-    <string name="notification_time_dialog">Introduza o tempo (minutos) para limitar as notificações. \'0\' para enviar todas as notificações.</string>
+    <string name="notification_time_dialog">Introduza o tempo mínimo de notificações repetidas (em minutos). Usar \'0\' para enviar todas as notificações.</string>
     <string name="minutes">minuto(s)</string>
     <string name="keep_watch">Vigiar!</string>
     <string name="camera_sensitivity_tip">Use a barra deslizante para ajustar a sensibilidade da deteção do movimento, com um objetivo de 0% quando não houver movimento.</string>
@@ -113,11 +113,11 @@
     <string name="remove_all_logs">Remover todos os registos</string>
     <string name="events_deleted">Eventos eliminados</string>
     <string name="hearbeat_monitor">Monitor de batimentos cardíacos Haven</string>
-    <string name="hearbeat_monitor_enable">Ativar altera de batimento cardíaco</string>
+    <string name="hearbeat_monitor_enable">Ativar alerta de batimento cardíaco</string>
     <string name="hearbeat_monitor_summary">Intervalo de examinar</string>
-    <string name="heartbeat_time_dialog">Introduza o tempo (minutos) para enviar a % da bateria e um emoji de um coração de 1 só caractere. Os alertas páram quando o Haven pára de monitorizar por qualquer motivo.</string>
+    <string name="heartbeat_time_dialog">Introduza o tempo (em minutos) para enviar a % da bateria e um emoji de um coração de 1 só caractere. Os alertas param quando o Haven para de monitorizar por qualquer motivo.</string>
     <string name="hearbeat_monitor_dialog">Configurar o atraso entre alertas</string>
-    <string name="hearbeat_message_dialog">Personalizar a mensagem enviada para as notificações de batimento cardíaco. Deixe em branco para usar o emoji do coração padrão</string>
+    <string name="hearbeat_message_dialog">Personalizar a mensagem de notificação de batimento cardíaco. Deixe em branco para usar o emoji do coração padrão.</string>
     <string name="hearbeat_message_title">Mensagem de alerta</string>
     <string name="hearbeat_message_summary">Definir a mensagem de texto personalizada</string>
     <string name="hearbeat_message_summary_on">Alertas personalizados ativados</string>
@@ -128,7 +128,7 @@
     <string name="config_storage_path">Caminho da pasta de armazenamento</string>
     <string name="config_storage_page_hint">Onde os ficheiros multimédia são armazenados</string>
     <string name="event_trigger_deleted">Acionador de evento eliminado</string>
-    <string name="please_wait">Por favor aguarde</string>
+    <string name="please_wait">Por favor aguarde…</string>
     <string name="migrating_data">A procurar pelos seus dados antigos</string>
     <string name="path_chars">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_/</string>
     <string name="motion_detected">DETETADO MOVIMENTO</string>
@@ -138,4 +138,18 @@
     <string name="status_recording_video">A gravar…</string>
     <string name="status_light">DETETADA LUZ</string>
     <string name="run_disk_cleanup">Limpar os registos eliminados no dispositivo</string>
+    <string name="verification_dialog_summary_verified">Número Signal verificado</string>
+    <string name="registering_to_signal">A registar no Signal</string>
+    <string name="signal_registration_desc">A aguardar o registo nos serviços do Signal</string>
+    <string name="verifying_signal">A verificar</string>
+    <string name="verifying_signal_desc">A aguardar a notificação do registo nos serviços do Signal</string>
+    <string name="ok">OK</string>
+    <string name="registration_successful">Registado</string>
+    <string name="signal_reg_success_desc">Está registado nos serviços do Signal. Agora verifique o seu registo de %s</string>
+    <string name="verification_successful">Verificado</string>
+    <string name="signal_verification_success_desc">Tudo configurado para enviar alertas Haven do Signal!</string>
+    <string name="setup_signal_toast">Por favor defina as notificações nas configurações</string>
+    <string name="reset_signal_configuration">Eliminar a configuração do Signal</string>
+    <string name="reset_configuration_question">Eliminar a configuração do Signal\?</string>
+    <string name="reset_configuration_desc">Isto irá limpar todas as configurações do Signal. Terá de se registar e verificar outra vez para usar os serviços do Signal futuramente. Tem a certeza\?</string>
 </resources>
