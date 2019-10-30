@@ -1,0 +1,32 @@
+Haven ist eine App für Menschen, die einen Weg suchen, ihre Privatsphäre und Besitztümer
+zu schützen, ohne ihre eigene Privatsphäre zu gefährden.
+Es verwandelt die On-Device-Sensoren eines jeden Android-Handys in Bewegungs-, Klang-, Vibrations- und
+Lichtsensoren, der Sie über unerwartete Gäste und Eindringlinge in Ihren physischen Räumen informiert.
+Durch die Kombination von Überwachung und Gerätespeicherung mit sicheren Kommunikationstechnologien,
+wie Signal und Tor, verhindert es, dass schlimmste Menschen Bürger zum Schweigen bringen.
+ohne auf frischer Tat ertappt zu werden. Durch den Schutz von investigativen Journalisten,
+Menschenrechtsverteidiger und Menschen, die vom Verschwinden bedroht sind,
+wird eine neue Art von Herdenimmunität geschaffen.
+
+## Sicherheit durch Sensoren
+
+Haven speichert nur Bilder und Töne, die durch Bewegung oder Lautstärke ausgelöst werden,
+nur lokal auf Ihrem Gerät. Positionieren Sie die Kamera des Geräts,
+um sichtbare Bewegungen aufzunehmen oder platzieren Sie Ihr Telefon diskret,
+um nur Geräusche zu hören. Sichere Benachrichtigungen über Eindringlinge erhalten
+Sie sofort und können jederzeit aus der Ferne auf die Protokolle zugreifen.
+
+Sensoren, die auf messbare Veränderungen überwacht und im Ereignisprotokoll des Geräts aufgezeichnet werden:
+
+* Beschleunigungssensor: Bewegung und Vibration des Telefons
+* Kamera: Bewegung in der sichtbaren Umgebung des Telefons von der Vorder- oder Rückkamera aus
+* Mikrofon: Geräusche in der Umgebung
+* Lichtsensor: Auslösung durch plötzliche Lichtveränderungen
+* Energie: Erkennen Sie, dass das Gerät nicht angeschlossen ist, die Batterie leer ist oder heruntergefahren wird.
+
+## Projektteam
+
+Haven ist eine Zusammenarbeit zwischen dem Guardian-Projekt und dem
+Freedom of the Press Foundation, die den Prototyp großzügig finanziert hat.
+Weitere Arbeiten können über ihre Website finanziert werden:
+https://freedom.press/donate-support-haven-open-source-project
