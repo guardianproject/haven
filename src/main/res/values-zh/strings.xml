@@ -49,7 +49,7 @@
     <string name="status_on">已激活</string>
     <string name="you_will_receive_a_text_when_the_app_hears_or_sees_something">当 Haven 侦测到异动的时候, 您将会收到短信提示</string>
     <string name="know_immediately_when_haven_detects_something">当 Haven 侦测到异动时立即通知</string>
-    <string name="phone_saved">电话号码已保存!</string>
+    <string name="phone_saved">电话号码已保存！</string>
     <string name="detection_events">侦测事件</string>
     <string name="data_speed">速度</string>
     <string name="data_light">亮度</string>
@@ -65,14 +65,14 @@
     <string name="enter_verification">输入您从 Signal 收到的注册验证码</string>
     <string name="cancel">取消</string>
     <string name="register_title">注册 Signal</string>
-    <string name="register_signal_desc">请使用一个新的手机号注册 Signal 用以发送安全通知. 请不要使用您当前的/主要的 Signal 号码.</string>
+    <string name="register_signal_desc">请使用一个新的手机号注册 Signal 用以发送安全通知。请不要使用您当前的/主要的 Signal 号码。</string>
     <string name="phone_hint">+8613800138000</string>
     <string name="menu_licenses">许可协议…</string>
     <string name="sensor_light">环境光</string>
     <string name="sensor_accel">运动 (加速度仪)</string>
     <string name="sensor_camera">运动 (相机)</string>
     <string name="sensor_sound">麦克风</string>
-    <string name="sensor_power">USB 电源</string>
+    <string name="sensor_power">电源</string>
     <string name="sensor_bump">碰撞 (加速度仪)</string>
     <string name="sensor_camera_video">运动 (视频)</string>
     <string name="sensor_heartbeat">心跳检测</string>
@@ -114,6 +114,8 @@
     <string name="hearbeat_monitor">心跳检测机制</string>
     <string name="hearbeat_monitor_enable">开启心跳检测推送</string>
     <string name="hearbeat_monitor_summary">检测间隔</string>
-    <string name="heartbeat_time_dialog">输入接受推送的间隔（分钟）:\n\n最低值1, 默认值5.</string>
+    <string name="heartbeat_time_dialog"></string>
     <string name="hearbeat_monitor_dialog">设置状态推送延迟</string>
+    <string name="data_battery">电池</string>
+    <string name="verifying_signal">正在验证</string>
 </resources>
