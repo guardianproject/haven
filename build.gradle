@@ -145,7 +145,7 @@ dependencies {
     implementation 'androidx.preference:preference:1.1.0'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.annotation:annotation:1.1.0'
-    implementation 'com.google.android.material:material:1.2.0-alpha01'
+    implementation 'com.google.android.material:material:1.2.0-alpha02'
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.wdullaer:materialdatetimepicker:4.2.3'
     implementation 'com.github.guardianproject:signal-cli-android:v0.6.0-android-beta-1'
@@ -158,7 +158,7 @@ dependencies {
     implementation 'com.facebook.fresco:fresco:2.0.0'
     implementation 'com.github.derlio:audio-waveform:v1.0.1'
     implementation 'com.maxproj.simplewaveform:app:1.0.0'
-    implementation 'com.googlecode.libphonenumber:libphonenumber:8.10.18'
+    implementation 'com.googlecode.libphonenumber:libphonenumber:8.11.0'
     implementation('com.mikepenz:aboutlibraries:7.0.3@aar') {
         transitive = true
     }
@@ -185,7 +185,7 @@ dependencies {
     androidTestImplementation "android.arch.persistence.room:testing:2.1.0"
 
     // android-job
-    implementation 'com.evernote:android-job:1.4.1'
+    implementation 'com.evernote:android-job:1.4.2'
 
     // new camera view: https://github.com/natario1/CameraView
     implementation 'com.otaliastudios:cameraview:2.3.0'
