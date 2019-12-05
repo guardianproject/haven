@@ -24,14 +24,15 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.text.TextUtils;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.havenapp.main.sensors.motion.LuminanceMotionDetector;
 
 import java.io.File;
 import java.util.Date;
 import java.util.Objects;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 
 public class PreferenceManager {
@@ -150,6 +151,7 @@ public class PreferenceManager {
      *
      * @return the verified Signal username; null when no Signal username is verified even though registered.
      */
+    @Nullable
     public String getVerifiedSignalUsername() {
         return appSharedPrefs.getString(SIGNAL_VERIFIED_USERNAME, null);
     }
