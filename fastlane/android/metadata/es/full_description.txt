@@ -1,38 +1,38 @@
 Haven es para las personas que necesitan una forma de proteger sus espacios personales
 y pertenencias sin comprometer su privacidad. Es una
-Aplicacion para Android que aprovecha los sensores internos de el dispositivo para proveer
-monitoreo y proteccion de espacios fisicos. Haven convierte cualquier  telefono Android
-en un detector de movimiento,  sonido, vibraciones y iluminacion, en alerta
+Aplicación para Android que aprovecha los sensores internos de el dispositivo para proveer
+monitoreo y protección de espacios físicos. Haven convierte cualquier teléfono Android
+en un detector de movimiento,  sonido, vibraciones e iluminación, en alerta
 de intrusos inesperados. Diseñamos Haven para
 periodistas investigadores, defosnsores de derechos humanos y personas en peligro
 de desapariciones forzadas para crear un nuevo tipo de inmunidad forzada.
-Combinando el conjunto de sensores encontrados en cualquier smarthphone, con las
-tecnologias en comunicacion mas seguras en el mundo, com Signal y Tor.
+Combinando el conjunto de sensores encontrados en cualquier dispositivo, con las
+tecnologiás en comunicacion más seguras del mundo, com Signal y Tor.
 Haven evita que los peores tipos de personas callen las voces de los ciudadanos
 sin ser descubiertos en el acto.
 
-## Equipo del Projecto
+## Equipo del Proyecto
 
-Haven fue desarrollado por una colaboracion entre la Fundacion Freedom of the
-Press y The Guardian Project. Los fondos para el Prototipo
-generously provided by FPF, and donations to support continuing work
-pueden ser aportadas en su sitio web:
+Haven fue desarrollado por una colaboración entre la Fundación Freedom of the
+Press (FPF) y The Guardian Project. Los fondos para el Prototipo
+fureon generosamente provistos por FPF, y las donaciones para apoyar el trabajo continuo
+pueden ser realizadas en su sitio web:
 https://freedom.press/donate-support-haven-open-source-project
 
 ## Seguridad a través de Sensores
 
-Haven guarda imagenes y sonidos unicamente cuando es activado por movimiento o volumen,
-y guarda todo localmente en el dispositivo. Puedes colocar la
-camara del dispositivo para capturar movimiento, o colocar tu telefono en algun
-lugar discreto para ecuchar unicamente sonidos. Recibe notificaciones seguras de
-invasiones instantaneamente y accesa los registros remotamente o en cualquier momento
-despues.
+Haven guarda imagenes y sonidos únicamente cuando es activado por movimiento o sonido,
+y guarda todo localmente en el dispositivo. Puedes configurar la
+cámara del dispositivo para capturar movimiento, o ubicar tu teléfono en algún
+lugar discreto para solamente escuchar sonidos. Recibe notificaciones seguras de
+invasiones de forma instantánea y accede a los registros remotamente o en cualquier momento
+posterior.
 
-Los siguientes ensores son monitoreados por cualquier cambio y despues
-grabados en el registro de eventos en el dispositivo.
+Los siguientes sensores monitorean cualquier señal y luego graban
+el registro de eventos en el dispositivo.
 
-* Acelerómetro: Vibracion y movimiento en el telefono
-* Camara: movimiento en los alrededores visibles porla camara frontal o trasera del telefono
-* Microfono: Sonidos en el ambiente
-* Luz: Cambios de iluminacion en el sensor de luz
-* Carga: Detecta si el dispositivo no esta siendo cargado o ha sido desconectado.
+* Acelerómetro: vibración y movimiento del teléfono
+* Cámara: movimiento en los alrededores visibles por la cámara frontal o trasera del teléfono
+* Micrófono: sonidos en el ambiente
+* Luz: cambios de iluminación en el sensor de luz
+* Carga: detecta si el dispositivo no está siendo cargado o ha sido desconectado.
