@@ -1,0 +1,37 @@
+Haven é para pessoas que necessitam de uma forma de proteger os seus
+espaços pessoais e possessões sem comprometerem a própria privacidade.
+É uma aplicação Android que aproveita os sensores do dispositivo para
+fornecer monitorização e proteção de espaços físicos. O Haven torna
+qualquer telemóvel Android num detetor de movimento, som, vibração e luz,
+para detetar convidados inesperados e intrusos. Concebemos o Haven para
+jornalistas de investigação, defensores dos direitos humanos e pessoas
+em risco de desaparecimento forçado. Combinando o conjunto de sensores
+encontrados em qualquer telemóvel inteligente com as tecnologias de
+comunicação mais seguras,  como o Signal e o Tor, o Haven impede que
+o pior tipo de pessoas silenciem cidadãos sem serem apanhados no ato.
+
+## Equipa do projeto
+
+O Haven foi desenvolvido através de uma colaboração entre a Freedom of the
+Press Foundation e o Guardian Project. O financiamento para o protótipo foi
+generosamente fornecido pela FPF e os donativos para suportarem a
+continuação do projeto podem podem ser feitos pelo sítio da fundação:
+https://freedom.press/donate-support-haven-open-source-project
+
+## Segurança através dos sensores
+
+O Haven apenas guarda imagens e som quando acionados pelo movimento
+ou som, e guarda tudo localmente no dispositivo. Pode posicionar a câmara
+do telemóvel para capturar movimento visível ou colocar o telemóvel em
+algum lado de forma discreta para detetar apenas ruídos.
+Obtenha notificações seguras de eventos de intrusões instantaneamente
+e aceda aos registos remotamente no momento ou mais tarde.
+
+Os seguintes sensores são monitorizados para uma dada alteração
+na medição e então gravados num registo de eventos no dispositivo:
+
+* Acelerómetro: movimento e vibração do telemóvel.
+* Câmara: movimento visível na câmara frontal e na câmara traseira
+* Microfone: ruídos no ambiente
+* Luz: alteração na luz do sensor de luz ambiente
+* Energia: se o dispositivo é desligado da corrente ou é desligado

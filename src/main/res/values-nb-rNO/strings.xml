@@ -4,7 +4,6 @@
     <string name="accelerometer_prompt">Bevegelsessensitivitet</string>
     <string name="microphone_sensitivity">Lydsensitivitet</string>
     <string name="timer_delay_label">Sett forsinkelsestid</string>
-    <string name="sms_label">Send SMS eller Signal-meldingsvarsler</string>
     <string name="sms_hint">+47 123 12 123</string>
     <string name="camera_prompt">Velg kameraet</string>
     <string name="action_settings">Innstillinger</string>
@@ -20,7 +19,6 @@
     <string name="save_number">Lagre nummer</string>
     <string name="action_cancel">Skru av</string>
     <string name="status_on">AKTIV</string>
-    <string name="status_charging">Lader:</string>
     <string name="data_light">LYS</string>
     <string name="data_pressure">TRYKK</string>
     <string name="share_event_action">Del hendelse…</string>
@@ -88,7 +86,7 @@
     <string name="sensor_light">Omgivelseslys</string>
     <string name="sensor_accel">Bevegelse (akselerometer)</string>
     <string name="sensor_camera">Bevegelse (Kamera)</string>
-    <string name="sensor_power">USB-drift</string>
+    <string name="sensor_power">Drift</string>
     <string name="sensor_bump">Dulting (akselerometer)</string>
     <string name="sensor_camera_video">Bevegelse (video)</string>
     <string name="remote_access_onion_error">Denne funksjonen krever at Orbot: Tor for Android-programmet er installert.</string>
@@ -136,4 +134,12 @@
     <string name="power_detected">EFFEKTDRIFTSENDRING OPPDAGET</string>
     <string name="status_recording_video">Tar opp…</string>
     <string name="status_light">LYS OPPDAGET</string>
+    <string name="remote_notification_label">Send Signal-meldingsvarsler</string>
+    <string name="power_source_status_usb">USB-lading</string>
+    <string name="power_source_status_wireless">Trådløslading</string>
+    <string name="power_source_status_ac">Lysnettslading:</string>
+    <string name="power_disconnected">Frakoblet</string>
+    <string name="data_battery">BATTERI</string>
+    <string name="power_source_status">TILSTAND:</string>
+    <string name="run_disk_cleanup">Tøm slettet loggføring fra enhet</string>
 </resources>

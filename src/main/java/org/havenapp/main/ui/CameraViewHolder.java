@@ -25,12 +25,14 @@ import android.os.RemoteException;
 import android.util.Log;
 import android.view.Surface;
 
+import androidx.annotation.NonNull;
+
 import com.otaliastudios.cameraview.CameraView;
-import com.otaliastudios.cameraview.Facing;
-import com.otaliastudios.cameraview.Frame;
-import com.otaliastudios.cameraview.FrameProcessor;
-import com.otaliastudios.cameraview.Size;
-import com.otaliastudios.cameraview.SizeSelector;
+import com.otaliastudios.cameraview.controls.Facing;
+import com.otaliastudios.cameraview.frame.Frame;
+import com.otaliastudios.cameraview.frame.FrameProcessor;
+import com.otaliastudios.cameraview.size.Size;
+import com.otaliastudios.cameraview.size.SizeSelector;
 
 import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.Utils;
@@ -52,8 +54,6 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-
-import androidx.annotation.NonNull;
 
 public class CameraViewHolder {
 
@@ -160,7 +160,7 @@ public class CameraViewHolder {
 
             try {
 
-                File fileImageDir = new File(Environment.getExternalStorageDirectory(), prefs.getDefaultMediaStoragePath());
+                File fileImageDir = new File(this.context.getExternalFilesDir(null), prefs.getDefaultMediaStoragePath());
                 fileImageDir.mkdirs();
 
                 String ts = new SimpleDateFormat(Utils.DATE_TIME_PATTERN,
@@ -234,21 +234,19 @@ public class CameraViewHolder {
         cameraView.addFrameProcessor(new FrameProcessor() {
             @Override
             public void process(@NonNull Frame frame) {
-
                 long now = System.currentTimeMillis();
                 if (now < CameraViewHolder.this.lastTimestamp + DETECTION_INTERVAL_MS)
                     return;
 
                 CameraViewHolder.this.lastTimestamp = now;
-
-                if (frame.getData() != null && frame.getSize() != null) {
+                byte[] data = frame.getData();
+                Size size = frame.getSize();
 
                     if (!doingVideoProcessing) {
-                        mDecodeThreadPool.execute(() -> processNewFrame(frame));
+                        mDecodeThreadPool.execute(() -> processNewFrame(data, size));
                     } else {
-                        mEncodeVideoThreadPool.execute(() -> recordNewFrame(frame));
+                        mEncodeVideoThreadPool.execute(() -> recordNewFrame(data, size));
                     }
-                }
             }
         });
 
@@ -295,17 +293,12 @@ public class CameraViewHolder {
 
     private Matrix mtxVideoRotate;
 
-    private void recordNewFrame (Frame frame)
+    private void recordNewFrame (byte[] data, Size size)
     {
-
-        byte[] data = frame.getData();
-        Size size = frame.getSize();
-
         if (data != null && size != null) {
             int width = size.getWidth();
             int height = size.getHeight();
-            Bitmap bitmap = MotionDetector.convertImage(data, width, height);
-            bitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, mtxVideoRotate, true);
+            Bitmap bitmap = Bitmap.createBitmap(MotionDetector.convertImage(data, width, height), 0, 0, width, height, mtxVideoRotate, true);
 
             try {
                 if (encoder != null)
@@ -316,7 +309,6 @@ public class CameraViewHolder {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
 
     }
@@ -342,12 +334,8 @@ public class CameraViewHolder {
 
     }
 
-    private void processNewFrame (Frame frame)
+    private void processNewFrame (byte[] data, Size size)
     {
-
-        byte[] data = frame.getData();
-        Size size = frame.getSize();
-
         if (data != null && size != null) {
             int width = size.getWidth();
             int height = size.getHeight();

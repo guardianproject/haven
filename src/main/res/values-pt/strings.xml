@@ -1,100 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="menu_save">Gravar</string>
-    <string name="menu_about">Configurações…</string>
-
+    <string name="menu_about">Configurar…</string>
     <string name="title_activity_start">Haven</string>
-
-    <string name="accelerometer_prompt">Sensibilidade do Movimento</string>
-
-    <string name="microphone_sensitivity">Sensibilidade do Som</string>
-
+    <string name="accelerometer_prompt">Sensibilidade do movimento</string>
+    <string name="microphone_sensitivity">Sensibilidade do som</string>
     <string name="timer_delay_label">Definir tempo de atraso</string>
-
-    <string name="remote_notification_label">
-    	Enviar mensagens de alerta de Signal
-    </string>
-
+    <string name="remote_notification_label">Enviar mensagens de alerta do Signal</string>
     <string name="sms_hint">+351912223344</string>
-
-    <string name="camera_prompt">Escolher a Câmera</string>
-
-    <string name="secure_service_started">Haven Activado</string>
-
-    <string name="intrusion_detected">O sensor Haven foi ativo (Tipo: %s)</string>
-    <string name="title_activity_event">EventActivity</string>
-
+    <string name="camera_prompt">Escolher a câmara</string>
+    <string name="secure_service_started">Haven ativado</string>
+    <string name="intrusion_detected">Foi ativado um sensor Haven (tipo: %s)</string>
+    <string name="title_activity_event">Evento de atividade</string>
     <string name="action_settings">Configurações</string>
-
     <string name="intro1_title">Bem-vindo ao Haven</string>
     <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the height find…\"\n-George Meredith</string>
-
-    <string name="intro2_title">Haven é para as pessoas que querem manter um olho a possíveis intruso em sua casa, no seu escritório, no seu quarto de hotel ou outro espaço privado</string>
-    <string name="intro3_desc">Torne um telefone que tenha em casa a mais num detector de movimento, som, vibração e luz, para detecter convidados inesperados ou intrusos</string>
-
-    <string name="intro4_desc">Seja notificado instantaneamente de acções de intrusos e aceda remotamente aos logs ou pessoalmente mais tarde</string>
-
+    <string name="intro2_title">Haven é para as pessoas que querem detetar possíveis intrusos na sua residência, no seu escritório, no seu quarto de hotel ou outro espaço privado</string>
+    <string name="intro3_desc">Transforme um telemóvel num detetor de movimento, som, vibração e luz, para detetar convidados inesperados ou intrusos</string>
+    <string name="intro4_desc">Seja notificado instantaneamente sobre eventos de intrusos e aceda remotamente aos registos ou pessoalmente mais tarde</string>
     <string name="intro5_title">O seu Haven está pronto</string>
-    <string name="intro5_desc">Ative a aplicação a qualquer momento usando o botão > no ecrã principal</string>
-
+    <string name="intro5_desc">Ative a aplicação a qualquer momento usando o botão &gt; no ecrã principal</string>
     <string name="onboarding_action_end">Terminar</string>
-
-    <string name="remote_access_label">Ative o acesso remote via o serviço Tor Onion</string>
-    <string name="remote_access_hint">Morada do serviço Onion do Orbot</string>
-    <string name="remote_access_credential_hint">Definir palavra-pase remota</string>
+    <string name="remote_access_label">Ative o acesso remoto através do serviço Tor Onion</string>
+    <string name="remote_access_hint">Endereço do serviço Onion do Orbot</string>
+    <string name="remote_access_credential_hint">Definir palavra-passe remota</string>
     <string name="camera_front">Frente</string>
-    <string name="camera_back">Trás</string>
-    <string name="camera_none">Nenhum</string>
-
-    <string name="action_configure">Configure</string>
-
-    <string name="main_screen_title">O seu log Haven</string>
-
-    <string name="current_noise_base">Nível atual de som é</string>
-    <string name="current_accel_base">Nível atual de movimento é</string>
-
-    <string name="configure_trigger_level">Arraste a roda para alterar o limite de detecção</string>
-    <string name="tune_the_sound_detection">Faça barulho!</string>
-    <string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">Coloque o telefone sobre a mesa, faça barulho na sala para encontrar o nível adequado de detecção</string>
-
-    <string name="tune_the_accel_detection">Abane loucamente!</string>
-    <string name="tune_the_accel_detection_more">Mova o telemóvel as voltas para afinar o limite de movimento a detectar</string>
+    <string name="camera_back">Traseira</string>
+    <string name="camera_none">Nenhuma</string>
+    <string name="action_configure">Configurar</string>
+    <string name="main_screen_title">O seu registo Haven</string>
+    <string name="current_noise_base">O nível atual de som é</string>
+    <string name="current_accel_base">O nível atual de movimento é</string>
+    <string name="configure_trigger_level">Deslize para definir o limite de deteção</string>
+    <string name="tune_the_sound_detection">Faça algum ruído!</string>
+    <string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">Coloque o telemóvel sobre a mesa e faça ruídos na sala para encontrar o nível adequado de deteção</string>
+    <string name="tune_the_accel_detection">Abane o telemóvel!</string>
+    <string name="tune_the_accel_detection_more">Mova o telemóvel para afinar o limite de movimento a detetar</string>
     <string name="set_a_countdown_time">Toque para alterar a contagem decrescente</string>
     <string name="start_now">Começar agora</string>
-    <string name="start_later">Ver Logs</string>
-    <string name="save_number">Gravar número</string>
-
-    <string name="action_cancel">Desactivar</string>
-    <string name="status_on">ATIVAR</string>
-    <string name="status_charging">Carregar:</string>
-    <string name="you_will_receive_a_text_when_the_app_hears_or_sees_something">Irá receber uma mensagem quando a aplicação ouvir ou vir alguma coisa</string>
-    <string name="know_immediately_when_haven_detects_something">Saiba imediatamente quando Haven detetar algo</string>
-    <string name="phone_saved">Número telefone guardado!</string>
-    <string name="detection_events">Detecção de eventos</string>
-    <string name="data_speed">RAPIDEZ</string>
+    <string name="start_later">Ver registos</string>
+    <string name="save_number">Guardar número</string>
+    <string name="action_cancel">Desativar</string>
+    <string name="status_on">ATIVO</string>
+    <string name="you_will_receive_a_text_when_the_app_hears_or_sees_something">Irá receber uma mensagem quando a aplicação ouvir ou ver alguma coisa</string>
+    <string name="know_immediately_when_haven_detects_something">Saiba imediatamente quando o Haven detetar algo</string>
+    <string name="phone_saved">Número telemóvel guardado!</string>
+    <string name="detection_events">eventos de deteção</string>
+    <string name="data_speed">VELOCIDADE</string>
     <string name="data_light">LUZ</string>
     <string name="data_pressure">PRESSÃO</string>
-    <string name="data_power">PODER</string>
+    <string name="data_power">ENERGIA</string>
     <string name="share_event_action">Partilhar evento…</string>
-    <string name="signal_test_message">Esta é uma mensagem de teste do Haven</string>
-    <string name="send_test_message">Enviar Mensagem de Teste</string>
+    <string name="signal_test_message">Isto é uma mensagem de teste do Haven</string>
+    <string name="send_test_message">Enviar mensagem de teste</string>
     <string name="verify">Verificar</string>
     <string name="register">Registar</string>
     <string name="activate_signal">Ativar Signal</string>
     <string name="verify_signal">Verificar Signal</string>
-    <string name="enter_verification">Introduzir o código de verificação recebido na aplicação Signal no passo de registo</string>
+    <string name="enter_verification">Introduza o código de verificação que recebeu na aplicação Signal na etapa de registar</string>
     <string name="cancel">Cancelar</string>
-    <string name="register_title">Registar com Signal</string>
-    <string name="register_signal_desc">
-        Registar o novo número de telefone (+351912223344) com a aplicação Signal para proteger as notificaçãos. NÃO USAR O SEU NÚMERO \'SIGNAL\' ATUAL/PRINCIPAL.</string>
+    <string name="register_title">Registar com o Signal</string>
+    <string name="register_signal_desc">Introduza um número de telefone para registar com o Signal, para usar para enviar notificações seguras. Pode usar o número de telefone deste dispositivo para configurar um número virtual.
+\n
+\nAVISO: se este número já estiver configurado com uma instalação da app Signal, irá parar de funcionar aí e irá funcionar apenas com o Haven.</string>
     <string name="phone_hint">+351912223344</string>
-
     <string name="menu_licenses">Licenças…</string>
-    <string name="sensor_light">Luz Ambiente</string>
-    <string name="sensor_accel">Movimento (Acelerômetro)</string>
-    <string name="sensor_camera">Movimento (Câmera)</string>
+    <string name="sensor_light">Luz ambiente</string>
+    <string name="sensor_accel">Movimento (acelerómetro)</string>
+    <string name="sensor_camera">Movimento (câmara)</string>
     <string name="sensor_sound">Microfone</string>
-    <string name="sensor_power">Energia USB</string>
+    <string name="sensor_power">Energia</string>
     <string name="sensor_unknown">Desconhecido</string>
-
+    <string name="remote_access">Acesso remoto</string>
+    <string name="power_source_status_usb">Carregamento por USB</string>
+    <string name="power_source_status_wireless">Carregamento sem fios</string>
+    <string name="power_source_status_ac">Carregamento na tomada</string>
+    <string name="power_source_status">ESTADO:</string>
+    <string name="power_disconnected">Desconectado</string>
+    <string name="data_battery">BATERIA</string>
+    <string name="sensor_camera_video">Movimento (vídeo)</string>
+    <string name="settings">Configurações</string>
+    <string name="verify_signal_by_phone">Em vez disso, telefonar-me</string>
+    <string name="sensor_bump">Mexer (acelerómetro)</string>
+    <string name="sensor_heartbeat">Batimento cardíaco</string>
+    <string name="remote_access_onion_error">Esta funcionalidade requer o Orbot: tem de instalar a aplicação Tor para o Android.</string>
+    <string name="sms_dialog_summary">Número de telefone remoto para onde enviar as notificações</string>
+    <string name="sms_dialog_message">Introduza um número de telefone remoto para onde enviar as notificações</string>
+    <string name="signal_dialog_summary">Um número de telefone de onde enviar utilizando o Signal</string>
+    <string name="verification_dialog_summary">Toque para verificar o seu número do Signal</string>
+    <string name="send_message_dialog">Introduza um número de telefone para onde enviar uma mensagem de notificação de teste de alerta</string>
+    <string name="send_text_message">Testar notificações…</string>
+    <string name="service_address">Endereço do serviço</string>
+    <string name="password">Palavra-passe (obrigatório)</string>
+    <string name="signal_number">Número do Signal (local)</string>
+    <string name="phone_number">Número de notificação (remoto)</string>
+    <string name="sensors">Sensores</string>
+    <string name="label_notifications">Notificações</string>
+    <string name="config_video_length_label">Definir a duração da monitorização por vídeo</string>
+    <string name="video_monitoring">Monitorização por vídeo</string>
+    <string name="video_settings">Configurações do vídeo</string>
+    <string name="camera_sensitivity">Sensibilidade da câmara</string>
+    <string name="notification_time">Intervalo de tempo da notificação</string>
+    <string name="notification_time_summary">Apenas enviar as notificações no intervalo configurado</string>
+    <string name="notification_time_dialog">Introduza o tempo (minutos) para limitar as notificações. \'0\' para enviar todas as notificações.</string>
+    <string name="minutes">minuto(s)</string>
+    <string name="keep_watch">Vigiar!</string>
+    <string name="camera_sensitivity_tip">Use a barra deslizante para ajustar a sensibilidade da deteção do movimento, com um objetivo de 0% quando não houver movimento.</string>
+    <string name="disable_battery_opt_title">Desativar otimizações de bateria</string>
+    <string name="disable_battery_opt_summary">Permitir que a aplicação esteja a ser executada quando o ecrã está desligado</string>
+    <string name="event_deleted">Evento eliminado</string>
+    <string name="undo">DESFAZER</string>
+    <string name="remove_all_logs">Remover todos os registos</string>
+    <string name="events_deleted">Eventos eliminados</string>
+    <string name="hearbeat_monitor">Monitor de batimentos cardíacos Haven</string>
+    <string name="hearbeat_monitor_enable">Ativar altera de batimento cardíaco</string>
+    <string name="hearbeat_monitor_summary">Intervalo de examinar</string>
+    <string name="heartbeat_time_dialog">Introduza o tempo (minutos) para enviar a % da bateria e um emoji de um coração de 1 só caractere. Os alertas páram quando o Haven pára de monitorizar por qualquer motivo.</string>
+    <string name="hearbeat_monitor_dialog">Configurar o atraso entre alertas</string>
+    <string name="hearbeat_message_dialog">Personalizar a mensagem enviada para as notificações de batimento cardíaco. Deixe em branco para usar o emoji do coração padrão</string>
+    <string name="hearbeat_message_title">Mensagem de alerta</string>
+    <string name="hearbeat_message_summary">Definir a mensagem de texto personalizada</string>
+    <string name="hearbeat_message_summary_on">Alertas personalizados ativados</string>
+    <string name="hearbeat_monitor_initial_message_1">Ativação do monitor de batimento cardíaco: irá receber uma notificação a cada</string>
+    <string name="hearbeat_monitor_initial_message_2">minuto(s) que o Haven está ativo e a monitorizar.</string>
+    <string name="battery_level_msg_text">Nível da bateria</string>
+    <string name="title_activity_video_player">Atividade do reprodutor de vídeo</string>
+    <string name="config_storage_path">Caminho da pasta de armazenamento</string>
+    <string name="config_storage_page_hint">Onde os ficheiros multimédia são armazenados</string>
+    <string name="event_trigger_deleted">Acionador de evento eliminado</string>
+    <string name="please_wait">Por favor aguarde</string>
+    <string name="migrating_data">A procurar pelos seus dados antigos</string>
+    <string name="path_chars">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_/</string>
+    <string name="motion_detected">DETETADO MOVIMENTO</string>
+    <string name="sound_detected">DETETADO SOM</string>
+    <string name="device_move_detected">DETETADO MOVIMENTO DO DISPOSITIVO</string>
+    <string name="power_detected">DETETADA ALTERAÇÃO DA ENERGIA</string>
+    <string name="status_recording_video">A gravar…</string>
+    <string name="status_light">DETETADA LUZ</string>
+    <string name="run_disk_cleanup">Limpar os registos eliminados no dispositivo</string>
 </resources>

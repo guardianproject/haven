@@ -11,7 +11,7 @@ tecnologias en comunicacion mas seguras en el mundo, com Signal y Tor.
 Haven evita que los peores tipos de personas callen las voces de los ciudadanos
 sin ser descubiertos en el acto.
 
-Equipo del Projecto
+## Equipo del Projecto
 
 Haven fue desarrollado por una colaboracion entre la Fundacion Freedom of the
 Press y The Guardian Project. Los fondos para el Prototipo
@@ -19,7 +19,7 @@ generously provided by FPF, and donations to support continuing work
 pueden ser aportadas en su sitio web:
 https://freedom.press/donate-support-haven-open-source-project
 
-Seguridad  a través de Sensores
+## Seguridad a través de Sensores
 
 Haven guarda imagenes y sonidos unicamente cuando es activado por movimiento o volumen,
 y guarda todo localmente en el dispositivo. Puedes colocar la
@@ -31,8 +31,8 @@ despues.
 Los siguientes ensores son monitoreados por cualquier cambio y despues
 grabados en el registro de eventos en el dispositivo.
 
-*Acelerómetro: Vibracion y movimiento en el telefono
-*Camara: movimiento en los alrededores visibles porla camara frontal o trasera del telefono
-*Microfono: Sonidos en el ambiente
-*Luz: Cambios de iluminacion en el sensor de luz
-*Carga: Detecta si el dispositivo no esta siendo cargado o ha sido desconectado.
+* Acelerómetro: Vibracion y movimiento en el telefono
+* Camara: movimiento en los alrededores visibles porla camara frontal o trasera del telefono
+* Microfono: Sonidos en el ambiente
+* Luz: Cambios de iluminacion en el sensor de luz
+* Carga: Detecta si el dispositivo no esta siendo cargado o ha sido desconectado.

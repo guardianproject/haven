@@ -3,23 +3,18 @@
     <string name="menu_save">Sauvegarder</string>
     <string name="menu_about">Configuration</string>
     <string name="title_activity_start">Haven</string>
-
     <string name="accelerometer_prompt">
 		Sensibilité du mouvement
 	</string>
-
     <string name="microphone_sensitivity">
 		Sensibilité du son
 	</string>
-
     <string name="timer_delay_label">
 		Déterminer un délai
 	</string>
-
     <string name="remote_notification_label">
 		Envoyer des alertes par message Signal
 	</string>
-
     <string name="sms_hint">+33612345678</string>
     <string name="camera_prompt">Sélectionner la caméra</string>
     <string name="secure_service_started">Haven activé</string>
@@ -56,7 +51,6 @@
     <string name="save_number">Enregistrer le numéro</string>
     <string name="action_cancel">Désactiver</string>
     <string name="status_on">ACTIF</string>
-    <string name="status_charging">Chargement en cours :</string>
     <string name="you_will_receive_a_text_when_the_app_hears_or_sees_something">Vous receverez un message quand l\'application détectera un son ou un mouvement</string>
     <string name="know_immediately_when_haven_detects_something">Recevoir immédiatement une notification si l\'application détecte quelque chose</string>
     <string name="phone_saved">Numéro de telephone enregistré !</string>
@@ -112,7 +106,6 @@
     <string name="event_deleted">Évènement supprimé</string>
     <string name="undo">Annuler</string>
     <string name="events_deleted">Évènements supprimés</string>
-
     <string name="verify_signal_by_phone">Appelez-moi à la place</string>
     <string name="sensor_camera_video">Mouvement (Vidéo)</string>
     <string name="video_settings">Paramètres vidéo</string>

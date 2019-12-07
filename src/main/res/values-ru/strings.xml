@@ -1,44 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="menu_save">Сохранить</string>
     <string name="menu_about">Настроить…</string>
-
     <string name="title_activity_start">Haven</string>
-
     <string name="accelerometer_prompt">Чувствительность движения</string>
-
     <string name="microphone_sensitivity">Чувствительность к звукам</string>
-
     <string name="timer_delay_label">Установка времени задержки</string>
-
     <string name="remote_notification_label">
     	Оповещать по SMS или через Signal
     </string>
-
     <string name="sms_hint">+79125551212</string>
-
     <string name="camera_prompt">Выбрать камеру</string>
-
     <string name="secure_service_started">Haven включен</string>
-
     <string name="intrusion_detected">Haven заметил срабатывание датчика (Тип: %s)</string>
     <string name="title_activity_event">Активное событие</string>
-
     <string name="action_settings">Настройки</string>
-
     <string name="intro1_title">Добро пожаловать в Haven</string>
     <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the heights to find…\"\n-George Meredith</string>
-
     <string name="intro2_title">Haven предназначен для людей, которые хотят следить за проникновением в свой дом, офис, гостиничный номер или другое личное пространство</string>
     <string name="intro3_desc">Превратите дополнительный телефон в детектор движения, звука, вибрации и света, наблюдая за неожиданными гостями и злоумышленниками</string>
-
     <string name="intro4_desc">Получайте уведомления о проникновениях мгновенно, а также доступ к журналам удаленно или лично позже</string>
-
     <string name="intro5_title">Ваш Haven готов</string>
     <string name="intro5_desc">Активируйте приложение в любое время, используя кнопку действия &gt; на главном экране</string>
-
     <string name="onboarding_action_end">Закончить</string>
-
     <string name="remote_access">Удалённый доступ</string>
     <string name="remote_access_label">Включить удаленный доступ через службу Tor Onion</string>
     <string name="remote_access_hint">Адрес службы Onion от Orbot</string>
@@ -46,28 +30,21 @@
     <string name="camera_front">Передняя</string>
     <string name="camera_back">Задняя</string>
     <string name="camera_none">Никакая</string>
-
     <string name="action_configure">Настроить</string>
-
     <string name="main_screen_title">Ваш журнал Haven</string>
-
     <string name="current_noise_base">Текущий уровень звука</string>
     <string name="current_accel_base">Текущий уровень движения</string>
-
     <string name="configure_trigger_level">Передвиньте колесо для изменения порога обнаружения</string>
     <string name="tune_the_sound_detection">Пошумите!</string>
     <string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">Положите телефон на стол и пошумите в комнате, чтобы определить нужный уровень обнаружения звука</string>
-
     <string name="tune_the_accel_detection">Встряхните!</string>
     <string name="tune_the_accel_detection_more">Потрясите телефон, чтобы определить нужный уровень обнаружения движения</string>
     <string name="set_a_countdown_time">Нажмите, чтобы изменить обратный отсчет</string>
     <string name="start_now">Запустить</string>
     <string name="start_later">Просмотр журналов</string>
     <string name="save_number">Сохранить номер</string>
-
     <string name="action_cancel">Отключить</string>
     <string name="status_on">ВКЛЮЧЕНО</string>
-    <string name="status_charging">Зарядка:</string>
     <string name="you_will_receive_a_text_when_the_app_hears_or_sees_something">Вы получите сообщение, когда приложение что-то услышит или увидит</string>
     <string name="know_immediately_when_haven_detects_something">Узнайте сразу же, как только Haven что-то обнаружит</string>
     <string name="phone_saved">Номер телефона сохранен!</string>
@@ -88,7 +65,6 @@
     <string name="register_title">Регистрация с помощью Signal</string>
     <string name="register_signal_desc">Зарегистрировать новый номер телефона (+79125551212) для отправки защищенных уведомлений. НЕ ИСПОЛЬЗУЙТЕ СУЩЕСТВУЮЩИЙ/ПЕРВОНАЧАЛЬНЫЙ НОМЕР.</string>
     <string name="phone_hint">+79125551212</string>
-
     <string name="menu_licenses">Лицензии…</string>
     <string name="sensor_light">Окружающий свет</string>
     <string name="sensor_accel">Движение (акселерометр)</string>
@@ -97,10 +73,8 @@
     <string name="sensor_power">Питание USB</string>
     <string name="sensor_bump">Толчок (акселерометр)</string>
     <string name="sensor_unknown">Неизвестный</string>
-
     <string name="settings">Настройки</string>
     <string name="remote_access_onion_error">Для этой функции требуется наличие приложения Orbot: Tor for Android</string>
-
     <string name="sms_dialog_summary">Номер удалённого телефона для приёма оповещений</string>
     <string name="sms_dialog_message">Введите номер удалённого телефона, на который будут отсылаться оповещения</string>
     <string name="signal_dialog_summary">Исходящий телефонный номер в Signal</string>
@@ -113,9 +87,7 @@
     <string name="phone_number">Номер для оповещений (удалённый)</string>
     <string name="sensors">Сенсоры</string>
     <string name="label_notifications">Оповещения</string>
-
     <string name="camera_sensitivity">Чувствительность камеры</string>
-
     <string name="notification_time">Интервал между оповещениями</string>
     <string name="notification_time_summary">Оповещать только по истечении заданного времени</string>
     <string name="notification_time_dialog">Введите время (в минутах) задержки между оповещениями. \"0\" для отправки каждого оповещения.</string>
@@ -124,5 +96,4 @@
     <string name="camera_sensitivity_tip">Выберите другую камеру или настройте чувствительность к движениям с помощью слайдера</string>
     <string name="disable_battery_opt_title">Отключить энергосбережение</string>
     <string name="disable_battery_opt_summary">Продолжать работу при выключенном экране</string>
-
 </resources>

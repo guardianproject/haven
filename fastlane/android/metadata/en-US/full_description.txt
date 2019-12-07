@@ -11,7 +11,7 @@ world’s most secure communications technologies, like Signal and Tor,
 Haven prevents the worst kind of people from silencing citizens
 without getting caught in the act.
 
-Project Team
+## Project Team
 
 Haven was developed through a collaboration between Freedom of the
 Press Foundation and Guardian Project. Prototype funding was
@@ -19,7 +19,7 @@ generously provided by FPF, and donations to support continuing work
 can be contributed through their site:
 https://freedom.press/donate-support-haven-open-source-project
 
-Safety through Sensors
+## Safety through Sensors
 
 Haven only saves images and sound when triggered by motion or volume,
 and stores everything locally on the device. You can position the
