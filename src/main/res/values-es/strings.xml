@@ -13,7 +13,7 @@
     <string name="camera_prompt">Seleccionar la cámara</string>
     <string name="secure_service_started">Haven Activado</string>
     <string name="intrusion_detected">Un sensor de Haven fue desencadenado (Tipo: %s)</string>
-    <string name="title_activity_event">EventActivity</string>
+    <string name="title_activity_event">ActividadDeEventos</string>
     <string name="action_settings">Configuraciones</string>
     <string name="intro1_title">Bienvenido a Haven</string>
     <string name="intro1_desc">\"Now when the ark of human fate,\nLong baffled by the wayward wind,\nIs drifting with its peopled freight,\nSAFE HAVEN on the height find…\"\n-George Meredith</string>
@@ -155,4 +155,5 @@
     <string name="reset_signal_configuration">Reinicia la Configuracion de Signal</string>
     <string name="reset_configuration_question">¿Reiniciar la Configuracion de Signal\?</string>
     <string name="reset_configuration_desc">Esto borrará todas las configuraciones de Signal. Tendrás que registrarte y verificar nuevamente para usar los servicios de Signal en el futuro. ¿Estás seguro\?</string>
+    <string name="path_chars">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_/</string>
 </resources>
