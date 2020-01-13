@@ -44,7 +44,8 @@
         android:fullBackupContent="@xml/backup_config"
         android:supportsRtl="false"
         tools:replace="android:allowBackup,android:supportsRtl"
-        tools:ignore="GoogleAppIndexingWarning">
+        tools:ignore="GoogleAppIndexingWarning"
+        android:requestLegacyExternalStorage="true">
         <activity
             android:name=".ListActivity"
             android:configChanges="orientation|screenSize"
