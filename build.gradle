@@ -144,6 +144,7 @@ configurations {
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
+    implementation "androidx.coordinatorlayout:coordinatorlayout:1.1.0"
     implementation 'androidx.preference:preference:1.1.0'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.annotation:annotation:1.1.0'
