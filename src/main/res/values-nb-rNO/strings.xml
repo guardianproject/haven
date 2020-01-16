@@ -67,7 +67,7 @@
     <string name="current_accel_base">Nåværende bevegelsesnivå er</string>
     <string name="configure_trigger_level">Dra for å velge utløsningsterskel</string>
     <string name="tune_the_sound_detection">Lag lyd!</string>
-    <string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">Sett telefonen på bordet, og gjør lyder i rommet for å finne riktig nivå å oppdage</string>
+    <string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">Legg telefonen på bordet, og lag lyder i rommet for å finne riktig nivå å oppdage</string>
     <string name="tune_the_accel_detection">Rist løs.</string>
     <string name="tune_the_accel_detection_more">Flytt telefonen din rundt for å sette bevegelsesterskelen</string>
     <string name="set_a_countdown_time">Trykk for å endre nedtelling</string>
