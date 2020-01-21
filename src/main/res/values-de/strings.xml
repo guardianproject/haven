@@ -33,7 +33,7 @@
     <string name="current_accel_base">"Aktuelles Bewegungslevel ist "</string>
     <string name="configure_trigger_level">Bewege das Rad um die Erkennungsschwelle zu verändern</string>
     <string name="tune_the_sound_detection">Machen Sie etwas Lärm!</string>
-    <string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">Stellen Sie Ihr Telefon auf den Tisch und machen Sie Geräusche im Raum, um den richtigen Pegel zum Erkennen zu finden</string>
+    <string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">Legen Sie Ihr Telefon auf den Tisch und machen Sie Geräusche im Raum, um den richtigen Pegel zum Erkennen zu finden</string>
     <string name="tune_the_accel_detection">Schüttel!</string>
     <string name="tune_the_accel_detection_more">Bewegen Sie Ihr Telefon herum, um den Schwellenwert für die Bewegungserkennung einzustellen</string>
     <string name="set_a_countdown_time">Tippen um den Countdown zu verändern</string>
