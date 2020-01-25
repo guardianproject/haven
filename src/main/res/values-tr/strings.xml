@@ -35,7 +35,7 @@
     <string name="current_accel_base">Hareket seviyesi</string>
     <string name="configure_trigger_level">Algılama eşiğini belirlemek için kaydırın</string>
     <string name="tune_the_sound_detection">Ses çıkarın!</string>
-    <string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">Telefonu masaya koyup algılanmasını istediğiniz seviyede ses çıkarın</string>
+    <string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">Telefonunuzu masaya yerleştirin ve algılanacak doğru seviyeyi bulmak için odada sesler çıkarın</string>
     <string name="tune_the_accel_detection">Sallayın!</string>
     <string name="tune_the_accel_detection_more">Algılama eşiğini ayarlamak için telefonu hareket ettirin</string>
     <string name="set_a_countdown_time">Süreyi değiştirmek için dokunun</string>
