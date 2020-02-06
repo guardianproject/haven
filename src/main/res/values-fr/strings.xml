@@ -2,7 +2,7 @@
 <resources>
     <string name="menu_save">Enregistrer</string>
     <string name="menu_about">Configuration…</string>
-    <string name="title_activity_start">Refuge</string>
+    <string name="title_activity_start">Haven</string>
     <string name="accelerometer_prompt">Sensibilité au mouvement</string>
     <string name="microphone_sensitivity">Sensibilité au son</string>
     <string name="timer_delay_label">Définir un délai</string>
