@@ -40,7 +40,7 @@
     <string name="current_accel_base">Le niveau de mouvement actuel est de</string>
     <string name="configure_trigger_level">Faire glisser pour définir le seuil de détection</string>
     <string name="tune_the_sound_detection">Faites du bruit !</string>
-    <string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">Placez votre téléphone sur la table et faites des bruits dans la pièce pour déterminer le bon niveau à détecter</string>
+    <string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">Placez votre téléphone sur la table et faites du bruit dans la pièce pour déterminer le bon niveau de détection</string>
     <string name="tune_the_accel_detection">Secouez-le !</string>
     <string name="tune_the_accel_detection_more">Déplacez votre téléphone dans l’espace pour déterminer le seuil de détection des mouvements</string>
     <string name="set_a_countdown_time">Toucher pour changer le compte à rebours</string>
