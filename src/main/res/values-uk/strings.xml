@@ -1,2 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="menu_save">Зберегти</string>
+    <string name="menu_about">Налаштувати…</string>
+    <string name="title_activity_start">Haven - Прихисток</string>
+    <string name="accelerometer_prompt">Чутливість до руху</string>
+    <string name="microphone_sensitivity">Чутливість до звуку</string>
+    <string name="timer_delay_label">Встановити час затримки</string>
+    <string name="remote_notification_label">Сповіщати по SMS або через Signal</string>
+    <string name="sms_hint">+12125551212</string>
+    <string name="camera_prompt">Виберіть камеру</string>
+    <string name="secure_service_started">Haven задіяно</string>
+    <string name="intrusion_detected">Спрацював датчик Haven (Вид: %s)</string>
+    <string name="title_activity_event">Дійна подія</string>
+    <string name="action_settings">Налаштування</string>
+    <string name="intro1_title">Ласкаво просимо до Haven - вашого Прихистку</string>
+    <string name="intro1_desc">\"Тепер, коли ковчег людської долі,
+\nДовго спантеличений вітром,
+\nПливе зі своїм прокладеним вантажем,
+\nБЕЗПЕЧНИЙ ПРИХИСТОК (Haven) на висоті знайти... \"
+\n-Джордж Мередіт</string>
+    <string name="intro2_title">Haven призначений для людей, які хочуть стежити за вторгненням у свій будинок, офіс, готельний номер чи інший особистий простір</string>
+    <string name="intro3_desc">Перетворіть додатковий телефон у відстежувач руху, звуку, дрижання та світла, спостерігаючи за несподіваними гостями та небажаними зловмисниками</string>
+    <string name="intro4_desc">Отримуйте сповіщення про події вторгнення миттєво та отримуйте доступ до часописів віддалено або особисто</string>
+    <string name="intro5_title">Ваш Haven готовий</string>
+    <string name="intro5_desc">Задійте застосунок у будь-який час за допомогою кнопки &gt; дії на головному екрані</string>
+    <string name="onboarding_action_end">Закінчити</string>
+    <string name="remote_access">Віддалений доступ</string>
+    <string name="remote_access_label">Увімкнути віддалений доступ через службу Tor Onion</string>
+    <string name="remote_access_hint">Адреса служби Onion від Orbot</string>
+    <string name="remote_access_credential_hint">Встановити віддалений пароль</string>
+    <string name="camera_front">Передня</string>
+    <string name="camera_back">Задня</string>
+    <string name="camera_none">Жодної</string>
+    <string name="action_configure">Налаштувати</string>
+    <string name="main_screen_title">Ваш часопис Haven</string>
+    <string name="current_noise_base">Поточний рівень шуму</string>
+    <string name="know_immediately_when_haven_detects_something">Знайте негайно, коли Haven щось виявить</string>
+    <string name="signal_test_message">Це перевіркове повідомлення від Haven</string>
+    <string name="register_signal_desc">Введіть номер телефону, щоб зареєструватися в Signal для використовування надсилання безпечних сповіщень. Ви можете використовувати номер телефону цього пристрою або налаштувати віртуальний номер.
+\n 
+\nПОПЕРЕДЖЕННЯ. Якщо цей номер вже поєднаний з установкою застосунку Signal, він припинить свою роботу там і працюватиме лише в Haven.</string>
+    <string name="hearbeat_monitor">Відстежувач серцебиття Haven</string>
+    <string name="heartbeat_time_dialog">Введіть час (у хвилинах), щоб надіслати % батареї та образок серця з одним знаком. Попередження припиняються, коли Haven з будь-якої причини припиняє відстежування.</string>
+    <string name="hearbeat_monitor_initial_message_2">хвилин(и) Haven діє та відстежує.</string>
+    <string name="signal_verification_success_desc">Все готово, щоб надсилати повідомлення Haven від Signal!</string>
+</resources>
