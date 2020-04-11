@@ -1,0 +1,32 @@
+Haven é um aplicativo para pessoas que precisam proteger o seu espaço privado de alguma maneira
+como posses sem comprometer a sua própria privacidade.
+Ele transforma os sensores do seu dispositivo Android em um movimento, som, vibração e
+detector de luz, alertando você de convidados inesperados e intrusos em seus espaços físicos.
+Combinando monitoramento e armazenamento com tecnologias seguras de comunicação,
+como Signal e Tor, ele impede que o pior tipo de pessoas de silenciar os cidadãos
+sem ser pego em flagrante. Protegendo jornalistas investigativos,
+defensores dos direitos humanos e pessoas em risco de desaparecimento forçado,
+é criado um novo tipo de imunidade de rebanho.
+
+## Segurança através de sensores
+
+O Haven só salva imagens e som acionados por movimento ou som,
+armazenando tudo localmente no seu dispositivo. Posicione a câmera do dispositivo
+para capturar qualquer movimento visível ou coloque seu telefone em algum lugar discreto
+para ouvir apenas os ruídos. Receba notificações seguras de eventos de intrusão
+instantaneamente e registros de acesso remotamente a qualquer momento.
+
+Sensores monitorados para alterações mensuráveis, registrados no registro de eventos do dispositivo:
+
+* Acelerômetro: Movimento e vibração do telefone
+* Câmera: Movimentação no ambiente que esteja visível pela câmera frontal ou traseira do seu telefone
+* Microfone: Ruídos ambientes
+* Sensor de luz: Acionado quando houver mudanças súbitas de luz
+* Energia: Detecte se o dispositivo foi desconectado, está ficando sem bateria ou sendo desligado
+
+## Equipe do Projeto
+
+Haven é uma colaboração entre o projeto Guardian e o
+Freedom of the Press Foundation, que generosamente financiou o projeto
+ainda em protótipo. O financiamento para a continuação do trabalho pode ser feito através do site:
+https://freedom.press/donate-support-haven-open-source-project
