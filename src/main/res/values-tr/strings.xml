@@ -12,7 +12,7 @@
     <string name="sms_hint">+905321234567</string>
     <string name="camera_prompt">Kamerayı seç</string>
     <string name="secure_service_started">Haven Etkinleştirildi</string>
-    <string name="intrusion_detected">İzinsiz giriş saptandı (Tip: %s)</string>
+    <string name="intrusion_detected">Bir Haven sensörü tetiklendi (Tür: %s)</string>
     <string name="title_activity_event">OlayGeçmişi</string>
     <string name="action_settings">Ayarlar</string>
     <string name="intro1_title">Haven\'a Hoşgeldiniz</string>
@@ -21,7 +21,7 @@
     <string name="intro3_desc">Yedek telefonunuzu, davetsiz misafirlerden haberdar olabileceğiniz bir hareket, ses, titreşim ve ışık algılayıcıya dönüştürün</string>
     <string name="intro4_desc">İzinsiz girişlerde anında bilgilendirilir, kayıtlara uzaktan erişim sağlayabilir veya daha sonra cihazdan erişebilirsiniz</string>
     <string name="intro5_title">Haven kullanıma hazır</string>
-    <string name="intro5_desc">Uygulamayı istediğiniz zaman ana ekrandaki &gt; butonuna basarak etkinleştirebilirsiniz</string>
+    <string name="intro5_desc">Uygulamayı istediğiniz zaman ana ekrandaki &gt; eylem düğmesine basarak etkinleştirin</string>
     <string name="onboarding_action_end">Bitir</string>
     <string name="remote_access_label">Tor Onion ile uzaktan erişimi etkinleştir</string>
     <string name="remote_access_hint">Orbot Onion hizmeti adresi</string>
@@ -112,7 +112,7 @@
     <string name="hearbeat_monitor_summary">Checkup Aralığı</string>
     <string name="heartbeat_time_dialog">Pil %\'si ve tek karakterli bir kalp emojisi göndermek için zamanı (dakika cinsinden) girin. Haven herhangi bir nedenle izlemeyi durdurduğunda uyarılar sona erer.</string>
     <string name="hearbeat_monitor_dialog">Uyarılar arasındaki gecikme süresini ayarla</string>
-    <string name="hearbeat_message_dialog">Kalp atışı bildirim mesajını özelleştirin. Varsayılan kalp emojisini kullanmak için boş bırakın.</string>
+    <string name="hearbeat_message_dialog">Kalp atışı bildirim mesajını özelleştirin. Öntanımlı kalp emojisini kullanmak için boş bırakın.</string>
     <string name="hearbeat_message_title">Uyarı Mesajı</string>
     <string name="hearbeat_message_summary">Özel mesaj metnini ayarla</string>
     <string name="hearbeat_message_summary_on">Özel uyarılar etkin</string>
