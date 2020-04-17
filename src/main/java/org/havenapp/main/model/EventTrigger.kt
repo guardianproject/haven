@@ -106,4 +106,32 @@ class EventTrigger {
 
         return mimeType
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as EventTrigger
+
+        if (id != other.id) return false
+        if (type != other.type) return false
+        if (time != other.time) return false
+        if (eventId != other.eventId) return false
+        if (path != other.path) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = id?.hashCode() ?: 0
+        result = 31 * result + (type ?: 0)
+        result = 31 * result + (time?.hashCode() ?: 0)
+        result = 31 * result + (eventId?.hashCode() ?: 0)
+        result = 31 * result + (path?.hashCode() ?: 0)
+        return result
+    }
+
+    override fun toString(): String {
+        return "EventTrigger(id=$id, type=$type, time=$time, eventId=$eventId, path=$path)"
+    }
 }

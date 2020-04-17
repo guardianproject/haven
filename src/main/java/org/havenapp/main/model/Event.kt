@@ -1,5 +1,6 @@
 package org.havenapp.main.model
 
+import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.room.ColumnInfo
@@ -46,6 +47,7 @@ class Event {
      * <p>
      * When [eventTriggers] is empty this method performs a blocking db lookup.
      */
+    @WorkerThread
     fun getEventTriggers() : MutableList<EventTrigger> {
 
         if (eventTriggers.size == 0) {
@@ -62,5 +64,31 @@ class Event {
 
     fun getEventTriggerCount(): Int {
         return eventTriggerCountLD?.value?.second ?: 0
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Event
+
+        if (id != other.id) return false
+        if (startTime != other.startTime) return false
+        if (eventTriggers != other.eventTriggers) return false
+        if (eventTriggerCountLD != other.eventTriggerCountLD) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = id?.hashCode() ?: 0
+        result = 31 * result + (startTime?.hashCode() ?: 0)
+        result = 31 * result + eventTriggers.hashCode()
+        result = 31 * result + (eventTriggerCountLD?.hashCode() ?: 0)
+        return result
+    }
+
+    override fun toString(): String {
+        return "Event(id=$id, startTime=$startTime, eventTriggers=$eventTriggers, eventTriggerCountLD=$eventTriggerCountLD)"
     }
 }
