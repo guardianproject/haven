@@ -193,5 +193,5 @@ dependencies {
     // new camera view: https://github.com/natario1/CameraView
     implementation 'com.otaliastudios:cameraview:2.4.0'
 
-
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.2'
 }
