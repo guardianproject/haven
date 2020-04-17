@@ -9,7 +9,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -25,6 +24,17 @@ import android.view.View;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.preference.EditTextPreference;
+import androidx.preference.ListPreference;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.SwitchPreference;
+
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
@@ -38,16 +48,6 @@ import org.havenapp.main.ui.MicrophoneConfigureActivity;
 import java.io.File;
 import java.util.Locale;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.preference.EditTextPreference;
-import androidx.preference.ListPreference;
-import androidx.preference.Preference;
-import androidx.preference.PreferenceFragmentCompat;
-import androidx.preference.SwitchPreference;
 import info.guardianproject.netcipher.proxy.OrbotHelper;
 
 
@@ -465,24 +465,28 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
                 break;
             case PreferenceManager.REMOTE_ACCESS_ONION: {
-                String text = ((EditTextPreference) findPreference(PreferenceManager.REMOTE_ACCESS_ONION)).getText();
+                EditTextPreference preference = findPreference(PreferenceManager.REMOTE_ACCESS_ONION);
+                assert preference != null;
+                String text = preference.getText();
                 if (checkValidString(text)) {
                     preferences.setRemoteAccessOnion(text.trim());
-                    findPreference(PreferenceManager.REMOTE_ACCESS_ONION).setSummary(preferences.getRemoteAccessOnion().trim() + ":" + WebServer.LOCAL_PORT);
+                    preference.setSummary(preferences.getRemoteAccessOnion().trim() + ":" + WebServer.LOCAL_PORT);
                 } else {
                     preferences.setRemoteAccessOnion(text);
-                    findPreference(PreferenceManager.REMOTE_ACCESS_ONION).setSummary(R.string.remote_access_hint);
+                    preference.setSummary(R.string.remote_access_hint);
                 }
                 break;
             }
             case PreferenceManager.REMOTE_ACCESS_CRED: {
-                String text = ((EditTextPreference) findPreference(PreferenceManager.REMOTE_ACCESS_CRED)).getText();
+                EditTextPreference preference = findPreference(PreferenceManager.REMOTE_ACCESS_CRED);
+                assert preference != null;
+                String text = preference.getText();
                 if (checkValidString(text)) {
                     preferences.setRemoteAccessCredential(text.trim());
-                    findPreference(PreferenceManager.REMOTE_ACCESS_CRED).setSummary(R.string.bullets);
+                    preference.setSummary(R.string.bullets);
                 } else {
                     preferences.setRemoteAccessCredential(text);
-                    findPreference(PreferenceManager.REMOTE_ACCESS_CRED).setSummary(R.string.remote_access_credential_hint);
+                    preference.setSummary(R.string.remote_access_credential_hint);
                 }
                 break;
             }
