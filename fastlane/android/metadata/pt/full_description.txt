@@ -10,7 +10,7 @@ encontrados em qualquer telemóvel inteligente com as tecnologias de
 comunicação mais seguras,  como o Signal e o Tor, o Haven impede que
 o pior tipo de pessoas silenciem cidadãos sem serem apanhados no ato.
 
-Equipa do projeto
+## Equipa do projeto
 
 O Haven foi desenvolvido através de uma colaboração entre a Freedom of the
 Press Foundation e o Guardian Project. O financiamento para o protótipo foi
@@ -18,7 +18,7 @@ generosamente fornecido pela FPF e os donativos para suportarem a
 continuação do projeto podem podem ser feitos pelo sítio da fundação:
 https://freedom.press/donate-support-haven-open-source-project
 
-Segurança através dos sensores
+## Segurança através dos sensores
 
 O Haven apenas guarda imagens e som quando acionados pelo movimento
 ou som, e guarda tudo localmente no dispositivo. Pode posicionar a câmara

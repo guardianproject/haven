@@ -13,9 +13,10 @@ package org.havenapp.main.sensors.media;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import androidx.annotation.Nullable;
+
 import java.io.IOException;
 
-import javax.annotation.Nullable;
 
 public class MicSamplerTask extends AsyncTask<Void,Object,Void> {
 

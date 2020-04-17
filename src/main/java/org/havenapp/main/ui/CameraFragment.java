@@ -19,8 +19,11 @@ import android.widget.ImageView;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import com.otaliastudios.cameraview.Audio;
+import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import com.otaliastudios.cameraview.CameraView;
+import com.otaliastudios.cameraview.controls.Audio;
 
 import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.R;

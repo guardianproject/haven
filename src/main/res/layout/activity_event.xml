@@ -50,6 +50,9 @@
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end"
         app:fabSize="normal"
+        android:tint="@android:color/white"
+        app:tint="@android:color/white"
+        app:backgroundTint="@color/colorPrimary"
         app:srcCompat="@drawable/ic_share" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

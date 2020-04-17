@@ -19,20 +19,21 @@ package org.havenapp.main;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.multidex.MultiDexApplication;
+
 import com.evernote.android.job.JobManager;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.facebook.imagepipeline.decoder.SimpleProgressiveJpegConfig;
+import com.facebook.imagepipeline.nativecode.ImagePipelineNativeLoader;
 
 import org.havenapp.main.database.HavenEventDB;
 import org.havenapp.main.service.HavenJobCreator;
 import org.havenapp.main.service.WebServer;
 
 import java.io.IOException;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.multidex.MultiDexApplication;
 
 public class HavenApp extends MultiDexApplication {
 
@@ -54,14 +55,25 @@ public class HavenApp extends MultiDexApplication {
 
         mPrefs = new PreferenceManager(this);
 
-        ImagePipelineConfig config = ImagePipelineConfig.newBuilder(this)
+        ImagePipelineConfig.Builder b = ImagePipelineConfig.newBuilder(this);
+        ImagePipelineConfig config = b
                 .setProgressiveJpegConfig(new SimpleProgressiveJpegConfig())
                 .setResizeAndRotateEnabledForNetwork(true)
                 .setDownsampleEnabled(true)
                 .build();
 
         Fresco.initialize(this,config);
-        
+
+        try {
+            ImagePipelineNativeLoader.load();
+        } catch (UnsatisfiedLinkError e) {
+            Fresco.shutDown();
+            b.experiment().setNativeCodeDisabled(true);
+            config = b.build();
+            Fresco.initialize(this, config);
+            e.printStackTrace();
+        }
+
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
         if (mPrefs.getRemoteAccessActive())

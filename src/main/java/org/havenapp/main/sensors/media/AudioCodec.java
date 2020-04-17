@@ -26,13 +26,13 @@ public class AudioCodec {
 	public void start() throws IllegalStateException, IOException {
 		if (recorder == null) {
 			minSize = AudioRecord.getMinBufferSize(
-					8000,
+					44100,
 					AudioFormat.CHANNEL_IN_DEFAULT,
 					AudioFormat.ENCODING_PCM_16BIT);
             Log.e("AudioCodec", "Minimum size is " + minSize);
 			recorder = new AudioRecord(
-					MediaRecorder.AudioSource.MIC, 
-					8000,
+					MediaRecorder.AudioSource.MIC,
+					44100,
 					AudioFormat.CHANNEL_IN_DEFAULT,
 					AudioFormat.ENCODING_PCM_16BIT,
 					minSize);

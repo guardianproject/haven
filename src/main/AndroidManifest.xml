@@ -34,7 +34,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 
-    <application xmlns:tools="http://schemas.android.com/tools"
+    <application
         android:name=".HavenApp"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
@@ -44,7 +44,8 @@
         android:fullBackupContent="@xml/backup_config"
         android:supportsRtl="false"
         tools:replace="android:allowBackup,android:supportsRtl"
-        tools:ignore="GoogleAppIndexingWarning">
+        tools:ignore="GoogleAppIndexingWarning"
+        android:requestLegacyExternalStorage="true">
         <activity
             android:name=".ListActivity"
             android:configChanges="orientation|screenSize"
@@ -64,11 +65,11 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ui.PPAppIntro"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="fullSensor" />
         <activity
             android:name=".MonitorActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
+            android:screenOrientation="fullSensor"
             android:launchMode="singleTop"
             android:resizeableActivity="true"
             android:supportsPictureInPicture="true"
@@ -114,7 +115,7 @@
             android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity
             android:name=".ui.CameraConfigureActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="fullSensor"
             android:configChanges="orientation|screenSize|keyboardHidden" />
 
         <receiver android:name=".sensors.PowerConnectionReceiver">
