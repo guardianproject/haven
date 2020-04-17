@@ -180,7 +180,7 @@ public class WebServer extends NanoHTTPD {
         {
             String title = eventTrigger.getStringType(new ResourceManager(mContext));
             String desc = new SimpleDateFormat(Utils.DATE_TIME_PATTERN,
-                    Locale.getDefault()).format(eventTrigger.getTime().toString());
+                    Locale.getDefault()).format(eventTrigger.getTime());
 
             page.append("<b>");
             page.append(title).append("</b><br/>");
