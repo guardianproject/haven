@@ -1,7 +1,7 @@
 package org.havenapp.main.database.migration
 
 /**
- * Created by Arka Prava Basu <arka.basu@zomato.com> on 28/10/18.
+ * Created by Arka Prava Basu <arkaprava94@gmail.com> on 28/10/18.
  */
 class SugarDbTestHelper {
 

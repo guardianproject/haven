@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
 /**
- * Created by Arka Prava Basu <arka.basu@zomato.com> on 27/10/18.
+ * Created by Arka Prava Basu <arkaprava94@gmail.com> on 27/10/18.
  */
 class SugarDbOpenHelper(context: Context, dbName: String)
     : SQLiteOpenHelper(context, dbName, null, 3) {

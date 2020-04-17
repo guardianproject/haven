@@ -12,7 +12,7 @@ import java.io.File
 /**
  * A [Job] to delete files related to deleted logs.
  * <p>
- * Created by Arka Prava Basu <arka.basu@zomato.com> on 28/10/18.
+ * Created by Arka Prava Basu <arkaprava94@gmail.com> on 28/10/18.
  */
 
 const val SERVICE_TAG = "HavenCleanupJob"

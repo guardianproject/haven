@@ -14,7 +14,7 @@ import org.junit.Rule
 import org.junit.Test
 
 /**
- * Created by Arka Prava Basu <arka.basu@zomato.com> on 27/10/18.
+ * Created by Arka Prava Basu <arkaprava94@gmail.com> on 27/10/18.
  */
 class RoomMigrationTest {
     @get:Rule

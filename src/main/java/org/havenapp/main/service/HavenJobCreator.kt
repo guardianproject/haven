@@ -4,7 +4,7 @@ import com.evernote.android.job.Job
 import com.evernote.android.job.JobCreator
 
 /**
- * Created by Arka Prava Basu <arka.basu@zomato.com> on 04/11/18.
+ * Created by Arka Prava Basu <arkaprava94@gmail.com> on 04/11/18.
  */
 class HavenJobCreator : JobCreator {
     override fun create(tag: String): Job? {

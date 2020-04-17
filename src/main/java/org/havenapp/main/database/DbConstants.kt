@@ -1,7 +1,7 @@
 package org.havenapp.main.database
 
 /**
- * Created by Arka Prava Basu <arka.basu@zomato.com> on 19/10/18.
+ * Created by Arka Prava Basu <arkaprava94@gmail.com> on 19/10/18.
  */
 
 const val DB_INIT_START = 0x1
