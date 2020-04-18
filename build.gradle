@@ -178,6 +178,7 @@ dependencies {
     kapt "android.arch.persistence.room:compiler:2.1.0"
     implementation "android.arch.lifecycle:runtime:2.1.0"
     implementation "android.arch.lifecycle:extensions:2.1.0"
+    implementation "androidx.lifecycle:lifecycle-common-java8:2.2.0"
 
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test:runner:1.2.0'
