@@ -124,31 +124,30 @@
     <string name="config_video_length_label">Definir o Comprimento do Monitoramento de Vídeo</string>
     <string name="label_notifications">Notificações</string>
     <string name="sensors">Sensores</string>
-    <string name="phone_number">Número de Notificação (Remoto)</string>
+    <string name="phone_number">número de notificação (Remoto)</string>
     <string name="signal_number">Número do Signal (local)</string>
-    <string name="password">Senha (Obrigatório)</string>
+    <string name="password">Senha (Requerido)</string>
     <string name="service_address">Endereço de Serviço</string>
     <string name="send_text_message">Teste de notificações…</string>
     <string name="send_message_dialog">Digite um número de telefone para enviar uma mensagem teste de alerta de notificação</string>
-    <string name="verification_dialog_summary_verified">O sinal do número foi verificado</string>
-    <string name="verification_dialog_summary">Toque para verificar o sinal do seu número</string>
+    <string name="verification_dialog_summary_verified">Número de sinal verificado</string>
+    <string name="verification_dialog_summary">Toque para verificar o seu número de sinal</string>
     <string name="signal_dialog_summary">Um número de telefone para informar o envio de usando o Signal</string>
     <string name="sms_dialog_message">Digite um número de telefone remoto para enviar as notificações de alerta</string>
     <string name="sms_dialog_summary">Número de telefone remoto para enviar as notificações</string>
     <string name="remote_access_onion_error">Este recurso requer que seja instalado o aplicativo Orbot: Tor para Android.</string>
-    <string name="settings">Configurações</string>
-    <string name="sensor_heartbeat">Batimento cardíaco</string>
-    <string name="sensor_camera_video">Movimento (Vídeo)</string>
-    <string name="register_signal_desc">Digite um número de telefone para se registrar no Signal, para uso e para enviar notificações seguras. Você pode usar o número de telefone deste dispositivo ou configurar um número virtual. 
-\n 
-\nAVISO: Se esse número já estiver emparelhado com uma instalação do aplicativo Signal, ele deixará de funcionar lá e só funcionará com o Haven.</string>
+    <string name="settings">configurações</string>
+    <string name="sensor_heartbeat">batimento cardíaco</string>
+    <string name="sensor_camera_video">Movimento ( vídeo )</string>
+    <string name="register_signal_desc">Digite o numero de telefone para registrar no sinal, para poder enviar notificações seguras. Você pode usar esse numero de telefone do dispositivo ou usar um numero virtual.
+\nAlarme: se esse numero já foi pareado com o sinal da instalação do aplicativo, ele vai parar de funcionar, e apenas funcionará dentro do Haven.</string>
     <string name="verify_signal_by_phone">Ligue para mim</string>
-    <string name="data_battery">BATERIA</string>
-    <string name="power_disconnected">Desconectado</string>
-    <string name="power_source_status">ESTADO:</string>
+    <string name="data_battery">Bateria</string>
+    <string name="power_disconnected">Desconectado:</string>
+    <string name="power_source_status">Estado:</string>
     <string name="power_source_status_ac">Carregamento AC</string>
-    <string name="power_source_status_wireless">Carregamento Sem Fio</string>
-    <string name="power_source_status_usb">Carregamento USB</string>
+    <string name="power_source_status_wireless">Carregamento sem fio</string>
+    <string name="power_source_status_usb">carregamento USB</string>
     <string name="remote_access">Acesso Remoto</string>
     <string name="remote_notification_label">Enviar Mensagens com Sinais de Alertas</string>
     <string name="ok">OK</string>
