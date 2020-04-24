@@ -125,17 +125,17 @@
     <string name="label_notifications">Notificações</string>
     <string name="sensors">Sensores</string>
     <string name="phone_number">número de notificação (Remoto)</string>
-    <string name="signal_number">Número do Signal (local)</string>
+    <string name="signal_number">Número do sinal (local)</string>
     <string name="password">Senha (Requerido)</string>
-    <string name="service_address">Endereço de Serviço</string>
-    <string name="send_text_message">Teste de notificações…</string>
-    <string name="send_message_dialog">Digite um número de telefone para enviar uma mensagem teste de alerta de notificação</string>
+    <string name="service_address">Endereço de serviço</string>
+    <string name="send_text_message">Testar Notificações…</string>
+    <string name="send_message_dialog">Digite um numero de telefone para enviar uma mensagem de notificação de alerta de teste para</string>
     <string name="verification_dialog_summary_verified">Número de sinal verificado</string>
     <string name="verification_dialog_summary">Toque para verificar o seu número de sinal</string>
-    <string name="signal_dialog_summary">Um número de telefone para informar o envio de usando o Signal</string>
-    <string name="sms_dialog_message">Digite um número de telefone remoto para enviar as notificações de alerta</string>
-    <string name="sms_dialog_summary">Número de telefone remoto para enviar as notificações</string>
-    <string name="remote_access_onion_error">Este recurso requer que seja instalado o aplicativo Orbot: Tor para Android.</string>
+    <string name="signal_dialog_summary">Um número de telefone para enviar usando o Sinal</string>
+    <string name="sms_dialog_message">Digite um número de telefone remoto para enviar notificações de alerta para</string>
+    <string name="sms_dialog_summary">Número de telefone remoto para enviar notificações para</string>
+    <string name="remote_access_onion_error">Esse recurso requer a instalação do aplicativo Orbot: Tor para Android.</string>
     <string name="settings">configurações</string>
     <string name="sensor_heartbeat">batimento cardíaco</string>
     <string name="sensor_camera_video">Movimento ( vídeo )</string>
@@ -149,6 +149,6 @@
     <string name="power_source_status_wireless">Carregamento sem fio</string>
     <string name="power_source_status_usb">carregamento USB</string>
     <string name="remote_access">Acesso Remoto</string>
-    <string name="remote_notification_label">Enviar Mensagens com Sinais de Alertas</string>
+    <string name="remote_notification_label">Enviar alertas de mensagem de sinal</string>
     <string name="ok">OK</string>
 </resources>
