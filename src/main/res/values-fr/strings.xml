@@ -2,7 +2,7 @@
 <resources>
     <string name="menu_save">Enregistrer</string>
     <string name="menu_about">Configuration…</string>
-    <string name="title_activity_start">Haven</string>
+    <string name="title_activity_start">Refuge</string>
     <string name="accelerometer_prompt">Sensibilité au mouvement</string>
     <string name="microphone_sensitivity">Sensibilité au son</string>
     <string name="timer_delay_label">Définir un délai</string>
@@ -16,33 +16,33 @@
     <string name="title_activity_event">Activitéd’événement</string>
     <string name="action_settings">Paramètres</string>
     <string name="intro1_title">Bienvenue sur Refuge</string>
-    <string name="intro1_desc">« Now when the ark of human fate,
-\nLong baffled by the wayward wind,
-\nIs drifting with its peopled freight,
-\nSAFE HAVEN on the height find… »
-\n-George Meredith</string>
+    <string name="intro1_desc">« Alors que l’arche de la destinée humaine 
+\nLongtemps déroutée par le vent capricieux 
+\nDérive avec son chargement d’âmes, 
+\nSur les hauteurs un lieu de REFUGE de trouver… » 
+\n– George Meredith</string>
     <string name="intro2_title">Refuge est pour ceux qui souhaitent surveiller les intrusions chez eux, au travail, dans leur chambre d’hôtel ou tout autre espace privé</string>
     <string name="intro3_desc">Transformez un téléphone non utilisé en détecteur de mouvements, de sons, de vibrations et de lumière, à l’affût des visiteurs imprévus et des intrus</string>
-    <string name="intro4_desc">Soyez informé instantanément des intrusions et accédez à distance ou ultérieurement en personne aux journaux des événements</string>
+    <string name="intro4_desc">Soyez informé instantanément des intrusions et accédez aux journaux des événements à distance ou ultérieurement en personne</string>
     <string name="intro5_title">Votre Refuge est prêt</string>
     <string name="intro5_desc">Activez l’appli en tout temps grâce au bouton d’action &gt; sur l’écran principal</string>
     <string name="onboarding_action_end">Terminer</string>
     <string name="remote_access">Accès à distance</string>
-    <string name="remote_access_label">Activer l’accès à distance avec le service Onion de Tor</string>
-    <string name="remote_access_hint">Adresse du service Onion d’Orbot</string>
+    <string name="remote_access_label">Activer l’accès à distance par le service onion de Tor</string>
+    <string name="remote_access_hint">Adresse du service onion d’Orbot</string>
     <string name="remote_access_credential_hint">Définir un mot de passe d’accès à distance</string>
     <string name="camera_front">Avant</string>
     <string name="camera_back">Arrière</string>
     <string name="camera_none">Aucun</string>
     <string name="action_configure">Configurer</string>
-    <string name="main_screen_title">Vos journaux de Refuge</string>
-    <string name="current_noise_base">Le niveau de son actuel est de</string>
-    <string name="current_accel_base">Le niveau de mouvement actuel est de</string>
+    <string name="main_screen_title">Votre journal Refuge</string>
+    <string name="current_noise_base">Le niveau de son actuel est</string>
+    <string name="current_accel_base">Le niveau de mouvement actuel est</string>
     <string name="configure_trigger_level">Faire glisser pour définir le seuil de détection</string>
-    <string name="tune_the_sound_detection">Faites du bruit !</string>
+    <string name="tune_the_sound_detection">Faites du bruit !</string>
     <string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">Placez votre téléphone sur la table et faites du bruit dans la pièce pour déterminer le bon niveau de détection</string>
     <string name="tune_the_accel_detection">Secouez-le !</string>
-    <string name="tune_the_accel_detection_more">Déplacez votre téléphone dans l’espace pour déterminer le seuil de détection des mouvements</string>
+    <string name="tune_the_accel_detection_more">Déplacez votre téléphone dans l’espace pour régler le seuil de détection des mouvements</string>
     <string name="set_a_countdown_time">Toucher pour changer le compte à rebours</string>
     <string name="start_now">Lancer maintenant</string>
     <string name="start_later">Consulter les journaux</string>
@@ -51,24 +51,24 @@
     <string name="status_on">ACTIF</string>
     <string name="you_will_receive_a_text_when_the_app_hears_or_sees_something">Vous recevrez un texto si l’appli entend ou voit quelque chose</string>
     <string name="know_immediately_when_haven_detects_something">Soyez immédiatement informé si Refuge détecte quelque chose</string>
-    <string name="phone_saved">Le numéro de téléphone a été enregistré !</string>
+    <string name="phone_saved">Le numéro de téléphone a été enregistré !</string>
     <string name="detection_events">événements de détection</string>
-    <string name="data_speed">ACCÉLÉRATION :</string>
+    <string name="data_speed">ACCÉLÉRATION</string>
     <string name="data_light">LUMIÈRE</string>
     <string name="data_pressure">PRESSION</string>
     <string name="data_power">ALIMENTATION</string>
     <string name="share_event_action">Partager l’événement…</string>
-    <string name="signal_test_message">Ceci est un message de test de Refuge</string>
+    <string name="signal_test_message">Ceci est un message test de Refuge</string>
     <string name="send_test_message">Envoyer un message de test</string>
-    <string name="verify">Vérifier</string>
+    <string name="verify">Confirmer</string>
     <string name="register">S’inscrire</string>
     <string name="activate_signal">Activer Signal</string>
-    <string name="verify_signal">Vérifier Signal</string>
-    <string name="enter_verification">Saisissez le code de vérification que vous avez reçu lors de l’inscription à Signal</string>
+    <string name="verify_signal">Confirmer Signal</string>
+    <string name="enter_verification">Saisissez le code de confirmation que vous avez reçu lors de l’inscription à Signal</string>
     <string name="cancel">Annuler</string>
     <string name="register_title">S’inscrire sur Signal</string>
-    <string name="register_signal_desc">Saisissez un numéro de téléphone à inscrire à Signal, numéro qui sera utilisé pour envoyer des notifications sécurisées. Vous pouvez utiliser le numéro de cet appareil ou mettre en place un numéro virtuel.
-\n
+    <string name="register_signal_desc">Saisissez un numéro de téléphone pour l’inscription sur Signal, à utiliser pour envoyer des notifications sécurisées. Vous pouvez utiliser le numéro de cet appareil ou mettre en place un numéro virtuel. 
+\n 
 \nAVERTISSEMENT : Si ce numéro est déjà relié à une installation de Signal, il cessera d’y fonctionner et ne fonctionnera qu’avec Refuge.</string>
     <string name="phone_hint">+12125551212</string>
     <string name="menu_licenses">Licences…</string>
@@ -80,12 +80,12 @@
     <string name="sensor_bump">Choc (accéléromètre)</string>
     <string name="sensor_unknown">Inconnu</string>
     <string name="settings">Paramètres</string>
-    <string name="remote_access_onion_error">Cette fonction exige que l’appli Orbot : Tor pour Android soit installée.</string>
-    <string name="sms_dialog_summary">Numéro de téléphone distant où envoyer les notifications</string>
-    <string name="sms_dialog_message">Saisissez un numéro de téléphone distant où envoyer les notifications d’alerte</string>
+    <string name="remote_access_onion_error">Pour cette fonction, l’appli Orbot : Tor pour Android doit être installée.</string>
+    <string name="sms_dialog_summary">Numéro de téléphone distant auquel envoyer les notifications</string>
+    <string name="sms_dialog_message">Saisissez un numéro de téléphone distant auquel envoyer les notifications d’alerte</string>
     <string name="signal_dialog_summary">Un numéro de téléphone à partir duquel envoyer avec Signal</string>
-    <string name="verification_dialog_summary">Touchez pour vérifier votre numéro Signal</string>
-    <string name="send_message_dialog">Saisissez un numéro de téléphone où envoyer un message de notification d’alerte de test</string>
+    <string name="verification_dialog_summary">Toucher pour confirmer votre numéro Signal</string>
+    <string name="send_message_dialog">Saisissez un numéro de téléphone auquel envoyer un message test de notification d’alerte</string>
     <string name="send_text_message">Tester les notifications…</string>
     <string name="service_address">Adresse du service</string>
     <string name="password">Mot de passe (exigé)</string>
@@ -95,17 +95,17 @@
     <string name="label_notifications">Notifications</string>
     <string name="camera_sensitivity">Sensibilité de l’appareil photo</string>
     <string name="notification_time">Fréquence de notification</string>
-    <string name="notification_time_summary">N’envoyer les notifications qu’à la fréquence définie</string>
+    <string name="notification_time_summary">N’envoyer des notifications qu’à la fréquence définie</string>
     <string name="notification_time_dialog">Saisissez la fréquence la plus courte de répétition des notifications (en minutes). Saisissez « 0 » pour les envoyer toutes.</string>
     <string name="minutes">minute(s)</string>
-    <string name="keep_watch">Surveillez !</string>
-    <string name="camera_sensitivity_tip">Utilisez le curseur pour régler la sensibilité de détection de mouvement, avec un objectif de 0 % quand il n’y a pas de mouvement.</string>
+    <string name="keep_watch">Surveillez !</string>
+    <string name="camera_sensitivity_tip">Utilisez le curseur pour régler la sensibilité de détection de mouvements, avec un objectif de 0 % quand il n’y a pas de mouvement.</string>
     <string name="disable_battery_opt_title">Désactiver les optimisations de la pile</string>
     <string name="disable_battery_opt_summary">Permettre à l’appli de fonctionner quand l’écran est éteint</string>
     <string name="remove_all_logs">Supprimer tous les journaux</string>
     <string name="event_deleted">L’événement a été supprimé</string>
-    <string name="undo">Annuler</string>
-    <string name="events_deleted">Évènements supprimés</string>
+    <string name="undo">ANNULER</string>
+    <string name="events_deleted">Les évènements ont été supprimés</string>
     <string name="verify_signal_by_phone">Plutôt m’appeler</string>
     <string name="sensor_camera_video">Mouvement (vidéo)</string>
     <string name="video_settings">Paramètres de la vidéo</string>
@@ -120,43 +120,45 @@
     <string name="power_source_status">ÉTAT :</string>
     <string name="power_disconnected">Déconnecté</string>
     <string name="data_battery">PILE</string>
-    <string name="verification_dialog_summary_verified">Le numéro Signal a été vérifié</string>
+    <string name="verification_dialog_summary_verified">Le numéro Signal a été confirmé</string>
     <string name="config_video_length_label">Définir la durée de surveillance vidéo</string>
     <string name="video_monitoring">Surveillance vidéo</string>
-    <string name="hearbeat_monitor_initial_message_2">minute(s) que Haven est actif et surveille.</string>
-    <string name="battery_level_msg_text">Niveau de la batterie</string>
+    <string name="hearbeat_monitor_initial_message_2">minute(s) que Refuge est actif et surveille.</string>
+    <string name="battery_level_msg_text">Niveau de la pile</string>
     <string name="title_activity_video_player">Activité du lecteur vidéo</string>
     <string name="config_storage_path">Chemin du dossier de stockage</string>
-    <string name="config_storage_page_hint">Où les médias sont enregistrés</string>
+    <string name="config_storage_page_hint">Où les médias capturés sont enregistrés</string>
     <string name="event_trigger_deleted">Le déclencheur d’événement a été supprimé</string>
     <string name="please_wait">Veuillez patienter…</string>
     <string name="migrating_data">Recherche d’anciennes données</string>
-    <string name="path_chars">0123456789aàâbcdeéèêëfghiîjklmnoòöœpqrstuùüvwxyzAÀBCDEÉÈÊËFGHIÎJKLMNOÒÖŒPQRSTUÙÜVWXYZ-_/</string>
-    <string name="motion_detected">MOUVEMENT DÉTECTÉ</string>
-    <string name="sound_detected">SON DÉTECTÉ</string>
-    <string name="device_move_detected">MOUVEMENT DE L’APPAREIL DÉTECTÉ</string>
-    <string name="power_detected">CHANGEMENT D’ALIMENTATION DÉTECTÉ</string>
+    <string name="path_chars">0123456789aàâbcdeéèêëfghiîïjklmnoòöœpqrstuùûüvwxyzAÀÂBCDEÉÈÊËFGHIÎÏJKLMNOÒÖŒPQRSTUÙÛÜVWXYZ-_/</string>
+    <string name="motion_detected">UN MOUVEMENT A ÉTÉ DÉTECTÉ</string>
+    <string name="sound_detected">UN SON A ÉTÉ DÉTECTÉ</string>
+    <string name="device_move_detected">UN MOUVEMENT DE L’APPAREIL A ÉTÉ DÉTECTÉ</string>
+    <string name="power_detected">UN CHANGEMENT D’ALIMENTATION A ÉTÉ DÉTECTÉ</string>
     <string name="status_recording_video">Enregistrement…</string>
-    <string name="status_light">LUMIÈRE DÉTECTÉE</string>
+    <string name="status_light">UNE LUMIÈRE A ÉTÉ DÉTECTÉE</string>
     <string name="registering_to_signal">Inscription à Signal</string>
     <string name="signal_registration_desc">En attente d’inscription auprès des services de Signal</string>
-    <string name="verifying_signal">Vérification</string>
+    <string name="verifying_signal">Confirmation</string>
     <string name="verifying_signal_desc">En attente de confirmation de l’inscription auprès des services de Signal</string>
     <string name="ok">Valider</string>
     <string name="registration_successful">Inscrit</string>
-    <string name="signal_reg_success_desc">Vous êtes inscrit·e auprès des services de Signal. Maintenant, vérifiez l’inscription pour %s</string>
-    <string name="signal_verification_success_desc">Tout est en place pour envoyer des alertes Haven à partir de Signal.</string>
-    <string name="setup_signal_toast">Veuillez configurer les notifications vers Signal dans les paramètres</string>
+    <string name="signal_reg_success_desc">L’inscription auprès des services de Signal est effective. Confirmez maintenant l’inscription pour %s</string>
+    <string name="signal_verification_success_desc">Tout est en place pour envoyer des alertes Refuge à partir de Signal.</string>
+    <string name="setup_signal_toast">Veuillez configurer dans les paramètres les notifications vers Signal</string>
     <string name="reset_signal_configuration">Réinitialiser la configuration de Signal</string>
-    <string name="reset_configuration_question">Réinitialiser la configuration de Signal \?</string>
-    <string name="reset_configuration_desc">Toutes les configurations relatives à Signal seront effacées. Vous devrez vous réinscrire et revérifier l’inscription pour utiliser les services de Signal. Le voulez-vous vraiment \?</string>
+    <string name="reset_configuration_question">Réinitialiser la configuration de Signal \?</string>
+    <string name="reset_configuration_desc">Toutes les configurations relatives à Signal seront effacées. Vous devrez vous réinscrire et reconfirmer l’inscription pour utiliser les services de Signal à l’avenir. Le voulez-vous vraiment \?</string>
     <string name="run_disk_cleanup">Effacer de l’appareil les journaux supprimés</string>
-    <string name="sensor_heartbeat">Battement cardiaque</string>
-    <string name="hearbeat_monitor">Haven – moniteur cardiaque</string>
-    <string name="hearbeat_monitor_enable">Activer l\'alerte cardiaque</string>
-    <string name="heartbeat_time_dialog">Entrer un intervalle (en minutes) pour envoyer le % de la batterie et un émoji cœur mono-caractère. Les alertes cessent quand Haven arrête sa surveillance pour une raison ou une autre.</string>
-    <string name="hearbeat_message_dialog">Personnaliser le message de notification cardiaque.
-\nLaisser blanc pour utiliser l\'émoji cœur.</string>
-    <string name="hearbeat_monitor_initial_message_1">Moniteur caridiaque activé : vous recevrez une notification toutes les</string>
-    <string name="verification_successful">Vérifié</string>
+    <string name="sensor_heartbeat">Battement de cœur</string>
+    <string name="hearbeat_monitor">Haven – moniteur de battements de cœur</string>
+    <string name="hearbeat_monitor_enable">Activer l’alerte de battements de cœur</string>
+    <string name="heartbeat_time_dialog">Saisissez une fréquence (en minutes) pour envoyer le pourcentage de la pile et un émoji monocaractère de cœur. Les alertes cessent quand Refuge arrête sa surveillance pour quelque raison que ce soit.</string>
+    <string name="hearbeat_message_dialog">Personnalisez le message de notification de battement de cœur. Laissez vide pour utiliser l’émoji de cœur par défaut.</string>
+    <string name="hearbeat_monitor_initial_message_1">Moniteur de battements de cœur est activé : vous recevrez une notification toutes les</string>
+    <string name="verification_successful">A été confirmée</string>
+    <string name="hint_number" translatable="false">+12125551212</string>
+    <string name="app_name" translatable="false">Refuge</string>
+    <string name="bullets" translatable="false">•••••••</string>
 </resources>
