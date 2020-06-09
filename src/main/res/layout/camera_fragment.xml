@@ -23,26 +23,4 @@
         app:cameraGestureScrollHorizontal="none"
         app:cameraGestureScrollVertical="none"
         app:cameraMode="picture" />
-
-    <ImageView
-        android:id="@+id/new_image"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal"
-        android:background="@color/transparent"
-        android:scaleType="fitXY"
-        />
-
-    <TextView
-        android:id="@+id/camera_status_display"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text=""
-        android:textColor="?colorPrimary"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="80dp"
-        />
 </FrameLayout>

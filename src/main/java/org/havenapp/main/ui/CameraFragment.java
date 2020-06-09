@@ -32,18 +32,12 @@ import org.havenapp.main.model.EventTrigger;
 public final class CameraFragment extends Fragment {
 
     private CameraViewHolder cameraViewHolder;
-    private ImageView newImage;
     private PreferenceManager prefs;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.camera_fragment, container, false);
-        newImage = view.findViewById(R.id.new_image);
-
-        return view;
-
+        return inflater.inflate(R.layout.camera_fragment, container, false);
     }
 
     public void setMotionSensitivity (int threshold)
@@ -66,10 +60,7 @@ public final class CameraFragment extends Fragment {
     public void onResume() {
         super.onResume();
         initCamera();
-
         cameraViewHolder.setMotionSensitivity(prefs.getCameraSensitivity());
-
-
     }
 
     public void updateCamera ()
@@ -81,8 +72,6 @@ public final class CameraFragment extends Fragment {
 
     public void initCamera ()
     {
-
-
         PreferenceManager prefs = new PreferenceManager(getActivity());
 
         if (prefs.getCameraActivation()) {
@@ -112,19 +101,12 @@ public final class CameraFragment extends Fragment {
         }
 
         cameraViewHolder.startCamera();
-
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-
         if (cameraViewHolder != null)
             cameraViewHolder.destroy();
-
-    }
-
-    public void onSensorChanged(SensorEvent event) {
-
     }
 }
