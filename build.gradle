@@ -44,7 +44,7 @@ allprojects {
         version_number = getVersionName()
         group_info = "haven"
         buildToolsVersion = "29.0.2"
-        minSdkVersion = 16
+        minSdkVersion = 21
         targetSdkVersion = 29
     }
 
@@ -82,7 +82,7 @@ android {
         versionCode 2001
         versionName getVersionName()
         archivesBaseName = "Haven-$versionName"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 29
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_8
@@ -193,6 +193,13 @@ dependencies {
 
     // new camera view: https://github.com/natario1/CameraView
     implementation 'com.otaliastudios:cameraview:2.4.0'
+
+    // CameraX core library using camera2 implementation
+    implementation "androidx.camera:camera-camera2:1.0.0-beta04"
+    // CameraX Lifecycle Library
+    implementation "androidx.camera:camera-lifecycle:1.0.0-beta04"
+    // CameraX View class
+    implementation "androidx.camera:camera-view:1.0.0-alpha11"
 
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.2'
 }
