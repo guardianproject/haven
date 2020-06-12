@@ -1,0 +1,276 @@
+/*
+ * Copyright (c) 2017 Nathanial Freitas / Guardian Project
+ *  * Licensed under the GPLv3 license.
+ *
+ * Copyright (c) 2013-2015 Marco Ziccardi, Luca Bonato
+ * Licensed under the MIT license.
+ */
+package org.havenapp.main.ui
+
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
+import android.content.ServiceConnection
+import android.graphics.ImageFormat
+import android.net.Uri
+import android.os.Bundle
+import android.os.IBinder
+import android.os.Message
+import android.os.Messenger
+import android.util.Log
+import android.util.Size
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.camera.core.*
+import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.camera.view.PreviewView
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import kotlinx.coroutines.*
+import org.havenapp.main.PreferenceManager
+import org.havenapp.main.R
+import org.havenapp.main.Utils
+import org.havenapp.main.model.EventTrigger
+import org.havenapp.main.sensors.motion.LuminanceMotionDetector
+import org.havenapp.main.sensors.motion.MotionDetector
+import org.havenapp.main.service.MonitorService
+import org.havenapp.main.usecase.MotionAnalyser
+import java.io.File
+import java.lang.Runnable
+import java.text.SimpleDateFormat
+import java.util.*
+import java.util.concurrent.Executors
+
+class CameraFragment : Fragment() {
+    private var cameraViewHolder: CameraViewHolder? = null
+    private var prefs: PreferenceManager? = null
+
+    private var preview: Preview? = null
+    private var imageCapture: ImageCapture? = null
+    private var imageAnalyzer: ImageAnalysis? = null
+    private var videoCapture: VideoCapture? = null
+    private var camera: Camera? = null
+
+    private var recordingEvent = false
+
+    private val job = SupervisorJob()
+    private val uiScope = CoroutineScope(Dispatchers.Main + job)
+
+    /**
+     * Sensitivity of motion detection
+     */
+    private var motionSensitivity = LuminanceMotionDetector.MOTION_MEDIUM
+
+    private val motionDetector = MotionDetector(motionSensitivity)
+
+    private val analysisFrameSize = Size(640, 480)
+    private val motionAnalyser = MotionAnalyser(
+            ImageFormat.YUV_420_888,
+            analysisFrameSize,
+            motionDetector
+    )
+
+    /**
+     * Messenger used to signal motion to the alert service
+     */
+    private var serviceMessenger: Messenger? = null
+
+    private val connection: ServiceConnection = object : ServiceConnection {
+        override fun onServiceConnected(className: ComponentName, service: IBinder) {
+            Log.i("CameraFragment", "SERVICE CONNECTED")
+            // We've bound to LocalService, cast the IBinder and get LocalService instance
+            serviceMessenger = Messenger(service)
+            motionAnalyser.setAnalyze(true)
+        }
+
+        override fun onServiceDisconnected(arg0: ComponentName) {
+            Log.i("CameraFragment", "SERVICE DISCONNECTED")
+            motionAnalyser.setAnalyze(false)
+            serviceMessenger = null
+        }
+    }
+
+    private val cameraExecutor = Executors.newSingleThreadExecutor()
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.camera_fragment, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        prefs = PreferenceManager(requireContext())
+        initCamera()
+        // We bind to the alert service
+        requireContext().bindService(Intent(context, MonitorService::class.java),
+                connection, Context.BIND_ABOVE_CLIENT)
+        motionDetector.resultLiveData.observe(viewLifecycleOwner, Observer {
+            val iEvent = Intent("event").apply {
+                putExtra("type", EventTrigger.CAMERA)
+                putExtra("detected", it.motionDetected)
+                putExtra("changed", it.pixelsChanged)
+            }
+            LocalBroadcastManager.getInstance(requireActivity()).sendBroadcast(iEvent)
+            if (it.motionDetected) {
+                takePhoto()
+                recordVideo()
+            }
+        })
+    }
+
+    override fun onDestroyView() {
+        requireContext().unbindService(connection)
+        super.onDestroyView()
+    }
+
+    override fun onDestroy() {
+        cameraExecutor.shutdown()
+        job.cancel()
+        super.onDestroy()
+        cameraViewHolder?.destroy()
+    }
+
+    fun setMotionSensitivity(threshold: Int) {
+        this.motionSensitivity = threshold
+        motionDetector.setMotionSensitivity(motionSensitivity)
+        cameraViewHolder?.setMotionSensitivity(threshold)
+    }
+
+    fun updateCamera() {
+        cameraViewHolder?.updateCamera()
+    }
+
+    fun initCamera() {
+//        val prefs = PreferenceManager(requireActivity())
+//        if (prefs.cameraActivation) {
+//            //Uncomment to see the camera
+//            val cameraView: CameraView = requireActivity().findViewById(R.id.camera_view)
+//            cameraView.audio = Audio.OFF
+//            cameraView.setLifecycleOwner(this)
+//            if (cameraViewHolder == null) {
+//                cameraViewHolder = CameraViewHolder(activity, cameraView)
+//                cameraViewHolder!!.addListener { percChanged: Int, rawBitmap: Bitmap?, motionDetected: Boolean ->
+//                    if (!isDetached) {
+//                        val iEvent = Intent("event")
+//                        iEvent.putExtra("type", EventTrigger.CAMERA)
+//                        iEvent.putExtra("detected", motionDetected)
+//                        iEvent.putExtra("changed", percChanged)
+//                        LocalBroadcastManager.getInstance(requireActivity()).sendBroadcast(iEvent)
+//                    }
+//                }
+//            }
+//        }
+//        cameraViewHolder!!.startCamera()
+        val viewFinder = requireView().findViewById<PreviewView>(R.id.pv_preview)
+        val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
+
+        cameraProviderFuture.addListener(Runnable {
+            // Used to bind the lifecycle of cameras to the lifecycle owner
+            val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
+
+            // Preview
+            preview = Preview.Builder().build()
+            // image capture
+            imageCapture = ImageCapture.Builder()
+                    .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
+                    .build()
+            // analysis
+            imageAnalyzer = ImageAnalysis.Builder()
+                    .setDefaultResolution(analysisFrameSize) // todo
+                    .setMaxResolution(analysisFrameSize) // todo
+                    .build()
+                    .also {
+                        it.setAnalyzer(cameraExecutor, motionAnalyser)
+                    }
+            // video capture
+//            videoCapture = VideoCaptureConfig.Builder()
+//                    .setTargetResolution(analysisFrameSize)
+//                    .build()
+
+            // Select back camera
+            val cameraSelector = CameraSelector.Builder()
+                    .requireLensFacing(CameraSelector.LENS_FACING_FRONT)
+                    .build()
+
+            try {
+                // Unbind use cases before rebinding
+                cameraProvider.unbindAll()
+
+                // Bind use cases to camera
+                camera = cameraProvider.bindToLifecycle(viewLifecycleOwner, cameraSelector,
+                        preview, imageCapture, imageAnalyzer)
+                preview?.setSurfaceProvider(viewFinder.createSurfaceProvider())
+            } catch (exc: Exception) {
+                Log.e(TAG, "Use case binding failed", exc)
+            }
+
+        }, ContextCompat.getMainExecutor(requireContext()))
+    }
+
+    private fun takePhoto() {
+        // if we are not connected to the service; we are not monitoring
+        if (serviceMessenger == null) {
+            return
+        }
+        // Get a stable reference of the modifiable image capture use case
+        val imageCapture = imageCapture ?: return
+
+        // Create timestamped output file to hold the image
+        val fileImageDir = File(requireContext().getExternalFilesDir(null), prefs!!.defaultMediaStoragePath)
+        fileImageDir.mkdirs()
+        val ts = SimpleDateFormat(Utils.DATE_TIME_PATTERN, Locale.getDefault()).format(Date())
+        val photoFile = File(fileImageDir, "${ts}.detected.original.jpg")
+
+        // Create output options object which contains file + metadata
+        val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
+
+        // Setup image capture listener which is triggered after photo has been taken
+        imageCapture.takePicture(outputOptions, ContextCompat.getMainExecutor(requireContext()),
+                object : ImageCapture.OnImageSavedCallback {
+                    override fun onError(exc: ImageCaptureException) {
+                        Log.e(TAG, "Photo capture failed: ${exc.message}", exc)
+                    }
+
+                    override fun onImageSaved(output: ImageCapture.OutputFileResults) {
+                        val savedUri = Uri.fromFile(photoFile)
+                        val msg = "Photo capture succeeded: ${savedUri.path}"
+                        Log.d(TAG, msg)
+                        val message = Message().apply {
+                            what = EventTrigger.CAMERA
+                            data.putString(MonitorService.KEY_PATH, savedUri.path)
+                        }
+                        serviceMessenger?.send(message) ?: kotlin.run {
+                            Log.e(TAG, "Failed to send ${savedUri.path} to service")
+                        }
+                    }
+                })
+    }
+
+    private fun recordVideo() {
+        // don't record if monitoring is not set or already recording event or service is not running
+        if (prefs?.videoMonitoringActive != true || recordingEvent || serviceMessenger == null) {
+            return
+        }
+        val videoMonitoringLength = 4_000L
+        uiScope.launch {
+            videoCapture?.let {
+                recordingEvent = true
+                it.startRecording(requireContext().filesDir, cameraExecutor, object : VideoCapture.OnVideoSavedCallback {
+                    override fun onVideoSaved(file: File) = Unit
+
+                    override fun onError(videoCaptureError: Int, message: String, cause: Throwable?) = Unit
+                })
+                delay(videoMonitoringLength)
+                it.stopRecording()
+                recordingEvent = false
+            }
+        }
+    }
+
+    companion object {
+        private val TAG = CameraFragment::class.java.simpleName
+    }
+}

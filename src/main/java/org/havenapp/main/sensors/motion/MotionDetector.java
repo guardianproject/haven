@@ -9,12 +9,13 @@ package org.havenapp.main.sensors.motion;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.ImageFormat;
-import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.graphics.YuvImage;
-import android.os.Handler;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import org.havenapp.main.sensors.media.ImageCodec;
 
@@ -31,6 +32,8 @@ import java.util.List;
  *
  */
 public class MotionDetector {
+
+	private MutableLiveData<MotionDetectorResult> resultLiveData = new MutableLiveData<>();
 	
 	// Input data
 	
@@ -50,14 +53,11 @@ public class MotionDetector {
 	public void addListener(MotionListener listener) {
 		listeners.add(listener);
 	}
-	
-	public MotionDetector(
-			int motionSensitivity) {
+
+	public MotionDetector(int motionSensitivity) {
 		this.motionSensitivity = motionSensitivity;
         detector = new LuminanceMotionDetector();
 		detector.setThreshold(motionSensitivity);
-
-
     }
 
 	public void setMotionSensitivity (int motionSensitivity)
@@ -118,6 +118,7 @@ public class MotionDetector {
                             rawBitmap,
                             true);
                 }
+				resultLiveData.postValue(new MotionDetectorResult(percChanged, true, rawBitmap));
 			}
 			else
             {
@@ -127,12 +128,9 @@ public class MotionDetector {
                             null,
                             false);
                 }
-
+				resultLiveData.postValue(new MotionDetectorResult(0, true, null));
             }
-
 		}
-
-
 	}
 
 	public static Bitmap convertImage (byte[] nv21bytearray, int width, int height)
@@ -145,5 +143,15 @@ public class MotionDetector {
 		return bitmap;
 	}
 
-
+	/**
+	 * A {@link LiveData} to post result from {@link #detect(byte[], byte[], int, int)}
+	 * <p>
+	 * We can use either this or {@link MotionListener} but this will be Lifecycle aware
+	 *
+	 * @return a {@link LiveData} to observe for motion detection result
+	 */
+	@NonNull
+	public LiveData<MotionDetectorResult> getResultLiveData() {
+		return resultLiveData;
+	}
 }
