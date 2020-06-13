@@ -23,6 +23,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.camera.core.*
+import androidx.camera.core.impl.VideoCaptureConfig
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
@@ -114,8 +115,7 @@ class CameraFragment : Fragment() {
                 }
                 LocalBroadcastManager.getInstance(requireActivity()).sendBroadcast(iEvent)
                 if (it.motionDetected) {
-                    takePhoto()
-                    recordVideo()
+                    captureCameraEvent()
                 }
             }
         })
@@ -151,6 +151,8 @@ class CameraFragment : Fragment() {
             // Used to bind the lifecycle of cameras to the lifecycle owner
             val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
 
+            val videoMonitoring = prefs?.videoMonitoringActive ?: false
+
             // Preview
             preview = Preview.Builder().build()
             // image capture
@@ -166,9 +168,9 @@ class CameraFragment : Fragment() {
                         it.setAnalyzer(cameraExecutor, motionAnalyser)
                     }
             // video capture
-//            videoCapture = VideoCaptureConfig.Builder()
-//                    .setTargetResolution(analysisFrameSize)
-//                    .build()
+            videoCapture = VideoCaptureConfig.Builder()
+                    .setTargetResolution(analysisFrameSize)
+                    .build()
 
             // Select camera
             val lensFacing = when (cameraPref) {
@@ -186,13 +188,21 @@ class CameraFragment : Fragment() {
 
                 // Bind use cases to camera
                 camera = cameraProvider.bindToLifecycle(viewLifecycleOwner, cameraSelector,
-                        preview, imageCapture, imageAnalyzer)
+                        preview, if (videoMonitoring) videoCapture else imageCapture, imageAnalyzer)
                 preview?.setSurfaceProvider(viewFinder.createSurfaceProvider())
             } catch (exc: Exception) {
                 Log.e(TAG, "Use case binding failed", exc)
             }
 
         }, ContextCompat.getMainExecutor(requireContext()))
+    }
+
+    private fun captureCameraEvent() {
+        if (prefs?.videoMonitoringActive == true) {
+            recordVideo()
+        } else {
+            takePhoto()
+        }
     }
 
     private fun takePhoto() {
@@ -239,14 +249,31 @@ class CameraFragment : Fragment() {
         if (prefs?.videoMonitoringActive != true || recordingEvent || serviceMessenger == null) {
             return
         }
+        Log.d(TAG, "Start record video")
         val videoMonitoringLength = 4_000L
         uiScope.launch {
             videoCapture?.let {
                 recordingEvent = true
-                it.startRecording(requireContext().filesDir, cameraExecutor, object : VideoCapture.OnVideoSavedCallback {
-                    override fun onVideoSaved(file: File) = Unit
+                // Create timestamped output file to hold the image
+                val fileImageDir = File(requireContext().getExternalFilesDir(null), prefs!!.defaultMediaStoragePath)
+                fileImageDir.mkdirs()
+                val ts = SimpleDateFormat(Utils.DATE_TIME_PATTERN, Locale.getDefault()).format(Date())
+                val videoFile = File(fileImageDir, "${ts}.detected.original.mp4")
+                it.startRecording(videoFile, cameraExecutor, object : VideoCapture.OnVideoSavedCallback {
+                    override fun onVideoSaved(file: File) {
+                        Log.e(TAG, "Saved video with to $file")
+                        val message = Message().apply {
+                            what = EventTrigger.CAMERA_VIDEO
+                            data.putString(MonitorService.KEY_PATH, videoFile.absolutePath)
+                        }
+                        serviceMessenger?.send(message) ?: kotlin.run {
+                            Log.e(TAG, "Failed to send ${videoFile.absolutePath} to service")
+                        }
+                    }
 
-                    override fun onError(videoCaptureError: Int, message: String, cause: Throwable?) = Unit
+                    override fun onError(videoCaptureError: Int, message: String, cause: Throwable?) {
+                        Log.e(TAG, "Failed to save video with error $videoCaptureError, $message, $cause")
+                    }
                 })
                 delay(videoMonitoringLength)
                 it.stopRecording()
