@@ -1,14 +1,17 @@
 package org.havenapp.main.usecase
 
 import android.graphics.ImageFormat
+import android.os.Looper
+import android.util.Log
 import android.util.Size
 import androidx.annotation.WorkerThread
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
 import com.otaliastudios.cameraview.internal.utils.ImageHelper
 import org.havenapp.main.sensors.motion.MotionDetector
-import java.nio.ByteBuffer
 import kotlin.math.ceil
+
+private const val DETECTION_INTERVAL_MS = 200L
 
 class MotionAnalyser(
         frameFormat: Int,
@@ -22,6 +25,8 @@ class MotionAnalyser(
     @Volatile
     private var shouldAnalyse = false
 
+    private var analysisTimestamp = 0L
+
     init {
         assert(frameFormat == ImageFormat.YUV_420_888)
         val bitsPerPixel = ImageFormat.getBitsPerPixel(frameFormat)
@@ -32,8 +37,17 @@ class MotionAnalyser(
 
     @WorkerThread
     override fun analyze(imageProxy: ImageProxy) {
+        assert(!isMainThread())
+
         if (!shouldAnalyse) {
             imageProxy.close()
+            return
+        }
+
+        val now = System.currentTimeMillis()
+        if (analysisTimestamp + DETECTION_INTERVAL_MS > now) {
+            imageProxy.close()
+            Log.i(TAG, "Ignoring event due to detection interval policy")
             return
         }
 
@@ -42,6 +56,7 @@ class MotionAnalyser(
             return
         }
 
+        analysisTimestamp = now
         ImageHelper.convertToNV21(image, buffer)
         lastFrame?.let { prevFrame ->
             motionDetector.detect(prevFrame, buffer, frameSize.width, frameSize.height)
@@ -56,5 +71,13 @@ class MotionAnalyser(
 
     fun setAnalyze(analyze: Boolean) {
         shouldAnalyse = analyze
+    }
+
+    private fun isMainThread(): Boolean {
+        return Looper.getMainLooper().thread === Thread.currentThread()
+    }
+
+    companion object {
+        private val TAG = MotionAnalyser::class.java.simpleName
     }
 }
