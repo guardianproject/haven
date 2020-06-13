@@ -45,7 +45,7 @@ class MotionAnalyser(
         ImageHelper.convertToNV21(image, buffer)
         lastFrame?.let { prevFrame ->
             motionDetector.detect(prevFrame, buffer, frameSize.width, frameSize.height)
-            buffer.copyInto(lastFrame!!)
+            buffer.copyInto(prevFrame)
         } ?: kotlin.run {
             lastFrame = ByteArray(buffer.size)
             buffer.copyInto(lastFrame!!)

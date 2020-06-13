@@ -308,7 +308,7 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
         }
         else if (requestCode == REQUEST_CAMERA)
         {
-            mFragmentCamera.initCamera();
+//            mFragmentCamera.initCamera();
         }
     }
 

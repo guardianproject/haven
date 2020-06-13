@@ -45,7 +45,6 @@ import java.util.*
 import java.util.concurrent.Executors
 
 class CameraFragment : Fragment() {
-    private var cameraViewHolder: CameraViewHolder? = null
     private var prefs: PreferenceManager? = null
 
     private var preview: Preview? = null
@@ -103,21 +102,25 @@ class CameraFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         prefs = PreferenceManager(requireContext())
-        initCamera()
         // We bind to the alert service
         requireContext().bindService(Intent(context, MonitorService::class.java),
                 connection, Context.BIND_ABOVE_CLIENT)
-        motionDetector.resultLiveData.observe(viewLifecycleOwner, Observer {
-            val iEvent = Intent("event").apply {
-                putExtra("type", EventTrigger.CAMERA)
-                putExtra("detected", it.motionDetected)
-                putExtra("changed", it.pixelsChanged)
+        motionDetector.resultLiveData.observe(viewLifecycleOwner, Observer { event ->
+            event?.consume()?.let {
+                val iEvent = Intent("event").apply {
+                    putExtra("type", EventTrigger.CAMERA)
+                    putExtra("detected", it.motionDetected)
+                    putExtra("changed", it.pixelsChanged)
+                }
+                LocalBroadcastManager.getInstance(requireActivity()).sendBroadcast(iEvent)
+                if (it.motionDetected) {
+                    takePhoto()
+                    recordVideo()
+                }
             }
-            LocalBroadcastManager.getInstance(requireActivity()).sendBroadcast(iEvent)
-            if (it.motionDetected) {
-                takePhoto()
-                recordVideo()
-            }
+        })
+        prefs?.cameraLiveData?.observe(viewLifecycleOwner, Observer {
+            initCamera(it)
         })
     }
 
@@ -130,40 +133,17 @@ class CameraFragment : Fragment() {
         cameraExecutor.shutdown()
         job.cancel()
         super.onDestroy()
-        cameraViewHolder?.destroy()
     }
 
     fun setMotionSensitivity(threshold: Int) {
         this.motionSensitivity = threshold
         motionDetector.setMotionSensitivity(motionSensitivity)
-        cameraViewHolder?.setMotionSensitivity(threshold)
     }
 
-    fun updateCamera() {
-        cameraViewHolder?.updateCamera()
-    }
+    @Deprecated("No-op")
+    fun updateCamera() = Unit
 
-    fun initCamera() {
-//        val prefs = PreferenceManager(requireActivity())
-//        if (prefs.cameraActivation) {
-//            //Uncomment to see the camera
-//            val cameraView: CameraView = requireActivity().findViewById(R.id.camera_view)
-//            cameraView.audio = Audio.OFF
-//            cameraView.setLifecycleOwner(this)
-//            if (cameraViewHolder == null) {
-//                cameraViewHolder = CameraViewHolder(activity, cameraView)
-//                cameraViewHolder!!.addListener { percChanged: Int, rawBitmap: Bitmap?, motionDetected: Boolean ->
-//                    if (!isDetached) {
-//                        val iEvent = Intent("event")
-//                        iEvent.putExtra("type", EventTrigger.CAMERA)
-//                        iEvent.putExtra("detected", motionDetected)
-//                        iEvent.putExtra("changed", percChanged)
-//                        LocalBroadcastManager.getInstance(requireActivity()).sendBroadcast(iEvent)
-//                    }
-//                }
-//            }
-//        }
-//        cameraViewHolder!!.startCamera()
+    private fun initCamera(cameraPref: String) {
         val viewFinder = requireView().findViewById<PreviewView>(R.id.pv_preview)
         val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
 
@@ -190,9 +170,14 @@ class CameraFragment : Fragment() {
 //                    .setTargetResolution(analysisFrameSize)
 //                    .build()
 
-            // Select back camera
+            // Select camera
+            val lensFacing = when (cameraPref) {
+                PreferenceManager.FRONT -> CameraSelector.LENS_FACING_FRONT
+                PreferenceManager.BACK -> CameraSelector.LENS_FACING_BACK
+                else -> CameraSelector.LENS_FACING_BACK // default
+            }
             val cameraSelector = CameraSelector.Builder()
-                    .requireLensFacing(CameraSelector.LENS_FACING_FRONT)
+                    .requireLensFacing(lensFacing)
                     .build()
 
             try {

@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class MotionDetector {
 
-	private MutableLiveData<MotionDetectorResult> resultLiveData = new MutableLiveData<>();
+	private MutableLiveData<Event<MotionDetectorResult>> resultLiveData = new MutableLiveData<>();
 	
 	// Input data
 	
@@ -118,7 +118,7 @@ public class MotionDetector {
                             rawBitmap,
                             true);
                 }
-				resultLiveData.postValue(new MotionDetectorResult(percChanged, true, rawBitmap));
+				resultLiveData.postValue(new Event<>(new MotionDetectorResult(percChanged, true, rawBitmap)));
 			}
 			else
             {
@@ -128,7 +128,7 @@ public class MotionDetector {
                             null,
                             false);
                 }
-				resultLiveData.postValue(new MotionDetectorResult(0, true, null));
+				resultLiveData.postValue(new Event<>(new MotionDetectorResult(0, true, null)));
             }
 		}
 	}
@@ -151,7 +151,7 @@ public class MotionDetector {
 	 * @return a {@link LiveData} to observe for motion detection result
 	 */
 	@NonNull
-	public LiveData<MotionDetectorResult> getResultLiveData() {
+	public LiveData<Event<MotionDetectorResult>> getResultLiveData() {
 		return resultLiveData;
 	}
 }

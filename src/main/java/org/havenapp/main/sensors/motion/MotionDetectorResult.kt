@@ -7,3 +7,13 @@ data class MotionDetectorResult(
         val motionDetected: Boolean,
         val rawBitmap: Bitmap?
 )
+
+class Event<T>(data: T) {
+    private var dataInternal: T? = data
+    fun consume(): T? {
+        dataInternal ?: return null
+        val copy = dataInternal
+        dataInternal = null
+        return copy
+    }
+}

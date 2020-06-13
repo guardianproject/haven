@@ -29,6 +29,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.havenapp.main.sensors.motion.LuminanceMotionDetector;
+import org.havenapp.main.storage.SharedPreferenceStringLiveData;
 
 import java.io.File;
 import java.util.Date;
@@ -253,6 +254,11 @@ public class PreferenceManager {
     
     public String getCamera() {
     	return appSharedPrefs.getString(CAMERA, FRONT);
+    }
+
+    @NonNull
+    public SharedPreferenceStringLiveData getCameraLiveData() {
+        return new SharedPreferenceStringLiveData(appSharedPrefs, CAMERA, FRONT);
     }
     
     public void setCameraSensitivity(int sensitivity) {
