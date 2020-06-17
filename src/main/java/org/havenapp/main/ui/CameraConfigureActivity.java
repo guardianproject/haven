@@ -31,10 +31,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Observer;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.R;
+import org.havenapp.main.sensors.motion.Event;
+import org.havenapp.main.sensors.motion.MotionDetectorResult;
 
 import me.angrybyte.numberpicker.view.ActualNumberPicker;
 
@@ -72,6 +75,15 @@ public class CameraConfigureActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mFragment = (CameraFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_camera);
+        if (mFragment != null) {
+            mFragment.analyseFrames(true);
+            mFragment.motionDetectorLiveData().observe(this, motionDetectorResultEvent -> {
+                MotionDetectorResult result = motionDetectorResultEvent.consume();
+                if (result != null) {
+                    mTxtStatus.setText(result.getPixelsChanged() + "% motion detected");
+                }
+            });
+        }
         mTxtStatus = findViewById(R.id.status);
 
         findViewById(R.id.btnCameraSwitch).setOnClickListener(new View.OnClickListener() {
