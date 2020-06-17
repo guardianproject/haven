@@ -93,18 +93,14 @@ public class CameraConfigureActivity extends AppCompatActivity {
     }
 
     private void switchCamera() {
-
         String camera = mPrefManager.getCamera();
         if (camera.equals(PreferenceManager.FRONT))
             mPrefManager.setCamera(PreferenceManager.BACK);
         else if (camera.equals(PreferenceManager.BACK))
             mPrefManager.setCamera(PreferenceManager.FRONT);
 
-        mFragment.updateCamera();
         setResult(RESULT_OK);
     }
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

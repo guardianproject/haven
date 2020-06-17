@@ -141,9 +141,6 @@ class CameraFragment : Fragment() {
         motionDetector.setMotionSensitivity(motionSensitivity)
     }
 
-    @Deprecated("No-op")
-    fun updateCamera() = Unit
-
     private fun initCamera(cameraPref: String) {
         val viewFinder = requireView().findViewById<PreviewView>(R.id.pv_preview)
         val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())

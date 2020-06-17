@@ -4,25 +4,6 @@
     android:layout_height="match_parent"
     android:foreground="@color/translucentOverlay25">
 
-    <!-- Camera -->
-    <!--    <org.havenapp.main.ui.widget.HavenCameraView-->
-    <!--        android:id="@+id/camera_view"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent"-->
-    <!--        android:layout_gravity="center"-->
-    <!--        android:keepScreenOn="true"-->
-    <!--        app:cameraExperimental="true"-->
-    <!--        app:cameraPlaySounds="false"-->
-    <!--        app:cameraGrid="off"-->
-    <!--        app:cameraFlash="off"-->
-    <!--        app:cameraAudio="on"-->
-    <!--        app:cameraGestureTap="none"-->
-    <!--        app:cameraGestureLongTap="none"-->
-    <!--        app:cameraGesturePinch="none"-->
-    <!--        app:cameraGestureScrollHorizontal="none"-->
-    <!--        app:cameraGestureScrollVertical="none"-->
-    <!--        app:cameraMode="picture" />-->
-
     <androidx.camera.view.PreviewView
         android:id="@+id/pv_preview"
         android:layout_width="match_parent"
