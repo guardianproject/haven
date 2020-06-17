@@ -16,14 +16,12 @@ import android.app.Service;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.PowerManager;
-import android.telephony.SmsManager;
 import android.text.TextUtils;
 
 import androidx.annotation.RequiresApi;
@@ -48,9 +46,6 @@ import org.havenapp.main.sensors.PowerConnectionReceiver;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.StringTokenizer;
-
-import androidx.annotation.RequiresApi;
-import androidx.core.app.NotificationCompat;
 
 @SuppressLint("HandlerLeak")
 public class MonitorService extends Service {
@@ -109,6 +104,14 @@ public class MonitorService extends Service {
 	}
 
 	public final static String KEY_PATH = "path";
+
+    /**
+     * An identifier to be used as {@link Message#what} while communicating with this
+     * Service.
+     * <p>
+     * This denotes that the current running service must be stopped.
+     */
+    public static final int MSG_STOP_SELF = -2;
 		
 	/**
 	 * Messenger interface used by clients to interact
@@ -321,6 +324,12 @@ public class MonitorService extends Service {
         Intent iEvent = new Intent("event");
         iEvent.putExtra("type",alertType);
         LocalBroadcastManager.getInstance(this).sendBroadcast(iEvent);
+
+        if (alertType == MSG_STOP_SELF) {
+            stopForeground(true);
+            stopSelf();
+            return;
+        }
 
         if (TextUtils.isEmpty(value))
             return;

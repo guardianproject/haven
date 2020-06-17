@@ -18,6 +18,7 @@ package org.havenapp.main;
 
 import android.Manifest;
 import android.app.PictureInPictureParams;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -39,6 +40,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -79,6 +81,8 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
     private View mBtnCamera, mBtnMic, mBtnAccel;
     private Animation mAnimShake;
     private TextView txtStatus;
+
+    private ProgressDialog progressDialog;
 
     private int lastEventType = -1;
 
@@ -131,11 +135,14 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
     BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-
             int eventType = intent.getIntExtra("type",-1);
-            boolean detected = intent.getBooleanExtra("detected",true);
-            if (detected)
-                handler.sendEmptyMessage(eventType);
+            if (eventType == MonitorService.MSG_STOP_SELF) {
+                notifyMonitoringEnded();
+            } else {
+                boolean detected = intent.getBooleanExtra("detected", true);
+                if (detected)
+                    handler.sendEmptyMessage(eventType);
+            }
         }
     };
 
@@ -174,8 +181,7 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
         preferences = new PreferenceManager(getApplicationContext());
         setContentView(R.layout.activity_monitor);
 
-        txtTimer = (TextView) findViewById(R.id.timer_text);
-        View viewTimer = findViewById(R.id.timer_container);
+        txtTimer = findViewById(R.id.timer_text);
 
         int timeM = preferences.getTimerDelay() * 1000;
 
@@ -254,8 +260,8 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
 
         if (mIsMonitoring) {
             mIsMonitoring = false;
-            stopService(new Intent(this, MonitorService.class));
-            finish();
+            showAlertDialog();
+            mFragmentCamera.stopMonitoring();
         } else {
 
             findViewById(R.id.btnStartNow).setVisibility(View.VISIBLE);
@@ -461,4 +467,17 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
         updateTimerValue(delaySeconds);
     }
 
+    private void showAlertDialog() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage(getString(R.string.finishing_up));
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+    }
+
+    private void notifyMonitoringEnded() {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
+        finish();
+    }
 }

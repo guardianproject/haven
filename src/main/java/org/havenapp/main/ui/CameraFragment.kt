@@ -17,6 +17,7 @@ import android.os.Bundle
 import android.os.IBinder
 import android.os.Message
 import android.os.Messenger
+import android.os.Handler
 import android.util.Log
 import android.util.Size
 import android.view.LayoutInflater
@@ -281,6 +282,21 @@ class CameraFragment : Fragment() {
                 recordingEvent = false
             }
         }
+    }
+
+    fun stopMonitoring() {
+        motionAnalyser.setAnalyze(false)
+        videoCapture?.stopRecording()
+        Handler().postDelayed({
+            cameraExecutor.submit {
+                val message = Message().apply {
+                    what = MonitorService.MSG_STOP_SELF
+                }
+                serviceMessenger?.send(message) ?: kotlin.run {
+                    Log.e(TAG, "Failed to send $message to service")
+                }
+            }
+        }, 3_000L)
     }
 
     companion object {
