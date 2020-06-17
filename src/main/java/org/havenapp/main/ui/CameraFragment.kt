@@ -250,7 +250,8 @@ class CameraFragment : Fragment() {
             return
         }
         Log.d(TAG, "Start record video")
-        val videoMonitoringLength = 4_000L
+        // get the video monitoring length from prefs in ms
+        val videoMonitoringLength = prefs?.monitoringTime?.let { it * 1_000L } ?: return
         uiScope.launch {
             videoCapture?.let {
                 recordingEvent = true
