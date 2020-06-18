@@ -33,7 +33,8 @@ import java.util.List;
  */
 public class MotionDetector {
 
-	private MutableLiveData<Event<MotionDetectorResult>> resultLiveData = new MutableLiveData<>();
+	private MutableLiveData<Event<MotionDetectorResult>> resultEventLiveData = new MutableLiveData<>();
+	private MutableLiveData<MotionDetectorResult> resultLiveData = new MutableLiveData<>();
 	
 	// Input data
 	
@@ -118,7 +119,9 @@ public class MotionDetector {
                             rawBitmap,
                             true);
                 }
-				resultLiveData.postValue(new Event<>(new MotionDetectorResult(percChanged, true, rawBitmap)));
+				MotionDetectorResult result = new MotionDetectorResult(percChanged, true, rawBitmap);
+				resultLiveData.postValue(result);
+				resultEventLiveData.postValue(new Event<>(result));
 			}
 			else
             {
@@ -128,7 +131,9 @@ public class MotionDetector {
                             null,
                             false);
                 }
-				resultLiveData.postValue(new Event<>(new MotionDetectorResult(0, true, null)));
+				MotionDetectorResult result = new MotionDetectorResult(0, false, null);
+				resultLiveData.postValue(result);
+				resultEventLiveData.postValue(new Event<>(result));
             }
 		}
 	}
@@ -144,6 +149,19 @@ public class MotionDetector {
 	}
 
 	/**
+	 * A {@link LiveData} to post result from {@link #detect(byte[], byte[], int, int)} in form
+	 * of an {@link Event}
+	 * <p>
+	 * We can use either this or {@link MotionListener} but this will be Lifecycle aware
+	 *
+	 * @return a {@link LiveData} to observe for motion detection result
+	 */
+	@NonNull
+	public LiveData<Event<MotionDetectorResult>> getResultEventLiveData() {
+		return resultEventLiveData;
+	}
+
+	/**
 	 * A {@link LiveData} to post result from {@link #detect(byte[], byte[], int, int)}
 	 * <p>
 	 * We can use either this or {@link MotionListener} but this will be Lifecycle aware
@@ -151,7 +169,7 @@ public class MotionDetector {
 	 * @return a {@link LiveData} to observe for motion detection result
 	 */
 	@NonNull
-	public LiveData<Event<MotionDetectorResult>> getResultLiveData() {
+	public LiveData<MotionDetectorResult> getDetectorResultLiveData() {
 		return resultLiveData;
 	}
 }

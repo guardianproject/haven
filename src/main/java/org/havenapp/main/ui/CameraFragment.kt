@@ -13,11 +13,7 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.graphics.ImageFormat
 import android.net.Uri
-import android.os.Bundle
-import android.os.IBinder
-import android.os.Message
-import android.os.Messenger
-import android.os.Handler
+import android.os.*
 import android.util.Log
 import android.util.Size
 import android.view.LayoutInflater
@@ -107,7 +103,7 @@ class CameraFragment : Fragment() {
         // We bind to the alert service
         requireContext().bindService(Intent(context, MonitorService::class.java),
                 connection, Context.BIND_ABOVE_CLIENT)
-        motionDetector.resultLiveData.observe(viewLifecycleOwner, Observer { event ->
+        motionDetector.resultEventLiveData.observe(viewLifecycleOwner, Observer { event ->
             event?.consume()?.let {
                 val iEvent = Intent("event").apply {
                     putExtra("type", EventTrigger.CAMERA)
@@ -141,7 +137,7 @@ class CameraFragment : Fragment() {
         motionDetector.setMotionSensitivity(motionSensitivity)
     }
 
-    fun motionDetectorLiveData() = motionDetector.resultLiveData
+    fun motionDetectorLiveData() = motionDetector.detectorResultLiveData
 
     fun analyseFrames(analyse: Boolean) = motionAnalyser.setAnalyze(analyse)
 

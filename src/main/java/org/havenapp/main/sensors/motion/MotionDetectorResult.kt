@@ -8,6 +8,10 @@ data class MotionDetectorResult(
         val rawBitmap: Bitmap?
 )
 
+/**
+ * A data wrapper class to represent an event, ie, once consumed
+ * will not be available again.
+ */
 class Event<T>(data: T) {
     private var dataInternal: T? = data
     fun consume(): T? {
