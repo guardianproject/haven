@@ -13,12 +13,17 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.graphics.ImageFormat
 import android.net.Uri
-import android.os.*
+import android.os.Bundle
+import android.os.IBinder
+import android.os.Message
+import android.os.Messenger
 import android.util.Log
 import android.util.Size
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.UiThread
+import androidx.annotation.WorkerThread
 import androidx.camera.core.*
 import androidx.camera.core.impl.VideoCaptureConfig
 import androidx.camera.lifecycle.ProcessCameraProvider
@@ -73,6 +78,7 @@ class CameraFragment : Fragment() {
     /**
      * Messenger used to signal motion to the alert service
      */
+    @Volatile
     private var serviceMessenger: Messenger? = null
 
     private val connection: ServiceConnection = object : ServiceConnection {
@@ -91,6 +97,7 @@ class CameraFragment : Fragment() {
     }
 
     private val cameraExecutor = Executors.newSingleThreadExecutor()
+    private val cameraDispatcher = cameraExecutor.asCoroutineDispatcher()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -141,6 +148,7 @@ class CameraFragment : Fragment() {
 
     fun analyseFrames(analyse: Boolean) = motionAnalyser.setAnalyze(analyse)
 
+    @UiThread
     private fun initCamera(cameraPref: String) {
         val viewFinder = requireView().findViewById<PreviewView>(R.id.pv_preview)
         val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
@@ -195,6 +203,7 @@ class CameraFragment : Fragment() {
         }, ContextCompat.getMainExecutor(requireContext()))
     }
 
+    @UiThread
     private fun captureCameraEvent() {
         if (prefs?.videoMonitoringActive == true) {
             recordVideo()
@@ -203,6 +212,7 @@ class CameraFragment : Fragment() {
         }
     }
 
+    @UiThread
     private fun takePhoto() {
         // if we are not connected to the service; we are not monitoring
         if (serviceMessenger == null) {
@@ -242,6 +252,7 @@ class CameraFragment : Fragment() {
                 })
     }
 
+    @UiThread
     private fun recordVideo() {
         // don't record if monitoring is not set or already recording event or service is not running
         if (prefs?.videoMonitoringActive != true || recordingEvent || serviceMessenger == null) {
@@ -259,6 +270,7 @@ class CameraFragment : Fragment() {
                 val ts = SimpleDateFormat(Utils.DATE_TIME_PATTERN, Locale.getDefault()).format(Date())
                 val videoFile = File(fileImageDir, "${ts}.detected.original.mp4")
                 it.startRecording(videoFile, cameraExecutor, object : VideoCapture.OnVideoSavedCallback {
+                    @WorkerThread
                     override fun onVideoSaved(file: File) {
                         Log.e(TAG, "Saved video with to $file")
                         val message = Message().apply {
@@ -270,6 +282,7 @@ class CameraFragment : Fragment() {
                         }
                     }
 
+                    @WorkerThread
                     override fun onError(videoCaptureError: Int, message: String, cause: Throwable?) {
                         Log.e(TAG, "Failed to save video with error $videoCaptureError, $message, $cause")
                     }
@@ -281,11 +294,13 @@ class CameraFragment : Fragment() {
         }
     }
 
+    @UiThread
     fun stopMonitoring() {
         motionAnalyser.setAnalyze(false)
         videoCapture?.stopRecording()
-        Handler().postDelayed({
-            cameraExecutor.submit {
+        uiScope.launch {
+            delay(3_000L)
+            withContext(cameraDispatcher) {
                 val message = Message().apply {
                     what = MonitorService.MSG_STOP_SELF
                 }
@@ -293,7 +308,7 @@ class CameraFragment : Fragment() {
                     Log.e(TAG, "Failed to send $message to service")
                 }
             }
-        }, 3_000L)
+        }
     }
 
     companion object {
