@@ -71,6 +71,7 @@ public class PreferenceManager {
     public static final String VERIFY_SIGNAL = "verify_signal";
     public static final String VOICE_VERIFY_SIGNAL = "voice_verify_signal";
     public static final String RESET_SIGNAL_CONFIG = "reset_signal_config";
+    public static final String SIMULTANEOUS_IMAGE_MONITORING = "simultaneous_image_monitoring";
     private static final String UNLOCK_CODE="unlock_code";
 	
     private static final String ACCESS_TOKEN="access_token";
@@ -236,6 +237,15 @@ public class PreferenceManager {
 
     public boolean getVideoMonitoringActive() {
         return appSharedPrefs.getBoolean(context.getResources().getString(R.string.video_active_preference_key), false);
+    }
+
+    public void setSimultaneousImageMonitoring(boolean active) {
+        prefsEditor.putBoolean(SIMULTANEOUS_IMAGE_MONITORING, active);
+        prefsEditor.commit();
+    }
+
+    public boolean isSimultaneousImageMonitoring() {
+        return appSharedPrefs.getBoolean(SIMULTANEOUS_IMAGE_MONITORING, false);
     }
 
     public void activateCamera(boolean active) {

@@ -32,6 +32,11 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import java.io.File
+import java.lang.Runnable
+import java.text.SimpleDateFormat
+import java.util.*
+import java.util.concurrent.Executors
 import kotlinx.coroutines.*
 import org.havenapp.main.PreferenceManager
 import org.havenapp.main.R
@@ -41,11 +46,6 @@ import org.havenapp.main.sensors.motion.LuminanceMotionDetector
 import org.havenapp.main.sensors.motion.MotionDetector
 import org.havenapp.main.service.MonitorService
 import org.havenapp.main.usecase.MotionAnalyser
-import java.io.File
-import java.lang.Runnable
-import java.text.SimpleDateFormat
-import java.util.*
-import java.util.concurrent.Executors
 
 class CameraFragment : Fragment() {
     private var prefs: PreferenceManager? = null
@@ -99,8 +99,11 @@ class CameraFragment : Fragment() {
     private val cameraExecutor = Executors.newSingleThreadExecutor()
     private val cameraDispatcher = cameraExecutor.asCoroutineDispatcher()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.camera_fragment, container, false)
     }
 
@@ -158,6 +161,7 @@ class CameraFragment : Fragment() {
             val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
 
             val videoMonitoring = prefs?.videoMonitoringActive ?: false
+            val simultaneousImageMonitoring = prefs?.isSimultaneousImageMonitoring ?: false
 
             // Preview
             preview = Preview.Builder().build()
@@ -193,13 +197,17 @@ class CameraFragment : Fragment() {
                 cameraProvider.unbindAll()
 
                 // Bind use cases to camera
-                camera = cameraProvider.bindToLifecycle(viewLifecycleOwner, cameraSelector,
-                        preview, if (videoMonitoring) videoCapture else imageCapture, imageAnalyzer)
+                camera = cameraProvider.bindToLifecycle(
+                        viewLifecycleOwner,
+                        cameraSelector,
+                        if (simultaneousImageMonitoring) imageCapture else preview,
+                        if (videoMonitoring) videoCapture else imageCapture,
+                        imageAnalyzer
+                )
                 preview?.setSurfaceProvider(viewFinder.createSurfaceProvider())
             } catch (exc: Exception) {
                 Log.e(TAG, "Use case binding failed", exc)
             }
-
         }, ContextCompat.getMainExecutor(requireContext()))
     }
 
@@ -207,6 +215,9 @@ class CameraFragment : Fragment() {
     private fun captureCameraEvent() {
         if (prefs?.videoMonitoringActive == true) {
             recordVideo()
+            if (prefs?.isSimultaneousImageMonitoring == true) {
+                takePhoto()
+            }
         } else {
             takePhoto()
         }
@@ -225,7 +236,7 @@ class CameraFragment : Fragment() {
         val fileImageDir = File(requireContext().getExternalFilesDir(null), prefs!!.defaultMediaStoragePath)
         fileImageDir.mkdirs()
         val ts = SimpleDateFormat(Utils.DATE_TIME_PATTERN, Locale.getDefault()).format(Date())
-        val photoFile = File(fileImageDir, "${ts}.detected.original.jpg")
+        val photoFile = File(fileImageDir, "$ts.detected.original.jpg")
 
         // Create output options object which contains file + metadata
         val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
@@ -268,7 +279,7 @@ class CameraFragment : Fragment() {
                 val fileImageDir = File(requireContext().getExternalFilesDir(null), prefs!!.defaultMediaStoragePath)
                 fileImageDir.mkdirs()
                 val ts = SimpleDateFormat(Utils.DATE_TIME_PATTERN, Locale.getDefault()).format(Date())
-                val videoFile = File(fileImageDir, "${ts}.detected.original.mp4")
+                val videoFile = File(fileImageDir, "$ts.detected.original.mp4")
                 it.startRecording(videoFile, cameraExecutor, object : VideoCapture.OnVideoSavedCallback {
                     @WorkerThread
                     override fun onVideoSaved(file: File) {
