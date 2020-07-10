@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="intro2_title">Haven jest przeznaczony dla osób, które chcą mieć oko na włamania do domu, biura, pokoju hotelowego lub innej prywatnej przestrzeni</string>
+    <string name="intro1_title">Witamy w Haven</string>
+    <string name="action_settings">Ustawienia</string>
+    <string name="camera_prompt">Wybierz aparat</string>
+    <string name="sms_hint">+12125551212</string>
+    <string name="menu_save">Zapisz</string>
+</resources>
