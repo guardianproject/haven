@@ -37,6 +37,13 @@
             android:defaultValue="false"
             android:key="@string/video_active_preference_key"
             android:title="@string/video_monitoring"/>
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="simultaneous_image_monitoring"
+            android:summary="@string/simultaneous_image_monitoring_summary"
+            android:title="@string/simultaneous_image_monitoring"
+            app:iconSpaceReserved="false" />
     </PreferenceCategory>
 
     <PreferenceCategory

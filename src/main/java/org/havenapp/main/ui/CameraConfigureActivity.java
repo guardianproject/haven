@@ -17,26 +17,20 @@
 package org.havenapp.main.ui;
 
 import android.Manifest;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import org.havenapp.main.PreferenceManager;
-import org.havenapp.main.R;
-
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import me.angrybyte.numberpicker.listener.OnValueChangeListener;
+
+import org.havenapp.main.PreferenceManager;
+import org.havenapp.main.R;
+
 import me.angrybyte.numberpicker.view.ActualNumberPicker;
 
 
@@ -45,11 +39,7 @@ public class CameraConfigureActivity extends AppCompatActivity {
 
     private PreferenceManager mPrefManager = null;
 
-    private boolean mIsMonitoring = false;
-    private boolean mIsInitializedLayout = false;
-
     private CameraFragment mFragment;
-    private ActualNumberPicker mNumberTrigger;
     private TextView mTxtStatus;
 
     @Override
@@ -72,17 +62,19 @@ public class CameraConfigureActivity extends AppCompatActivity {
         setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mFragment = (CameraFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_camera);
         mTxtStatus = findViewById(R.id.status);
+        mFragment = (CameraFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_camera);
+        if (mFragment != null) {
+            mFragment.analyseFrames(true);
+            mFragment.motionDetectorLiveData().observe(this, result -> {
+                mTxtStatus.setText(getString(R.string.percentage_motion_detected,
+                        String.valueOf(result.getPixelsChanged())));
+            });
+        }
 
-        findViewById(R.id.btnCameraSwitch).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switchCamera();
-            }
-        });
+        findViewById(R.id.btnCameraSwitch).setOnClickListener(v -> switchCamera());
 
-        mNumberTrigger = findViewById(R.id.number_trigger_level);
+        ActualNumberPicker mNumberTrigger = findViewById(R.id.number_trigger_level);
         mNumberTrigger.setValue(mPrefManager.getCameraSensitivity());
 
         mNumberTrigger.setListener((oldValue, newValue) -> {
@@ -90,28 +82,22 @@ public class CameraConfigureActivity extends AppCompatActivity {
             mPrefManager.setCameraSensitivity(newValue);
             setResult(RESULT_OK);
         });
-        mIsInitializedLayout = true;
     }
 
     private void switchCamera() {
-
         String camera = mPrefManager.getCamera();
         if (camera.equals(PreferenceManager.FRONT))
             mPrefManager.setCamera(PreferenceManager.BACK);
         else if (camera.equals(PreferenceManager.BACK))
             mPrefManager.setCamera(PreferenceManager.FRONT);
 
-        mFragment.updateCamera();
         setResult(RESULT_OK);
     }
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                mFragment.stopCamera();
                 finish();
                 break;
         }
@@ -124,21 +110,11 @@ public class CameraConfigureActivity extends AppCompatActivity {
      */
     @Override
     public void onBackPressed() {
-        mFragment.stopCamera();
         finish();
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("event");
-        LocalBroadcastManager.getInstance(this).registerReceiver(receiver,filter );
-
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         switch (requestCode) {
@@ -172,28 +148,4 @@ public class CameraConfigureActivity extends AppCompatActivity {
             return false;
         }
     }
-
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
-
-    }
-
-    BroadcastReceiver receiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-            int eventType = intent.getIntExtra("type",-1);
-            boolean detected = intent.getBooleanExtra("detected",true);
-            int percChanged = intent.getIntExtra("changed",-1);
-
-            if (percChanged != -1)
-            {
-                mTxtStatus.setText(percChanged + "% motion detected");
-            }
-        }
-    };
-
 }

@@ -2,48 +2,10 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:foreground="@color/translucentOverlay25">
 
-    <!-- Camera -->
-    <com.otaliastudios.cameraview.CameraView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/camera_view"
+    <androidx.camera.view.PreviewView
+        android:id="@+id/pv_preview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:keepScreenOn="true"
-        app:cameraExperimental="true"
-        app:cameraPlaySounds="false"
-        app:cameraGrid="off"
-        app:cameraFlash="off"
-        app:cameraAudio="on"
-        app:cameraGestureTap="none"
-        app:cameraGestureLongTap="none"
-        app:cameraGesturePinch="none"
-        app:cameraGestureScrollHorizontal="none"
-        app:cameraGestureScrollVertical="none"
-        app:cameraMode="picture" />
-
-    <ImageView
-        android:id="@+id/new_image"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal"
-        android:background="@color/transparent"
-        android:scaleType="fitXY"
-        />
-
-    <TextView
-        android:id="@+id/camera_status_display"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text=""
-        android:textColor="?colorPrimary"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="80dp"
-        />
+        android:layout_height="match_parent" />
 </FrameLayout>

@@ -159,4 +159,8 @@
     <string name="reset_configuration_question">Reset Signal Configuration?</string>
     <string name="reset_configuration_desc">This will clear out all Signal configurations. You will have to register and verify again to use Signal services in the future. Are you sure?</string>
     <string name="run_disk_cleanup">Clean deleted logs from device</string>
+    <string name="finishing_up">Finishing up. Please wait.</string>
+    <string name="percentage_motion_detected">%1$s%% motion detected</string>
+    <string name="simultaneous_image_monitoring">Simultaneous Image Monitoring</string>
+    <string name="simultaneous_image_monitoring_summary">Keep on image monitoring along with video monitoring. This will stop the camera preview</string>
 </resources>
