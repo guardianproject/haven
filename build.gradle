@@ -169,8 +169,6 @@ dependencies {
     implementation 'com.github.halilozercan:BetterVideoPlayer:1.1.0'
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
     implementation 'io.github.silvaren:easyrs:0.5.3'
-    implementation 'org.jcodec:jcodec:0.2.5'
-    implementation 'org.jcodec:jcodec-android:0.2.5'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     // Room
@@ -190,9 +188,6 @@ dependencies {
 
     // android-job
     implementation 'com.evernote:android-job:1.4.2'
-
-    // new camera view: https://github.com/natario1/CameraView
-    implementation 'com.otaliastudios:cameraview:2.4.0'
 
     // CameraX core library using camera2 implementation
     implementation "androidx.camera:camera-camera2:1.0.0-beta06"

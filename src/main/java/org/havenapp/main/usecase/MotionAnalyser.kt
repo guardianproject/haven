@@ -7,8 +7,8 @@ import android.util.Size
 import androidx.annotation.WorkerThread
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
-import com.otaliastudios.cameraview.internal.utils.ImageHelper
 import org.havenapp.main.sensors.motion.MotionDetector
+import org.havenapp.main.util.ImageHelper
 import kotlin.math.ceil
 
 private const val DETECTION_INTERVAL_MS = 200L
