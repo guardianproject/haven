@@ -61,8 +61,7 @@
             android:name=".SettingsActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/settings"
-            android:theme="@style/SettingsTheme"
-            android:windowSoftInputMode="stateHidden" />
+            android:theme="@style/SettingsTheme" />
         <activity
             android:name=".ui.PPAppIntro"
             android:screenOrientation="fullSensor" />
