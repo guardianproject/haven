@@ -24,7 +24,7 @@
 \nSAFE HAVEN on the height find…\"
 \n-George Meredith</string>
     <string name="intro3_desc">Transformar um telefone extra num detetor de movimento, som, vibração e de luz, vigiar convidados inesperados e intrusos indesejados</string>
-    <string name="intro4_desc">Receber as notificações de intrusão imediatamente e acessar os logs local ou remotamente em um momento posterior</string>
+    <string name="intro4_desc">Seja notificado instantaneamente sobre eventos de intrusos e aceda remotamente aos registos ou pessoalmente mais tarde</string>
     <string name="intro5_title">A sua Haven está pronta</string>
     <string name="intro5_desc">Ative a aplicação em qualquer momento usando o botão de ação &gt; no ecrã inicial</string>
     <string name="remote_access_hint">Endereço do serviço Onion do Orbot</string>
