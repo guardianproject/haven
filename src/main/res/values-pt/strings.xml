@@ -33,7 +33,7 @@
     <string name="current_accel_base">O nível atual de movimento é</string>
     <string name="configure_trigger_level">Deslize para definir o limite de deteção</string>
     <string name="tune_the_sound_detection">Faça algum ruído!</string>
-    <string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">Coloque o telemóvel sobre a mesa e faça ruídos na sala para encontrar o nível adequado de deteção</string>
+    <string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">Posicione o telemóvel na mesa e faça ruídos na sala para encontrar o nível de deteção adequado</string>
     <string name="tune_the_accel_detection">Abane o telemóvel!</string>
     <string name="tune_the_accel_detection_more">Mova o telemóvel para afinar o limite de movimento a detetar</string>
     <string name="set_a_countdown_time">Toque para alterar a contagem decrescente</string>
@@ -60,7 +60,7 @@
     <string name="enter_verification">Introduza o código de verificação que recebeu na aplicação Signal na etapa de registar</string>
     <string name="cancel">Cancelar</string>
     <string name="register_title">Registar com o Signal</string>
-    <string name="register_signal_desc">Introduza um número de telefone para registar com o Signal, para usar para enviar notificações seguras. Pode usar o número de telefone deste dispositivo para configurar um número virtual. 
+    <string name="register_signal_desc">Digite um número de telefone para registar com Signal, para usar para enviar notificações seguras. Pode usar o número de telefone deste aparelho para configurar um número virtual. 
 \n 
 \nAVISO: se este número já estiver associado a uma instalação da aplicação Signal, irá parar de funcionar aí e irá funcionar apenas com o Haven.</string>
     <string name="phone_hint">+351912223344</string>
@@ -133,11 +133,11 @@
     <string name="path_chars">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_/</string>
     <string name="motion_detected">DETETADO MOVIMENTO</string>
     <string name="sound_detected">DETETADO SOM</string>
-    <string name="device_move_detected">DETETADO MOVIMENTO DO DISPOSITIVO</string>
+    <string name="device_move_detected">MOVIMENTO DO APARELHO DETETADO</string>
     <string name="power_detected">DETETADA ALTERAÇÃO DA ENERGIA</string>
     <string name="status_recording_video">A gravar…</string>
     <string name="status_light">DETETADA LUZ</string>
-    <string name="run_disk_cleanup">Limpar os registos eliminados no dispositivo</string>
+    <string name="run_disk_cleanup">Limpar os registos eliminados no aparelho</string>
     <string name="verification_dialog_summary_verified">Número Signal verificado</string>
     <string name="registering_to_signal">A registar no Signal</string>
     <string name="signal_registration_desc">A aguardar o registo nos serviços do Signal</string>
