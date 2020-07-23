@@ -65,7 +65,6 @@ allprojects {
 
 android {
     compileSdkVersion 29
-    buildToolsVersion = '29.0.3'
 
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'
