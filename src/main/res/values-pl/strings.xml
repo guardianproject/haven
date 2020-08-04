@@ -6,4 +6,5 @@
     <string name="camera_prompt">Wybierz aparat</string>
     <string name="sms_hint">+12125551212</string>
     <string name="menu_save">Zapisz</string>
+    <string name="ok">OK</string>
 </resources>
