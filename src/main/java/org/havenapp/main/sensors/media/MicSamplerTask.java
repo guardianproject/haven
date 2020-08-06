@@ -13,10 +13,14 @@ package org.havenapp.main.sensors.media;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import androidx.annotation.Nullable;
+
 import java.io.IOException;
+
 
 public class MicSamplerTask extends AsyncTask<Void,Object,Void> {
 
+	@Nullable
 	private MicListener listener = null;
 	private AudioCodec volumeMeter = new AudioCodec();
 	private boolean sampling = true;
@@ -29,10 +33,6 @@ public class MicSamplerTask extends AsyncTask<Void,Object,Void> {
 	
 	public void setMicListener(MicListener listener) {
 		this.listener = listener;
-	}
-	
-	protected Void onPreExecute(Void...params) {
-		return null;
 	}
 
 	@Override
@@ -106,6 +106,13 @@ public class MicSamplerTask extends AsyncTask<Void,Object,Void> {
 	@Override
     protected void onProgressUpdate(Object... progress) {
 		short[] data = (short[]) progress[0];
-        listener.onSignalReceived(data);
-    }
+		if (listener != null) {
+			listener.onSignalReceived(data);
+		}
+	}
+
+    public void cancelTask() {
+		cancel(true);
+		listener = null;
+	}
 }

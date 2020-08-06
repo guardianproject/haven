@@ -19,6 +19,9 @@ import android.widget.ImageView;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import com.otaliastudios.cameraview.CameraView;
 import com.otaliastudios.cameraview.controls.Audio;
 
@@ -76,13 +79,6 @@ public final class CameraFragment extends Fragment {
         }
     }
 
-    public void stopCamera ()
-    {
-        if (cameraViewHolder != null) {
-            cameraViewHolder.stopCamera();
-        }
-    }
-
     public void initCamera ()
     {
 
@@ -94,6 +90,7 @@ public final class CameraFragment extends Fragment {
 
             CameraView cameraView = getActivity().findViewById(R.id.camera_view);
             cameraView.setAudio(Audio.OFF);
+            cameraView.setLifecycleOwner(this);
 
             if (cameraViewHolder == null) {
                 cameraViewHolder = new CameraViewHolder(getActivity(), cameraView);

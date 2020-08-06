@@ -122,7 +122,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    
+
      kotlinOptions {
         jvmTarget = "1.8"
     }
@@ -178,6 +178,7 @@ dependencies {
     kapt "android.arch.persistence.room:compiler:2.1.0"
     implementation "android.arch.lifecycle:runtime:2.1.0"
     implementation "android.arch.lifecycle:extensions:2.1.0"
+    implementation "androidx.lifecycle:lifecycle-common-java8:2.2.0"
 
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test:runner:1.2.0'
@@ -193,5 +194,5 @@ dependencies {
     // new camera view: https://github.com/natario1/CameraView
     implementation 'com.otaliastudios:cameraview:2.4.0'
 
-
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.2'
 }

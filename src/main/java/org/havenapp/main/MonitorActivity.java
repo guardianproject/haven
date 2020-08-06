@@ -17,7 +17,6 @@
 package org.havenapp.main;
 
 import android.Manifest;
-import android.animation.ValueAnimator;
 import android.app.PictureInPictureParams;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -25,7 +24,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -40,7 +38,11 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
@@ -54,11 +56,6 @@ import org.havenapp.main.ui.MicrophoneConfigureActivity;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import static org.havenapp.main.Utils.getTimerText;
 
@@ -233,8 +230,6 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
     }
 
     private void configCamera() {
-
-        mFragmentCamera.stopCamera();
         startActivityForResult(new Intent(this, CameraConfigureActivity.class),REQUEST_CAMERA);
     }
 
@@ -315,15 +310,6 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
         {
             mFragmentCamera.initCamera();
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        if (!mIsMonitoring)
-        {
-            mFragmentCamera.stopCamera();
-        }
-        super.onDestroy();
     }
 
     private void initTimer() {

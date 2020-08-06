@@ -229,7 +229,6 @@ public class CameraViewHolder {
                 return result;
             }
         });
-        cameraView.open();
 
         cameraView.addFrameProcessor(new FrameProcessor() {
             @Override
@@ -390,21 +389,12 @@ public class CameraViewHolder {
     }
 
 
-    public synchronized void stopCamera ()
-    {
-        if (cameraView != null) {
-           cameraView.close();
-        }
-    }
-
-
     public void destroy ()
     {
         if (mConnection != null) {
             this.context.unbindService(mConnection);
             mConnection = null;
         }
-        stopCamera();
     }
 
     public int getCorrectCameraOrientation(Facing facing, int orientation) {

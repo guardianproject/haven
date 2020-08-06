@@ -6,8 +6,7 @@
     android:foreground="@color/translucentOverlay25">
 
     <!-- Camera -->
-    <com.otaliastudios.cameraview.CameraView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <org.havenapp.main.ui.widget.HavenCameraView
         android:id="@+id/camera_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

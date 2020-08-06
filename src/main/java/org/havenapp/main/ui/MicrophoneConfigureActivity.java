@@ -192,7 +192,7 @@ public class MicrophoneConfigureActivity extends AppCompatActivity implements Mi
     protected void onDestroy() {
         super.onDestroy();
         if (microphone != null)
-            microphone.cancel(true);
+            microphone.cancelTask();
 
     }
 
