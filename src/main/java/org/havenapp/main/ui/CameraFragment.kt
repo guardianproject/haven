@@ -12,6 +12,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
 import android.graphics.ImageFormat
+import android.hardware.camera2.CameraManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.IBinder
@@ -25,6 +26,7 @@ import android.view.ViewGroup
 import androidx.annotation.UiThread
 import androidx.annotation.WorkerThread
 import androidx.camera.core.*
+import androidx.camera.core.impl.OptionsBundle
 import androidx.camera.core.impl.VideoCaptureConfig
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
@@ -32,11 +34,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import java.io.File
-import java.lang.Runnable
-import java.text.SimpleDateFormat
-import java.util.*
-import java.util.concurrent.Executors
 import kotlinx.coroutines.*
 import org.havenapp.main.PreferenceManager
 import org.havenapp.main.R
@@ -46,6 +43,14 @@ import org.havenapp.main.sensors.motion.LuminanceMotionDetector
 import org.havenapp.main.sensors.motion.MotionDetector
 import org.havenapp.main.service.MonitorService
 import org.havenapp.main.usecase.MotionAnalyser
+import org.havenapp.main.util.isFullLevel
+import org.havenapp.main.util.isLegacyDevice
+import org.havenapp.main.util.isLimitedLevelDevice
+import java.io.File
+import java.lang.Runnable
+import java.text.SimpleDateFormat
+import java.util.*
+import java.util.concurrent.Executors
 
 class CameraFragment : Fragment() {
     private var prefs: PreferenceManager? = null
@@ -156,6 +161,13 @@ class CameraFragment : Fragment() {
         val viewFinder = requireView().findViewById<PreviewView>(R.id.pv_preview)
         val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
 
+        (requireContext().getSystemService(Context.CAMERA_SERVICE) as CameraManager).let { manager ->
+            manager.cameraIdList.forEach { cameraId ->
+                val characteristic = manager.getCameraCharacteristics(cameraId)
+                Log.d("CameraCharacteristics", "$cameraId: ${characteristic.isFullLevel()}, ${characteristic.isLimitedLevelDevice()}, ${characteristic.isLegacyDevice()}")
+            }
+        }
+
         cameraProviderFuture.addListener(Runnable {
             // Used to bind the lifecycle of cameras to the lifecycle owner
             val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
@@ -178,7 +190,7 @@ class CameraFragment : Fragment() {
                         it.setAnalyzer(cameraExecutor, motionAnalyser)
                     }
             // video capture
-            videoCapture = VideoCaptureConfig.Builder()
+            videoCapture = VideoCapture.Builder()
                     .setTargetResolution(analysisFrameSize)
                     .build()
 
@@ -204,7 +216,7 @@ class CameraFragment : Fragment() {
                         if (videoMonitoring) videoCapture else imageCapture,
                         imageAnalyzer
                 )
-                preview?.setSurfaceProvider(viewFinder.createSurfaceProvider())
+                preview?.setSurfaceProvider(viewFinder.surfaceProvider)
             } catch (exc: Exception) {
                 Log.e(TAG, "Use case binding failed", exc)
             }
@@ -280,10 +292,11 @@ class CameraFragment : Fragment() {
                 fileImageDir.mkdirs()
                 val ts = SimpleDateFormat(Utils.DATE_TIME_PATTERN, Locale.getDefault()).format(Date())
                 val videoFile = File(fileImageDir, "$ts.detected.original.mp4")
-                it.startRecording(videoFile, cameraExecutor, object : VideoCapture.OnVideoSavedCallback {
+                val option = VideoCapture.OutputFileOptions.Builder(videoFile).build()
+                it.startRecording(option, cameraExecutor, object : VideoCapture.OnVideoSavedCallback {
                     @WorkerThread
-                    override fun onVideoSaved(file: File) {
-                        Log.e(TAG, "Saved video with to $file")
+                    override fun onVideoSaved(outputFileResults: VideoCapture.OutputFileResults) {
+                        Log.e(TAG, "Saved video with to ${outputFileResults.savedUri}")
                         val message = Message().apply {
                             what = EventTrigger.CAMERA_VIDEO
                             data.putString(MonitorService.KEY_PATH, videoFile.absolutePath)
