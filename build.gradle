@@ -34,7 +34,6 @@ apply plugin: 'kotlin-kapt'
 repositories {
     google()
     jcenter()
-    maven { url 'https://github.com/FireZenk/maven-repo/raw/master/' }
     maven { url 'https://jitpack.io' }
 }
 
