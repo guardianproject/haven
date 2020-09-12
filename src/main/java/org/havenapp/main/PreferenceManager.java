@@ -109,6 +109,7 @@ public class PreferenceManager {
         this.context = context;
         this.appSharedPrefs = context.getSharedPreferences(APP_SHARED_PREFS, AppCompatActivity.MODE_PRIVATE);
         this.prefsEditor = appSharedPrefs.edit();
+        prefsEditor.apply();
     }
 
     public boolean isFirstLaunch() {
