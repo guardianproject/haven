@@ -52,7 +52,7 @@
     <string name="tune_the_accel_detection_more">Перемістіть смартфон, щоб налаштувати поріг виявлення руху</string>
     <string name="set_a_countdown_time">Торкніться, щоб змінити зворотний відлік</string>
     <string name="start_now">Почати зараз</string>
-    <string name="start_later">Перегляд часописів</string>
+    <string name="start_later">Перегляд журналів</string>
     <string name="save_number">Зберегти номер</string>
     <string name="action_cancel">Вимкнути</string>
     <string name="status_on">УВІМКНЕНО</string>
