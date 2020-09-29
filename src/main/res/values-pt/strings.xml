@@ -19,7 +19,7 @@
     <string name="intro3_desc">Transforme um telemóvel num detetor de movimento, som, vibração e luz, para detetar convidados inesperados ou intrusos</string>
     <string name="intro4_desc">Seja notificado instantaneamente sobre eventos de intrusos e aceda remotamente aos registos ou pessoalmente mais tarde</string>
     <string name="intro5_title">O seu Haven está pronto</string>
-    <string name="intro5_desc">Ative a aplicação a qualquer momento usando o botão &gt; no ecrã principal</string>
+    <string name="intro5_desc">Ative a app a qualquer momento a usar o botão &gt; no ecrã principal</string>
     <string name="onboarding_action_end">Terminar</string>
     <string name="remote_access_label">Ative o acesso remoto através do serviço Tor Onion</string>
     <string name="remote_access_hint">Endereço do serviço Onion do Orbot</string>
@@ -42,7 +42,7 @@
     <string name="save_number">Guardar número</string>
     <string name="action_cancel">Desativar</string>
     <string name="status_on">ATIVO</string>
-    <string name="you_will_receive_a_text_when_the_app_hears_or_sees_something">Irá receber uma mensagem quando a aplicação ouvir ou ver alguma coisa</string>
+    <string name="you_will_receive_a_text_when_the_app_hears_or_sees_something">Irá receber uma mensagem quando a app ouvir ou ver alguma coisa</string>
     <string name="know_immediately_when_haven_detects_something">Saiba imediatamente quando o Haven detetar algo</string>
     <string name="phone_saved">Número telemóvel guardado!</string>
     <string name="detection_events">eventos de deteção</string>
@@ -62,7 +62,7 @@
     <string name="register_title">Registar com o Signal</string>
     <string name="register_signal_desc">Digite um número de telefone para registar com Signal, para usar para enviar notificações seguras. Pode usar o número de telefone deste aparelho para configurar um número virtual. 
 \n 
-\nAVISO: se este número já estiver associado a uma instalação da aplicação Signal, irá parar de funcionar aí e irá funcionar apenas com o Haven.</string>
+\nAVISO: se este número já estiver associado a uma instalação da app Signal, irá parar de funcionar aí e irá funcionar apenas com o Haven.</string>
     <string name="phone_hint">+351912223344</string>
     <string name="menu_licenses">Licenças…</string>
     <string name="sensor_light">Luz ambiente</string>
@@ -83,7 +83,7 @@
     <string name="verify_signal_by_phone">Em vez disso, telefonar-me</string>
     <string name="sensor_bump">Mexer (acelerómetro)</string>
     <string name="sensor_heartbeat">Batimento cardíaco</string>
-    <string name="remote_access_onion_error">Esta funcionalidade requer o Orbot: tem de instalar a aplicação Tor para o Android.</string>
+    <string name="remote_access_onion_error">Esta funcionalidade requer o Orbot: tem de instalar a app Tor para o Android.</string>
     <string name="sms_dialog_summary">Número de telefone remoto para onde enviar as notificações</string>
     <string name="sms_dialog_message">Introduza um número de telefone remoto para onde enviar as notificações</string>
     <string name="signal_dialog_summary">Um número de telefone de onde enviar utilizando o Signal</string>
@@ -107,7 +107,7 @@
     <string name="keep_watch">Vigiar!</string>
     <string name="camera_sensitivity_tip">Use a barra deslizante para ajustar a sensibilidade da deteção do movimento, com um objetivo de 0% quando não houver movimento.</string>
     <string name="disable_battery_opt_title">Desativar otimizações de bateria</string>
-    <string name="disable_battery_opt_summary">Permitir que a aplicação esteja a ser executada quando o ecrã está desligado</string>
+    <string name="disable_battery_opt_summary">Permitir que a app esteja a ser executada quando o ecrã está desligado</string>
     <string name="event_deleted">Evento eliminado</string>
     <string name="undo">DESFAZER</string>
     <string name="remove_all_logs">Remover todos os registos</string>
