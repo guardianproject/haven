@@ -31,4 +31,27 @@
     <string name="accelerometer_prompt">Wrażliwość na ruch</string>
     <string name="title_activity_start">Haven</string>
     <string name="menu_about">Skonfiguruj</string>
+    <string name="hearbeat_monitor">Monitor pulsu Haven</string>
+    <string name="events_deleted">Zdarzenia usunięte</string>
+    <string name="remove_all_logs">Usuń wszystkie logi</string>
+    <string name="undo">Cofnij</string>
+    <string name="event_deleted">Usunięto zdarzenie</string>
+    <string name="disable_battery_opt_summary">Zezwalaj aplikacji na działanie, gdy ekran jest wyłączony</string>
+    <string name="disable_battery_opt_title">Wyłącz optymalizacje baterii</string>
+    <string name="notification_time">Interwał czasu powiadamiania</string>
+    <string name="camera_sensitivity">Czułość kamery</string>
+    <string name="video_settings">Ustawienia wideo</string>
+    <string name="video_monitoring">Monitoring wideo</string>
+    <string name="config_video_length_label">Ustaw długość monitorowania wideo</string>
+    <string name="label_notifications">Powiadomienia</string>
+    <string name="sensors">Czujniki</string>
+    <string name="password">Hasło (wymagane)</string>
+    <string name="service_address">Adres usługi</string>
+    <string name="send_text_message">Powiadomienia testowe…</string>
+    <string name="send_message_dialog">Wprowadź numer telefonu, pod który zostanie wysłana wiadomość z alertem testowym</string>
+    <string name="verification_dialog_summary_verified">Zweryfikowano numer Signal</string>
+    <string name="verification_dialog_summary">Dotknij, aby zweryfikować swój numer Signal</string>
+    <string name="sms_dialog_summary">Zdalny numer telefonu do wysyłania powiadomień na</string>
+    <string name="remote_access_onion_error">Ta funkcja wymaga zainstalowania aplikacji Orbot: Tor for Android.</string>
+    <string name="settings">Ustawienia</string>
 </resources>
