@@ -1,0 +1,37 @@
+Refuge est une appli pour les personnes qui ont besoin de protéger leur sphère privée et
+leurs possessions sans compromettre la protection de leur propre vie privée.
+Elle transforme les capteurs intégrés à tout téléphone Android en capteurs de mouvement, 
+de son, de vibration et de lumière, et vous signale la présence de visiteurs imprévus et 
+d’intrus dans vos espaces physiques.
+En combinant la surveillance, la mémoire de l’appareil aux technologies de communication
+sécurisée telles que Signal et Tor, elle empêche que les pires personnes réduisent les
+citoyens au silence sans se faire attraper. En protégeant les journalistes-enquêteurs, les
+défenseurs des droits de la personne et ceux exposés au risque d’une disparition forcée, un
+nouveau genre d’immunité de groupe est créé.
+
+## La sécurité grâce aux capteurs
+
+Refuge n’enregistre localement sur votre appareil que les images et les sons déclenchés par
+un mouvement ou un volume. Positionnez l’appareil photo de votre appareil afin qu’il
+capture les mouvements visibles ou placez votre téléphone de façon discrète afin qu’il
+n’écoute que les bruits. Recevez instantanément des notifications sécurisées d’événements
+d’intrusion et accédez à distance et en tout temps aux journaux de l’appli.
+
+Les capteurs qui surveillent les changements mesurables et les enregistrent dans le journal
+d’événements de l’appareil sont :
+
+* L’accéléromètre : mouvement et vibration du téléphone
+* L’appareil photo : mouvement dans le champ de capture du téléphone, avec
+l’appareil photo avant ou arrière
+* Le microphone : bruits environnants
+* Le capteur de luminosité : déclenché par les changements de luminosité soudains
+* L’alimentation : détection du débranchement de l’appareil, d’épuisement de la pile et
+d’extinction de l’appareil
+
+## L’équipe du projet
+
+Refuge (« Haven » en anglais) est une collaboration entre le « Guardian project » et la
+Fondation pour la liberté de la presse (« Freedom of the Press Foundation ») qui a
+généreusement financé l’étape de prototype. L’effort continu peut-être financé à partir de
+leur site (en anglais) :
+https://freedom.press/donate-support-haven-open-source-project

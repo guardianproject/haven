@@ -1,0 +1,32 @@
+Haven, kendi gizliliklerinden ödün vermeden özel alanlarını ve eşyalarını
+korumanın bir yoluna ihtiyaç duyan kişiler için bir uygulamadır.
+Herhangi bir Android telefonun cihaz üzerindeki sensörlerini hareket, ses, titreşim ve ışık
+dedektörüne dönüştürerek sizi fiziksel alanlarınızdaki beklenmedik misafirler ve işgalcilere
+karşı uyarır. İzleme ve cihaz depolamasını Signal ve Tor gibi güvenli iletişim teknolojileriyle
+birleştirerek, en kötü türden insanların iş üzerinde yakalanmadan vatandaşları susturmasını
+önler. Araştırmacı gazetecileri, insan hakları savunucularını ve zorla kaybedilme riski
+altındaki kişileri koruyarak, yeni bir tür sürü bağışıklığı oluşturulur.
+
+## Sensörler aracılığıyla Güvenlik
+
+Haven, sadece hareket veya ses seviyesi tarafından tetiklenen görüntüleri
+ve sesleri kaydederek her şeyi cihazınızda yerel olarak depolar. Cihazın
+kamerasını görünür hareketi yakalayacak şekilde konumlandırın veya
+sadece gürültüleri dinlemek için telefonunuzu dikkat çekmeyecek bir yere
+yerleştirin. İzinsiz giriş olaylarının güvenli bildirimlerini anında alın ve
+günlük kayıtlarına istediğiniz zaman uzaktan erişin.
+
+Cihaz olay günlüğüne kaydedilen, ölçülebilir değişiklikler için izlenen sensörler:
+
+* İvmeölçer: Telefonun hareketi ve titreşimi
+* Kamera: Ön veya arka kameradan telefonun görünür çevresindeki hareket
+* Mikrofon: Ortamdaki sesler
+* Işık sensörü: Ani ışık değişiklikleri tarafından tetiklenir
+* Güç: Cihazın fişinin çekildiğini, pilinin bittiğini veya kapatıldığını tespit et
+
+## Proje Ekibi
+
+Haven, Guardian Project ile prototip aşamasını cömertçe finanse
+eden Freedom of the Press Foundation arasında bir iş birliğidir. Devam eden
+çalışma siteleri üzerinden finanse edilebilir:
+https://freedom.press/donate-support-haven-open-source-project
