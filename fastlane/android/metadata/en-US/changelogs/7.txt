@@ -1,0 +1,4 @@
+7f70d29 improve list display of images and audio
+
+Otherwise, please see the release notes for 0.0.6:
+https://github.com/guardianproject/phoneypot/releases/tag/0.0.6

@@ -1,0 +1,3 @@
+What an amazing amount of contribution by our new community team, post-launch announcement! What can we say, but THANK YOU for all the interest and support. We'll be working on ways to support and engage with the community in the new year, so stay tuned for that. 
+
+WARNING: This release is signed with the official Guardian Project release key, which is different than the automated nightly repo build key. If you are using F-Droid to get Haven, then stick with that path.

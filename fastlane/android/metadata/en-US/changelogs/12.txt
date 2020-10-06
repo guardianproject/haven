@@ -1,0 +1,8 @@
+cedfd4f update to 0.0.12
+5be5838 add support for detecting power changes
+74c54f1 update art
+319f24d add a fancy header
+aedfb9b remove unused graphics
+dbfe832 tweak layout of header text
+507734e improve layout of main screen
+9c45128 append onion address to text message notificatoins

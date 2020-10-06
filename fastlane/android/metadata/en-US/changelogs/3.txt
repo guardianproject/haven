@@ -1,0 +1,6 @@
+11953e7 more progress on #15 for the alert/event log
+43ae704 very basic event display and share UI
+d078907 major progress on #15 with data persistence and log UI
+7332fec using Sugar ORM for data persistence of event info
+b0d17c9 code package refactor
+fe0d363 remove notifications, and hide them from lockscreen

@@ -1,0 +1,12 @@
+8d4c48e update to build 11 (0.0.11)
+91227e7 a few more onboarding and permissions tweaks
+6a867f5 ensure mic permissions are requested!
+5c29260 Major UI overhaul in line with #37 proposals
+25467c8 improve onboarding
+6978de9 add support for audiowaves library
+1ebeba0 add the display of audio waveforms
+2b803fc add art assets to project
+eff9b90 update how Sugar OOM is setup and called
+d0ee22a update depenencies
+7fe0319 updating logo and color scheme
+9c9d3fb branding updates!

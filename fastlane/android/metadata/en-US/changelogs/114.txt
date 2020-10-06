@@ -1,0 +1,1 @@
+This is a build meant for testing of the new camera implementation to see if it improves reliability when the screen is off/locked.

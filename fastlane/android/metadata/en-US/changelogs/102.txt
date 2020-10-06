@@ -1,0 +1,5 @@
+91edf69 make the monitor background the right color
+b5868a1 don't autoactive timer unless already running
+0fd6f69 tuning of accel/motion sensor; new UI for configuration
+1c62775 update package imports after refactor
+f2dc953 refactored to org.havenapp.main package and project name
