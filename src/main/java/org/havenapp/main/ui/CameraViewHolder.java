@@ -43,7 +43,6 @@ import org.havenapp.main.service.MonitorService;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -293,23 +292,18 @@ public class CameraViewHolder {
 
     private void finishVideoEncoding ()
     {
-        try {
-            cameraView.stopVideo();
+        cameraView.stopVideo();
 
-            if (serviceMessenger != null) {
-                Message message = new Message();
-                message.what = EventTrigger.CAMERA_VIDEO;
-                message.getData().putString(MonitorService.KEY_PATH, videoFile.getAbsolutePath());
-                try {
-                    serviceMessenger.send(message);
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                }
+        if (serviceMessenger != null) {
+            Message message = new Message();
+            message.what = EventTrigger.CAMERA_VIDEO;
+            message.getData().putString(MonitorService.KEY_PATH, videoFile.getAbsolutePath());
+            try {
+                serviceMessenger.send(message);
+            } catch (RemoteException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-
     }
 
     private void processNewFrame (byte[] data, Size size)
