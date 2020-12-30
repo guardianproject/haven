@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.0.1'
+        classpath 'com.android.tools.build:gradle:4.1.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 
@@ -26,8 +26,6 @@ def getVersionName = { ->
 apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
-
-apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
@@ -142,12 +140,12 @@ configurations {
 
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation "androidx.coordinatorlayout:coordinatorlayout:1.1.0"
-    implementation 'androidx.preference:preference:1.1.1'
+    implementation 'androidx.preference:preference-ktx:1.1.1'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.annotation:annotation:1.1.0'
-    implementation 'com.google.android.material:material:1.3.0-alpha02'
+    implementation 'com.google.android.material:material:1.3.0-beta01'
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.wdullaer:materialdatetimepicker:4.2.3'
     implementation 'com.github.guardianproject:signal-cli-android:v0.6.0-android-beta-1'
@@ -160,7 +158,7 @@ dependencies {
     implementation 'com.facebook.fresco:fresco:2.0.0'
     implementation 'com.github.derlio:audio-waveform:v1.0.1'
     implementation 'com.maxproj.simplewaveform:app:1.0.0'
-    implementation 'com.googlecode.libphonenumber:libphonenumber:8.12.9'
+    implementation 'com.googlecode.libphonenumber:libphonenumber:8.12.15'
     implementation('com.mikepenz:aboutlibraries:7.0.3@aar') {
         transitive = true
     }
@@ -178,7 +176,7 @@ dependencies {
     implementation "android.arch.lifecycle:runtime:2.1.0"
     implementation "android.arch.lifecycle:extensions:2.1.0"
 
-    testImplementation 'junit:junit:4.13'
+    testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test:runner:1.3.0'
     androidTestImplementation 'androidx.test:core:1.3.0'
     androidTestImplementation 'androidx.test:rules:1.3.0'
@@ -191,6 +189,5 @@ dependencies {
 
     // new camera view: https://github.com/natario1/CameraView
     implementation 'com.otaliastudios:cameraview:2.6.4'
-
 
 }
