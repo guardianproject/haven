@@ -64,11 +64,11 @@
             android:theme="@style/SettingsTheme" />
         <activity
             android:name=".ui.PPAppIntro"
-            android:screenOrientation="fullSensor" />
+            android:screenOrientation="fullUser" />
         <activity
             android:name=".MonitorActivity"
             android:label="@string/app_name"
-            android:screenOrientation="fullSensor"
+            android:screenOrientation="fullUser"
             android:launchMode="singleTop"
             android:resizeableActivity="true"
             android:supportsPictureInPicture="true"
@@ -114,7 +114,7 @@
             android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity
             android:name=".ui.CameraConfigureActivity"
-            android:screenOrientation="fullSensor"
+            android:screenOrientation="fullUser"
             android:configChanges="orientation|screenSize|keyboardHidden" />
 
         <receiver android:name=".sensors.PowerConnectionReceiver">
