@@ -40,11 +40,9 @@ import org.havenapp.main.model.EventTrigger;
 import org.havenapp.main.sensors.motion.LuminanceMotionDetector;
 import org.havenapp.main.sensors.motion.MotionDetector;
 import org.havenapp.main.service.MonitorService;
-import org.jcodec.api.android.AndroidSequenceEncoder;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -104,7 +102,6 @@ public class CameraViewHolder {
 	private Activity context;
 	private MotionDetector motionDetector;
 
-    AndroidSequenceEncoder encoder;
     private File videoFile;
 
     //for managing bitmap processing
@@ -142,7 +139,7 @@ public class CameraViewHolder {
                 listener.onProcess(detectedImage,rawBitmap,motionDetected);
 
             if (motionDetected)
-                mEncodeVideoThreadPool.execute(() -> saveDetectedImage(rawBitmap));
+                mEncodeThreadPool.execute(() -> saveDetectedImage(rawBitmap));
 
         });
 	/*
@@ -179,7 +176,6 @@ public class CameraViewHolder {
 
                 if (prefs.getVideoMonitoringActive() && (!doingVideoProcessing)) {
                     recordVideo();
-
                 }
 
             } catch (Exception e) {
@@ -242,11 +238,10 @@ public class CameraViewHolder {
                 byte[] data = frame.getData();
                 Size size = frame.getSize();
 
-                    if (!doingVideoProcessing) {
-                        mDecodeThreadPool.execute(() -> processNewFrame(data, size));
-                    } else {
-                        mEncodeVideoThreadPool.execute(() -> recordNewFrame(data, size));
-                    }
+                // Frame video encoding was here previously, but is now
+                // done by android system functions in the CameraView library.
+
+                mDecodeThreadPool.execute(() -> processNewFrame(data, size));
             }
         });
 
@@ -280,58 +275,35 @@ public class CameraViewHolder {
             mDecodeWorkQueue);
 
     // A queue of Runnables
-    private final BlockingQueue<Runnable> mEncodeVideoWorkQueue = new LinkedBlockingQueue<Runnable>();
+    private final BlockingQueue<Runnable> mEncodeWorkQueue = new LinkedBlockingQueue<Runnable>();
 
     // Creates a thread pool manager
-    private ThreadPoolExecutor mEncodeVideoThreadPool = new ThreadPoolExecutor(
+    private ThreadPoolExecutor mEncodeThreadPool = new ThreadPoolExecutor(
             1,       // Initial pool size
             1,       // Max pool size
             10,
             TimeUnit.SECONDS,
-            mEncodeVideoWorkQueue);
+            mEncodeWorkQueue);
 
 
     private Matrix mtxVideoRotate;
 
-    private void recordNewFrame (byte[] data, Size size)
-    {
-        if (data != null && size != null) {
-            int width = size.getWidth();
-            int height = size.getHeight();
-            Bitmap bitmap = Bitmap.createBitmap(MotionDetector.convertImage(data, width, height), 0, 0, width, height, mtxVideoRotate, true);
-
-            try {
-                if (encoder != null)
-                    encoder.encodeImage(bitmap);
-
-                bitmap.recycle();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
+    // recordNewFrame replaced by CameraView's internal android system encoding
 
     private void finishVideoEncoding ()
     {
-        try {
-            encoder.finish();
+        cameraView.stopVideo();
 
-            if (serviceMessenger != null) {
-                Message message = new Message();
-                message.what = EventTrigger.CAMERA_VIDEO;
-                message.getData().putString(MonitorService.KEY_PATH, videoFile.getAbsolutePath());
-                try {
-                    serviceMessenger.send(message);
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                }
+        if (serviceMessenger != null) {
+            Message message = new Message();
+            message.what = EventTrigger.CAMERA_VIDEO;
+            message.getData().putString(MonitorService.KEY_PATH, videoFile.getAbsolutePath());
+            try {
+                serviceMessenger.send(message);
+            } catch (RemoteException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-
     }
 
     private void processNewFrame (byte[] data, Size size)
@@ -362,12 +334,14 @@ public class CameraViewHolder {
 
         videoFile =  new File(fileStoragePath, ts1 + ".mp4");
 
-        try {
-            encoder = AndroidSequenceEncoder.createSequenceEncoder(videoFile,5);
+	// jcodec encoding replaced by CameraView's android system encoding.
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+	// Once there is a place to send live streaming uploading, this could be
+	// done with CameraView by adding FileDescriptor support to the interface,
+	// which doesn't look hard to do, and then passing a FileDescriptor instead
+	// of a File.  See https://github.com/natario1/CameraView/issues/967
+
+        cameraView.takeVideoSnapshot(videoFile);
 
         mtxVideoRotate = new Matrix();
 
