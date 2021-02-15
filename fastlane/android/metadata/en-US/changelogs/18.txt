@@ -1,0 +1,11 @@
+12c8090 improvements to spanish translation
+9c1a076 increase sensitivy of motion detection
+7a93a4e add support for sending audio notifications over Signal
+e4c3661 tweak accel detection
+d40ab2c tweak about display
+bb218d1 make out the preview fps
+d7ff89a improve the camera preview speed
+d15980f source code cleanup
+2ed2152 start supporting RSS for onion syncing
+194ede7 Merge branch 'master' of github.com:guardianproject/phoneypot
+5b168f1 adding more information about 3rd party libs

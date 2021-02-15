@@ -1,0 +1,5 @@
+- Built prototype from a number of existing codebases up to a decent working prototype/poc app
+- Basic monitoring capabilities work for accelerometer movement (moving the device and vibration), microphone sound monitoring, and camera motion detection (front or back camera)
+- pin entry locks monitor mode on/off
+- attempts at keeping monitoring on while device screen is off and locked have been implemented
+- remote SMS notification optional

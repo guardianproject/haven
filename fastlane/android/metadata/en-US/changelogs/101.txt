@@ -1,0 +1,3 @@
+2d5185e upgrade to build 101
+22e6308 more conservative use of the camera params for now
+b6ba321 handle crashes from the media record better

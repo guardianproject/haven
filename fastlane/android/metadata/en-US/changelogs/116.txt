@@ -1,0 +1,5 @@
+c22ecae update to build 116
+37a6c9d if video is activated, don't send still photo notifications
+990ce9e update signal-cli-android to 0.6.0
+6966bed a few tweaks to camera behavior
+29da0f7 remove Picasso for image loading since we can just use Fresco

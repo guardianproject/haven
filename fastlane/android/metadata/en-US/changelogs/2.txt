@@ -1,0 +1,12 @@
+fe0d363 remove notifications, and hide them from lockscreen
+4585a84 update to 0.0.2
+a3de1b6 update build files
+ec218a2 updating source code headers as appropriate
+06b6781 update readme
+4ffba25 add wakelock to keep it from sleeping
+f5ae3ce camera motion detection also working
+861c709 sound and motion/accel working
+4324206 basic accel alert is working
+6211580 delete old readme
+a09a22e update README
+1e5bf02 change how the service is triggered - also add new notification icon

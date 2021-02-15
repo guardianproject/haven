@@ -1,0 +1,2 @@
+* Multiple fixes for sensor configuration, tuning, and background operation
+* Restore the ability to receive all notifications (set "0" in settings)

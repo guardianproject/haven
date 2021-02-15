@@ -1,0 +1,1 @@
+Fixes some new issues with camera switching, and changes camera configuration flow to make it directly accessible

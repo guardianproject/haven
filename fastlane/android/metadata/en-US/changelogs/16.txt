@@ -1,0 +1,5 @@
+8834c71 improvements to time configuration UI
+1cf930f Merge branch 'master' of github.com:guardianproject/phoneypot
+73841cb fixes for #41 to enable basic password for onion service
+d3d97d6 removed signal-cli as submodule; moved to gradle
+6db0bdf Removed submodule signal-cli

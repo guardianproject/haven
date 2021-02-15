@@ -1,0 +1,9 @@
+d4dbb14 a few more UI tweaks
+e3138c0 improvements to onboarding, first-time logic
+46028b7 minor UI/color tweaking
+a2ba058 fix issues with persistence of event triggers
+3d65072 fix bug with crashing after event window
+456ddf4 make the threshold lower for change detection
+69c47ba add Barometer/Pressure sensor #32 first bits of code - need to figure out what a typical "diff" in pressure looks like 
+3f6a0b5 implemented onboarding #11 very basic start with graphics
+b0f5558 make all sensors

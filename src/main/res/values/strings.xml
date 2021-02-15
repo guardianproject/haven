@@ -3,7 +3,7 @@
     <string name="app_name" translatable="false">Haven</string>
     <string name="bullets" translatable="false">•••••••</string>
     <string name="menu_save">Save</string>
-    <string name="menu_about">Setup…</string>
+    <string name="menu_about">Set up…</string>
     <string name="title_activity_start">Haven</string>
     <string name="accelerometer_prompt">Movement Sensitivity</string>
     <string name="microphone_sensitivity">Sound Sensitivity</string>
@@ -32,13 +32,13 @@
     <string name="camera_front">Front</string>
     <string name="camera_back">Back</string>
     <string name="camera_none">None</string>
-    <string name="action_configure">Configure</string>
+    <string name="action_configure">Set up</string>
     <string name="main_screen_title">Your Haven Log</string>
     <string name="current_noise_base">Current noise level is</string>
     <string name="current_accel_base">Current motion level is</string>
     <string name="configure_trigger_level">Slide to set detection threshold</string>
     <string name="tune_the_sound_detection">Make some noise!</string>
-    <string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">Set your phone on the table, and make noises in the room to find the right level to detect</string>
+    <string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">Place your phone on the table, and make noises in the room to find the right level to detect</string>
     <string name="tune_the_accel_detection">Shake it up!</string>
     <string name="tune_the_accel_detection_more">Move your phone around to tune the motion detection threshold</string>
     <string name="set_a_countdown_time">Tap to change countdown</string>
@@ -61,7 +61,7 @@
     <string name="data_pressure">PRESSURE</string>
     <string name="data_power">POWER</string>
     <string name="data_battery">BATTERY</string>
-    <string name="share_event_action">Share event...</string>
+    <string name="share_event_action">Share event…</string>
     <string name="signal_test_message">This is a test message from Haven</string>
     <string name="send_test_message">Send Test Message</string>
     <string name="verify">Verify</string>
@@ -72,7 +72,9 @@
     <string name="enter_verification">Enter the verification code you received from the Signal registration step</string>
     <string name="cancel">Cancel</string>
     <string name="register_title">Register with Signal</string>
-    <string name="register_signal_desc">Enter a phone number to register with Signal, to use to send secure notifications. You can use this device\'s phone number or setup a virtual number.\n\nWARNING: If this number is already configured with a Signal app install, it will stop working there, and only work within Haven.</string>
+    <string name="register_signal_desc">Enter a phone number to register with Signal, to use to send secure notifications. You can use this device\'s phone number or set up a virtual number.
+\n
+\nWARNING: If this number is already paired with a Signal app installation, it will stop working there, and only work within Haven.</string>
     <string name="phone_hint">+12125551212</string>
     <string name="menu_licenses">Licenses…</string>
     <string name="sensor_light">Ambient Light</string>
@@ -92,7 +94,7 @@
     <string name="sms_dialog_message">Enter a remote phone number to send alert notifications to</string>
     <string name="signal_dialog_summary">A phone number to send from using Signal</string>
     <string name="verification_dialog_summary">Tap to verify your Signal number</string>
-    <string name="verification_dialog_summary_verified">Signal number is verified</string>
+    <string name="verification_dialog_summary_verified">Signal number verified</string>
     <string name="send_message_dialog">Enter a phone number to send a test alert notification message to</string>
     <string name="send_text_message">Test notifications…</string>
     <string name="service_address">Service Address</string>
@@ -108,22 +110,22 @@
     <string name="camera_sensitivity">Camera Sensitivity</string>
     <string name="notification_time">Notification Time Interval</string>
     <string name="notification_time_summary">Only send notifications at configured interval</string>
-    <string name="notification_time_dialog">Enter time (minutes) to limit notifications. \'0\' to send every notification.</string>
+    <string name="notification_time_dialog">Enter shortest period of repeated notifications (in minutes). Use \'0\' to send all of them.</string>
     <string name="minutes">minute(s)</string>
     <string name="keep_watch">Keep Watch!</string>
     <string name="camera_sensitivity_tip">Use slider to adjust motion detection sensitivity, with a goal of 0% when there is no motion.</string>
-    <string name="disable_battery_opt_title">Disable Battery Optimizations</string>
+    <string name="disable_battery_opt_title">Turn off Battery Optimizations</string>
     <string name="disable_battery_opt_summary">Allow app to run when screen is off</string>
     <string name="event_deleted">Event deleted</string>
     <string name="undo">UNDO</string>
     <string name="remove_all_logs">Remove all logs</string>
     <string name="events_deleted">Events deleted</string>
     <string name="hearbeat_monitor">Haven Heartbeat Monitor</string>
-    <string name="hearbeat_monitor_enable">Enable Heartbeat Alert</string>
+    <string name="hearbeat_monitor_enable">Turn on Heartbeat Alert</string>
     <string name="hearbeat_monitor_summary">Checkup Interval</string>
-    <string name="heartbeat_time_dialog">Enter time (minutes) to send battery % and a single-character heart emoji. Alerts cease when Haven stops monitoring for any reason.</string>
-    <string name="hearbeat_monitor_dialog">Configure delay between alerts</string>
-    <string name="hearbeat_message_dialog">Customize message sent for heartbeat notifications. Leave blank to use default heart emoji</string>
+    <string name="heartbeat_time_dialog">Enter time (in minutes) to send battery % and a single-character heart emoji. Alerts cease when Haven stops monitoring for any reason.</string>
+    <string name="hearbeat_monitor_dialog">Set up delay between alerts</string>
+    <string name="hearbeat_message_dialog">Customize heartbeat notification message. Leave blank to use default heart emoji.</string>
     <string name="hearbeat_message_title">Alert Message</string>
     <string name="hearbeat_message_summary">Set custom message text</string>
     <string name="hearbeat_message_summary_on">Custom alerts enabled</string>
@@ -134,7 +136,7 @@
     <string name="config_storage_path">Storage Folder Path</string>
     <string name="config_storage_page_hint">Where captured media is stored</string>
     <string name="event_trigger_deleted">Event Trigger deleted</string>
-    <string name="please_wait">Please wait</string>
+    <string name="please_wait">Please wait…</string>
     <string name="migrating_data">Looking for your old data</string>
     <!-- accepted digits for directory name - may vary for locale/platform/etc.
          Skipping periods, spaces, and other special characters to keep it simple -->
@@ -146,15 +148,15 @@
     <string name="status_recording_video">Recording…</string>
     <string name="status_light">LIGHT DETECTED</string>
     <string name="registering_to_signal">Registering to Signal</string>
-    <string name="signal_registration_desc">Please wait while we register you to Signal services</string>
+    <string name="signal_registration_desc">Awaiting registration with Signal services</string>
     <string name="verifying_signal">Verifying</string>
-    <string name="verifying_signal_desc">Please wait while we verify your registration to Signal services</string>
-    <string name="ok">Ok</string>
-    <string name="registration_successful">Registration Successful</string>
-    <string name="signal_reg_success_desc">You have successfully registered to Signal services. Next Step is to verify the registration for %s</string>
-    <string name="verification_successful">Verification Successful</string>
+    <string name="verifying_signal_desc">Awaiting confirmation of registration with Signal services</string>
+    <string name="ok">OK</string>
+    <string name="registration_successful">Registered</string>
+    <string name="signal_reg_success_desc">You are registered with Signal services. Now verify the registration for %s</string>
+    <string name="verification_successful">Verified</string>
     <string name="signal_verification_success_desc">All set to send Haven alerts from Signal!</string>
-    <string name="setup_signal_toast">Please set up Signal notifications from settings</string>
+    <string name="setup_signal_toast">Please set up Signal notifications from the settings</string>
     <string name="reset_signal_configuration">Reset Signal Configuration</string>
     <string name="reset_configuration_question">Reset Signal Configuration?</string>
     <string name="reset_configuration_desc">This will clear out all Signal configurations. You will have to register and verify again to use Signal services in the future. Are you sure?</string>

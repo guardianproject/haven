@@ -1,0 +1,35 @@
+Haven er for folk som trenger å beskytte sin privatsfære og eiendeler
+uten å la det gå ut over personvernet. Det er et Android-program som
+bruker sensorer på enhver Android-enhet til å overvåke og beskytte private rom
+via bevegelses- lyd- vibrasjons- og lysdetektor, og holder med det oppsyn
+med uventede gjester og ubudne inntrengere.
+Ved å kombinere overvåkning og enhetslagring med sikre
+kommunikasjonsteknologier, som Signal og Tor, forhindrer det de verst tenkelige
+folkene fra å forstumme borgere uten at de skulle bli tatt for det.
+Ved å beskytte gravende journalister, menneskerettsforkjempere, og folk som
+risikerer å bli kidnappet, skapes en ny type flokkimmunitet.
+
+## Sikkerhet gjennom sensorer
+
+Haven lagrer kun bilder og lyd når det utløses av bevegelse eller lyd,
+og lagrer alt lokalt på enheten. Du kan vinkle enhetens kamera for å
+ta opp synlig bevegelse, eller legge telefonen din noensteds hen, der den
+diskret lytter til kun lyder. Få sikrede merknader om innbruddshendelser
+omgående, og sjekk loggføringen fra annensteds hen når som helst senere.
+
+Følgende sensorer holdes det oppsyn med, tatt opp som
+hendelser i en logg på enheten:
+
+* Akselerometer
+* Kamera: Bevegelse i telefonens synlige omgivelser forfra eller bakfra med kamera der
+* Mikrofon: Lyder i omgivelsene
+* Lyssensor: Utlyses av bråe endringer i lysforhold.
+* Effekt: Tar rede på om enheten har blitt koblet til eller fra lading, eller blir skrudd av.
+
+## Prosjektlaget
+
+Haven ble utviklet gjennom et samarbeid mellom Freedom of the
+Press Foundation og Guardian-prosjektet. Prototypen ble kronerullet
+av FPF. Donasjoner bidrar til vedvarende arbeide, og kan innsendes
+via deres nettside:
+https://freedom.press/donate-support-haven-open-source-project

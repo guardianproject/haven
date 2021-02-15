@@ -1,0 +1,11 @@
+03dfebe update to 0.0.14
+635c6ee remove custom protocol store for now
+d261747 update package for power sensor
+6ab5e71 update spanish strings
+dfe024a improve cancel/deactivate logic
+29b9581 fix typo that turned an int into a car
+2233edb update UI for localizatoin and extract remaining strings
+c8236b7 make sure monitor service is running
+083d895 change title of webpage to match app
+cb1b640 lock onboarding into portrait mode
+4f7ddfe add transifex support and add our first spanish localiza

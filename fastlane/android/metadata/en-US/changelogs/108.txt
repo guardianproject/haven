@@ -1,0 +1,7 @@
+* New Camera Sensitivity configuration
+* Support for working on non-telephone tablet devices, and w/o touchscreen (TVs, chromebooks)
+* Better linking between monitor UI and running background service (in case of crash)
+* Improvements to running in background
+* Lot's of other great UI improvements!
+
+Thanks to @mig5 @christxph @percy-g2 @fat-tire @WangQiru @FREEWING-JP @kushaldas and all others who reported issues and bugs!

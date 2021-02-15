@@ -1,0 +1,13 @@
+294c75b make sure audio file is done recording before sending
+e9c4f21 fix bug in gradle
+63662da update build and manifest
+12c8090 improvements to spanish translation
+9c1a076 increase sensitivy of motion detection
+7a93a4e add support for sending audio notifications over Signal
+e4c3661 tweak accel detection
+d40ab2c tweak about display
+2cb0d09 updated to 0.0.17
+bb218d1 make out the preview fps
+d7ff89a improve the camera preview speed
+d15980f source code cleanup
+2ed2152 start supporting

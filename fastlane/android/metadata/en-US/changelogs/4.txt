@@ -1,0 +1,1 @@
+Image and audio are now stored and displayed when detection event occurs.

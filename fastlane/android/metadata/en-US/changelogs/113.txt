@@ -1,0 +1,9 @@
+Thanks to the amazing contributions of lukeswitz, fat-tire, percy-g2, FREEWING-JP, HenryQW,PelicanMaster,investe, WangQiru and leonardoporpora!
+
+New feature highlights
+- Option to enable a regular "heartbeat" message to ensure Haven is running and active
+- Option to enable video capture, instead of still+audio, in case motion is detected
+- General improved stability of the camera sensitivity setup and capture
+
+Fixed and/or closed
+- Deleting only Haven Log #216 by michritoba was closed 5

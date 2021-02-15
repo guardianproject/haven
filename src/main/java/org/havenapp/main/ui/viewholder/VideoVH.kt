@@ -32,7 +32,7 @@ class VideoVH(private val clickListener: VideoClickListener, private val context
         desc.text = eventTrigger.time?.toLocaleString() ?: ""
 
         val bitmapD = BitmapDrawable(context.resources,
-                ThumbnailUtils.createVideoThumbnail(eventTrigger.path,
+                ThumbnailUtils.createVideoThumbnail(eventTrigger.path.toString(),
                         MediaStore.Video.Thumbnails.FULL_SCREEN_KIND))
         videoView.background = bitmapD
         videoView.setOnClickListener {

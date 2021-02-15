@@ -1,0 +1,9 @@
+e2ca365 update to build 115
+b937479 more improvements to video recording
+72011b8 add blank drawable to clear out detection overlay
+f095929 enscure motion detect sensivity is updated as the user changes it
+7070dbb re-use the MotionDetector, and other improvements
+625cab5 lock to portrait since CameraView requires that
+68ce40e update start button to be more visible
+4431fd0 handle the view logs / deactivate button as expected
+2654119 ensure Event delete and undo is working as expected

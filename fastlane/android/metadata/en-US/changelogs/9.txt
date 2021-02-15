@@ -1,0 +1,6 @@
+** Please note, this build has been signed with a new development signing key. This means you will have to uninstall any previous versions of PhoneyPot, before you install this one **
+
+HIGHLIGHTS
+* Improved settings screen
+* Interactive "room tone" microphone sensor configuration screen
+* Real-time remote access via Onion Service to log and captured media

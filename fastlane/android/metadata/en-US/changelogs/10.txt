@@ -1,0 +1,3 @@
+* Captured photos now in color, with tap/zoom/swipe interface for reviewing
+* Added ambient light sensor that can detect flashlights, etc in a dark room
+* Reordered event list so that newest one is first!

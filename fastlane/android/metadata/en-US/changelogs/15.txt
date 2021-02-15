@@ -1,0 +1,2 @@
+* Now available in Spanish!
+* Alpha support for secure notifications (with photo!) through Signal

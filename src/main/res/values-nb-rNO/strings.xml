@@ -67,7 +67,7 @@
     <string name="current_accel_base">Nåværende bevegelsesnivå er</string>
     <string name="configure_trigger_level">Dra for å velge utløsningsterskel</string>
     <string name="tune_the_sound_detection">Lag lyd!</string>
-    <string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">Sett telefonen din på bordet, og lag lyder i rommet for å finne rett terskelnivå</string>
+    <string name="set_your_phone_on_the_table_and_make_noises_in_the_room_to_find_the_right_level_to_detect">Legg telefonen på bordet, og lag lyder i rommet for å finne riktig nivå å oppdage</string>
     <string name="tune_the_accel_detection">Rist løs.</string>
     <string name="tune_the_accel_detection_more">Flytt telefonen din rundt for å sette bevegelsesterskelen</string>
     <string name="set_a_countdown_time">Trykk for å endre nedtelling</string>
@@ -142,4 +142,18 @@
     <string name="data_battery">BATTERI</string>
     <string name="power_source_status">TILSTAND:</string>
     <string name="run_disk_cleanup">Tøm slettet loggføring fra enhet</string>
+    <string name="verification_dialog_summary_verified">Signal-nummer bekreftet</string>
+    <string name="registering_to_signal">Registrerer på Signal</string>
+    <string name="signal_registration_desc">Vent her mens du registreres på Signal</string>
+    <string name="verifying_signal">Bekrefter</string>
+    <string name="verifying_signal_desc">Aventer bekreftelse på registrering med Signal</string>
+    <string name="ok">OK</string>
+    <string name="registration_successful">Registrert</string>
+    <string name="signal_reg_success_desc">Du er registrert med Signal-tjenester. Bekreft registreringen for %s</string>
+    <string name="verification_successful">Bekreftet</string>
+    <string name="signal_verification_success_desc">Alt klart til forsendelse av Haven-varsler fra Signal.</string>
+    <string name="setup_signal_toast">Sett opp Signal-merknader fra innstillingene</string>
+    <string name="reset_signal_configuration">Tilbakestill Signal-oppsett</string>
+    <string name="reset_configuration_question">Tilbakestill Signal-oppsett\?</string>
+    <string name="reset_configuration_desc">Dette vil slette Signal-oppsettet. Du vil måtte registrere på ny, og bekrefte deg igjen for å bruke Signal-tjenestene i fremtiden. Er du sikker\?</string>
 </resources>

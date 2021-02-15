@@ -1,0 +1,7 @@
+c944a86 update to 0.0.8
+3dcdcc2 add first noise "room tone" baseline #12
+6d98ef9 support batch sending of event log with attachments
+a83c4e2 for #24 add ability to swipe away false trigger events
+4ba0436 improve the delete / undo capability
+c5a95ba for #19 reduce framerate of preview, should help with battery
+787a57b fixes #30 ensures swipe deletes; also add share per item!

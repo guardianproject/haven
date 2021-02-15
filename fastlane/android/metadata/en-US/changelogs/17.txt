@@ -1,0 +1,11 @@
+e4c3661 tweak accel detection
+d40ab2c tweak about display
+2cb0d09 updated to 0.0.17
+bb218d1 make out the preview fps
+d7ff89a improve the camera preview speed
+d15980f source code cleanup
+2ed2152 start supporting RSS for onion syncing
+5b168f1 adding more information about 3rd party libs and licenses
+ec12936 add screens
+8834c71 improvements to time configuration UI
+73841cb fixes for #41 to enable basic password for onion service
