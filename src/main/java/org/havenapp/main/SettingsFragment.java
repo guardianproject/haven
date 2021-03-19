@@ -189,36 +189,42 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         }
 
         Preference prefCameraSensitivity = findPreference(PreferenceManager.CAMERA_SENSITIVITY);
+        assert prefCameraSensitivity != null;
         prefCameraSensitivity.setOnPreferenceClickListener(preference -> {
             startActivity(new Intent(mActivity, CameraConfigureActivity.class));
             return true;
         });
 
         Preference prefConfigMovement = findPreference(PreferenceManager.CONFIG_MOVEMENT);
+        assert prefConfigMovement != null;
         prefConfigMovement.setOnPreferenceClickListener(preference -> {
             startActivity(new Intent(mActivity, AccelConfigureActivity.class));
             return true;
         });
 
         Preference prefConfigSound = findPreference(PreferenceManager.CONFIG_SOUND);
+        assert prefConfigSound != null;
         prefConfigSound.setOnPreferenceClickListener(preference -> {
             startActivity(new Intent(mActivity, MicrophoneConfigureActivity.class));
             return true;
         });
 
         Preference prefConfigTimeDelay = findPreference(PreferenceManager.CONFIG_TIME_DELAY);
+        assert prefConfigTimeDelay != null;
         prefConfigTimeDelay.setOnPreferenceClickListener(preference -> {
             showTimeDelayDialog(PreferenceManager.CONFIG_TIME_DELAY);
             return true;
         });
 
         Preference prefConfigVideoLength = findPreference(PreferenceManager.CONFIG_VIDEO_LENGTH);
+        assert prefConfigVideoLength != null;
         prefConfigVideoLength.setOnPreferenceClickListener(preference -> {
             showTimeDelayDialog(PreferenceManager.CONFIG_VIDEO_LENGTH);
             return true;
         });
 
         Preference prefDisableBatteryOpt = findPreference(PreferenceManager.DISABLE_BATTERY_OPT);
+        assert prefDisableBatteryOpt != null;
         prefDisableBatteryOpt.setOnPreferenceClickListener(preference -> {
             requestChangeBatteryOptimizations();
             return true;
@@ -426,7 +432,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                     preferences.setSignalUsername(signalNum);
                     findPreference(PreferenceManager.REGISTER_SIGNAL).setSummary(signalNum);
 
-                    resetSignal(preferences.getSignalUsername());
+                    resetSignal(preferences.getSignalUsername(),"9999");
                     if (getActivity() != null) {
                         Utils.hideKeyboard(getActivity());
                     }
@@ -535,7 +541,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
                     boolean heartbeatActive = ((SwitchPreference) findPreference(PreferenceManager.HEARTBEAT_MONITOR_ACTIVE)).isChecked();
                     if (heartbeatActive && preferences.getMonitorServiceActive()) {
-                        SignalSender sender = SignalSender.getInstance(getActivity(), preferences.getSignalUsername());
+                        SignalSender sender = SignalSender.getInstance(getActivity());
                         sender.stopHeartbeatTimer();
                         sender.startHeartbeatTimer(preferences.getHeartbeatNotificationTimeMs());
                     }
@@ -719,15 +725,16 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     }
 
     private void resetSignalAndClearPrefs() {
-        resetSignal(preferences.getSignalUsername());
+        resetSignal(preferences.getSignalUsername(),"9999");
         preferences.setSignalUsername(null);
         preferences.setVerifiedSignalUsername(null);
         preferences.setNotificationTimeMs(-1);
     }
 
-    private void resetSignal(String username) {
+    private void resetSignal(String username, String pinCode) {
         if (checkValidString((username))) {
-            SignalSender sender = SignalSender.getInstance(mActivity, username.trim());
+            SignalSender sender = SignalSender.getInstance(mActivity);
+            sender.setCredentials(username.trim(), pinCode.trim());
             sender.reset();
         }
     }

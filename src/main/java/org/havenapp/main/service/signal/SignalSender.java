@@ -111,9 +111,7 @@ public class SignalSender {
 
         try {
             int deviceId = 9999;
-            String userAgent = "(Haven/Android)";
-
-            mManager = new SignalServiceAccountManager(mService, mUsername, mPinCode, deviceId, userAgent);
+            mManager = new SignalServiceAccountManager(mService, mUsername, mPinCode, deviceId, USER_AGENT);
 
             if (callEnabled)
                 mManager.requestVoiceVerificationCode();
