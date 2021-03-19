@@ -60,7 +60,7 @@ import org.havenapp.main.model.Event;
 import org.havenapp.main.resources.IResourceManager;
 import org.havenapp.main.resources.ResourceManager;
 import org.havenapp.main.service.RemoveDeletedFilesJob;
-import org.havenapp.main.service.SignalSender;
+import org.havenapp.main.service.signal.SignalSender;
 import org.havenapp.main.ui.EventActivity;
 import org.havenapp.main.ui.EventAdapter;
 import org.havenapp.main.ui.PPAppIntro;

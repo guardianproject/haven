@@ -1,4 +1,4 @@
-package org.havenapp.main.service;
+package org.havenapp.main.service.signal;
 
 import android.content.Context;
 import android.os.CountDownTimer;
@@ -11,6 +11,7 @@ import org.asamk.signal.Main;
 import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.R;
 import org.havenapp.main.Utils;
+import org.havenapp.main.service.SignalExecutorTask;
 import org.whispersystems.libsignal.IdentityKey;
 import org.whispersystems.libsignal.IdentityKeyPair;
 import org.whispersystems.libsignal.InvalidKeyException;
@@ -23,13 +24,11 @@ import org.whispersystems.libsignal.state.SignedPreKeyRecord;
 import org.whispersystems.libsignal.util.KeyHelper;
 import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.signalservice.api.SignalServiceAccountManager;
-import org.whispersystems.signalservice.api.SignalServiceMessagePipe;
 import org.whispersystems.signalservice.api.SignalServiceMessageSender;
 import org.whispersystems.signalservice.api.crypto.UntrustedIdentityException;
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachment;
 import org.whispersystems.signalservice.api.messages.SignalServiceDataMessage;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
-import org.whispersystems.signalservice.api.push.TrustStore;
 import org.whispersystems.signalservice.internal.configuration.SignalCdnUrl;
 import org.whispersystems.signalservice.internal.configuration.SignalServiceConfiguration;
 import org.whispersystems.signalservice.internal.configuration.SignalServiceUrl;
@@ -38,7 +37,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -52,7 +50,7 @@ public class SignalSender {
     private Context mContext;
     private static SignalSender mInstance;
     private String mUsername; //aka your signal phone number
-    private String mPassword;
+    private String mPinCode;
     private CountDownTimer mCountdownTimer;
     private PreferenceManager preferences;
     private String messageString;
@@ -82,19 +80,24 @@ public class SignalSender {
         mService = new SignalServiceConfiguration(signalServiceUrls,signalCdnUrls);
     }
 
-    public static synchronized SignalSender getInstance (Context context) throws FileNotFoundException {
+    public static synchronized SignalSender getInstance (Context context) {
         if (mInstance == null)
         {
-            mInstance = new SignalSender(context);
+            try {
+                mInstance = new SignalSender(context);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                return null;
+            }
         }
 
         return mInstance;
     }
 
-    public void setCredentials (String username, String password)
+    public void setCredentials (String username, String pinCode)
     {
         mUsername = username;
-        mPassword = password;
+        mPinCode = pinCode;
     }
 
     public void reset ()
@@ -104,23 +107,47 @@ public class SignalSender {
         mInstance = null;
     }
 
-    public void register (boolean callEnabled, @Nullable SignalExecutorTask.TaskResult taskResult) throws IOException {
+    public void register (boolean callEnabled, @Nullable SignalExecutorTask.TaskResult taskResult) {
 
-        int deviceId = 9999;
-        String userAgent = "(Haven/Android)";
+        try {
+            int deviceId = 9999;
+            String userAgent = "(Haven/Android)";
 
-        mManager = new SignalServiceAccountManager(mService,mUsername,mPassword,deviceId,userAgent);
-        mManager.requestSmsVerificationCode();
+            mManager = new SignalServiceAccountManager(mService, mUsername, mPinCode, deviceId, userAgent);
+
+            if (callEnabled)
+                mManager.requestVoiceVerificationCode();
+            else
+                mManager.requestSmsVerificationCode();
+
+            taskResult.onSuccess("");
+        }
+        catch (Exception e)
+        {
+            taskResult.onFailure(e.getMessage());
+        }
 
     }
 
-    public void verify (final String receivedSmsVerificationCode, @Nullable SignalExecutorTask.TaskResult taskResult) throws IOException, InvalidKeyException {
+    public void verify (final String receivedSmsVerificationCode, @Nullable SignalExecutorTask.TaskResult taskResult) {
 
-        int signedPreKeyId = 1;
-        String pinCode = "9999";
+        try {
 
-        mManager.verifyAccountWithCode(receivedSmsVerificationCode, generateRandomSignalingKey(),
-                generateRandomInstallId(), false, pinCode);
+            mManager.verifyAccountWithCode(receivedSmsVerificationCode, generateRandomSignalingKey(),
+                    generateRandomInstallId(), false, mPinCode);
+
+            taskResult.onSuccess("");
+
+        } catch (Exception e) {
+
+            taskResult.onFailure(e.getMessage());
+
+        }
+
+    }
+
+    public void initKeys () throws InvalidKeyException, IOException {
+        int signedPreKeyId = 9999;
 
         IdentityKeyPair identityKey        = KeyHelper.generateIdentityKeyPair();
         List<PreKeyRecord> oneTimePreKeys     = KeyHelper.generatePreKeys(0, 100);
@@ -206,7 +233,7 @@ public class SignalSender {
 
 
         SignalServiceMessageSender messageSender =
-                new SignalServiceMessageSender(mService, mUsername, mPassword, PROTOCOL_STORE, USER_AGENT, Optional.absent(), Optional.absent());
+                new SignalServiceMessageSender(mService, mUsername, mPinCode, PROTOCOL_STORE, USER_AGENT, Optional.absent(), Optional.absent());
 
         if (attachmentPath != null) {
 
@@ -238,102 +265,6 @@ public class SignalSender {
 
     }
 
-    private class HavenSignalProtocolStore implements SignalProtocolStore {
 
-        @Override
-        public IdentityKeyPair getIdentityKeyPair() {
-            return null;
-        }
-
-        @Override
-        public int getLocalRegistrationId() {
-            return 0;
-        }
-
-        @Override
-        public boolean saveIdentity(SignalProtocolAddress address, IdentityKey identityKey) {
-            return false;
-        }
-
-        @Override
-        public boolean isTrustedIdentity(SignalProtocolAddress address, IdentityKey identityKey, Direction direction) {
-            return false;
-        }
-
-        @Override
-        public PreKeyRecord loadPreKey(int preKeyId) throws InvalidKeyIdException {
-            return null;
-        }
-
-        @Override
-        public void storePreKey(int preKeyId, PreKeyRecord record) {
-
-        }
-
-        @Override
-        public boolean containsPreKey(int preKeyId) {
-            return false;
-        }
-
-        @Override
-        public void removePreKey(int preKeyId) {
-
-        }
-
-        @Override
-        public SessionRecord loadSession(SignalProtocolAddress address) {
-            return null;
-        }
-
-        @Override
-        public List<Integer> getSubDeviceSessions(String name) {
-            return null;
-        }
-
-        @Override
-        public void storeSession(SignalProtocolAddress address, SessionRecord record) {
-
-        }
-
-        @Override
-        public boolean containsSession(SignalProtocolAddress address) {
-            return false;
-        }
-
-        @Override
-        public void deleteSession(SignalProtocolAddress address) {
-
-        }
-
-        @Override
-        public void deleteAllSessions(String name) {
-
-        }
-
-        @Override
-        public SignedPreKeyRecord loadSignedPreKey(int signedPreKeyId) throws InvalidKeyIdException {
-            return null;
-        }
-
-        @Override
-        public List<SignedPreKeyRecord> loadSignedPreKeys() {
-            return null;
-        }
-
-        @Override
-        public void storeSignedPreKey(int signedPreKeyId, SignedPreKeyRecord record) {
-
-        }
-
-        @Override
-        public boolean containsSignedPreKey(int signedPreKeyId) {
-            return false;
-        }
-
-        @Override
-        public void removeSignedPreKey(int signedPreKeyId) {
-
-        }
-    }
 
 }

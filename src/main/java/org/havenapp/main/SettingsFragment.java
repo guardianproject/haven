@@ -39,13 +39,14 @@ import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import org.havenapp.main.service.SignalExecutorTask;
-import org.havenapp.main.service.SignalSender;
+import org.havenapp.main.service.signal.SignalSender;
 import org.havenapp.main.service.WebServer;
 import org.havenapp.main.ui.AccelConfigureActivity;
 import org.havenapp.main.ui.CameraConfigureActivity;
 import org.havenapp.main.ui.MicrophoneConfigureActivity;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Locale;
 
 import info.guardianproject.netcipher.proxy.OrbotHelper;
@@ -269,7 +270,11 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             if (getActivity() != null) {
                 Utils.hideKeyboard(getActivity());
             }
-            activateSignal(signalUsername, null);
+            try {
+                activateSignal(signalUsername, null);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -425,7 +430,11 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                     if (getActivity() != null) {
                         Utils.hideKeyboard(getActivity());
                     }
-                    activateSignal(preferences.getSignalUsername(), null);
+                    try {
+                        activateSignal(preferences.getSignalUsername(), null);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
                 } else if (!getCountryCode().equalsIgnoreCase(signalNum)) {
                     preferences.setSignalUsername(null);
                     findPreference(PreferenceManager.REGISTER_SIGNAL).setSummary(R.string.register_signal_desc);
@@ -438,7 +447,11 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 if (getActivity() != null) {
                     Utils.hideKeyboard(getActivity());
                 }
-                activateSignal(preferences.getSignalUsername(), text);
+                try {
+                    activateSignal(preferences.getSignalUsername(), text);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
                 onRemoteNotificationParameterChange();
                 break;
             }
@@ -497,14 +510,14 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                     preferences.activateHeartbeat(true);
                     findPreference(PreferenceManager.HEARTBEAT_MONITOR_DELAY).setSummary(preferences.getHeartbeatNotificationTimeMs() / 60000 + " " + getString(R.string.minutes));
                     if (preferences.getMonitorServiceActive()) {
-                        SignalSender sender = SignalSender.getInstance(getActivity(), preferences.getSignalUsername());
+                        SignalSender sender = SignalSender.getInstance(getActivity());
                         sender.startHeartbeatTimer(preferences.getHeartbeatNotificationTimeMs());
                     }
                 } else if (!hbSwitchOn && isMonitoring) {
                     preferences.activateHeartbeat(false);
                     findPreference(PreferenceManager.HEARTBEAT_MONITOR_DELAY).setSummary(R.string.hearbeat_monitor_dialog);
                     if (preferences.getMonitorServiceActive()) {
-                        SignalSender sender = SignalSender.getInstance(getActivity(), preferences.getSignalUsername());
+                        SignalSender sender = SignalSender.getInstance(getActivity());
                         sender.stopHeartbeatTimer();
                     }
                 }
@@ -625,8 +638,10 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         }
     }
 
-    private void activateSignal(String username, String verifyCode) {
-        SignalSender sender = SignalSender.getInstance(mActivity, username);
+    private void activateSignal(String username, String verifyCode) throws FileNotFoundException {
+        SignalSender sender = SignalSender.getInstance(mActivity);
+
+        sender.setCredentials(username,"9999");
 
         if (TextUtils.isEmpty(verifyCode)) {
             ProgressDialog progressDialog = ProgressDialog.show(getContext(), getString(R.string.registering_to_signal),

@@ -16,14 +16,12 @@ import android.app.Service;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.PowerManager;
-import android.telephony.SmsManager;
 import android.text.TextUtils;
 
 import androidx.annotation.RequiresApi;
@@ -44,13 +42,11 @@ import org.havenapp.main.sensors.BarometerMonitor;
 import org.havenapp.main.sensors.BumpMonitor;
 import org.havenapp.main.sensors.MicrophoneMonitor;
 import org.havenapp.main.sensors.PowerConnectionReceiver;
+import org.havenapp.main.service.signal.SignalSender;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.StringTokenizer;
-
-import androidx.annotation.RequiresApi;
-import androidx.core.app.NotificationCompat;
 
 @SuppressLint("HandlerLeak")
 public class MonitorService extends Service {
