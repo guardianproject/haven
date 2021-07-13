@@ -43,9 +43,7 @@ import org.havenapp.main.sensors.motion.LuminanceMotionDetector
 import org.havenapp.main.sensors.motion.MotionDetector
 import org.havenapp.main.service.MonitorService
 import org.havenapp.main.usecase.MotionAnalyser
-import org.havenapp.main.util.isFullLevel
-import org.havenapp.main.util.isLegacyDevice
-import org.havenapp.main.util.isLimitedLevelDevice
+import org.havenapp.main.util.*
 import java.io.File
 import java.lang.Runnable
 import java.text.SimpleDateFormat
@@ -161,13 +159,6 @@ class CameraFragment : Fragment() {
         val viewFinder = requireView().findViewById<PreviewView>(R.id.pv_preview)
         val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
 
-        (requireContext().getSystemService(Context.CAMERA_SERVICE) as CameraManager).let { manager ->
-            manager.cameraIdList.forEach { cameraId ->
-                val characteristic = manager.getCameraCharacteristics(cameraId)
-                Log.d("CameraCharacteristics", "$cameraId: ${characteristic.isFullLevel()}, ${characteristic.isLimitedLevelDevice()}, ${characteristic.isLegacyDevice()}")
-            }
-        }
-
         cameraProviderFuture.addListener(Runnable {
             // Used to bind the lifecycle of cameras to the lifecycle owner
             val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
@@ -194,6 +185,16 @@ class CameraFragment : Fragment() {
                     .setTargetResolution(analysisFrameSize)
                     .build()
 
+            val outputList = mutableListOf<OutputCharacteristics>()
+
+            (requireContext().getSystemService(Context.CAMERA_SERVICE) as CameraManager).let { manager ->
+                manager.cameraIdList.forEach { cameraId ->
+                    val characteristic = manager.getCameraCharacteristics(cameraId)
+                    Log.d("CameraCharacteristics", "$cameraId: ${characteristic.isFullLevel()}, ${characteristic.isLimitedLevelDevice()}, ${characteristic.isLegacyDevice()}")
+                    Log.d("CameraCharacteristics", "${characteristic.checkGuarantee()}")
+                }
+            }
+
             // Select camera
             val lensFacing = when (cameraPref) {
                 PreferenceManager.FRONT -> CameraSelector.LENS_FACING_FRONT
@@ -203,6 +204,7 @@ class CameraFragment : Fragment() {
             val cameraSelector = CameraSelector.Builder()
                     .requireLensFacing(lensFacing)
                     .build()
+
 
             try {
                 // Unbind use cases before rebinding
