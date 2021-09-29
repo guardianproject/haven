@@ -5,14 +5,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.github.paolorotolo.appintro.AppIntro;
-import com.github.paolorotolo.appintro.AppIntroFragment;
 
 import org.havenapp.main.PreferenceManager;
 import org.havenapp.main.R;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.github.appintro.AppIntro;
+import com.github.appintro.AppIntroFragment;
+
 
 /**
  * Created by n8fr8 on 5/8/17.
@@ -24,9 +26,8 @@ public class PPAppIntro extends AppIntro {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setFadeAnimation();
         setWizardMode(true);
-        setBackButtonVisibilityWithDone(true);
+        //setBackButtonVisibilityWithDone(true);
 
         // Instead of fragments, you can also use our default slide
         // Just set a title, description, background and image. AppIntro will do the rest.
@@ -61,7 +62,8 @@ public class PPAppIntro extends AppIntro {
                 PreferenceManager pm = new PreferenceManager(PPAppIntro.this);
                 pm.setRemotePhoneNumber(cs4.getPhoneNumber());
                 Toast.makeText(PPAppIntro.this, R.string.phone_saved,Toast.LENGTH_SHORT).show();
-                getPager().setCurrentItem(getPager().getCurrentItem()+1);
+              //  getPager().setCurrentItem(getPager().getCurrentItem()+1);
+                goToNextSlide(false);
             }
         });
         addSlide(cs4);
@@ -72,7 +74,8 @@ public class PPAppIntro extends AppIntro {
         setDoneText(getString(R.string.onboarding_action_end));
 
         // Hide Skip/Done button.
-        showSkipButton(false);
+        //showSkipButton(false);
+
         // setProgressButtonEnabled(false);
 
     }
