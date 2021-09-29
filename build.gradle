@@ -210,5 +210,11 @@ dependencies {
     // new camera view: https://github.com/natario1/CameraView
     implementation 'com.otaliastudios:cameraview:2.6.4'
 
+    // new library for sending encrypted matrix messages
+    api 'org.matrix.android:matrix-android-sdk2:1.2.2'
+
+    // olm lib is now hosted by jitpack: https://jitpack.io/#org.matrix.gitlab.matrix-org/olm
+    implementation 'org.matrix.gitlab.matrix-org:olm:3.2.4'
+
 
 }
