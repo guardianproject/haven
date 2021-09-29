@@ -23,6 +23,9 @@ class MatrixSender : AlertSender {
         mLifecycle = viewLifecycleOwner
     }
 
+    /**
+     * login with existing account
+     */
     override fun setCredentials(username: String, password: String, homeserver : String) {
 
         // First, create a homeserver config
@@ -67,19 +70,20 @@ class MatrixSender : AlertSender {
     }
 
     override fun register() {
-
+        //register new account for Haven instance... may need to show user captcha to solve
     }
 
     override fun verify(verificationCode: String?) {
         TODO("Not yet implemented")
+
     }
 
     override fun stopHeartbeatTimer() {
-        TODO("Not yet implemented")
+        //stop heartbeat emoji send
     }
 
     override fun startHeartbeatTimer(countMs: Int) {
-        TODO("Not yet implemented")
+        //send a heartbeat emoji on countMs interval
     }
 
     override fun sendMessage(
@@ -87,6 +91,20 @@ class MatrixSender : AlertSender {
         message: String?,
         attachment: String?
     ) {
-        TODO("Not yet implemented")
+
+
+        //val roomSum = mSession.getRoomSummaries(queryParams);
+
+        // get rooms, if already in a direct room with recipient then send it there
+        //otherwise create new direct room with recipient
+        val room = mSession.getRoom("foo")
+
+        room?.sendTextMessage(message.toString())
+
+        //if aattachment isn't null
+        //room?.sendMedia(attachment,false,room?.roomId)
+
+
+
     }
 }
