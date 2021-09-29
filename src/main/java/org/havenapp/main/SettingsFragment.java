@@ -107,6 +107,8 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                     return false;
                 });
 
+
+        /**
         findPreference(PreferenceManager.REMOTE_PHONE_NUMBER).setOnPreferenceClickListener(preference -> {
             if (preferences.getRemotePhoneNumber().isEmpty()) {
                 ((EditTextPreference) findPreference(PreferenceManager.REMOTE_PHONE_NUMBER)).setText(getCountryCode());
@@ -126,7 +128,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             findPreference(PreferenceManager.REMOTE_PHONE_NUMBER).setSummary(preferences.getRemotePhoneNumber());
         } else {
             findPreference(PreferenceManager.REMOTE_PHONE_NUMBER).setSummary(R.string.sms_dialog_summary);
-        }
+        }**/
 
         if (preferences.getRemoteAccessActive()) {
             ((SwitchPreference) findPreference(PreferenceManager.REMOTE_ACCESS_ACTIVE)).setChecked(true);
@@ -146,12 +148,13 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             findPreference(PreferenceManager.REMOTE_ACCESS_CRED).setSummary(R.string.remote_access_credential_hint);
         }
 
+        /**
         if (checkValidString(preferences.getSignalUsername())) {
             String signalNum = "+" + preferences.getSignalUsername().trim().replaceAll("[^0-9]", "");
             findPreference(PreferenceManager.REGISTER_SIGNAL).setSummary(signalNum);
         } else {
             findPreference(PreferenceManager.REGISTER_SIGNAL).setSummary(R.string.register_signal_desc);
-        }
+        }*/
 
         if (preferences.getNotificationTimeMs()>0)
         {
@@ -244,10 +247,13 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     }
 
     private boolean canSendRemoteNotification() {
+        /**
         String remotePhoneNumber = preferences.getRemotePhoneNumber();
         String signalUsername = preferences.getSignalUsername();
         return !remotePhoneNumber.isEmpty() && !getCountryCode().equalsIgnoreCase(remotePhoneNumber) &&
                 !TextUtils.isEmpty(signalUsername) && !getCountryCode().equalsIgnoreCase(signalUsername);
+         **/
+        return false;
     }
 
     /**
@@ -256,6 +262,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
      */
     @SuppressLint("RestrictedApi")
     private void collectDataForRemoteNotification() {
+        /**
         String remotePhoneNumber = preferences.getRemotePhoneNumber();
         if (remotePhoneNumber.isEmpty() || getCountryCode().equalsIgnoreCase(remotePhoneNumber)) {
             findPreference(PreferenceManager.REMOTE_PHONE_NUMBER).performClick();
@@ -268,7 +275,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 Utils.hideKeyboard(getActivity());
             }
             //activateSignal(signalUsername, null);
-        }
+        }**/
     }
 
     private void onRemoteNotificationParameterChange() {
@@ -410,11 +417,13 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                     app.stopServer();
                 }
                 break;
+                /**
             case PreferenceManager.REGISTER_SIGNAL:
                 String signalNum = ((EditTextPreference) findPreference(PreferenceManager.REGISTER_SIGNAL)).getText();
 
                 if (checkValidString(signalNum) && !getCountryCode().equalsIgnoreCase(signalNum)) {
                     signalNum = "+" + signalNum.trim().replaceAll("[^0-9]", "");
+
 
                     preferences.setSignalUsername(signalNum);
                     findPreference(PreferenceManager.REGISTER_SIGNAL).setSummary(signalNum);
@@ -446,7 +455,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 if (getActivity() != null) {
                     Utils.hideKeyboard(getActivity());
                 }
-                break;
+                break;**/
             case PreferenceManager.NOTIFICATION_TIME:
                 try
                 {
@@ -560,6 +569,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     }
 
     private void setPhoneNumber() {
+        /**
         String phoneNumber = ((EditTextPreference) findPreference(PreferenceManager.REMOTE_PHONE_NUMBER)).getText();
 
         if (checkValidString(phoneNumber) && !getCountryCode().equalsIgnoreCase(phoneNumber)) {
@@ -568,7 +578,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         } else if (!getCountryCode().equalsIgnoreCase(phoneNumber)){
             preferences.setRemotePhoneNumber("");
             findPreference(PreferenceManager.REMOTE_PHONE_NUMBER).setSummary(R.string.sms_dialog_message);
-        }
+        }**/
     }
 
     private void showTimeDelayDialog(String configVideoLength) {
@@ -601,15 +611,17 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     }
 
     private void checkSignalUsername() {
+        /**
         if (checkValidString(preferences.getSignalUsername())) {
             findPreference(PreferenceManager.REGISTER_SIGNAL).setSummary(preferences.getSignalUsername().trim());
             ((EditTextPreference) findPreference(PreferenceManager.REGISTER_SIGNAL)).setText(preferences.getSignalUsername().trim());
         } else {
             findPreference(PreferenceManager.REGISTER_SIGNAL).setSummary(R.string.signal_dialog_summary);
-        }
+        }**/
     }
 
     private void checkSignalUsernameVerification() {
+        /**
         String signalUsername = preferences.getSignalUsername();
 
         // this will fail for all users currently has signal verified
@@ -620,7 +632,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         } else {
             findPreference(PreferenceManager.VERIFY_SIGNAL)
                     .setSummary(R.string.verification_dialog_summary);
-        }
+        }**/
     }
 
     /**
@@ -679,6 +691,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             return;
         }
 
+        /**
         new AlertDialog.Builder(getActivity())
                 .setTitle(R.string.registration_successful)
                 .setMessage(getString(R.string.signal_reg_success_desc, preferences.getSignalUsername()))
@@ -688,6 +701,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 })
                 .setNegativeButton(R.string.ok, (dialog, which) -> dialog.dismiss())
                 .show();
+         **/
     }
 
     private void showVerificationSuccessDialog() {
@@ -703,10 +717,12 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     }
 
     private void resetSignalAndClearPrefs() {
+        /**
         resetSignal(preferences.getSignalUsername());
         preferences.setSignalUsername(null);
         preferences.setVerifiedSignalUsername(null);
         preferences.setNotificationTimeMs(-1);
+         **/
     }
 
     private void resetSignal(String username) {

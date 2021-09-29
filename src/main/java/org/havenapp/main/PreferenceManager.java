@@ -121,58 +121,6 @@ public class PreferenceManager {
         prefsEditor.commit();
     }
 
-    /**
-     * Returns the Signal username registered. This may not be a good way to check for
-     * Signal set up since this may not be verified.
-     *
-     * Usages should be checked with {@link #isSignalVerified()}
-     *
-     * @see #isSignalVerified()
-     *
-     * @return the Signal username; null when nothing is set up
-     */
-    public String getSignalUsername ()
-    {
-        return appSharedPrefs.getString(SIGNAL_USERNAME,null);
-    }
-
-    public void setSignalUsername (String signalUsername)
-    {
-        prefsEditor.putString(SIGNAL_USERNAME,signalUsername);
-        prefsEditor.commit();
-    }
-
-    /**
-     * Returns the Signal username verified. This may not be a good way to check for
-     * Signal set up since this may invalidated by a call to register with a different username.
-     *
-     * Usages should be checked with {@link #isSignalVerified()}
-     *
-     * @see #isSignalVerified()
-     *
-     * @return the verified Signal username; null when no Signal username is verified even though registered.
-     */
-    @Nullable
-    public String getVerifiedSignalUsername() {
-        return appSharedPrefs.getString(SIGNAL_VERIFIED_USERNAME, null);
-    }
-
-    public void setVerifiedSignalUsername(String verifiedSignalUsername) {
-        prefsEditor.putString(SIGNAL_VERIFIED_USERNAME, verifiedSignalUsername);
-        prefsEditor.commit();
-    }
-
-    /**
-     * Checks if Signal is registered and verified for the Signal username returned by
-     * {@link #getSignalUsername()}
-     *
-     * @return true iff registered Signal username is same as that of the verified one.
-     */
-    public boolean isSignalVerified() {
-        return !TextUtils.isEmpty(getSignalUsername()) &&
-                getSignalUsername().equals(getVerifiedSignalUsername());
-    }
-
     public void activateRemoteAccess (boolean active) {
         prefsEditor.putBoolean(REMOTE_ACCESS_ACTIVE,active);
         prefsEditor.commit();
@@ -299,16 +247,6 @@ public class PreferenceManager {
 
     public boolean isRemoteNotificationActive() {
         return appSharedPrefs.getBoolean(REMOTE_NOTIFICATION_ACTIVE, false);
-    }
-
-    public void setRemotePhoneNumber(@NonNull String remotePhoneNumber) {
-        prefsEditor.putString(REMOTE_PHONE_NUMBER, remotePhoneNumber.trim());
-        prefsEditor.apply();
-    }
-
-    @NonNull
-    public String getRemotePhoneNumber() {
-        return Objects.requireNonNull(appSharedPrefs.getString(REMOTE_PHONE_NUMBER, ""));
     }
 
     public int getTimerDelay ()

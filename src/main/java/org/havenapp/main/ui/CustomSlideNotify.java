@@ -65,8 +65,10 @@ public class CustomSlideNotify extends Fragment {
             public void onClick(View v) { }
         });
         PreferenceManager pm = new PreferenceManager(getActivity());
+        /**
         if (!TextUtils.isEmpty(pm.getRemotePhoneNumber()))
             mEditNumber.setText(pm.getRemotePhoneNumber());
+         **/
 
         // todo describe why we are asking this maybe
 

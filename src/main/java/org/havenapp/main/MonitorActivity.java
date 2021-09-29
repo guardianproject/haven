@@ -60,7 +60,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import static org.havenapp.main.Utils.getTimerText;
+import org.havenapp.main.Utils;
 
 public class MonitorActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
 
@@ -182,7 +182,7 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
 
         int timeM = preferences.getTimerDelay() * 1000;
 
-        txtTimer.setText(getTimerText(timeM));
+        txtTimer.setText(Utils.getTimerText(timeM));
         txtTimer.setOnClickListener(v -> {
             if (cTimer == null)
                 showTimeDelayDialog();
@@ -243,7 +243,7 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
     private void updateTimerValue(int val) {
         preferences.setTimerDelay(val);
         int valM = val * 1000;
-        txtTimer.setText(getTimerText(valM));
+        txtTimer.setText(Utils.getTimerText(valM));
     }
 
     private void doCancel() {
@@ -269,7 +269,7 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
             ((Button) findViewById(R.id.btnStartLater)).setText(R.string.start_later);
 
             int timeM = preferences.getTimerDelay() * 1000;
-            txtTimer.setText(getTimerText(timeM));
+            txtTimer.setText(Utils.getTimerText(timeM));
 
             if (!wasTimer)
                 finish();
@@ -332,7 +332,7 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
 
             public void onTick(long millisUntilFinished) {
                 mOnTimerTicking = true;
-                txtTimer.setText(getTimerText(millisUntilFinished));
+                txtTimer.setText(Utils.getTimerText(millisUntilFinished));
             }
 
             public void onFinish() {
@@ -417,7 +417,7 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
         super.onResume();
         if (mIsInitializedLayout && (!mOnTimerTicking) && (!mIsMonitoring)) {
             int totalMilliseconds = preferences.getTimerDelay() * 1000;
-            txtTimer.setText(getTimerText(totalMilliseconds));
+            txtTimer.setText(Utils.getTimerText(totalMilliseconds));
         }
 
         IntentFilter filter = new IntentFilter();
