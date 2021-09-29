@@ -199,9 +199,10 @@ public class WebServer extends NanoHTTPD {
                 page.append("<audio src=\"").append(mediaPath).append("\"></audio>");
                 page.append("<a href=\"").append(mediaPath).append("\">Download Media").append("</a>");
 
+            } else if (eventTrigger.getType() == EventTrigger.CAMERA_VIDEO) {
+                page.append("<video src=\"").append(mediaPath).append("\"></video>");
+                page.append("<a href=\"").append(mediaPath).append("\">Download Media").append("</a>");
             }
-
-
             page.append("<hr/>");
         }
 
@@ -238,6 +239,9 @@ public class WebServer extends NanoHTTPD {
                 break;
             case EventTrigger.MICROPHONE:
                 sType = "audio/mp4";
+                break;
+            case EventTrigger.CAMERA_VIDEO:
+                sType = "video/*";
                 break;
             default:
                 sType = null;

@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.5.20'
+    ext.kotlin_version = '1.5.21'
     repositories {
         google()
         jcenter()
@@ -154,8 +154,8 @@ configurations {
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.3.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
     implementation "androidx.coordinatorlayout:coordinatorlayout:1.1.0"
     implementation 'androidx.preference:preference-ktx:1.1.1'
     implementation 'androidx.multidex:multidex:2.0.1'
@@ -182,7 +182,7 @@ dependencies {
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
     implementation 'io.github.silvaren:easyrs:0.5.3'
     // jcodec's pure-java video coding replaced by android system encoding
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.4.21"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.5.21"
 
     // Room
 
