@@ -13,7 +13,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
-import org.apache.http.client.utils.URIBuilder;
 import org.havenapp.main.R;
 import org.havenapp.main.Utils;
 import org.havenapp.main.database.HavenEventDB;

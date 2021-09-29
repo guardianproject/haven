@@ -38,8 +38,6 @@ import androidx.preference.SwitchPreference;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
-import org.havenapp.main.service.SignalExecutorTask;
-import org.havenapp.main.service.SignalSender;
 import org.havenapp.main.service.WebServer;
 import org.havenapp.main.ui.AccelConfigureActivity;
 import org.havenapp.main.ui.CameraConfigureActivity;
@@ -269,7 +267,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             if (getActivity() != null) {
                 Utils.hideKeyboard(getActivity());
             }
-            activateSignal(signalUsername, null);
+            //activateSignal(signalUsername, null);
         }
     }
 
@@ -425,7 +423,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                     if (getActivity() != null) {
                         Utils.hideKeyboard(getActivity());
                     }
-                    activateSignal(preferences.getSignalUsername(), null);
+                    //activateSignal(preferences.getSignalUsername(), null);
                 } else if (!getCountryCode().equalsIgnoreCase(signalNum)) {
                     preferences.setSignalUsername(null);
                     findPreference(PreferenceManager.REGISTER_SIGNAL).setSummary(R.string.register_signal_desc);
@@ -438,7 +436,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 if (getActivity() != null) {
                     Utils.hideKeyboard(getActivity());
                 }
-                activateSignal(preferences.getSignalUsername(), text);
+               // activateSignal(preferences.getSignalUsername(), text);
                 onRemoteNotificationParameterChange();
                 break;
             }
@@ -497,15 +495,15 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                     preferences.activateHeartbeat(true);
                     findPreference(PreferenceManager.HEARTBEAT_MONITOR_DELAY).setSummary(preferences.getHeartbeatNotificationTimeMs() / 60000 + " " + getString(R.string.minutes));
                     if (preferences.getMonitorServiceActive()) {
-                        SignalSender sender = SignalSender.getInstance(getActivity(), preferences.getSignalUsername());
-                        sender.startHeartbeatTimer(preferences.getHeartbeatNotificationTimeMs());
+//                        SignalSender sender = SignalSender.getInstance(getActivity(), preferences.getSignalUsername());
+  //                      sender.startHeartbeatTimer(preferences.getHeartbeatNotificationTimeMs());
                     }
                 } else if (!hbSwitchOn && isMonitoring) {
                     preferences.activateHeartbeat(false);
                     findPreference(PreferenceManager.HEARTBEAT_MONITOR_DELAY).setSummary(R.string.hearbeat_monitor_dialog);
                     if (preferences.getMonitorServiceActive()) {
-                        SignalSender sender = SignalSender.getInstance(getActivity(), preferences.getSignalUsername());
-                        sender.stopHeartbeatTimer();
+       //                 SignalSender sender = SignalSender.getInstance(getActivity(), preferences.getSignalUsername());
+         //               sender.stopHeartbeatTimer();
                     }
                 }
                 break;
@@ -522,9 +520,9 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
                     boolean heartbeatActive = ((SwitchPreference) findPreference(PreferenceManager.HEARTBEAT_MONITOR_ACTIVE)).isChecked();
                     if (heartbeatActive && preferences.getMonitorServiceActive()) {
-                        SignalSender sender = SignalSender.getInstance(getActivity(), preferences.getSignalUsername());
-                        sender.stopHeartbeatTimer();
-                        sender.startHeartbeatTimer(preferences.getHeartbeatNotificationTimeMs());
+        //                SignalSender sender = SignalSender.getInstance(getActivity(), preferences.getSignalUsername());
+          //              sender.stopHeartbeatTimer();
+            //            sender.startHeartbeatTimer(preferences.getHeartbeatNotificationTimeMs());
                     }
                 } catch (NumberFormatException ne) {
                     //error parsing user value
@@ -625,6 +623,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         }
     }
 
+    /**
     private void activateSignal(String username, String verifyCode) {
         SignalSender sender = SignalSender.getInstance(mActivity, username);
 
@@ -673,7 +672,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 }
             });
         }
-    }
+    }**/
 
     private void showRegistrationSuccessDialog() {
         if (!isAdded() || getActivity() == null) {
@@ -712,8 +711,8 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
     private void resetSignal(String username) {
         if (checkValidString((username))) {
-            SignalSender sender = SignalSender.getInstance(mActivity, username.trim());
-            sender.reset();
+        //    SignalSender sender = SignalSender.getInstance(mActivity, username.trim());
+          //  sender.reset();
         }
     }
 

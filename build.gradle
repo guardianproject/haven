@@ -163,7 +163,6 @@ dependencies {
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.wdullaer:materialdatetimepicker:4.2.3'
-    implementation 'com.github.guardianproject:signal-cli-android:v0.6.0-android-beta-1'
     implementation 'net.the4thdimension:audio-wife:1.0.3'
     implementation 'com.github.AppIntro:AppIntro:6.1.0'
     implementation 'info.guardianproject.netcipher:netcipher:2.1.0'

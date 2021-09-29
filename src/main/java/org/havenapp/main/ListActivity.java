@@ -60,7 +60,6 @@ import org.havenapp.main.model.Event;
 import org.havenapp.main.resources.IResourceManager;
 import org.havenapp.main.resources.ResourceManager;
 import org.havenapp.main.service.RemoveDeletedFilesJob;
-import org.havenapp.main.service.SignalSender;
 import org.havenapp.main.ui.EventActivity;
 import org.havenapp.main.ui.EventAdapter;
 import org.havenapp.main.ui.PPAppIntro;
@@ -374,14 +373,5 @@ public class ListActivity extends AppCompatActivity {
     private void testNotifications ()
     {
 
-        if (preferences.isSignalVerified()) {
-            SignalSender sender = SignalSender.getInstance(this, preferences.getSignalUsername().trim());
-            ArrayList<String> recip = new ArrayList<>();
-            recip.add(preferences.getRemotePhoneNumber());
-            sender.sendMessage(recip, resourceManager.getString(R.string.signal_test_message),
-                    null, null);
-        } else {
-            Toast.makeText(this, getString(R.string.setup_signal_toast), Toast.LENGTH_SHORT).show();
-        }
     }
 }
