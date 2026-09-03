@@ -358,7 +358,9 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
         try {
             File fileImageDir = new File(Environment.getExternalStorageDirectory(), preferences.getDefaultMediaStoragePath());
             fileImageDir.mkdirs();
-            new FileOutputStream(new File(fileImageDir, ".nomedia")).write(0);
+            try (FileOutputStream fos = new FileOutputStream(new File(fileImageDir, ".nomedia"))) {
+                fos.write(0);
+            }
         } catch (IOException e) {
             Log.e("Monitor", "unable to init media storage directory", e);
         }
