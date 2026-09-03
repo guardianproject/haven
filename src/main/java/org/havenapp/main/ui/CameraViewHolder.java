@@ -74,6 +74,12 @@ public class CameraViewHolder {
      */
     private byte[] lastPic;
     /**
+     * Size of the last picture processed, used to make sure we don't
+     * hand a stale buffer to the motion detector when the camera
+     * preview resolution changes between frames
+     */
+    private Size lastPicSize;
+    /**
      * True IFF there's an async task processing images
      */
     private boolean doingVideoProcessing = false;
@@ -312,13 +318,24 @@ public class CameraViewHolder {
             int width = size.getWidth();
             int height = size.getHeight();
 
+            // lastPic was captured at lastPicSize, which may not match the
+            // current frame's resolution if the camera preview size changed
+            // between frames (e.g. on a camera restart). Passing it to
+            // detect() with the new width/height would let ImageCodec.N21toLuma()
+            // index past the end of the old, differently-sized buffer, so we
+            // only use it when the sizes line up.
+            boolean sameSize = lastPicSize != null
+                    && lastPicSize.getWidth() == width
+                    && lastPicSize.getHeight() == height;
+
             motionDetector.detect(
-                    lastPic,
+                    sameSize ? lastPic : null,
                     data,
                     width,
                     height);
 
             lastPic = data;
+            lastPicSize = size;
         }
     }
 
