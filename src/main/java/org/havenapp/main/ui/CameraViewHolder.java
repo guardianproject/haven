@@ -164,11 +164,10 @@ public class CameraViewHolder {
                         Locale.getDefault()).format(new Date());
 
                 File fileImage = new File(fileImageDir, ts.concat(".detected.original.jpg"));
-                FileOutputStream stream = new FileOutputStream(fileImage);
-                rawBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-
-                stream.flush();
-                stream.close();
+                try (FileOutputStream stream = new FileOutputStream(fileImage)) {
+                    rawBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                    stream.flush();
+                }
                 message.getData().putString(MonitorService.KEY_PATH, fileImage.getAbsolutePath());
 
                 //store the still match frame, even if doing video
