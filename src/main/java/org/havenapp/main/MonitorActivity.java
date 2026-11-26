@@ -45,6 +45,7 @@ import android.widget.Toast;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import org.havenapp.main.model.EventTrigger;
+import org.havenapp.main.sensors.media.MediaStorage;
 import org.havenapp.main.service.MonitorService;
 import org.havenapp.main.ui.AccelConfigureActivity;
 import org.havenapp.main.ui.CameraConfigureActivity;
@@ -52,7 +53,6 @@ import org.havenapp.main.ui.CameraFragment;
 import org.havenapp.main.ui.MicrophoneConfigureActivity;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -357,8 +357,7 @@ public class MonitorActivity extends AppCompatActivity implements TimePickerDial
 
         try {
             File fileImageDir = new File(Environment.getExternalStorageDirectory(), preferences.getDefaultMediaStoragePath());
-            fileImageDir.mkdirs();
-            new FileOutputStream(new File(fileImageDir, ".nomedia")).write(0);
+            MediaStorage.ensureNoMediaFile(fileImageDir);
         } catch (IOException e) {
             Log.e("Monitor", "unable to init media storage directory", e);
         }
